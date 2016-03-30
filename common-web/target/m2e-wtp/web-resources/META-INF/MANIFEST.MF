@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: common-web
 Implementation-Version: 1.0
-Built-By: skoh
+Built-By: skoh1
 Implementation-Vendor-Id: org.oh
-Build-Jdk: 1.8.0_65
+Build-Jdk: 1.8.0_31
 Created-By: Maven Integration for Eclipse
 Implementation-Vendor: Pivotal Software, Inc.
 Main-Class: org.oh.Application

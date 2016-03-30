@@ -32,7 +32,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_reset.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_get.json"));
@@ -41,7 +41,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/devms_location_agree_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/admin_gateway_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/admin_gateway.json"));
-		arrayNode.add(readFile("src/test/resources/json/cpgn_event_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/cpgn_event_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cpgn_event_post.json"));
 	}
 

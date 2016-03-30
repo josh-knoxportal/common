@@ -1,0 +1,20 @@
+{
+	"url":"http://localhost:8080/admin/gateway.do?api_path=/v1/mms/rssi.do&sort_column=type%20desc,%20signal",
+	"method":"POST",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"access_token":"JDJhJDEwJHhaTXNvVVRyVG1kT1FZaG9nU0RqOWVSV08vWUU4QWtMczR5akM5b2Yzb1dzdnNtR1hMdGpD",
+				"request_type":"2",
+				"Content-Type":"application/json",
+				"api_path":"/v1/mms/rssi.do&sort_column=type%20desc,%20signal"
+			},
+			"params":{
+				"package_name":"테스트",
+				"device_id":"123",
+				"agree_yn":"Y"
+			}
+		}
+	]
+}

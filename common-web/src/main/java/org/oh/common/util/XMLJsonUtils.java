@@ -1,0 +1,122 @@
+package org.oh.common.util;
+
+import java.io.FileInputStream;
+
+import org.apache.commons.io.IOUtils;
+import org.codehaus.jackson.JsonNode;
+import org.oh.common.exception.CommonException;
+
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+
+/**
+ * XML <-> JSON 변환 유틸(net.sf.json 사용)
+ */
+public abstract class XMLJsonUtils extends XMLUtils {
+	protected static XMLSerializer xmlSerializer = null;
+
+	/**
+	 * @return XMLSerializer
+	 */
+	public static XMLSerializer getXMLSerializer() {
+		if (xmlSerializer == null) {
+			xmlSerializer = new XMLSerializer();
+//			xmlSerializer.setTrimSpaces(true);
+//			xmlSerializer.setTypeHintsEnabled(false);
+		}
+
+		return xmlSerializer;
+	}
+
+	// ////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * org.codehaus.jackson.JsonNode -> XmlString 변환
+	 */
+	public static String convertJsonNodeToXmlString(JsonNode jsonNode) {
+		return convertJsonStringToXmlString(jsonNode.toString());
+	}
+
+	/**
+	 * JsonString -> XmlString 변환
+	 */
+	public static String convertJsonStringToXmlString(String json) {
+		JSON JSON = convertJsonStringToJSON(json);
+
+		return convertJSONXmlString(JSON);
+	}
+
+	/**
+	 * JsonString -> JSON : JSONObject.fromObject()
+	 */
+	public static JSON convertJsonStringToJSON(String json) {
+		return JSONObject.fromObject(json);
+	}
+
+	/**
+	 * JSON -> XmlString 변환
+	 */
+	public static String convertJSONXmlString(JSON json) {
+		return getXMLSerializer().write(json);
+	}
+
+	// ////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * XmlString -> JsonString 변환
+	 */
+	public static String convertXmlStringToJsonString(String xml) throws CommonException {
+		return convertXmlStringToJsonNode(xml).toString();
+	}
+
+	public static JsonNode convertXmlStringToJsonNode(String xml) throws CommonException {
+		return convertXmlStringToJsonNode(xml, false);
+	}
+
+	/**
+	 * XmlString -> org.codehaus.jackson.JsonNode 변환
+	 */
+	public static JsonNode convertXmlStringToJsonNode(String xml, boolean log) throws CommonException {
+		if (!Utils.isValidate(xml))
+			return JsonUtil.missingNode();
+
+		if (log)
+			LogUtil.writeLog(xml, XMLJsonUtils.class);
+
+		xml = StringUtil.replace(xml, "null", "NULL");
+		String json = convertXmlStringToJSON(xml).toString();
+		json = StringUtil.replace(json, "null", "\"\"");
+
+		if (log)
+			LogUtil.writeLog(json, XMLJsonUtils.class);
+
+		JsonNode jsonNode = null;
+		try {
+			jsonNode = JsonUtil.readValue(json);
+		} catch (Exception e) {
+			throw new CommonException(CommonException.ERROR, "Read json data \"" + json + "\" error", e);
+		}
+
+		return jsonNode;
+	}
+
+	/**
+	 * XmlString -> JSON 변환
+	 */
+	public static JSON convertXmlStringToJSON(String xml) {
+		return getXMLSerializer().read(xml);
+	}
+
+	public static void main(String[] args) throws Exception {
+//		String json = IOUtils.toString((new FileInputStream("test/test02.json")));
+//		String xml = convertJsonStringToXmlString(json);
+//		LogUtil.writeLog(xml);
+//		LogUtil.writeLog(convertXmlStringToJsonString(xml));
+//
+//		LogUtil.writeLog();
+
+		String xml2 = IOUtils.toString((new FileInputStream("test/test02.xml")));
+		String json2 = convertXmlStringToJsonNode(xml2, true).toString();
+//		LogUtil.writeLog(convertJsonStringToXmlString(json2));
+	}
+}

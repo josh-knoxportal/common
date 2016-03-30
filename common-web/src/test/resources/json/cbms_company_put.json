@@ -1,0 +1,33 @@
+{
+	"url":"http://locahost:8080/v1/cbms/company.do",
+	"method":"PUT",
+	"list":[
+		{
+			"headers":{
+				"access_token":"79E5F0BA4352C7D23BAF36618DF605E881E458BB0B803BF49E4DA8DE75741BEC23A28F0E795FCFA36FE7F89E573C6C05AB4D5738EA15D8511C4B4301095E5995B1E12ED670A78BC3AA014DECB98F30B2AD3F26BBBF510E9AF5A39D1D094DD1FDC381A7A05DB1C59D11A9B2AAC0231F30FDE8ACABD0A42DD948E997BDC6CB44C4",
+				"request_type":"1",
+				"Content-Type":"application/json"
+			},
+			"params":{
+				"company_list":[
+					{
+						"str_reg_date":"2016-02-25",
+						"str_upd_date":"2016-02-25",
+						"icon_url":"/data/images/ssg_images/462b92c4-b322-40b8-8d0f-46c34c75f63b.png",
+						"url":"",
+						"creator_id":1,
+						"id":9594,
+						"address":"임회사0225 본사 주소",
+						"image_url":"",
+						"description":"임회사0225 회사 설명",
+						"validity":1,
+						"name":"임회사0225",
+						"icon_file_name":"구글사막.png",
+						"editor_id":1,
+						"image_file_name":""
+					}
+				]
+			}
+		}
+	]
+}

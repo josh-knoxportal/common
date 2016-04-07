@@ -107,7 +107,7 @@ public abstract class PushUtils {
 			return JsonUtil2.readValue(HTTPUtils.getContentString(result));
 		} catch (Exception e) {
 			String errorCode = trcode + CommonException.PREFIX_SYSTEM;
-			throw new CommonException(errorCode, "Send push data error", e);
+			throw new CommonException(errorCode, LogUtil.buildMessage("Send push data error", e.getMessage()), e);
 		} finally {
 			HTTPUtil.closeQuietly(out);
 		}

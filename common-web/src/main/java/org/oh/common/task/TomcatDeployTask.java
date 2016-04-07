@@ -3,6 +3,7 @@ package org.oh.common.task;
 import org.oh.common.exception.CommonException;
 import org.oh.common.util.FTPUtil;
 import org.oh.common.util.FileUtil;
+import org.oh.common.util.LogUtil;
 import org.oh.common.util.TelnetUtil;
 import org.oh.common.util.ThreadUtils;
 
@@ -38,7 +39,7 @@ public class TomcatDeployTask extends AbstractDeployTask {
 			telnet.excuteCommand("exit");
 			telnet.disconnect();
 		} catch (Exception e) {
-			throw new CommonException(toString(), e);
+			throw new CommonException(CommonException.ERROR,LogUtil.buildMessage(toString(), e.getMessage()), e);
 		}
 	}
 

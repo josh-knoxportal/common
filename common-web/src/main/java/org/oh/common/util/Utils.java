@@ -1611,6 +1611,7 @@ public abstract class Utils {
 					HttpServletRequest request = (HttpServletRequest) obj;
 
 					String client = request.getRemoteAddr();
+					String method = request.getMethod();
 
 					Map<String, String> header = new LinkedHashMap<String, String>();
 					Enumeration<String> headerNames = request.getHeaderNames();
@@ -1622,7 +1623,8 @@ public abstract class Utils {
 
 					String body = JsonUtil2.readValue(request.getParameterMap()).toString();
 
-					sb.append("{client:" + client + ", header:" + header + ", body:" + body + "}");
+					sb.append(
+							"{client:" + client + ", method:" + method + ", header:" + header + ", body:" + body + "}");
 				} else {
 					sb.append(obj);
 				}

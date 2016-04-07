@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zcms/campaign.do?group_id=20",
+	"url":"http://localhost:8080/v1/zms/search.do?search_filter=ㄱㅇ",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

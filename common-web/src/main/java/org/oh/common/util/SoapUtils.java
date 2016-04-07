@@ -36,13 +36,15 @@ public abstract class SoapUtils {
 
 			return connection.call(soapMessage, url);
 		} catch (SOAPException e) {
-			throw new CommonException(CommonException.ERROR, "Connect soap service error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Connect soap service error", e.getMessage()), e);
 		} finally {
 			if (connection != null) {
 				try {
 					connection.close();
 				} catch (Exception e) {
-					throw new CommonException(CommonException.ERROR, "Close soap connection error", e);
+					throw new CommonException(CommonException.ERROR,
+							LogUtil.buildMessage("Close soap connection error", e.getMessage()), e);
 				}
 			}
 		}

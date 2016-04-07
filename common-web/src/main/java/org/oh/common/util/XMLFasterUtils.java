@@ -69,7 +69,8 @@ public abstract class XMLFasterUtils extends XMLUtils {
 		try {
 			jsonNode = getFasterxmlObjectMapper().readTree(json);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Convert string to json \"" + json + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Convert string to json \"" + json + "\" error", e.getMessage()), e);
 		}
 
 		return jsonNode;
@@ -83,7 +84,8 @@ public abstract class XMLFasterUtils extends XMLUtils {
 		try {
 			xml = getXmlMapper().writeValueAsString(json);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Convert json to xml \"" + json + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Convert json to xml \"" + json + "\" error", e.getMessage()), e);
 		}
 
 		return xml;
@@ -124,7 +126,8 @@ public abstract class XMLFasterUtils extends XMLUtils {
 		try {
 			jsonNode = JsonUtil.readValue(json);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Read json data \"" + json + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Read json data \"" + json + "\" error", e.getMessage()), e);
 		}
 
 		return jsonNode;
@@ -141,7 +144,8 @@ public abstract class XMLFasterUtils extends XMLUtils {
 		try {
 			jsonNode = getXmlMapper().readValue(xml, JsonNode.class);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Convert xml to json \"" + xml + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Convert xml to json \"" + xml + "\" error", e.getMessage()), e);
 		}
 
 		return jsonNode;

@@ -1,10 +1,10 @@
 package org.oh.common;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -31,9 +31,11 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_reset.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_put.json"));
-		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
+		arrayNode.add(readFile("src/test/resources/json/zms_search_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_map_datas_put.json"));
@@ -43,6 +45,8 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/admin_gateway.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cpgn_event_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cpgn_event_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com_gateway_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com_gateway_get.json"));
 	}
 
 	@Test
@@ -53,16 +57,20 @@ public class TestAPI_skoh extends TestAPI {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String str = null;
+		String str = "1";
 
-		str = StringUtils.replace(str, " ", "");
+//		str = StringUtils.replace(str, " ", "");
 //		if (!str.startsWith(",")) {
 //			str = "," + str;
 //		}
 //		if (!str.endsWith(",")) {
 //			str = str + ",";
 //		}
+//
+//		System.out.println(str);
 
-		System.out.println(str);
+//		System.out.println(HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		System.out.println(str + "2");
 	}
 }

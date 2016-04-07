@@ -18,6 +18,7 @@ package org.mybatisorm.sql.builder;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.log4j.Logger;
+import org.mybatisorm.Query;
 
 public abstract class DynamicSqlBuilder extends SqlBuilder {
 
@@ -42,5 +43,10 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 				where != null && where.length() > 0 ?
 						staticSql + " WHERE " + where : staticSql,
 						parameter);
+	}
+
+	// 메소드 추가 by skoh
+	protected String makeCondition(String where, Query query) {
+		return where + (query.hasCondition() ? ((where.length() > 0) ? " AND " : "") + query.getCondition() : "");
 	}
 }

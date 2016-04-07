@@ -1,8 +1,5 @@
 package org.oh.web.common;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
@@ -10,16 +7,24 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * 
  * @author skoh
  */
-public class Response {
+public class Response<T> {
 	/**
 	 * 헤더
 	 */
-	protected Header header = new Header(true, "", "");
+	protected Header header;
 
 	/**
 	 * 바디
 	 */
-	protected Map<String, Object> body = new HashMap<String, Object>();
+	protected T body;
+
+	public static <T> Response<T> getSuccessResponse(T body) {
+		return new Response<T>(new Header(true, "", ""), body);
+	}
+
+	public static <T> Response<T> getFailResponse(String error_code, String error_message) {
+		return new Response<T>(new Header(false, error_code, error_message));
+	}
 
 	public Response() {
 	}
@@ -28,11 +33,11 @@ public class Response {
 		this.header = header;
 	}
 
-	public Response(Map<String, Object> body) {
+	public Response(T body) {
 		this.body = body;
 	}
 
-	public Response(Header header, Map<String, Object> body) {
+	public Response(Header header, T body) {
 		this.header = header;
 		this.body = body;
 	}
@@ -45,16 +50,12 @@ public class Response {
 		this.header = header;
 	}
 
-	public Map<String, Object> getBody() {
+	public T getBody() {
 		return body;
 	}
 
-	public void setBody(Map<String, Object> body) {
+	public void setBody(T body) {
 		this.body = body;
-	}
-
-	public void addObject(String key, Object value) {
-		body.put(key, value);
 	}
 
 	@Override

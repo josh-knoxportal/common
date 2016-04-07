@@ -90,7 +90,8 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 				field.set(obj, pair.getValue());
 			}
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Convert list to object \"" + list + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Convert list to object \"" + list + "\" error", e.getMessage()), e);
 		}
 
 		return (T) obj;
@@ -153,7 +154,8 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 				list.add(new BasicNameValuePair(field.getName(), field.get(obj).toString()));
 			}
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Convert object to list \"" + obj + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Convert object to list \"" + obj + "\" error", e.getMessage()), e);
 		}
 
 		return list;
@@ -198,7 +200,8 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 
 			return toByteArray(bis);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Load bytes file \"" + filePath + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Load bytes file \"" + filePath + "\" error", e.getMessage()), e);
 		} finally {
 			closeQuietly(bis);
 		}
@@ -230,8 +233,8 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 		try {
 			attch = urlDownloader.download(fileName, url);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR,
-					"Download bytes from url \"" + url + "\", file \"" + fileName + "\" error", e);
+			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(
+					"Download bytes from url \"" + url + "\", file \"" + fileName + "\" error", e.getMessage()), e);
 		}
 
 		return attch.getBytes();
@@ -242,7 +245,7 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 	/**
 	 * 커넥션 반환
 	 */
-	public static HttpClient getHttpClient() throws CommonException {
+	public static synchronized HttpClient getHttpClient() throws CommonException {
 		if (httpClient != null)
 			return httpClient;
 
@@ -326,9 +329,12 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 			HttpClientBuilder builder = HttpClientBuilder.create();
 			builder.setConnectionManager(connectionManager);
 			builder.setDefaultRequestConfig(requestBuilder.build());
-			return builder.build();
+			httpClient = builder.build();
+
+			return httpClient;
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Create http client error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Create http client error", e.getMessage()), e);
 		}
 	}
 
@@ -360,8 +366,8 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 			bos = new BufferedOutputStream(new FileOutputStream(filePath));
 			bos.write((byte[]) callHttp(url, method, headers, params, charset).get("content"));
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR,
-					"Download url \"" + url + "\" to file \"" + filePath + "\" error", e);
+			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(
+					"Download url \"" + url + "\" to file \"" + filePath + "\" error", e.getMessage()), e);
 		} finally {
 			closeQuietly(bos);
 		}
@@ -394,6 +400,7 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 			List<NameValuePair> params, String charset) throws CommonException {
 		Map<String, Object> response = new HashMap<String, Object>();
 
+		String message = "Call HTTP URL \"" + url + "\" error";
 		Charset encCharset = getCharset(charset);
 		HttpRequestBase httpRequest = null;
 		try {
@@ -437,8 +444,9 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 
 			HttpEntity entity = resHttp.getEntity();
 			if (statusLine.getStatusCode() >= 300) {
+				String content = toString(entity.getContent());
 				EntityUtils.consume(entity);
-				throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+				throw new HttpResponseException(statusLine.getStatusCode(), content);
 			}
 
 			response.put("header", resHttp.getAllHeaders());
@@ -448,8 +456,10 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 //			response.put("content", responseString.getBytes(defaultCharset));
 		} catch (CommonException e) {
 			throw e;
+		} catch (HttpResponseException e) {
+			throw new CommonException(e.getStatusCode() + "", LogUtil.buildMessage(message, e.getMessage()), e);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Download bytes url \"" + url + "\" error", e);
+			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(message, e.getMessage()), e);
 		} finally {
 			if (httpRequest != null)
 				httpRequest.releaseConnection();
@@ -486,6 +496,7 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 			List<NameValuePair> params, List<Attachment> attachs, String charset) throws CommonException {
 		Map<String, Object> response = new HashMap<String, Object>();
 
+		String message = "Upload files \"" + attachs + "\" to url \"" + url + "\" error";
 		Charset encCharset = getCharset(charset);
 		HttpPost httpPost = null;
 		try {
@@ -535,17 +546,19 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 
 			HttpEntity entity = resHttp.getEntity();
 			if (statusLine.getStatusCode() >= 300) {
+				String content = toString(entity.getContent());
 				EntityUtils.consume(entity);
-				throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
+				throw new HttpResponseException(statusLine.getStatusCode(), content);
 			}
 
 			response.put("header", resHttp.getAllHeaders());
 			response.put("content", toByteArray(entity.getContent()));
 		} catch (CommonException e) {
 			throw e;
+		} catch (HttpResponseException e) {
+			throw new CommonException(e.getStatusCode() + "", LogUtil.buildMessage(message, e.getMessage()), e);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR,
-					"Upload files \"" + attachs + "\" to url \"" + url + "\" error", e);
+			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(message, e.getMessage()), e);
 		} finally {
 			if (httpPost != null)
 				httpPost.releaseConnection();

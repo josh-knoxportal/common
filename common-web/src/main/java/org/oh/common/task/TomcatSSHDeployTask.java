@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.oh.common.exception.CommonException;
 import org.oh.common.util.FileUtil;
+import org.oh.common.util.LogUtil;
 import org.oh.common.util.SFTPUtil;
 import org.oh.common.util.SSHUtil;
 import org.oh.common.util.ThreadUtils;
@@ -39,7 +40,7 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 			ssh.excuteCommand("exit");
 			ssh.disconnect();
 		} catch (Exception e) {
-			throw new CommonException(toString(), e);
+			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(toString(), e.getMessage()), e);
 		}
 	}
 

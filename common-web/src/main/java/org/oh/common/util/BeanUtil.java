@@ -3,6 +3,7 @@ package org.oh.common.util;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.oh.common.exception.CommonException;
 
 /**
  * Bean 유틸
@@ -20,7 +21,8 @@ public abstract class BeanUtil {
 				BeanUtils.setProperty(obj, entry.getKey(), entry.getValue());
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Read map to object \"" + map + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Read map to object \"" + map + "\" error", e.getMessage()), e);
 		}
 
 		return (T) obj;

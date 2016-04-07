@@ -11,15 +11,15 @@ import org.mybatisorm.annotation.Column;
  * DROP TABLE test CASCADE CONSTRAINTS PURGE;
  * CREATE TABLE test
  * (
- *   test_id NUMBER(20) NOT NULL
- *  ,test_name VARCHAR2(100)
+ *   id NUMBER(20) NOT NULL
+ *  ,name VARCHAR2(100)
  *  ,reg_id VARCHAR2(100)
  *  ,reg_dt VARCHAR2(14)
  *  ,mod_id VARCHAR2(100)
  *  ,mod_dt VARCHAR2(14)
  *  ,CONSTRAINT test_pk PRIMARY KEY
  * (
- *   test_id
+ *   id
  * )
  * );
  * 
@@ -31,25 +31,25 @@ import org.mybatisorm.annotation.Column;
  */
 public class Test extends Common {
 	@Column(primaryKey = true, sequence = "test_seq")
-	protected Long test_id;
+	protected Long id;
 
 	@Column
-	protected String test_name;
+	protected String name;
 
-	public Long getTest_id() {
-		return test_id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setTest_id(Long test_id) {
-		this.test_id = test_id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getTest_name() {
-		return test_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setTest_name(String test_name) {
-		this.test_name = test_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

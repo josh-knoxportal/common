@@ -15,8 +15,8 @@ SELECT *
 		</if>
 
 		<![CDATA[
-SELECT sample_id
-      ,sample_name
+SELECT id
+      ,name
       ,test_id
       ,reg_id
       ,reg_dt
@@ -38,15 +38,15 @@ SELECT sample_id
  WHERE 1=1
 		]]>
 
-		<if test="sample_id != null and sample_id != 0">
+		<if test="id != null and id != 0">
 		<![CDATA[
-   AND sample_id = #{sample_id}
+   AND id = #{id}
 		]]>
 		</if>
 
-		<if test="sample_name != null and sample_name != ''">
+		<if test="name != null and name != ''">
 		<![CDATA[
-   AND sample_name = #{sample_name}
+   AND name = #{name}
 		]]>
 		</if>
 
@@ -72,25 +72,25 @@ ORDER BY rnum
 	</select>
 
 	<insert id="insert" parameterType="sample">
-		<selectKey keyProperty="sample_id" resultType="long" order="BEFORE">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
 			<![CDATA[
-SELECT sample_seq.NEXTVAL AS sample_id
+SELECT sample_seq.NEXTVAL AS id
   FROM dual
-/*SELECT NVL (MAX (sample_id) + 1, 1) AS sample_id
+/*SELECT NVL (MAX (id) + 1, 1) AS id
   FROM sample*/
 			]]>
 		</selectKey>
 		
 		<![CDATA[
-INSERT INTO sample (sample_id
-                   ,sample_name
+INSERT INTO sample (id
+                   ,name
                    ,test_id
                    ,reg_id
                    ,reg_dt
                    ,mod_id
                    ,mod_dt)
-VALUES (#{sample_id}
-       ,#{sample_name}
+VALUES (#{id}
+       ,#{name}
        ,#{test_id}
        ,#{reg_id}
        ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
@@ -102,51 +102,51 @@ VALUES (#{sample_id}
 	<update id="update" parameterType="sample">
 		<![CDATA[
 UPDATE sample
-   SET sample_name = #{sample_name}
+   SET name = #{name}
       ,test_id = #{test_id}
       ,mod_id = #{mod_id}
       ,mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
- WHERE sample_id = #{sample_id}
+ WHERE id = #{id}
 		]]>
 	</update>
 
 	<delete id="delete" parameterType="sample">
 		<![CDATA[
 DELETE FROM sample
- WHERE sample_id = #{sample_id}
+ WHERE id = #{id}
 		]]>
 	</delete>
 
 	<insert id="merge" parameterType="sample">
-		<selectKey keyProperty="sample_id" resultType="long" order="BEFORE">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
 		<![CDATA[
-SELECT NVL (a.sample_id, b.sample_id) AS sample_id
-  FROM (SELECT MAX (sample_id) AS sample_id
+SELECT NVL (a.id, b.id) AS id
+  FROM (SELECT MAX (id) AS id
           FROM sample
-         WHERE sample_id = #{sample_id}) a,
-       (SELECT NVL (MAX (sample_id) + 1, 1) AS sample_id FROM sample) b
+         WHERE id = #{id}) a,
+       (SELECT NVL (MAX (id) + 1, 1) AS id FROM sample) b
 		]]>
 		</selectKey>
 		
 		<![CDATA[
 MERGE INTO sample
       USING DUAL
-         ON (sample_id = #{sample_id}) 
+         ON (id = #{id}) 
  WHEN MATCHED THEN
       UPDATE
-         SET sample_name = #{sample_name}
+         SET name = #{name}
             ,test_id = #{test_id}
-       WHERE sample_id = #{sample_id}
+       WHERE id = #{id}
  WHEN NOT MATCHED THEN
-      INSERT (sample_id
-             ,sample_name
+      INSERT (id
+             ,name
              ,test_id
              ,reg_id
              ,reg_dt
              ,mod_id
              ,mod_dt)
-      VALUES (#{sample_id}
-             ,#{sample_name}
+      VALUES (#{id}
+             ,#{name}
              ,#{test_id}
              ,#{reg_id}
              ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')

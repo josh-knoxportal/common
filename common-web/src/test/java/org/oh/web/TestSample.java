@@ -1,7 +1,5 @@
 package org.oh.web;
 
-import java.util.List;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,43 +25,32 @@ public class TestSample {
 
 	@Test
 	public void t04_get() throws Exception {
-		LogUtil.writeLog("========== SELECT ==============================================================");
+		Sample model = new Sample();
+		model.setId(1L);
 
-		Sample sample = new Sample();
-		sample.setSample_id(1L);
-
-		Sample sampleResult = sampleService.get(sample);
-		LogUtil.writeLog("sampleResult:" + sampleResult);
+		sampleService.get(model);
 	}
 
 	@Test
 	public void t05_list() throws Exception {
-		LogUtil.writeLog("========== SELECT LIST =========================================================");
+		Sample model = new Sample();
+		model.setName("s");
+		model.setOrder_by("id DESC");
 
-		Sample sample = new Sample();
-		sample.setSample_name("s");
-		sample.setOrder_by("sample_id DESC");
-
-		List<Sample> sampleList = sampleService.list(sample);
-		LogUtil.writeLog("sampleList:" + sampleList);
+		sampleService.list(model);
 	}
 
 	@Test
 	public void t06_page() throws Exception {
-		LogUtil.writeLog("========== SELECT PAGE =========================================================");
-
-		Sample sample = new Sample();
-		sample.setSample_name("s");
-		sample.setOrder_by("sample_id");
+		Sample model = new Sample();
+		model.setName("s");
+		model.setOrder_by("id");
 
 		Paging paging = new Paging();
 		paging.setPage_number(1);
 		paging.setRows_per_page(1);
 
-		List<Sample> sampleList = sampleService.page(sample, paging);
-		LogUtil.writeLog("samplePage:" + sampleList);
-
-		LogUtil.writeLog("---------- Page Navigator ------------------------------------------------------");
+		sampleService.page(model, paging);
 
 //		paging.setPage_number(3);
 		paging.setTotal_sise(1);
@@ -75,41 +62,31 @@ public class TestSample {
 
 //	@Test
 	public void t01_insert() throws Exception {
-		LogUtil.writeLog("========== INSERT ==============================================================");
+		Sample model = new Sample();
+		model.setName("s");
+		model.setTest_id(2L);
+		model.setReg_id("1");
+		model.setReg_dt("1");
+		model.setMod_id("1");
+		model.setReg_dt("1");
 
-		Sample sample = new Sample();
-		sample.setSample_name("s");
-		sample.setTest_id(2L);
-		sample.setReg_id("1");
-		sample.setReg_dt("1");
-		sample.setMod_id("1");
-		sample.setReg_dt("1");
-
-		int result = sampleService.insert(sample);
-		LogUtil.writeLog("sample:" + sample);
-		LogUtil.writeLog("result:" + result);
+		sampleService.insert(model);
 	}
 
 //	@Test
 	public void t02_update() throws Exception {
-		LogUtil.writeLog("========== UPDATE ==============================================================");
+		Sample model = new Sample();
+		model.setId(1L);
+		model.setName("x");
 
-		Sample sample = new Sample();
-		sample.setSample_id(1L);
-		sample.setSample_name("x");
-
-		int result = sampleService.update(sample);
-		LogUtil.writeLog("result:" + result);
+		sampleService.update(model);
 	}
 
 //	@Test
 	public void t03_delete() throws Exception {
-		LogUtil.writeLog("========== DELETE ==============================================================");
+		Sample model = new Sample();
+		model.setId(1L);
 
-		Sample sample = new Sample();
-		sample.setSample_id(1L);
-
-		int result = sampleService.delete(sample);
-		LogUtil.writeLog("result:" + result);
+		sampleService.delete(model);
 	}
 }

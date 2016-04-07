@@ -3,6 +3,7 @@ package org.oh.common.util;
 import java.security.MessageDigest;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.oh.common.exception.CommonException;
 
 /**
  * SHA256 암호 알고리즘
@@ -262,7 +263,7 @@ public abstract class DigestUtil extends DigestUtils {
 
 			return getbyteToHexString(pszDigest);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new CommonException(CommonException.ERROR, e.getMessage(), e);
 		}
 	}
 
@@ -273,8 +274,8 @@ public abstract class DigestUtil extends DigestUtils {
 			byte[] hash = SHA_256.digest(data.getBytes());
 
 			return getbyteToHexString(hash);
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+		} catch (Exception e) {
+			throw new CommonException(CommonException.ERROR, e.getMessage(), e);
 		}
 	}
 

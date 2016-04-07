@@ -112,18 +112,18 @@ public abstract class JsonUtil {
 	 *    userClassToMap.put("age", "25");
 	 *    userClassToMap.put("phone_num", "01012301230");
 	 *    <br>
-	 *    String json = JsonUtil2.toJson(userClassToMap); // Json 변환
+	 *    String json = JsonUtil2.toString(userClassToMap); // Json 변환
 	 *    LogUtil.writeLog(json.toString()); // {"gender":"Man","age":"25","phone_num":"01012301230","name":"Kim Ga-Na"}
 	 * </pre>
 	 *
 	 * @param map 맵
 	 * @return json 문자열
 	 */
-	public static String toJson(Map<String, Object> map) {
+	public static String toString(Map<String, Object> map) {
 		StringWriter out = new StringWriter();
-
 		try {
 			getObjectMapper().writeValue(out, map);
+
 			return out.toString();
 		} catch (Exception e) {
 			LogUtil.writeLog(e, JsonUtil.class);
@@ -139,7 +139,7 @@ public abstract class JsonUtil {
 	}
 
 	public static String prettyPrint(Object json) {
-		return toJson(json, true);
+		return toString(json, true);
 	}
 
 	/**
@@ -164,7 +164,7 @@ public abstract class JsonUtil {
 	 *      user.setPhone_num("010-8888-9999");
 	 *      user.setPhoneNum("010-7777-5555");
 	 *      <br>
-	 *      String json = JsonUtil2.toJson(user); // User 객체를 Json으로 변환
+	 *      String json = JsonUtil2.toString(user); // User 객체를 Json으로 변환
 	 *      <br>
 	 *      LogUtil.writeLog(json.toString()); // {"gender":null,"age":27,"phoneNum":"010-7777-5555","address":null,"name":"Kim Ga-Na"}
 	 * </pre>
@@ -172,8 +172,8 @@ public abstract class JsonUtil {
 	 * @param pojo 객체
 	 * @return Json 형식의 문자열. 변환에 실패하면, 빈 문자열("")을 반환한다.
 	 */
-	public static String toJson(Object pojo) {
-		return toJson(pojo, false);
+	public static String toString(Object pojo) {
+		return toString(pojo, false);
 	}
 
 	/**
@@ -183,9 +183,8 @@ public abstract class JsonUtil {
 	 * @param prettyPrint 문자열 formatting 유무. <code>true</code>이면 보기 좋게 들여 쓰기가 된 Json 형식의 문자열로 바꾼다.
 	 * @return Json 형식의 문자열. 변환에 실패하면, 빈 문자열("")을 반환한다.
 	 */
-	public static String toJson(Object pojo, boolean prettyPrint) {
+	public static String toString(Object pojo, boolean prettyPrint) {
 		StringWriter sw = new StringWriter();
-
 		try {
 			JsonGenerator jg = getObjectMapper().getJsonFactory().createJsonGenerator(sw);
 
@@ -226,7 +225,10 @@ public abstract class JsonUtil {
 	 * @param json json 문자열
 	 * @param clazz 변환될 클래스
 	 * @return 클래스 객체
+	 * 
+	 * @deprecated Use {@link #readValue} instead
 	 */
+	@Deprecated
 	public static <T> T toObject(String json, Class<T> clazz) {
 		try {
 			return getObjectMapper().readValue(json, clazz);
@@ -266,7 +268,10 @@ public abstract class JsonUtil {
 	 * @param jsonNode jsonNode
 	 * @param clazz 변환할 클래스
 	 * @return 클래스 객체
+	 * 
+	 * @deprecated Use {@link #readValue} instead
 	 */
+	@Deprecated
 	public static <T> T toObject(JsonNode jsonNode, Class<T> clazz) {
 		try {
 			return getObjectMapper().readValue(jsonNode, clazz);
@@ -307,7 +312,7 @@ public abstract class JsonUtil {
 	 * @return ObjectNode
 	 */
 	public static ObjectNode toObjectNode(Object object) {
-		return getObjectMapper().convertValue(object, ObjectNode.class);
+		return readValue(object, ObjectNode.class);
 	}
 
 	/**
@@ -580,7 +585,8 @@ public abstract class JsonUtil {
 		try {
 			return (T) getObjectMapper().readTree(json.traverse());
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Copy json data \"" + json + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Copy json data \"" + json + "\" error", e.getMessage()), e);
 		}
 	}
 
@@ -632,7 +638,8 @@ public abstract class JsonUtil {
 
 			return result;
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Read json data \"" + src + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Read json data \"" + src + "\" error", e.getMessage()), e);
 		}
 	}
 
@@ -662,7 +669,8 @@ public abstract class JsonUtil {
 
 			return readValue(json, valueType);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Read json data \"" + src + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Read json data \"" + src + "\" error", e.getMessage()), e);
 		}
 	}
 
@@ -697,7 +705,8 @@ public abstract class JsonUtil {
 				putValue(objectNode, field.getName(), value);
 			}
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Read json data \"" + src + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Read json data \"" + src + "\" error", e.getMessage()), e);
 		}
 
 		return objectNode;

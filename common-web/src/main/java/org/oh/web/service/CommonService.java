@@ -34,6 +34,17 @@ public interface CommonService<T extends Default> {
 	public List<T> list(T t) throws Exception;
 
 	/**
+	 * 공통 건수 조회
+	 * 
+	 * @param t 모델
+	 * 
+	 * @return 건수
+	 * 
+	 * @throws Exception
+	 */
+	public int count(T t) throws Exception;
+
+	/**
 	 * 공통 목록(페이지) 조회
 	 * 
 	 * @param t 모델

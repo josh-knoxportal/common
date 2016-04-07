@@ -145,7 +145,8 @@ public abstract class XMLUtils {
 		try {
 			doc = db.parse(new InputSource(new StringReader(xml)));
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Parse xml data \"" + xml + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Parse xml data \"" + xml + "\" error", e.getMessage()), e);
 		}
 
 		return doc;
@@ -198,7 +199,8 @@ public abstract class XMLUtils {
 		try {
 			value = (String) getXPath().evaluate(expression, doc, XPathConstants.STRING);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Evaluate xml expression \"" + expression + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Evaluate xml expression \"" + expression + "\" error", e.getMessage()), e);
 		}
 
 		return value;

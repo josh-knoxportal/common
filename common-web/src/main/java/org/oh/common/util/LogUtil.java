@@ -7,6 +7,17 @@ import org.apache.commons.logging.LogFactory;
  * Log 유틸
  */
 public abstract class LogUtil {
+	public static String buildMessage(String... messages) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < messages.length; i++) {
+			if (i > 0)
+				sb.append("; nested exception is ");
+			sb.append(messages[i]);
+		}
+
+		return sb.toString();
+	}
+
 	public static void writeLog(Object message) {
 		writeLog2(message, null, null);
 	}

@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import org.oh.common.exception.CommonException;
 import org.oh.common.util.LogUtil;
 
 public abstract class EncryptionUtils {
@@ -34,7 +35,7 @@ public abstract class EncryptionUtils {
 		try {
 			encode = Base64.encodeBytes((seed.encrypt(text.getBytes("UTF-8"), key.getBytes())));
 		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
+			throw new CommonException(CommonException.ERROR, e.getMessage(), e);
 		}
 
 		return encode;

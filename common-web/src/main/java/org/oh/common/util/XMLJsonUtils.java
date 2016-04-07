@@ -94,7 +94,8 @@ public abstract class XMLJsonUtils extends XMLUtils {
 		try {
 			jsonNode = JsonUtil.readValue(json);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Read json data \"" + json + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Read json data \"" + json + "\" error", e.getMessage()), e);
 		}
 
 		return jsonNode;

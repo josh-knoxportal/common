@@ -28,10 +28,10 @@ import org.mybatisorm.annotation.Column;
  * @author skoh
  */
 public class Sample_Test extends Common {
-	@Column(references = "Sample.sample_id")
+	@Column(references = "Sample.id")
 	protected Long sample_id;
 
-	@Column(references = "Test.test_id")
+	@Column(references = "Test.id")
 	protected Long test_id;
 
 	public Long getSample_id() {

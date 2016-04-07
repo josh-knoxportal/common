@@ -29,12 +29,17 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	@Override
 	@CacheEvictSample
 	public List<T> list(T t) throws Exception {
-		return entityManager.list(t, t.getOrder_by());
+		return entityManager.list(t, t.getCondition(), t.getOrder_by());
+	}
+
+	@Override
+	public int count(T t) throws Exception {
+		return entityManager.count(t, t.getCondition());
 	}
 
 	@Override
 	public Page<T> page(T t, Page<T> page) throws Exception {
-		return entityManager.page(t, t.getOrder_by(), page.getPageNumber(), page.getRows());
+		return entityManager.page(t, t.getCondition(), t.getOrder_by(), page.getPageNumber(), page.getRows());
 	}
 
 	@Override
@@ -52,6 +57,6 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	@Override
 	@CacheEvictSample
 	public void delete(T t) throws Exception {
-		entityManager.delete(t);
+		entityManager.delete(t, t.getCondition());
 	}
 }

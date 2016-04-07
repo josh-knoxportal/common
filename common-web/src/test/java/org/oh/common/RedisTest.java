@@ -102,23 +102,23 @@ public class RedisTest {
 	public void test11Sample() throws Exception {
 		LogUtil.writeLog("========== Sample =============================================================");
 
-		Sample sample = new Sample();
-		sample.setSample_id(1L);
-		sample.setSample_name("a");
+		Sample model = new Sample();
+		model.setId(1L);
+		model.setName("a");
 
-		sampleOps.set("sample", sample);
+		sampleOps.set("model", model);
 
-		long size = sampleOps.size("sample");
+		long size = sampleOps.size("model");
 		LogUtil.writeLog("size:" + size);
 
 		// 주의) 가져온 객체의 결과값은 Map 이다.
-		Map<String, Object> map = (Map) sampleOps.get("sample");
-		sample = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("get:" + sample);
+		Map<String, Object> map = (Map) sampleOps.get("model");
+		model = CollectionUtil.mapToObject(map, Sample.class);
+		LogUtil.writeLog("get:" + model);
 
-		map = (Map) sampleOps.getAndSet("sample", sample);
-		sample = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("getAndSet:" + sample);
+		map = (Map) sampleOps.getAndSet("model", model);
+		model = CollectionUtil.mapToObject(map, Sample.class);
+		LogUtil.writeLog("getAndSet:" + model);
 	}
 
 //	@Test
@@ -214,21 +214,21 @@ public class RedisTest {
 	public void test32SampleList() throws Exception {
 		LogUtil.writeLog("========== SampleList =========================================================");
 
-		Sample sample = new Sample();
-		sample.setSample_id(1L);
-		sample.setSample_name("11");
+		Sample model = new Sample();
+		model.setId(1L);
+		model.setName("11");
 
 		Sample sample2 = new Sample();
-		sample2.setSample_id(2L);
-		sample2.setSample_name("22");
+		sample2.setId(2L);
+		sample2.setName("22");
 
-		sampleListOps.leftPushAll("sampleList", (Collection) Arrays.asList(sample, sample2));
+		sampleListOps.leftPushAll("sampleList", (Collection) Arrays.asList(model, sample2));
 
 		sampleListOps.leftPushAll("sampleList", (Collection) Arrays.asList(sample2));
 
 		Sample sample3 = new Sample();
-		sample3.setSample_id(3L);
-		sample3.setSample_name("33");
+		sample3.setId(3L);
+		sample3.setName("33");
 
 		sampleListOps.leftPushAll("sampleList", Arrays.asList(sample3));
 
@@ -239,7 +239,7 @@ public class RedisTest {
 		LogUtil.writeLog("range:" + list);
 
 		Map<String, Object> map = (Map) sampleListOps.rightPop("sampleList");
-		sample = CollectionUtil.mapToObject(map, Sample.class);
+		model = CollectionUtil.mapToObject(map, Sample.class);
 		LogUtil.writeLog("rightPop:" + map);
 
 		list = (List) sampleListOps.range("sampleList", 0, sampleListOps.size("sampleList") - 1);
@@ -247,10 +247,10 @@ public class RedisTest {
 
 		// 주의) 가져온 객체의 결과값은 Map 이다.
 		map = (Map) sampleListOps.index("sampleList", 1);
-		sample = CollectionUtil.mapToObject(map, Sample.class);
+		model = CollectionUtil.mapToObject(map, Sample.class);
 		LogUtil.writeLog("index:" + map);
 
-		size = sampleListOps.remove("sampleList", 0, sample);
+		size = sampleListOps.remove("sampleList", 0, model);
 		LogUtil.writeLog("remove:" + size);
 
 		list = (List) sampleListOps.range("sampleList", 0, sampleListOps.size("sampleList") - 1);

@@ -2,7 +2,7 @@
 
 MAVEN_HOME=/Users/skoh/dev/lib/apache-maven-3.3.9
 
-cd dev/git/skoh/common/common-web
+cd git/skoh/common/common-web
 
 REM $MAVEN_HOME/bin/mvn install:install-file -Dfile=lib/org/oh/common/client/61/client-61.jar -DgroupId=org.oh.common -DartifactId=client -Dversion=61 -Dpackaging=jar -DgeneratePom=true
 

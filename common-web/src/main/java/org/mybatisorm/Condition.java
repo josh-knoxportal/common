@@ -60,6 +60,11 @@ public class Condition {
 		this.list = new LinkedList<Object>();
 	}
 	
+	// 메소드 추가 by skoh
+	public List<Object> getList() {
+		 return list;
+	}
+	
 	public String getSeperator() {
 		return Seperator.AND.equals(seperator) ? " AND " : " OR ";
 	}

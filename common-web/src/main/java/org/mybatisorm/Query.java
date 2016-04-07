@@ -59,7 +59,9 @@ public class Query {
 	}
 	
 	public Query(Object parameter, String condition, String orderBy) {
-		this(parameter, new Condition().add(condition), orderBy);
+		// 조건이 있을 경우만 추가 by skoh
+//		this(parameter, new Condition().add(condition), orderBy);
+		this(parameter, (condition == null) ? new Condition() : new Condition().add(condition), orderBy);
 	}
 	
 	public Query(Object parameter, Condition condition, String orderBy) {
@@ -76,7 +78,9 @@ public class Query {
 	}
 	
 	public Query(Object parameter, String condition, String orderBy, int pageNumber, int rows) {
-		this(parameter, new Condition().add(condition), orderBy, pageNumber, rows);
+		// 조건이 있을 경우만 추가 by skoh
+//		this(parameter, new Condition().add(condition), orderBy, pageNumber, rows);
+		this(parameter, (condition == null) ? new Condition() : new Condition().add(condition), orderBy, pageNumber, rows);
 	}
 
 	public Query(Object parameter, Condition condition, String orderBy, int pageNumber, int rows) {
@@ -113,7 +117,9 @@ public class Query {
 		return condition.build(this);
 	}
 	public boolean hasCondition() {
-		return condition != null;
+		// 조건 변경 by skoh
+//		return condition != null;
+		return condition != null && condition.getList().size() > 0;
 	}
 	private static String replaceParam(String value) {
 		return value.replaceAll(PARAMETER_RE, CONDITION_REPLACEMENT);

@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zcms/campaign.do?group_id=20",
+	"url":"http://localhost:8080/v1/zcms/campaign.do?branch_id=11&xid=031967",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

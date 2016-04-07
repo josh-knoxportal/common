@@ -1,7 +1,8 @@
 {
-	"url":"http://202.3.20.124/v1/zms/zone.do?xid=773574&map_id=99",
+	"url":"http://localhost:8080/v1/zms/zone.do",
 	"method":"GET",
-	"responseFormat":"JSON",
+	"saveDir":"/Users/skoh",
+	"saveExt":"json",
 	"list":[
 		{
 			"headers":{

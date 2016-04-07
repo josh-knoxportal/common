@@ -25,6 +25,7 @@ import org.apache.commons.imaging.formats.tiff.TiffImageMetadata;
 import org.apache.commons.io.IOUtils;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Mode;
+import org.oh.common.exception.CommonException;
 
 /**
  * 이미지 유틸
@@ -120,7 +121,7 @@ public abstract class ImageUtils {
 
 		resizedImg = resize(ImageIO.read(src), formatName, w, h);
 		if (resizedImg == null) {
-			throw new RuntimeException(
+			throw new CommonException(CommonException.ERROR,
 					String.format("Resizing image file '%s' to (%d X %d) failed", src.getAbsolutePath(), w, h));
 		}
 
@@ -144,7 +145,7 @@ public abstract class ImageUtils {
 			Iterator<ImageReader> iter = ImageIO.getImageReaders(imgInput);
 
 			if (!iter.hasNext())
-				throw new RuntimeException("No image readers found");
+				throw new CommonException(CommonException.ERROR, "No image readers found");
 
 			imgReader = iter.next();
 			formatName = imgReader.getFormatName();

@@ -5,6 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.oh.common.exception.CommonException;
 
 public class YYYYMMDDValidConstraintValidator implements ConstraintValidator<YYYYMMDDValid, Object> {
 	final Integer[] daysPerMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -72,7 +73,7 @@ public class YYYYMMDDValidConstraintValidator implements ConstraintValidator<YYY
 				}
 			}
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new CommonException(CommonException.ERROR, e.getMessage(), e);
 		}
 		return allowEmpty;
 	}

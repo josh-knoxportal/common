@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
-	updateCheck="false">
+	updateCheck="false" maxBytesLocalHeap="500m">
 	<!-- 	디스크 저장 경로를 지정한다. -->
 	<diskStore path="java.io.tmpdir" />
 
@@ -41,7 +41,6 @@
 	<!-- - diskExpiryThreadIntervalSeconds : Disk Expiry 쓰레드의 수행 시간 간격을 초 단위로 지정한다. 기본값은 120 이다. [선택] -->
 	<!-- - memoryStoreEvictionPolicy : 객체의 개수가 maxElementsInMemory에 도달했을때,메모리에서 객체를 어떻게 제거할 지에 대한 정책을 지정한다. 기본값은 LRU이다. FIFO와 LFU도 지정할 수 있다. -->
 	<defaultCache
-		maxElementsInMemory="1000"
 		eternal="false"
 		overflowToDisk="false">
 		<!-- 언제 어떻게 캐시의 변경 내역을 통지할지 여부를 지정한다. -->
@@ -66,7 +65,6 @@
 	<!-- 하나의 캐시(저장소)를 지정할때 사용된다. -->
 	<!-- - name : 캐시의 이름을 지정하며, 코드에서는 이 캐시의 이름을 사용하여 사용할 Cache 인스턴스를 구한다. -->
 	<cache name="common"
-		maxElementsInMemory="1000"
 		eternal="false"
 		overflowToDisk="false">
 		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
@@ -77,7 +75,6 @@
 	</cache>
 
 	<cache name="sample"
-		maxElementsInMemory="1000"
 		eternal="false"
 		overflowToDisk="false">
 		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"

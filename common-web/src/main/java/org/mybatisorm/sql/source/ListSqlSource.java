@@ -32,8 +32,11 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 		Query query = (Query)queryParam;
 		String where = null;
 		StringBuilder sb = new StringBuilder(staticSql);
-		where = query.hasCondition() ? query.getCondition() :
-			handler.getNotNullColumnEqualFieldAnd(query.getParameter(),Query.PARAMETER_PREFIX);
+		// 모든 조건 적용 by skoh
+//		where = query.hasCondition() ? query.getCondition() :
+//			handler.getNotNullColumnEqualFieldAnd(query.getParameter(),Query.PARAMETER_PREFIX);
+		where = query.getNotNullColumnEqualFieldAndVia(handler);
+		where = makeCondition(where, query);
 		if (where != null && where.length() > 0) {
 			sb.append(" WHERE ").append(where);
 		}

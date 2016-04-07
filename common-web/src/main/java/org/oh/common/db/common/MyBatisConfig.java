@@ -13,7 +13,9 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.oh.common.Constants;
+import org.oh.common.exception.CommonException;
 import org.oh.common.util.FileUtil;
+import org.oh.common.util.LogUtil;
 
 /**
  * <code>{HOME}/SqlMapConfig.xml</code> 파일을 읽어서 mybatis를 사용할 수 있도록 구성한다.
@@ -55,7 +57,8 @@ public class MyBatisConfig {
 					reader = Resources.getResourceAsReader(resource);
 				} catch (IOException ioe) {
 					log.fatal("Failed to load " + resource);
-					throw new RuntimeException("Error initializing mybatis. Cause: failed to load config file");
+					throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(
+							"Error initializing mybatis. Cause: failed to load config file", ioe.getMessage()), ioe);
 				}
 			}
 
@@ -67,7 +70,8 @@ public class MyBatisConfig {
 			factoryMap.put("default", sqlMap);
 		} catch (Exception e) {
 			log.error("Error initializing mybatis. Cause: ", e);
-			throw new RuntimeException("Error initializing mybatis. Cause:" + e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Error initializing mybatis. Cause:", e.getMessage()), e);
 		}
 	}
 
@@ -117,7 +121,8 @@ public class MyBatisConfig {
 						reader = Resources.getResourceAsReader(resource);
 					} catch (IOException ioe) {
 						log.fatal("Failed to load " + resource);
-						throw new RuntimeException("Failed to get mybatis session! Cause: failed to load config file");
+						throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(
+								"Failed to get mybatis session! Cause: failed to load config file", e.getMessage()), e);
 					}
 				}
 
@@ -129,7 +134,8 @@ public class MyBatisConfig {
 				return sqlMap;
 			} catch (Exception e) {
 				log.fatal("Failed to get mybatis session! Cause: ", e);
-				throw new RuntimeException("Failed to get mybatis session! Cause:" + e);
+				throw new CommonException(CommonException.ERROR,
+						LogUtil.buildMessage("Failed to get mybatis session! Cause:", e.getMessage()), e);
 			} finally {
 				log.info("End::getSqlSessionFactory()");
 			}

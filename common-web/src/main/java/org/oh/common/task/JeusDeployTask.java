@@ -30,7 +30,7 @@ public class JeusDeployTask extends AbstractDeployTask {
 			jeus.excuteCommand("exit");
 			jeus.disconnect();
 		} catch (Exception e) {
-			throw new CommonException(e);
+			throw new CommonException(CommonException.ERROR, e.getMessage(), e);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package org.oh.common.thread;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -30,8 +31,14 @@ public class HTTPUtilTask implements Callable<Object> {
 
 	@Override
 	public Object call() throws Exception {
-		LogUtil.writeLog(toString(), getClass());
-		return HTTPUtil.callHttp(url, method, headers, params, charset);
+		Map<String, Object> result = null;
+		try {
+			result = HTTPUtil.callHttp(url, method, headers, params, charset);
+		} catch (Exception e) {
+			LogUtil.writeLog(toString(), e, getClass());
+		}
+
+		return result;
 	}
 
 	@Override

@@ -16,12 +16,12 @@ public class Header {
 	/**
 	 * 에러 코드
 	 */
-	protected String error_code = "";
+	protected String error_code;
 
 	/**
 	 * 에러 메시지
 	 */
-	protected String error_message = "";
+	protected String error_message;
 
 	public Header() {
 	}

@@ -12,7 +12,7 @@ public class SampleAndTest2 extends SampleAndTest {
 	 */
 	protected Sample_Test sample_test;
 
-	@Fields("test_id, test_name")
+	@Fields("id, name")
 	protected Test test;
 
 	public Sample_Test getSample_test() {

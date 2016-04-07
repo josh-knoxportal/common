@@ -1,7 +1,5 @@
 package org.oh.web;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.FixMethodOrder;
@@ -30,44 +28,43 @@ public class TestCommon {
 	protected CommonService commonService;
 
 	@Test
-	public void t04_get() throws Exception {
-		LogUtil.writeLog("========== SELECT ==============================================================");
+	public void t01_get() throws Exception {
+		Sample model = new Sample();
+		model.setId(1L);
 
-		Sample sample = new Sample();
-		sample.setSample_id(1L);
-
-		Default sampleResult = commonService.get(sample);
-		LogUtil.writeLog("sampleResult:" + sampleResult);
-//		Assert.assertTrue("sampleResult == null", sampleResult != null);
+		Default result = commonService.get(model);
+//		Assert.assertTrue("result == null", result != null);
 	}
 
 	@Test
-	public void t05_list() throws Exception {
-		LogUtil.writeLog("========== SELECT LIST =========================================================");
+	public void t02_list() throws Exception {
+		Sample model = new Sample();
+		model.setName("s");
+		model.setCondition("name LIKE 's%'");
+		model.setOrder_by("id DESC");
 
-		Sample sample = new Sample();
-		sample.setSample_name("s");
-		sample.setOrder_by("sample_id DESC");
-
-		List<Sample> sampleList = commonService.list(sample);
-		LogUtil.writeLog("sampleList:" + sampleList);
+		commonService.list(model);
 	}
 
 	@Test
-	public void t06_page() throws Exception {
-		LogUtil.writeLog("========== SELECT PAGE =========================================================");
+	public void t03_count() throws Exception {
+		Sample model = new Sample();
+		model.setName("s");
+		model.setCondition("name LIKE 's%'");
 
-		Sample sample = new Sample();
-		sample.setSample_name("s");
-		sample.setOrder_by("sample_id DESC");
+		commonService.count(model);
+	}
+
+	@Test
+	public void t04_page() throws Exception {
+		Sample model = new Sample();
+		model.setName("s");
+		model.setCondition("name LIKE 's%'");
+		model.setOrder_by("id DESC");
 
 		Page<Sample> page = new Page<Sample>(1, 1);
 
-		page = commonService.page(sample, page);
-		LogUtil.writeLog("sampleList:" + page.getList());
-		LogUtil.writeLog("sampleCount:" + page.getCount());
-
-		LogUtil.writeLog("---------- Page Navigator ------------------------------------------------------");
+		page = commonService.page(model, page);
 
 //		page.setPageNumber(3);
 //		page.setCount(75);
@@ -77,107 +74,92 @@ public class TestCommon {
 	}
 
 	@Test
-	public void t07_joinList() throws Exception {
-		LogUtil.writeLog("========== SELECT JOIN LIST ====================================================");
+	public void t05_joinList() throws Exception {
+		Sample model = new Sample();
+		model.setName("s");
 
-		Sample sample = new Sample();
-		sample.setSample_name("s");
+		org.oh.web.model.Test model2 = new org.oh.web.model.Test();
+		model2.setName("t");
 
-		org.oh.web.model.Test test = new org.oh.web.model.Test();
-		test.setTest_name("t");
-
-		SampleAndTest st = new SampleAndTest();
-		st.setSample(sample);
-		st.setTest(test);
-		st.setOrder_by("sample_.sample_id DESC, test_.test_id DESC");
+		SampleAndTest model3 = new SampleAndTest();
+		model3.setSample(model);
+		model3.setTest(model2);
+		model3.setCondition("sample_.name LIKE 's%'");
+		model3.setOrder_by("sample_.id DESC, test_.id DESC");
 
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
 //		System.out.println(handler.getName());
 
-		List<SampleAndTest> list = commonService.list(st);
-		LogUtil.writeLog("sampleAndTestList:" + list);
+		commonService.list(model3);
 	}
 
 	@Test
-	public void t08_joinPage() throws Exception {
-		LogUtil.writeLog("========== SELECT JOIN PAGE ====================================================");
+	public void t06_joinPage() throws Exception {
+		Sample model = new Sample();
+		model.setName("s");
 
-		Sample sample = new Sample();
-		sample.setSample_name("s");
+		org.oh.web.model.Test model2 = new org.oh.web.model.Test();
+		model2.setName("t");
 
-		org.oh.web.model.Test test = new org.oh.web.model.Test();
-		test.setTest_name("t");
-
-		SampleAndTest st = new SampleAndTest();
-		st.setSample(sample);
-		st.setTest(test);
-		st.setOrder_by("sample_.sample_id DESC, test_.test_id DESC");
+		SampleAndTest model3 = new SampleAndTest();
+		model3.setSample(model);
+		model3.setTest(model2);
+		model3.setCondition("sample_.name LIKE 's%'");
+		model3.setOrder_by("sample_.id DESC, test_.id DESC");
 
 		Page<SampleAndTest> page = new Page<SampleAndTest>(1, 1);
 
-		page = commonService.page(st, page);
-		LogUtil.writeLog("sampleAndTestPage:" + page.getList());
-		LogUtil.writeLog("sampleAndTestCount:" + page.getCount());
-
-		LogUtil.writeLog("---------- Page Navigator ------------------------------------------------------");
+		page = commonService.page(model3, page);
 
 		PageNavigator pageNavi = new PageNavigator.Builder(page).setPageGroupCount(1).build();
 		LogUtil.writeLog("pageNavi:" + pageNavi);
 	}
 
 	@Test
-	public void t09_joinList2() throws Exception {
-		LogUtil.writeLog("========== SELECT JOIN LIST 2 ==================================================");
+	public void t07_joinList2() throws Exception {
+		Sample model = new Sample();
+		model.setName("s");
 
-		Sample sample = new Sample();
-		sample.setSample_name("s");
+		org.oh.web.model.Test model2 = new org.oh.web.model.Test();
+		model2.setName("t");
 
-		org.oh.web.model.Test test = new org.oh.web.model.Test();
-		test.setTest_name("t");
+		SampleAndTest2 model3 = new SampleAndTest2();
+		model3.setSample(model);
+		model3.setTest(model2);
+		model3.setCondition("sample_.name LIKE 's%'");
+		model3.setOrder_by("sample_.id DESC, test_.id DESC");
 
-		SampleAndTest2 st = new SampleAndTest2();
-		st.setSample(sample);
-		st.setTest(test);
-		st.setOrder_by("sample_.sample_id DESC, test_.test_id DESC");
-
-		List<SampleAndTest2> list = commonService.list(st);
-		LogUtil.writeLog("sampleAndTestList2:" + list);
+		commonService.list(model3);
 	}
 
 //	@Test
-	public void t01_insert() throws Exception {
-		LogUtil.writeLog("========== INSERT ==============================================================");
+	public void t08_insert() throws Exception {
+		Sample model = new Sample();
+		model.setName("s");
+		model.setTest_id(2L);
+		model.setReg_id("1");
+		model.setReg_dt("1");
+		model.setMod_id("1");
+		model.setReg_dt("1");
 
-		Sample sample = new Sample();
-		sample.setSample_name("s");
-		sample.setTest_id(2L);
-		sample.setReg_id("1");
-		sample.setReg_dt("1");
-		sample.setMod_id("1");
-		sample.setReg_dt("1");
-
-		commonService.insert(sample);
-		LogUtil.writeLog("sample:" + sample);
+		commonService.insert(model);
 	}
 
 //	@Test
-	public void t02_update() throws Exception {
-		LogUtil.writeLog("========== UPDATE ==============================================================");
+	public void t09_update() throws Exception {
+		Sample model = new Sample();
+		model.setId(1L);
+		model.setName("x");
 
-		Sample sample = new Sample();
-		sample.setSample_id(1L);
-		sample.setSample_name("x");
-
-		commonService.update(sample);
+		commonService.update(model);
 	}
 
 //	@Test
-	public void t03_delete() throws Exception {
-		LogUtil.writeLog("========== DELETE ==============================================================");
+	public void t10_delete() throws Exception {
+		Sample model = new Sample();
+		model.setId(1L);
+		model.setCondition("name LIKE 's%'");
 
-		Sample sample = new Sample();
-		sample.setSample_id(1L);
-
-		commonService.delete(sample);
+		commonService.delete(model);
 	}
 }

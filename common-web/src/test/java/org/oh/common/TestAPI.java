@@ -39,7 +39,7 @@ public class TestAPI {
 	 * 
 	 * @throws Exception
 	 */
-	protected static JsonNode readFile(String filePath) throws Exception {
+	public static JsonNode readFile(String filePath) throws Exception {
 		return JsonUtil2.readFile(filePath);
 	}
 

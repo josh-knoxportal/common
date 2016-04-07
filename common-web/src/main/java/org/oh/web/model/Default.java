@@ -11,9 +11,22 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Default implements Serializable {
 	/**
+	 * 조회 조건
+	 */
+	protected String condition;
+
+	/**
 	 * 정렬 기준
 	 */
 	protected String order_by;
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
 
 	public String getOrder_by() {
 		return order_by;

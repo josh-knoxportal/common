@@ -40,9 +40,11 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 			return csrt.newInstance(initargs);
 		} catch (InvocationTargetException e) {
 			Throwable t = e.getTargetException();
-			throw new CommonException(CommonException.ERROR, "Instantiate class \"" + target.getName() + "\" error", t);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Instantiate class \"" + target.getName() + "\" error", e.getMessage()), t);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Instantiate class \"" + target.getName() + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Instantiate class \"" + target.getName() + "\" error", e.getMessage()), e);
 		}
 	}
 
@@ -54,7 +56,8 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		try {
 			target = Class.forName(className).newInstance();
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR, "Instantiate class \"" + className + "\" error", e);
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Instantiate class \"" + className + "\" error", e.getMessage()), e);
 		}
 
 		return invoke(target, methodName, args);
@@ -78,10 +81,12 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		} catch (InvocationTargetException e) {
 			Throwable t = e.getTargetException();
 			throw new CommonException(CommonException.ERROR,
-					"Invoke method \"" + target + "." + methodName + "\" error", t);
+					LogUtil.buildMessage("Invoke method \"" + target + "." + methodName + "\" error", e.getMessage()),
+					t);
 		} catch (Exception e) {
 			throw new CommonException(CommonException.ERROR,
-					"Invoke method \"" + target + "." + methodName + "\" error", e);
+					LogUtil.buildMessage("Invoke method \"" + target + "." + methodName + "\" error", e.getMessage()),
+					e);
 		}
 	}
 
@@ -135,8 +140,8 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		try {
 			return field.get(target);
 		} catch (Exception e) {
-			throw new CommonException(CommonException.ERROR,
-					"Get field value \"" + target + "." + field.getName() + "\" error", e);
+			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(
+					"Get field value \"" + target + "." + field.getName() + "\" error", e.getMessage()), e);
 		}
 	}
 
@@ -157,7 +162,10 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 			field.set(target, value);
 		} catch (Exception e) {
 			throw new CommonException(CommonException.ERROR,
-					"Set field value \"" + value + "\" => \"" + target + "." + field.getName() + "\" error", e);
+					LogUtil.buildMessage(
+							"Set field value \"" + value + "\" => \"" + target + "." + field.getName() + "\" error",
+							e.getMessage()),
+					e);
 		}
 	}
 

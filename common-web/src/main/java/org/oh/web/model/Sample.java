@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * DROP TABLE sample CASCADE CONSTRAINTS PURGE;
  * CREATE TABLE sample
  * (
- *   sample_id NUMBER(20) NOT NULL
- *  ,sample_name VARCHAR2(100)
+ *   id NUMBER(20) NOT NULL
+ *  ,name VARCHAR2(100)
  *  ,test_id NUMBER(20) NOT NULL
  *  ,reg_id VARCHAR2(100)
  *  ,reg_dt VARCHAR2(14)
@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *  ,mod_dt VARCHAR2(14)
  *  ,CONSTRAINT sample_pk PRIMARY KEY
  * (
- *   sample_id
+ *   id
  * )
  * );
  * 
@@ -42,35 +42,35 @@ public class Sample extends Common {
 	@Column(primaryKey = true, sequence = "sample_seq")
 	@Min(0)
 	@Max(Long.MAX_VALUE)
-	@JsonProperty("sample_id")
-	protected Long sample_id;
+	@JsonProperty("id")
+	protected Long id;
 
 	/**
 	 * 샘플명
 	 */
 	@Column
-	protected String sample_name;
+	protected String name;
 
 	/**
 	 * 테스트 아이디(FK)
 	 */
-	@Column(references = "Test.test_id")
+	@Column(references = "Test.id")
 	protected Long test_id;
 
-	public Long getSample_id() {
-		return sample_id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setSample_id(Long sample_id) {
-		this.sample_id = sample_id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getSample_name() {
-		return sample_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setSample_name(String sample_name) {
-		this.sample_name = sample_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Long getTest_id() {

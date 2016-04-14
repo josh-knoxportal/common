@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 기본 모델
  * 
@@ -20,6 +22,7 @@ public class Default implements Serializable {
 	 */
 	protected String order_by;
 
+	@JsonIgnore
 	public String getCondition() {
 		return condition;
 	}
@@ -28,6 +31,7 @@ public class Default implements Serializable {
 		this.condition = condition;
 	}
 
+	@JsonIgnore
 	public String getOrder_by() {
 		return order_by;
 	}

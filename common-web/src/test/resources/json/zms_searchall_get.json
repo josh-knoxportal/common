@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/search.do?search_filter=테스트",
+	"url":"http://localhost:8080/v1/zms/searchall.do?floor_id=1104",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

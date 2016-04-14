@@ -35,7 +35,7 @@ public class StaticSqlBuilder extends SqlBuilder {
 	}
 
 	protected void parse(String sql, Class<?> clazz) {
-//		sqlSource = getSqlSourceParser().parse(sql, clazz); // null 추가 by skoh
-		sqlSource = getSqlSourceParser().parse(sql, clazz, null);
+		sqlSource = getSqlSourceParser().parse(sql, clazz); // null 추가 by skoh
+//		sqlSource = getSqlSourceParser().parse(sql, clazz, null); // mybatis ver 3.2.0 이상
 	}
 }

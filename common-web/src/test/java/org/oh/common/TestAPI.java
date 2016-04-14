@@ -18,6 +18,7 @@ import org.oh.common.util.ThreadUtils;
 import org.oh.common.util.Utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 /**
  * 단위 테스트
@@ -41,6 +42,12 @@ public class TestAPI {
 	 */
 	public static JsonNode readFile(String filePath) throws Exception {
 		return JsonUtil2.readFile(filePath);
+	}
+
+	public void test(ArrayNode arrayNode) throws Exception {
+		for (JsonNode jsonNode : arrayNode) {
+			test(jsonNode);
+		}
 	}
 
 	/**

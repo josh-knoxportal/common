@@ -57,6 +57,16 @@ public abstract class Utils {
 			"gif", "gul", "htm", "html", "hwp", "inf", "ini", "jar", "jpg", "jsp", "mht", "mp3", "multi", "pdf", "ppt",
 			"rar", "smi", "txt", "war", "wav", "xls", "zip" };
 
+	public static final char INITIAL_SOUND_BEGIN_UNICODE = 12593; // 초성 유니코드 시작 값(ㄱ)
+	public static final char INITIAL_SOUND_LAST_UNICODE = 12622; // 초성 유니코드 마지막 값(ㅎ)
+
+	public static final char HANGUL_BEGIN_UNICODE = 44032; // 한글 유니코드 시작 값(가)
+	public static final char HANGUL_LAST_UNICODE = 55203; // 한글 유니코드 마지막 값(힣)
+
+	public static final char HANGUL_BASE_UNIT = 588; // 자음마다 가지는 글자수(= 21 * 28)
+	public static final char[] CHO_SUNG_CHAR = { 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ',
+			'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' }; // 19개
+
 	// String ------------------------------------------------------------------
 
 	public static String[][] toKSC5601(String[][] arrStr) {
@@ -1968,6 +1978,69 @@ public abstract class Utils {
 		}
 	}
 
+	// 한글 ---------------------------------------------------------------------
+
+	/**
+	 * 초성이 포함되어 있는지 확인
+	 * 
+	 * @param str
+	 * 
+	 * @return
+	 */
+	public static boolean isIncludeCho(String str) {
+		for (char c : str.toCharArray()) {
+			if (INITIAL_SOUND_BEGIN_UNICODE <= c && c <= INITIAL_SOUND_LAST_UNICODE) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * 해당 문자열의 초성을 추출
+	 * 
+	 * @param str 문자열
+	 * 
+	 * @return 초성 문자열
+	 */
+	public static String getChoSung(String str) {
+		StringBuilder sb = new StringBuilder();
+		for (char c : str.toCharArray()) {
+			sb.append(getChoSung(c));
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * 해당 문자의 초성을 추출
+	 * 
+	 * @param c 문자
+	 * 
+	 * @return 초성 문자
+	 */
+	public static char getChoSung(char c) {
+		if (!isHangul(c))
+			return c;
+
+		int hanBegin = (c - HANGUL_BEGIN_UNICODE);
+		int index = hanBegin / HANGUL_BASE_UNIT;
+
+		return CHO_SUNG_CHAR[index];
+	}
+
+	/**
+	 * 해당 문자가 한글인지 검사
+	 * 
+	 * @param c 문자
+	 * 
+	 * @return 한글 : true, 아니면 : false
+	 */
+	public static boolean isHangul(char c) {
+		return HANGUL_BEGIN_UNICODE <= c && c <= HANGUL_LAST_UNICODE;
+	}
+
 	// Util --------------------------------------------------------------------
 
 	/**
@@ -2070,14 +2143,14 @@ public abstract class Utils {
 //		LogUtil.writeLog(toString(convertKey(map)));
 //		LogUtil.writeLog(filter(map, map2, "a"));
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		Map<String, Object> map2 = new HashMap<String, Object>();
-		Map<String, Object> map3 = new HashMap<String, Object>();
-		map3.put("c", new String[] { "1", "2" });
-		map2.put("b", map3);
-		map.put("a", map2);
-		LogUtil.writeLog(toString(map));
-		System.out.println(map);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		Map<String, Object> map2 = new HashMap<String, Object>();
+//		Map<String, Object> map3 = new HashMap<String, Object>();
+//		map3.put("c", new String[] { "1", "2" });
+//		map2.put("b", map3);
+//		map.put("a", map2);
+//		LogUtil.writeLog(toString(map));
+//		System.out.println(map);
 
 //		String s = "http://127.0.0.1:8080/keb_mgw_client/contents/CM00/html/CM030101.html?message=테 스트";
 //		LogUtil.writeLog(s);
@@ -2128,5 +2201,9 @@ public abstract class Utils {
 //		String input = "1 fish 2 fish red fish blue fish";
 //		Scanner s = new Scanner(input).useDelimiter("\\s*fish\\s*");
 //		LogUtil.writeLog(toString(s));
+
+		String str = "네ㄱ무b스A텍";
+		System.out.println(getChoSung(str));
+		System.out.println(isIncludeCho(str));
 	}
 }

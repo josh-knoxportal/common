@@ -1569,12 +1569,35 @@ public abstract class Utils {
 	}
 
 	public static Map<String, Object> convertObjectToMap(Object obj) throws RuntimeException {
+		return convertObjectToMap(obj, true);
+	}
+
+	public static Map<String, Object> convertObjectToMap(Object obj, boolean isNullValue) throws RuntimeException {
+		return convertObjectToMap(obj, null, isNullValue);
+	}
+
+	public static Map<String, Object> convertObjectToMap(Object obj, String deleteValue, boolean isNullValue)
+			throws RuntimeException {
+		return convertObjectToMap(obj, deleteValue, "", isNullValue);
+	}
+
+	public static Map<String, Object> convertObjectToMap(Object obj, String deleteValue, String keyPrefix,
+			boolean isNullValue) throws RuntimeException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			Field[] fields = obj.getClass().getDeclaredFields();
-			for (Field field : fields) {
-				field.setAccessible(true);
-				map.put(field.getName(), field.get(obj));
+			Class<?> cls = obj.getClass();
+			while (cls != null) {
+				for (Field field : cls.getDeclaredFields()) {
+					field.setAccessible(true);
+					Object value = field.get(obj);
+					if (isNullValue || value != null) {
+						if (deleteValue != null && value instanceof String) {
+							value = replace((String) value, deleteValue, "");
+						}
+						map.put(keyPrefix + field.getName(), value);
+					}
+				}
+				cls = cls.getSuperclass();
 			}
 		} catch (Exception e) {
 			throw new RuntimeException("Convert object to map \"" + obj + "\" error", e);
@@ -2179,11 +2202,11 @@ public abstract class Utils {
 
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		map.put("moduleName1", "1");
-//		IOUtil2.Test01 test = convertMapToObject(map, IOUtil2.Test01.class);
+//		HTTPUtil.Test01 test = convertMapToObject(map, HTTPUtil.Test01.class);
 //		LogUtil.writeLog(test);
 
-//		IOUtil2.Test01 test = new IOUtil2.Test01();
-//		Map<String, Object> map = convertObjectToMap(test);
+//		HTTPUtil.Test01 test = new HTTPUtil.Test01();
+//		Map<String, Object> map = convertObjectToMap(test, "skoh.", false);
 //		LogUtil.writeLog(map);
 
 //		LogUtil.writeLog(toString("test", new byte[] {1, 2}));
@@ -2202,8 +2225,10 @@ public abstract class Utils {
 //		Scanner s = new Scanner(input).useDelimiter("\\s*fish\\s*");
 //		LogUtil.writeLog(toString(s));
 
-		String str = "네ㄱ무b스A텍";
-		System.out.println(getChoSung(str));
-		System.out.println(isIncludeCho(str));
+//		String str = "네ㄱ무b스A텍";
+//		System.out.println(getChoSung(str));
+//		System.out.println(isIncludeCho(str));
+
+//		System.out.println(replace("a\bc", null, ""));
 	}
 }

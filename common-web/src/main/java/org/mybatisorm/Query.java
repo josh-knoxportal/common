@@ -32,7 +32,7 @@ public class Query {
 	
 	public static final String PARAMETER_PREFIX = "parameter.";
 	
-	// by skoh1
+	// 변수 바인딩 by skoh
 	public static final String VARIABLE_PREFIX = "\b";
 
 	private static final String CONDITION_REPLACEMENT = "#{" + PARAMETER_PREFIX + "$1}";

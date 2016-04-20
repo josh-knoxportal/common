@@ -60,7 +60,7 @@ public class Condition {
 		this.list = new LinkedList<Object>();
 	}
 	
-	// 메소드 추가 by skoh
+	// 리스트 반환 by skoh
 	public List<Object> getList() {
 		 return list;
 	}

@@ -24,11 +24,11 @@ import org.mybatisorm.annotation.TypeHandler;
 public class TokenMaker {
 	// sb.append(columnPrefix).append(ColumnAnnotation.getName(field, column)).append(" = ").append(" #{").append(fieldPrefix).append(field.getName()).append("}");
 
-	// by skoh1
+	// 변수 바인딩 by skoh
 //	public static String mybatisToken(String fieldName, TypeHandler typeHandlerAnnotation, String fieldPrefix) {
 	public static String mybatisToken(String fieldName, TypeHandler typeHandlerAnnotation, String fieldPrefix, Object value) {
 		StringBuilder token = new StringBuilder();
-		// by skoh1
+		// 변수 바인딩 by skoh
 //		token.append("#{");
 		if (value != null && value instanceof String && ((String)value).startsWith(Query.VARIABLE_PREFIX)) {
 			token.append("${");
@@ -45,14 +45,14 @@ public class TokenMaker {
 		return token.toString();
 	}
 
-	// by skoh1
+	// 변수 바인딩 by skoh
 //	public static String mybatisToken(Field field, String fieldPrefix) {
 //		return mybatisToken(field.getName(), field.getAnnotation(TypeHandler.class), fieldPrefix);
 	public static String mybatisToken(Field field, String fieldPrefix, Object value) {
 		return mybatisToken(field.getName(), field.getAnnotation(TypeHandler.class), fieldPrefix, value);
 	}
 
-	// by skoh1
+	// 변수 바인딩 by skoh
 //	public static String fieldEqual(Field field, Column column, String fieldPrefix, String columnPrefix) {
 	public static String fieldEqual(Field field, Column column, String fieldPrefix, String columnPrefix, Object value) {
 		StringBuilder token = new StringBuilder();
@@ -62,27 +62,27 @@ public class TokenMaker {
 		else token.append(ColumnAnnotation.getName(field));
 
 		token.append(" = ");
-		// by skoh1
+		// 변수 바인딩 by skoh
 //		token.append(mybatisToken(field, fieldPrefix));
 		token.append(mybatisToken(field, fieldPrefix, value));
 		return token.toString();
 	}
 
-	// by skoh1
+	// 변수 바인딩 by skoh
 //	public static String mybatisToken(Field field) {
 //		return mybatisToken(field, null);
 	public static String mybatisToken(Field field, Object value) {
 		return mybatisToken(field, null, value);
 	}
 
-	// by skoh1
+	// 변수 바인딩 by skoh
 //	public static String fieldEqual(Field field, Column column) {
 //		return fieldEqual(field, column, null, null);
 	public static String fieldEqual(Field field, Column column, Object value) {
 		return fieldEqual(field, column, null, null, value);
 	}
 
-	// by skoh1
+	// 변수 바인딩 by skoh
 //	public static String fieldEqual(Field field) {
 //		return fieldEqual(field, null, null, null);
 	public static String fieldEqual(Field field, Object value) {

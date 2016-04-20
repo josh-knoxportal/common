@@ -16,13 +16,13 @@
 package org.mybatisorm.sql.builder;
 
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.parsing.PropertyParser;
 import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
-import org.oh.common.util.ParserUtil;
-import org.oh.common.util.ReflectionUtil;
 import org.oh.common.util.Utils;
 
 public abstract class DynamicSqlBuilder extends SqlBuilder {
@@ -35,12 +35,12 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 		super(sqlSourceParser,targetClass);
 	}
 
-	// 주석 처리 by skoh1
+	// 주석 처리 by skoh
 //	public abstract BoundSql getBoundSql(Object parameterObject);
 
 	protected BoundSql getBoundSql(String sql, Object parameterObject) {
 		logger.debug(sql);
-		// by skoh1
+		// 변수 바인딩 by skoh
 		sql = parserVariable(sql, parameterObject);
 		return getSqlSourceParser().parse(sql, parameterObject.getClass()).getBoundSql(parameterObject); // null 추가 by skoh
 //		return getSqlSourceParser().parse(sql, parameterObject.getClass(), null).getBoundSql(parameterObject); // mybatis ver 3.2.0 이상
@@ -53,21 +53,23 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 						parameter);
 	}
 
-	// 메소드 추가 by skoh
+	// 모든 조건 적용 by skoh
 	protected String makeCondition(String where, Query query) {
 		return where + (query.hasCondition() ? ((where.length() > 0) ? " AND " : "") + query.getCondition() : "");
 	}
 
-	// 메소드 추가 by skoh1
+	// 바인딩 변수 by skoh
 	protected String parserVariable(String sql, Object parameterObject) {
-		Map<String, String> variables2;
+		Properties variables = new Properties();
+		Map<String, Object> map = null;
 		if (parameterObject instanceof Query) {
-			Map<String, Object> variables = ReflectionUtil.convertObjectToMap(parameterObject);
-			variables2 = Utils.convertMapToMap(variables);
+			map = Utils.convertObjectToMap(((Query) parameterObject).getParameter(), Query.VARIABLE_PREFIX,
+					Query.PARAMETER_PREFIX, false);
 		} else {
-			Map<String, Object> variables = ReflectionUtil.convertObjectToMap(parameterObject);
-			variables2 = Utils.convertMapToMap(variables);
+			map = Utils.convertObjectToMap(parameterObject, Query.VARIABLE_PREFIX, false);
 		}
-		return ParserUtil.parse(sql, variables2);
+		variables.putAll(map);
+
+		return PropertyParser.parse(sql, variables);
 	}
 }

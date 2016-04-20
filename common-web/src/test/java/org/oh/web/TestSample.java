@@ -51,11 +51,10 @@ public class TestSample {
 //		Assert.assertTrue("sample == null", sample != null);
 	}
 
-	@Test
+//	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
-		sample.setName("s");
-		sample.setMod_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
+//		sample.setName("s");
 		sample.setCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
@@ -155,12 +154,12 @@ public class TestSample {
 //	@Test
 	public void t08_insert() throws Exception {
 		Sample sample = new Sample();
-//		sample.setName("s");
-//		sample.setTest_id(2L);
+		sample.setName("s");
+		sample.setTest_id(1L);
 		sample.setReg_id("1");
-		sample.setReg_dt("1");
+		sample.setReg_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
 		sample.setMod_id("1");
-		sample.setReg_dt("1");
+		sample.setMod_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
 
 		sampleService.insert(sample);
 	}
@@ -170,7 +169,7 @@ public class TestSample {
 		Sample sample = new Sample();
 		sample.setId(1L);
 		sample.setName("s");
-//		sample.setMod_id("1");
+		sample.setMod_id("1");
 		sample.setMod_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
 
 		sampleService.update(sample);

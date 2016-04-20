@@ -31,7 +31,7 @@ public class Page<T> {
 	public Page() {
 	}
 
-	// 메소드 추가 by skoh
+	// 생성자 추가 by skoh
 	public Page(int pageNumber) {
 		setPageNumber(pageNumber);
 	}
@@ -75,7 +75,7 @@ public class Page<T> {
 		return count == 0 ? 1 : ((int)(count-1)/rows+1);
 	}
 
-	// 메소드 추가 by skoh
+	// toString 추가 by skoh
 	@Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this);

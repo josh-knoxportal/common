@@ -624,6 +624,7 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 	public static class Test01 {
 //		private String mode = "mobileAppsUpload";
 		private String moduleName = "brd";
+		private String moduleName2 = null;
 
 //		private Attachment attach1 = new Attachment("", "attach", null);
 //		private Attachment[] attachs = new Attachment[] { new Attachment("", "attachs1", null),

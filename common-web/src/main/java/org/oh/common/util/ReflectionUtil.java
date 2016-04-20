@@ -200,7 +200,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 				if (entry == null || entry.getValue() == null)
 					continue;
 
-				map2.put(entry.getKey(), ReflectionUtil.getValue(entry.getValue(), target));
+				map2.put(entry.getKey(), getValue(entry.getValue(), target));
 			}
 		}
 

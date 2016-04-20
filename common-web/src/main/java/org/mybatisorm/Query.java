@@ -31,6 +31,9 @@ public class Query {
 	private static final Pattern PARAMETER_PATTERN = Pattern.compile(PARAMETER_RE);
 	
 	public static final String PARAMETER_PREFIX = "parameter.";
+	
+	// by skoh1
+	public static final String VARIABLE_PREFIX = "\b";
 
 	private static final String CONDITION_REPLACEMENT = "#{" + PARAMETER_PREFIX + "$1}";
 	

@@ -3,90 +3,40 @@
 
 <!-- 공통 매퍼 -->
 <mapper namespace="org.oh.web.mapper.CommonMapper">
-	<sql id="start_page">
-		<choose>
-			<when test="page != null and page.selectCount == true">
-				<include refid="org.oh.web.mapper.CommonMapper.start_page_count" />
-			</when>
-			<otherwise>
-				<include refid="org.oh.web.mapper.CommonMapper.start_page_data" />
-			</otherwise>
-		</choose>
-	</sql>
-
-	<sql id="end_page">
-		<choose>
-			<when test="page != null and page.selectCount == true">
-				<include refid="org.oh.web.mapper.CommonMapper.end_page_count" />
-			</when>
-			<otherwise>
-				<include refid="org.oh.web.mapper.CommonMapper.end_page_data" />
-			</otherwise>
-		</choose>
-	</sql>
-
-	<sql id="start_page_data">
-		<if test="page != null and page.rowsPerPage != null and page.rowsPerPage > 0">
-      <![CDATA[
-/* 페이지 조회 */
-SELECT _t.*
-  FROM (SELECT _t.*
-               ,CEILING(ROW_NUMBER() OVER(ORDER BY
-      ]]>
-
-			<choose>
-				<when test="page != null and page.sortKey != null and page.sortKey != ''">
-		      <![CDATA[
-		                     ${page.sortKey} ${page.sortValue}
-		      ]]>
-				</when>
-				<otherwise>
-		      <![CDATA[
-		                     _c
-		      ]]>
-				</otherwise>
-			</choose>
-
-      <![CDATA[
-                         ) / CONVERT(FLOAT, #{page.rowsPerPage})
-                       ) AS page
-          FROM (SELECT _t.*
-      ]]>
-
-			<if test="page != null and page.sortKey == null or page.sortKey == ''">
-      	<![CDATA[
-                       ,1 AS _c
-      	]]>
-			</if>
-
-      <![CDATA[
-                  FROM (
-      ]]>
+	<sql id="page_top">
+		<if test="page_number != null and page_number != 0">
+		<![CDATA[
+/* 페이지 조회  */
+SELECT *
+  FROM (
+		]]>
 		</if>
 	</sql>
 
-	<sql id="end_page_data">
-		<if test="page != null and page.rowsPerPage != null and page.rowsPerPage > 0">
-      <![CDATA[
-                       ) _t
-               ) _t
-       ) _t
- WHERE _t.page = #{page.currentPage}
-      ]]>
+	<sql id="page_middle">
+		<if test="page_number != null and page_number != 0
+			and order_by != null and order_by != ''">
+		<![CDATA[
+      ,ROW_NUMBER() OVER (ORDER BY ${order_by}) rnum
+		]]>
 		</if>
 	</sql>
 
-	<sql id="start_page_count">
+	<sql id="page_bottom">
+		<if test="page_number != null and page_number != 0
+			and rows_per_page != null and rows_per_page != 0">
+		<![CDATA[
+) WHERE rnum BETWEEN #{rows_per_page} * (#{page_number} - 1) + 1
+                 AND #{rows_per_page} * #{page_number}
+ORDER BY rnum
+		]]>
+		</if>
+	</sql>
+
+	<sql id="count_top">
     <![CDATA[
 /* 건수 조회  */
-SELECT COUNT(1) AS "totalRecords"
-  FROM (
-    ]]>
-	</sql>
-
-	<sql id="end_page_count">
-    <![CDATA[
-       ) _t
+SELECT COUNT(1) AS count
     ]]>
 	</sql>
 </mapper>

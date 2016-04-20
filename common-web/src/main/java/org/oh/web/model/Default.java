@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 
  * @author skoh
  */
-public class Default implements Serializable {
+public abstract class Default implements Serializable {
 	/**
 	 * 조회 조건
 	 */

@@ -18,14 +18,22 @@ package org.mybatisorm;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.oh.web.page.PageNavigator;
+
 public class Page<T> {
 
 	private int pageNumber = 1; // 초기값 부여 by skoh
-	private int rows = 20; // 초기값 부여 by skoh
-	private int count;
+	private int rows = PageNavigator.ROWS_PER_PAGE; // 초기값 부여 by skoh
+	private int count; // 전체 건수
 	private List<T> list;
 
 	public Page() {
+	}
+
+	// 메소드 추가 by skoh
+	public Page(int pageNumber) {
+		setPageNumber(pageNumber);
 	}
 	
 	public Page(int pageNumber, int rows) {
@@ -65,5 +73,11 @@ public class Page<T> {
 	}
 	public int getLast() {
 		return count == 0 ? 1 : ((int)(count-1)/rows+1);
+	}
+
+	// 메소드 추가 by skoh
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this);
 	}
 }

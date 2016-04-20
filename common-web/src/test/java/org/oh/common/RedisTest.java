@@ -15,7 +15,7 @@ import org.junit.runners.MethodSorters;
 import org.oh.common.util.CollectionUtil;
 import org.oh.common.util.LogUtil;
 import org.oh.common.util.MapUtil;
-import org.oh.web.model.Sample;
+import org.oh.sample.model.Sample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;

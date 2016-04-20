@@ -1,7 +1,8 @@
-package org.oh.web.model;
+package org.oh.sample.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Column;
+import org.oh.web.page.Paging;
 
 /**
  * DDL : 샘플 테스트 매핑테이블
@@ -27,7 +28,7 @@ import org.mybatisorm.annotation.Column;
  * 
  * @author skoh
  */
-public class Sample_Test extends Common {
+public class Sample_Test extends Paging {
 	@Column(references = "Sample.id")
 	protected Long sample_id;
 

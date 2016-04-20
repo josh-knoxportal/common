@@ -1,7 +1,8 @@
-package org.oh.web.model;
+package org.oh.sample.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Column;
+import org.oh.web.page.Paging;
 
 /**
  * DDL : 테스트 테이블
@@ -29,7 +30,7 @@ import org.mybatisorm.annotation.Column;
  * 
  * @author skoh
  */
-public class Test extends Common {
+public class Test extends Paging {
 	@Column(primaryKey = true, sequence = "test_seq")
 	protected Long id;
 

@@ -1,9 +1,15 @@
-package org.oh.web.model;
+package org.oh.sample.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Fields;
 import org.mybatisorm.annotation.Join;
+import org.oh.web.model.Default;
 
+/**
+ * Sample 테이블을 기준으로 Test 테이블을 조인
+ * 
+ * @author skoh
+ */
 @Join
 public class SampleAndTest extends Default {
 	@Fields("*")

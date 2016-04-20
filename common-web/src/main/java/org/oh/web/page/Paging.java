@@ -1,17 +1,20 @@
 package org.oh.web.page;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.oh.web.model.Common;
 
-public class Paging {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class Paging extends Common {
 	/**
 	 * 페이지 번호
 	 */
-	protected int page_number = 1;
+	protected int page_number;
 
 	/**
 	 * 전체 건수
 	 */
-	protected int total_sise = 0;
+	protected int total_sise;
 
 	/**
 	 * 페이지당 건수
@@ -23,6 +26,7 @@ public class Paging {
 	 */
 	protected int page_group_count = PageNavigator.PAGE_GROUP_COUNT;
 
+	@JsonIgnore
 	public int getPage_number() {
 		return page_number;
 	}
@@ -31,6 +35,7 @@ public class Paging {
 		this.page_number = page_number;
 	}
 
+	@JsonIgnore
 	public int getTotal_sise() {
 		return total_sise;
 	}
@@ -39,6 +44,7 @@ public class Paging {
 		this.total_sise = total_sise;
 	}
 
+	@JsonIgnore
 	public int getRows_per_page() {
 		return rows_per_page;
 	}
@@ -47,6 +53,7 @@ public class Paging {
 		this.rows_per_page = rows_per_page;
 	}
 
+	@JsonIgnore
 	public int getPage_group_count() {
 		return page_group_count;
 	}

@@ -8,8 +8,9 @@
 				
 			},
 			"params":{
-				"sample_id":1,
-				"order_by":"sample_id DESC"
+				"condition":"name LIKE 's%'",
+				"order_by":"id DESC",
+				"page_number":1
 			}
 		}
 	]

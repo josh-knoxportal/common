@@ -1,4 +1,4 @@
-package org.oh.web.cache;
+package org.oh.common.cache;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -13,6 +13,6 @@ import org.springframework.cache.annotation.CacheEvict;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@CacheEvict(value = "sample", allEntries = true)
-public @interface CacheEvictSample {
+@CacheEvict(value = "common", allEntries = true)
+public @interface CacheEvictCommon {
 }

@@ -7,6 +7,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.StandardToStringStyle;
 import org.oh.common.exception.CommonException;
 import org.springframework.util.ReflectionUtils;
 
@@ -203,6 +205,33 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		}
 
 		return map2;
+	}
+
+	/**
+	 * 객체배열을 문자열로 변환한다.
+	 * 
+	 * @param objs
+	 * 
+	 * @return
+	 */
+	public static String toString(Object... objs) {
+		if (objs == null || objs.length == 0)
+			return "[]";
+
+		StandardToStringStyle style = new StandardToStringStyle();
+		style.setUseIdentityHashCode(false);
+
+		StringBuilder sb = new StringBuilder("[");
+		for (int i = 0; i < objs.length; i++) {
+			sb.append(ReflectionToStringBuilder.toString(objs[i], style));
+			if (i == objs.length - 1) {
+				sb.append("]");
+			} else {
+				sb.append(", ");
+			}
+		}
+
+		return sb.toString();
 	}
 
 	// Inner class --------------------------------------------------------------------

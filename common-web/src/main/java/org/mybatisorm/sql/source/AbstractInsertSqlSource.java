@@ -43,7 +43,9 @@ public abstract class AbstractInsertSqlSource extends DynamicSqlBuilder {
 			// } else {
 			// fields.add("#{" + fname + "}");
 			// }
-			fields.add(TokenMaker.mybatisToken(fname, fieldList.getTypeHandler(fname), null));
+			// by skoh1
+//			fields.add(TokenMaker.mybatisToken(fname, fieldList.getTypeHandler(fname), null));
+			fields.add(TokenMaker.mybatisToken(fname, fieldList.getTypeHandler(fname), null, null));
 		}
 		sb.append(StringUtil.join(fields, ","));
 		sb.append(")");

@@ -48,7 +48,7 @@ public class PagingTag extends TagSupport {
 			StringBuffer sb = new StringBuffer();
 			sb.append("<table align=\"center\"><tr>");
 
-			StringBuffer sbLink = new StringBuffer();
+			StringBuilder sbLink = new StringBuilder();
 			sbLink.append(requestUrl);
 			sbLink.append(this.paramPrefix).append("scale=").append(String.valueOf(scale));
 			sbLink.append("&").append(this.paramPrefix).append("blockScale=").append(String.valueOf(blockScale));

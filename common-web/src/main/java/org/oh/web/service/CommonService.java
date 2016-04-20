@@ -12,6 +12,13 @@ import org.oh.web.model.Default;
  */
 public interface CommonService<T extends Default> {
 	/**
+	 * 캐쉬명 정의
+	 * 
+	 * @return 캐쉬명
+	 */
+	public String getCacheName();
+
+	/**
 	 * 공통 조회
 	 * 
 	 * @param t 모델

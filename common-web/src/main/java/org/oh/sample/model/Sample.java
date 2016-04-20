@@ -1,10 +1,11 @@
-package org.oh.web.model;
+package org.oh.sample.model;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Column;
+import org.oh.web.page.Paging;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * @author skoh
  */
-public class Sample extends Common {
+public class Sample extends Paging {
 	/**
 	 * 샘플 아이디(PK), 시퀀스
 	 */

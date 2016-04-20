@@ -3,6 +3,6 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias alias="sample" type="org.oh.web.model.Sample" />
+		<typeAlias alias="sample" type="org.oh.sample.model.Sample" />
 	</typeAliases>
 </configuration>

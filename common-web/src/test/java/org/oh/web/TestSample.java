@@ -1,14 +1,25 @@
 package org.oh.web;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.mybatisorm.Page;
+import org.mybatisorm.Query;
 import org.oh.common.util.LogUtil;
-import org.oh.web.model.Sample;
+import org.oh.sample.model.Sample;
+import org.oh.sample.model.SampleAndTest;
+import org.oh.sample.model.SampleAndTest2;
+import org.oh.sample.service.SampleService;
+import org.oh.web.model.Default;
 import org.oh.web.page.PageNavigator;
-import org.oh.web.page.Paging;
-import org.oh.web.service.SampleService;
+import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,76 +28,242 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration("classpath:config-spring.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestSample {
+	private static Log log = LogFactory.getLog(TestSample.class);
+
+	/**
+	 * 공통 서비스
+	 */
+	@Resource(name = "commonService")
+	protected CommonService<Default> commonService;
+
 	/**
 	 * 샘플 서비스
 	 */
 	@Autowired
 	protected SampleService sampleService;
 
-	@Test
-	public void t04_get() throws Exception {
-		Sample model = new Sample();
-		model.setId(1L);
+//	@Test
+	public void t01_get() throws Exception {
+		Sample sample = new Sample();
+		sample.setId(1L);
 
-		sampleService.get(model);
+		sample = sampleService.get(sample);
+//		Assert.assertTrue("sample == null", sample != null);
 	}
 
 	@Test
-	public void t05_list() throws Exception {
-		Sample model = new Sample();
-		model.setName("s");
-		model.setOrder_by("id DESC");
+	public void t02_list() throws Exception {
+		Sample sample = new Sample();
+		sample.setName("s");
+		sample.setMod_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
+		sample.setCondition("name LIKE 's%'");
+		sample.setOrder_by("id DESC");
 
-		sampleService.list(model);
+		sampleService.list(sample);
 	}
 
-	@Test
-	public void t06_page() throws Exception {
-		Sample model = new Sample();
-		model.setName("s");
-		model.setOrder_by("id");
+//	@Test
+	public void t03_count() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
+		sample.setCondition("name LIKE 's%'");
 
-		Paging paging = new Paging();
-		paging.setPage_number(1);
-		paging.setRows_per_page(1);
+		sampleService.count(sample);
+	}
 
-		sampleService.page(model, paging);
+//	@Test
+	public void t04_page() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
+		sample.setCondition("name LIKE 's%'");
+		sample.setOrder_by("id DESC");
 
-//		paging.setPage_number(3);
-		paging.setTotal_sise(1);
-//		paging.setRows_per_page(10);
-		paging.setPage_group_count(1);
-		PageNavigator pageNavi = new PageNavigator.Builder(paging).build();
+		Page<Sample> page = new Page<Sample>(1);
+
+		page = sampleService.page(sample, page);
+
+		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(page).build();
+		pageNavi.setList(page.getList());
 		LogUtil.writeLog("pageNavi:" + pageNavi);
 	}
 
 //	@Test
-	public void t01_insert() throws Exception {
-		Sample model = new Sample();
-		model.setName("s");
-		model.setTest_id(2L);
-		model.setReg_id("1");
-		model.setReg_dt("1");
-		model.setMod_id("1");
-		model.setReg_dt("1");
+	public void t05_joinList() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
 
-		sampleService.insert(model);
+		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
+//		test.setName("t");
+
+		SampleAndTest sat = new SampleAndTest();
+		sat.setSample(sample);
+		sat.setTest(test);
+		sat.setCondition("sample_.name LIKE 's%'");
+		sat.setCondition("test_.name LIKE 't%'");
+		sat.setOrder_by("sample_.id DESC, test_.id DESC");
+
+//		JoinHandler handler = new JoinHandler(SampleAndTest.class);
+//		System.out.println(handler.getName());
+
+		commonService.list(sat);
 	}
 
 //	@Test
-	public void t02_update() throws Exception {
-		Sample model = new Sample();
-		model.setId(1L);
-		model.setName("x");
+	public void t06_joinPage() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
 
-		sampleService.update(model);
+		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
+//		test.setName("t");
+
+		SampleAndTest sat = new SampleAndTest();
+		sat.setSample(sample);
+		sat.setTest(test);
+		sat.setCondition("sample_.name LIKE 's%'");
+		sat.setCondition("test_.name LIKE 't%'");
+		sat.setOrder_by("sample_.id DESC, test_.id DESC");
+
+		int count = sampleService.count2(sample);
+
+		Page<Default> page = new Page<Default>(1, count);
+		PageNavigator<Default> pageNavi = new PageNavigator.Builder<Default>(page).build();
+
+		page = commonService.page(sat, page);
+
+		pageNavi.setList(page.getList());
+		LogUtil.writeLog("pageNavi:" + pageNavi);
 	}
 
 //	@Test
-	public void t03_delete() throws Exception {
-		Sample model = new Sample();
-		model.setId(1L);
+	public void t07_joinList2() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
 
-		sampleService.delete(model);
+		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
+//		test.setName("t");
+
+		SampleAndTest2 sat = new SampleAndTest2();
+		sat.setSample(sample);
+		sat.setTest(test);
+		sat.setCondition("sample_.name LIKE 's%'");
+		sat.setCondition("test_.name LIKE 't%'");
+		sat.setOrder_by("sample_.id DESC, test_.id DESC");
+
+		commonService.list(sat);
+	}
+
+//	@Test
+	public void t08_insert() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
+//		sample.setTest_id(2L);
+		sample.setReg_id("1");
+		sample.setReg_dt("1");
+		sample.setMod_id("1");
+		sample.setReg_dt("1");
+
+		sampleService.insert(sample);
+	}
+
+//	@Test
+	public void t09_update() throws Exception {
+		Sample sample = new Sample();
+		sample.setId(1L);
+		sample.setName("s");
+//		sample.setMod_id("1");
+		sample.setMod_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
+
+		sampleService.update(sample);
+	}
+
+//	@Test
+	public void t10_delete() throws Exception {
+		Sample sample = new Sample();
+		sample.setId(1L);
+//		sample.setCondition("name LIKE 's%'");
+
+		sampleService.delete(sample);
+	}
+
+	@Test
+	public void t50() throws Exception {
+		log.info("================================================================================");
+	}
+
+//	@Test
+	public void t51_get() throws Exception {
+		Sample sample = new Sample();
+		sample.setId(1L);
+
+		sampleService.get2(sample);
+	}
+
+//	@Test
+	public void t52_list() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
+		sample.setCondition("name LIKE 's%'");
+		sample.setOrder_by("id DESC");
+
+		sampleService.list2(sample);
+	}
+
+//	@Test
+	public void t53_count2() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
+		sample.setCondition("name LIKE 's%'");
+
+		sampleService.count2(sample);
+	}
+
+//	@Test
+	public void t54_page() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
+		sample.setCondition("name LIKE 's%'");
+		sample.setOrder_by("id DESC");
+
+		int count = sampleService.count2(sample);
+
+		sample.setPage_number(1);
+		sample.setTotal_sise(count);
+		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(sample).build();
+
+		List<Sample> list = sampleService.page(sample);
+
+		pageNavi.setList(list);
+		LogUtil.writeLog("pageNavi:" + pageNavi);
+	}
+
+//	@Test
+	public void t55_insert() throws Exception {
+		Sample sample = new Sample();
+//		sample.setName("s");
+//		sample.setTest_id(2L);
+		sample.setReg_id("1");
+		sample.setReg_dt("1");
+		sample.setMod_id("1");
+		sample.setReg_dt("1");
+
+		sampleService.insert2(sample);
+	}
+
+//	@Test
+	public void t56_update() throws Exception {
+		Sample sample = new Sample();
+		sample.setId(1L);
+		sample.setName("s");
+		sample.setMod_id("1");
+
+		sampleService.update2(sample);
+	}
+
+//	@Test
+	public void t57_delete() throws Exception {
+		Sample sample = new Sample();
+		sample.setId(1L);
+
+		sampleService.delete2(sample);
 	}
 }

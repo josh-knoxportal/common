@@ -12,6 +12,7 @@ package org.mybatisorm.annotation.handler;
 
 import java.lang.reflect.Field;
 
+import org.mybatisorm.Query;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.TypeHandler;
 
@@ -23,9 +24,17 @@ import org.mybatisorm.annotation.TypeHandler;
 public class TokenMaker {
 	// sb.append(columnPrefix).append(ColumnAnnotation.getName(field, column)).append(" = ").append(" #{").append(fieldPrefix).append(field.getName()).append("}");
 
-	public static String mybatisToken(String fieldName, TypeHandler typeHandlerAnnotation, String fieldPrefix) {
+	// by skoh1
+//	public static String mybatisToken(String fieldName, TypeHandler typeHandlerAnnotation, String fieldPrefix) {
+	public static String mybatisToken(String fieldName, TypeHandler typeHandlerAnnotation, String fieldPrefix, Object value) {
 		StringBuilder token = new StringBuilder();
-		token.append("#{");
+		// by skoh1
+//		token.append("#{");
+		if (value != null && value instanceof String && ((String)value).startsWith(Query.VARIABLE_PREFIX)) {
+			token.append("${");
+		} else {
+			token.append("#{");
+		}
 		if (fieldPrefix != null && fieldPrefix.length() > 0) token.append(fieldPrefix);
 		token.append(fieldName);
 		if (typeHandlerAnnotation != null) {
@@ -36,11 +45,16 @@ public class TokenMaker {
 		return token.toString();
 	}
 
-	public static String mybatisToken(Field field, String fieldPrefix) {
-		return mybatisToken(field.getName(), field.getAnnotation(TypeHandler.class), fieldPrefix);
+	// by skoh1
+//	public static String mybatisToken(Field field, String fieldPrefix) {
+//		return mybatisToken(field.getName(), field.getAnnotation(TypeHandler.class), fieldPrefix);
+	public static String mybatisToken(Field field, String fieldPrefix, Object value) {
+		return mybatisToken(field.getName(), field.getAnnotation(TypeHandler.class), fieldPrefix, value);
 	}
 
-	public static String fieldEqual(Field field, Column column, String fieldPrefix, String columnPrefix) {
+	// by skoh1
+//	public static String fieldEqual(Field field, Column column, String fieldPrefix, String columnPrefix) {
+	public static String fieldEqual(Field field, Column column, String fieldPrefix, String columnPrefix, Object value) {
 		StringBuilder token = new StringBuilder();
 
 		if (columnPrefix != null && columnPrefix.length() > 0) token.append(columnPrefix);
@@ -48,20 +62,31 @@ public class TokenMaker {
 		else token.append(ColumnAnnotation.getName(field));
 
 		token.append(" = ");
-		token.append(mybatisToken(field, fieldPrefix));
+		// by skoh1
+//		token.append(mybatisToken(field, fieldPrefix));
+		token.append(mybatisToken(field, fieldPrefix, value));
 		return token.toString();
 	}
 
-	public static String mybatisToken(Field field) {
-		return mybatisToken(field, null);
+	// by skoh1
+//	public static String mybatisToken(Field field) {
+//		return mybatisToken(field, null);
+	public static String mybatisToken(Field field, Object value) {
+		return mybatisToken(field, null, value);
 	}
 
-	public static String fieldEqual(Field field, Column column) {
-		return fieldEqual(field, column, null, null);
+	// by skoh1
+//	public static String fieldEqual(Field field, Column column) {
+//		return fieldEqual(field, column, null, null);
+	public static String fieldEqual(Field field, Column column, Object value) {
+		return fieldEqual(field, column, null, null, value);
 	}
 
-	public static String fieldEqual(Field field) {
-		return fieldEqual(field, null, null, null);
+	// by skoh1
+//	public static String fieldEqual(Field field) {
+//		return fieldEqual(field, null, null, null);
+	public static String fieldEqual(Field field, Object value) {
+		return fieldEqual(field, null, null, null, value);
 	}
 
 }

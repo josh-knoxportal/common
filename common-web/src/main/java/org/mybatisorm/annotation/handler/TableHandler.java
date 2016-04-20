@@ -129,7 +129,9 @@ public class TableHandler {
 			if (!column.primaryKey()) {
 				if (sb.length() > 0) sb.append(",");
 				// sb.append(ColumnAnnotation.getName(field, column)).append(" = #{").append(field.getName()).append("}");
-				sb.append(TokenMaker.fieldEqual(field));
+				// by skoh1
+//				sb.append(TokenMaker.fieldEqual(field));
+				sb.append(TokenMaker.fieldEqual(field, null));
 			}
 		}
 		return sb.toString();
@@ -143,7 +145,9 @@ public class TableHandler {
 
 			} else {
 				// sb.append(ColumnAnnotation.getName(field)).append(" = #{").append(field.getName()).append("}");
-				sb.append(TokenMaker.fieldEqual(field, null));
+				// by skoh1
+//				sb.append(TokenMaker.fieldEqual(field, null));
+				sb.append(TokenMaker.fieldEqual(field, null, null));
 			}
 		}
 		return sb.toString();
@@ -170,7 +174,9 @@ public class TableHandler {
 				Column column = field.getAnnotation(Column.class);
 				if (sb.length() > 0) sb.append(delimiter);
 				// sb.append(columnPrefix).append(ColumnAnnotation.getName(field, column)).append(" = ").append(" #{").append(fieldPrefix).append(field.getName()).append("}");
-				sb.append(TokenMaker.fieldEqual(field, column, fieldPrefix, columnPrefix));
+				// by skoh1
+//				sb.append(TokenMaker.fieldEqual(field, column, fieldPrefix, columnPrefix));
+				sb.append(TokenMaker.fieldEqual(field, column, fieldPrefix, columnPrefix, value));
 			}
 		}
 		return sb.toString();
@@ -186,7 +192,9 @@ public class TableHandler {
 				if (value != null) {
 					if (sb.length() > 0) sb.append(", ");
 					// sb.append(ColumnAnnotation.getName(field, column)).append(" = ").append(" #{").append(field.getName()).append("}");
-					sb.append(TokenMaker.fieldEqual(field, column));
+					// by skoh1
+//					sb.append(TokenMaker.fieldEqual(field, column));
+					sb.append(TokenMaker.fieldEqual(field, column, value));
 				}
 			}
 		}
@@ -205,7 +213,9 @@ public class TableHandler {
 					if (sb.length() > 0) sb.append(", ");
 					columnName = ColumnAnnotation.getName(field, column);
 					// sb.append(columnName).append(" = ").append(columnName).append(" + #{").append(field.getName()).append("}");
-					sb.append(columnName).append(" = ").append(columnName).append(" + ").append(TokenMaker.mybatisToken(field));
+					// by skoh1
+//					sb.append(columnName).append(" = ").append(columnName).append(" + ").append(TokenMaker.mybatisToken(field));
+					sb.append(columnName).append(" = ").append(columnName).append(" + ").append(TokenMaker.mybatisToken(field, value));
 				}
 			}
 		}
@@ -433,7 +443,9 @@ public class TableHandler {
 			if (value != null) {
 				if (sb.length() > 0) sb.append(" AND ");
 				// sb.append(ColumnAnnotation.getName(field)).append(" = ").append(" #{").append(fieldPrefix).append(field.getName()).append("}");
-				sb.append(TokenMaker.fieldEqual(field));
+				// by skoh1
+//				sb.append(TokenMaker.fieldEqual(field));
+				sb.append(TokenMaker.fieldEqual(field, value));
 			}
 		}
 		return sb.toString();

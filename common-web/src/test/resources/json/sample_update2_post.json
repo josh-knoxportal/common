@@ -1,0 +1,17 @@
+{
+	"url":"http://localhost:8050/sample/update2",
+	"method":"PUT",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				
+			},
+			"params":{
+				"id":1,
+				"name":"s",
+				"mod_id":"1"
+			}
+		}
+	]
+}

@@ -35,7 +35,8 @@ public abstract class SqlBuilder implements SqlSource {
 		this.handler = HandlerFactory.getHandler(targetClass);
 	}
 
-	public abstract BoundSql getBoundSql(Object parameterObject);
+	// 주석 처리 by skoh1
+//	public abstract BoundSql getBoundSql(Object parameterObject);
 
 	public SqlSourceBuilder getSqlSourceParser() {
 		return sqlSourceBuilder;

@@ -25,9 +25,14 @@ public class TestAPI_skoh extends TestAPI {
 
 //		arrayNode.add(readFile("src/test/resources/json/test.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/sample_get_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_page_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_page2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/sample_page_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/sample_page2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_update_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_update2_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
@@ -45,7 +50,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/zms_search2_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_search2_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));

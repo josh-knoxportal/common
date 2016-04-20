@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
-import org.oh.web.cache.CacheEvictSample;
+import org.oh.common.cache.CacheEvictCommon;
+import org.oh.common.cache.CacheableCommon;
 import org.oh.web.model.Default;
 import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,11 +18,17 @@ import org.springframework.stereotype.Service;
  */
 @Service("commonService")
 public class CommonServiceImpl<T extends Default> implements CommonService<T> {
-	/**
-	 * 공통 매퍼
-	 */
+	@Autowired
+	protected CacheManager cacheManager;
+	protected Cache cache = null;
+
 	@Autowired
 	protected EntityManager entityManager;
+
+	@Override
+	public String getCacheName() {
+		return "common";
+	}
 
 	@Override
 	public T get(T t) throws Exception {
@@ -27,9 +36,19 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	}
 
 	@Override
-	@CacheEvictSample
+	@CacheableCommon
 	public List<T> list(T t) throws Exception {
-		return entityManager.list(t, t.getCondition(), t.getOrder_by());
+		List<T> list;
+
+//		list = getCache().get(ReflectionUtil.toString(t), List.class);
+//		if (list != null)
+//			return list;
+
+		list = entityManager.list(t, t.getCondition(), t.getOrder_by());
+
+//		cache.put(t.toString(), list);
+
+		return list;
 	}
 
 	@Override
@@ -43,20 +62,38 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	}
 
 	@Override
-	@CacheEvictSample
+	@CacheEvictCommon
 	public void insert(T t) throws Exception {
 		entityManager.insert(t);
+
+//		getCache().clear();
 	}
 
 	@Override
-	@CacheEvictSample
+	@CacheEvictCommon
 	public void update(T t) throws Exception {
 		entityManager.update(t);
 	}
 
 	@Override
-	@CacheEvictSample
+	@CacheEvictCommon
 	public void delete(T t) throws Exception {
 		entityManager.delete(t, t.getCondition());
+	}
+
+	/**
+	 * 캐쉬 조회
+	 * 
+	 * @param Cache
+	 * 
+	 * @return
+	 */
+	protected Cache getCache() {
+		if (cache != null)
+			return cache;
+
+		cache = cacheManager.getCache(getCacheName());
+
+		return cache;
 	}
 }

@@ -7,13 +7,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
-	<!-- DataSource -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@192.168.3.115:1521:xe" />
-		<property name="username" value="skoh" />
-		<property name="password" value="skoh" />
-	</bean>
+	<import resource="classpath:domain/config-spring.xml" />
+
+	<!-- Poperties -->
+	<context:property-placeholder properties-ref="prop" />
 
 	<!-- Transaction -->
 	<tx:annotation-driven />
@@ -26,21 +23,21 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:config-mybatis.xml" />
-		<property name="mapperLocations" value="classpath:mapper/oracle/**/*.xml" />
+		<property name="mapperLocations" value="classpath:mapper/${dbmsVendorType}/**/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="org.oh.web.mapper" />
+		<property name="basePackage" value="#{prop[mapperBasePackage]}" />
 	</bean>
 
 	<!-- MyBatis ORM -->
 	<bean class="org.mybatisorm.EntityManager">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-		<property name="sourceType" value="oracle" />
+		<property name="sourceType" value="${dbmsVendorType}" />
 	</bean>
 
 	<!-- Cache -->
-	<cache:annotation-driven />
+	<!-- <cache:annotation-driven /> -->
 
 	<!-- Cache EHCache -->
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
@@ -132,8 +129,6 @@
 	<!-- Validation -->
 	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/> -->
 
-	<!-- Domain -->
-	<context:component-scan base-package="org.oh.adapter" />
-	<context:component-scan base-package="org.oh.common" />
-	<context:component-scan base-package="org.oh.web" />
+	<!-- Package -->
+	<context:component-scan base-package="org.oh.adapter org.oh.common org.oh.web" />
 </beans>

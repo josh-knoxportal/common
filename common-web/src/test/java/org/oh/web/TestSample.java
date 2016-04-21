@@ -70,7 +70,7 @@ public class TestSample {
 		sampleService.count(sample);
 	}
 
-//	@Test
+	@Test
 	public void t04_page() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
@@ -216,7 +216,7 @@ public class TestSample {
 		sampleService.count2(sample);
 	}
 
-//	@Test
+	@Test
 	public void t54_page() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");

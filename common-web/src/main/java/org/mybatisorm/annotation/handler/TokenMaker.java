@@ -30,7 +30,7 @@ public class TokenMaker {
 		StringBuilder token = new StringBuilder();
 		// 변수 바인딩 by skoh
 //		token.append("#{");
-		if (value != null && value instanceof String && ((String)value).startsWith(Query.VARIABLE_PREFIX)) {
+		if (value != null && value instanceof String && ((String) value).endsWith(Query.VARIABLE_PREFIX)) {
 			token.append("${");
 		} else {
 			token.append("#{");

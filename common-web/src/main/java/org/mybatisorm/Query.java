@@ -48,6 +48,14 @@ public class Query {
 	private int rows;
 	private int start;
 	private int end;
+
+	// 변수 바인딩 by skoh
+	public static String makeVariable(String variable) {
+		if (variable == null)
+			return variable;
+
+		return variable + VARIABLE_PREFIX;
+	}
 	
 	public Query() {
 	}

@@ -71,7 +71,7 @@
 	<!-- <appender-ref ref="dailyFile" /> -->
 	<!-- </logger> -->
 
-	<root level="TRACE">
+	<root level="INFO">
 		<appender-ref ref="console" />
 		<appender-ref ref="dailyFile" />
 	</root>

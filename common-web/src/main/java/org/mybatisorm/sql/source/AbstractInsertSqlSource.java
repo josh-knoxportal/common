@@ -22,6 +22,7 @@ import org.mybatisorm.annotation.handler.FieldList;
 import org.mybatisorm.annotation.handler.TokenMaker;
 import org.mybatisorm.sql.builder.DynamicSqlBuilder;
 import org.mybatisorm.util.StringUtil;
+import org.oh.common.util.ReflectionUtil;
 
 @SqlCommand(SqlCommandType.INSERT)
 public abstract class AbstractInsertSqlSource extends DynamicSqlBuilder {
@@ -45,7 +46,8 @@ public abstract class AbstractInsertSqlSource extends DynamicSqlBuilder {
 			// }
 			// 변수 바인딩 by skoh
 //			fields.add(TokenMaker.mybatisToken(fname, fieldList.getTypeHandler(fname), null));
-			fields.add(TokenMaker.mybatisToken(fname, fieldList.getTypeHandler(fname), null, null));
+			fields.add(TokenMaker.mybatisToken(fname, fieldList.getTypeHandler(fname), null,
+					ReflectionUtil.getValue(parameter, fname)));
 		}
 		sb.append(StringUtil.join(fields, ","));
 		sb.append(")");

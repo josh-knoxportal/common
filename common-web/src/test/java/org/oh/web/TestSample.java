@@ -154,12 +154,12 @@ public class TestSample {
 //	@Test
 	public void t08_insert() throws Exception {
 		Sample sample = new Sample();
-		sample.setName("s");
-		sample.setTest_id(1L);
+//		sample.setName("s");
+//		sample.setTest_id(1L);
 		sample.setReg_id("1");
-		sample.setReg_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
+		sample.setReg_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')"));
 		sample.setMod_id("1");
-		sample.setMod_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
+		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')"));
 
 		sampleService.insert(sample);
 	}
@@ -168,9 +168,9 @@ public class TestSample {
 	public void t09_update() throws Exception {
 		Sample sample = new Sample();
 		sample.setId(1L);
-		sample.setName("s");
+//		sample.setName("s");
 		sample.setMod_id("1");
-		sample.setMod_dt(Query.VARIABLE_PREFIX + "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')");
+		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')"));
 
 		sampleService.update(sample);
 	}
@@ -239,11 +239,9 @@ public class TestSample {
 	public void t55_insert() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
-//		sample.setTest_id(2L);
+//		sample.setTest_id(1L);
 		sample.setReg_id("1");
-		sample.setReg_dt("1");
 		sample.setMod_id("1");
-		sample.setReg_dt("1");
 
 		sampleService.insert2(sample);
 	}
@@ -252,7 +250,7 @@ public class TestSample {
 	public void t56_update() throws Exception {
 		Sample sample = new Sample();
 		sample.setId(1L);
-		sample.setName("s");
+//		sample.setName("s");
 		sample.setMod_id("1");
 
 		sampleService.update2(sample);
@@ -264,5 +262,17 @@ public class TestSample {
 		sample.setId(1L);
 
 		sampleService.delete2(sample);
+	}
+
+//	@Test
+	public void t58_merge() throws Exception {
+		Sample sample = new Sample();
+		sample.setId(1L);
+//		sample.setName("s");
+//		sample.setTest_id(1L);
+		sample.setReg_id("1");
+		sample.setMod_id("1");
+
+		sampleService.merge(sample);
 	}
 }

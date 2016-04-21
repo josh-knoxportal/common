@@ -12,6 +12,17 @@
 	<!-- Poperties -->
 	<context:property-placeholder properties-ref="prop" />
 
+	<!-- DataSource -->
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSource_log4jdbc" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="Binded SQL : " />
+			</bean>
+		</property>
+	</bean>
+
 	<!-- Transaction -->
 	<tx:annotation-driven />
 
@@ -116,7 +127,7 @@
 
 	<aop:config>
 		<aop:pointcut id="publicMethod"
-			expression="execution(public * org.oh.web..*Controller.*(..)) or execution(public * org.oh.web..*Service.*(..))" />
+			expression="execution(public * org.oh..*Controller.*(..)) or execution(public * org.oh..*Service.*(..))" />
 		<aop:aspect ref="logAdvice">
 			<!-- <aop:before method="before" pointcut-ref="publicMethod" /> -->
 			<!-- <aop:after-returning method="afterReturning" pointcut-ref="publicMethod" returning="result" /> -->

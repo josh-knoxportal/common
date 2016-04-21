@@ -154,7 +154,7 @@ VALUES (#{id}
 
 	<update id="update" parameterType="sample">
 		<![CDATA[
-UPDATE sample
+UPDATE sample SET
 		]]>
 
 		<set>
@@ -172,8 +172,8 @@ UPDATE sample
 		</set>
 
 		<![CDATA[
-       ,mod_id = #{mod_id}
-       ,mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+       mod_id = #{mod_id},
+       mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
  WHERE id = #{id}
 		]]>
 	</update>
@@ -200,8 +200,53 @@ SELECT NVL (a.id, b.id) AS id
 MERGE INTO sample
       USING DUAL
          ON (id = #{id}) 
+ WHEN NOT MATCHED THEN
+      INSERT (id
+		]]>
+
+		<if test="name != null and name != ''">
+		<![CDATA[
+             ,name
+		]]>
+		</if>
+
+		<if test="test_id != null and test_id != ''">
+		<![CDATA[
+             ,test_id
+		]]>
+		</if>
+
+		<![CDATA[
+             ,reg_id
+             ,reg_dt
+             ,mod_id
+             ,mod_dt
+		]]>
+
+		<![CDATA[
+                   )
+VALUES (#{id}
+		]]>
+
+		<if test="name != null and name != ''">
+		<![CDATA[
+       ,#{name}
+		]]>
+		</if>
+
+		<if test="test_id != null and test_id != ''">
+		<![CDATA[
+       ,#{test_id}
+		]]>
+		</if>
+
+		<![CDATA[
+       ,#{reg_id}
+       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+       ,#{mod_id}
+       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
  WHEN MATCHED THEN
-      UPDATE
+      UPDATE SET
 		]]>
 
 		<set>
@@ -222,21 +267,6 @@ MERGE INTO sample
              mod_id = #{mod_id},
              mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
        WHERE id = #{id}
- WHEN NOT MATCHED THEN
-      INSERT (id
-             ,name
-             ,test_id
-             ,reg_id
-             ,reg_dt
-             ,mod_id
-             ,mod_dt)
-      VALUES (#{id}
-             ,#{name}
-             ,#{test_id}
-             ,#{reg_id}
-             ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
-             ,#{mod_id}
-             ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
 		]]>
 	</insert>
 </mapper>

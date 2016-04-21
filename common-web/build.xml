@@ -23,6 +23,7 @@
 	<!-- <property name="classes_dir" value="${build_dir}/classes" /> -->
 	<property name="classes_dir" value="${target_dir}/classes" />
 	<property name="copy_dir" value="/Users/skoh/git/skoh-nemus/s-lbs-server/common-libs" />
+	<!-- <property name="copy_dir" value="C:\dev\git\skoh-nemus\s-lbs-server\common-libs" /> -->
 
 	<!-- <path id="classpath"> -->
 	<!-- <fileset dir="../../workspace_common/common-web/lib"> -->

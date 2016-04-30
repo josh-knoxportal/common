@@ -1,0 +1,15 @@
+{
+	"url":"http://localhost:8050/sample_test/list",
+	"method":"POST",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				
+			},
+			"params":{
+				"order_by":"sample_id DESC, test_id DESC"
+			}
+		}
+	]
+}

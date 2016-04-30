@@ -1,4 +1,4 @@
-package org.oh.common.db.common;
+package org.oh.common.db.mybatis;
 
 import java.io.File;
 import java.io.IOException;

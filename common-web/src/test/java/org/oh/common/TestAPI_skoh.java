@@ -5,13 +5,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAPI_skoh extends TestAPI {
-	protected static ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
-
 	@BeforeClass
 	public static void initClass() throws Exception {
 //		arrayNode.add(readFile("src/test/resources/json/com_gateway_put.json"));
@@ -33,21 +28,27 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/sample_page2_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_update_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_update2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample&test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample&test2_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/test_list_get.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_reset.json"));
+//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get.json"));Preparing
+//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_map_datas_put.json"));
-
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get2.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zcms_zone_reset_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get2.json"));

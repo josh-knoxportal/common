@@ -2,12 +2,12 @@ package org.oh.sample.model;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.mybatisorm.annotation.Column;
 import org.oh.web.page.Paging;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * DDL : 샘플 테이블
@@ -27,8 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *  ,CONSTRAINT sample_pk PRIMARY KEY
  * (
  *   id
- * )
- * );
+ * ));
  * 
  * DROP SEQUENCE sample_seq;
  * CREATE SEQUENCE sample_seq INCREMENT BY 1 START WITH 1;
@@ -40,15 +39,16 @@ public class Sample extends Paging {
 	/**
 	 * 샘플 아이디(PK), 시퀀스
 	 */
-	@Column(primaryKey = true, sequence = "sample_seq")
 	@Min(0)
 	@Max(Long.MAX_VALUE)
-	@JsonProperty("id")
+	@Column(primaryKey = true, sequence = "sample_seq")
 	protected Long id;
 
 	/**
 	 * 샘플명
 	 */
+	@NotNull
+	@NotEmpty
 	@Column
 	protected String name;
 

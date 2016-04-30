@@ -17,8 +17,8 @@
 
 	<!-- Poperties -->
 	<util:properties id="prop">
-		<prop key="dbmsVendorType">oracle</prop>
-		<prop key="mapperBasePackage">org.oh.sample.mapper</prop>
+		<prop key="dataSource.vendorType">oracle</prop>
+		<prop key="mybatis.mapper.basePackage">org.oh.sample.mapper</prop>
 	</util:properties>
 
 </beans>

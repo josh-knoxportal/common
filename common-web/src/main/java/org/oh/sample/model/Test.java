@@ -21,8 +21,7 @@ import org.oh.web.page.Paging;
  *  ,CONSTRAINT test_pk PRIMARY KEY
  * (
  *   id
- * )
- * );
+ * ));
  * 
  * DROP SEQUENCE test_seq;
  * CREATE SEQUENCE test_seq INCREMENT BY 1 START WITH 1;

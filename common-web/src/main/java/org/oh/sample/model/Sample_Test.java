@@ -18,12 +18,11 @@ import org.oh.web.page.Paging;
  *  ,reg_dt VARCHAR2(14)
  *  ,mod_id VARCHAR2(100)
  *  ,mod_dt VARCHAR2(14)
- *  ,CONSTRAINT sample_pk PRIMARY KEY
+ *  ,CONSTRAINT sample_test_pk PRIMARY KEY
  * (
  *   sample_id
  *  ,test_id
- * )
- * );
+ * ));
  * </pre>
  * 
  * @author skoh

@@ -2,9 +2,6 @@
 <projectDescription>
 	<name>common-web</name>
 	<comment></comment>
-	<projects>
-		<project>mybatis-3-master</project>
-	</projects>
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.wst.jsdt.core.javascriptValidator</name>

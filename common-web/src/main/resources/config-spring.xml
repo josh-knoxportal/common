@@ -24,7 +24,7 @@
 	</bean>
 
 	<!-- Transaction -->
-	<tx:annotation-driven />
+	<tx:annotation-driven proxy-target-class="true" />
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="log4jdbcProxyDataSource" />
@@ -34,21 +34,21 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="log4jdbcProxyDataSource" />
 		<property name="configLocation" value="classpath:config-mybatis.xml" />
-		<property name="mapperLocations" value="classpath:mapper/${dbmsVendorType}/**/*.xml" />
+		<property name="mapperLocations" value="classpath:mapper/${dataSource.vendorType}/**/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="#{prop[mapperBasePackage]}" />
+		<property name="basePackage" value="#{prop['mybatis.mapper.basePackage']}" />
 	</bean>
 
 	<!-- MyBatis ORM -->
 	<bean class="org.mybatisorm.EntityManager">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-		<property name="sourceType" value="${dbmsVendorType}" />
+		<property name="sourceType" value="${dataSource.vendorType}" />
 	</bean>
 
 	<!-- Cache -->
-	<!-- <cache:annotation-driven /> -->
+<!-- 	<cache:annotation-driven proxy-target-class="true" /> -->
 
 	<!-- Cache EHCache -->
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
@@ -120,7 +120,7 @@
 	</bean>
 
 	<!-- AOP -->
-	<aop:aspectj-autoproxy />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- Logging -->
 	<bean id="logAdvice" class="org.oh.common.aop.LogAdvice" />

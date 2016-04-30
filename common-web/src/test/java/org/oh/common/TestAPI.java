@@ -6,19 +6,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.AfterClass;
-import org.junit.Test;
 import org.oh.common.thread.HTTPUtilTask;
 import org.oh.common.util.HTTPUtils;
 import org.oh.common.util.JsonUtil2;
-import org.oh.common.util.LogUtil;
 import org.oh.common.util.ThreadUtils;
 import org.oh.common.util.Utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 /**
  * 단위 테스트
@@ -26,10 +27,9 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
  * @author skoh
  */
 public class TestAPI {
-	@AfterClass
-	public static void destroy() throws Exception {
-		ThreadUtils.shutdownThreadPool();
-	}
+	protected static ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
+
+	protected Log log = LogFactory.getLog(getClass());
 
 	/**
 	 * 파일 읽기
@@ -44,7 +44,12 @@ public class TestAPI {
 		return JsonUtil2.readFile(filePath);
 	}
 
-	public void test(ArrayNode arrayNode) throws Exception {
+	@AfterClass
+	public static void destroy() throws Exception {
+		ThreadUtils.shutdownThreadPool();
+	}
+
+	protected void test(ArrayNode arrayNode) throws Exception {
 		for (JsonNode jsonNode : arrayNode) {
 			test(jsonNode);
 		}
@@ -133,7 +138,7 @@ public class TestAPI {
 		} else {
 			for (Future<Object> future : futureList) {
 				Map<String, Object> result = (Map) future.get();
-				LogUtil.writeLog(result);
+				log.info(result);
 
 				if (Utils.isValidate(responseFormat)) {
 					String content = HTTPUtils.getContentString(result);
@@ -142,14 +147,13 @@ public class TestAPI {
 						content = JsonUtil2.prettyPrint(content);
 					}
 
-					LogUtil.writeLog(content);
+					log.info(content);
 				}
 			}
 		}
 	}
 
-	@Test
-	public void test01() throws Exception {
+	public static void main(String[] args) throws Exception {
 		new TestAPI().test(readFile("src/test/resources/json/sample_list_post.json"));
 	}
 }

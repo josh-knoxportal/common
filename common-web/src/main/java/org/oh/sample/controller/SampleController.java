@@ -2,6 +2,8 @@ package org.oh.sample.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.oh.sample.model.Sample;
 import org.oh.sample.service.SampleService;
 import org.oh.web.controller.CommonController;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,7 +31,10 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/list2", method = { RequestMethod.GET, RequestMethod.POST })
-	public ResponseEntity<List<Sample>> list2(Sample sample) throws Exception {
+//	public ResponseEntity<List<Sample>> list2(Sample sample) throws Exception {
+	public ResponseEntity<List<Sample>> list(@Valid Sample sample, BindingResult errors) throws Exception {
+		log.info(errors.hasErrors());
+		ValidationUtils.rejectIfEmpty(errors, "name", "field.required");
 		List<Sample> list = sampleService.list2(sample);
 
 		return new ResponseEntity<List<Sample>>(list, HttpStatus.OK);
@@ -44,13 +51,10 @@ public class SampleController extends CommonController<Sample> {
 	public ResponseEntity<PageNavigator<Sample>> page(Sample sample) throws Exception {
 		int count = sampleService.count2(sample);
 
-		sample.setTotal_sise(count);
-		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(sample).build();
-
 		List<Sample> list = sampleService.page(sample);
 
-		pageNavi.setList(list);
-		return new ResponseEntity<PageNavigator<Sample>>(pageNavi, HttpStatus.OK);
+		sample.setTotal_sise(count);
+		return new ResponseEntity<PageNavigator<Sample>>(PageNavigator.getInstance(sample, list), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/insert2", method = RequestMethod.POST)

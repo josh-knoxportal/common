@@ -2,6 +2,8 @@ package org.oh.web.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
 import org.oh.common.cache.CacheEvictCommon;
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("commonService")
 public class CommonServiceImpl<T extends Default> implements CommonService<T> {
+	protected Log log = LogFactory.getLog(getClass());
+
 	@Autowired
 	protected CacheManager cacheManager;
 	protected Cache cache = null;

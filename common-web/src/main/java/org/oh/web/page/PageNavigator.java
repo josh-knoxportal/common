@@ -26,6 +26,20 @@ public class PageNavigator<T> {
 
 	protected List<T> list = new ArrayList<T>(); // 데이타
 
+	public static <T> PageNavigator<T> getInstance(Page<T> page) throws Exception {
+		PageNavigator<T> pageNavi = new PageNavigator.Builder<T>(page).build();
+		pageNavi.setList(page.getList());
+
+		return pageNavi;
+	}
+
+	public static <T> PageNavigator<T> getInstance(Paging paging, List<T> list) throws Exception {
+		PageNavigator<T> pageNavi = new PageNavigator.Builder<T>(paging).build();
+		pageNavi.setList(list);
+
+		return pageNavi;
+	}
+
 	public static class Builder<T> {
 		// 필수 인자
 		protected int currentPage = 1; // 현재 페이지 번호

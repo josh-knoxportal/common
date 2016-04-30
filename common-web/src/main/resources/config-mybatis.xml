@@ -5,4 +5,10 @@
 	<typeAliases>
 		<typeAlias alias="sample" type="org.oh.sample.model.Sample" />
 	</typeAliases>
+
+	<plugins>
+		<plugin interceptor="org.oh.common.db.mybatis.ExecutorInterceptor" />
+		<!-- <plugin interceptor="org.oh.common.db.mybatis.StatementInterceptor" /> -->
+		<!-- <plugin interceptor="org.oh.common.db.mybatis.ResultSetInterceptor" /> -->
+	</plugins>
 </configuration>

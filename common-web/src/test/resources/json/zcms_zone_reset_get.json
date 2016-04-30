@@ -1,7 +1,6 @@
 {
-	"url":"http://localhost:8080/v1/mms/rssi.do?id=5",
+	"url":"http://localhost:8080/v1/cbms/zone_reset.do",
 	"method":"GET",
-	"responseFormat":"JSON",
 	"list":[
 		{
 			"headers":{

@@ -29,6 +29,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip-4.2.xsd
 		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
+	<!-- Property -->
 	<context:property-placeholder properties-ref="prop" />
 
 	<bean class="java.lang.String">
@@ -40,7 +41,25 @@
 		<prop key="key2">value2</prop>
 	</util:properties>
 
+	<!-- Thread Pool -->
 	<task:annotation-driven executor="executor" />
 
 	<task:executor id="executor" keep-alive="3" pool-size="10" queue-capacity="10" rejection-policy="CALLER_RUNS" />
+
+	<!-- Init Bind -->
+	<!-- deprecated ver 3.2 -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.RequestMappingHandlerAdapter"> -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="webBindingInitializer" ref="webBindingInitializer" />
+	</bean>
+
+	<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+		<property name="conversionService" ref="conversionService" />
+	</bean>
+
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set />
+		</property>
+	</bean>
 </beans>

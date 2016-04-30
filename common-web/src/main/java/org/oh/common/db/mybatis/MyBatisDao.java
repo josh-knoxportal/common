@@ -1,4 +1,4 @@
-package org.oh.common.db.dao;
+package org.oh.common.db.mybatis;
 
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -13,7 +13,7 @@ import org.apache.ibatis.mapping.StatementType;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.oh.common.db.common.MyBatisConfig;
+import org.oh.common.db.dao.DBDao;
 import org.oh.common.db.type.DBMap;
 import org.oh.common.db.type.DBMapList;
 import org.oh.common.db.type.DBSqlParameter;

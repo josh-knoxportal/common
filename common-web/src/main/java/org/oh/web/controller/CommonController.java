@@ -30,7 +30,8 @@ public class CommonController<T extends Default> {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity<List<T>> list(T t) throws Exception {
-//	public List<T> list(@Valid T t, BindingResult bindingResult) throws Exception {
+//	public ResponseEntity<List<T>> list(@Valid T t, BindingResult errors) throws Exception {
+//		log.info(errors.hasErrors());
 		List<T> list = commonService.list(t);
 
 		return new ResponseEntity<List<T>>(list, HttpStatus.OK);
@@ -45,12 +46,9 @@ public class CommonController<T extends Default> {
 
 	@RequestMapping(value = "/page", method = { RequestMethod.GET, RequestMethod.POST })
 	public ResponseEntity<PageNavigator<T>> page(T t, Page<T> page) throws Exception {
-		PageNavigator<T> pageNavi = new PageNavigator.Builder<T>(page).build();
-
 		page = commonService.page(t, page);
 
-		pageNavi.setList(page.getList());
-		return new ResponseEntity<PageNavigator<T>>(pageNavi, HttpStatus.OK);
+		return new ResponseEntity<PageNavigator<T>>(PageNavigator.getInstance(page), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)

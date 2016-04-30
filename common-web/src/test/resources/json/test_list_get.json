@@ -1,0 +1,16 @@
+{
+	"url":"http://localhost:8050/test/list",
+	"method":"POST",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				
+			},
+			"params":{
+				"condition":"name LIKE 't%'",
+				"order_by":"id DESC"
+			}
+		}
+	]
+}

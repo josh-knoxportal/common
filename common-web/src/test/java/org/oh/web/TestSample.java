@@ -54,7 +54,7 @@ public class TestSample {
 //	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
-//		sample.setName("s");
+		sample.setName("s");
 		sample.setCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
@@ -70,7 +70,7 @@ public class TestSample {
 		sampleService.count(sample);
 	}
 
-	@Test
+//	@Test
 	public void t04_page() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
@@ -197,10 +197,10 @@ public class TestSample {
 		sampleService.get2(sample);
 	}
 
-//	@Test
+	@Test
 	public void t52_list() throws Exception {
 		Sample sample = new Sample();
-//		sample.setName("s");
+		sample.setName("s");
 		sample.setCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
@@ -216,7 +216,7 @@ public class TestSample {
 		sampleService.count2(sample);
 	}
 
-	@Test
+//	@Test
 	public void t54_page() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");

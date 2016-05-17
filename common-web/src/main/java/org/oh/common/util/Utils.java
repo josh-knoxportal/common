@@ -2150,6 +2150,24 @@ public abstract class Utils {
 		return -1;
 	}
 
+	public static <K, V> K getKey(Map<K, V> map, Object V) {
+		if (map != null) {
+			for (Map.Entry<K, V> entry : map.entrySet()) {
+				if (entry.getValue() == null) {
+					if (entry.getValue() == V) {
+						return entry.getKey();
+					}
+				} else {
+					if (entry.getValue().equals(V)) {
+						return entry.getKey();
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
 	public static void main(String[] args) {
 //		LogUtil.writeLog(new Timestamp(System.currentTimeMillis()));
 //		LogUtil.writeLog(isValid_juminChk(""));
@@ -2158,9 +2176,14 @@ public abstract class Utils {
 //		list.add("aaa");
 //		LogUtil.writeLog(toString(convertValue(list)));
 //
-//		Map<String, String> map = new HashMap<String, String>();
-//		map.put("a", "1");
-//		map.put("b", "2");
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("a", "1");
+		map.put("b", "2");
+		map.put("b", null);
+		map.put(null, 3);
+		map.put(1, null);
+		System.out.println(map);
+		System.out.println(getKey(map, null));
 //		Map<String, String> map2 = new HashMap<String, String>();
 //		map.put("c", "3");
 //		LogUtil.writeLog(toString(convertKey(map)));

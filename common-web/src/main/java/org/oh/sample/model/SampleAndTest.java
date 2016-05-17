@@ -1,5 +1,7 @@
 package org.oh.sample.model;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Fields;
 import org.mybatisorm.annotation.Join;
@@ -16,7 +18,8 @@ public class SampleAndTest extends Default {
 	protected Sample sample;
 
 	@Fields("*")
-	protected Test test;
+//	protected Test test;
+	protected List<Test> test;
 
 	public Sample getSample() {
 		return sample;
@@ -26,11 +29,19 @@ public class SampleAndTest extends Default {
 		this.sample = sample;
 	}
 
-	public Test getTest() {
+//	public Test getTest() {
+//		return test;
+//	}
+//
+//	public void setTest(Test test) {
+//		this.test = test;
+//	}
+
+	public List<Test> getTest() {
 		return test;
 	}
 
-	public void setTest(Test test) {
+	public void setTest(List<Test> test) {
 		this.test = test;
 	}
 

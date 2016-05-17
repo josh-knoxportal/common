@@ -46,13 +46,16 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zcms_zone_reset_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_reset_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get4.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get3.json"));
+		arrayNode.add(readFile("src/test/resources/json/zms_search2_get4.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));

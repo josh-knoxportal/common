@@ -3,6 +3,8 @@
 	updateCheck="false" maxBytesLocalHeap="500m">
 	<!-- 디스크 저장 경로를 지정한다. -->
 	<diskStore path="java.io.tmpdir" />
+	<!-- 캐쉬에 저장할 객체 레퍼런스의 최대값 -->
+	<sizeOfPolicy maxDepth="50000"/>
 
 	<!-- 분산 노드를 발견하는 방식을 지정한다. -->
 	<!-- 1. 자동 방식 -->

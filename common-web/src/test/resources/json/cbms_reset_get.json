@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/cbms/zone_reset.do",
+	"url":"http://localhost:8080/v1/cbms/cbms_cache_reset.do",
 	"method":"GET",
 	"list":[
 		{

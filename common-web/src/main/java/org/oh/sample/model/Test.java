@@ -36,6 +36,9 @@ public class Test extends Paging {
 	@Column
 	protected String name;
 
+	@Column(references = "Sample.id")
+	protected Long sample_id;
+
 	public Long getId() {
 		return id;
 	}
@@ -50,6 +53,14 @@ public class Test extends Paging {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Long getSample_id() {
+		return sample_id;
+	}
+
+	public void setSample_id(Long sample_id) {
+		this.sample_id = sample_id;
 	}
 
 	@Override

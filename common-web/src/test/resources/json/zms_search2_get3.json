@@ -1,5 +1,5 @@
 {
-	"url":"http://202.3.20.124/v1/zms/search2.do?search_filter=화장실&search_type=3&branch_id=1103",
+	"url":"http://localhost:8080/v1/zms/search2.do?search_filter=화장실&search_type=3&branch_id=1103",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

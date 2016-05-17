@@ -55,7 +55,7 @@ public class Sample extends Paging {
 	/**
 	 * 테스트 아이디(FK)
 	 */
-	@Column(references = "Test.id")
+//	@Column(references = "Test.id")
 	protected Long test_id;
 
 	public Long getId() {

@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/zone.do",
+	"url":"http://localhost:8080/v1/zms/zone.do?branch_id=11",
 	"method":"GET",
 	"saveDir":"/Users/skoh/git/skoh/common/common-web/src/test/resources/json",
 	"saveExt":"json",

@@ -18,86 +18,34 @@
 			<!-- <maxHistory>1</maxHistory> -->
 		</rollingPolicy>
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%-10.10t] %5p [%-30.30C{2}\(%-20.20M:%-5.5L\)] %m%n</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%-10.10t] %5p %-30.30c [%-30.30C{2}\(%-20.20M:%-5.5L\)] %m%n</pattern>
 		</encoder>
 	</appender>
 
-	<logger name="javax" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
-	<logger name="com.sun" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
-	<logger name="sun.rmi" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
+	<logger name="com.sun" level="info" />
+	<logger name="sun.rmi" level="info" />
+	<logger name="javax" level="info" />
 
-	<logger name="org.apache" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
-	<logger name="org.springframework" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
-	<logger name="org.hibernate" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
-	<logger name="net.sf" additivity="false">
-		<level value="INFO" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
+	<logger name="net.sf" level="info" />
+	<logger name="org.apache" level="info" />
+	<logger name="org.hibernate" level="info" />
+	<logger name="org.mybatis" level="info" />
+	<logger name="org.springframework" level="info" />
 
-	<logger name="jdbc.audit" additivity="false">
-		<level value="OFF" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
-	<logger name="jdbc.resultset" additivity="false">
-		<level value="OFF" />
-		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
-	</logger>
-<!-- 	<logger name="jdbc.resultsettable" additivity="false"> -->
-<!-- 		<level value="OFF" /> -->
-<!-- 		<appender-ref ref="console" /> -->
-<!-- 		<appender-ref ref="dailyFile" /> -->
-<!-- 	</logger> -->
-<!-- 	<logger name="jdbc.sqlonly" additivity="false"> -->
-<!-- 		<level value="OFF" /> -->
-<!-- 		<appender-ref ref="console" /> -->
-<!-- 		<appender-ref ref="dailyFile" /> -->
-<!-- 	</logger> -->
-<!-- 	<logger name="jdbc.sqltiming" additivity="false"> -->
-<!-- 		<level value="OFF" /> -->
-<!-- 		<appender-ref ref="console" /> -->
-<!-- 		<appender-ref ref="dailyFile" /> -->
-<!-- 	</logger> -->
+	<logger name="java.sql" level="info" />
+	<logger name="org.mybatisorm.mapper" level="info" />
 
-	<!-- <logger name="org.mybatisorm" additivity="false"> -->
-	<!-- <level value="TRACE" /> -->
-	<!-- <appender-ref ref="console" /> -->
-	<!-- <appender-ref ref="dailyFile" /> -->
-	<!-- </logger> -->
+	<logger name="jdbc" level="off" />
+	<logger name="log4jdbc" level="off" />
+	<!-- <logger name="jdbc.audit" level="info" /> -->
+	<!-- <logger name="jdbc.resultset" level="info" /> -->
+	<!-- <logger name="jdbc.sqlonly" level="info" /> -->
+	<logger name="jdbc.sqltiming" level="info" />
+	<logger name="jdbc.resultsettable" level="info" />
 
-	<!-- <logger name="org.oh" additivity="false"> -->
-	<!-- <level value="TRACE" /> -->
-	<!-- <appender-ref ref="console" /> -->
-	<!-- <appender-ref ref="dailyFile" /> -->
-	<!-- </logger> -->
+	<logger name="org.oh.sample.mapper" level="info" />
 
-	<root level="INFO">
+	<root level="debug">
 		<appender-ref ref="console" />
 		<appender-ref ref="dailyFile" />
 	</root>

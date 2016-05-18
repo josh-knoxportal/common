@@ -19,15 +19,15 @@ public class ResultSetInterceptor implements Interceptor {
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
-//		log.info(invocation.getMethod());
+//		log.debug(invocation.getMethod());
 
 		Object result = invocation.proceed();
 
 		String title = "==>  Totalsize: ";
 		if (result instanceof List) {
-			log.info(title + ((List) result).size());
+			log.debug(title + ((List) result).size());
 		} else {
-			log.info(title + result);
+			log.debug(title + result);
 		}
 
 		return result;

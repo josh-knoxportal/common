@@ -23,9 +23,9 @@ public class StatementInterceptor implements Interceptor {
 		StatementHandler handler = (StatementHandler) invocation.getTarget();
 		Object param = handler.getParameterHandler().getParameterObject();
 
-		log.info("==>  Preparing: " + handler.getBoundSql().getSql());
-		log.info("==>  Parameter: " + param != null ? param.toString() : "");
-//		log.info(invocation.getMethod());
+		log.debug("==>  Preparing: " + handler.getBoundSql().getSql());
+		log.debug("==>  Parameter: " + param != null ? param.toString() : "");
+//		log.debug(invocation.getMethod());
 
 		return invocation.proceed();
 	}

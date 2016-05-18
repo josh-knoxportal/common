@@ -70,7 +70,7 @@ public class TestSample {
 		sampleService.count(sample);
 	}
 
-//	@Test
+	@Test
 	public void t04_page() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
@@ -86,7 +86,7 @@ public class TestSample {
 		LogUtil.writeLog("pageNavi:" + pageNavi);
 	}
 
-	@Test
+//	@Test
 	public void t05_joinList() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
@@ -96,7 +96,7 @@ public class TestSample {
 
 		SampleAndTest sat = new SampleAndTest();
 		sat.setSample(sample);
-//		sat.setTest(test);
+		sat.setTest(test);
 		sat.setCondition("sample_.name LIKE 's%'");
 		sat.setCondition("test_.name LIKE 't%'");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
@@ -216,7 +216,7 @@ public class TestSample {
 		sampleService.count2(sample);
 	}
 
-//	@Test
+	@Test
 	public void t54_page() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");

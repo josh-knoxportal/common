@@ -18,8 +18,8 @@ public class SampleAndTest extends Default {
 	protected Sample sample;
 
 	@Fields("*")
-//	protected Test test;
-	protected List<Test> test;
+	protected Test test;
+//	protected List<Test> test;
 
 	public Sample getSample() {
 		return sample;
@@ -29,21 +29,21 @@ public class SampleAndTest extends Default {
 		this.sample = sample;
 	}
 
-//	public Test getTest() {
-//		return test;
-//	}
-//
-//	public void setTest(Test test) {
-//		this.test = test;
-//	}
-
-	public List<Test> getTest() {
+	public Test getTest() {
 		return test;
 	}
 
-	public void setTest(List<Test> test) {
+	public void setTest(Test test) {
 		this.test = test;
 	}
+
+//	public List<Test> getTest() {
+//		return test;
+//	}
+//
+//	public void setTest(List<Test> test) {
+//		this.test = test;
+//	}
 
 	@Override
 	public String toString() {

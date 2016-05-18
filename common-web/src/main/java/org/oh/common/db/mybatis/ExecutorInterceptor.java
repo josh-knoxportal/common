@@ -31,18 +31,18 @@ public class ExecutorInterceptor implements Interceptor {
 		MappedStatement ms = (MappedStatement) args[0];
 //		Object param = (Object) args[1];
 
-		log.info("==>  Statement: " + ms.getId());
-//		log.info("==>  Preparing: " + ms.getBoundSql(param).getSql());
-//		log.info("==>  Parameter: " + param);
-//		log.info(invocation.getMethod());
+		log.debug("==>  Statement: " + ms.getId());
+//		log.debug("==>  Preparing: " + ms.getBoundSql(param).getSql());
+//		log.debug("==>  Parameter: " + param);
+//		log.debug(invocation.getMethod());
 
 		Object result = invocation.proceed();
 
 		String title = "==>  Totalsize: ";
 		if (result instanceof List) {
-			log.info(title + ((List) result).size());
+			log.debug(title + ((List) result).size());
 		} else {
-			log.info(title + result);
+			log.debug(title + result);
 		}
 
 		return result;

@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.oh.common.test.TestAPI;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAPI_skoh extends TestAPI {
@@ -12,26 +13,37 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com_gateway_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com_gateway_get.json"));
 
+//		arrayNode.add(readFile("src/test/resources/json/test.json"));
+//		arrayNode.add(readFile("src/test/resources/json/test_list_get.json"));
+
+		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_page_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_page2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_update_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_update2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample&test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample&test2_list_get.json"));
+
+		///////////////////////////////////////////////////////////////////////
+
+//		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/bms_beacon_get.json"));
+
 //		arrayNode.add(readFile("src/test/resources/json/cbms_company_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cbms_company_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cbms_company_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cbms_company_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cbms_company_get2.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/test.json"));
+//		arrayNode.add(readFile("src/test/resources/json/cpgn_event_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/cpgn_event_post.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/sample_page_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/sample_page2_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_update_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_update2_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_test_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample&test_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample&test2_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/devms_location_agree_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/devms_location_agree_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
@@ -40,6 +52,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get.json"));Preparing
 //		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/mms_map_datas_put.json"));
+
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get2.json"));
 
@@ -51,24 +64,17 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get4.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get5.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_search_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get4.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get.json"));
-
-//		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/bms_beacon_get.json"));
-
-//		arrayNode.add(readFile("src/test/resources/json/devms_location_agree_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/devms_location_agree_post.json"));
-
+//		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/admin_gateway_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/admin_gateway.json"));
-
-//		arrayNode.add(readFile("src/test/resources/json/cpgn_event_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/cpgn_event_post.json"));
 	}
 
 	@Test

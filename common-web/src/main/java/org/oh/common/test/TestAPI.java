@@ -1,4 +1,4 @@
-package org.oh.common;
+package org.oh.common.test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,6 +16,7 @@ import org.oh.common.util.HTTPUtils;
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.ThreadUtils;
 import org.oh.common.util.Utils;
+import org.springframework.util.StopWatch;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -30,6 +31,7 @@ public class TestAPI {
 	protected static ArrayNode arrayNode = new ArrayNode(JsonNodeFactory.instance);
 
 	protected Log log = LogFactory.getLog(getClass());
+	protected StopWatch sw = new StopWatch("all");
 
 	/**
 	 * 파일 읽기
@@ -52,6 +54,7 @@ public class TestAPI {
 	protected void test(ArrayNode arrayNode) throws Exception {
 		for (JsonNode jsonNode : arrayNode) {
 			test(jsonNode);
+			log.info("==================================================");
 		}
 	}
 
@@ -63,6 +66,8 @@ public class TestAPI {
 	 * @throws Exception
 	 */
 	protected void test(JsonNode data) throws Exception {
+		sw.start();
+
 		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
 		String url = data.path("url").textValue();
 		String method = data.path("method").textValue();
@@ -77,6 +82,9 @@ public class TestAPI {
 		}
 
 		print(futureList, saveDir, saveExt, responseFormat);
+
+		sw.stop();
+		log.info(sw.shortSummary());
 	}
 
 	/**
@@ -126,18 +134,16 @@ public class TestAPI {
 	 */
 	protected void print(List<Future<Object>> futureList, String saveDir, String saveExt, String responseFormat)
 			throws Exception {
-		// 파일로 저장
-		if (Utils.isValidate(saveDir) && Utils.isValidate(saveExt)) {
-			for (Future<Object> future : futureList) {
-				Map<String, Object> result = (Map) future.get();
+		for (Future<Object> future : futureList) {
+			Map<String, Object> result = (Map) future.get();
+
+			// 파일로 저장
+			if (Utils.isValidate(saveDir) && Utils.isValidate(saveExt)) {
 				HTTPUtils.generateFile(
 						saveDir + "/" + Utils.formatCurrentDate(Utils.SDF_DATE_MILLI_TIME) + "." + saveExt,
 						(byte[]) result.get("content"));
-			}
-			// 콘솔에 출력
-		} else {
-			for (Future<Object> future : futureList) {
-				Map<String, Object> result = (Map) future.get();
+				// 콘솔에 출력
+			} else {
 				log.info(result);
 
 				if (Utils.isValidate(responseFormat)) {

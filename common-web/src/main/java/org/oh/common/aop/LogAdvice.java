@@ -40,7 +40,7 @@ public class LogAdvice {
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
 		Signature signature = joinPoint.getSignature();
-		log.debug(format("OUTPUT", "[" + toShortString(signature) + "] " + Utils.toString(result)));
+		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + Utils.toString(result)));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {

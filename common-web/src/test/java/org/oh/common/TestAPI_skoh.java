@@ -56,6 +56,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get2.json"));
 
+//		arrayNode.add(readFile("src/test/resources/json/zms_geozone_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));

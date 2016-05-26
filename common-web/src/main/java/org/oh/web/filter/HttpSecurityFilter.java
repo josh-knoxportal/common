@@ -1,4 +1,4 @@
-package org.oh.common.filter;
+package org.oh.web.filter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

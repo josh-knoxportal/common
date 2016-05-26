@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.oh.common.util.Utils;
-import org.oh.common.util.WebUtil;
 import org.oh.web.exception.WebException;
+import org.oh.web.util.WebUtil;
 
 public class HttpSecurityRequestWrapper extends AbstractHttpServletRequestWrapper {
 	/**

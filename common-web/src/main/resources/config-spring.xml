@@ -48,7 +48,7 @@
 	</bean>
 
 	<!-- Cache -->
-<!-- 	<cache:annotation-driven proxy-target-class="true" /> -->
+	<!-- <cache:annotation-driven proxy-target-class="true" /> -->
 
 	<!-- Cache EHCache -->
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
@@ -59,19 +59,6 @@
 
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcache" />
-	</bean>
-
-	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
-		<property name="locateExistingServerIfPossible" value="true" />
-	</bean>
-
-	<bean id="managementService" class="net.sf.ehcache.management.ManagementService" init-method="init">
-		<constructor-arg ref="ehcache" />
-		<constructor-arg ref="mbeanServer" />
-		<constructor-arg index="2" value="true" />
-		<constructor-arg index="3" value="true" />
-		<constructor-arg index="4" value="true" />
-		<constructor-arg index="5" value="true" />
 	</bean>
 
 	<!-- Cache Redis -->

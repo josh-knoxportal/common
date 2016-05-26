@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+	<!-- JMX -->
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<property name="locateExistingServerIfPossible" value="true" />
+	</bean>
+
+	<!-- Cache -->
+	<bean id="managementService" class="net.sf.ehcache.management.ManagementService" init-method="init">
+		<constructor-arg ref="ehcache" />
+		<constructor-arg ref="mbeanServer" />
+		<constructor-arg index="2" value="true" />
+		<constructor-arg index="3" value="true" />
+		<constructor-arg index="4" value="true" />
+		<constructor-arg index="5" value="true" />
+	</bean>
+
+	<!-- DataSource -->
+	<bean id="mbeanExporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="server" ref="mbeanServer" />
+		<property name="beans">
+			<map>
+				<entry key="dataSource:name=DataSource" value-ref="dataSource" />
+			</map>
+		</property>
+	</bean>
+</beans>

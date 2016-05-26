@@ -5,11 +5,24 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	<!-- DataSource -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@192.168.3.115:1521:xe" />
+		<property name="url" value="jdbc:oracle:thin:@192.168.0.96:1521:xe" />
 		<property name="username" value="skoh" />
 		<property name="password" value="skoh" />
+		<property name="initialSize" value="5" />
+		<property name="maxTotal" value="10" />
+		<property name="maxIdle" value="5" />
+		<property name="minIdle" value="5" />
+		<property name="maxWaitMillis" value="30000" />
+		<property name="validationQuery" value="SELECT 1 from dual" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="removeAbandonedOnMaintenance" value="true" />
+		<property name="removeAbandonedTimeout" value="60" />
+		<property name="logAbandoned" value="true" />
 	</bean>
 
 	<!-- Package -->

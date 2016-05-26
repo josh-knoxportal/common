@@ -1,10 +1,11 @@
-package org.oh.common.util;
+package org.oh.web.util;
 
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.oh.common.util.LogUtil;
 import org.springframework.web.util.WebUtils;
 
 /**

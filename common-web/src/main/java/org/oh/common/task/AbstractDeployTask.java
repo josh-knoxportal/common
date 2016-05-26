@@ -35,6 +35,11 @@ public abstract class AbstractDeployTask extends Task {
 	protected String target_dir = null;
 
 	/**
+	 * 병렬여부
+	 */
+	protected Boolean parallel_yn = false;
+
+	/**
 	 * 배포서버 목록
 	 */
 	protected List<DeployServer> deployServerList = new ArrayList<DeployServer>();
@@ -71,8 +76,16 @@ public abstract class AbstractDeployTask extends Task {
 		deployServerList.add(deployServer);
 	}
 
+	public Boolean getParallel_yn() {
+		return parallel_yn;
+	}
+
+	public void setParallel_yn(Boolean parallel_yn) {
+		this.parallel_yn = parallel_yn;
+	}
+
 	/**
-	 * 작업 실행(병렬 처리)
+	 * 작업 실행
 	 */
 	@Override
 	public void execute() throws BuildException {
@@ -92,30 +105,39 @@ public abstract class AbstractDeployTask extends Task {
 				if (!deployServer.getDeploy_yn())
 					continue;
 
-				FunctionCallback<Object[], Object> callback = new FunctionCallback<Object[], Object>() {
-					@Override
-					public Object executeTemplate(Object[] params) throws Exception {
-						AbstractDeployTask deployTask = (AbstractDeployTask) params[0];
-						DeployServer deployServer = (DeployServer) params[1];
-						String title = (String) params[2];
+				if (parallel_yn) {
+					FunctionCallback<Object[], Object> callback = new FunctionCallback<Object[], Object>() {
+						@Override
+						public Object executeTemplate(Object[] params) throws Exception {
+							DeployServer deployServer = (DeployServer) params[0];
+							String title = (String) params[1];
 
-						deployServer.validate();
+							deployTask(title, deployServer);
 
-						deploy(deployTask, title, deployServer);
-
-						return new HashMap<String, Object>();
-					}
-				};
-				ThreadUtils.executeThread(futureList, callback, title, this, deployServer, title);
+							return new HashMap<String, Object>();
+						}
+					};
+					ThreadUtils.executeThread(futureList, callback, title, deployServer, title);
+				} else {
+					deployTask(title, deployServer);
+				}
 			}
 
-			ThreadUtils.resultThread(futureList);
+			if (parallel_yn) {
+				ThreadUtils.resultThread(futureList);
+			}
 		} catch (Exception e) {
 			throw new BuildException(title + " error", e);
 		}
 
 		sw.stop();
 		LogUtil.writeLog(sw.shortSummary(), getClass());
+	}
+
+	protected void deployTask(String title, DeployServer deployServer) throws Exception {
+		deployServer.validate();
+
+		deploy(this, title, deployServer);
 	}
 
 	/**

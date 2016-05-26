@@ -5,22 +5,18 @@
 		Auto deploy tools
 	</description>
 
-	<property name="os_name" value="Linux" />
-	<property name="system_name" value="cbms" />
-	<property name="source_dir" value="target" />
-	<property name="target_dir" value="/was/${system_name}/webapps" />
-	<property name="source_file" value="v1#${system_name}.war" />
+	<property file="deploy.properties" />
 
 	<!-- deploy war file -->
-	<!-- os_name : Solaris, HP-UX, AIX, Linux, Mac,, Microsoft -->
+	<!-- os_name : Solaris, HP-UX, AIX, Linux, Mac, Microsoft -->
 	<target name="deploy">
 		<echo message="Deploying the war file to WAS" />
 		<copy file="${source_dir}/${artifactId}-${version}.war" tofile="${source_dir}/${source_file}" />
 
 		<taskdef name="deployTask" classname="org.oh.common.task.TomcatSSHDeployTask" classpath="${classpath}" />
 		<deployTask source_dir="${source_dir}" source_file="${source_file}" target_dir="${target_dir}">
-			<deployServer deploy_yn="true" server_ip="112.217.207.164" server_port="20022" user_id="oracle" user_pw="nemustech"
-				system_name="${system_name}" os_name="${os_name}" />
+			<deployServer deploy_yn="true" server_ip="112.217.207.164" server_port="20022" user_id="oracle" user_pw="nemustech" system_name="${system_name}" os_name="${os_name}" />
+			<deployServer deploy_yn="true" server_ip="112.217.207.164" server_port="20022" user_id="oracle" user_pw="nemustech" system_name="${system_name}" os_name="${os_name}" />
 		</deployTask>
 
 		<delete file="${source_dir}/${source_file}" />

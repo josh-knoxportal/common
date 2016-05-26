@@ -514,7 +514,7 @@
 				<!-- </dependencies> -->
 				<executions>
 					<execution>
-						<id>package</id>
+						<id>buildJar</id>
 						<phase>package</phase>
 						<configuration>
 							<target>
@@ -534,15 +534,16 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>install</id>
-						<phase>install</phase>
+						<id>deployXml</id>
+						<phase>package</phase>
 						<configuration>
 							<target>
 								<property name="artifactId" value="${artifactId}" />
 								<property name="version" value="${version}" />
 								<property name="classpath" refid="maven.test.classpath" />
 
-								<ant antfile="${basedir}/deploy.xml">
+								<!-- <ant antfile="${basedir}/deploy.xml"> -->
+								<ant antfile="${basedir}/deploySSH.xml">
 									<!-- <target name="deploy" /> -->
 								</ant>
 							</target>
@@ -559,8 +560,8 @@
 				<version>1.5</version>
 				<executions>
 					<execution>
-						<id>install</id>
-						<phase>install</phase>
+						<id>deployGroovy</id>
+						<phase>package</phase>
 						<configuration>
 							<properties>
 								<artifactId>${artifactId}</artifactId>

@@ -1,7 +1,8 @@
 {
-	"url":"http://localhost:8080/v1/zms/zone.do?branch_id=11",
+	"url":"http://localhost:8080/v1/zms/geozone_id_around.do?coord_x=37.50293&coord_y=127.049302",
 	"method":"GET",
-	"responseFormat":"JSON",
+	"saveDir":"/Users/skoh/git/skoh/common/common-web/src/test/resources/json",
+	"saveExt":"json",
 	"list":[
 		{
 			"headers":{

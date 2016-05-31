@@ -41,6 +41,14 @@
 		<prop key="key2">value2</prop>
 	</util:properties>
 
+	<!-- 반드시 id="messageSource" -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<value>messages
+			</value>
+		</property>
+	</bean>
+
 	<!-- Thread Pool -->
 	<task:annotation-driven executor="executor" />
 

@@ -1,7 +1,8 @@
 {
 	"url":"http://localhost:8080/v1/zms/geozone_around.do?gps_lng=127.003580&count=100&filter=1&gps_lat=37.502376&xid=28865",
 	"method":"GET",
-	"responseFormat":"JSON",
+	"saveDir":"/Users/skoh/git/skoh/common/common-web/src/test/resources/json",
+	"saveExt":"json",
 	"list":[
 		{
 			"headers":{

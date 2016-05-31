@@ -21,7 +21,7 @@
 		<property name="server" ref="mbeanServer" />
 		<property name="beans">
 			<map>
-				<entry key="dataSource:name=DataSource" value-ref="dataSource" />
+				<entry key="dataSource:name=DataSource_common-web" value-ref="dataSource" />
 			</map>
 		</property>
 	</bean>

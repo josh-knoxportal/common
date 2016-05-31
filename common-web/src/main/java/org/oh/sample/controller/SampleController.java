@@ -9,10 +9,12 @@ import org.oh.sample.service.SampleService;
 import org.oh.web.controller.CommonController;
 import org.oh.web.page.PageNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "/sample")
 public class SampleController extends CommonController<Sample> {
+	@Autowired
+	private MessageSource messageSource;
+
 	@Autowired
 	protected SampleService sampleService;
 
@@ -33,8 +38,19 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "/list2", method = { RequestMethod.GET, RequestMethod.POST })
 //	public ResponseEntity<List<Sample>> list2(Sample sample) throws Exception {
 	public ResponseEntity<List<Sample>> list(@Valid Sample sample, BindingResult errors) throws Exception {
+//		log.info(messageSource.getMessage("field.required.sample.name", null, null));
 		log.info(errors.hasErrors());
-		ValidationUtils.rejectIfEmpty(errors, "name", "field.required");
+		log.info(errors.getAllErrors());
+		log.info(errors.getFieldError());
+		log.info(errors.getFieldErrors());
+		log.info(errors.getFieldErrors().iterator().next().getDefaultMessage());
+		log.info(errors.getFieldErrors("NotNull.sample.name"));
+		for (FieldError error : errors.getFieldErrors()) {
+			log.info(String.format("%s.%s : %s (%s)", error.getObjectName(), error.getField(),
+					error.getDefaultMessage(), error.getRejectedValue()));
+		}
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotNull");
+//		ValidationUtils.rejectIfEmpty(errors, "name", "field.required");
 		List<Sample> list = sampleService.list2(sample);
 
 		return new ResponseEntity<List<Sample>>(list, HttpStatus.OK);

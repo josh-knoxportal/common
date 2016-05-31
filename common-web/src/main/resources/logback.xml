@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<configuration scan="true" scanPeriod="1 seconds">
+<configuration scan="true" scanPeriod="5 seconds">
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} [%-10.10t] %5p [%-30.30C{2}\(%-20.20M:%-5.5L\)] %m%n</pattern>
@@ -43,7 +43,7 @@
 	<logger name="jdbc.sqltiming" level="info" />
 	<logger name="jdbc.resultsettable" level="info" />
 
-	<logger name="org.oh" level="trace" />
+	<logger name="org.oh" level="debug" />
 	<logger name="org.oh.sample.mapper" level="info" />
 
 	<root level="info">

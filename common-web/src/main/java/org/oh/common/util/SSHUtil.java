@@ -76,12 +76,14 @@ public class SSHUtil extends TelnetUtil {
 
 	public static void main(String[] arg) throws Exception {
 		String server = "112.217.207.164";
+		int port = 20022;
 		String userName = "oracle";
 		String password = "nemustech";
 		String os_name = "Linux";
 
-		SSHUtil ssh = new SSHUtil(server, 20022, userName, password, os_name);
-		ssh.excuteCommand("ls -al");
+		SSHUtil ssh = new SSHUtil(server, port, userName, password, os_name);
+		ssh.excuteCommand("cd /was/aams/bin");
+		ssh.excuteCommand("ls --color=no");
 
 		ssh.excuteCommand("exit");
 		ssh.disconnect();

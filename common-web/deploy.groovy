@@ -18,13 +18,13 @@ String charsetName = null;
 String title = "Deploy \"" + server_ip + "\" server \"" + system_name + "\" system";
 
 System.out.println("---------- " + title + " ----------");
-System.out.println("Sending the war file to \"" + server_ip + "\"");
+System.out.println("--- Sending the war file to \"" + server_ip + "\"");
 FTPUtil ftp = new FTPUtil(server_ip, server_port, user_id, user_pw);
 ftp.backup(target_dir, source_file);
 ftp.upload(source_dir, source_file, target_dir);
 ftp.disconnect();
 
-System.out.println("Restarting the WAS container \"" + system_name + "\"");
+System.out.println("--- Restarting the WAS container \"" + system_name + "\"");
 TelnetUtil telnet = new TelnetUtil(server_ip, server_port, user_id, user_pw, os_name, terminalType,
 		charsetName);
 telnet.excuteCommand("cd \\was\\" + system_name + "\\bin");

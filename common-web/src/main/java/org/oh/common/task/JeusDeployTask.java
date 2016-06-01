@@ -13,14 +13,14 @@ public class JeusDeployTask extends AbstractDeployTask {
 			throws CommonException {
 		try {
 			log("---------- " + title + " ----------");
-			log("Sending the war file to \"" + deployServer.getServer_ip() + "\"");
+			log("--- Sending the war file to \"" + deployServer.getServer_ip() + "\"");
 			FTPUtil ftp = new FTPUtil(deployServer.getServer_ip(), deployServer.getServer_port(),
 					deployServer.getUser_id(), deployServer.getUser_pw());
 			ftp.backup(target_dir, source_file);
 			ftp.upload(source_dir, source_file, target_dir);
 			ftp.disconnect();
 
-			log("Restarting the WAS container \"" + deployServer.getSystem_name() + "\"");
+			log("--- Restarting the WAS container \"" + deployServer.getSystem_name() + "\"");
 			JeusUtils jeus = new JeusUtils(deployServer.getServer_ip(), deployServer.getServer_port(),
 					deployServer.getUser_id(), deployServer.getUser_pw(), deployServer.getOs_name());
 			jeus.excuteJeus("ja");

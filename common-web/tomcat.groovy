@@ -4,16 +4,16 @@ import org.oh.common.util.SSHUtil;
 
 String os_name = "Linux";
 String[] system_names = [
-	"aams",
-	"bms",
-	"cbms",
-	"devms",
-	"lms",
-	"mms",
-	"zcms",
+//	"aams",
+//	"bms",
+//	"cbms",
+//	"devms",
+//	"lms",
+//	"mms",
+//	"zcms",
 	"zms",
-	"cpgn",
-	"admin"
+//	"cpgn",
+//	"admin"
 ];
 //String source_dir = "target";
 
@@ -43,16 +43,16 @@ for (String system_name : system_names) {
 
 	System.out.println("--- Restarting the WAS container \"" + system_name + "\"");
 	ssh.excuteCommand("cd /was/" + system_name + "/bin");
-	//	ssh.excuteCommand("ls --color=no");
-	ssh.excuteCommand("./shutdown.sh");
-	Thread.currentThread().sleep(3000);
-	ssh.excuteCommand("ps -ef | grep /" + system_name);
+		ssh.excuteCommand("ls --color=no");
+//	ssh.excuteCommand("./shutdown.sh");
+//	Thread.sleep(3000);
+//	ssh.excuteCommand("ps -ef | grep /" + system_name);
 
 	//	ssh.excuteCommand("cd " + target_dir);
 	//	ssh.excuteCommand("rm -r v1#" + system_name);
 
 	//	ssh.excuteCommand("cd /was/" + system_name + "/bin");
-	ssh.excuteCommand("./startup.sh");
+//	ssh.excuteCommand("./startup.sh");
 }
 
 ssh.excuteCommand("exit");

@@ -39,19 +39,19 @@ public class Test03 {
 
 //	@ToString(callSuper = true)
 	protected class ParentClass {
-		@Getter
-		@Setter
+//		@Getter
+//		@Setter
 		protected String field01 = null;
 
-		public String toString() {
-			return "Test03.ParentClass(super=" + super.toString() + ", field01=" + getField01() + ")";
-		}
+//		public String toString() {
+//			return "Test03.ParentClass(super=" + super.toString() + ", field01=" + getField01() + ")";
+//		}
 	}
 
-	@ToString(callSuper = true)
+//	@ToString(callSuper = true)
 	protected class InnerClass extends ParentClass {
-		@Getter
-		@Setter
+//		@Getter
+//		@Setter
 		protected String field02 = null;
 	}
 }

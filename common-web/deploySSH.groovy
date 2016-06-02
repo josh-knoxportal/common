@@ -31,6 +31,8 @@ System.out.println("--- Restarting the WAS container \"" + system_name + "\"");
 SSHUtil ssh = new SSHUtil(server_ip, server_port, user_id, user_pw, os_name);
 ssh.excuteCommand("cd /was/" + system_name + "/bin");
 ssh.excuteCommand("./shutdown.sh");
+Thread.sleep(3000);
+ssh.excuteCommand("ps -ef | grep /" + system_name);
 
 ssh.excuteCommand("cd " + target_dir);
 ssh.excuteCommand("rm -r v1#" + system_name);

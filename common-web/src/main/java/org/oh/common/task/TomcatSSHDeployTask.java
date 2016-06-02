@@ -30,6 +30,8 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 					deployServer.getUser_id(), deployServer.getUser_pw(), deployServer.getOs_name());
 			ssh.excuteCommand("cd /was/" + deployServer.getSystem_name() + "/bin");
 			ssh.excuteCommand("./shutdown.sh");
+			Thread.sleep(3000);
+			ssh.excuteCommand("ps -ef | grep /" + deployServer.getSystem_name());
 
 			ssh.excuteCommand("cd " + target_dir);
 			ssh.excuteCommand("rm -r " + FileUtil.getBaseName(deployTask.getSource_file()));

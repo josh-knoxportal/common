@@ -29,6 +29,8 @@ public class TomcatDeployTask extends AbstractDeployTask {
 					deployServer.getTerminal_type(), deployServer.getCharset_name());
 			telnet.excuteCommand("cd \\was\\" + deployServer.getSystem_name() + "\\bin");
 			telnet.excuteCommand("shutdown");
+			Thread.sleep(3000);
+			telnet.excuteCommand("ps -ef | grep /" + deployServer.getSystem_name());
 
 			telnet.excuteCommand("cd " + target_dir);
 			telnet.excuteCommand("rm -r " + FileUtil.getBaseName(deployTask.getSource_file()));

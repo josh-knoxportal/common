@@ -32,31 +32,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RedisTest {
 	@Autowired
-	protected RedisTemplate<String, Object> redisTemplate;
+	public RedisTemplate<String, Object> redisTemplate;
 
 //	@Autowired
-//	protected RedisTemplate<String, Map<String, Object>> redisTemplateMap;
+//	public RedisTemplate<String, Map<String, Object>> redisTemplateMap;
 //
 //	@Autowired
-//	protected RedisTemplate<String, Sample> redisTemplateSample;
+//	public RedisTemplate<String, Sample> redisTemplateSample;
 
 	@Resource(name = "redisTemplate")
-	protected ValueOperations<String, Object> valueOps;
+	public ValueOperations<String, Object> valueOps;
 
 	@Resource(name = "redisTemplate")
-	protected ListOperations<String, Object> listOps;
+	public ListOperations<String, Object> listOps;
 
 	@Resource(name = "redisTemplate")
-	protected HashOperations<String, String, Object> hashOps;
+	public HashOperations<String, String, Object> hashOps;
 
 	@Resource(name = "redisTemplate")
-	protected ListOperations<String, Map<String, Object>> mapListOps;
+	public ListOperations<String, Map<String, Object>> mapListOps;
 
 	@Resource(name = "redisTemplate")
-	protected ValueOperations<String, Sample> sampleOps;
+	public ValueOperations<String, Sample> sampleOps;
 
 	@Resource(name = "redisTemplate")
-	protected ListOperations<String, Sample> sampleListOps;
+	public ListOperations<String, Sample> sampleListOps;
 
 	public void flushDb() throws Exception {
 		LogUtil.writeLog("flushDb");

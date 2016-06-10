@@ -16,18 +16,18 @@ import lombok.ToString;
 //@ContextConfiguration(locations = "file:conf/config-spring02.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test03 {
-	protected StorageAccessor storageAccessor = LocalFileStorageAccessor.getInstance();
+	public StorageAccessor storageAccessor = LocalFileStorageAccessor.getInstance();
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 	}
 
 	@Before
-	public void init() {
+	public void init() throws Exception {
 	}
 
 	@Test
-	public void test01() {
+	public void test01() throws Exception {
 //		InnerClass inner = new InnerClass();
 //		inner.setField01("skoh1");
 //		inner.setField02("skoh2");
@@ -38,10 +38,10 @@ public class Test03 {
 	}
 
 //	@ToString(callSuper = true)
-	protected class ParentClass {
+	public class ParentClass {
 //		@Getter
 //		@Setter
-		protected String field01 = null;
+		public String field01 = null;
 
 //		public String toString() {
 //			return "Test03.ParentClass(super=" + super.toString() + ", field01=" + getField01() + ")";
@@ -49,9 +49,9 @@ public class Test03 {
 	}
 
 //	@ToString(callSuper = true)
-	protected class InnerClass extends ParentClass {
+	public class InnerClass extends ParentClass {
 //		@Getter
 //		@Setter
-		protected String field02 = null;
+		public String field02 = null;
 	}
 }

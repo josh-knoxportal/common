@@ -1,0 +1,15 @@
+{
+	"url":"http://localhost:8090/admin/login.do",
+	"method":"POST",
+	"list":[
+		{
+			"headers":{
+			},
+			"params":{
+				"username":"sauser",
+				"password":"abcdpwd123",
+				"goto":"companyListView.do"
+			}
+		}
+	]
+}

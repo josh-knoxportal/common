@@ -1,16 +1,17 @@
 package org.oh.common;
 
+import java.io.File;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
-import org.oh.common.util.LogUtil;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.commons.io.FileUtils;
 
 public class Test02 {
-	private static void calTest() {
+	public static void calTest() throws Exception {
 		String zone = "KST";
 //		String zone = "Asia/Seoul";
 //		String zone = "PST";
@@ -38,13 +39,13 @@ public class Test02 {
 
 	}
 
-	private static String formatTime(Calendar cal) {
+	public static String formatTime(Calendar cal) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX zzz");
 		sdf.setCalendar(cal);
 		return sdf.format(cal.getTime());
 	}
 
-	private static Calendar parseTime(String formattedDateTime, String ID) {
+	public static Calendar parseTime(String formattedDateTime, String ID) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX zzz");
 		sdf.setTimeZone(TimeZone.getTimeZone(ID));
 		sdf.setLenient(false);
@@ -54,6 +55,13 @@ public class Test02 {
 			e.printStackTrace();
 		}
 		return sdf.getCalendar();
+	}
+
+	public static void readFile(String path) throws Exception {
+		List<String> list = FileUtils.readLines(new File(path), "UTF-8");
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -69,12 +77,16 @@ public class Test02 {
 //		}
 //		context.close();
 
-		String[] timezoneIdArr = TimeZone.getAvailableIDs();
-		for (String tzId : timezoneIdArr) {
-			System.out.println(tzId);
-		}
+//		String[] timezoneIdArr = TimeZone.getAvailableIDs();
+//		for (String tzId : timezoneIdArr) {
+//			System.out.println(tzId);
+//		}
+//
+//		calTest();
 
-		calTest();
+//		readFile("src/test/resources/json/admin_gateway_post.json");
+//		System.out.println(MessageFormat.format("1{0}3{1}", new Object[] { "2", "4" }));
+//		System.out.println(MessageFormat.format("13", new Object[] { "2", "4" }));
 	}
 
 }

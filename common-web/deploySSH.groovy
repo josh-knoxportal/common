@@ -13,7 +13,7 @@ int server_port = 20022;
 String user_id = "oracle";
 String user_pw = "nemustech";
 
-String title = "Deploy \"" + server_ip + "\" server \"" + system_name + "\" system";
+String title = "Target \"" + server_ip + "\" server \"" + system_name + "\" system";
 
 // 파일 복사
 File destFile = new File(source_dir + "/" + source_file);

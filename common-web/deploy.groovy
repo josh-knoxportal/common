@@ -15,7 +15,7 @@ String user_pw = "skoh";
 String terminalType = null;
 String charsetName = null;
 
-String title = "Deploy \"" + server_ip + "\" server \"" + system_name + "\" system";
+String title = "Target \"" + server_ip + "\" server \"" + system_name + "\" system";
 
 System.out.println("---------- " + title + " ----------");
 System.out.println("--- Sending the war file to \"" + server_ip + "\"");

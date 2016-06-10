@@ -99,7 +99,7 @@ public abstract class AbstractDeployTask extends Task {
 			validate();
 
 			for (DeployServer deployServer : deployServerList) {
-				title = "Deploy \"" + deployServer.getServer_ip() + "\" server \"" + deployServer.getSystem_name()
+				title = "Target \"" + deployServer.getServer_ip() + "\" server \"" + deployServer.getSystem_name()
 						+ "\" system";
 
 				if (!deployServer.getDeploy_yn())

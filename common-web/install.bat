@@ -9,4 +9,4 @@ CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=lib/org/oh/common/json
 REM CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=lib/org/oh/common/mybatis-orm/0.5.0/mybatis-orm-0.5.0.jar -DgroupId=org.oh.common -DartifactId=mybatis-orm -Dversion=0.5.0 -Dpackaging=jar -DgeneratePom=true
 CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=lib/org/oh/common/sapjco/3/sapjco-3.jar -DgroupId=org.oh.common -DartifactId=sapjco -Dversion=3 -Dpackaging=jar -DgeneratePom=true
 REM CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=lib/org/oh/common/rtim-common-crypt/2.6.0.RELEASE/rtim-common-crypt-2.6.0.RELEASE.jar -DgroupId=org.oh.common -DartifactId=rtim-common-crypt -Dversion=2.6.0.RELEASE -Dpackaging=jar -DgeneratePom=true
-REM CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=target/common-web-1.0.jar -DgroupId=org.oh.common -DartifactId=common-web -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=target/common-web-1.0.jar -DgroupId=org.oh.common -DartifactId=common-web -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true

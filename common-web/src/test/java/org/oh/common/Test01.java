@@ -17,16 +17,16 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 //@ContextConfiguration(locations = "file:conf/config-spring02.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test01 {
-	protected StorageAccessor storageAccessor = LocalFileStorageAccessor.getInstance();
+	public StorageAccessor storageAccessor = LocalFileStorageAccessor.getInstance();
 	
-	private String targetClass = "1";
+	public String targetClass = "1";
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
 	}
 
 	@Before
-	public void init() {
+	public void init() throws Exception {
 	}
 
 //	@Test
@@ -92,7 +92,7 @@ public class Test01 {
 //		}
 	}
 
-	public String getTargetClass() {
+	public String getTargetClass() throws Exception {
 		return targetClass;
 	}
 

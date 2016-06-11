@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -67,11 +65,6 @@ public class SSHUtil extends TelnetUtil {
 	@Override
 	protected OutputStream getOutputStream() throws IOException {
 		return channelShell.getOutputStream();
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
 	}
 
 	public static void main(String[] arg) throws Exception {

@@ -1,6 +1,5 @@
 package org.oh.web.page;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.oh.web.model.Common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -60,10 +59,5 @@ public class Paging extends Common {
 
 	public void setPage_group_count(int page_group_count) {
 		this.page_group_count = page_group_count;
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
 	}
 }

@@ -1,6 +1,5 @@
 package org.oh.web.model;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
@@ -65,10 +64,5 @@ public class Common extends Default {
 
 	public void setMod_dt(String mod_dt) {
 		this.mod_dt = mod_dt;
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
 	}
 }

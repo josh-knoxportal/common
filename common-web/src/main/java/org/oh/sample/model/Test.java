@@ -1,6 +1,5 @@
 package org.oh.sample.model;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Column;
 import org.oh.web.page.Paging;
 
@@ -61,10 +60,5 @@ public class Test extends Paging {
 
 	public void setSample_id(Long sample_id) {
 		this.sample_id = sample_id;
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
 	}
 }

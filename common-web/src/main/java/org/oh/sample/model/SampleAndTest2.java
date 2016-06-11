@@ -1,6 +1,5 @@
 package org.oh.sample.model;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Fields;
 
 /**
@@ -26,10 +25,5 @@ public class SampleAndTest2 extends SampleAndTest {
 
 	public void setSample_test(Sample_Test sample_test) {
 		this.sample_test = sample_test;
-	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
 	}
 }

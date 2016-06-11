@@ -1,8 +1,5 @@
 package org.oh.sample.model;
 
-import java.util.List;
-
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Fields;
 import org.mybatisorm.annotation.Join;
 import org.oh.web.model.Default;
@@ -44,9 +41,4 @@ public class SampleAndTest extends Default {
 //	public void setTest(List<Test> test) {
 //		this.test = test;
 //	}
-
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
-	}
 }

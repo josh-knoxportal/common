@@ -25,17 +25,17 @@ public class LogAdvice {
 	public void before(JoinPoint joinPoint) {
 		Signature signature = joinPoint.getSignature();
 		printLine(signature);
-		log.info(format("START", "[" + toString(signature) + "]"));
+		log.debug(format("START", "[" + toString(signature) + "]"));
 
 		if (signature instanceof MethodSignature) {
 			Method method = ((MethodSignature) signature).getMethod();
 			Annotation anno = AnnotationUtils.findAnnotation(method, RequestMapping.class);
 			if (anno != null) {
-				log.info(format("REQUEST", anno.toString()));
+				log.debug(format("REQUEST", anno.toString()));
 			}
 		}
 
-		log.info(format("INPUT", "[" + toShortString(signature) + "] " + Utils.toString(joinPoint.getArgs())));
+		log.debug(format("INPUT", "[" + toShortString(signature) + "] " + Utils.toString(joinPoint.getArgs())));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
@@ -50,7 +50,7 @@ public class LogAdvice {
 
 	public void after(JoinPoint joinPoint) {
 		Signature signature = joinPoint.getSignature();
-		log.info(format("END", "[" + toString(signature) + "]"));
+		log.debug(format("END", "[" + toString(signature) + "]"));
 		printLine(signature);
 	}
 
@@ -71,7 +71,7 @@ public class LogAdvice {
 			}
 			throw ex;
 		} finally {
-			log.info(format("END", "[" + signature.toLongString() + "] Response Time : "
+			log.debug(format("END", "[" + signature.toLongString() + "] Response Time : "
 					+ (System.currentTimeMillis() - start) + " ms"));
 			printLine(signature);
 		}
@@ -82,9 +82,9 @@ public class LogAdvice {
 	protected void printLine(Signature signature) {
 		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
 		if (anno == null) {
-			log.info("--------------------------------------------------");
+			log.debug("--------------------------------------------------");
 		} else {
-			log.info("==================================================");
+			log.debug("==================================================");
 		}
 	}
 

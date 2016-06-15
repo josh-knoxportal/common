@@ -28,7 +28,7 @@ public abstract class SoapUtils {
 	 * SOAPMessage를 보낸다.
 	 */
 	public static SOAPMessage sendMessage(SOAPMessage soapMessage, String url) throws CommonException {
-		LogUtil.writeLog("url:" + url, SoapUtils.class);
+		LogUtil.writeLog("url: " + url, SoapUtils.class);
 
 		SOAPConnection connection = null;
 		try {

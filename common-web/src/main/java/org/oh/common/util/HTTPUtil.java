@@ -440,14 +440,14 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 
 			HttpResponse resHttp = getHttpClient().execute(httpRequest);
 			StatusLine statusLine = resHttp.getStatusLine();
-			LogUtil.writeLog("statusline: " + statusLine.toString(), HTTPUtil.class);
+			LogUtil.writeLog("status: " + statusLine.toString(), HTTPUtil.class);
 
 			HttpEntity entity = resHttp.getEntity();
-			if (statusLine.getStatusCode() >= 300) {
-				String content = toString(entity.getContent());
-				EntityUtils.consume(entity);
-				throw new HttpResponseException(statusLine.getStatusCode(), content);
-			}
+//			if (statusLine.getStatusCode() >= 300) {
+//				String content = toString(entity.getContent());
+//				EntityUtils.consume(entity);
+//				throw new HttpResponseException(statusLine.getStatusCode(), content);
+//			}
 
 			response.put("header", resHttp.getAllHeaders());
 			response.put("content", toByteArray(entity.getContent()));
@@ -542,14 +542,14 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 
 			HttpResponse resHttp = getHttpClient().execute(httpPost);
 			StatusLine statusLine = resHttp.getStatusLine();
-			LogUtil.writeLog("statusline: " + statusLine.toString(), HTTPUtil.class);
+			LogUtil.writeLog("status: " + statusLine.toString(), HTTPUtil.class);
 
 			HttpEntity entity = resHttp.getEntity();
-			if (statusLine.getStatusCode() >= 300) {
-				String content = toString(entity.getContent());
-				EntityUtils.consume(entity);
-				throw new HttpResponseException(statusLine.getStatusCode(), content);
-			}
+//			if (statusLine.getStatusCode() >= 300) {
+//				String content = toString(entity.getContent());
+//				EntityUtils.consume(entity);
+//				throw new HttpResponseException(statusLine.getStatusCode(), content);
+//			}
 
 			response.put("header", resHttp.getAllHeaders());
 			response.put("content", toByteArray(entity.getContent()));

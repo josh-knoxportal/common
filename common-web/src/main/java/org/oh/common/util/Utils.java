@@ -1656,8 +1656,8 @@ public abstract class Utils {
 
 					String body = JsonUtil2.readValue(request.getParameterMap()).toString();
 
-					sb.append(
-							"{client:" + client + ", method:" + method + ", header:" + header + ", body:" + body + "}");
+					sb.append("{client: " + client + ", method: " + method + ", header: " + header + ", body: " + body
+							+ "}");
 				} else {
 					sb.append(obj);
 				}

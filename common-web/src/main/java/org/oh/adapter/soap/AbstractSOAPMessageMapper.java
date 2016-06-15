@@ -170,7 +170,7 @@ public abstract class AbstractSOAPMessageMapper<T1, T2> implements ISOAPMessageM
 				mimes.addHeader("SOAPAction", soapAction);
 				for (Iterator iter = mimes.getAllHeaders(); iter.hasNext();) {
 					MimeHeader mime = (MimeHeader) iter.next();
-					log.trace("header:" + mime.getName() + ":" + mime.getValue());
+					log.trace("header: " + mime.getName() + " = " + mime.getValue());
 				}
 			}
 
@@ -181,7 +181,7 @@ public abstract class AbstractSOAPMessageMapper<T1, T2> implements ISOAPMessageM
 			params = (encrypt) ? aesEncrypter.encrypt(params) : params;
 			bodyElement.addChildElement(requestName).addTextNode(params);
 			soapMessage.writeTo(baos);
-			log.trace("body:" + baos.toString());
+			log.trace("body: " + baos.toString());
 
 			return soapMessage;
 		} catch (Exception e) {
@@ -205,7 +205,7 @@ public abstract class AbstractSOAPMessageMapper<T1, T2> implements ISOAPMessageM
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.transform(sourceContent, result);
 			String xml = writer.getBuffer().toString();
-			log.trace("body:" + xml);
+			log.trace("body: " + xml);
 
 			SAXBuilder builder = new SAXBuilder();
 			Document document = builder.build(new InputSource(new StringReader(xml)));

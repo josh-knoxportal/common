@@ -33,17 +33,18 @@
 	<logger name="org.springframework" level="info" />
 
 	<logger name="java.sql" level="info" />
+	<logger name="org.mybatisorm" level="info" />
 	<logger name="org.mybatisorm.mapper" level="info" />
 
 	<logger name="log4jdbc" level="off" />
 	<logger name="jdbc" level="off" />
-	<!-- <logger name="jdbc.audit" level="off" /> -->
-	<!-- <logger name="jdbc.resultset" level="off" /> -->
-	<!-- <logger name="jdbc.sqlonly" level="off" /> -->
+	<!-- <logger name="jdbc.audit" level="info" /> -->
+	<!-- <logger name="jdbc.resultset" level="info" /> -->
+	<!-- <logger name="jdbc.sqlonly" level="info" /> -->
 	<logger name="jdbc.sqltiming" level="info" />
 	<logger name="jdbc.resultsettable" level="info" />
 
-	<logger name="org.oh" level="debug" />
+	<logger name="org.oh" level="trace" />
 	<logger name="org.oh.sample.mapper" level="info" />
 
 	<root level="info">

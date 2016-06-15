@@ -174,7 +174,7 @@ public abstract class CompressUtil {
 					File target = new File(toDir, name);
 					if (entry.isDirectory()) {
 						target.mkdirs(); /* does it always work? */
-						debug("dir  : " + name);
+						debug("dir: " + name);
 					} else {
 						String directory = target.getParent();
 						if (directory != null) {
@@ -396,7 +396,7 @@ public abstract class CompressUtil {
 				File f = stack.pop();
 				String name = toPath(root, f);
 				if (f.isDirectory()) {
-					debug("dir  : " + name);
+					debug("dir: " + name);
 					File[] fs = f.listFiles();
 					for (int i = 0; i < fs.length; i++) {
 						if (fs[i].isDirectory()) {

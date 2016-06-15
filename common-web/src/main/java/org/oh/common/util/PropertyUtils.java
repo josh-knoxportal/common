@@ -33,7 +33,7 @@ public class PropertyUtils {
 		InputStream is = PropertyUtils.class.getClassLoader().getResourceAsStream(fileName);
 
 		if (is == null) {
-			LogUtil.writeLog("Not exists the \"classpath:" + fileName + "\" file.", PropertyUtils.class);
+			LogUtil.writeLog("Not exists the \"classpath: " + fileName + "\" file.", PropertyUtils.class);
 			return null;
 		} else {
 			return is;

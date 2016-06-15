@@ -14,7 +14,7 @@ public class SampleAndTest extends Default {
 	@Fields("*")
 	protected Sample sample;
 
-	@Fields("*")
+	@Fields("id, name") // @Column 이 선언된 필드명 리스트 (, 로 구분하고 모든 필드는 *)
 	protected Test test;
 //	protected List<Test> test;
 

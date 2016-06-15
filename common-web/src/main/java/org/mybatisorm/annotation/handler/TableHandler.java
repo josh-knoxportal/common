@@ -153,6 +153,33 @@ public class TableHandler {
 		return sb.toString();
 	}
 
+	// 모든 조건 적용 by skoh
+	public String getPrimaryKeyEqualFieldAnd(Object object) {
+		return getPrimaryKeyEqualFieldAnd(object, "", "", " AND ");
+	}
+
+	// 모든 조건 적용 by skoh
+	public String getPrimaryKeyEqualFieldAnd(Object object, String prefix) {
+		return getPrimaryKeyEqualFieldAnd(object, "", prefix, " AND ");
+	}
+
+	// 모든 조건 적용 by skoh
+	protected String getPrimaryKeyEqualFieldAnd(Object object, String columnPrefix, String fieldPrefix,
+			String delimiter) {
+		StringBuilder sb = new StringBuilder();
+		BeanWrapper bean = new BeanWrapperImpl(object);
+		for (Field field : getPrimaryKeyFields()) {
+			Column column = field.getAnnotation(Column.class);
+			Object value = bean.getPropertyValue(field.getName());
+			if (value != null) {
+				if (sb.length() > 0)
+					sb.append(delimiter);
+				sb.append(TokenMaker.fieldEqual(field, column, fieldPrefix, columnPrefix, value));
+			}
+		}
+		return sb.toString();
+	}
+
 	public String getNotNullColumnEqualFieldComma(Object object) {
 		return getNotNullColumnEqualField(object, "", "", ", ");
 	}
@@ -182,7 +209,49 @@ public class TableHandler {
 		return sb.toString();
 	}
 
+	// 모든 조건 적용 by skoh
+//	public String getNotNullNonPrimaryKeyEqualFieldComma(Object object) {
+//		StringBuilder sb = new StringBuilder();
+//		BeanWrapper bean = new BeanWrapperImpl(object);
+//		for (Field field : getColumnFields()) {
+//			Column column = field.getAnnotation(Column.class);
+//			if (!column.primaryKey()) {
+//				Object value = bean.getPropertyValue(field.getName());
+//				if (value != null) {
+//					if (sb.length() > 0) sb.append(", ");
+//					// sb.append(ColumnAnnotation.getName(field, column)).append(" = ").append(" #{").append(field.getName()).append("}");
+//					// 변수 바인딩 by skoh
+////					sb.append(TokenMaker.fieldEqual(field, column));
+//					sb.append(TokenMaker.fieldEqual(field, column, value));
+//				}
+//			}
+//		}
+//		return sb.toString();
+//	}
+
+	// 모든 조건 적용 by skoh
+	public String getNotNullNonPrimaryKeyEqualFieldAnd(Object object) {
+		return getNotNullNonPrimaryKeyEqualField(object, "", "", " AND ");
+	}
+
+	// 모든 조건 적용 by skoh
+	public String getNotNullNonPrimaryKeyEqualFieldAnd(Object object, String prefix) {
+		return getNotNullNonPrimaryKeyEqualField(object, "", prefix, " AND ");
+	}
+
+	// 모든 조건 적용 by skoh
 	public String getNotNullNonPrimaryKeyEqualFieldComma(Object object) {
+		return getNotNullNonPrimaryKeyEqualField(object, "", "", " , ");
+	}
+
+	// 모든 조건 적용 by skoh
+	public String getNotNullNonPrimaryKeyEqualFieldComma(Object object, String prefix) {
+		return getNotNullNonPrimaryKeyEqualField(object, "", prefix, " , ");
+	}
+
+	// 모든 조건 적용 by skoh
+	protected String getNotNullNonPrimaryKeyEqualField(Object object, String columnPrefix, String fieldPrefix,
+			String delimiter) {
 		StringBuilder sb = new StringBuilder();
 		BeanWrapper bean = new BeanWrapperImpl(object);
 		for (Field field : getColumnFields()) {
@@ -190,11 +259,9 @@ public class TableHandler {
 			if (!column.primaryKey()) {
 				Object value = bean.getPropertyValue(field.getName());
 				if (value != null) {
-					if (sb.length() > 0) sb.append(", ");
-					// sb.append(ColumnAnnotation.getName(field, column)).append(" = ").append(" #{").append(field.getName()).append("}");
-					// 변수 바인딩 by skoh
-//					sb.append(TokenMaker.fieldEqual(field, column));
-					sb.append(TokenMaker.fieldEqual(field, column, value));
+					if (sb.length() > 0)
+						sb.append(delimiter);
+					sb.append(TokenMaker.fieldEqual(field, column, fieldPrefix, columnPrefix, value));
 				}
 			}
 		}
@@ -293,7 +360,7 @@ public class TableHandler {
 				// add typeHandler
 				if (field.isAnnotationPresent(TypeHandler.class)) {
 					TypeHandler typeHandlerAnnotation = field.getAnnotation(TypeHandler.class);
-					// if (logger.isDebugEnabled()) logger.debug("add typeHandler [" + typeHandlerAnnotation.value().getName() + "] for " + columnName + ":" + typeHandlerAnnotation.jdbcType());
+					// if (logger.isDebugEnabled()) logger.debug("add typeHandler [" + typeHandlerAnnotation.value().getName() + "] for " + columnName + ": " + typeHandlerAnnotation.jdbcType());
 					builder.typeHandler(BeanUtils.instantiate(typeHandlerAnnotation.value())).jdbcType(typeHandlerAnnotation.jdbcType());
 
 				}

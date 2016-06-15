@@ -495,7 +495,7 @@ public class AdapterUtil {
 		} catch (Exception e) {
 			if (e.getCause() != null && SQLException.class.isInstance(e.getCause())) {
 				throw new AdapterException(sqlId,
-						"Execute sql \"" + sqlSession.getConfiguration().getEnvironment().getId() + ":" + nameSpace
+						"Execute sql \"" + sqlSession.getConfiguration().getEnvironment().getId() + ": " + nameSpace
 								+ "." + sqlId + "\" error - " + e.getCause().getMessage());
 			}
 		}

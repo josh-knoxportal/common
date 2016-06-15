@@ -20,16 +20,20 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_page_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_page2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_page_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_page2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_update_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_update2_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_test_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample&test_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample&test2_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_and_test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_and_test2_list_get.json"));
 
 		///////////////////////////////////////////////////////////////////////
+//		arrayNode.add(readFile("src/test/resources/json/aams_token_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/aams_group_user_list_get.json"));
 
+//		arrayNode.add(readFile("src/test/resources/json/admin_gateway_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/admin_gateway.json"));
 //		arrayNode.add(readFile("src/test/resources/json/admin_login_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));
@@ -57,7 +61,7 @@ public class TestAPI_skoh extends TestAPI {
 
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get2.json"));
-		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_put.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/zms_geozone_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_geozone_id_around.json"));
@@ -79,31 +83,12 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zms_search2_get4.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get2.json"));
-
-//		arrayNode.add(readFile("src/test/resources/json/admin_gateway_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/admin_gateway.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_group_user_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_category_insert_list_post.json"));
 	}
 
 	@Test
 	public void test01() throws Exception {
 		test(arrayNode);
-	}
-
-	public static void main(String[] args) throws Exception {
-		String str = "1";
-
-//		str = StringUtils.replace(str, " ", "");
-//		if (!str.startsWith(",")) {
-//			str = "," + str;
-//		}
-//		if (!str.endsWith(",")) {
-//			str = str + ",";
-//		}
-//
-//		System.out.println(str);
-
-//		System.out.println(HttpStatus.INTERNAL_SERVER_ERROR);
-
-		System.out.println(str + "2");
 	}
 }

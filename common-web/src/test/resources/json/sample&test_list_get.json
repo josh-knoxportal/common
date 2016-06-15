@@ -1,6 +1,6 @@
 {
-	"url":"http://localhost:8050/sample&test/list",
-	"method":"POST",
+	"url":"http://localhost:8050/sample_and_test/list.do?condition=sample_.name LIKE 's%' AND test_.name LIKE 't%'&order_by=sample_.id DESC, test_.id DESC",
+	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
 		{
@@ -8,8 +8,7 @@
 				
 			},
 			"params":{
-				"condition":"sample_.name LIKE 's%' AND test_.name LIKE 't%'",
-				"order_by":"sample_.id DESC, test_.id DESC"
+				
 			}
 		}
 	]

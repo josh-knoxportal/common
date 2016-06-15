@@ -18,6 +18,7 @@ package org.mybatisorm.sql.source;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.log4j.Logger;
+import org.mybatisorm.Query;
 
 public class UpdateSqlSource extends AbstractUpdateSqlSource {
 
@@ -28,8 +29,17 @@ public class UpdateSqlSource extends AbstractUpdateSqlSource {
 	}
 
 	public BoundSql getBoundSql(final Object parameter) {
-		return makeSet(
-				handler.getNotNullNonPrimaryKeyEqualFieldComma(parameter),
-				parameter);
+		// 모든 조건 적용 by skoh
+//		return makeSet(
+//				handler.getNotNullNonPrimaryKeyEqualFieldComma(parameter),
+//				parameter);
+		String set = "";
+		if (parameter instanceof Query) {
+			set = handler.getNotNullNonPrimaryKeyEqualFieldComma(((Query) parameter).getParameter(),
+					Query.PARAMETER_PREFIX);
+		} else {
+			set = handler.getNotNullNonPrimaryKeyEqualFieldComma(parameter);
+		}
+		return makeSet(set, parameter);
 	}
 }

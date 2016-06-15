@@ -47,10 +47,10 @@ public class XmlSaxParseDefaultHandler<T> extends DefaultHandler {
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String text = new String(ch, start, length);
-		// LogUtil.writeLog("value:" + text, getClass());
+		// LogUtil.writeLog("value: " + text, getClass());
 
 		for (Field field : fields) {
-			// LogUtil.writeLog("tagname: " + position + ", property:" + field.getName(), getClass());
+			// LogUtil.writeLog("tagname: " + position + ", property: " + field.getName(), getClass());
 			if (position.equals(field.getName())) {
 				fieldAccessor.setPropertyValue(field.getName(), text);
 				break;

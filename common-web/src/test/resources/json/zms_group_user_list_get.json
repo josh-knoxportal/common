@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/zone.do?zone_id=11173",
+	"url":"http://localhost:8080/v1/zms/group_user/list.do?adminUser.userName=1038&adminUser.creator_id=664",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
@@ -9,6 +9,7 @@
 				"request_type":"1"
 			},
 			"params":{
+				
 			}
 		}
 	]

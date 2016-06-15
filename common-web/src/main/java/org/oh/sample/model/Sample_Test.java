@@ -7,7 +7,23 @@ import org.oh.web.page.Paging;
  * DDL : 샘플 테스트 매핑테이블
  * 
  * <pre>
- * -- ORACLE
+ * -- Mysql
+ * DROP TABLE IF EXISTS sample_test;
+ * CREATE TABLE sample_test
+ * (
+ *   sample_id INT(20) NOT NULL
+ *  ,test_id INT(20) NOT NULL
+ *  ,reg_id VARCHAR(100)
+ *  ,reg_dt VARCHAR(14)
+ *  ,mod_id VARCHAR(100)
+ *  ,mod_dt VARCHAR(14)
+ *  ,PRIMARY KEY
+ * (
+ *   sample_id
+ *  ,test_id
+ * )) CHARSET=utf8;
+ * 
+ * -- Oracle
  * DROP TABLE sample_test CASCADE CONSTRAINTS PURGE;
  * CREATE TABLE sample_test
  * (

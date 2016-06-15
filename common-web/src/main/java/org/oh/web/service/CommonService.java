@@ -68,25 +68,31 @@ public interface CommonService<T extends Default> {
 	 * 
 	 * @param t 모델
 	 * 
+	 * @return 결과
+	 * 
 	 * @throws Exception
 	 */
-	public void insert(T t) throws Exception;
+	public int insert(T t) throws Exception;
 
 	/**
 	 * 공통 수정
 	 * 
 	 * @param t 모델
 	 * 
+	 * @return 결과
+	 * 
 	 * @throws Exception
 	 */
-	public void update(T t) throws Exception;
+	public int update(T t) throws Exception;
 
 	/**
 	 * 공통 삭제
 	 * 
 	 * @param t 모델
 	 * 
+	 * @return 결과
+	 * 
 	 * @throws Exception
 	 */
-	public void delete(T t) throws Exception;
+	public int delete(T t) throws Exception;
 }

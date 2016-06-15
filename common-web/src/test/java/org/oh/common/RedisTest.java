@@ -89,13 +89,13 @@ public class RedisTest {
 		valueOps.set("value", "1");
 
 		Object value = valueOps.get("value");
-		LogUtil.writeLog("get:" + value);
+		LogUtil.writeLog("get: " + value);
 
 		value = valueOps.getAndSet("value", 2);
-		LogUtil.writeLog("getAndSet:" + value);
+		LogUtil.writeLog("getAndSet: " + value);
 
 		long size = valueOps.size("value");
-		LogUtil.writeLog("size:" + size);
+		LogUtil.writeLog("size: " + size);
 	}
 
 //	@Test
@@ -109,16 +109,16 @@ public class RedisTest {
 		sampleOps.set("model", model);
 
 		long size = sampleOps.size("model");
-		LogUtil.writeLog("size:" + size);
+		LogUtil.writeLog("size: " + size);
 
 		// 주의) 가져온 객체의 결과값은 Map 이다.
 		Map<String, Object> map = (Map) sampleOps.get("model");
 		model = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("get:" + model);
+		LogUtil.writeLog("get: " + model);
 
 		map = (Map) sampleOps.getAndSet("model", model);
 		model = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("getAndSet:" + model);
+		LogUtil.writeLog("getAndSet: " + model);
 	}
 
 //	@Test
@@ -129,16 +129,16 @@ public class RedisTest {
 		hashOps.putAll("map", MapUtil.convertArrayToMap(new Object[] { "3", 33 }));
 
 		long size = hashOps.size("map");
-		LogUtil.writeLog("size:" + size);
+		LogUtil.writeLog("size: " + size);
 
 		Map<String, Object> map = hashOps.entries("map");
-		LogUtil.writeLog("entries:" + map);
+		LogUtil.writeLog("entries: " + map);
 
 		Set<String> set = hashOps.keys("map");
-		LogUtil.writeLog("keys:" + set);
+		LogUtil.writeLog("keys: " + set);
 
 		List<Object> list = hashOps.values("map");
-		LogUtil.writeLog("values:" + list);
+		LogUtil.writeLog("values: " + list);
 
 		hashOps.delete("map", "1", "2");
 
@@ -155,25 +155,25 @@ public class RedisTest {
 		listOps.leftPushAll("list", (Collection) Arrays.asList(3));
 
 		long size = listOps.size("list");
-		LogUtil.writeLog("size:" + size);
+		LogUtil.writeLog("size: " + size);
 
 		List<Object> list = listOps.range("list", 0, size - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 
 		Object value = listOps.rightPop("list");
-		LogUtil.writeLog("rightPop:" + value);
+		LogUtil.writeLog("rightPop: " + value);
 
 		list = listOps.range("list", 0, listOps.size("list") - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 
 		value = listOps.index("list", 1);
-		LogUtil.writeLog("index:" + value);
+		LogUtil.writeLog("index: " + value);
 
 		size = listOps.remove("list", 0, value);
-		LogUtil.writeLog("remove:" + size);
+		LogUtil.writeLog("remove: " + size);
 
 		list = listOps.range("list", 0, listOps.size("list") - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 	}
 
 //	@Test
@@ -189,25 +189,25 @@ public class RedisTest {
 				.asList(MapUtil.convertArrayToMap(new Object[] { "2", "22" }, new Object[] { "3", 33 })));
 
 		long size = mapListOps.size("mapList");
-		LogUtil.writeLog("size:" + size);
+		LogUtil.writeLog("size: " + size);
 
 		List<Map<String, Object>> list = mapListOps.range("mapList", 0, size - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 
 		Map<String, Object> map = mapListOps.rightPop("mapList");
-		LogUtil.writeLog("rightPop:" + map);
+		LogUtil.writeLog("rightPop: " + map);
 
 		list = mapListOps.range("mapList", 0, mapListOps.size("mapList") - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 
 		map = mapListOps.index("mapList", 1);
-		LogUtil.writeLog("index:" + map);
+		LogUtil.writeLog("index: " + map);
 
 		size = mapListOps.remove("mapList", 0, map);
-		LogUtil.writeLog("remove:" + size);
+		LogUtil.writeLog("remove: " + size);
 
 		list = mapListOps.range("mapList", 0, mapListOps.size("mapList") - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 	}
 
 //	@Test
@@ -233,28 +233,28 @@ public class RedisTest {
 		sampleListOps.leftPushAll("sampleList", Arrays.asList(sample3));
 
 		long size = sampleListOps.size("sampleList");
-		LogUtil.writeLog("size:" + size);
+		LogUtil.writeLog("size: " + size);
 
 		List<Sample> list = (List) sampleListOps.range("sampleList", 0, size - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 
 		Map<String, Object> map = (Map) sampleListOps.rightPop("sampleList");
 		model = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("rightPop:" + map);
+		LogUtil.writeLog("rightPop: " + map);
 
 		list = (List) sampleListOps.range("sampleList", 0, sampleListOps.size("sampleList") - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 
 		// 주의) 가져온 객체의 결과값은 Map 이다.
 		map = (Map) sampleListOps.index("sampleList", 1);
 		model = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("index:" + map);
+		LogUtil.writeLog("index: " + map);
 
 		size = sampleListOps.remove("sampleList", 0, model);
-		LogUtil.writeLog("remove:" + size);
+		LogUtil.writeLog("remove: " + size);
 
 		list = (List) sampleListOps.range("sampleList", 0, sampleListOps.size("sampleList") - 1);
-		LogUtil.writeLog("range:" + list);
+		LogUtil.writeLog("range: " + list);
 	}
 
 //	@Test
@@ -262,7 +262,7 @@ public class RedisTest {
 		LogUtil.writeLog("========== Template ============================================================");
 
 		Set<String> set = redisTemplate.keys("*");
-		LogUtil.writeLog("keys:" + set);
+		LogUtil.writeLog("keys: " + set);
 	}
 
 }

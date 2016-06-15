@@ -17,8 +17,8 @@
 		<constructor-arg ref="dataSource" />
 		<property name="logFormatter">
 			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
-				<property name="loggingType" value="MULTI_LINE" />
-				<property name="sqlPrefix" value="Binded SQL : " />
+				<!-- <property name="loggingType" value="MULTI_LINE" /> -->
+				<!-- <property name="sqlPrefix" value="Binded SQL : " /> -->
 			</bean>
 		</property>
 	</bean>
@@ -125,11 +125,11 @@
 	</aop:config>
 
 	<!-- Validation -->
-<!-- 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" /> -->
-<!-- 	<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor" /> -->
-<!-- 	<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"> -->
-<!-- 		<property name="validator" ref="validator" /> -->
-<!-- 	</bean> -->
+	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" /> -->
+	<!-- <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor" /> -->
+	<!-- <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"> -->
+	<!-- <property name="validator" ref="validator" /> -->
+	<!-- </bean> -->
 
 	<!-- Package -->
 	<context:component-scan base-package="org.oh.adapter org.oh.common org.oh.web" />

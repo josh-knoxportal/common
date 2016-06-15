@@ -51,7 +51,7 @@ public class TestSample {
 //		Assert.assertTrue("sample == null", sample != null);
 	}
 
-	@Test
+//	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");
@@ -83,7 +83,7 @@ public class TestSample {
 
 		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(page).build();
 		pageNavi.setList(page.getList());
-		LogUtil.writeLog("pageNavi:" + pageNavi);
+		LogUtil.writeLog("pageNavi: " + pageNavi);
 	}
 
 //	@Test
@@ -130,10 +130,10 @@ public class TestSample {
 		page = commonService.page(sat, page);
 
 		pageNavi.setList(page.getList());
-		LogUtil.writeLog("pageNavi:" + pageNavi);
+		LogUtil.writeLog("pageNavi: " + pageNavi);
 	}
 
-//	@Test
+	@Test
 	public void t07_joinList2() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
@@ -154,12 +154,14 @@ public class TestSample {
 //	@Test
 	public void t08_insert() throws Exception {
 		Sample sample = new Sample();
-//		sample.setName("s");
-//		sample.setTest_id(1L);
+		sample.setName("s");
+		sample.setTest_id(3L);
 		sample.setReg_id("1");
-		sample.setReg_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')"));
+		sample.setReg_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
+//		sample.setReg_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")); // oracle
 		sample.setMod_id("1");
-		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')"));
+		sample.setMod_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
+//		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")); // oracle
 
 		sampleService.insert(sample);
 	}
@@ -168,9 +170,11 @@ public class TestSample {
 	public void t09_update() throws Exception {
 		Sample sample = new Sample();
 		sample.setId(1L);
-//		sample.setName("s");
+		sample.setName("s1");
 		sample.setMod_id("1");
-		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')"));
+		sample.setMod_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
+//		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")); // oracle
+//		sample.setCondition("name LIKE 's%'");
 
 		sampleService.update(sample);
 	}
@@ -232,14 +236,14 @@ public class TestSample {
 		List<Sample> list = sampleService.page(sample);
 
 		pageNavi.setList(list);
-		LogUtil.writeLog("pageNavi:" + pageNavi);
+		LogUtil.writeLog("pageNavi: " + pageNavi);
 	}
 
 //	@Test
 	public void t55_insert() throws Exception {
 		Sample sample = new Sample();
-//		sample.setName("s");
-//		sample.setTest_id(1L);
+		sample.setName("s");
+		sample.setTest_id(3L);
 		sample.setReg_id("1");
 		sample.setMod_id("1");
 
@@ -250,7 +254,7 @@ public class TestSample {
 	public void t56_update() throws Exception {
 		Sample sample = new Sample();
 		sample.setId(1L);
-//		sample.setName("s");
+		sample.setName("s1");
 		sample.setMod_id("1");
 
 		sampleService.update2(sample);

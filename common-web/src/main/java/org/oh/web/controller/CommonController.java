@@ -23,54 +23,52 @@ public class CommonController<T extends Default> {
 	@Resource(name = "commonService")
 	protected CommonService<T> commonService;
 
-	@RequestMapping(value = "/get", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "get.do", method = { RequestMethod.GET })
 	public ResponseEntity<T> get(T t) throws Exception {
 		t = commonService.get(t);
 
 		return new ResponseEntity<T>(t, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "list.do", method = { RequestMethod.GET })
 	public ResponseEntity<List<T>> list(T t) throws Exception {
-//	public ResponseEntity<List<T>> list(@Valid T t, BindingResult errors) throws Exception {
-//		log.info(errors.hasErrors());
 		List<T> list = commonService.list(t);
 
 		return new ResponseEntity<List<T>>(list, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/count", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "count.do", method = { RequestMethod.GET })
 	public ResponseEntity<Integer> count(T t) throws Exception {
 		int count = commonService.count(t);
 
 		return new ResponseEntity<Integer>(count, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/page", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "page.do", method = { RequestMethod.GET })
 	public ResponseEntity<PageNavigator<T>> page(T t, Page<T> page) throws Exception {
 		page = commonService.page(t, page);
 
 		return new ResponseEntity<PageNavigator<T>>(PageNavigator.getInstance(page), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	@RequestMapping(value = "insert.do", method = RequestMethod.POST)
 	public ResponseEntity<Integer> insert(T t) throws Exception {
-		commonService.insert(t);
+		int result = commonService.insert(t);
 
-		return new ResponseEntity<Integer>(1, HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@RequestMapping(value = "update.do", method = RequestMethod.PUT)
 	public ResponseEntity<Integer> update(T t) throws Exception {
-		commonService.update(t);
+		int result = commonService.update(t);
 
-		return new ResponseEntity<Integer>(1, HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete.do", method = RequestMethod.DELETE)
 	public ResponseEntity<Integer> delete(T t) throws Exception {
-		commonService.delete(t);
+		int result = commonService.delete(t);
 
-		return new ResponseEntity<Integer>(1, HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 }

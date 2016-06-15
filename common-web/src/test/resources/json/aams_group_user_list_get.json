@@ -1,0 +1,16 @@
+{
+	"url":"http://localhost:8080/v1/aams/group_user/list2.do?userName=&creator_id=664",
+	"method":"GET",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"access_token":"JDJhJDEwJDBCWEVNY2NUd0RBNVl3RXIvQmdRZk9sdU5FY1FkY3RMNlV4SUZsUkdqSzFXbGRhLmhxN2U2",
+				"request_type":"2"
+			},
+			"params":{
+				
+			}
+		}
+	]
+}

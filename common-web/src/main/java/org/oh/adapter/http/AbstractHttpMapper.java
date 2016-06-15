@@ -130,7 +130,7 @@ public abstract class AbstractHttpMapper<T> implements IHttpMapper<T> {
 	}
 
 	protected Content getContent(final HttpResponse response) throws ClientProtocolException, IOException {
-		log.debug("statusCode:" + response.getStatusLine().getStatusCode());
+		log.debug("statusCode: " + response.getStatusLine().getStatusCode());
 		StatusLine statusLine = response.getStatusLine();
 		HttpEntity entity = response.getEntity();
 		if (statusLine.getStatusCode() >= 300) {

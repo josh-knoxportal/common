@@ -6,6 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/sample&test2")
+@RequestMapping(value = "sample_and_test2")
 public class SampleAndTest2Controller extends CommonController<SampleAndTest2> {
 }

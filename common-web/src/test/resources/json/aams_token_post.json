@@ -1,0 +1,17 @@
+{
+	"url":"http://localhost:8080/v1/aams/token.do",
+	"method":"POST",
+	"requestFormat":"JSON",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"application/json"
+			},
+			"params":{
+				"username":1038,
+				"password":"emart"
+			}
+		}
+	]
+}

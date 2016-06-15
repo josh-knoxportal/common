@@ -14,6 +14,7 @@ import org.junit.AfterClass;
 import org.oh.common.thread.HTTPUtilTask;
 import org.oh.common.util.HTTPUtils;
 import org.oh.common.util.JsonUtil2;
+import org.oh.common.util.LogUtil;
 import org.oh.common.util.ThreadUtils;
 import org.oh.common.util.Utils;
 import org.springframework.util.StopWatch;
@@ -54,7 +55,7 @@ public class TestAPI {
 	protected void test(ArrayNode arrayNode) throws Exception {
 		for (JsonNode jsonNode : arrayNode) {
 			test(jsonNode);
-			log.info("==================================================");
+			LogUtil.writeLog("==================================================");
 		}
 	}
 
@@ -84,7 +85,7 @@ public class TestAPI {
 		print(futureList, saveDir, saveExt, responseFormat);
 
 		sw.stop();
-		log.info(sw.shortSummary());
+		LogUtil.writeLog(sw.shortSummary());
 	}
 
 	/**
@@ -108,7 +109,7 @@ public class TestAPI {
 		jsonNode = json.path("params");
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		if ("JSON".equalsIgnoreCase(requestFormat)) {
-			headers.add(new BasicNameValuePair("Content-Type", "application/json;charset=UTF-8"));
+//			headers.add(new BasicNameValuePair("Content-Type", "application/json;charset=UTF-8"));
 			params.add(new BasicNameValuePair("", jsonNode.toString()));
 		} else {
 			Iterator<Map.Entry<String, JsonNode>> fields = jsonNode.fields();
@@ -144,17 +145,13 @@ public class TestAPI {
 						(byte[]) result.get("content"));
 				// 콘솔에 출력
 			} else {
-				log.info(result);
-
+				String content = HTTPUtils.getContentString(result);
 				if (Utils.isValidate(responseFormat)) {
-					String content = HTTPUtils.getContentString(result);
-
 					if ("JSON".equalsIgnoreCase(responseFormat)) {
 						content = JsonUtil2.prettyPrint(content);
 					}
-
-					log.info(content);
 				}
+				LogUtil.writeLog("content: " + content);
 			}
 		}
 	}

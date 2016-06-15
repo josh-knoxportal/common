@@ -67,22 +67,22 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 
 	@Override
 	@CacheEvictCommon
-	public void insert(T t) throws Exception {
-		entityManager.insert(t);
+	public int insert(T t) throws Exception {
+		return entityManager.insert(t);
 
 //		getCache().clear();
 	}
 
 	@Override
 	@CacheEvictCommon
-	public void update(T t) throws Exception {
-		entityManager.update(t);
+	public int update(T t) throws Exception {
+		return entityManager.update(t, t.getCondition());
 	}
 
 	@Override
 	@CacheEvictCommon
-	public void delete(T t) throws Exception {
-		entityManager.delete(t, t.getCondition());
+	public int delete(T t) throws Exception {
+		return entityManager.delete(t, t.getCondition());
 	}
 
 	/**

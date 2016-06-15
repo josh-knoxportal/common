@@ -89,7 +89,7 @@ public class XmlSaxParseDefaultListHandler<T> extends DefaultHandler {
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String text = new String(ch, start, length);
-		// LogUtil.writeLog("characters:" + position +", =" + this.flag, getClass());
+		// LogUtil.writeLog("characters: " + position +", =" + this.flag, getClass());
 		if (fields == null) {
 			position = "";
 			return;

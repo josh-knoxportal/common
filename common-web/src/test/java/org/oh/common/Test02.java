@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.http.HttpStatus;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -63,8 +64,18 @@ public class Test02 {
 			System.out.println(list.get(i));
 		}
 	}
+	
+	String s = "1";
+	public void test01() throws Exception {
+//		String s = "2";
+//		System.out.println(s);
+//		s = this.s;
+//		System.out.println(s);
+		System.out.println(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+	}
 
 	public static void main(String[] args) throws Exception {
+		new Test02().test01();
 //		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("config-spring.xml");
 //		String[] beanNames = context.getBeanDefinitionNames();
 //		for (String beanName : beanNames) {
@@ -88,7 +99,7 @@ public class Test02 {
 //		System.out.println(MessageFormat.format("1{0}3{1}", new Object[] { "2", "4" }));
 //		System.out.println(MessageFormat.format("13", new Object[] { "2", "4" }));
 		
-		System.out.println(new Date());
+//		System.out.println(new Date());
 	}
 
 }

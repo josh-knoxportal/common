@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/aams/group_user/list2.do?userName=&creator_id=664",
+	"url":"http://localhost:8080/v1/aams/group_user/list.do?adminGroup.slbs_id=7057&adminUser.userName=1038&adminUser.creator_id=664",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

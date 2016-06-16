@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
+import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.LogUtil;
 import org.oh.sample.model.Sample;
 import org.oh.sample.model.SampleAndTest;
@@ -48,17 +49,19 @@ public class TestSample {
 		sample.setId(1L);
 
 		sample = sampleService.get(sample);
+		LogUtil.writeLog("sample: " + JsonUtil2.prettyPrint(sample));
 //		Assert.assertTrue("sample == null", sample != null);
 	}
 
-//	@Test
+	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");
 		sample.setCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
-		sampleService.list(sample);
+		List<Sample> list = sampleService.list(sample);
+		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
 	}
 
 //	@Test
@@ -80,6 +83,7 @@ public class TestSample {
 		Page<Sample> page = new Page<Sample>(1);
 
 		page = sampleService.page(sample, page);
+		LogUtil.writeLog("page: " + JsonUtil2.prettyPrint(page));
 
 		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(page).build();
 		pageNavi.setList(page.getList());
@@ -133,7 +137,7 @@ public class TestSample {
 		LogUtil.writeLog("pageNavi: " + pageNavi);
 	}
 
-	@Test
+//	@Test
 	public void t07_joinList2() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
@@ -198,7 +202,8 @@ public class TestSample {
 		Sample sample = new Sample();
 		sample.setId(1L);
 
-		sampleService.get2(sample);
+		sample = sampleService.get2(sample);
+		LogUtil.writeLog("sample: " + JsonUtil2.prettyPrint(sample));
 	}
 
 //	@Test
@@ -208,7 +213,8 @@ public class TestSample {
 		sample.setCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
-		sampleService.list2(sample);
+		List<Sample> list = sampleService.list2(sample);
+		LogUtil.writeLog("sample: " + JsonUtil2.prettyPrint(list));
 	}
 
 //	@Test
@@ -234,9 +240,10 @@ public class TestSample {
 		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(sample).build();
 
 		List<Sample> list = sampleService.page(sample);
+		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
 
 		pageNavi.setList(list);
-		LogUtil.writeLog("pageNavi: " + pageNavi);
+		LogUtil.writeLog("pageNavi: " + JsonUtil2.prettyPrint(list));
 	}
 
 //	@Test

@@ -779,4 +779,10 @@ public abstract class DateUtil extends DateUtils {
 
 		return date;
 	}
+
+	public static void main(String[] args) {
+		Date date = new Date();
+		System.out.println(date);
+		System.out.println(addSeconds(date, 30));
+	}
 }

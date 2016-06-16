@@ -15,14 +15,15 @@ public abstract class Default implements Serializable {
 	/**
 	 * 조회 조건
 	 */
+	@JsonIgnore
 	protected String condition;
 
 	/**
 	 * 정렬 기준
 	 */
+	@JsonIgnore
 	protected String order_by;
 
-	@JsonIgnore
 	public String getCondition() {
 		return condition;
 	}
@@ -31,7 +32,6 @@ public abstract class Default implements Serializable {
 		this.condition = condition;
 	}
 
-	@JsonIgnore
 	public String getOrder_by() {
 		return order_by;
 	}

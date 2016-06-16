@@ -27,9 +27,9 @@ public class Header {
 	}
 
 	public Header(Boolean success_yn, String error_code, String error_message) {
-		this.success_yn = success_yn;
-		this.error_code = error_code;
-		this.error_message = error_message;
+		setSuccess_yn(success_yn);
+		setError_code(error_code);
+		setError_message(error_message);
 	}
 
 	public Boolean getSuccess_yn() {

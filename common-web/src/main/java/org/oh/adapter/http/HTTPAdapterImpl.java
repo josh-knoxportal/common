@@ -74,8 +74,8 @@ public class HTTPAdapterImpl implements HTTPAdapter {
 				request = mapper.setRequestParam(request, paramObj);
 			}
 			response = HttpConnector.CLIENT.execute(request);
-			T t = mapper.handleResponse(response);
-			return t;
+			T model = mapper.handleResponse(response);
+			return model;
 		} catch (AdapterException e) {
 			throw e;
 		} catch (Exception e) {
@@ -95,8 +95,8 @@ public class HTTPAdapterImpl implements HTTPAdapter {
 				request = mapper.setRequestParam(request, paramObj);
 			}
 			response = HttpConnector.CLIENT.execute(request);
-			T t = mapper.handleResponse(response);
-			return t;
+			T model = mapper.handleResponse(response);
+			return model;
 		} catch (AdapterException e) {
 			throw e;
 		} catch (Exception e) {

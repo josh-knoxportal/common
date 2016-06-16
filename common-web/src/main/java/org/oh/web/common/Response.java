@@ -30,16 +30,16 @@ public class Response<T> {
 	}
 
 	public Response(Header header) {
-		this.header = header;
+		this(header, null);
 	}
 
 	public Response(T body) {
-		this.body = body;
+		this(null, body);
 	}
 
 	public Response(Header header, T body) {
-		this.header = header;
-		this.body = body;
+		setHeader(header);
+		setBody(body);
 	}
 
 	public Header getHeader() {

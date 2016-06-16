@@ -39,6 +39,8 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/bms_beacon_get.json"));
 
+//		arrayNode.add(readFile("src/test/resources/json/cbms_branch_get.json"));
+
 //		arrayNode.add(readFile("src/test/resources/json/cbms_company_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cbms_company_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/cbms_company_put.json"));
@@ -84,6 +86,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_group_user_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_category_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_category_insert_list_post.json"));
 	}
 

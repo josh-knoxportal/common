@@ -8,24 +8,27 @@ public class Paging extends Common {
 	/**
 	 * 페이지 번호
 	 */
+	@JsonIgnore
 	protected int page_number;
 
 	/**
 	 * 전체 건수
 	 */
+	@JsonIgnore
 	protected int total_sise;
 
 	/**
 	 * 페이지당 건수
 	 */
+	@JsonIgnore
 	protected int rows_per_page = PageNavigator.ROWS_PER_PAGE;
 
 	/**
 	 * 화면당 페이지 수
 	 */
+	@JsonIgnore
 	protected int page_group_count = PageNavigator.PAGE_GROUP_COUNT;
 
-	@JsonIgnore
 	public int getPage_number() {
 		return page_number;
 	}
@@ -34,7 +37,6 @@ public class Paging extends Common {
 		this.page_number = page_number;
 	}
 
-	@JsonIgnore
 	public int getTotal_sise() {
 		return total_sise;
 	}
@@ -43,7 +45,6 @@ public class Paging extends Common {
 		this.total_sise = total_sise;
 	}
 
-	@JsonIgnore
 	public int getRows_per_page() {
 		return rows_per_page;
 	}
@@ -52,7 +53,6 @@ public class Paging extends Common {
 		this.rows_per_page = rows_per_page;
 	}
 
-	@JsonIgnore
 	public int getPage_group_count() {
 		return page_group_count;
 	}

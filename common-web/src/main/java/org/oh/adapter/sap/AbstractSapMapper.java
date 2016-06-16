@@ -21,14 +21,14 @@ public abstract class AbstractSapMapper implements ISapMapper {
 	protected <T> T covertSapStructureToObject(JCoStructure structure, Class<T> type) throws AdapterException {
 
 		try {
-			T t = type.newInstance();
-			DirectFieldAccessor fieldAccessor = new DirectFieldAccessor(t);
+			T model = type.newInstance();
+			DirectFieldAccessor fieldAccessor = new DirectFieldAccessor(model);
 
 			for (JCoFieldIterator iter = structure.getFieldIterator(); iter.hasNextField();) {
 				JCoField field = iter.nextField();
 				fieldAccessor.setPropertyValue(field.getName(), field.getValue());
 			}
-			return t;
+			return model;
 		} catch (InstantiationException e) {
 			throw new AdapterException("COV001", "", e);
 		} catch (IllegalAccessException e) {
@@ -45,15 +45,15 @@ public abstract class AbstractSapMapper implements ISapMapper {
 			if (table.getNumRows() > 0) {
 				table.firstRow();
 				do {
-					T t = type.newInstance();
-					DirectFieldAccessor fieldAccessor = new DirectFieldAccessor(t);
+					T model = type.newInstance();
+					DirectFieldAccessor fieldAccessor = new DirectFieldAccessor(model);
 					for (JCoRecordFieldIterator iter = table.getRecordFieldIterator(); iter.hasNextField();) {
 						JCoRecordField recoredField = iter.nextRecordField();
 						if (fieldAccessor.isReadableProperty(recoredField.getName())) {
 							fieldAccessor.setPropertyValue(recoredField.getName(), recoredField.getValue());
 						}
 					}
-					list.add(t);
+					list.add(model);
 				} while (table.nextRow());
 			}
 
@@ -70,12 +70,12 @@ public abstract class AbstractSapMapper implements ISapMapper {
 
 		table.firstRow();
 		for (Iterator<T> iter = list.iterator(); iter.hasNext();) {
-			T t = iter.next();
+			T model = iter.next();
 			table.appendRow();
 
-			Class<?> clazz = t.getClass();
+			Class<?> clazz = model.getClass();
 			Field[] fields = clazz.getDeclaredFields();
-			DirectFieldAccessor fieldAccessor = new DirectFieldAccessor(t);
+			DirectFieldAccessor fieldAccessor = new DirectFieldAccessor(model);
 			for (Field field : fields) {
 				Object value = fieldAccessor.getPropertyValue(field.getName());
 				table.setValue(field.getName(), value);

@@ -35,54 +35,55 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	}
 
 	@Override
-	public T get(T t) throws Exception {
-		return entityManager.get(t);
+	public T get(T model) throws Exception {
+		return entityManager.get(model);
 	}
 
 	@Override
 	@CacheableCommon
-	public List<T> list(T t) throws Exception {
+	public List<T> list(T model) throws Exception {
 		List<T> list;
 
-//		list = getCache().get(ReflectionUtil.toString(t), List.class);
+//		list = getCache().get(ReflectionUtil.toString(model), List.class);
 //		if (list != null)
 //			return list;
 
-		list = entityManager.list(t, t.getCondition(), t.getOrder_by());
+		list = entityManager.list(model, model.getCondition(), model.getOrder_by());
 
-//		cache.put(t.toString(), list);
+//		cache.put(model.toString(), list);
 
 		return list;
 	}
 
 	@Override
-	public int count(T t) throws Exception {
-		return entityManager.count(t, t.getCondition());
+	public int count(T model) throws Exception {
+		return entityManager.count(model, model.getCondition());
 	}
 
 	@Override
-	public Page<T> page(T t, Page<T> page) throws Exception {
-		return entityManager.page(t, t.getCondition(), t.getOrder_by(), page.getPageNumber(), page.getRows());
+	public Page<T> page(T model, Page<T> page) throws Exception {
+		return entityManager.page(model, model.getCondition(), model.getOrder_by(), page.getPageNumber(),
+				page.getRows());
 	}
 
 	@Override
 	@CacheEvictCommon
-	public int insert(T t) throws Exception {
-		return entityManager.insert(t);
+	public int insert(T model) throws Exception {
+		return entityManager.insert(model);
 
 //		getCache().clear();
 	}
 
 	@Override
 	@CacheEvictCommon
-	public int update(T t) throws Exception {
-		return entityManager.update(t, t.getCondition());
+	public int update(T model) throws Exception {
+		return entityManager.update(model, model.getCondition());
 	}
 
 	@Override
 	@CacheEvictCommon
-	public int delete(T t) throws Exception {
-		return entityManager.delete(t, t.getCondition());
+	public int delete(T model) throws Exception {
+		return entityManager.delete(model, model.getCondition());
 	}
 
 	/**

@@ -3,6 +3,8 @@ package org.oh.web.model;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 공통 모델
  * 
@@ -13,24 +15,28 @@ public class Common extends Default {
 	/**
 	 * 등록자 아이디
 	 */
+	@JsonIgnore
 	@Column
 	protected String reg_id;
 
 	/**
 	 * 등록 일시
 	 */
+	@JsonIgnore
 	@Column
 	protected String reg_dt;
 
 	/**
 	 * 수정자 아이디
 	 */
+	@JsonIgnore
 	@Column
 	protected String mod_id;
 
 	/**
 	 * 수정 일시
 	 */
+	@JsonIgnore
 	@Column
 	protected String mod_dt;
 

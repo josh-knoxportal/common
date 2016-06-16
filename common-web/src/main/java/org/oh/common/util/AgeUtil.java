@@ -10,7 +10,6 @@ import egovframework.rte.fdl.string.EgovDateUtil;
  *
  */
 public abstract class AgeUtil extends EgovDateUtil {
-
 	/**
 	 * 주민번호를 기준으로 현재 시점의 만 나이를 구한다.
 	 * 

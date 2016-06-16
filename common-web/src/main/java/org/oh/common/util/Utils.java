@@ -686,6 +686,10 @@ public abstract class Utils {
 		return (int) ((cEnd.getTimeInMillis() - cStart.getTimeInMillis()) / 1000);
 	}
 
+	public static int getIntervalSecond(Date dStart, Date dEnd) {
+		return (int) ((dEnd.getTime() - dStart.getTime()) / 1000);
+	}
+
 	public static String convertSecToString(int sec) {
 		String time = "";
 		String min = "";
@@ -2176,14 +2180,14 @@ public abstract class Utils {
 //		list.add("aaa");
 //		LogUtil.writeLog(toString(convertValue(list)));
 //
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		map.put("a", "1");
-		map.put("b", "2");
-		map.put("b", null);
-		map.put(null, 3);
-		map.put(1, null);
-		System.out.println(map);
-		System.out.println(getKey(map, null));
+//		Map<Object, Object> map = new HashMap<Object, Object>();
+//		map.put("a", "1");
+//		map.put("b", "2");
+//		map.put("b", null);
+//		map.put(null, 3);
+//		map.put(1, null);
+//		System.out.println(map);
+//		System.out.println(getKey(map, null));
 //		Map<String, String> map2 = new HashMap<String, String>();
 //		map.put("c", "3");
 //		LogUtil.writeLog(toString(convertKey(map)));

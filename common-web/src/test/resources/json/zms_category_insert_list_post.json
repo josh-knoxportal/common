@@ -2,6 +2,7 @@
 	"url":"http://localhost:8080/v1/zms/category/insert_list.do",
 	"method":"POST",
 	"requestFormat":"JSON",
+	"responseFormat":"JSON",
 	"list":[
 		{
 			"headers":{

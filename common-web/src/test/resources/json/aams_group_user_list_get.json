@@ -1,11 +1,11 @@
 {
-	"url":"http://localhost:8080/v1/aams/group_user/list.do?adminGroup.slbs_id=7057&adminUser.userName=1038&adminUser.creator_id=664",
+	"url":"http://112.217.207.164:20080/v1/aams/group_user/list.do?adminGroup.slbs_id=7057&adminUser.userName=1038",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
 		{
 			"headers":{
-				"access_token":"JDJhJDEwJDBCWEVNY2NUd0RBNVl3RXIvQmdRZk9sdU5FY1FkY3RMNlV4SUZsUkdqSzFXbGRhLmhxN2U2",
+				"access_token":"JDJhJDEwJExyeVZiOWFPcERseVFhUWFtcElFTU9IbmJRNjJ2MWZHZFpqUlRhR0hmc3JPTXpET09QYXZt",
 				"request_type":"2"
 			},
 			"params":{

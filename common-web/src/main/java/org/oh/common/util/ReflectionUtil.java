@@ -7,8 +7,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.StandardToStringStyle;
 import org.oh.common.exception.CommonException;
 import org.springframework.util.ReflectionUtils;
 
@@ -218,7 +218,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		if (objs == null || objs.length == 0)
 			return "[]";
 
-		StandardToStringStyle style = new StandardToStringStyle();
+		RecursiveToStringStyle2 style = new RecursiveToStringStyle2();
 		style.setUseIdentityHashCode(false);
 
 		StringBuilder sb = new StringBuilder("[");
@@ -234,7 +234,14 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		return sb.toString();
 	}
 
-	// Inner class --------------------------------------------------------------------
+	// Inner class ------------------------------------------------------------
+
+	protected static class RecursiveToStringStyle2 extends RecursiveToStringStyle {
+		@Override
+		public void setUseIdentityHashCode(final boolean useIdentityHashCode) {
+			super.setUseIdentityHashCode(useIdentityHashCode);
+		}
+	}
 
 	/**
 	 * 필드 콜백
@@ -250,5 +257,29 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		protected Map<String, Field> getFieldMap() {
 			return this.fieldMap;
 		}
+	}
+
+	// Test -------------------------------------------------------------------
+
+	public static class Person {
+		String name = "1";
+		int age = 2;
+		boolean smoker = false;
+		Job job = new Job();;
+	}
+
+	public static class Job {
+		String title = "3";
+		Job2 job = new Job2();;
+	}
+
+	public static class Job2 {
+		String title = "4";
+	}
+
+	public static void main(String[] args) throws Exception {
+		RecursiveToStringStyle2 style = new RecursiveToStringStyle2();
+		style.setUseIdentityHashCode(false);
+		System.out.println(new ReflectionToStringBuilder(new Person(), style).toString());
 	}
 }

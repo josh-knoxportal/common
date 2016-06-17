@@ -30,7 +30,7 @@ public class TestAPI_skoh extends TestAPI {
 
 		///////////////////////////////////////////////////////////////////////
 //		arrayNode.add(readFile("src/test/resources/json/aams_token_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/aams_group_user_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/aams_group_user_list_get.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/admin_gateway_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/admin_gateway.json"));
@@ -87,7 +87,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_group_user_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_category_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_category_insert_list_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/zms_category_insert_list_post.json"));
 	}
 
 	@Test

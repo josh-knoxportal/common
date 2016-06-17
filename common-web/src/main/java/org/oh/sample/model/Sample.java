@@ -1,5 +1,9 @@
 package org.oh.sample.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mybatisorm.annotation.Column;
 import org.oh.web.page.Paging;
@@ -71,20 +75,19 @@ public class Sample extends Paging {
 	/**
 	 * 샘플 아이디(PK), 시퀀스
 	 */
-//	@NotEmpty // 반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다.
-//	@Min(10) // 반드시 10보다 같거나 커야 합니다.
-//	@Max(Long.MAX_VALUE) // 반드시 2147483647보다 같거나 작아야 합니다.
+//	@Null // 반드시 값이 있어야 합니다.
+	@NotNull(message = "반드시 값이 있어야 합니다.") // 반드시 값이 없어야 합니다.
+	@Min(1) // 반드시 1보다 같거나 커야 합니다.
+	@Max(Long.MAX_VALUE) // 반드시 9223372036854775807보다 같거나 작아야 합니다.
 	@Column(primaryKey = true) // , sequence = "sample_seq") // oracle
 	protected Long id;
 
 	/**
 	 * 샘플명
 	 */
-///	@Null // 반드시 값이 있어야 합니다.
-///	@NotNull // 반드시 값이 없어야 합니다.
 	@NotEmpty // 반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다.
-//	@Size(min = 10, max = Integer.MAX_VALUE) // 반드시 최소값 10과(와) 최대값 2147483647 사이의 크기이어야 합니다.
-///	@Length(min = 10, max = Integer.MAX_VALUE) // 반드시 최소값 10과(와) 최대값 2147483647 사이의 길이이어야 합니다.
+//	@Size(min = 1, max = Integer.MAX_VALUE) // 반드시 최소값 1과(와) 최대값 2147483647 사이의 크기이어야 합니다.
+///	@Length(min = 1, max = Integer.MAX_VALUE) // 반드시 최소값 1과(와) 최대값 2147483647 사이의 길이이어야 합니다.
 	@Column
 	protected String name;
 

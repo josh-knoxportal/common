@@ -4,7 +4,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -64,8 +63,9 @@ public class Test02 {
 			System.out.println(list.get(i));
 		}
 	}
-	
+
 	String s = "1";
+
 	public void test01() throws Exception {
 //		String s = "2";
 //		System.out.println(s);
@@ -98,7 +98,7 @@ public class Test02 {
 //		readFile("src/test/resources/json/admin_gateway_post.json");
 //		System.out.println(MessageFormat.format("1{0}3{1}", new Object[] { "2", "4" }));
 //		System.out.println(MessageFormat.format("13", new Object[] { "2", "4" }));
-		
+
 //		System.out.println(new Date());
 	}
 

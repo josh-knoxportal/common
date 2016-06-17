@@ -15,31 +15,28 @@ public class Common extends Default {
 	/**
 	 * 등록자 아이디
 	 */
-	@JsonIgnore
 	@Column
 	protected String reg_id;
 
 	/**
 	 * 등록 일시
 	 */
-	@JsonIgnore
 	@Column
 	protected String reg_dt;
 
 	/**
 	 * 수정자 아이디
 	 */
-	@JsonIgnore
 	@Column
 	protected String mod_id;
 
 	/**
 	 * 수정 일시
 	 */
-	@JsonIgnore
 	@Column
 	protected String mod_dt;
 
+	@JsonIgnore
 	public String getReg_id() {
 		return reg_id;
 	}
@@ -48,6 +45,7 @@ public class Common extends Default {
 		this.reg_id = reg_id;
 	}
 
+	@JsonIgnore
 	public String getReg_dt() {
 		return reg_dt;
 	}
@@ -56,6 +54,7 @@ public class Common extends Default {
 		this.reg_dt = reg_dt;
 	}
 
+	@JsonIgnore
 	public String getMod_id() {
 		return mod_id;
 	}
@@ -64,6 +63,7 @@ public class Common extends Default {
 		this.mod_id = mod_id;
 	}
 
+	@JsonIgnore
 	public String getMod_dt() {
 		return mod_dt;
 	}

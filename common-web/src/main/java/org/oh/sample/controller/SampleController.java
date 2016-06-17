@@ -42,6 +42,7 @@ public class SampleController extends CommonController<Sample> {
 		}
 
 		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, errors);
+
 		return new ResponseEntity<Response<List<Sample>>>(responseEntity.getBody(), responseEntity.getStatusCode());
 	}
 

@@ -13,6 +13,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public abstract class Default implements Serializable {
 	/**
+	 * 힌트
+	 */
+	protected String hint;
+
+	/**
 	 * 조회 조건
 	 */
 	protected String condition;
@@ -21,6 +26,15 @@ public abstract class Default implements Serializable {
 	 * 정렬 기준
 	 */
 	protected String order_by;
+
+	@JsonIgnore
+	public String getHint() {
+		return hint;
+	}
+
+	public void setHint(String hint) {
+		this.hint = hint;
+	}
 
 	@JsonIgnore
 	public String getCondition() {

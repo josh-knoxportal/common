@@ -56,6 +56,7 @@ public class TestSample {
 	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
+		sample.setHint("DISTINCT");
 		sample.setName("s");
 		sample.setCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");

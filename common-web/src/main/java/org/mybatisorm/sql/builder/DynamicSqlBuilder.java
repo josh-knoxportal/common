@@ -54,6 +54,15 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 						parameter);
 	}
 
+	// 힌트 추가 by skoh
+	protected void makeHint(Query query) {
+		int index = staticSql.indexOf("SELECT");
+		if (index >= 0) {
+			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 6) + " " + query.getHint()
+					+ " " + staticSql.substring(index + 7);
+		}
+	}
+
 	// 모든 조건 적용 by skoh
 	protected String makeCondition(String where, Query query) {
 		return where + (query.hasCondition() ? ((where.length() > 0) ? " AND " : "") + query.getCondition() : "");

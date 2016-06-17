@@ -38,7 +38,9 @@ public class Query {
 	private static final String CONDITION_REPLACEMENT = "#{" + PARAMETER_PREFIX + "$1}";
 	
 	private static Logger logger = Logger.getLogger(Query.class);
-	
+
+	// 힌트 추가 by skoh
+	private String hint;
 	private String orderBy;
 	private Condition condition;
 	private Object parameter;
@@ -72,13 +74,24 @@ public class Query {
 	public Query(Object parameter, String condition, String orderBy) {
 		// 조건이 있을 경우만 추가 by skoh
 //		this(parameter, new Condition().add(condition), orderBy);
-		this(parameter, (condition == null) ? new Condition() : new Condition().add(condition), orderBy);
+		this(parameter, condition, orderBy, null);
+	}
+	
+	// 힌트 추가 by skoh
+	public Query(Object parameter, String condition, String orderBy, String hint) {
+		this(parameter, (condition == null) ? new Condition() : new Condition().add(condition), orderBy, hint);
 	}
 	
 	public Query(Object parameter, Condition condition, String orderBy) {
 		this.parameter = parameter;
 		this.orderBy = orderBy;
 		this.condition = condition;
+	}
+	
+	// 힌트 추가 by skoh
+	public Query(Object parameter, Condition condition, String orderBy, String hint) {
+		this(parameter, condition, orderBy);
+		this.hint = hint;
 	}
 	
 	public Query(Object parameter, String orderBy, int pageNumber, int rows) {
@@ -123,6 +136,10 @@ public class Query {
 	}
 	public void setParameter(Object parameter) {
 		this.parameter = parameter;
+	}
+	// 힌트 추가 by skoh
+	public String getHint() {
+		return hint;
 	}
 	public String getCondition() {
 		return condition.build(this);

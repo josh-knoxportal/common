@@ -71,7 +71,15 @@ public class Test02 {
 //		System.out.println(s);
 //		s = this.s;
 //		System.out.println(s);
-		System.out.println(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+//		System.out.println(HttpStatus.INTERNAL_SERVER_ERROR.toString());
+		// 12345678901234567890
+		String staticSql = "  SELECT      ABC   ";
+		int index = staticSql.indexOf("SELECT");
+		if (index >= 0) {
+			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 6) + " DISTINCT "
+					+ staticSql.substring(index + 7);
+		}
+		System.out.println(staticSql);
 	}
 
 	public static void main(String[] args) throws Exception {

@@ -30,6 +30,8 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 
 	public BoundSql getBoundSql(final Object queryParam) {
 		Query query = (Query)queryParam;
+		// 필드 추가 by skoh
+		makeFields(query);
 		// 힌트 추가 by skoh
 		makeHint(query);
 		String where = null;

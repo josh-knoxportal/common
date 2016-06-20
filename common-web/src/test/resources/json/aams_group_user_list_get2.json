@@ -1,0 +1,16 @@
+{
+	"url":"http://112.217.207.164:20080/v1/aams/group_user/list.do?adminUser.creator_id=384",
+	"method":"GET",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"access_token":"JDJhJDEwJExyeVZiOWFPcERseVFhUWFtcElFTU9IbmJRNjJ2MWZHZFpqUlRhR0hmc3JPTXpET09QYXZt",
+				"request_type":"2"
+			},
+			"params":{
+				
+			}
+		}
+	]
+}

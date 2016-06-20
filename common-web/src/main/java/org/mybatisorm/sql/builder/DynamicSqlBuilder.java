@@ -32,7 +32,7 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 	protected String staticSql;
 
 	public DynamicSqlBuilder(SqlSourceBuilder sqlSourceParser, Class<?> targetClass) {
-		super(sqlSourceParser,targetClass);
+		super(sqlSourceParser, targetClass);
 	}
 
 	// 주석 처리 by skoh
@@ -48,18 +48,25 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 	}
 
 	protected BoundSql makeWhere(String where, Object parameter) {
-		return getBoundSql(
-				where != null && where.length() > 0 ?
-						staticSql + " WHERE " + where : staticSql,
-						parameter);
+		return getBoundSql(where != null && where.length() > 0 ? staticSql + " WHERE " + where : staticSql, parameter);
 	}
 
 	// 힌트 추가 by skoh
 	protected void makeHint(Query query) {
 		int index = staticSql.indexOf("SELECT");
-		if (index >= 0) {
+		if (query.getHint() != null && index >= 0) {
 			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 6) + " " + query.getHint()
 					+ " " + staticSql.substring(index + 7);
+		}
+	}
+
+	// 필드 추가 by skoh
+	protected void makeFields(Query query) {
+		int idxSelect = staticSql.indexOf("SELECT");
+		int idxFrom = staticSql.indexOf("FROM");
+		if (query.getFields() != null && idxSelect >= 0 && idxFrom >= 0) {
+			staticSql = staticSql.substring(0, idxSelect) + staticSql.substring(idxSelect, idxSelect + 6) + " "
+					+ query.getFields() + " " + staticSql.substring(idxFrom);
 		}
 	}
 

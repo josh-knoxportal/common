@@ -348,9 +348,9 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 		return list(new Query(parameter, condition, orderBy));
 	}
 
-	// 힌트 추가 by skoh
-	public <T> List<T> list(T parameter, String condition, String orderBy, String hint) {
-		return list(new Query(parameter, condition, orderBy, hint));
+	// 힌트, 필드 추가 by skoh
+	public <T> List<T> list(T parameter, String condition, String orderBy, String hint, String fields) {
+		return list(new Query(parameter, condition, orderBy, hint, fields));
 	}
 
 	/**

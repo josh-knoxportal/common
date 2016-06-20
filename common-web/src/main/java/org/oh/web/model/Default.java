@@ -18,6 +18,11 @@ public abstract class Default implements Serializable {
 	protected String hint;
 
 	/**
+	 * 필드
+	 */
+	protected String fields;
+
+	/**
 	 * 조회 조건
 	 */
 	protected String condition;
@@ -34,6 +39,15 @@ public abstract class Default implements Serializable {
 
 	public void setHint(String hint) {
 		this.hint = hint;
+	}
+
+	@JsonIgnore
+	public String getFields() {
+		return fields;
+	}
+
+	public void setFields(String fields) {
+		this.fields = fields;
 	}
 
 	@JsonIgnore

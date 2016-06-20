@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/zms/category/list.do?gcodeCd=110&mcodeCd=9504",
+	"url":"http://localhost:8080/v1/zms/category/list.do?hint=DISTINCT&fields=team_cd, team_nm&username=emartcm&order_by=team_cd",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

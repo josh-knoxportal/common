@@ -9,21 +9,55 @@
 	crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
+// 		$($("#a")[0]).text("First span");
+// 		$($("#a")[1]).text("Second span");
+// 		$($("span[name='a']")[0]).text("First span");
+// 		$($("span[name='a']")[1]).text("Second span");
+// 		$($(".demo")[0]).text("First span");
+// 		$($(".demo")[1]).text("Second span");
+
+// 		var a = $($("select[name='select01']")[1]);
+// 		console.log(a.prop("title"));
+// 		a.empty();
+
+// 		var a = $("select[name='select01']");
+// 		$.each (a, function (index, b) {
+// 			$(b).empty();
+// 		});
+// 		$(a[1]).empty();
+
 // 		if (",".indexOf(",") > -1) {
 // 			console.log("y");
 // 		} else {
 // 			console.log("n");
 // 		}
-		$("#select01 option:eq(1)").prop('selected', true);
+// 		$("#select01 option:eq(1)").prop('selected', true);
+// 		$("#select01").empty();
+
+		var array = [];
+		a[0] = "1";
+		a[2] = "3";
+		console.log(a);
 	});
 </script>
 </head>
 
 <body>
-<select id="select01">
-	<option value=""></option>
-	<option value="1">1</option>
-	<option value="2">2</option>
-</select>
+	<div>
+		<span id="a" name="a" class="demo">1</span>
+		<span id="a" name="a" class="demo">2</span>
+		<span>3</span>
+	</div>
+
+	<select id="select01" name="select01" title="select01">
+		<option value=""></option>
+		<option value="1">a</option>
+		<option value="2">b</option>
+	</select>
+	<select id="select01" name="select01" title="select02">
+		<option value=""></option>
+		<option value="3">c</option>
+		<option value="4">d</option>
+	</select>
 </body>
 </html>

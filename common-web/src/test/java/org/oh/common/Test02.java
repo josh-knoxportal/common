@@ -72,13 +72,14 @@ public class Test02 {
 //		s = this.s;
 //		System.out.println(s);
 //		System.out.println(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-		// 12345678901234567890
-		String staticSql = "  SELECT      ABC   ";
-		int index = staticSql.indexOf("SELECT");
-		if (index >= 0) {
-			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 6) + " DISTINCT "
-					+ staticSql.substring(index + 7);
-		}
+		System.out.println("123456789012345678901234567890");
+		String staticSql = "  SELECT      ABC   FROM ";
+		int idxSelect = staticSql.indexOf("SELECT");
+		int idxFrom = staticSql.indexOf("FROM");
+		String select = staticSql.substring(0, idxSelect) + staticSql.substring(idxSelect, idxSelect + 6);
+		staticSql = select + " fields " + staticSql.substring(idxFrom);
+		System.out.println(staticSql);
+		staticSql = select + " DISTINCT " + staticSql.substring(idxSelect + 7);
 		System.out.println(staticSql);
 	}
 

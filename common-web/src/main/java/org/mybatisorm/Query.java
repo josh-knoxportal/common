@@ -76,12 +76,7 @@ public class Query {
 	public Query(Object parameter, String condition, String orderBy) {
 		// 조건이 있을 경우만 추가 by skoh
 //		this(parameter, new Condition().add(condition), orderBy);
-		this(parameter, condition, orderBy, null, null);
-	}
-	
-	// 힌트, 필드 추가 by skoh
-	public Query(Object parameter, String condition, String orderBy, String hint, String fields) {
-		this(parameter, (condition == null) ? new Condition() : new Condition().add(condition), orderBy, hint, fields);
+		this(parameter, new Condition().add(condition), orderBy, null, null);
 	}
 	
 	public Query(Object parameter, Condition condition, String orderBy) {

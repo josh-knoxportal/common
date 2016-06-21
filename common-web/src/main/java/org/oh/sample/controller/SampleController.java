@@ -46,6 +46,12 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<List<Sample>>>(responseEntity.getBody(), responseEntity.getStatusCode());
 	}
 
+	// 주의) 메소드명을 다르게 정의
+	@RequestMapping(value = "/list.do", method = { RequestMethod.POST })
+	public ResponseEntity<Response<List<Sample>>> list3(@Valid Sample sample, BindingResult errors) throws Exception {
+		return list(sample, errors);
+	}
+
 	@RequestMapping(value = "/get2", method = { RequestMethod.GET })
 	public ResponseEntity<Response<Sample>> get2(Sample sample) throws Exception {
 		sample = sampleService.get2(sample);

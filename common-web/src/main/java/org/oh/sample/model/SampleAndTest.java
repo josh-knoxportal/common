@@ -18,6 +18,14 @@ public class SampleAndTest extends Default {
 	protected Test test;
 //	protected List<Test> test;
 
+	public SampleAndTest() {
+	}
+
+	public SampleAndTest(Sample sample, Test test) {
+		this.sample = sample;
+		this.test = test;
+	}
+
 	public Sample getSample() {
 		return sample;
 	}

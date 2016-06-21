@@ -348,11 +348,6 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 		return list(new Query(parameter, condition, orderBy));
 	}
 
-	// 힌트, 필드 추가 by skoh
-	public <T> List<T> list(T parameter, String condition, String orderBy, String hint, String fields) {
-		return list(new Query(parameter, condition, orderBy, hint, fields));
-	}
-
 	/**
 	 * @param parameter
 	 * @param condition
@@ -361,6 +356,11 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	 */
 	public <T> List<T> list(T parameter, Condition condition, String orderBy) {
 		return list(new Query(parameter, condition, orderBy));
+	}
+
+	// 힌트, 필드 추가 by skoh
+	public <T> List<T> list(T parameter, Condition condition, String orderBy, String hint, String fields) {
+		return list(new Query(parameter, condition, orderBy, hint, fields));
 	}
 
 	/**

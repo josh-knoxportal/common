@@ -48,7 +48,8 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 //		if (list != null)
 //			return list;
 
-		list = entityManager.list(model, model.getCondition(), model.getOrder_by(), model.getHint(), model.getFields());
+		list = entityManager.list(model, model.getCondition2(), model.getOrder_by(), model.getHint(),
+				model.getFields());
 
 //		cache.put(model.toString(), list);
 

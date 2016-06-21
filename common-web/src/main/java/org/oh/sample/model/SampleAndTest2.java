@@ -41,6 +41,14 @@ public class SampleAndTest2 extends SampleAndTest {
 	@Fields("id, name")
 	protected Test test;
 
+	public SampleAndTest2() {
+	}
+
+	public SampleAndTest2(Sample sample, Test test) {
+		this.sample = sample;
+		this.test = test;
+	}
+
 	public Sample_Test getSample_test() {
 		return sample_test;
 	}

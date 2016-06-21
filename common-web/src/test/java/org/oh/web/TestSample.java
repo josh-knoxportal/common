@@ -10,6 +10,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.mybatisorm.Condition;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
 import org.oh.common.util.JsonUtil2;
@@ -53,12 +54,12 @@ public class TestSample {
 //		Assert.assertTrue("sample == null", sample != null);
 	}
 
-	@Test
+//	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
 		sample.setHint("DISTINCT");
 		sample.setName("s");
-		sample.setCondition("name LIKE 's%'");
+		sample.addCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
 		List<Sample> list = sampleService.list(sample);
@@ -69,7 +70,7 @@ public class TestSample {
 	public void t03_count() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
-		sample.setCondition("name LIKE 's%'");
+		sample.addCondition("name LIKE 's%'");
 
 		sampleService.count(sample);
 	}
@@ -78,7 +79,7 @@ public class TestSample {
 	public void t04_page() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
-		sample.setCondition("name LIKE 's%'");
+		sample.addCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
 		Page<Sample> page = new Page<Sample>(1);
@@ -91,7 +92,7 @@ public class TestSample {
 		LogUtil.writeLog("pageNavi: " + pageNavi);
 	}
 
-//	@Test
+	@Test
 	public void t05_joinList() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
@@ -99,11 +100,10 @@ public class TestSample {
 		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
 //		test.setName("t");
 
-		SampleAndTest sat = new SampleAndTest();
-		sat.setSample(sample);
-		sat.setTest(test);
-		sat.setCondition("sample_.name LIKE 's%'");
-		sat.setCondition("test_.name LIKE 't%'");
+		SampleAndTest sat = new SampleAndTest(sample, test);
+		sat.addCondition("sample_.name LIKE 's%'");
+		sat.addCondition("test_.name LIKE 't%'");
+		sat.addCondition(new Condition().add("sample_.name", "IN", "s"));
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
@@ -120,11 +120,9 @@ public class TestSample {
 		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
 //		test.setName("t");
 
-		SampleAndTest sat = new SampleAndTest();
-		sat.setSample(sample);
-		sat.setTest(test);
-		sat.setCondition("sample_.name LIKE 's%'");
-		sat.setCondition("test_.name LIKE 't%'");
+		SampleAndTest sat = new SampleAndTest(sample, test);
+		sat.addCondition("sample_.name LIKE 's%'");
+		sat.addCondition("test_.name LIKE 't%'");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
 		int count = sampleService.count2(sample);
@@ -146,11 +144,9 @@ public class TestSample {
 		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
 //		test.setName("t");
 
-		SampleAndTest2 sat = new SampleAndTest2();
-		sat.setSample(sample);
-		sat.setTest(test);
-		sat.setCondition("sample_.name LIKE 's%'");
-		sat.setCondition("test_.name LIKE 't%'");
+		SampleAndTest2 sat = new SampleAndTest2(sample, test);
+		sat.addCondition("sample_.name LIKE 's%'");
+		sat.addCondition("test_.name LIKE 't%'");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
 		commonService.list(sat);
@@ -179,7 +175,7 @@ public class TestSample {
 		sample.setMod_id("1");
 		sample.setMod_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
 //		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")); // oracle
-//		sample.setCondition("name LIKE 's%'");
+//		sample.addCondition("name LIKE 's%'");
 
 		sampleService.update(sample);
 	}
@@ -188,7 +184,7 @@ public class TestSample {
 	public void t10_delete() throws Exception {
 		Sample sample = new Sample();
 		sample.setId(1L);
-//		sample.setCondition("name LIKE 's%'");
+//		sample.addCondition("name LIKE 's%'");
 
 		sampleService.delete(sample);
 	}
@@ -211,7 +207,7 @@ public class TestSample {
 	public void t52_list() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");
-		sample.setCondition("name LIKE 's%'");
+		sample.addCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
 		List<Sample> list = sampleService.list2(sample);
@@ -222,7 +218,7 @@ public class TestSample {
 	public void t53_count2() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
-		sample.setCondition("name LIKE 's%'");
+		sample.addCondition("name LIKE 's%'");
 
 		sampleService.count2(sample);
 	}
@@ -231,7 +227,7 @@ public class TestSample {
 	public void t54_page() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
-		sample.setCondition("name LIKE 's%'");
+		sample.addCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
 		int count = sampleService.count2(sample);

@@ -16,7 +16,8 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/test.json"));
 //		arrayNode.add(readFile("src/test/resources/json/test_list_get.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/sample_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
@@ -64,7 +65,8 @@ public class TestAPI_skoh extends TestAPI {
 
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get2.json"));
-		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/zms_geozone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_geozone_around_get.json"));
@@ -89,6 +91,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zms_category_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_category_insert_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_get.json"));
 	}
 
 	@Test

@@ -3,11 +3,11 @@ package org.oh.sample.service.impl;
 import java.util.List;
 
 import org.oh.common.cache.CacheEvictCommon;
+import org.oh.sample.cache.CacheEvictSample;
+import org.oh.sample.cache.CacheableSample;
 import org.oh.sample.mapper.SampleMapper;
 import org.oh.sample.model.Sample;
 import org.oh.sample.service.SampleService;
-import org.oh.web.cache.CacheEvictSample;
-import org.oh.web.cache.CacheableSample;
 import org.oh.web.service.impl.CommonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	}
 
 	@Override
-	@CacheEvictCommon
+	@CacheEvictSample
 	public int insert2(Sample sample) throws Exception {
 		return sampleMapper.insert(sample);
 	}

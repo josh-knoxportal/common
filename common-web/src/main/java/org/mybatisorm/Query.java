@@ -39,6 +39,8 @@ public class Query {
 	
 	private static Logger logger = Logger.getLogger(Query.class);
 
+	// Statement 순번
+	private Integer stmtSeq;
 	// 힌트 추가 by skoh
 	private String hint;
 	// 필드 추가 by skoh
@@ -76,7 +78,7 @@ public class Query {
 	public Query(Object parameter, String condition, String orderBy) {
 		// 조건이 있을 경우만 추가 by skoh
 //		this(parameter, new Condition().add(condition), orderBy);
-		this(parameter, new Condition().add(condition), orderBy, null, null);
+		this(parameter, new Condition().add(condition), orderBy, null, null, 0);
 	}
 	
 	public Query(Object parameter, Condition condition, String orderBy) {
@@ -85,11 +87,12 @@ public class Query {
 		this.condition = condition;
 	}
 	
-	// 힌트, 필드 추가 by skoh
-	public Query(Object parameter, Condition condition, String orderBy, String hint, String fields) {
+	// 힌트, 필드 추가, Statement 순번 by skoh
+	public Query(Object parameter, Condition condition, String orderBy, String hint, String fields, Integer stmtSeq) {
 		this(parameter, condition, orderBy);
 		this.hint = hint;
 		this.fields = fields;
+		this.stmtSeq = stmtSeq;
 	}
 	
 	public Query(Object parameter, String orderBy, int pageNumber, int rows) {
@@ -134,6 +137,10 @@ public class Query {
 	}
 	public void setParameter(Object parameter) {
 		this.parameter = parameter;
+	}
+	// Statement 순번 추가 by skoh
+	public Integer getStmtSeq() {
+		return stmtSeq;
 	}
 	// 힌트 추가 by skoh
 	public String getHint() {

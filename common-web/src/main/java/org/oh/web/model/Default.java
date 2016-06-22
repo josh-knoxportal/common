@@ -14,6 +14,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public abstract class Default implements Serializable {
 	/**
+	 * Statement 순번
+	 */
+	protected Integer stmtSeq;
+
+	/**
 	 * 힌트
 	 */
 	protected String hint;
@@ -37,6 +42,15 @@ public abstract class Default implements Serializable {
 	 * 정렬 기준
 	 */
 	protected String order_by;
+
+	@JsonIgnore
+	public Integer getStmtSeq() {
+		return stmtSeq;
+	}
+
+	public void setStmtSeq(Integer stmtSeq) {
+		this.stmtSeq = stmtSeq;
+	}
 
 	@JsonIgnore
 	public String getHint() {

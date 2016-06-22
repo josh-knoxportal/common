@@ -40,7 +40,7 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	}
 
 	@Override
-	@CacheableCommon
+//	@CacheableCommon
 	public List<T> list(T model) throws Exception {
 		List<T> list;
 
@@ -48,8 +48,8 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 //		if (list != null)
 //			return list;
 
-		list = entityManager.list(model, model.getCondition2(), model.getOrder_by(), model.getHint(),
-				model.getFields());
+		list = entityManager.list(model, model.getCondition2(), model.getOrder_by(), model.getHint(), model.getFields(),
+				model.getStmtSeq());
 
 //		cache.put(model.toString(), list);
 
@@ -68,7 +68,7 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	}
 
 	@Override
-	@CacheEvictCommon
+//	@CacheEvictCommon
 	public int insert(T model) throws Exception {
 		return entityManager.insert(model);
 
@@ -76,13 +76,13 @@ public class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	}
 
 	@Override
-	@CacheEvictCommon
+//	@CacheEvictCommon
 	public int update(T model) throws Exception {
 		return entityManager.update(model, model.getCondition());
 	}
 
 	@Override
-	@CacheEvictCommon
+//	@CacheEvictCommon
 	public int delete(T model) throws Exception {
 		return entityManager.delete(model, model.getCondition());
 	}

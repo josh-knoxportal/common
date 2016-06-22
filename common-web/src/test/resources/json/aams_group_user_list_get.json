@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/aams/group_user/list.do?adminGroup.slbs_id=7057&adminUser.userName=1038",
+	"url":"http://112.217.207.164:20080/v1/aams/group_user/list.do?adminGroup.slbs_id=7057&adminUser.username=1038",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

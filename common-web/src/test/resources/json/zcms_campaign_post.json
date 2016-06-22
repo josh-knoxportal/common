@@ -1,6 +1,6 @@
 {
-	"url":"http://localhost:8080/v1/zcms/campaign.do",
-	"method":"PUT",
+	"url":"http://112.217.207.164:20080/v1/zcms/campaign.do",
+	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
@@ -13,37 +13,36 @@
 			"params":[
 				{
 					"marketing_type":1,
-					"company_id":1090,
-					"off_week":"3",
+					"off_week":"",
+					"company_id":7055,
 					"working_condition":1,
-					"interval":180,
-					"max_count_per_customer":10,
-					"group_id":",20,",
-					"company_brand_id":1091,
-					"type":1,
-					"id":721,
-					"zone_list":[
-						5676,
-						15
-					],
+					"interval":4,
+					"max_count_per_customer":5,
+					"group_id":"",
 					"branch_list":[
-						5284
+						""
 					],
+					"company_brand_id":7056,
+					"type":1,
+					"id":-1,
+					"zone_list":[
+						"11980",
+						"9759"
+					],
+					"off_day":"",
 					"category_list":[
-						11,
-						12
+						""
 					],
-					"off_day":"4",
-					"end_time":"23:59",
-					"loitering_time":-1,
-					"name":"test01",
+					"loitering_time":3,
+					"end_time":"09:59",
 					"owner_group":1,
-					"start_time":"00:00",
-					"app_specific_data":"5",
+					"name":"캠페인 명 *",
+					"start_time":"02:05",
 					"app_id":3,
-					"branch_id":5284,
-					"str_end_date":"2016-06-30 23:59",
-					"str_start_date":"2016-04-01 00:00"
+					"app_specific_data":"2",
+					"branch_id":7057,
+					"str_end_date":"2016-07-09 09:59",
+					"str_start_date":"2016-06-21 02:05"
 				}
 			]
 		}

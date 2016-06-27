@@ -16,15 +16,17 @@ import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = "sample")
+@RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController extends CommonController<Sample> {
 	@Autowired
 	private MessageSource messageSource;
@@ -38,7 +40,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@Override
-	public ResponseEntity<Response<List<Sample>>> list(@Valid Sample sample, BindingResult errors) throws Exception {
+	public ResponseEntity<Response<List<Sample>>> list(Sample sample, BindingResult errors) throws Exception {
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.KOREA));
 		if (errors.hasFieldErrors()) {
 			log.error("fieldErrors: " + errors.getFieldErrors());
@@ -54,8 +56,10 @@ public class SampleController extends CommonController<Sample> {
 
 	// 주의) RequestMethod 추가시 메소드명과 SQL 순번을 다르게 정의
 	@RequestMapping(value = "/list.do", method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Sample>>> list3(@Valid Sample sample, BindingResult errors) throws Exception {
+	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody @Valid Sample sample, BindingResult errors)
+			throws Exception {
 		sample.setSql_seq(1);
+
 		return list(sample, errors);
 	}
 

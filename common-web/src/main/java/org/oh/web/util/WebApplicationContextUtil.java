@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.oh.common.util.LogUtil;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -30,7 +31,7 @@ public abstract class WebApplicationContextUtil extends WebApplicationContextUti
 	}
 
 	public static WebApplicationContext getApplicationContext() {
-		return RequestContextUtils.getWebApplicationContext(getRequest());
+		return RequestContextUtils.findWebApplicationContext(getRequest());
 	}
 
 	public static HttpServletRequest getRequest() {
@@ -43,7 +44,8 @@ public abstract class WebApplicationContextUtil extends WebApplicationContextUti
 
 	public static void printBeans(ListableBeanFactory beanFactory, boolean sort) {
 		List<String> list = Arrays.asList(beanFactory.getBeanDefinitionNames());
-		System.out.println("Total beans size = " + list.size());
+		LogUtil.writeLog("--------------------------------------------------------------------------------");
+		LogUtil.writeLog("Total beans size = " + list.size());
 
 		if (sort)
 			Collections.sort(list);
@@ -53,8 +55,9 @@ public abstract class WebApplicationContextUtil extends WebApplicationContextUti
 			if ("sessionContext".equals(name))
 				continue;
 
-			System.out.println(String.format("%-4.4s %-100.100s %s", i++, name,
+			LogUtil.writeLog(String.format("%-4.4s %-100.100s %s", i++, name,
 					((beanFactory.getBean(name) == null) ? "" : beanFactory.getBean(name).getClass().getName())));
 		}
+		LogUtil.writeLog("--------------------------------------------------------------------------------");
 	}
 }

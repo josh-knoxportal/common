@@ -1,11 +1,12 @@
 {
 	"url":"http://localhost:8050/sample/list.do",
 	"method":"POST",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{
 			"headers":{
-				
+				"Content-Type":"application/json"
 			},
 			"params":{
 				"id":1,

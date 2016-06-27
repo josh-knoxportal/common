@@ -39,8 +39,8 @@ public class Query {
 	
 	private static Logger logger = Logger.getLogger(Query.class);
 
-	// Statement 순번
-	private Integer stmtSeq;
+	// SQL 순번
+	private Integer sqlSeq;
 	// 힌트 추가 by skoh
 	private String hint;
 	// 필드 추가 by skoh
@@ -87,12 +87,12 @@ public class Query {
 		this.condition = condition;
 	}
 	
-	// 힌트, 필드 추가, Statement 순번 by skoh
-	public Query(Object parameter, Condition condition, String orderBy, String hint, String fields, Integer stmtSeq) {
+	// 힌트, 필드 추가, SQL 순번 by skoh
+	public Query(Object parameter, Condition condition, String orderBy, String hint, String fields, Integer sqlSeq) {
 		this(parameter, condition, orderBy);
 		this.hint = hint;
 		this.fields = fields;
-		this.stmtSeq = stmtSeq;
+		this.sqlSeq = sqlSeq;
 	}
 	
 	public Query(Object parameter, String orderBy, int pageNumber, int rows) {
@@ -138,9 +138,9 @@ public class Query {
 	public void setParameter(Object parameter) {
 		this.parameter = parameter;
 	}
-	// Statement 순번 추가 by skoh
-	public Integer getStmtSeq() {
-		return stmtSeq;
+	// SQL 순번 추가 by skoh
+	public Integer getSqlSeq() {
+		return sqlSeq;
 	}
 	// 힌트 추가 by skoh
 	public String getHint() {

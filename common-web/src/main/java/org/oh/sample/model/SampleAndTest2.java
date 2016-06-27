@@ -31,15 +31,15 @@ import org.mybatisorm.annotation.Fields;
  */
 public class SampleAndTest2 extends SampleAndTest {
 	@Fields("*")
-	protected Sample sample;
+	protected Sample sample = new Sample();
 
 	/**
 	 * 필드 순서에 주의
 	 */
-	protected Sample_Test sample_test;
+	protected Sample_Test sample_test = new Sample_Test();
 
 	@Fields("id, name")
-	protected Test test;
+	protected Test test = new Test();
 
 	public SampleAndTest2() {
 	}

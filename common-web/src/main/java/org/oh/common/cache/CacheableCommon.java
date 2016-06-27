@@ -13,6 +13,6 @@ import org.springframework.cache.annotation.Cacheable;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@Cacheable(value = "common", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + T(org.oh.common.util.ReflectionUtil).toString(#root.args)")
+@Cacheable(value = "common", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + T(org.oh.common.util.ReflectionUtil).toString(#root.args, 'condition2')")
 public @interface CacheableCommon {
 }

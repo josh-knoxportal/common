@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/zms/category/insert_list.do",
+	"url":"http://202.3.20.124/v1/zms/category/insert_list.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",

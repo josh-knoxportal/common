@@ -1299,6 +1299,27 @@ public abstract class StringUtil extends StringUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * 시작하는 문자열에 대한 정규표현식을 만든다. 예) [ "11", "12" ] -> "^11|^12"
+	 * 
+	 * @param list
+	 * 
+	 * @return
+	 */
+	public static String getStartWithRegExp(List<String> list) {
+		if (list == null)
+			return "";
+
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < list.size(); i++) {
+			sb.append("^" + list.get(i));
+			if (i < list.size() - 1)
+				sb.append("|");
+		}
+
+		return sb.toString();
+	}
+
 	public static void main(String[] args) {
 //		LogUtil.writeLog(convertFormat(1L, "00"));
 //		LogUtil.writeLog(encodeMD5("1234")); // 05841730f0329c9ad0c80ff268da9dfe

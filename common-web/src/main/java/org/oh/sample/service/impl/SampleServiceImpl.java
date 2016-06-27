@@ -2,7 +2,7 @@ package org.oh.sample.service.impl;
 
 import java.util.List;
 
-import org.oh.common.cache.CacheEvictCommon;
+import org.oh.sample.Constants;
 import org.oh.sample.cache.CacheEvictSample;
 import org.oh.sample.cache.CacheableSample;
 import org.oh.sample.mapper.SampleMapper;
@@ -19,6 +19,11 @@ import org.springframework.stereotype.Service;
 public class SampleServiceImpl extends CommonServiceImpl<Sample> implements SampleService {
 	@Autowired
 	protected SampleMapper sampleMapper;
+
+	@Override
+	public String getCacheName() {
+		return Constants.CACHE_NAME;
+	}
 
 	@Override
 	public Sample get2(Sample sample) throws Exception {

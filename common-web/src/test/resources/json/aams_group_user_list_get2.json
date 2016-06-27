@@ -1,11 +1,11 @@
 {
-	"url":"http://112.217.207.164:20080/v1/aams/group_user/list.do?adminUser.creator_id=384",
+	"url":"http://localhost:8080/v1/aams/group_user/list.do?adminGroup.company_id=7055",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
 		{
 			"headers":{
-				"access_token":"JDJhJDEwJExyeVZiOWFPcERseVFhUWFtcElFTU9IbmJRNjJ2MWZHZFpqUlRhR0hmc3JPTXpET09QYXZt",
+				"access_token":"JDJhJDEwJE9XLk5aS0doamlsSkRiclYyLjdQdS5UYjFzLnVTR3ZYQVR1VkhuQXQ2b3hvanFLWWFHMndt",
 				"request_type":"2"
 			},
 			"params":{

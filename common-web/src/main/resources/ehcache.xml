@@ -64,14 +64,6 @@
 
 	<!-- 하나의 캐시(저장소)를 지정할때 사용된다. -->
 	<!-- - name : 캐시의 이름을 지정하며, 코드에서는 이 캐시의 이름을 사용하여 사용할 Cache 인스턴스를 구한다. -->
-	<cache name="common" eternal="false" overflowToDisk="false">
-<!-- 		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" -->
-<!-- 			properties="replicatePuts=false, -->
-<!-- 			replicateUpdates=false, -->
-<!-- 			replicateAsynchronously=false, -->
-<!-- 			replicateUpdatesViaCopy=false" /> -->
-	</cache>
-
 	<cache name="sample" eternal="false" overflowToDisk="false">
 <!-- 		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" -->
 <!-- 			properties="replicatePuts=false, -->

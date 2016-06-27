@@ -12,11 +12,10 @@ import org.oh.web.model.Default;
 @Join
 public class SampleAndTest extends Default {
 	@Fields("*")
-	protected Sample sample;
+	protected Sample sample = new Sample(); // 인스턴스를 생성해야 기본 조건이 만들어짐.
 
 	@Fields("id, name") // @Column 이 선언된 필드명 리스트 (, 로 구분하고 모든 필드는 *)
-	protected Test test;
-//	protected List<Test> test;
+	protected Test test = new Test();
 
 	public SampleAndTest() {
 	}
@@ -41,12 +40,4 @@ public class SampleAndTest extends Default {
 	public void setTest(Test test) {
 		this.test = test;
 	}
-
-//	public List<Test> getTest() {
-//		return test;
-//	}
-//
-//	public void setTest(List<Test> test) {
-//		this.test = test;
-//	}
 }

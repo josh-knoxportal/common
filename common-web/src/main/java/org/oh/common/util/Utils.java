@@ -35,7 +35,6 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 각종 유틸(Pure JDK)
@@ -103,7 +102,8 @@ public abstract class Utils {
 			try {
 				return new String(str.getBytes("ISO_8859-1"), "KSC5601");
 			} catch (UnsupportedEncodingException e) {
-				LogUtil.writeLog(e, Utils.class);
+				e.printStackTrace();
+//				LogUtil.writeLog(e, Utils.class);
 			}
 		}
 
@@ -122,7 +122,8 @@ public abstract class Utils {
 			try {
 				return new String(str.getBytes("ISO_8859-1"), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
-				LogUtil.writeLog(e, Utils.class);
+				e.printStackTrace();
+//				LogUtil.writeLog(e, Utils.class);
 			}
 		}
 
@@ -141,7 +142,8 @@ public abstract class Utils {
 			try {
 				return new String(str.getBytes("KSC5601"), "ISO_8859-1");
 			} catch (UnsupportedEncodingException e) {
-				LogUtil.writeLog(e, Utils.class);
+				e.printStackTrace();
+//				LogUtil.writeLog(e, Utils.class);
 			}
 		}
 
@@ -507,7 +509,8 @@ public abstract class Utils {
 		try {
 			temp = new String(_temp, enc);
 		} catch (Exception e) {
-			LogUtil.writeLog(e, Utils.class);
+			e.printStackTrace();
+//			LogUtil.writeLog(e, Utils.class);
 		}
 
 		return (temp.indexOf(searchVal) >= 0);
@@ -850,7 +853,8 @@ public abstract class Utils {
 				try {
 					fis.close();
 				} catch (Exception e) {
-					LogUtil.writeLog(e, Utils.class);
+					e.printStackTrace();
+//					LogUtil.writeLog(e, Utils.class);
 				}
 			}
 		}
@@ -1644,28 +1648,11 @@ public abstract class Utils {
 					PrintWriter pw = new PrintWriter(sw);
 					((Throwable) obj).printStackTrace(pw);
 					sb.append(sw);
-				} else if (obj instanceof HttpServletRequest) {
-					HttpServletRequest request = (HttpServletRequest) obj;
-
-					String client = request.getRemoteAddr();
-					String method = request.getMethod();
-
-					Map<String, String> header = new LinkedHashMap<String, String>();
-					Enumeration<String> headerNames = request.getHeaderNames();
-					while (headerNames.hasMoreElements()) {
-						String key = (String) headerNames.nextElement();
-						String value = request.getHeader(key);
-						header.put(key, value);
-					}
-
-					String body = JsonUtil2.readValue(request.getParameterMap()).toString();
-
-					sb.append("{client: " + client + ", method: " + method + ", header: " + header + ", body: " + body
-							+ "}");
 				} else {
 					sb.append(obj);
 				}
 			}
+
 		}
 
 		return sb.toString();
@@ -1984,7 +1971,8 @@ public abstract class Utils {
 		try {
 			return ImageIO.read(new File(sFilePath));
 		} catch (Exception e) {
-			LogUtil.writeLog(e, Utils.class);
+			e.printStackTrace();
+//			LogUtil.writeLog(e, Utils.class);
 		}
 
 		return null;
@@ -2001,7 +1989,8 @@ public abstract class Utils {
 			// jpg, png
 			ImageIO.write(biOut, sFileType, new File(sFilePathOut));
 		} catch (Exception e) {
-			LogUtil.writeLog(e, Utils.class);
+			e.printStackTrace();
+//			LogUtil.writeLog(e, Utils.class);
 		}
 	}
 
@@ -2173,12 +2162,12 @@ public abstract class Utils {
 	}
 
 	public static void main(String[] args) {
-//		LogUtil.writeLog(new Timestamp(System.currentTimeMillis()));
-//		LogUtil.writeLog(isValid_juminChk(""));
+//		System.out.println(new Timestamp(System.currentTimeMillis()));
+//		System.out.println(isValid_juminChk(""));
 //
 //		List<Object> list = new ArrayList<Object>();
 //		list.add("aaa");
-//		LogUtil.writeLog(toString(convertValue(list)));
+//		System.out.println(toString(convertValue(list)));
 //
 //		Map<Object, Object> map = new HashMap<Object, Object>();
 //		map.put("a", "1");
@@ -2190,8 +2179,8 @@ public abstract class Utils {
 //		System.out.println(getKey(map, null));
 //		Map<String, String> map2 = new HashMap<String, String>();
 //		map.put("c", "3");
-//		LogUtil.writeLog(toString(convertKey(map)));
-//		LogUtil.writeLog(filter(map, map2, "a"));
+//		System.out.println(toString(convertKey(map)));
+//		System.out.println(filter(map, map2, "a"));
 
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		Map<String, Object> map2 = new HashMap<String, Object>();
@@ -2199,58 +2188,58 @@ public abstract class Utils {
 //		map3.put("c", new String[] { "1", "2" });
 //		map2.put("b", map3);
 //		map.put("a", map2);
-//		LogUtil.writeLog(toString(map));
+//		System.out.println(toString(map));
 //		System.out.println(map);
 
 //		String s = "http://127.0.0.1:8080/keb_mgw_client/contents/CM00/html/CM030101.html?message=테 스트";
-//		LogUtil.writeLog(s);
-//		LogUtil.writeLog(encodeURL(s));
-//		LogUtil.writeLog(decodeURL(s));
+//		System.out.println(s);
+//		System.out.println(encodeURL(s));
+//		System.out.println(decodeURL(s));
 
 		// 0123
 //		String s = "1a가";
-//		LogUtil.writeLog(s);
+//		System.out.println(s);
 //		byte[] b = s.getBytes();
-//		LogUtil.writeLog(b.length + "");
-//		LogUtil.writeLog(isExist(b, 0, 5, "가", "EUC-KR"));
-//		LogUtil.writeLog(isExist(b, 0, 3, "가", "EUC-KR"));
-//		LogUtil.writeLog(isExist(b, 0, 4, "가", "EUC-KR"));
-//		LogUtil.writeLog(isExist(b, 2, 2, "가", "EUC-KR"));
+//		System.out.println(b.length + "");
+//		System.out.println(isExist(b, 0, 5, "가", "EUC-KR"));
+//		System.out.println(isExist(b, 0, 3, "가", "EUC-KR"));
+//		System.out.println(isExist(b, 0, 4, "가", "EUC-KR"));
+//		System.out.println(isExist(b, 2, 2, "가", "EUC-KR"));
 
 //		List<String> usersNode = new ArrayList<String>();
 //		usersNode.add("e");
 //		Object[] arrs = usersNode.toArray();
 //		String[] arrs = usersNode.toArray(new String[usersNode.size()]);
-//		LogUtil.writeLog(toString(arrs));
+//		System.out.println(toString(arrs));
 
-//		LogUtil.writeLog(isValidate(new String[][] { {} }));
+//		System.out.println(isValidate(new String[][] { {} }));
 
-//		LogUtil.writeLog(convertList(new String[] { "1", "2" }));
+//		System.out.println(convertList(new String[] { "1", "2" }));
 
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		map.put("moduleName1", "1");
 //		HTTPUtil.Test01 test = convertMapToObject(map, HTTPUtil.Test01.class);
-//		LogUtil.writeLog(test);
+//		System.out.println(test);
 
 //		HTTPUtil.Test01 test = new HTTPUtil.Test01();
 //		Map<String, Object> map = convertObjectToMap(test, "skoh.", false);
-//		LogUtil.writeLog(map);
+//		System.out.println(map);
 
-//		LogUtil.writeLog(toString("test", new byte[] {1, 2}));
-//		LogUtil.writeLog(Arrays.toString(new byte[] {1, 2}));
+//		System.out.println(toString("test", new byte[] {1, 2}));
+//		System.out.println(Arrays.toString(new byte[] {1, 2}));
 
 //		DECIMAL_FORMAT.applyPattern("00000000");
-//		LogUtil.writeLog(DECIMAL_FORMAT.format(2121003));
+//		System.out.println(DECIMAL_FORMAT.format(2121003));
 
 //		map.put(null, null);
-//		LogUtil.writeLog(toString(map.get("a")));
-//		LogUtil.writeLog(isValidate(map.keySet().toArray()[0]));
+//		System.out.println(toString(map.get("a")));
+//		System.out.println(isValidate(map.keySet().toArray()[0]));
 
 //		writeLog("skoh");
 
 //		String input = "1 fish 2 fish red fish blue fish";
 //		Scanner s = new Scanner(input).useDelimiter("\\s*fish\\s*");
-//		LogUtil.writeLog(toString(s));
+//		System.out.println(toString(s));
 
 //		String str = "네ㄱ무b스A텍";
 //		System.out.println(getChoSung(str));

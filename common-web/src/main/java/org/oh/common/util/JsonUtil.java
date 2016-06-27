@@ -9,17 +9,20 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.http.NameValuePair;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
@@ -134,12 +137,8 @@ public abstract class JsonUtil {
 		return "{}";
 	}
 
-	public static String prettyPrint(String json) {
-		return prettyPrint(readValue(json));
-	}
-
-	public static String prettyPrint(Object json) {
-		return toString(json, true);
+	public static String prettyPrint(Object pojo) {
+		return toString(pojo, true);
 	}
 
 	/**
@@ -184,6 +183,51 @@ public abstract class JsonUtil {
 	 * @return Json 형식의 문자열. 변환에 실패하면, 빈 문자열("")을 반환한다.
 	 */
 	public static String toString(Object pojo, boolean prettyPrint) {
+		StringBuilder sb = new StringBuilder();
+		if (pojo instanceof HttpServletRequest) {
+			HttpServletRequest request = (HttpServletRequest) pojo;
+
+			String client = request.getRemoteAddr();
+			String method = request.getMethod();
+
+			Map<String, String> header = new LinkedHashMap<String, String>();
+			Enumeration<String> headerNames = request.getHeaderNames();
+			while (headerNames.hasMoreElements()) {
+				String key = (String) headerNames.nextElement();
+				String value = request.getHeader(key);
+				header.put(key, value);
+			}
+
+			sb.append("{\"request\": {");
+			sb.append("\"uri\": \"" + request.getRequestURI() + "\"");
+			sb.append(", \"method\": \"" + method + "\"");
+			sb.append(", \"body\": " + toString(request.getParameterMap()));
+			sb.append(", \"header\": " + toString(header));
+			sb.append(", \"client\": \"" + client + "\"");
+			sb.append("}}");
+
+			pojo = sb.toString();
+		} else if (pojo instanceof HttpSession) {
+			HttpSession session = (HttpSession) pojo;
+
+			Map<String, Object> attrMap = new LinkedHashMap<String, Object>();
+			Enumeration<String> attrs = session.getAttributeNames();
+			while (attrs.hasMoreElements()) {
+				String name = (String) attrs.nextElement();
+				attrMap.put(name, session.getAttribute(name));
+			}
+
+			sb.append("{\"session\": {");
+			sb.append("\"attribute\": " + readValue(attrMap));
+			sb.append("}}");
+
+			pojo = sb.toString();
+		}
+
+		if (pojo instanceof String) {
+			pojo = readValue(pojo);
+		}
+
 		StringWriter sw = new StringWriter();
 		try {
 			JsonGenerator jg = getObjectMapper().getJsonFactory().createJsonGenerator(sw);

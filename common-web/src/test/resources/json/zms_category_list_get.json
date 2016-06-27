@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/category/list.do?company_id=7055&hint=DISTINCT&fields=team_cd, team_nm&order_by=team_cd",
+	"url":"http://202.3.20.124/v1/zms/category/list.do?company_id=7055",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

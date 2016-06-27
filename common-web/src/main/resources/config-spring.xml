@@ -48,7 +48,7 @@
 	</bean>
 
 	<!-- Cache -->
-	<!-- <cache:annotation-driven proxy-target-class="true" /> -->
+	<cache:annotation-driven proxy-target-class="true" />
 
 	<!-- Cache EHCache -->
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">

@@ -2,15 +2,12 @@ package org.oh.web;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.mybatisorm.Condition;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
 import org.oh.common.util.JsonUtil2;
@@ -18,10 +15,10 @@ import org.oh.common.util.LogUtil;
 import org.oh.sample.model.Sample;
 import org.oh.sample.model.SampleAndTest;
 import org.oh.sample.model.SampleAndTest2;
+import org.oh.sample.service.SampleAndTest2Service;
+import org.oh.sample.service.SampleAndTestService;
 import org.oh.sample.service.SampleService;
-import org.oh.web.model.Default;
 import org.oh.web.page.PageNavigator;
-import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,17 +29,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestSample {
 	private static Log log = LogFactory.getLog(TestSample.class);
 
-	/**
-	 * 공통 서비스
-	 */
-	@Resource(name = "commonService")
-	protected CommonService<Default> commonService;
+//	/**
+//	 * 공통 서비스
+//	 */
+//	@Resource(name = "commonService")
+//	protected CommonService<Default> commonService;
 
 	/**
 	 * 샘플 서비스
 	 */
 	@Autowired
 	protected SampleService sampleService;
+
+	@Autowired
+	protected SampleAndTestService sampleAndTestService;
+
+	@Autowired
+	protected SampleAndTest2Service sampleAndTest2Service;
 
 //	@Test
 	public void t01_get() throws Exception {
@@ -57,10 +60,13 @@ public class TestSample {
 //	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
-		sample.setHint("DISTINCT");
+//		sample.setSql_seq(1);
+//		sample.setHint("DISTINCT");
+//		sample.setFields("id, name");
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
+//		System.out.println(ReflectionUtil.toString(new Object[] { sample }, "condition2"));
 
 		List<Sample> list = sampleService.list(sample);
 		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
@@ -85,14 +91,13 @@ public class TestSample {
 		Page<Sample> page = new Page<Sample>(1);
 
 		page = sampleService.page(sample, page);
-		LogUtil.writeLog("page: " + JsonUtil2.prettyPrint(page));
 
 		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(page).build();
 		pageNavi.setList(page.getList());
-		LogUtil.writeLog("pageNavi: " + pageNavi);
+		LogUtil.writeLog("pageNavi: " + JsonUtil2.prettyPrint(pageNavi));
 	}
 
-	@Test
+//	@Test
 	public void t05_joinList() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("s");
@@ -103,13 +108,14 @@ public class TestSample {
 		SampleAndTest sat = new SampleAndTest(sample, test);
 		sat.addCondition("sample_.name LIKE 's%'");
 		sat.addCondition("test_.name LIKE 't%'");
-		sat.addCondition(new Condition().add("sample_.name", "IN", "s"));
+		sat.addCondition("sample_.name", "IN", "s");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
 //		System.out.println(handler.getName());
 
-		commonService.list(sat);
+		List<SampleAndTest> list = sampleAndTestService.list(sat);
+		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
 	}
 
 //	@Test
@@ -125,15 +131,13 @@ public class TestSample {
 		sat.addCondition("test_.name LIKE 't%'");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
-		int count = sampleService.count2(sample);
+		Page<SampleAndTest> page = new Page<SampleAndTest>(1);
 
-		Page<Default> page = new Page<Default>(1, count);
-		PageNavigator<Default> pageNavi = new PageNavigator.Builder<Default>(page).build();
+		page = sampleAndTestService.page(sat, page);
 
-		page = commonService.page(sat, page);
-
+		PageNavigator<SampleAndTest> pageNavi = new PageNavigator.Builder<SampleAndTest>(page).build();
 		pageNavi.setList(page.getList());
-		LogUtil.writeLog("pageNavi: " + pageNavi);
+		LogUtil.writeLog("pageNavi: " + JsonUtil2.prettyPrint(pageNavi));
 	}
 
 //	@Test
@@ -149,7 +153,8 @@ public class TestSample {
 		sat.addCondition("test_.name LIKE 't%'");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
-		commonService.list(sat);
+		List<SampleAndTest2> list = sampleAndTest2Service.list(sat);
+		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
 	}
 
 //	@Test
@@ -234,13 +239,12 @@ public class TestSample {
 
 		sample.setPage_number(1);
 		sample.setTotal_sise(count);
-		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(sample).build();
 
 		List<Sample> list = sampleService.page(sample);
-		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
 
+		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(sample).build();
 		pageNavi.setList(list);
-		LogUtil.writeLog("pageNavi: " + JsonUtil2.prettyPrint(list));
+		LogUtil.writeLog("pageNavi: " + JsonUtil2.prettyPrint(pageNavi));
 	}
 
 //	@Test

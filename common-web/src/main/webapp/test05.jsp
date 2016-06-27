@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%
+	request.setAttribute("skoh", 1);
+
+	System.out.println(request.getAttribute("skoh"));
+%>
+
+${skoh}
+<c:out value="${skoh}" />
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,44 +20,42 @@
 	crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
-// 		$($("#a")[0]).text("First span");
-// 		$($("#a")[1]).text("Second span");
-// 		$($("span[name='a']")[0]).text("First span");
-// 		$($("span[name='a']")[1]).text("Second span");
-// 		$($(".demo")[0]).text("First span");
-// 		$($(".demo")[1]).text("Second span");
+		// 		$($("#a")[0]).text("First span");
+		// 		$($("#a")[1]).text("Second span");
+		// 		$($("span[name='a']")[0]).text("First span");
+		// 		$($("span[name='a']")[1]).text("Second span");
+		// 		$($(".demo")[0]).text("First span");
+		// 		$($(".demo")[1]).text("Second span");
 
-// 		var a = $($("select[name='select01']")[1]);
-// 		console.log(a.prop("title"));
-// 		a.empty();
+		// 		var a = $($("select[name='select01']")[1]);
+		// 		console.log(a.prop("title"));
+		// 		a.empty();
 
-// 		var a = $("select[name='select01']");
-// 		$.each (a, function (index, b) {
-// 			$(b).empty();
-// 		});
-// 		$(a[1]).empty();
+		// 		var a = $("select[name='select01']");
+		// 		$.each (a, function (index, b) {
+		// 			$(b).empty();
+		// 		});
+		// 		$(a[1]).empty();
 
-// 		if (",".indexOf(",") > -1) {
-// 			console.log("y");
-// 		} else {
-// 			console.log("n");
-// 		}
-// 		$("#select01 option:eq(1)").prop('selected', true);
-// 		$("#select01").empty();
+		// 		if (",".indexOf(",") > -1) {
+		// 			console.log("y");
+		// 		} else {
+		// 			console.log("n");
+		// 		}
+		// 		$("#select01 option:eq(1)").prop('selected', true);
+		// 		$("#select01").empty();
 
-		var array = [];
-		a[0] = "1";
-		a[2] = "3";
-		console.log(a);
+		// 		var array = [];
+		// 		a[0] = "1";
+		// 		a[2] = "3";
+		// 		console.log(a);
 	});
 </script>
 </head>
 
 <body>
 	<div>
-		<span id="a" name="a" class="demo">1</span>
-		<span id="a" name="a" class="demo">2</span>
-		<span>3</span>
+		<span id="a" name="a" class="demo">1</span> <span id="a" name="a" class="demo">2</span> <span>3</span>
 	</div>
 
 	<select id="select01" name="select01" title="select01">

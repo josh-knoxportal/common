@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/zone_category/list.do?zone.id=11173",
+	"url":"http://localhost:8080/v1/zms/zone_category/list.do?zone.id=5680",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

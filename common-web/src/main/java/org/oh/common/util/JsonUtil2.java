@@ -9,18 +9,21 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.http.NameValuePair;
 import org.oh.common.exception.CommonException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -134,12 +137,8 @@ public abstract class JsonUtil2 {
 		return "{}";
 	}
 
-	public static String prettyPrint(String json) {
-		return prettyPrint(readValue(json));
-	}
-
-	public static String prettyPrint(Object json) {
-		return toString(json, true);
+	public static String prettyPrint(Object pojo) {
+		return toString(pojo, true);
 	}
 
 	/**
@@ -184,9 +183,54 @@ public abstract class JsonUtil2 {
 	 * @return Json 형식의 문자열. 변환에 실패하면, 빈 문자열("")을 반환한다.
 	 */
 	public static String toString(Object pojo, boolean prettyPrint) {
+		StringBuilder sb = new StringBuilder();
+		if (pojo instanceof HttpServletRequest) {
+			HttpServletRequest request = (HttpServletRequest) pojo;
+
+			String client = request.getRemoteAddr();
+			String method = request.getMethod();
+
+			Map<String, String> header = new LinkedHashMap<String, String>();
+			Enumeration<String> headerNames = request.getHeaderNames();
+			while (headerNames.hasMoreElements()) {
+				String key = (String) headerNames.nextElement();
+				String value = request.getHeader(key);
+				header.put(key, value);
+			}
+
+			sb.append("{\"request\": {");
+			sb.append("\"uri\": \"" + request.getRequestURI() + "\"");
+			sb.append(", \"method\": \"" + method + "\"");
+			sb.append(", \"body\": " + toString(request.getParameterMap()));
+			sb.append(", \"header\": " + toString(header));
+			sb.append(", \"client\": \"" + client + "\"");
+			sb.append("}}");
+
+			pojo = sb.toString();
+		} else if (pojo instanceof HttpSession) {
+			HttpSession session = (HttpSession) pojo;
+
+			Map<String, Object> attrMap = new LinkedHashMap<String, Object>();
+			Enumeration<String> attrs = session.getAttributeNames();
+			while (attrs.hasMoreElements()) {
+				String name = (String) attrs.nextElement();
+				attrMap.put(name, session.getAttribute(name));
+			}
+
+			sb.append("{\"session\": {");
+			sb.append("\"attribute\": " + readValue(attrMap));
+			sb.append("}}");
+
+			pojo = sb.toString();
+		}
+
+		if (pojo instanceof String) {
+			pojo = readValue(pojo);
+		}
+
 		StringWriter sw = new StringWriter();
 		try {
-			JsonGenerator jg = getObjectMapper().getJsonFactory().createJsonGenerator(sw);
+			JsonGenerator jg = getObjectMapper().getFactory().createGenerator(sw);
 
 			if (prettyPrint) {
 				jg.useDefaultPrettyPrinter();
@@ -378,7 +422,7 @@ public abstract class JsonUtil2 {
 		}
 
 		else if (value instanceof ObjectNode) {
-			node.putObject(name).putAll((ObjectNode) value);
+			node.putObject(name).setAll((ObjectNode) value);
 		}
 
 		else {
@@ -595,7 +639,7 @@ public abstract class JsonUtil2 {
 	 */
 	public static JsonNode objectNode(String fieldName, JsonNode value) {
 		ObjectNode objectNode = objectNode();
-		objectNode.put(fieldName, value);
+		objectNode.set(fieldName, value);
 		return objectNode;
 	}
 
@@ -748,7 +792,7 @@ public abstract class JsonUtil2 {
 
 		ObjectNode resBody = objectNode();
 		ArrayNode resArray = arrayNode();
-		resBody.put(fieldName, resArray);
+		resBody.set(fieldName, resArray);
 
 		for (String row : rows) {
 			resArray.add(readText(fieldNames, row, colDelim));
@@ -782,7 +826,7 @@ public abstract class JsonUtil2 {
 	 */
 	public static ObjectNode putValue2(ObjectNode node, String name, Object value) {
 		if (value == null)
-			node.put(name, getNodeFactory().nullNode());
+			node.set(name, getNodeFactory().nullNode());
 //		else if (value instanceof byte[])
 //			node.put(name, new String((byte[]) value).trim());
 		else

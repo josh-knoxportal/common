@@ -1,0 +1,34 @@
+{
+	"request":{
+		"uri":"/admin/WEB-INF/views/zone/zoneUpdate.jsp",
+		"method":"GET",
+		"body":{
+			"company_id":[
+				"1090"
+			],
+			"floor_id":[
+				"5285"
+			],
+			"zone_id":[
+				"11173"
+			],
+			"brand_id":[
+				"1091"
+			],
+			"branch_id":[
+				"5284"
+			]
+		},
+		"header":{
+			"host":"localhost:8080",
+			"connection":"keep-alive",
+			"upgrade-insecure-requests":"1",
+			"user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36",
+			"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+			"accept-encoding":"gzip, deflate, sdch",
+			"accept-language":"ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4",
+			"cookie":"JSESSIONID=3C0F1DA0A7E58F871137D2AEEA044C9C; SCOUTER=x4e0vvotg4r5fi; SCOUTER=x521m8pu7sthc3; JSESSIONID=2CAD71BDB67AA6719EF6BE877C6607EF"
+		},
+		"client":"0:0:0:0:0:0:0:1"
+	}
+}

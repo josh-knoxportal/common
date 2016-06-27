@@ -14,9 +14,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public abstract class Default implements Serializable {
 	/**
-	 * Statement 순번
+	 * SQL 순번
+	 * 
+	 * <pre>
+	 * - hint 나 fields 를 변경할 경우 반드시 순번 지정 (1 부터 가능)
+	 * </pre>
 	 */
-	protected Integer stmtSeq;
+	protected Integer sql_seq;
 
 	/**
 	 * 힌트
@@ -44,12 +48,12 @@ public abstract class Default implements Serializable {
 	protected String order_by;
 
 	@JsonIgnore
-	public Integer getStmtSeq() {
-		return stmtSeq;
+	public Integer getSql_seq() {
+		return sql_seq;
 	}
 
-	public void setStmtSeq(Integer stmtSeq) {
-		this.stmtSeq = stmtSeq;
+	public void setSql_seq(Integer sql_seq) {
+		this.sql_seq = sql_seq;
 	}
 
 	@JsonIgnore
@@ -76,21 +80,17 @@ public abstract class Default implements Serializable {
 		addCondition(new Condition().add(condition));
 	}
 
+	public void addCondition(String operator, Object... value) {
+		addCondition(null, operator, value);
+	}
+
+	public void addCondition(String field, String operator, Object... value) {
+		addCondition(new Condition().add(field, operator, value));
+	}
+
 	@JsonIgnore
 	public Condition getCondition2() {
 		return condition2;
-	}
-
-	public void setCondition(Condition condition2) {
-		this.condition2 = condition2;
-	}
-
-	public void addCondition(Condition condition2) {
-		if (this.condition2 == null) {
-			this.condition2 = new Condition();
-		}
-
-		this.condition2.add(condition2);
 	}
 
 	@JsonIgnore
@@ -109,6 +109,14 @@ public abstract class Default implements Serializable {
 
 	public void setOrder_by(String order_by) {
 		this.order_by = order_by;
+	}
+
+	protected void addCondition(Condition condition) {
+		if (this.condition2 == null) {
+			this.condition2 = new Condition();
+		}
+
+		this.condition2.add(condition);
 	}
 
 	@Override

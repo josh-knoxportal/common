@@ -14,7 +14,7 @@ import org.oh.web.common.HttpSecurityRequestWrapper;
  * @author skoh
  */
 public class HttpSecurityFilter extends AbstractHttpParameterFilter {
-	private final Log log = LogFactory.getLog(HttpSecurityFilter.class);
+	protected Log log = LogFactory.getLog(getClass());
 
 	@Override
 	public HttpServletRequest getHttpServletRequestWrapper(HttpServletRequest request, HttpServletResponse response) {

@@ -33,7 +33,7 @@ public class Page<T> {
 
 	// 생성자 추가 by skoh
 	public Page(int pageNumber) {
-		setPageNumber(pageNumber);
+		this.pageNumber = pageNumber;
 	}
 	
 	public Page(int pageNumber, int rows) {

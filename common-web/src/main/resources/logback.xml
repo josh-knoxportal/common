@@ -31,6 +31,12 @@
 	<logger name="org.hibernate" level="info" />
 	<logger name="org.mybatis" level="info" />
 	<logger name="org.springframework" level="info" />
+	<!-- <logger name="org.springframework.aop" level="trace" /> -->
+	<!-- <logger name="org.springframework.beans" level="trace" /> -->
+	<!-- <logger name="org.springframework.cache" level="trace" /> -->
+	<!-- <logger name="org.springframework.context" level="trace" /> -->
+	<!-- <logger name="org.springframework.core" level="trace" /> -->
+	<!-- <logger name="org.springframework.web" level="trace" /> -->
 
 	<logger name="java.sql" level="info" />
 	<logger name="org.mybatisorm" level="info" />
@@ -49,6 +55,6 @@
 
 	<root level="info">
 		<appender-ref ref="console" />
-		<appender-ref ref="dailyFile" />
+		<!-- <appender-ref ref="dailyFile" /> -->
 	</root>
 </configuration>

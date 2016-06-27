@@ -207,14 +207,19 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		return map2;
 	}
 
+	public static String toString(Object... objs) {
+		return toString(objs, (String[]) null);
+	}
+
 	/**
 	 * 객체배열을 문자열로 변환한다.
 	 * 
 	 * @param objs
+	 * @param excludeFieldNames
 	 * 
 	 * @return
 	 */
-	public static String toString(Object... objs) {
+	public static String toString(Object[] objs, String... excludeFieldNames) {
 		if (objs == null || objs.length == 0)
 			return "[]";
 
@@ -223,7 +228,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 
 		StringBuilder sb = new StringBuilder("[");
 		for (int i = 0; i < objs.length; i++) {
-			sb.append(ReflectionToStringBuilder.toString(objs[i], style));
+			sb.append(new ReflectionToStringBuilder(objs[i], style).setExcludeFieldNames(excludeFieldNames).toString());
 			if (i == objs.length - 1) {
 				sb.append("]");
 			} else {

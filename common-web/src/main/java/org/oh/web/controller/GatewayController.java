@@ -70,7 +70,6 @@ public class GatewayController {
 			@RequestBody(required = false) Map<String, Object> body, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
-			int i = 1 / 0;
 			Map<String, String[]> paramMap = request.getParameterMap();
 			String api_url = paramMap.get(PARAM_NAME)[0];
 

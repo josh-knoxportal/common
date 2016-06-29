@@ -12,12 +12,13 @@ import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-//@Controller
+@Controller
 public abstract class CommonController<T extends Default> implements InitializingBean {
 	protected Log log = LogFactory.getLog(getClass());
 

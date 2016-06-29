@@ -40,7 +40,7 @@ public abstract class Default implements Serializable {
 	/**
 	 * 조회 조건
 	 */
-	protected Condition condition2;
+	protected Condition condition2 = new Condition();
 
 	/**
 	 * 정렬 기준
@@ -77,7 +77,7 @@ public abstract class Default implements Serializable {
 	}
 
 	public void addCondition(String condition) {
-		addCondition(new Condition().add(condition));
+		condition2.add(condition);
 	}
 
 	public void addCondition(String operator, Object... value) {
@@ -85,7 +85,7 @@ public abstract class Default implements Serializable {
 	}
 
 	public void addCondition(String field, String operator, Object... value) {
-		addCondition(new Condition().add(field, operator, value));
+		condition2.add(field, operator, value);
 	}
 
 	@JsonIgnore

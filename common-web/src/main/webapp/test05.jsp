@@ -14,7 +14,7 @@ ${skoh}
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Jsonp test with jquery</title>
+<title>jquery</title>
 
 <script src="http://code.jquery.com/jquery-2.1.1.js" integrity="sha256-FA/0OOqu3gRvHOuidXnRbcmAWVcJORhz+pv3TX2+U6w="
 	crossorigin="anonymous"></script>
@@ -45,10 +45,15 @@ ${skoh}
 		// 		$("#select01 option:eq(1)").prop('selected', true);
 		// 		$("#select01").empty();
 
-		// 		var array = [];
-		// 		a[0] = "1";
-		// 		a[2] = "3";
-		// 		console.log(a);
+		var a = [];
+		a[0] = "1";
+		a[2] = "3";
+		console.log(a.length);
+		console.log(a);
+		
+		a.splice(1, 1); 
+		console.log(a.length);
+		console.log(a);
 	});
 </script>
 </head>

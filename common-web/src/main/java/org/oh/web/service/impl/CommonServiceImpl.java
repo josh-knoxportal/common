@@ -14,11 +14,12 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.stereotype.Service;
 
 /**
  * @author skoh
  */
-//@Service("commonService")
+@Service("commonService")
 public abstract class CommonServiceImpl<T extends Default> implements InitializingBean, CommonService<T> {
 	protected Log log = LogFactory.getLog(getClass());
 
@@ -99,12 +100,12 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 
 	@Override
 	public int count(T model) throws Exception {
-		return entityManager.count(model, model.getCondition());
+		return entityManager.count(model, model.getCondition2());
 	}
 
 	@Override
 	public Page<T> page(T model, Page<T> page) throws Exception {
-		return entityManager.page(model, model.getCondition(), model.getOrder_by(), page.getPageNumber(),
+		return entityManager.page(model, model.getCondition2(), model.getOrder_by(), page.getPageNumber(),
 				page.getRows());
 	}
 
@@ -123,7 +124,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Override
 //	@CacheEvictCommon
 	public int update(T model) throws Exception {
-		int result = entityManager.update(model, model.getCondition());
+		int result = entityManager.update(model, model.getCondition2());
 
 		if (cache != null) {
 			cache.clear();
@@ -135,7 +136,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Override
 //	@CacheEvictCommon
 	public int delete(T model) throws Exception {
-		int result = entityManager.delete(model, model.getCondition());
+		int result = entityManager.delete(model, model.getCondition2());
 
 		if (cache != null) {
 			cache.clear();

@@ -3,6 +3,7 @@ package org.oh.common.aop;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
@@ -35,12 +36,13 @@ public class LogAdvice {
 			}
 		}
 
-		log.debug(format("INPUT", "[" + toShortString(signature) + "] " + Utils.toString(joinPoint.getArgs())));
+		log.debug(format("INPUT",
+				"[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(joinPoint.getArgs())));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
 		Signature signature = joinPoint.getSignature();
-		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + Utils.toString(result)));
+		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(result)));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {

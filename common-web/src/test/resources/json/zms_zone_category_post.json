@@ -11,9 +11,6 @@
 				"request_type":"1"
 			},
 			"params":{
-				"sql_seq":1,
-				"hint":"DISTINCT",
-				"fields":"zone_.id zone_id, zone_.name zone_name",
 				"zone":{
 					"branch_id_list":[
 						5284

@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -65,7 +66,7 @@ public class FTPUtil {
 			bis = new BufferedInputStream(new FileInputStream(sourceDir + File.separator + sourceFile));
 			ftp.storeFile(sourceFile, bis);
 		} finally {
-			HTTPUtil.closeQuietly(bis);
+			IOUtils.closeQuietly(bis);
 		}
 		LogUtil.writeLog(" [Upload complete]", getClass());
 
@@ -86,7 +87,7 @@ public class FTPUtil {
 			bos = new BufferedOutputStream(new FileOutputStream(sourceDir + File.separator + sourceFile));
 			ftp.retrieveFile(sourceFile, bos);
 		} finally {
-			HTTPUtil.closeQuietly(bos);
+			IOUtils.closeQuietly(bos);
 		}
 		LogUtil.writeLog(" [Download complete]", getClass());
 	}

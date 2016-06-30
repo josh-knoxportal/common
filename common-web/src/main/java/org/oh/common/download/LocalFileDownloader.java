@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oh.common.helper.IOHelper;
-import org.oh.common.util.HTTPUtil;
 
 /**
  * 로컬 파일을 읽는다.
@@ -41,7 +41,7 @@ public class LocalFileDownloader implements AttachmentDownloader {
 
 			throw e;
 		} finally {
-			HTTPUtil.closeQuietly(fis);
+			IOUtils.closeQuietly(fis);
 		}
 
 		file.setSize(data.length);

@@ -136,7 +136,19 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		return (T) getValue(field, target);
 	}
 
-	public static Object getValue(Field field, Object target) throws CommonException {
+	/**
+	 * 객체 내부에 필드가 있으면 객체를, 없으면 값을 반환한다.
+	 * (필드가 없는 모델 객체에 toJsonNode() 메소드 호출시 문제점 해결)
+	 */
+	public static <T> T getValue(T target, T value) {
+		Map<String, Field> fieldMap = getFields(target);
+		if (fieldMap.size() > 0)
+			return target;
+		else
+			return value;
+	}
+
+	public static Object getValue(Object target, Field field) throws CommonException {
 		field.setAccessible(true);
 
 		try {
@@ -151,13 +163,13 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		Map<String, Field> fieldMap = getFields(target);
 		Field field = fieldMap.get(fieldName);
 
-		setValue(field, target, value);
+		setValue(target, field, value);
 	}
 
 	/**
 	 * 객체 필드 저장
 	 */
-	public static void setValue(Field field, Object target, Object value) throws CommonException {
+	public static void setValue(Object target, Field field, Object value) throws CommonException {
 		field.setAccessible(true);
 
 		try {
@@ -171,16 +183,10 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		}
 	}
 
-	/**
-	 * 객체 내부에 필드가 있으면 객체를, 없으면 값을 반환한다.
-	 * (필드가 없는 모델 객체에 toJsonNode() 메소드 호출시 문제점 해결)
-	 */
-	public static <T> T getValue(T target, T value) {
-		Map<String, Field> fieldMap = getFields(target);
-		if (fieldMap.size() > 0)
-			return target;
-		else
-			return value;
+	public static boolean existField(Object target, String fieldName) throws CommonException {
+		Field field = findField(target.getClass(), fieldName);
+
+		return (field != null);
 	}
 
 	/**

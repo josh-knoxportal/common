@@ -3,14 +3,13 @@ package org.oh.common.aop;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.oh.common.util.Utils;
+import org.oh.common.util.JsonUtil2;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +23,9 @@ public class LogAdvice {
 	protected Log log = LogFactory.getLog(getClass());
 
 	public void before(JoinPoint joinPoint) {
+		if (!log.isDebugEnabled())
+			return;
+
 		Signature signature = joinPoint.getSignature();
 		printLine(signature);
 		log.debug(format("START", "[" + toString(signature) + "]"));
@@ -36,21 +38,29 @@ public class LogAdvice {
 			}
 		}
 
-		log.debug(format("INPUT",
-				"[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(joinPoint.getArgs())));
+		log.debug(format("INPUT", "[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(joinPoint.getArgs())));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
+		if (!log.isTraceEnabled())
+			return;
+
 		Signature signature = joinPoint.getSignature();
-		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(result)));
+		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(result)));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {
+		if (!log.isErrorEnabled())
+			return;
+
 		Signature signature = joinPoint.getSignature();
 		log.error(format("ERROR", "[" + toShortString(signature) + "]"), ex);
 	}
 
 	public void after(JoinPoint joinPoint) {
+		if (!log.isDebugEnabled())
+			return;
+
 		Signature signature = joinPoint.getSignature();
 		log.debug(format("END", "[" + toString(signature) + "]"));
 		printLine(signature);
@@ -82,6 +92,9 @@ public class LogAdvice {
 	}
 
 	protected void printLine(Signature signature) {
+		if (!log.isDebugEnabled())
+			return;
+
 		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
 		if (anno == null) {
 			log.debug("--------------------------------------------------");

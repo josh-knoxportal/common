@@ -6,9 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.oh.common.util.HTTPUtil;
 import org.oh.common.util.StringUtil;
 import org.springframework.stereotype.Component;
 
@@ -60,7 +60,7 @@ public class FileurlDownloader extends AbstractDownloader implements Downloader 
 
 			send(response, fileName, fileType, in, attch.getSize(), fileStartPos);
 		} finally {
-			HTTPUtil.closeQuietly(in);
+			IOUtils.closeQuietly(in);
 		}
 
 		log.info("Sucess downloading from " + target + "=============");

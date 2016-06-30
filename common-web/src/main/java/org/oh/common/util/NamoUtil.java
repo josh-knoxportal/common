@@ -15,6 +15,8 @@ import javax.mail.Part;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
+import org.apache.commons.io.IOUtils;
+
 /**
  * 나모에디터 유틸리티 클래스.
  */
@@ -212,8 +214,8 @@ public abstract class NamoUtil {
 		} catch (Exception e) {
 			throw e;
 		} finally {
-			HTTPUtil.closeQuietly(in);
-			HTTPUtil.closeQuietly(out);
+			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(out);
 		}
 
 		if (bmpToPng == true && filename.toLowerCase().endsWith(".bmp")) {

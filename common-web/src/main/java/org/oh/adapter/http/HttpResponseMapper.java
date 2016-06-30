@@ -3,6 +3,7 @@ package org.oh.adapter.http;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpEntity;
@@ -86,7 +87,7 @@ public class HttpResponseMapper extends AbstractHttpMapper<DefaultHttpResponse> 
 			throw new AdapterException("HTTP" + AdapterException.PREFIX_SYSTEM + "03",
 					"Mapping http response data  error", e);
 		} finally {
-			HTTPUtil.closeQuietly(contentStream);
+			IOUtils.closeQuietly(contentStream);
 		}
 	}
 

@@ -14,13 +14,13 @@ import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oh.common.Constants;
 import org.oh.common.download.Attachment;
 import org.oh.common.helper.IOHelper;
 import org.oh.common.util.FileUtil;
-import org.oh.common.util.HTTPUtil;
 import org.oh.common.util.LogUtil;
 import org.springframework.stereotype.Component;
 
@@ -194,8 +194,8 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			HTTPUtil.closeQuietly(channel);
-			HTTPUtil.closeQuietly(fos);
+			IOUtils.closeQuietly(channel);
+			IOUtils.closeQuietly(fos);
 		}
 
 		// 파일 권한 추가
@@ -227,7 +227,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 		} catch (IOException e) {
 			LogUtil.writeLog(e, getClass());
 		} finally {
-			HTTPUtil.closeQuietly(fin);
+			IOUtils.closeQuietly(fin);
 		}
 
 		log.trace("  > RV(bytes length) : " + ((bytes == null) ? 0 : bytes.length));

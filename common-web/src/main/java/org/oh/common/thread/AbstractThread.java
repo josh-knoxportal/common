@@ -5,7 +5,6 @@ import java.util.concurrent.Callable;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.oh.common.util.LogUtil;
-import org.oh.common.util.Utils;
 import org.springframework.util.StopWatch;
 
 /**

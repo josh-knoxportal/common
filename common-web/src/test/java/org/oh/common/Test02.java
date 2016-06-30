@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
+import org.oh.common.util.JsonUtil2;
+import org.oh.common.util.ReflectionUtil;
 import org.springframework.http.HttpStatus;
 
 public class Test02 {
@@ -72,15 +74,29 @@ public class Test02 {
 //		s = this.s;
 //		System.out.println(s);
 //		System.out.println(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-		System.out.println("123456789012345678901234567890");
-		String staticSql = "  SELECT      ABC   FROM ";
-		int idxSelect = staticSql.indexOf("SELECT");
-		int idxFrom = staticSql.indexOf("FROM");
-		String select = staticSql.substring(0, idxSelect) + staticSql.substring(idxSelect, idxSelect + 6);
-		staticSql = select + " fields " + staticSql.substring(idxFrom);
-		System.out.println(staticSql);
-		staticSql = select + " DISTINCT " + staticSql.substring(idxSelect + 7);
-		System.out.println(staticSql);
+//		System.out.println("123456789012345678901234567890");
+//		String staticSql = "  SELECT      ABC   FROM ";
+//		int idxSelect = staticSql.indexOf("SELECT");
+//		int idxFrom = staticSql.indexOf("FROM");
+//		String select = staticSql.substring(0, idxSelect) + staticSql.substring(idxSelect, idxSelect + 6);
+//		staticSql = select + " fields " + staticSql.substring(idxFrom);
+//		System.out.println(staticSql);
+//		staticSql = select + " DISTINCT " + staticSql.substring(idxSelect + 7);
+//		System.out.println(staticSql);
+		
+		Test01 test01 = new Test01();
+//		System.out.println(ReflectionUtil.getValue(test01, "id"));
+//		ReflectionUtil.setValue(test01, "id", 2);
+//		System.out.println(ReflectionUtil.getValue(test01, "id"));
+
+//		System.out.println(ReflectionUtil.findField(test01.getClass(), "id", long.class));
+//		System.out.println(ReflectionUtil.existField(test01, "name"));
+		
+		System.out.println(JsonUtil2.prettyPrint("a"));
+	}
+	
+	class Test01 {
+		private long id = 1;
 	}
 
 	public static void main(String[] args) throws Exception {

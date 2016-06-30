@@ -57,7 +57,7 @@ public class TestSample {
 //		Assert.assertTrue("sample == null", sample != null);
 	}
 
-//	@Test
+	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
 //		sample.setSql_seq(1);

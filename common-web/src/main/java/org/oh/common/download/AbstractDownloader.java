@@ -11,10 +11,10 @@ import java.nio.channels.WritableByteChannel;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oh.common.helper.IOHelper;
-import org.oh.common.util.HTTPUtil;
 
 /**
  * Download 서비스에서 필요한 기능을 구현한 클래스.
@@ -105,7 +105,7 @@ public class AbstractDownloader {
 			} catch (Exception e) {
 				log.error("Send exception : " + e);
 			} finally {
-				HTTPUtil.closeQuietly(outCh);
+				IOUtils.closeQuietly(outCh);
 			} // end of try
 		}
 
@@ -158,8 +158,8 @@ public class AbstractDownloader {
 			} catch (Exception e) {
 				log.error("Send exception! Cause : ", e);
 			} finally {
-				HTTPUtil.closeQuietly(byteCh);
-				HTTPUtil.closeQuietly(outCh);
+				IOUtils.closeQuietly(byteCh);
+				IOUtils.closeQuietly(outCh);
 			} // end of try
 		}
 
@@ -219,8 +219,8 @@ public class AbstractDownloader {
 			} catch (Exception e) {
 				log.error("Send exception! Cause : ", e);
 			} finally {
-				HTTPUtil.closeQuietly(byteCh);
-				HTTPUtil.closeQuietly(outCh);
+				IOUtils.closeQuietly(byteCh);
+				IOUtils.closeQuietly(outCh);
 			} // end of try
 		}
 

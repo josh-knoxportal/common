@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
-import org.oh.common.util.HTTPUtil;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Java NIO 기반으로 IO 작업을 수행할 수 있는 IO Wrapper
@@ -41,7 +41,7 @@ public class IOHelper {
 		bb.flip();
 		bb.get(result);
 		bb.clear();
-		HTTPUtil.closeQuietly(bc);
+		IOUtils.closeQuietly(bc);
 
 		return result;
 	}

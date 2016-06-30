@@ -13,6 +13,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
@@ -109,7 +110,7 @@ public abstract class PushUtils {
 			String errorCode = trcode + CommonException.PREFIX_SYSTEM;
 			throw new CommonException(errorCode, LogUtil.buildMessage("Send push data error", e.getMessage()), e);
 		} finally {
-			HTTPUtil.closeQuietly(out);
+			IOUtils.closeQuietly(out);
 		}
 	}
 

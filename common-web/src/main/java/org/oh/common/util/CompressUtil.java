@@ -12,6 +12,7 @@ import java.util.Stack;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
+import org.apache.commons.io.IOUtils;
 import org.oh.common.exception.SmartException;
 
 /**
@@ -193,21 +194,21 @@ public abstract class CompressUtil {
 								out.write(buf, 0, nWritten);
 							}
 							out.flush();
-							HTTPUtil.closeQuietly(out);
+							IOUtils.closeQuietly(out);
 						}
 						debug("file : " + name);
 					}
 				} catch (Exception e) {
 				} finally {
-					HTTPUtil.closeQuietly(out);
+					IOUtils.closeQuietly(out);
 				}
 			}
 		} catch (Exception e) {
 			LogUtil.writeLog(e, CompressUtil.class);
 			throw new SmartException(e);
 		} finally {
-			HTTPUtil.closeQuietly(zipIn);
-			HTTPUtil.closeQuietly(in);
+			IOUtils.closeQuietly(zipIn);
+			IOUtils.closeQuietly(in);
 		}
 	}
 
@@ -415,7 +416,7 @@ public abstract class CompressUtil {
 						zipOut.write(buf, 0, length);
 					}
 					zipOut.flush();
-					HTTPUtil.closeQuietly(in);
+					IOUtils.closeQuietly(in);
 					zipOut.closeArchiveEntry();
 				}
 			}
@@ -423,8 +424,8 @@ public abstract class CompressUtil {
 			LogUtil.writeLog(e, CompressUtil.class);
 			throw new SmartException(e);
 		} finally {
-			HTTPUtil.closeQuietly(zipOut);
-			HTTPUtil.closeQuietly(out);
+			IOUtils.closeQuietly(zipOut);
+			IOUtils.closeQuietly(out);
 		}
 	}
 

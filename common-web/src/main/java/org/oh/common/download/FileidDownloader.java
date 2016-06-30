@@ -6,10 +6,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oh.common.storage.StorageAccessor;
-import org.oh.common.util.HTTPUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -61,7 +61,7 @@ public class FileidDownloader extends AbstractDownloader implements Downloader {
 
 			send(response, fileName, fileType, in, bytes.length, fileStartPos);
 		} finally {
-			HTTPUtil.closeQuietly(in);
+			IOUtils.closeQuietly(in);
 		}
 
 		log.info("Sucess downloading from " + target + "=============");

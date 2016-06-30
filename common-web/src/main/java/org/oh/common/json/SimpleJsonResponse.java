@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonEncoding;
@@ -12,7 +13,6 @@ import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
-import org.oh.common.util.HTTPUtil;
 
 /**
  * 간단한 Json 전문 처리 결과를 저장하는 객체 클래스
@@ -143,8 +143,8 @@ public class SimpleJsonResponse {
 		}
 
 		try {
-			HTTPUtil.closeQuietly(g);
-			HTTPUtil.closeQuietly(bout);
+			IOUtils.closeQuietly(g);
+			IOUtils.closeQuietly(bout);
 		} finally {
 		}
 

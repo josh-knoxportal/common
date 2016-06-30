@@ -9,11 +9,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oh.common.Constants;
 import org.oh.common.helper.IOHelper;
-import org.oh.common.util.HTTPUtil;
 import org.oh.common.util.PropertyUtils;
 import org.oh.common.util.Utils;
 import org.springframework.stereotype.Component;
@@ -64,7 +64,7 @@ public class FilepathDownloader extends AbstractDownloader implements Downloader
 
 			send(response, fileName, fileType, in, bytes.length, fileStartPos);
 		} finally {
-			HTTPUtil.closeQuietly(in);
+			IOUtils.closeQuietly(in);
 		}
 
 		log.info("Sucess downloading from " + target + "=============");
@@ -87,7 +87,7 @@ public class FilepathDownloader extends AbstractDownloader implements Downloader
 		} catch (IOException e) {
 			log.error("Error load file", e);
 		} finally {
-			HTTPUtil.closeQuietly(fin);
+			IOUtils.closeQuietly(fin);
 		}
 
 		log.debug("  > RV(bytes length) : " + ((bytes == null) ? 0 : bytes.length));

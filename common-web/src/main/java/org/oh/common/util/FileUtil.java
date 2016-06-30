@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.oh.common.exception.SmartException;
 
@@ -207,8 +208,8 @@ public abstract class FileUtil extends FileUtils {
 		} catch (Exception e) {
 			LogUtil.writeLog(e, FileUtil.class);
 		} finally {
-			HTTPUtil.closeQuietly(in);
-			HTTPUtil.closeQuietly(out);
+			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(out);
 		}
 		return result;
 	}

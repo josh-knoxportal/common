@@ -19,6 +19,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom.Document;
@@ -26,7 +27,6 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.oh.adapter.exception.AdapterException;
 import org.oh.common.util.AESEncrypter;
-import org.oh.common.util.HTTPUtil;
 import org.oh.common.util.PropertyUtils;
 import org.oh.common.util.Utils;
 import org.springframework.beans.DirectFieldAccessor;
@@ -188,7 +188,7 @@ public abstract class AbstractSOAPMessageMapper<T1, T2> implements ISOAPMessageM
 			throw new AdapterException(trcode + AdapterException.PREFIX_SYSTEM + "90", "Mapping soap request data error",
 					e);
 		} finally {
-			HTTPUtil.closeQuietly(baos);
+			IOUtils.closeQuietly(baos);
 		}
 	}
 

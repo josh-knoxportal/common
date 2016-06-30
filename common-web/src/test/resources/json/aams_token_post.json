@@ -1,5 +1,5 @@
 {
-	"url":"http://202.3.20.124/v1/aams/token.do",
+	"url":"http://localhost:8080/v1/aams/token.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",

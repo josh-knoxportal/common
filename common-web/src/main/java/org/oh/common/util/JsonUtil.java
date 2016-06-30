@@ -15,8 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.http.NameValuePair;
 import org.codehaus.jackson.JsonGenerator;
@@ -131,14 +133,21 @@ public abstract class JsonUtil {
 		} catch (Exception e) {
 			LogUtil.writeLog(e, JsonUtil.class);
 		} finally {
-			HTTPUtil.closeQuietly(out);
+			IOUtils.closeQuietly(out);
 		}
 
 		return "{}";
 	}
 
-	public static String prettyPrint(Object pojo) {
-		return toString(pojo, true);
+	public static String prettyPrint(Object... pojos) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < pojos.length; i++) {
+			if (i > 0)
+				sb.append(", ");
+			sb.append(toString(pojos[i], true));
+		}
+
+		return sb.toString();
 	}
 
 	/**
@@ -171,8 +180,15 @@ public abstract class JsonUtil {
 	 * @param pojo 객체
 	 * @return Json 형식의 문자열. 변환에 실패하면, 빈 문자열("")을 반환한다.
 	 */
-	public static String toString(Object pojo) {
-		return toString(pojo, false);
+	public static String toString(Object... pojos) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < pojos.length; i++) {
+			if (i > 0)
+				sb.append(", ");
+			sb.append(toString(pojos[i], false));
+		}
+
+		return sb.toString();
 	}
 
 	/**
@@ -189,6 +205,7 @@ public abstract class JsonUtil {
 
 			String client = request.getRemoteAddr();
 			String method = request.getMethod();
+			Map<String, String[]> parameter = request.getParameterMap();
 
 			Map<String, String> header = new LinkedHashMap<String, String>();
 			Enumeration<String> headerNames = request.getHeaderNames();
@@ -199,10 +216,10 @@ public abstract class JsonUtil {
 			}
 
 			sb.append("{\"request\": {");
-			sb.append("\"uri\": \"" + request.getRequestURI() + "\"");
-			sb.append(", \"method\": \"" + method + "\"");
-			sb.append(", \"body\": " + toString(request.getParameterMap()));
-			sb.append(", \"header\": " + toString(header));
+//			sb.append("\"uri\": \"" + request.getRequestURI() + "\"");
+//			sb.append(", \"method\": \"" + method + "\"");
+			sb.append(", \"parameter\": " + parameter.size());// + toString(parameter));
+			sb.append(", \"header\": " + header.size());// + toString(header));
 			sb.append(", \"client\": \"" + client + "\"");
 			sb.append("}}");
 
@@ -218,14 +235,20 @@ public abstract class JsonUtil {
 			}
 
 			sb.append("{\"session\": {");
-			sb.append("\"attribute\": " + readValue(attrMap));
+			sb.append("\"attribute\": " + attrMap.size());// + readValue(attrMap));
 			sb.append("}}");
 
 			pojo = sb.toString();
+		} else if (pojo instanceof HttpServletResponse) {
+			return "{ Not suported HttpServletResponse }";
 		}
 
-		if (pojo instanceof String) {
-			pojo = readValue(pojo);
+		try {
+			if (pojo instanceof String) {
+				pojo = readValue(pojo);
+			}
+		} catch (Exception e) {
+			return "{" + pojo + "}";
 		}
 
 		StringWriter sw = new StringWriter();
@@ -238,9 +261,9 @@ public abstract class JsonUtil {
 
 			getObjectMapper().writeValue(jg, pojo);
 		} catch (Exception e) {
-			return "{}";
+			return "{" + e.getMessage() + "}";
 		} finally {
-			HTTPUtil.closeQuietly(sw);
+			IOUtils.closeQuietly(sw);
 		}
 
 		return sw.toString();

@@ -8,8 +8,8 @@
 	System.out.println(request.getAttribute("skoh"));
 %>
 
-${skoh}
-<c:out value="${skoh}" />
+<%-- ${skoh} --%>
+<%-- <c:out value="${skoh}" /> --%>
 
 <html>
 <head>
@@ -45,30 +45,32 @@ ${skoh}
 		// 		$("#select01 option:eq(1)").prop('selected', true);
 		// 		$("#select01").empty();
 
-		var a = [];
-		a[0] = "1";
-		a[2] = "3";
-		console.log(a.length);
-		console.log(a);
-		
-		a.splice(1, 1); 
-		console.log(a.length);
-		console.log(a);
+		// 		var a = [];
+		// 		a[0] = "1";
+		// 		a[2] = "3";
+		// 		console.log(a.length);
+		// 		console.log(a);
+
+		// 		a.splice(1, 1); 
+		// 		console.log(a.length);
+		// 		console.log(a);
+
+		$("#select02").prop("disabled", true);
 	});
 </script>
 </head>
 
 <body>
-	<div>
-		<span id="a" name="a" class="demo">1</span> <span id="a" name="a" class="demo">2</span> <span>3</span>
-	</div>
+	<!-- 	<div> -->
+	<!-- 		<span id="a" name="a" class="demo">1</span> <span id="a" name="a" class="demo">2</span> <span>3</span> -->
+	<!-- 	</div> -->
 
 	<select id="select01" name="select01" title="select01">
 		<option value=""></option>
 		<option value="1">a</option>
 		<option value="2">b</option>
 	</select>
-	<select id="select01" name="select01" title="select02">
+	<select id="select02" name="select01" title="select02">
 		<option value=""></option>
 		<option value="3">c</option>
 		<option value="4">d</option>

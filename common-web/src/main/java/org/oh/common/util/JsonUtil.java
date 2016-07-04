@@ -32,6 +32,7 @@ import org.codehaus.jackson.node.MissingNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.codehaus.jackson.node.POJONode;
 import org.oh.common.exception.CommonException;
+import org.springframework.http.HttpHeaders;
 
 /**
  * JSON 관련 유틸리티 클래스 <br />
@@ -240,7 +241,9 @@ public abstract class JsonUtil {
 
 			pojo = sb.toString();
 		} else if (pojo instanceof HttpServletResponse) {
-			return "{ Not suported HttpServletResponse }";
+			return "{ Not suported javax.servlet.http.HttpServletResponse }";
+		} else if (pojo instanceof HttpHeaders) {
+			return "{ Not suported org.springframework.http.HttpHeaders }";
 		}
 
 		try {

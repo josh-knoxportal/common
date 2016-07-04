@@ -22,6 +22,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.http.NameValuePair;
 import org.oh.common.exception.CommonException;
+import org.springframework.http.HttpHeaders;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -246,7 +247,9 @@ public abstract class JsonUtil2 {
 
 			pojo = sb.toString();
 		} else if (pojo instanceof HttpServletResponse) {
-			return "{ Not suported HttpServletResponse }";
+			return "{ Not suported javax.servlet.http.HttpServletResponse }";
+		} else if (pojo instanceof HttpHeaders) {
+			return "{ Not suported org.springframework.http.HttpHeaders }";
 		}
 
 		try {

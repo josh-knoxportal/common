@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mybatisorm.annotation.Column;
+import org.mybatisorm.annotation.Table;
 import org.oh.web.page.Paging;
 
 /**
@@ -71,6 +72,7 @@ import org.oh.web.page.Paging;
  * 
  * @author skoh
  */
+@Table("sample")
 public class Sample extends Paging {
 	/**
 	 * 샘플 아이디(PK), 시퀀스

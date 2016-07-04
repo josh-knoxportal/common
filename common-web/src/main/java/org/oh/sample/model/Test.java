@@ -1,6 +1,7 @@
 package org.oh.sample.model;
 
 import org.mybatisorm.annotation.Column;
+import org.mybatisorm.annotation.Table;
 import org.oh.web.page.Paging;
 
 /**
@@ -66,6 +67,7 @@ import org.oh.web.page.Paging;
  * 
  * @author skoh
  */
+@Table("test")
 public class Test extends Paging {
 	@Column(primaryKey = true) // , sequence = "test_seq") // oracle
 	protected Long id;

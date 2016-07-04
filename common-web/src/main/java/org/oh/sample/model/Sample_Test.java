@@ -1,6 +1,7 @@
 package org.oh.sample.model;
 
 import org.mybatisorm.annotation.Column;
+import org.mybatisorm.annotation.Table;
 import org.oh.web.page.Paging;
 
 /**
@@ -42,6 +43,7 @@ import org.oh.web.page.Paging;
  * 
  * @author skoh
  */
+@Table("sample_test")
 public class Sample_Test extends Paging {
 	@Column(references = "Sample.id")
 	protected Long sample_id;

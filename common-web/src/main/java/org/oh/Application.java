@@ -10,7 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class })
-@ImportResource({ "classpath:config-spring.xml", "classpath:config-spring_jmx.xml" })
+@ImportResource({ "classpath:config-spring.xml" }) // , "classpath:config-spring_jmx.xml" })
 public class Application {
 	@Autowired
 	protected static ApplicationContext applicationContext;

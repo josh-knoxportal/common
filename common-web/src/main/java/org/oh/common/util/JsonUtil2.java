@@ -225,8 +225,8 @@ public abstract class JsonUtil2 {
 			sb.append("{\"request\": {");
 //			sb.append("\"uri\": \"" + request.getRequestURI() + "\"");
 //			sb.append(", \"method\": \"" + method + "\"");
-			sb.append(", \"parameter\": " + parameter.size());// + toString(parameter));
-			sb.append(", \"header\": " + header.size());// + toString(header));
+			sb.append("\"parameter\": " + toString(parameter));
+			sb.append(", \"header\": " + toString(header));
 			sb.append(", \"client\": \"" + client + "\"");
 			sb.append("}}");
 
@@ -242,7 +242,7 @@ public abstract class JsonUtil2 {
 			}
 
 			sb.append("{\"session\": {");
-			sb.append("\"attribute\": " + attrMap.size());// + readValue(attrMap));
+			sb.append("\"attribute\": " + readValue(attrMap));
 			sb.append("}}");
 
 			pojo = sb.toString();

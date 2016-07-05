@@ -12,6 +12,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.oh.common.util.JsonUtil2;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -27,18 +28,28 @@ public class LogAdvice {
 			return;
 
 		Signature signature = joinPoint.getSignature();
+
 		printLine(signature);
 		log.debug(format("START", "[" + toString(signature) + "]"));
 
-		if (signature instanceof MethodSignature) {
-			Method method = ((MethodSignature) signature).getMethod();
-			Annotation anno = AnnotationUtils.findAnnotation(method, RequestMapping.class);
-			if (anno != null) {
-				log.debug(format("REQUEST", anno.toString()));
+		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
+		if (anno != null) {
+			if (signature instanceof MethodSignature) {
+				Method method = ((MethodSignature) signature).getMethod();
+				anno = AnnotationUtils.findAnnotation(method, RequestMapping.class);
+				if (anno != null) {
+					log.debug(format("REQUEST", anno.toString()));
+					log.debug(format("INPUT",
+							"[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(joinPoint.getArgs())));
+				}
 			}
 		}
 
-		log.debug(format("INPUT", "[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(joinPoint.getArgs())));
+		anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Service.class);
+		if (anno != null) {
+			log.debug(format("INPUT",
+					"[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(joinPoint.getArgs())));
+		}
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
@@ -46,14 +57,21 @@ public class LogAdvice {
 			return;
 
 		Signature signature = joinPoint.getSignature();
+
 		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(result)));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {
-		if (!log.isErrorEnabled())
+		if (!log.isDebugEnabled())
 			return;
 
 		Signature signature = joinPoint.getSignature();
+
+		// 에러 로그는 Controller에 모아서 한번만 출력
+		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
+		if (anno == null)
+			return;
+
 		log.error(format("ERROR", "[" + toShortString(signature) + "]"), ex);
 	}
 
@@ -62,12 +80,17 @@ public class LogAdvice {
 			return;
 
 		Signature signature = joinPoint.getSignature();
+
 		log.debug(format("END", "[" + toString(signature) + "]"));
 		printLine(signature);
 	}
 
 	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+		if (!log.isDebugEnabled())
+			return joinPoint.proceed();
+
 		Signature signature = joinPoint.getSignature();
+
 		before(joinPoint);
 
 		long start = System.currentTimeMillis();
@@ -76,11 +99,8 @@ public class LogAdvice {
 			result = joinPoint.proceed();
 			afterReturning(joinPoint, result);
 		} catch (Throwable ex) {
-			// 에러 로그는 Controller에 모아서 한번만 출력
-			Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
-			if (anno != null) {
-				afterThrowing(joinPoint, ex);
-			}
+			afterThrowing(joinPoint, ex);
+
 			throw ex;
 		} finally {
 			log.debug(format("END", "[" + signature.toLongString() + "] Response Time : "

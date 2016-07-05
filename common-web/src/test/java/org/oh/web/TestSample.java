@@ -10,21 +10,31 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
+import org.oh.Application;
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.LogUtil;
+import org.oh.sample.controller.SampleController;
 import org.oh.sample.model.Sample;
 import org.oh.sample.model.SampleAndTest;
 import org.oh.sample.model.SampleAndTest2;
 import org.oh.sample.service.SampleAndTest2Service;
 import org.oh.sample.service.SampleAndTestService;
 import org.oh.sample.service.SampleService;
+import org.oh.web.common.Response;
 import org.oh.web.page.PageNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.validation.BeanPropertyBindingResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:config-spring.xml")
+//@ContextConfiguration("classpath:config-spring.xml")
+@SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestSample {
 	private static Log log = LogFactory.getLog(TestSample.class);
@@ -34,6 +44,12 @@ public class TestSample {
 //	 */
 //	@Resource(name = "commonService")
 //	protected CommonService<Default> commonService;
+
+	/**
+	 * 샘플 컨트롤러
+	 */
+	@Autowired
+	protected SampleController sampleController;
 
 	/**
 	 * 샘플 서비스
@@ -68,7 +84,9 @@ public class TestSample {
 		sample.setOrder_by("id DESC");
 //		System.out.println(ReflectionUtil.toString(new Object[] { sample }, "condition2"));
 
-		List<Sample> list = sampleService.list(sample);
+//		List<Sample> list = sampleService.list(sample);
+		ResponseEntity<Response<List<Sample>>> list = sampleController.list3(sample,
+				new BeanPropertyBindingResult(sample, ""));
 		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
 	}
 

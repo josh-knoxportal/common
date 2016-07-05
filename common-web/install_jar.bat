@@ -1,8 +1,8 @@
 set MAVEN_HOME=C:/dev/lib/apache-maven-3.3.9
 
-e:
-cd \git\skoh-nemus\s-lbs-server\common-libs
-REM cd \dev\git\skoh-nemus\s-lbs-server\common-libs
+REM e:
+REM cd \git\skoh-nemus\s-lbs-server\common-libs
+cd \dev\git\skoh-nemus\s-lbs-server\common-libs
 
 CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=../common-libs/aams_vo-1.0.jar -DgroupId=com.ssg.platform.lbs.aams.vo -DartifactId=aams_vo -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=../common-libs/bms_vo-1.0.jar -DgroupId=com.ssg.platform.lbs.bms.vo -DartifactId=bms_vo -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true

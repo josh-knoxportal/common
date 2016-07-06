@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.Condition;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 기본 모델
@@ -20,34 +21,39 @@ public abstract class Default implements Serializable {
 	 * - hint 나 fields 를 변경할 경우 반드시 순번 지정 (1 부터 가능)
 	 * </pre>
 	 */
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected Integer sql_seq;
 
 	/**
 	 * 힌트
 	 */
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected String hint;
 
 	/**
 	 * 필드
 	 */
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected String fields;
 
 	/**
 	 * 조회 조건 문자열
 	 */
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected String condition;
 
 	/**
 	 * 조회 조건
 	 */
+	@JsonIgnore
 	protected Condition condition2 = new Condition();
 
 	/**
 	 * 정렬 기준
 	 */
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected String order_by;
 
-	@JsonIgnore
 	public Integer getSql_seq() {
 		return sql_seq;
 	}
@@ -56,7 +62,6 @@ public abstract class Default implements Serializable {
 		this.sql_seq = sql_seq;
 	}
 
-	@JsonIgnore
 	public String getHint() {
 		return hint;
 	}
@@ -65,7 +70,6 @@ public abstract class Default implements Serializable {
 		this.hint = hint;
 	}
 
-	@JsonIgnore
 	public String getCondition() {
 		return condition;
 	}
@@ -88,12 +92,10 @@ public abstract class Default implements Serializable {
 		condition2.add(field, operator, value);
 	}
 
-	@JsonIgnore
 	public Condition getCondition2() {
 		return condition2;
 	}
 
-	@JsonIgnore
 	public String getFields() {
 		return fields;
 	}
@@ -102,7 +104,6 @@ public abstract class Default implements Serializable {
 		this.fields = fields;
 	}
 
-	@JsonIgnore
 	public String getOrder_by() {
 		return order_by;
 	}

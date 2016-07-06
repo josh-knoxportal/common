@@ -67,6 +67,7 @@ public class TestAPI_skoh extends TestAPI {
 
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get2.json"));
+		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_post.json"));
 
@@ -95,7 +96,8 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/zms_category_delete_delete.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_category_insert_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_post2.json"));
 	}
 
 	@Test

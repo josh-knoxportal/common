@@ -1,19 +1,11 @@
 package org.oh.common.aop;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.oh.common.util.JsonUtil2;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 로깅 AOP
@@ -32,24 +24,8 @@ public class LogAdvice {
 		printLine(signature);
 		log.debug(format("START", "[" + toString(signature) + "]"));
 
-		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
-		if (anno != null) {
-			if (signature instanceof MethodSignature) {
-				Method method = ((MethodSignature) signature).getMethod();
-				anno = AnnotationUtils.findAnnotation(method, RequestMapping.class);
-				if (anno != null) {
-					log.debug(format("REQUEST", anno.toString()));
-					log.debug(format("INPUT",
-							"[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(joinPoint.getArgs())));
-				}
-			}
-		}
-
-		anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Service.class);
-		if (anno != null) {
-			log.debug(format("INPUT",
-					"[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(joinPoint.getArgs())));
-		}
+		log.debug(format("INPUT",
+				"[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(joinPoint.getArgs())));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
@@ -58,7 +34,7 @@ public class LogAdvice {
 
 		Signature signature = joinPoint.getSignature();
 
-		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + JsonUtil2.prettyPrint(result)));
+		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(result)));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {
@@ -66,11 +42,6 @@ public class LogAdvice {
 			return;
 
 		Signature signature = joinPoint.getSignature();
-
-		// 에러 로그는 Controller에 모아서 한번만 출력
-		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
-		if (anno == null)
-			return;
 
 		log.error(format("ERROR", "[" + toShortString(signature) + "]"), ex);
 	}
@@ -115,12 +86,7 @@ public class LogAdvice {
 		if (!log.isDebugEnabled())
 			return;
 
-		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
-		if (anno == null) {
-			log.debug("--------------------------------------------------");
-		} else {
-			log.debug("==================================================");
-		}
+		log.debug("--------------------------------------------------");
 	}
 
 	protected String toString(Signature signature) {

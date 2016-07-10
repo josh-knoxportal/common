@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
-import org.mybatisorm.Query;
 import org.oh.Application;
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.LogUtil;
@@ -25,7 +24,6 @@ import org.oh.web.page.PageNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -69,7 +67,7 @@ public class TestSample {
 		sample.setId(1L);
 
 		sample = sampleService.get(sample);
-		LogUtil.writeLog("sample: " + JsonUtil2.prettyPrint(sample));
+		LogUtil.writeLog("sample: " + JsonUtil2.toStringPretty(sample));
 //		Assert.assertTrue("sample == null", sample != null);
 	}
 
@@ -82,12 +80,12 @@ public class TestSample {
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
-//		System.out.println(ReflectionUtil.toString(new Object[] { sample }, "condition2"));
+//		System.out.println(ReflectionUtil.toStringRecursive(sample, "condition2"));
 
 //		List<Sample> list = sampleService.list(sample);
 		ResponseEntity<Response<List<Sample>>> list = sampleController.list3(sample,
 				new BeanPropertyBindingResult(sample, ""));
-		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
+		LogUtil.writeLog("list: " + JsonUtil2.toStringPretty(list));
 	}
 
 //	@Test
@@ -112,7 +110,7 @@ public class TestSample {
 
 		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(page).build();
 		pageNavi.setList(page.getList());
-		LogUtil.writeLog("pageNavi: " + JsonUtil2.prettyPrint(pageNavi));
+		LogUtil.writeLog("pageNavi: " + JsonUtil2.toStringPretty(pageNavi));
 	}
 
 //	@Test
@@ -133,7 +131,7 @@ public class TestSample {
 //		System.out.println(handler.getName());
 
 		List<SampleAndTest> list = sampleAndTestService.list(sat);
-		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
+		LogUtil.writeLog("list: " + JsonUtil2.toStringPretty(list));
 	}
 
 //	@Test
@@ -155,7 +153,7 @@ public class TestSample {
 
 		PageNavigator<SampleAndTest> pageNavi = new PageNavigator.Builder<SampleAndTest>(page).build();
 		pageNavi.setList(page.getList());
-		LogUtil.writeLog("pageNavi: " + JsonUtil2.prettyPrint(pageNavi));
+		LogUtil.writeLog("pageNavi: " + JsonUtil2.toStringPretty(pageNavi));
 	}
 
 //	@Test
@@ -172,7 +170,7 @@ public class TestSample {
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
 		List<SampleAndTest2> list = sampleAndTest2Service.list(sat);
-		LogUtil.writeLog("list: " + JsonUtil2.prettyPrint(list));
+		LogUtil.writeLog("list: " + JsonUtil2.toStringPretty(list));
 	}
 
 //	@Test
@@ -181,11 +179,7 @@ public class TestSample {
 		sample.setName("s");
 		sample.setTest_id(3L);
 		sample.setReg_id("1");
-		sample.setReg_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
-//		sample.setReg_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")); // oracle
 		sample.setMod_id("1");
-		sample.setMod_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
-//		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")); // oracle
 
 		sampleService.insert(sample);
 	}
@@ -195,9 +189,7 @@ public class TestSample {
 		Sample sample = new Sample();
 		sample.setId(1L);
 		sample.setName("s1");
-		sample.setMod_id("1");
-		sample.setMod_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
-//		sample.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")); // oracle
+		sample.setMod_id("11");
 //		sample.addCondition("name LIKE 's%'");
 
 		sampleService.update(sample);
@@ -223,7 +215,7 @@ public class TestSample {
 		sample.setId(1L);
 
 		sample = sampleService.get2(sample);
-		LogUtil.writeLog("sample: " + JsonUtil2.prettyPrint(sample));
+		LogUtil.writeLog("sample: " + JsonUtil2.toStringPretty(sample));
 	}
 
 //	@Test
@@ -234,7 +226,7 @@ public class TestSample {
 		sample.setOrder_by("id DESC");
 
 		List<Sample> list = sampleService.list2(sample);
-		LogUtil.writeLog("sample: " + JsonUtil2.prettyPrint(list));
+		LogUtil.writeLog("sample: " + JsonUtil2.toStringPretty(list));
 	}
 
 //	@Test
@@ -262,7 +254,7 @@ public class TestSample {
 
 		PageNavigator<Sample> pageNavi = new PageNavigator.Builder<Sample>(sample).build();
 		pageNavi.setList(list);
-		LogUtil.writeLog("pageNavi: " + JsonUtil2.prettyPrint(pageNavi));
+		LogUtil.writeLog("pageNavi: " + JsonUtil2.toStringPretty(pageNavi));
 	}
 
 //	@Test
@@ -281,7 +273,7 @@ public class TestSample {
 		Sample sample = new Sample();
 		sample.setId(1L);
 		sample.setName("s1");
-		sample.setMod_id("1");
+		sample.setMod_id("11");
 
 		sampleService.update2(sample);
 	}

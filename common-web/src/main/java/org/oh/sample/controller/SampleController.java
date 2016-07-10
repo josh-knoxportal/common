@@ -6,7 +6,6 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import org.oh.common.util.Utils;
-import org.oh.common.util.ValidationUtil;
 import org.oh.sample.model.Sample;
 import org.oh.sample.service.SampleService;
 import org.oh.web.common.Response;
@@ -42,24 +41,16 @@ public class SampleController extends CommonController<Sample> {
 	@Override
 	public ResponseEntity<Response<List<Sample>>> list(Sample sample, BindingResult errors) throws Exception {
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.KOREA));
-		if (errors.hasFieldErrors()) {
-			log.error("fieldErrors: " + errors.getFieldErrors());
-			Response<List<Sample>> response = ValidationUtil.getResponse(errors);
-
-			return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.BAD_REQUEST);
-		}
 
 		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, errors);
 
 		return new ResponseEntity<Response<List<Sample>>>(responseEntity.getBody(), responseEntity.getStatusCode());
 	}
 
-	// 주의) RequestMethod 추가시 메소드명과 SQL 순번을 다르게 정의
-	@RequestMapping(value = "/list.do", method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody @Valid Sample sample, BindingResult errors)
+	// 주의) RequestMethod 추가시 메소드명을 다르게 정의
+	@RequestMapping(value = "/list3.do", method = { RequestMethod.POST })
+	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample sample, BindingResult errors)
 			throws Exception {
-		sample.setSql_seq(1);
-
 		return list(sample, errors);
 	}
 

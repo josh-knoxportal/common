@@ -1,5 +1,7 @@
 package org.oh.web.common;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
@@ -7,7 +9,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * 
  * @author skoh
  */
-public class Response<T> {
+public class Response<T> implements Serializable {
 	/**
 	 * 헤더
 	 */

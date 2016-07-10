@@ -1,0 +1,18 @@
+{
+	"url":"http://localhost:8050/sample/insert.do",
+	"method":"POST",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				
+			},
+			"params":{
+				"name":"s",
+				"test_id":3,
+				"reg_id":"1",
+				"mod_id":"1"
+			}
+		}
+	]
+}

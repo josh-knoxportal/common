@@ -15,10 +15,10 @@ import org.oh.web.page.Paging;
  *   id INT(20) NOT NULL AUTO_INCREMENT
  *  ,name VARCHAR(100)
  *  ,sample_id INT(20) NOT NULL
- *  ,reg_id VARCHAR(100)
- *  ,reg_dt VARCHAR(14)
- *  ,mod_id VARCHAR(100)
- *  ,mod_dt VARCHAR(14)
+ *  ,reg_id VARCHAR(100) NOT NULL
+ *  ,reg_dt VARCHAR(14) NOT NULL
+ *  ,mod_id VARCHAR(100) NOT NULL
+ *  ,mod_dt VARCHAR(14) NOT NULL
  *  ,PRIMARY KEY
  * (
  *   id
@@ -31,10 +31,10 @@ import org.oh.web.page.Paging;
  *   id NUMBER(20) NOT NULL
  *  ,name VARCHAR2(100)
  *  ,sample_id NUMBER(20) NOT NULL
- *  ,reg_id VARCHAR2(100)
- *  ,reg_dt VARCHAR2(14)
- *  ,mod_id VARCHAR2(100)
- *  ,mod_dt VARCHAR2(14)
+ *  ,reg_id VARCHAR2(100) NOT NULL
+ *  ,reg_dt VARCHAR2(14) NOT NULL
+ *  ,mod_id VARCHAR2(100) NOT NULL
+ *  ,mod_dt VARCHAR2(14) NOT NULL
  *  ,CONSTRAINT test_pk PRIMARY KEY
  * (
  *   id

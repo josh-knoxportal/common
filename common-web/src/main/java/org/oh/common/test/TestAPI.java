@@ -148,7 +148,7 @@ public class TestAPI {
 				String content = HTTPUtils.getContentString(result);
 				if (Utils.isValidate(responseFormat)) {
 					if ("JSON".equalsIgnoreCase(responseFormat)) {
-						content = JsonUtil2.prettyPrint(content);
+						content = JsonUtil2.toStringPretty(content);
 					}
 				}
 				LogUtil.writeLog("content: " + content);

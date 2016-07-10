@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.StandardToStringStyle;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.oh.common.exception.CommonException;
 import org.springframework.util.ReflectionUtils;
 
@@ -109,7 +111,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		Map<String, Field> fieldMap = getFields(target);
 		Field field = fieldMap.get(fieldName);
 
-		return getValue(field, target);
+		return getValue(target, field);
 	}
 
 	/**
@@ -123,7 +125,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 			if (entry == null || entry.getValue() == null)
 				continue;
 
-//			Object obj = getValue(entry.getValue(), target);
+//			Object obj = getValue(target, entry.getValue());
 //			if (fieldType.isInstance(obj)) {
 			if (entry.getValue().getType().equals(fieldType)) {
 				field = entry.getValue();
@@ -133,7 +135,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		if (field == null)
 			return null;
 
-		return (T) getValue(field, target);
+		return (T) getValue(target, field);
 	}
 
 	/**
@@ -206,31 +208,50 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 				if (entry == null || entry.getValue() == null)
 					continue;
 
-				map2.put(entry.getKey(), getValue(entry.getValue(), target));
+				map2.put(entry.getKey(), getValue(target, entry.getValue()));
 			}
 		}
 
 		return map2;
 	}
 
-	public static String toString(Object... objs) {
-		return toString(objs, (String[]) null);
+	public static String toString(Object obj, String... excludeFieldNames) {
+		return toString(new Object[] { obj }, excludeFieldNames);
+	}
+
+	public static String toString(Object[] objs, String... excludeFieldNames) {
+		return toString(objs, false, excludeFieldNames);
+	}
+
+	public static String toStringRecursive(Object obj, String... excludeFieldNames) {
+		return toStringRecursive(new Object[] { obj }, excludeFieldNames);
+	}
+
+	public static String toStringRecursive(Object[] objs, String... excludeFieldNames) {
+		return toString(objs, true, excludeFieldNames);
 	}
 
 	/**
 	 * 객체배열을 문자열로 변환한다.
 	 * 
 	 * @param objs
+	 * @param recursive
 	 * @param excludeFieldNames
 	 * 
 	 * @return
 	 */
-	public static String toString(Object[] objs, String... excludeFieldNames) {
+	public static String toString(Object[] objs, boolean recursive, String... excludeFieldNames) {
 		if (objs == null || objs.length == 0)
 			return "[]";
 
-		RecursiveToStringStyle2 style = new RecursiveToStringStyle2();
-		style.setUseIdentityHashCode(false);
+		ToStringStyle style = null;
+		if (recursive) {
+			style = new RecursiveToStringStyle2();
+			((RecursiveToStringStyle2) style).setUseIdentityHashCode(false);
+		} else {
+			style = new StandardToStringStyle();
+			((StandardToStringStyle) style).setUseIdentityHashCode(false);
+		}
 
 		StringBuilder sb = new StringBuilder("[");
 		for (int i = 0; i < objs.length; i++) {

@@ -1,0 +1,19 @@
+{
+	"url":"http://localhost:8050/sample/list3.do",
+	"method":"POST",
+	"requestFormat":"JSON",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"application/json"
+			},
+			"params":{
+				"id":1,
+				"name":"s",
+				"condition":"name LIKE 's%'",
+				"order_by":"id DESC"
+			}
+		}
+	]
+}

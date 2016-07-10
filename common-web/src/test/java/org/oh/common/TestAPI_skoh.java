@@ -18,14 +18,18 @@ public class TestAPI_skoh extends TestAPI {
 
 //		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/sample_list_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_list3_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_page_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_page2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_update_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_update2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_update_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_update2_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_update_json_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_insert_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/sample_insert_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_test_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_and_test_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/sample_and_test2_list_get.json"));

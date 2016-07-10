@@ -92,7 +92,7 @@ public class Test02 {
 //		System.out.println(ReflectionUtil.findField(test01.getClass(), "id", long.class));
 //		System.out.println(ReflectionUtil.existField(test01, "name"));
 		
-		System.out.println(JsonUtil2.prettyPrint("a"));
+		System.out.println(JsonUtil2.toStringPretty("a"));
 	}
 	
 	class Test01 {

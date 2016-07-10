@@ -9,14 +9,8 @@ import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -32,7 +26,6 @@ import org.codehaus.jackson.node.MissingNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.codehaus.jackson.node.POJONode;
 import org.oh.common.exception.CommonException;
-import org.springframework.http.HttpHeaders;
 
 /**
  * JSON 관련 유틸리티 클래스 <br />
@@ -140,15 +133,12 @@ public abstract class JsonUtil {
 		return "{}";
 	}
 
-	public static String prettyPrint(Object... pojos) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < pojos.length; i++) {
-			if (i > 0)
-				sb.append(", ");
-			sb.append(toString(pojos[i], true));
+	public static String toStringPretty(Object... pojos) {
+		if (pojos.length == 1) {
+			return toString(pojos[0], true);
+		} else {
+			return toString(pojos, true);
 		}
-
-		return sb.toString();
 	}
 
 	/**
@@ -178,18 +168,15 @@ public abstract class JsonUtil {
 	 *      LogUtil.writeLog(json.toString()); // {"gender":null,"age":27,"phoneNum":"010-7777-5555","address":null,"name":"Kim Ga-Na"}
 	 * </pre>
 	 * 
-	 * @param pojo 객체
-	 * @return Json 형식의 문자열. 변환에 실패하면, 빈 문자열("")을 반환한다.
+	 * @param pojos 객체
+	 * @return Json 형식의 문자열. 변환에 실패하면, 에러메세지를 반환한다.
 	 */
 	public static String toString(Object... pojos) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < pojos.length; i++) {
-			if (i > 0)
-				sb.append(", ");
-			sb.append(toString(pojos[i], false));
+		if (pojos.length == 1) {
+			return toString(pojos[0], false);
+		} else {
+			return toString(pojos, false);
 		}
-
-		return sb.toString();
 	}
 
 	/**
@@ -197,61 +184,16 @@ public abstract class JsonUtil {
 	 * 
 	 * @param pojo 객체
 	 * @param prettyPrint 문자열 formatting 유무. <code>true</code>이면 보기 좋게 들여 쓰기가 된 Json 형식의 문자열로 바꾼다.
-	 * @return Json 형식의 문자열. 변환에 실패하면, 빈 문자열("")을 반환한다.
+	 * @return Json 형식의 문자열. 변환에 실패하면, 에러메세지를 반환한다.
 	 */
 	public static String toString(Object pojo, boolean prettyPrint) {
-		StringBuilder sb = new StringBuilder();
-		if (pojo instanceof HttpServletRequest) {
-			HttpServletRequest request = (HttpServletRequest) pojo;
-
-			String client = request.getRemoteAddr();
-			String method = request.getMethod();
-			Map<String, String[]> parameter = request.getParameterMap();
-
-			Map<String, String> header = new LinkedHashMap<String, String>();
-			Enumeration<String> headerNames = request.getHeaderNames();
-			while (headerNames.hasMoreElements()) {
-				String key = (String) headerNames.nextElement();
-				String value = request.getHeader(key);
-				header.put(key, value);
-			}
-
-			sb.append("{\"request\": {");
-//			sb.append("\"uri\": \"" + request.getRequestURI() + "\"");
-//			sb.append(", \"method\": \"" + method + "\"");
-			sb.append("\"parameter\": " + toString(parameter));
-			sb.append(", \"header\": " + toString(header));
-			sb.append(", \"client\": \"" + client + "\"");
-			sb.append("}}");
-
-			pojo = sb.toString();
-		} else if (pojo instanceof HttpSession) {
-			HttpSession session = (HttpSession) pojo;
-
-			Map<String, Object> attrMap = new LinkedHashMap<String, Object>();
-			Enumeration<String> attrs = session.getAttributeNames();
-			while (attrs.hasMoreElements()) {
-				String name = (String) attrs.nextElement();
-				attrMap.put(name, session.getAttribute(name));
-			}
-
-			sb.append("{\"session\": {");
-			sb.append("\"attribute\": " + readValue(attrMap));
-			sb.append("}}");
-
-			pojo = sb.toString();
-		} else if (pojo instanceof HttpServletResponse) {
-			return "{ Not suported javax.servlet.http.HttpServletResponse }";
-		} else if (pojo instanceof HttpHeaders) {
-			return "{ Not suported org.springframework.http.HttpHeaders }";
-		}
-
 		try {
 			if (pojo instanceof String) {
 				pojo = readValue(pojo);
 			}
 		} catch (Exception e) {
-			return "{" + pojo + "}";
+			return "{" + ((prettyPrint) ? System.lineSeparator() + "  " : "") + "\"error\":\""
+					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		}
 
 		StringWriter sw = new StringWriter();
@@ -264,7 +206,8 @@ public abstract class JsonUtil {
 
 			getObjectMapper().writeValue(jg, pojo);
 		} catch (Exception e) {
-			return "{" + e.getMessage() + "}";
+			return "{" + ((prettyPrint) ? System.lineSeparator() + "  " : "") + "\"error\":\""
+					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		} finally {
 			IOUtils.closeQuietly(sw);
 		}
@@ -1032,7 +975,7 @@ public abstract class JsonUtil {
 //		resHttp.setMimeType("가");
 //		resHttp.setContent("나".getBytes());
 //		String message = "{\"message\":\"ab\",\"users\":[\"a\",\"b\"]}";
-		String message = "{\"message\":\"ab\",\"users\":[{\"user\":\"null\"},{\"user\":null}]}";
+//		String message = "{\"message\":\"ab\",\"users\":[{\"user\":\"null\"},{\"user\":null}]}";
 //		JsonNode messageNode = readValue(resHttp);
 //		LogUtil.writeLog(messageNode);
 //		messageNode = readValue3(resHttp);
@@ -1077,8 +1020,8 @@ public abstract class JsonUtil {
 //		}
 //		LogUtil.writeLog(rootNode);
 
-		ObjectNode objectNode = objectNode();
-		objectNode.put("a", "1");
+//		ObjectNode objectNode = objectNode();
+//		objectNode.put("a", "1");
 //		Map<String, Object> map = readValue(objectNode, Map.class);
 //		LogUtil.writeLog(map);
 
@@ -1115,9 +1058,9 @@ public abstract class JsonUtil {
 //		LogUtil.writeLog(objectNode);
 //		LogUtil.writeLog(json);
 
-		JsonNode json = readValue(message);
+//		JsonNode json = readValue(message);
 //		JsonNode json = readValue2(message);
-		System.out.println(json.asText());
-		System.out.println(json.toString());
+//		System.out.println(json.asText());
+//		System.out.println(json.toString());
 	}
 }

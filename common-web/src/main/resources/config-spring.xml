@@ -41,7 +41,7 @@
 		<property name="basePackage" value="#{prop['mybatis.mapper.basePackage']}" />
 	</bean>
 
-	<!-- MyBatis ORM -->
+	<!-- MyBatis ORM (sourceType : mysql, oracle, sqlserver) -->
 	<bean class="org.mybatisorm.EntityManager">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="sourceType" value="${dataSource.vendorType}" />
@@ -110,7 +110,7 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- Logging -->
-	<bean id="logAdvice" class="org.oh.common.aop.LogAdvice" />
+	<bean id="logAdvice" class="org.oh.web.aop.LogAdvice" />
 
 	<aop:config>
 		<aop:pointcut id="publicMethod"

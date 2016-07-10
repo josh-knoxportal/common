@@ -20,10 +20,10 @@ import org.oh.web.page.Paging;
  *  id INT(20) NOT NULL AUTO_INCREMENT
  *  ,name VARCHAR(100)
  *  ,test_id INT(20) NOT NULL
- *  ,reg_id VARCHAR(100)
- *  ,reg_dt VARCHAR(14)
- *  ,mod_id VARCHAR(100)
- *  ,mod_dt VARCHAR(14)
+ *  ,reg_id VARCHAR(100) NOT NULL
+ *  ,reg_dt VARCHAR(14) NOT NULL
+ *  ,mod_id VARCHAR(100) NOT NULL
+ *  ,mod_dt VARCHAR(14) NOT NULL
  *  ,PRIMARY KEY
  * (
  *   id
@@ -36,10 +36,10 @@ import org.oh.web.page.Paging;
  *   id NUMBER(20) NOT NULL
  *  ,name VARCHAR2(100)
  *  ,test_id NUMBER(20) NOT NULL
- *  ,reg_id VARCHAR2(100)
- *  ,reg_dt VARCHAR2(14)
- *  ,mod_id VARCHAR2(100)
- *  ,mod_dt VARCHAR2(14)
+ *  ,reg_id VARCHAR2(100) NOT NULL
+ *  ,reg_dt VARCHAR2(14) NOT NULL
+ *  ,mod_id VARCHAR2(100) NOT NULL
+ *  ,mod_dt VARCHAR2(14) NOT NULL
  *  ,CONSTRAINT sample_pk PRIMARY KEY
  * (
  *   id
@@ -78,9 +78,9 @@ public class Sample extends Paging {
 	 * 샘플 아이디(PK), 시퀀스
 	 */
 //	@Null // 반드시 값이 있어야 합니다.
-	@NotNull(message = "반드시 값이 있어야 합니다.") // 반드시 값이 없어야 합니다.
-	@Min(1) // 반드시 1보다 같거나 커야 합니다.
-	@Max(Long.MAX_VALUE) // 반드시 9223372036854775807보다 같거나 작아야 합니다.
+//	@NotNull(message = "반드시 값이 있어야 합니다.") // 반드시 값이 없어야 합니다.
+//	@Min(1) // 반드시 1보다 같거나 커야 합니다.
+//	@Max(Long.MAX_VALUE) // 반드시 9223372036854775807보다 같거나 작아야 합니다.
 	@Column(primaryKey = true) // , sequence = "sample_seq") // oracle
 	protected Long id;
 
@@ -96,7 +96,7 @@ public class Sample extends Paging {
 	/**
 	 * 테스트 아이디(FK)
 	 */
-	// @Column(references = "Test.id")
+	@Column(references = "Test.id")
 	protected Long test_id;
 
 	public Long getId() {

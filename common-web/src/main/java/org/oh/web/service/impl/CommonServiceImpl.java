@@ -150,8 +150,6 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Override
 //	@CacheEvictCommon
 	public int delete(T model) throws Exception {
-		model = setDefaultModifyDate(model);
-
 		int result = entityManager.delete(model, model.getCondition2());
 
 		if (cache != null) {
@@ -162,7 +160,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	}
 
 	/**
-	 * Model을 가공할 경우에 사용
+	 * Model에 대한 쿼리를 가공할 경우에 사용
 	 * 
 	 * @param model
 	 * 
@@ -186,9 +184,9 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 			Common common = (Common) model;
 			if (common.getReg_dt() == null) {
 				if ("mysql".equals(entityManager.getSourceType())) {
-					common.setReg_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
+					common.setReg_dt(Query.makeVariable(Common.DEFAULT_DATE_MYSQL));
 				} else if ("oracle".equals(entityManager.getSourceType())) {
-					common.setReg_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')"));
+					common.setReg_dt(Query.makeVariable(Common.DEFAULT_DATE_ORACLE));
 //					common.setReg_dt(new Date()); // to_timestamp('07/10/2016 21:21:31.915', 'mm/dd/yyyy hh24:mi:ss.ff3')
 				} else if ("sqlserver".equals(entityManager.getSourceType())) {
 				}
@@ -212,9 +210,9 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 			Common common = (Common) model;
 			if (common.getMod_dt() == null) {
 				if ("mysql".equals(entityManager.getSourceType())) {
-					common.setMod_dt(Query.makeVariable("DATE_FORMAT(now(), '%Y%m%d%H%i%s')"));
+					common.setMod_dt(Query.makeVariable(Common.DEFAULT_DATE_MYSQL));
 				} else if ("oracle".equals(entityManager.getSourceType())) {
-					common.setMod_dt(Query.makeVariable("TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')"));
+					common.setMod_dt(Query.makeVariable(Common.DEFAULT_DATE_ORACLE));
 				} else if ("sqlserver".equals(entityManager.getSourceType())) {
 				}
 			}

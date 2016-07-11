@@ -3,8 +3,6 @@ package org.oh.web.model;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * 공통 모델
  * 
@@ -12,31 +10,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Table
 public class Common extends Default {
+	public static final String DEFAULT_DATE_MYSQL = "DATE_FORMAT (NOW(), '%Y%m%d%H%i%s')";
+	public static final String DEFAULT_DATE_ORACLE = "TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS')";
+	public static final String DEFAULT_DATE_SQLSERVER = "";
+
 	/**
 	 * 등록자 아이디
 	 */
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
 	protected String reg_id;
 
 	/**
 	 * 등록 일시
 	 */
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
 	protected String reg_dt;
 
 	/**
 	 * 수정자 아이디
 	 */
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
 	protected String mod_id;
 
 	/**
 	 * 수정 일시
 	 */
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column
 	protected String mod_dt;
 

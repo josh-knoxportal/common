@@ -16,9 +16,9 @@ import org.oh.web.page.Paging;
  *  ,name VARCHAR(100)
  *  ,sample_id INT(20) NOT NULL
  *  ,reg_id VARCHAR(100) NOT NULL
- *  ,reg_dt VARCHAR(14) NOT NULL
+ *  ,reg_dt VARCHAR(14) DEFAULT DATE_FORMAT (NOW(), '%Y%m%d%H%i%s') NOT NULL
  *  ,mod_id VARCHAR(100) NOT NULL
- *  ,mod_dt VARCHAR(14) NOT NULL
+ *  ,mod_dt VARCHAR(14) DEFAULT DATE_FORMAT (NOW(), '%Y%m%d%H%i%s') NOT NULL
  *  ,PRIMARY KEY
  * (
  *   id
@@ -32,9 +32,9 @@ import org.oh.web.page.Paging;
  *  ,name VARCHAR2(100)
  *  ,sample_id NUMBER(20) NOT NULL
  *  ,reg_id VARCHAR2(100) NOT NULL
- *  ,reg_dt VARCHAR2(14) NOT NULL
+ *  ,reg_dt VARCHAR2(14) DEFAULT TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS') NOT NULL
  *  ,mod_id VARCHAR2(100) NOT NULL
- *  ,mod_dt VARCHAR2(14) NOT NULL
+ *  ,mod_dt VARCHAR2(14) DEFAULT TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS') NOT NULL
  *  ,CONSTRAINT test_pk PRIMARY KEY
  * (
  *   id

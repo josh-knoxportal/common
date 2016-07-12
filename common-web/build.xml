@@ -5,6 +5,9 @@
 		Auto build tools
 	</description>
 
+	<!-- <taskdef resource="net/sf/antcontrib/antcontrib.properties" /> -->
+	<!-- <taskdef name="stringutil" classname="ise.antelope.tasks.StringUtilTask" /> -->
+
 	<!-- <property file="build.properties" /> -->
 
 	<!-- <property name="name" value="${ant.project.name}" /> -->
@@ -61,6 +64,19 @@
 
 	<target name="copy" depends="package">
 		<echo message="Copying the JAR file" />
+		<!-- <stringutil string="${os.name}" property="os_name"> -->
+		<!-- <lowercase /> -->
+		<!-- <substring endindex="7" /> -->
+		<!-- </stringutil> -->
+		<!-- <if> -->
+		<!-- <equals arg1="${os_name}" arg2="windows" /> -->
+		<!-- <then> -->
+		<!-- <property name="copy_dir" value="${copy_dir_win}" /> -->
+		<!-- </then> -->
+		<!-- <else> -->
+		<!-- <property name="copy_dir" value="${copy_dir_etc}" /> -->
+		<!-- </else> -->
+		<!-- </if> -->
 		<condition property="copy_dir" value="${copy_dir_win}" else="${copy_dir_etc}">
 			<os family="windows" />
 		</condition>

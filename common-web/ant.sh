@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cd /Users/skoh/dev/workspace/workspace_common/common-web
+cd /Users/skoh/git/skoh/common/common-web
 
 JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
 ANT_HOME=/Users/skoh/dev/lib/apache-ant-1.9.5

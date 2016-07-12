@@ -23,8 +23,8 @@
 	<!-- <property name="build_dir" value="${target_dir}/build" /> -->
 	<!-- <property name="classes_dir" value="${build_dir}/classes" /> -->
 	<property name="classes_dir" value="${target_dir}/classes" />
-	<property name="copy_dir" value="/Users/skoh/git/skoh-nemus/s-lbs-server/common-libs" />
-<!-- 	<property name="copy_dir" value="C:\dev\git\skoh-nemus\s-lbs-server\common-libs" /> -->
+	<property name="copy_dir_win" value="C:\dev\git\skoh-nemus\s-lbs-server\common-libs" />
+	<property name="copy_dir_etc" value="/Users/skoh/git/skoh-nemus/s-lbs-server/common-libs" />
 
 	<!-- <path id="classpath"> -->
 	<!-- <fileset dir="../../workspace_common/common-web/lib"> -->
@@ -61,6 +61,9 @@
 
 	<target name="copy" depends="package">
 		<echo message="Copying the JAR file" />
+		<condition property="copy_dir" value="${copy_dir_win}" else="${copy_dir_etc}">
+			<os family="windows" />
+		</condition>
 		<delete>
 			<fileset dir="${copy_dir}" includes="${artifactId}-*.jar" />
 		</delete>

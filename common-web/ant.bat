@@ -22,7 +22,7 @@ REM Be cautious about editing this, and only add WinNT specific stuff in code th
 REM only runs on WinNT.
 
 e:
-cd /dev/workspace/workspace_common/common
+cd /git/skoh/common/common-web
 
 set JAVA_HOME=C:\dev\java\jdk1.7.0_72
 set ANT_HOME=E:\dev\lib\apache-ant-1.9.5

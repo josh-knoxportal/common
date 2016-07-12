@@ -192,7 +192,7 @@ public abstract class JsonUtil {
 				pojo = readValue(pojo);
 			}
 		} catch (Exception e) {
-			return "{" + ((prettyPrint) ? System.lineSeparator() + "  " : "") + "\"error\":\""
+			return "{" + ((prettyPrint) ? System.getProperty("line.separator") + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		}
 
@@ -206,7 +206,7 @@ public abstract class JsonUtil {
 
 			getObjectMapper().writeValue(jg, pojo);
 		} catch (Exception e) {
-			return "{" + ((prettyPrint) ? System.lineSeparator() + "  " : "") + "\"error\":\""
+			return "{" + ((prettyPrint) ? System.getProperty("line.separator") + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		} finally {
 			IOUtils.closeQuietly(sw);

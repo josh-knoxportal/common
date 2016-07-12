@@ -76,6 +76,12 @@ public class TestAPI {
 		String saveExt = data.path("saveExt").textValue();
 		String requestFormat = data.path("requestFormat").textValue();
 		String responseFormat = data.path("responseFormat").textValue();
+		LogUtil.writeLog("url: " + url);
+		LogUtil.writeLog("method: " + method);
+		LogUtil.writeLog("saveDir: " + saveDir);
+		LogUtil.writeLog("saveExt: " + saveExt);
+		LogUtil.writeLog("requestFormat: " + requestFormat);
+		LogUtil.writeLog("responseFormat: " + responseFormat);
 
 		for (JsonNode json : data.path("list")) {
 			HTTPUtilTask task = test(json, url, method, requestFormat);
@@ -118,6 +124,8 @@ public class TestAPI {
 				params.add(new BasicNameValuePair(field.getKey(), field.getValue().asText()));
 			}
 		}
+		LogUtil.writeLog("headers: " + JsonUtil2.toStringPretty(headers));
+		LogUtil.writeLog("params: " + JsonUtil2.toStringPretty(params));
 
 		// 서버 호출
 		return new HTTPUtilTask(url, method, headers, params);

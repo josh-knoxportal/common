@@ -3,6 +3,8 @@ package org.oh.web.model;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * 공통 모델
  * 
@@ -68,5 +70,33 @@ public class Common extends Default {
 
 	public void setMod_dt(String mod_dt) {
 		this.mod_dt = mod_dt;
+	}
+
+	/**
+	 * 쓰기 전용
+	 * 
+	 * @author skoh
+	 */
+	@Table
+	public class CommonWrite extends Common {
+		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+		public String getReg_id() {
+			return super.getReg_id();
+		}
+
+		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+		public String getReg_dt() {
+			return super.getReg_dt();
+		}
+
+		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+		public String getMod_id() {
+			return super.getMod_id();
+		}
+
+		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+		public String getMod_dt() {
+			return super.getMod_dt();
+		}
 	}
 }

@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
+import org.oh.common.annotation.TransactionalException;
 import org.oh.common.util.ReflectionUtil;
 import org.oh.web.model.Common;
 import org.oh.web.model.Default;
@@ -120,6 +121,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	}
 
 	@Override
+	@TransactionalException
 //	@CacheEvictCommon
 	public int insert(T model) throws Exception {
 		model = setDefaultModifyDate(setDefaultRegisterDate(model));
@@ -134,6 +136,25 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	}
 
 	@Override
+	@TransactionalException
+//	@CacheEvictCommon
+	public int insertList(T[] models) throws Exception {
+		int result = 0;
+		for (T model : models) {
+			model = setDefaultModifyDate(setDefaultRegisterDate(model));
+
+			result += entityManager.insert(model);
+		}
+
+		if (cache != null) {
+			cache.clear();
+		}
+
+		return result;
+	}
+
+	@Override
+	@TransactionalException
 //	@CacheEvictCommon
 	public int update(T model) throws Exception {
 		model = setDefaultModifyDate(model);
@@ -148,6 +169,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	}
 
 	@Override
+	@TransactionalException
 //	@CacheEvictCommon
 	public int delete(T model) throws Exception {
 		int result = entityManager.delete(model, model.getCondition2());

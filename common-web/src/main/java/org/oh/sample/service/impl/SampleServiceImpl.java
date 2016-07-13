@@ -2,9 +2,10 @@ package org.oh.sample.service.impl;
 
 import java.util.List;
 
+import org.oh.common.annotation.TransactionalException;
 import org.oh.sample.Constants;
-import org.oh.sample.cache.CacheEvictSample;
-import org.oh.sample.cache.CacheableSample;
+import org.oh.sample.annotation.CacheEvictSample;
+import org.oh.sample.annotation.CacheableSample;
 import org.oh.sample.mapper.SampleMapper;
 import org.oh.sample.model.Sample;
 import org.oh.sample.service.SampleService;
@@ -48,24 +49,28 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	}
 
 	@Override
+	@TransactionalException
 	@CacheEvictSample
 	public int insert2(Sample sample) throws Exception {
 		return sampleMapper.insert(sample);
 	}
 
 	@Override
+	@TransactionalException
 	@CacheEvictSample
 	public int update2(Sample sample) throws Exception {
 		return sampleMapper.update(sample);
 	}
 
 	@Override
+	@TransactionalException
 	@CacheEvictSample
 	public int delete2(Sample sample) throws Exception {
 		return sampleMapper.delete(sample);
 	}
 
 	@Override
+	@TransactionalException
 	@CacheEvictSample
 	public int merge(Sample sample) throws Exception {
 		return sampleMapper.merge(sample);

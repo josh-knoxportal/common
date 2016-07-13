@@ -72,7 +72,8 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 
 	// 모든 조건 적용 by skoh
 	protected String makeCondition(String where, Query query) {
-		return where + (query.hasCondition() ? ((where.length() > 0) ? " AND " : "") + query.getCondition() : "");
+		String and = (where.length() > 0) ? " AND " : "";
+		return where + (query.hasCondition() ? and + query.getCondition() : "");
 	}
 
 	// 바인딩 변수 by skoh

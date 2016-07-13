@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.Condition;
+import org.oh.common.util.Utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -81,6 +82,9 @@ public abstract class Default implements Serializable {
 	}
 
 	public void addCondition(String condition) {
+		if (!Utils.isValidate(condition))
+			return;
+
 		condition2.add(condition);
 	}
 

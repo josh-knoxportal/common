@@ -71,16 +71,16 @@ public class TestAPI {
 
 		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
 		String url = data.path("url").textValue();
-		String method = data.path("method").textValue();
-		String saveDir = data.path("saveDir").textValue();
-		String saveExt = data.path("saveExt").textValue();
-		String requestFormat = data.path("requestFormat").textValue();
-		String responseFormat = data.path("responseFormat").textValue();
 		LogUtil.writeLog("url: " + url);
+		String method = data.path("method").textValue();
 		LogUtil.writeLog("method: " + method);
+		String saveDir = data.path("saveDir").textValue();
 		LogUtil.writeLog("saveDir: " + saveDir);
+		String saveExt = data.path("saveExt").textValue();
 		LogUtil.writeLog("saveExt: " + saveExt);
+		String requestFormat = data.path("requestFormat").textValue();
 		LogUtil.writeLog("requestFormat: " + requestFormat);
+		String responseFormat = data.path("responseFormat").textValue();
 		LogUtil.writeLog("responseFormat: " + responseFormat);
 
 		for (JsonNode json : data.path("list")) {
@@ -109,10 +109,12 @@ public class TestAPI {
 	protected HTTPUtilTask test(JsonNode json, String url, String method, String requestFormat) throws Exception {
 		// HTTP 헤더
 		JsonNode jsonNode = json.path("headers");
+		LogUtil.writeLog("headers: " + JsonUtil2.toStringPretty(jsonNode));
 		List<NameValuePair> headers = (JsonUtil2.isValidate(jsonNode)) ? JsonUtil2.convertJsonToList(jsonNode) : null;
 
 		// HTTP 파라미터
 		jsonNode = json.path("params");
+		LogUtil.writeLog("params: " + JsonUtil2.toStringPretty(jsonNode));
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		if ("JSON".equalsIgnoreCase(requestFormat)) {
 //			headers.add(new BasicNameValuePair("Content-Type", "application/json;charset=UTF-8"));
@@ -124,8 +126,6 @@ public class TestAPI {
 				params.add(new BasicNameValuePair(field.getKey(), field.getValue().asText()));
 			}
 		}
-		LogUtil.writeLog("headers: " + JsonUtil2.toStringPretty(headers));
-		LogUtil.writeLog("params: " + JsonUtil2.toStringPretty(params));
 
 		// 서버 호출
 		return new HTTPUtilTask(url, method, headers, params);

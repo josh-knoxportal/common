@@ -75,6 +75,17 @@ public interface CommonService<T extends Default> {
 	public int insert(T model) throws Exception;
 
 	/**
+	 * 공통 리스트 등록
+	 * 
+	 * @param model 모델 배열
+	 * 
+	 * @return 결과
+	 * 
+	 * @throws Exception
+	 */
+	public int insertList(T[] models) throws Exception;
+
+	/**
 	 * 공통 수정
 	 * 
 	 * @param model 모델

@@ -1,5 +1,6 @@
 package org.oh.web.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -76,8 +77,37 @@ public abstract class CommonController<T extends Default> implements Initializin
 	/**
 	 * Content-Type : application/json
 	 */
+	@RequestMapping(value = "insert_list_json.do", method = RequestMethod.POST)
+	public ResponseEntity<Response<Integer>> insert_list_json(@Valid @RequestBody _List<T> model, BindingResult errors)
+			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return checkValidate(errors);
+		}
+
+		int result = 1;// service.insert(model);
+		Response<Integer> response = Response.getSuccessResponse(result);
+
+		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+	}
+
+	protected static class _List<T> implements Serializable {
+		@Valid
+		protected List<T> list;
+
+		public List<T> getList() {
+			return list;
+		}
+
+		public void setList(List<T> list) {
+			this.list = list;
+		}
+	}
+
+	/**
+	 * Content-Type : application/json
+	 */
 	@RequestMapping(value = "insert_json.do", method = RequestMethod.POST)
-	public ResponseEntity<Response<Integer>> insert_json(@RequestBody @Valid T model, BindingResult errors)
+	public ResponseEntity<Response<Integer>> insert_json(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
 		return insert(model, errors);
 	}

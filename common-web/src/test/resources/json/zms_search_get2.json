@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/search.do?search_filter=명품",
+	"url":"http://202.3.20.124:80/v1/zms/search.do?search_filter=랑콤&company_id=-1&brand_id=-1&branch_id=14723&floor_id=-1&xid=251583",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/search.do?search_filter=COFFEE STATION&company_id=-1&brand_id=-1&branch_id=11&floor_id=-1",
+	"url":"http://202.3.20.124/v1/zms/search.do?search_filter=랑콤&company_id=-1&brand_id=-1&branch_id=14723&floor_id=-1",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

@@ -83,7 +83,7 @@ public interface CommonService<T extends Default> {
 	 * 
 	 * @throws Exception
 	 */
-	public int insertList(T[] models) throws Exception;
+	public int insert(List<T> models) throws Exception;
 
 	/**
 	 * 공통 수정

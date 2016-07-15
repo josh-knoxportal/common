@@ -1,5 +1,5 @@
 {
-	"url":"http://202.3.20.124/v1/zms/category/insert_list.do",
+	"url":"http://localhost:8080/v1/zms/category/insert_list.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -21,7 +21,7 @@
 					"mcode_cd":"9504",
 					"mcode_nm":"포도",
 					"chktype":"10111109504",
-					"company_id":7055
+					"company_id":7057
 				},
 				{
 					"biztp_code":"10",
@@ -32,7 +32,7 @@
 					"mcode_nm":"참외",
 					"team_nm":"과일",
 					"chktype":"10111109506",
-					"company_id":7055
+					"company_id":7057
 				}
 			]
 		}

@@ -109,13 +109,13 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "insert_list_json.do", method = RequestMethod.POST)
-	public ResponseEntity<Response<Integer>> insertListJson(@Valid @RequestBody _List<T> model, BindingResult errors)
+	public ResponseEntity<Response<Integer>> insertListJson(@Valid @RequestBody _List<T> models, BindingResult errors)
 			throws Exception {
 		if (errors.hasFieldErrors()) {
 			return checkValidate(errors);
 		}
 
-		int result = 1;// service.insert(model);
+		int result = 1;//service.insert(models.getList());
 		Response<Integer> response = Response.getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);

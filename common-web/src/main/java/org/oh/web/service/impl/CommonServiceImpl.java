@@ -138,7 +138,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Override
 	@TransactionalException
 //	@CacheEvictCommon
-	public int insertList(T[] models) throws Exception {
+	public int insert(List<T> models) throws Exception {
 		int result = 0;
 		for (T model : models) {
 			model = setDefaultModifyDate(setDefaultRegisterDate(model));

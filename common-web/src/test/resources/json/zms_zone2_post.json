@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/zone/list.do",
+	"url":"http://202.3.20.124/v1/zms/zone/list.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",

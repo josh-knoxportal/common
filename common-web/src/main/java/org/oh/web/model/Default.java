@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.Condition;
+import org.mybatisorm.Condition.Seperator;
 import org.oh.common.util.Utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -47,7 +48,7 @@ public abstract class Default implements Serializable {
 	 * 조회 조건
 	 */
 	@JsonIgnore
-	protected Condition condition2 = new Condition();
+	protected Condition condition2;
 
 	/**
 	 * 정렬 기준
@@ -82,10 +83,14 @@ public abstract class Default implements Serializable {
 	}
 
 	public void addCondition(String condition) {
+		addCondition(null, condition);
+	}
+
+	public void addCondition(String seperator, String condition) {
 		if (!Utils.isValidate(condition))
 			return;
 
-		condition2.add(condition);
+		getCondition(seperator).add(condition);
 	}
 
 	public void addCondition(String operator, Object... value) {
@@ -93,7 +98,14 @@ public abstract class Default implements Serializable {
 	}
 
 	public void addCondition(String field, String operator, Object... value) {
-		condition2.add(field, operator, value);
+		addCondition(null, field, operator, value);
+	}
+
+	public void addCondition(String seperator, String field, String operator, Object... value) {
+		if (!Utils.isValidate(value))
+			return;
+
+		getCondition(seperator).add(field, operator, value);
 	}
 
 	public Condition getCondition2() {
@@ -116,12 +128,16 @@ public abstract class Default implements Serializable {
 		this.order_by = order_by;
 	}
 
-	protected void addCondition(Condition condition) {
-		if (this.condition2 == null) {
-			this.condition2 = new Condition();
+	protected Condition getCondition(String seperator) {
+		if (condition2 == null) {
+			if ("OR".equalsIgnoreCase(seperator)) {
+				condition2 = new Condition(Seperator.OR);
+			} else {
+				condition2 = new Condition();
+			}
 		}
 
-		this.condition2.add(condition);
+		return condition2;
 	}
 
 	@Override

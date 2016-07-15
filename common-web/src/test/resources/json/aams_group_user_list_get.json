@@ -1,11 +1,11 @@
 {
-	"url":"http://localhost:8080/v1/aams/group_user/list.do?adminUser.username=1038",
+	"url":"http://202.3.20.124/v1/aams/group_user/list.do?adminUser.username=1038",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
 		{
 			"headers":{
-				"access_token":"JDJhJDEwJEZoTTZUWXVYYy5GNS9RZUZSNDY4aXVyZXVPb0FocE5zZlBaUWdtMmdLNURqVS9RTnpRQlhH",
+				"access_token":"JDJhJDEwJEJITjVNak1hbXlnZ01zaXNPZVhpVC5iUEFRWGlGTkFpWXd6Q0c1S0tQVm5HY0hjeHd4YzRp",
 				"request_type":"2"
 			},
 			"params":{

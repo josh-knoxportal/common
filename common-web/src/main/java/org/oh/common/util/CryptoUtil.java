@@ -230,8 +230,8 @@ public abstract class CryptoUtil {
 	}
 
 	public static void main(String[] args) {
-		LogUtil.writeLog(encodeMD5("a1234")); // 828c88f34ecb4c1ca8d89e018c6fad1a
-		LogUtil.writeLog(encodeSHA256("a1234")); // 3e0a3501a65b4a7bf889c6f180cc6e35747e5aaff931cc90b760671efa09aeac
-//		LogUtil.writeLog(encodeSHA256Rathon("a1234"));
+		System.out.println(encodeMD5("a1234")); // 828c88f34ecb4c1ca8d89e018c6fad1a
+		System.out.println(encodeSHA256("a1234")); // 3e0a3501a65b4a7bf889c6f180cc6e35747e5aaff931cc90b760671efa09aeac
+//		System.out.println(encodeSHA256Rathon("a1234"));
 	}
 }

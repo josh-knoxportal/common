@@ -159,7 +159,7 @@ public abstract class Base64Encoder {
 
 	public static void main(String[] args) {
 		// [1, MQ==] [a1234, YTEyMzQ=]
-		LogUtil.writeLog(Base64Encoder.encode("1".getBytes()));
-		LogUtil.writeLog(Base64Encoder.encode("a1234".getBytes()));
+		System.out.println(Base64Encoder.encode("1".getBytes()));
+		System.out.println(Base64Encoder.encode("a1234".getBytes()));
 	}
 }

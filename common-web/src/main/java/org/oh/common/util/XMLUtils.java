@@ -211,23 +211,23 @@ public abstract class XMLUtils {
 //
 //		JsonNode rootNode = JsonUtil2.readValue(json);
 //		ObjectNode objectNode = (ObjectNode) JsonUtil2.find(rootNode, "object/attrs");
-//		LogUtil.writeLog(objectNode);
+//		System.out.println(objectNode);
 //
 //		ObjectNode headerNode = objectNode.putObject("header");
 //		JsonUtil2.putValue2(headerNode, "trcode", "TR0001");
-//		LogUtil.writeLog(objectNode);
+//		System.out.println(objectNode);
 //
 //		objectNode = (ObjectNode) JsonUtil2.getValue(rootNode, "object");
-//		LogUtil.writeLog(objectNode);
+//		System.out.println(objectNode);
 //
 //		String xml = IOUtils.toString((new FileInputStream("test/test02.xml")));
 //
-//		LogUtil.writeLog(convertXmlStringToMap(xml));
+//		System.out.println(convertXmlStringToMap(xml));
 //
-//		LogUtil.writeLog(getFirstValueByTagName(xml, "RESULT"));
-//		LogUtil.writeLog(getValueById(xml, "RESULT2"));
+//		System.out.println(getFirstValueByTagName(xml, "RESULT"));
+//		System.out.println(getValueById(xml, "RESULT2"));
 //
-//		LogUtil.writeLog(getFirstValueByTagName2(xml, "RESULT"));
-//		LogUtil.writeLog(getFirstValueByAttrId(xml, "RESULT2"));
+//		System.out.println(getFirstValueByTagName2(xml, "RESULT"));
+//		System.out.println(getFirstValueByAttrId(xml, "RESULT2"));
 	}
 }

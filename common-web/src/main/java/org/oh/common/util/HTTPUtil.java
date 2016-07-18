@@ -575,7 +575,7 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 //		try {
 //			write(bytes, new FileOutputStream("C:/down/logo11w.png"));
 //		} catch (Exception e) {
-//			LogUtil.writeLog(e);
+//			System.out.println(e);
 //		}
 
 //		String url = "http://127.0.0.1:5050/common/upload"; // 로컬
@@ -599,25 +599,25 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 
 //		Test01 t = new Test01();
 //		Object o = ReflectionUtils2.getValue(t, "s");
-//		LogUtil.writeLog(t);
+//		System.out.println(t);
 //		ReflectionUtils2.setValue(t, "s", "b");
-//		LogUtil.writeLog(t);
+//		System.out.println(t);
 //		Attachment[] field = ReflectionUtils2.getValue(t, Attachment[].class);
-//		LogUtil.writeLog(Utils.toString("field:", field));
+//		System.out.println(Utils.toString("field:", field));
 
 //		List<Attachment> list = convertObjectToList(t);
-//		LogUtil.writeLog(list);
+//		System.out.println(list);
 
 //		String query = "mode=1&file_name=&I_BUKRS=1000&I_BNUMB=0000000724&I_GJAHR=2014&I_OBJKEY=FOL38000000000004EXT39000000000165";
 //		NSG326Request_Body body = convertListToObject(URLEncodedUtils.parse(query, Charset.forName("UTF-8")),
 //				NSG326Request_Body.class);
-//		LogUtil.writeLog(body);
+//		System.out.println(body);
 
 		String url = "http://localhost/openapi/login.crd?userid=bW9iaWdlbg==&userdomain=bm9uZ3NoaW0=&en_userpass_md5=e2ac6dbc3f59b7ac9b3943e50e51e21f&en_userpass_sha2=df34cbc326c92ce89d529d2df34e3db74aaa09696c710c78174ad143c3670de6";
 		Map<String, Object> result = callHttp(url);
 
-		LogUtil.writeLog(result);
-		LogUtil.writeLog(new String((byte[]) result.get("content")));
+		System.out.println(result);
+		System.out.println(new String((byte[]) result.get("content")));
 	}
 
 	public static class Test01 {

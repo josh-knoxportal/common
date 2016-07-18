@@ -1321,18 +1321,18 @@ public abstract class StringUtil extends StringUtils {
 	}
 
 	public static void main(String[] args) {
-//		LogUtil.writeLog(convertFormat(1L, "00"));
-//		LogUtil.writeLog(encodeMD5("1234")); // 05841730f0329c9ad0c80ff268da9dfe
-//		LogUtil.writeLog(generateUID());
+//		System.out.println(convertFormat(1L, "00"));
+//		System.out.println(encodeMD5("1234")); // 05841730f0329c9ad0c80ff268da9dfe
+//		System.out.println(generateUID());
 //		String uid = LocalFileStorageAccessor.generateUID().substring(6);
 //		String uid = "00000001371200140695";
-//		LogUtil.writeLog(getDateTime(Long.parseLong(uid)));
+//		System.out.println(getDateTime(Long.parseLong(uid)));
 
-//		LogUtil.writeLog(convertDisplay("7208031234567").substring(6, 7));
+//		System.out.println(convertDisplay("7208031234567").substring(6, 7));
 
-//		LogUtil.writeLog(String.format("%1$-8s", "2121003"));
-//		LogUtil.writeLog(leftPad("2121003", 8, "0"));
+//		System.out.println(String.format("%1$-8s", "2121003"));
+//		System.out.println(leftPad("2121003", 8, "0"));
 
-//		LogUtil.writeLog(defaultIfBlank("1", "abc"));
+//		System.out.println(defaultIfBlank("1", "abc"));
 	}
 }

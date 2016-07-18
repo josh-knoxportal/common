@@ -7,7 +7,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.StandardToStringStyle;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -242,22 +241,22 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	 */
 	public static String toString(Object[] objs, boolean recursive, String... excludeFieldNames) {
 		if (objs == null || objs.length == 0)
-			return "[]";
+			return "";
 
 		ToStringStyle style = null;
 		if (recursive) {
-			style = new RecursiveToStringStyle2();
-			((RecursiveToStringStyle2) style).setUseIdentityHashCode(false);
+			style = new JsonRecursiveToStringStyle();
 		} else {
 			style = new StandardToStringStyle();
-			((StandardToStringStyle) style).setUseIdentityHashCode(false);
+			StandardToStringStyle style2 = (StandardToStringStyle) style;
+			style2.setUseIdentityHashCode(false);
 		}
 
-		StringBuilder sb = new StringBuilder("[");
+		StringBuilder sb = new StringBuilder((objs.length == 1) ? "" : "[");
 		for (int i = 0; i < objs.length; i++) {
 			sb.append(new ReflectionToStringBuilder(objs[i], style).setExcludeFieldNames(excludeFieldNames).toString());
 			if (i == objs.length - 1) {
-				sb.append("]");
+				sb.append((objs.length == 1) ? "" : "]");
 			} else {
 				sb.append(", ");
 			}
@@ -267,13 +266,6 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	}
 
 	// Inner class ------------------------------------------------------------
-
-	protected static class RecursiveToStringStyle2 extends RecursiveToStringStyle {
-		@Override
-		public void setUseIdentityHashCode(final boolean useIdentityHashCode) {
-			super.setUseIdentityHashCode(useIdentityHashCode);
-		}
-	}
 
 	/**
 	 * 필드 콜백
@@ -287,7 +279,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		}
 
 		protected Map<String, Field> getFieldMap() {
-			return this.fieldMap;
+			return fieldMap;
 		}
 	}
 
@@ -310,8 +302,9 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	}
 
 	public static void main(String[] args) throws Exception {
-		RecursiveToStringStyle2 style = new RecursiveToStringStyle2();
-		style.setUseIdentityHashCode(false);
-		System.out.println(new ReflectionToStringBuilder(new Person(), style).toString());
+		System.out.println(toString(new Person()));
+		System.out.println(toString(new Person[] { new Person(), new Person() }));
+		System.out.println(toStringRecursive(new Person()));
+		System.out.println(toStringRecursive(new Person[] { new Person(), new Person() }));
 	}
 }

@@ -34,6 +34,6 @@ public abstract class MapUtil extends MapUtils {
 	}
 
 	public static void main(String[] args) {
-		LogUtil.writeLog(convertArrayToMap(new String[] { "a", "1" }, new String[] { "b", "2" }));
+		System.out.println(convertArrayToMap(new String[] { "a", "1" }, new String[] { "b", "2" }));
 	}
 }

@@ -9,27 +9,24 @@ public class Paging extends Common {
 	/**
 	 * 페이지 번호
 	 */
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected int page_number;
-
-	/**
-	 * 전체 건수
-	 */
-	@JsonIgnore
-	protected int total_sise;
 
 	/**
 	 * 페이지당 건수
 	 */
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected int rows_per_page = PageNavigator.ROWS_PER_PAGE;
 
 	/**
 	 * 화면당 페이지 수
 	 */
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	protected int page_group_count = PageNavigator.PAGE_GROUP_COUNT;
 
+	/**
+	 * 전체 건수
+	 */
+	protected int total_sise;
+
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public int getPage_number() {
 		return page_number;
 	}
@@ -38,14 +35,7 @@ public class Paging extends Common {
 		this.page_number = page_number;
 	}
 
-	public int getTotal_sise() {
-		return total_sise;
-	}
-
-	public void setTotal_sise(int total_sise) {
-		this.total_sise = total_sise;
-	}
-
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public int getRows_per_page() {
 		return rows_per_page;
 	}
@@ -54,11 +44,21 @@ public class Paging extends Common {
 		this.rows_per_page = rows_per_page;
 	}
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public int getPage_group_count() {
 		return page_group_count;
 	}
 
 	public void setPage_group_count(int page_group_count) {
 		this.page_group_count = page_group_count;
+	}
+
+	@JsonIgnore
+	public int getTotal_sise() {
+		return total_sise;
+	}
+
+	public void setTotal_sise(int total_sise) {
+		this.total_sise = total_sise;
 	}
 }

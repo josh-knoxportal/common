@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -35,6 +36,7 @@ public class LogAdvice extends org.oh.common.aop.LogAdvice {
 
 			for (Annotation paramAnno : paramAnnoss[i]) {
 				if (RequestBody.class.isInstance(paramAnno)) {
+//					sb.append(((sb.length() > 0) ? ", " : "") + JsonUtil2.toStringPretty(args[i]));
 					sb.append(((sb.length() > 0) ? ", " : "") + JsonUtil2.toStringPretty(args[i]));
 					break;
 				}
@@ -66,8 +68,8 @@ public class LogAdvice extends org.oh.common.aop.LogAdvice {
 				}
 			}
 		} else {
-			log.debug(format("INPUT",
-					"[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(joinPoint.getArgs())));
+			log.debug(format("INPUT", "[" + toShortString(signature) + "] "
+					+ ReflectionToStringBuilder.toString(joinPoint.getArgs(), ToStringStyle.MULTI_LINE_STYLE)));
 		}
 	}
 

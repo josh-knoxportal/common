@@ -320,10 +320,10 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 			String UID = generateUID();
 
 			storageAccessor.save(UID, "테스트.txt", "테스트".getBytes());
-			LogUtil.writeLog("fileInfo: " + storageAccessor.getFileInfo(UID));
+			System.out.println("fileInfo: " + storageAccessor.getFileInfo(UID));
 
 			byte[] file = storageAccessor.load(UID);
-			LogUtil.writeLog(new String(file, "UTF-8"));
+			System.out.println(new String(file, "UTF-8"));
 		}
 	}
 }

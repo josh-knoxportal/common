@@ -144,13 +144,13 @@ public abstract class PushUtils {
 		System.setProperty("HOME", "C:/dev/workspace/workspace_common/HOME");
 		PropertyConfigurator.configure(System.getProperty("HOME") + "/conf/server/log4j.properties");
 
-//		LogUtil.writeLog(send("https://appstoredev.dongwha-mh.com/push", "D4000737",
+//		System.out.println(send("https://appstoredev.dongwha-mh.com/push", "D4000737",
 //				"푸시 테스트: " + StringUtil.getDateTime()));
 //		System.out
 //				.println(send("https://appstore.dongwha-mh.com/push", "D4000737", "푸시 테스트: " + StringUtil.getDateTime()));
 
-		LogUtil.writeLog(send("http://172.27.41.171:8110/push", "Nsystemadmin", "[AP01]결재문서가 도착했습니다."));
-//		LogUtil.writeLog(send("http://172.26.250.140:8110/push", "Nsystemadmin", "[AP01]결재문서가 도착했습니다."));
-//		LogUtil.writeLog(send("http://172.26.250.123:8110/push", "Nsystemadmin", "[AP01]결재문서가 도착했습니다."));
+		System.out.println(send("http://172.27.41.171:8110/push", "Nsystemadmin", "[AP01]결재문서가 도착했습니다."));
+//		System.out.println(send("http://172.26.250.140:8110/push", "Nsystemadmin", "[AP01]결재문서가 도착했습니다."));
+//		System.out.println(send("http://172.26.250.123:8110/push", "Nsystemadmin", "[AP01]결재문서가 도착했습니다."));
 	}
 }

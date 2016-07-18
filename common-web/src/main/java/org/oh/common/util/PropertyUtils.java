@@ -114,9 +114,9 @@ public class PropertyUtils {
 	}
 
 	public static void main(String[] args) throws Exception {
-		LogUtil.writeLog(getInstance().getString("http.connection.timeout"));
+		System.out.println(getInstance().getString("http.connection.timeout"));
 //		while (true) {
-//			LogUtil.writeLog(getString("org.oh.common.postfix"));
+//			System.out.println(getString("org.oh.common.postfix"));
 //			Thread.sleep(2000);
 //		}
 	}

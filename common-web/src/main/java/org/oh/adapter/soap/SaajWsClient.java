@@ -70,6 +70,6 @@ public class SaajWsClient {
 		transformer.transform(sourceContent, result);
 
 		StringBuffer buffer = writer.getBuffer();
-		LogUtil.writeLog(buffer.toString());
+		System.out.println(buffer.toString());
 	}
 }

@@ -510,7 +510,7 @@ public abstract class FileUtil extends FileUtils {
 	}
 
 	public static void main(String[] args) {
-		LogUtil.writeLog(
+		System.out.println(
 				Arrays.toString(findFiles("D:/home/smosuser/was_docs/Daekyo/SmartMOS/member/member/", "*_mb.db")));
 	}
 }

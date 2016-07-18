@@ -538,9 +538,9 @@ public class AdapterUtil {
 //		DefaultHttpResponse resHttp = new DefaultHttpResponse();
 //		resHttp.setMimeType("skoh");
 //		JsonNode resHttp = JsonUtil2.readValue("{\"mimeType\":\"skoh\"}");
-//		LogUtil.writeLog(ConvertMap(resHttp));
+//		System.out.println(ConvertMap(resHttp));
 
-//		LogUtil.writeLog(ArrayUtils.contains(null, null));
+//		System.out.println(ArrayUtils.contains(null, null));
 
 //		Map<String, Integer> map = new HashMap<String, Integer>();
 //		map.put("a", 1);
@@ -548,9 +548,9 @@ public class AdapterUtil {
 //		Map<String, String> map2 = Utils.convertMapToMap((Map) map);
 //		List<NameValuePair> list = new ArrayList<NameValuePair>();
 //		list.add(new BasicNameValuePair("c", "3"));
-//		LogUtil.writeLog(convertObjectToList(map, list, "a"));
+//		System.out.println(convertObjectToList(map, list, "a"));
 
-		LogUtil.writeLog(Integer.getInteger("0"));
-		LogUtil.writeLog(Integer.parseInt("0"));
+		System.out.println(Integer.getInteger("0"));
+		System.out.println(Integer.parseInt("0"));
 	}
 }

@@ -154,13 +154,13 @@ public abstract class XMLFasterUtils extends XMLUtils {
 	public static void main(String[] args) throws Exception {
 //		String json = IOUtils.toString((new FileInputStream("test/test02.json")));
 //		String xml = convertJsonStringToXmlString(json);
-//		LogUtil.writeLog(xml);
-//		LogUtil.writeLog(convertXmlStringToJsonString(xml));
+//		System.out.println(xml);
+//		System.out.println(convertXmlStringToJsonString(xml));
 //
-//		LogUtil.writeLog();
+//		System.out.println();
 
 		String xml2 = IOUtils.toString((new FileInputStream("test/test02.xml")));
 		String json2 = convertXmlStringToJsonNode(xml2, true).toString();
-//		LogUtil.writeLog(convertJsonStringToXmlString(json2));
+//		System.out.println(convertJsonStringToXmlString(json2));
 	}
 }

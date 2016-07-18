@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zcms/campaign.do?branch_id=11&xid=031967",
+	"url":"http://localhost:8080/v1/zms/zone_category/list.do",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
@@ -9,6 +9,7 @@
 				"request_type":"1"
 			},
 			"params":{
+				"a":1
 			}
 		}
 	]

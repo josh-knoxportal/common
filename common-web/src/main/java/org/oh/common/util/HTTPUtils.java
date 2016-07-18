@@ -73,7 +73,6 @@ public abstract class HTTPUtils {
 		}
 	}
 
-	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 	public static final byte[] BUFFER = new byte[1024 * 8]; // 8KB
 	public static final int CONNECT_TIMEOUT_MS = 1000 * 2; // 2초
 	public static final int READ_TIMEOUT_MS = 1000 * 0; // 무제한
@@ -508,18 +507,18 @@ public abstract class HTTPUtils {
 					continue;
 
 				if (Utils.isValidate(param.getKey())) {
-					os.write(("--" + boundary + LINE_SEPARATOR).getBytes());
+					os.write(("--" + boundary + Utils.LINE_SEPARATOR).getBytes());
 					os.write(("Content-Disposition: form-data; name=\"" + param.getKey() + "\"").getBytes());
-					os.write((LINE_SEPARATOR + LINE_SEPARATOR).getBytes());
+					os.write((Utils.LINE_SEPARATOR + Utils.LINE_SEPARATOR).getBytes());
 				}
 
 				os.write(param.getValue().getBytes());
 
 				if (Utils.isValidate(param.getKey()))
-					os.write(LINE_SEPARATOR.getBytes());
+					os.write(Utils.LINE_SEPARATOR.getBytes());
 			}
 			if (Utils.isValidate(params.keySet().toArray()[0]) && isLast)
-				os.write(("--" + boundary + "--" + LINE_SEPARATOR).getBytes());
+				os.write(("--" + boundary + "--" + Utils.LINE_SEPARATOR).getBytes());
 
 			os.flush();
 		} catch (IOException e) {
@@ -552,15 +551,15 @@ public abstract class HTTPUtils {
 				if (file == null || file.getValue() == null)
 					continue;
 
-				os.write(("--" + boundary + LINE_SEPARATOR).getBytes());
+				os.write(("--" + boundary + Utils.LINE_SEPARATOR).getBytes());
 				os.write(("Content-Disposition: form-data; name=\"" + file.getKey() + "\"; filename=\"" + file.getKey()
 						+ "\"").getBytes());
-				os.write((LINE_SEPARATOR + LINE_SEPARATOR).getBytes());
+				os.write((Utils.LINE_SEPARATOR + Utils.LINE_SEPARATOR).getBytes());
 				os.write(file.getValue());
-				os.write(LINE_SEPARATOR.getBytes());
+				os.write(Utils.LINE_SEPARATOR.getBytes());
 			}
 			if (isLast)
-				os.write(("--" + boundary + "--" + LINE_SEPARATOR).getBytes());
+				os.write(("--" + boundary + "--" + Utils.LINE_SEPARATOR).getBytes());
 
 			os.flush();
 		} catch (IOException e) {
@@ -754,9 +753,9 @@ public abstract class HTTPUtils {
 	}
 
 	public static void main(String[] args) {
-//		LogUtil.writeLog("test");
+//		System.out.println("test");
 
-//		LogUtil.writeLog(convertListToMap("mode=1&file_name="));
+//		System.out.println(convertListToMap("mode=1&file_name="));
 
 //		String url = "https://appstoredev.dongwha-mh.com/NSG/upload"; // 개발
 //		String url = "https://appstore.dongwha-mh.com/NSG/upload"; // 운영
@@ -778,19 +777,19 @@ public abstract class HTTPUtils {
 //		String url = "http://localhost/openapi/login.crd?userid=bW9iaWdlbg==&userdomain=bm9uZ3NoaW0=&en_userpass_md5=e2ac6dbc3f59b7ac9b3943e50e51e21f&en_userpass_sha2=df34cbc326c92ce89d529d2df34e3db74aaa09696c710c78174ad143c3670de6";
 //		Map<String, Object> result = callHttp(url);
 
-//		LogUtil.writeLog(result);
-//		LogUtil.writeLog(new String((byte[]) result.get("content")));
+//		System.out.println(result);
+//		System.out.println(new String((byte[]) result.get("content")));
 
-		LogUtil.writeLog(encodeURL("가"));
-		LogUtil.writeLog(decodeURL("%EA%B0%80"));
+		System.out.println(encodeURL("가"));
+		System.out.println(decodeURL("%EA%B0%80"));
 
 		System.exit(0);
 
 		if (args.length < 3) {
-			LogUtil.writeLog(
+			System.out.println(
 					"  <Usage>  : java HTTPUtils xmlfilename -option(u/lu/d/ld) localfilepath [remotefilepath] [localfilepath [remotefilepath]] ...");
-			LogUtil.writeLog("- Upload   : java HTTPUtils common -u ./test.zip ./test1.zip");
-			LogUtil.writeLog(
+			System.out.println("- Upload   : java HTTPUtils common -u ./test.zip ./test1.zip");
+			System.out.println(
 					"- Download : java HTTPUtils common -ld ./test.zip ./test.zip.mob ./test1.zip ./test1.zip.mob");
 			return;
 		}

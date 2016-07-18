@@ -10,100 +10,99 @@ import org.oh.common.test.TestAPI;
 public class TestAPI_skoh extends TestAPI {
 	@BeforeClass
 	public static void initClass() throws Exception {
-//		arrayNode.add(readFile("src/test/resources/json/com_gateway_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com_gateway_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/gateway_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/gateway_get.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/test.json"));
-//		arrayNode.add(readFile("src/test/resources/json/test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_page_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_page2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_update_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_update2_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_update_json_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_json_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_list_json_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_and_test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_and_test2_list_get.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_list3_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_page_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_page2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_update_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_update2_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_update_json_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_insert_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_insert_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_insert_list_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_test_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_and_test_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/sample_and_test2_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/test_list_get.json"));
 
 		///////////////////////////////////////////////////////////////////////
 
-//		arrayNode.add(readFile("src/test/resources/json/aams_token_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/aams_group_user_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/aams_group_user_list_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/aams/token_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/aams/group_user_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/aams/group_user_list_get2.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/admin_gateway_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/admin_gateway.json"));
-//		arrayNode.add(readFile("src/test/resources/json/admin_login_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/admin/gateway_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/admin/gateway.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/admin/login_post.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/bms_beacon_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/bms_beacon_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/bms/beacon_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/bms/beacon_get.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/cbms_branch_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/branch_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get2.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/cbms_company_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/cbms_company_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/cbms_company_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/cbms_company_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/cbms_company_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cpgn/event_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cpgn/event_post.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/cpgn_event_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/cpgn_event_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_post.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/devms_location_agree_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/devms_location_agree_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_reset.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_datas_put.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_reset.json"));
-//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get.json"));Preparing
-//		arrayNode.add(readFile("src/test/resources/json/mms_rssi_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/mms_map_datas_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post.json"));
 
-//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_get3.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zcms_campaign_post.json"));
-
-//		arrayNode.add(readFile("src/test/resources/json/zms_geozone_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_geozone_around_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_geozone_id_around_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_reset_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get3.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get4.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_get5.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone2_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_search_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_search_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_search_get3.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_search2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_search2_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_search2_get3.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_search2_get4.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_searchall_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_category_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_category_list_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_category_list_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_category_delete_delete.json"));
-		arrayNode.add(readFile("src/test/resources/json/zms_category_insert_list_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/zms_zone_category_post2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_around_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_id_around_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/reset_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get4.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get5.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/search_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/search_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/search_get3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/search2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/search2_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/search2_get3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/search2_get4.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/searchall_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/searchall_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_delete_delete.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_insert_list_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post2.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post3.json"));
 	}
 
 	@Test

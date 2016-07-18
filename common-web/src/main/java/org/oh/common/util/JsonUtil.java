@@ -192,7 +192,7 @@ public abstract class JsonUtil {
 				pojo = readValue(pojo);
 			}
 		} catch (Exception e) {
-			return "{" + ((prettyPrint) ? System.getProperty("line.separator") + "  " : "") + "\"error\":\""
+			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		}
 
@@ -206,7 +206,7 @@ public abstract class JsonUtil {
 
 			getObjectMapper().writeValue(jg, pojo);
 		} catch (Exception e) {
-			return "{" + ((prettyPrint) ? System.getProperty("line.separator") + "  " : "") + "\"error\":\""
+			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		} finally {
 			IOUtils.closeQuietly(sw);
@@ -933,43 +933,43 @@ public abstract class JsonUtil {
 	public static void main(String[] args) throws Exception {
 //		System.setProperty("HOME", "C:/dev/workspace/workspace_common/HOME");
 //		JsonNode resRoot = readFile(StringUtil.getProperty(Smart.KEY_HOME_DIR, "/data/test/test01.json"));
-//		LogUtil.writeLog(resRoot);
+//		System.out.println(resRoot);
 
 //		replace(resRoot, "/body/aaa/bbb", "${TEST2}", "skoh");
-//		LogUtil.writeLog(resRoot);
+//		System.out.println(resRoot);
 
 //		ObjectNode objectNode = toObjectNode(null);
-//		LogUtil.writeLog(objectNode);
+//		System.out.println(objectNode);
 //
 //		objectNode = objectNode();
 //		objectNode.putNull("fieldName");
-//		LogUtil.writeLog(objectNode);
+//		System.out.println(objectNode);
 //
 //		JsonNode jsonNode = objectNode.path("fieldName");
-//		LogUtil.writeLog(jsonNode.isNull());
+//		System.out.println(jsonNode.isNull());
 //
 //		jsonNode = objectNode.path("fieldName1");
-//		LogUtil.writeLog(jsonNode.isMissingNode());
+//		System.out.println(jsonNode.isMissingNode());
 
 //		JsonAdaptorObject obj = new JsonAdaptorObject();
-//		LogUtil.writeLog(obj);
+//		System.out.println(obj);
 //		HashMap map = new HashMap();
 //		map.put("arg0", null);
 //		AdapterUtil2.setSessionValue(obj, map);
-//		LogUtil.writeLog(obj);
+//		System.out.println(obj);
 //		HashMap map1 = new HashMap();
 //		map1.put("arg00", "arg11");
 //		AdapterUtil2.setSessionValue(obj, map1);
-//		LogUtil.writeLog(obj);
+//		System.out.println(obj);
 
 //		ObjectNode objectNode = objectNode();
 //		objectNode.put("fieldName", "a");
 //		HashMap map = new HashMap();
 //		for (Iterator<Entry<String, JsonNode>> fields = objectNode.getFields(); fields.hasNext();) {
 //			Entry<String, JsonNode> entry = fields.next();
-//			LogUtil.writeLog(entry.getKey() + " : " + entry.getValue().asText());
+//			System.out.println(entry.getKey() + " : " + entry.getValue().asText());
 //		}
-//		LogUtil.writeLog(readValue2(map));
+//		System.out.println(readValue2(map));
 
 //		DefaultHttpResponse resHttp = new DefaultHttpResponse();
 //		resHttp.setMimeType("가");
@@ -977,17 +977,17 @@ public abstract class JsonUtil {
 //		String message = "{\"message\":\"ab\",\"users\":[\"a\",\"b\"]}";
 //		String message = "{\"message\":\"ab\",\"users\":[{\"user\":\"null\"},{\"user\":null}]}";
 //		JsonNode messageNode = readValue(resHttp);
-//		LogUtil.writeLog(messageNode);
+//		System.out.println(messageNode);
 //		messageNode = readValue3(resHttp);
-//		LogUtil.writeLog(messageNode);
+//		System.out.println(messageNode);
 //		BinaryNode node = (BinaryNode) messageNode.path("content");
-//		LogUtil.writeLog(new String(node.getBinaryValue()));
+//		System.out.println(new String(node.getBinaryValue()));
 
 //		String message1 = messageNode.path("message").asText();
-//		LogUtil.writeLog(message1);
+//		System.out.println(message1);
 
 //		JsonNode usersNode = messageNode.path("users");
-//		LogUtil.writeLog(usersNode);
+//		System.out.println(usersNode);
 //
 //		int i = 1;
 //		for (Iterator<JsonNode> iter = usersNode.iterator(); iter.hasNext();) {
@@ -997,9 +997,9 @@ public abstract class JsonUtil {
 //				userNode.put("user", user + (i++));
 //			}
 //		}
-//		LogUtil.writeLog(usersNode);
+//		System.out.println(usersNode);
 //
-//		LogUtil.writeLog(messageNode);
+//		System.out.println(messageNode);
 
 //		List<JsonNode> list = Utils.convertList(usersNode);
 //		Object[] users = list.toArray();
@@ -1007,47 +1007,47 @@ public abstract class JsonUtil {
 //		List<String> list = convertList(usersNode);
 //		String[] users = list.toArray(new String[list.size()]);
 //
-//		LogUtil.writeLog(Utils.getToString(users));
+//		System.out.println(Utils.getToString(users));
 
 //		String s = "{\"sAttachFile\":[{\"FILE_NM\":\"http://gkowgwodv1.dongwha-dv.com/Storage/WF/Forms/PAYMENT DEFERRAL REQUEST/201207/20120716/D4000737-20120716025115_Calendar in Status bar_v2.0.5.apk\"},{\"FILE_NM\":\"FILE_NM02\"}]}";
 //		JsonNode rootNode = readValue(s);
-//		LogUtil.writeLog(rootNode);
+//		System.out.println(rootNode);
 //
 //		ArrayNode sAttachFile = (ArrayNode) rootNode.path("sAttachFile");
 //		for (int i = 0; i < sAttachFile.size(); i++) {
 //			ObjectNode objectNode = (ObjectNode) sAttachFile.get(i);
 //			objectNode.put("FILE_URL", "FILE_URL01");
 //		}
-//		LogUtil.writeLog(rootNode);
+//		System.out.println(rootNode);
 
 //		ObjectNode objectNode = objectNode();
 //		objectNode.put("a", "1");
 //		Map<String, Object> map = readValue(objectNode, Map.class);
-//		LogUtil.writeLog(map);
+//		System.out.println(map);
 
 //		String message = "{\"a\":\"1\", \"b\":1}";
 //		JsonNode messageNode = readValue(message);
-//		LogUtil.writeLog(messageNode.path("a").asText());
-//		LogUtil.writeLog(messageNode.path("b").asText());
+//		System.out.println(messageNode.path("a").asText());
+//		System.out.println(messageNode.path("b").asText());
 
-//		LogUtil.writeLog(readValue(new IOUtil2.Test01(), ObjectNode.class));
+//		System.out.println(readValue(new IOUtil2.Test01(), ObjectNode.class));
 
 //		IOUtil2.Test01 test = new IOUtil2.Test01();
 //		test.bytes = new byte[] {};
-//		LogUtil.writeLog(test);
+//		System.out.println(test);
 
 //		ObjectNode json = objectNode();
 //		json.put("bytes", test.bytes);
 //		JsonNode json = readValue(test);
 //		JsonNode json = readValue2(test);
 //		JsonNode json = readValue3(test);
-//		LogUtil.writeLog(json);
+//		System.out.println(json);
 
 //		IOUtil2.Test01 test2 = new IOUtil2.Test01();
 //		test2.bytes = json.path("bytes").getBinaryValue();
-//		LogUtil.writeLog(test2);
+//		System.out.println(test2);
 
-//		LogUtil.writeLog(isValidate(objectNode()));
+//		System.out.println(isValidate(objectNode()));
 
 //		ObjectNode json = objectNode();
 //		json.put("b", "2");
@@ -1055,8 +1055,8 @@ public abstract class JsonUtil {
 //		json.putAll(objectNode);
 //		ObjectNode json = copy(objectNode);
 //
-//		LogUtil.writeLog(objectNode);
-//		LogUtil.writeLog(json);
+//		System.out.println(objectNode);
+//		System.out.println(json);
 
 //		JsonNode json = readValue(message);
 //		JsonNode json = readValue2(message);

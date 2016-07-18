@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/category/list.do?company_id=7056&creator_id=0",
+	"url":"http://localhost:8080/v1/zcms/campaign.do?branch_id=11",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
@@ -9,7 +9,6 @@
 				"request_type":"1"
 			},
 			"params":{
-				
 			}
 		}
 	]

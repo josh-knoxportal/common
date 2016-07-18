@@ -105,8 +105,8 @@ public class Test02 {
 //		String[] beanNames = context.getBeanDefinitionNames();
 //		for (String beanName : beanNames) {
 //			try {
-//				LogUtil.writeLog(beanName + "\t");
-//				LogUtil.writeLog(context.getBean(beanName).getClass().getName());
+//				System.out.println(beanName + "\t");
+//				System.out.println(context.getBean(beanName).getClass().getName());
 //			} catch (Exception e) {
 //				e.printStackTrace();
 //			}

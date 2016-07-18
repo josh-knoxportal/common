@@ -427,19 +427,19 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 
 	// Test -------------------------------------------------------------------
 
-	public static class Person {
+	protected static class Person {
 		String name = "1";
 		int age = 2;
 		boolean smoker = false;
-		Job job = new Job();;
+		Job job = new Job();
 	}
 
-	public static class Job {
+	protected static class Job {
 		String title = "3";
-		Job2 job = new Job2();;
+		Job2 job = new Job2();
 	}
 
-	public static class Job2 {
+	protected static class Job2 {
 		String title = "4";
 	}
 

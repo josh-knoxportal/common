@@ -1,6 +1,5 @@
 package org.oh.common.util;
 
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -428,30 +427,28 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 
 	// Test -------------------------------------------------------------------
 
-	public static class Person implements Serializable {
+	public static class Person {
 		String name = "1";
 		int age = 2;
 		boolean smoker = false;
 		Job job = new Job();;
 	}
 
-	public static class Job implements Serializable {
+	public static class Job {
 		String title = "3";
 		Job2 job = new Job2();;
 	}
 
-	public static class Job2 implements Serializable {
+	public static class Job2 {
 		String title = "4";
 	}
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(toString(new Person()));
 		System.out.println(toString(new Person[] { new Person(), new Person() }));
-		System.out.println(JsonUtil2.toString(new Person()));
 
 		Common common = new Common();
 		common.setCondition2(new Condition());
 		System.out.println(toString(common, "condition2"));
-		System.out.println(JsonUtil2.toString(common));
 	}
 }

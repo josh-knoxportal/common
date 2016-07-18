@@ -192,6 +192,7 @@ public abstract class JsonUtil2 {
 				pojo = readValue(pojo);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		}
@@ -206,6 +207,7 @@ public abstract class JsonUtil2 {
 
 			getObjectMapper().writeValue(jg, pojo);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		} finally {

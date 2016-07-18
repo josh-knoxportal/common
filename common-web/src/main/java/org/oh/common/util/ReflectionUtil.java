@@ -1,5 +1,6 @@
 package org.oh.common.util;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -7,10 +8,11 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.StandardToStringStyle;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.mybatisorm.Condition;
 import org.oh.common.exception.CommonException;
+import org.oh.web.model.Common;
 import org.springframework.util.ReflectionUtils;
 
 /**
@@ -214,55 +216,17 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		return map2;
 	}
 
-	public static String toString(Object obj, String... excludeFieldNames) {
-		return toString(new Object[] { obj }, excludeFieldNames);
-	}
-
-	public static String toString(Object[] objs, String... excludeFieldNames) {
-		return toString(objs, false, excludeFieldNames);
-	}
-
-	public static String toStringRecursive(Object obj, String... excludeFieldNames) {
-		return toStringRecursive(new Object[] { obj }, excludeFieldNames);
-	}
-
-	public static String toStringRecursive(Object[] objs, String... excludeFieldNames) {
-		return toString(objs, true, excludeFieldNames);
-	}
-
 	/**
-	 * 객체배열을 문자열로 변환한다.
+	 * 객체를 문자열로 변환한다.
 	 * 
-	 * @param objs
-	 * @param recursive
-	 * @param excludeFieldNames
+	 * @param object
+	 * @param excludeFieldNamesParam
 	 * 
 	 * @return
 	 */
-	public static String toString(Object[] objs, boolean recursive, String... excludeFieldNames) {
-		if (objs == null || objs.length == 0)
-			return "";
-
-		ToStringStyle style = null;
-		if (recursive) {
-			style = new JsonRecursiveToStringStyle();
-		} else {
-			style = new StandardToStringStyle();
-			StandardToStringStyle style2 = (StandardToStringStyle) style;
-			style2.setUseIdentityHashCode(false);
-		}
-
-		StringBuilder sb = new StringBuilder((objs.length == 1) ? "" : "[");
-		for (int i = 0; i < objs.length; i++) {
-			sb.append(new ReflectionToStringBuilder(objs[i], style).setExcludeFieldNames(excludeFieldNames).toString());
-			if (i == objs.length - 1) {
-				sb.append((objs.length == 1) ? "" : "]");
-			} else {
-				sb.append(", ");
-			}
-		}
-
-		return sb.toString();
+	public static String toString(Object object, String... excludeFieldNamesParam) {
+		return new ReflectionToStringBuilder(object, new JsonRecursiveToStringStyle())
+				.setExcludeFieldNames(excludeFieldNamesParam).toString();
 	}
 
 	// Inner class ------------------------------------------------------------
@@ -283,28 +247,211 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		}
 	}
 
+	/**
+	 * JSON 포맷 스타일
+	 */
+	protected static class JsonRecursiveToStringStyle extends RecursiveToStringStyle {
+		public static final String FIELD_NAME_PREFIX = "\"";
+
+		public JsonRecursiveToStringStyle() {
+			super();
+
+			this.setUseClassName(false);
+			this.setUseIdentityHashCode(false);
+
+			this.setContentStart("{");
+			this.setContentEnd("}");
+
+			this.setArrayStart("[");
+			this.setArrayEnd("]");
+
+			this.setFieldSeparator(",");
+			this.setFieldNameValueSeparator(":");
+
+			this.setNullText("null");
+
+			this.setSummaryObjectStartText("\"<");
+			this.setSummaryObjectEndText(">\"");
+
+			this.setSizeStartText("\"<size=");
+			this.setSizeEndText(">\"");
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, Object[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, long[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, int[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, short[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, byte[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, char[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, double[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, float[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, boolean[] array, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, array, fullDetail);
+		}
+
+		@Override
+		public void append(StringBuffer buffer, String fieldName, Object value, Boolean fullDetail) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+			if (!isFullDetail(fullDetail)) {
+				throw new UnsupportedOperationException("FullDetail must be true when using JsonToStringStyle");
+			}
+
+			super.append(buffer, fieldName, value, fullDetail);
+		}
+
+		@Override
+		public void appendDetail(StringBuffer buffer, String fieldName, Object value) {
+			if (value == null) {
+				appendNullText(buffer, fieldName);
+				return;
+			}
+			if (value.getClass() == String.class) {
+				appendValueAsString(buffer, (String) value);
+				return;
+			}
+
+//			buffer.append(value);
+			super.appendDetail(buffer, fieldName, value);
+		}
+
+		@Override
+		protected void appendFieldStart(StringBuffer buffer, String fieldName) {
+			if (fieldName == null) {
+				throw new UnsupportedOperationException("Field names are mandatory when using JsonToStringStyle");
+			}
+
+			super.appendFieldStart(buffer, FIELD_NAME_PREFIX + fieldName + FIELD_NAME_PREFIX);
+		}
+
+		protected void appendValueAsString(StringBuffer buffer, String value) {
+			buffer.append("\"" + value + "\"");
+		}
+	}
+
 	// Test -------------------------------------------------------------------
 
-	public static class Person {
+	public static class Person implements Serializable {
 		String name = "1";
 		int age = 2;
 		boolean smoker = false;
 		Job job = new Job();;
 	}
 
-	public static class Job {
+	public static class Job implements Serializable {
 		String title = "3";
 		Job2 job = new Job2();;
 	}
 
-	public static class Job2 {
+	public static class Job2 implements Serializable {
 		String title = "4";
 	}
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(toString(new Person()));
 		System.out.println(toString(new Person[] { new Person(), new Person() }));
-		System.out.println(toStringRecursive(new Person()));
-		System.out.println(toStringRecursive(new Person[] { new Person(), new Person() }));
+		System.out.println(JsonUtil2.toString(new Person()));
+
+		Common common = new Common();
+		common.setCondition2(new Condition());
+		System.out.println(toString(common, "condition2"));
+		System.out.println(JsonUtil2.toString(common));
 	}
 }

@@ -6,11 +6,10 @@ import java.lang.reflect.Method;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.oh.common.util.JsonUtil2;
+import org.oh.common.util.ReflectionUtil;
 import org.oh.web.util.WebUtil;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
@@ -23,21 +22,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author skoh
  */
 public class LogAdvice extends org.oh.common.aop.LogAdvice {
-	protected static String toStringPrettyParam(Method method, Object[] args) {
+	protected static String toString(Method method, Object[] args) {
 		StringBuilder sb = new StringBuilder();
 
 		// HttpServletRequest 와 @RequestBody 만 출력
 		Annotation[][] paramAnnoss = method.getParameterAnnotations();
 		for (int i = 0; i < args.length; i++) {
 			if (args[i] instanceof HttpServletRequest) {
-				sb.append(((sb.length() > 0) ? ", " : "") + WebUtil.toJsonPretty(args[i]));
+				sb.append(((sb.length() > 0) ? ", " : "") + WebUtil.toJson(args[i]));
 				continue;
 			}
 
 			for (Annotation paramAnno : paramAnnoss[i]) {
 				if (RequestBody.class.isInstance(paramAnno)) {
-//					sb.append(((sb.length() > 0) ? ", " : "") + JsonUtil2.toStringPretty(args[i]));
-					sb.append(((sb.length() > 0) ? ", " : "") + JsonUtil2.toStringPretty(args[i]));
+//					sb.append(((sb.length() > 0) ? ", " : "") + JsonUtil2.toString(args[i]));
+					sb.append(((sb.length() > 0) ? ", " : "") + ReflectionUtil.toString(args[i]));
 					break;
 				}
 			}
@@ -64,12 +63,12 @@ public class LogAdvice extends org.oh.common.aop.LogAdvice {
 				if (anno != null) {
 					log.debug(format("REQUEST", anno.toString()));
 					log.debug(format("INPUT",
-							"[" + toShortString(signature) + "] " + toStringPrettyParam(method, joinPoint.getArgs())));
+							"[" + toShortString(signature) + "] " + toString(method, joinPoint.getArgs())));
 				}
 			}
 		} else {
-			log.debug(format("INPUT", "[" + toShortString(signature) + "] "
-					+ ReflectionToStringBuilder.toString(joinPoint.getArgs(), ToStringStyle.MULTI_LINE_STYLE)));
+			log.debug(format("INPUT",
+					"[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(joinPoint.getArgs())));
 		}
 	}
 

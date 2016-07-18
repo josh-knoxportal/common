@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.LogUtil;
+import org.oh.common.util.Utils;
 import org.oh.web.common.Header;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
@@ -116,7 +117,7 @@ public abstract class WebUtil extends WebUtils {
 			return toJsonSession((HttpSession) pojo, prettyPrint);
 		} else {
 			return JsonUtil2.toString(pojo, prettyPrint);
-//			return "{" + ((prettyPrint) ? System.lineSeparator() + "  " : "") + "\"warn\":\"Not suported "
+//			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"warn\":\"Not suported "
 //					+ ReflectionToStringBuilder.toString(pojo) + "\"}";
 		}
 	}
@@ -174,10 +175,12 @@ public abstract class WebUtil extends WebUtils {
 		model.setError_message("test");
 		System.out.println(toJson(model, model));
 		System.out.println(toJsonPretty(model, model));
+		System.out.println();
 
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		System.out.println(toJson(request, request));
 		System.out.println(toJsonPretty(request, request));
+		System.out.println();
 
 		MockHttpSession session = new MockHttpSession();
 		System.out.println(toJson(session, session));

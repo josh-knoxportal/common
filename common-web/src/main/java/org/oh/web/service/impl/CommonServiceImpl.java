@@ -85,8 +85,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 
 		String cacheKey = null;
 		if (cache != null) {
-			cacheKey = cacheKeyFormat
-					.format(new Object[] { "list", ReflectionUtil.toStringRecursive(model, "condition2") });
+			cacheKey = cacheKeyFormat.format(new Object[] { "list", ReflectionUtil.toString(model, "condition2") });
 			log.debug("cacheKey: " + cacheKey);
 
 			list = cache.get(cacheKey, List.class);

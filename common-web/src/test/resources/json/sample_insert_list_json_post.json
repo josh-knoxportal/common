@@ -8,22 +8,20 @@
 			"headers":{
 				"Content-Type":"application/json"
 			},
-			"params":{
-				"list":[
-					{
-						"name":"s",
-						"test_id":3,
-						"reg_id":"1",
-						"mod_id":"1"
-					},
-					{
-						"name":"",
-						"test_id":3,
-						"reg_id":"1",
-						"mod_id":"1"
-					}
-				]
-			}
+			"params":[
+				{
+					"name":"s1",
+					"test_id":3,
+					"reg_id":"1",
+					"mod_id":"1"
+				},
+				{
+					"name":"s2",
+					"test_id":3,
+					"reg_id":"1",
+					"mod_id":"1"
+				}
+			]
 		}
 	]
 }

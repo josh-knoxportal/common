@@ -12,8 +12,9 @@
 			},
 			"params":{
 				"zone":{
+					"company_id":7055,
 					"branch_id_list":[
-						
+						7057
 					]
 				},
 				"zoneCategory":{

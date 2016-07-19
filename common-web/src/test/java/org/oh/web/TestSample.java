@@ -24,6 +24,8 @@ import org.oh.web.page.PageNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -79,12 +81,13 @@ public class TestSample {
 //		sample.setFields("id, name");
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
+		sample.addCondition(sample.newCondition().add("name LIKE 'ss%'").add("name", "LIKE", "sss%"));
 		sample.setOrder_by("id DESC");
 //		System.out.println(ReflectionUtil.toStringRecursive(sample, "condition2"));
 
 //		List<Sample> list = sampleService.list(sample);
 		ResponseEntity<Response<List<Sample>>> list = sampleController.list3(sample,
-				new BeanPropertyBindingResult(sample, ""));
+				new BeanPropertyBindingResult(sample, ""), new MockHttpServletRequest(), new MockHttpSession());
 		LogUtil.writeLog("list: " + JsonUtil2.toStringPretty(list));
 	}
 

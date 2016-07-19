@@ -140,7 +140,7 @@ public abstract class WebUtil extends WebUtils {
 //		sb.append("\"uri\":\"" + request.getRequestURI() + "\"");
 //		sb.append(", \"method\":\"" + method + "\"");
 //		sb.append(toJsonParameter(request, prettyPrint, true));
-		sb.append(", \"headers\":" + JsonUtil2.toString(header));
+		sb.append("\"headers\":" + JsonUtil2.toString(header));
 		sb.append(", " + toJsonSession(request.getSession(), prettyPrint, true));
 		sb.append(", \"client\":\"" + client + "\"");
 		sb.append("}}");
@@ -177,10 +177,14 @@ public abstract class WebUtil extends WebUtils {
 	}
 
 	protected static String toJsonParameter(HttpServletRequest request, boolean prettyPrint, boolean embeded) {
+		HttpServletRequest request2 = WebApplicationContextUtil.getRequest();
+		if (request == null && request2 == null)
+			return "";
+
 		StringBuilder sb = new StringBuilder();
 		sb.append(embeded ? "" : "{");
-		sb.append("\"parameters\":" + JsonUtil2.toString((request == null)
-				? WebApplicationContextUtil.getRequest().getParameterMap() : request.getParameterMap()));
+		sb.append("\"parameters\":"
+				+ JsonUtil2.toString((request == null) ? request2.getParameterMap() : request.getParameterMap()));
 		sb.append("}" + (embeded ? "" : "}"));
 
 		return embeded ? sb.toString() : JsonUtil2.toString(sb.toString(), prettyPrint);

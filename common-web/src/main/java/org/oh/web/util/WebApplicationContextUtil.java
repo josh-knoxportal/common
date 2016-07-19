@@ -19,23 +19,34 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 public abstract class WebApplicationContextUtil extends WebApplicationContextUtils {
 	public static ServletContext getServletContext() {
-		return getSession().getServletContext();
+		HttpSession session = getSession();
+
+		return (session == null) ? null : session.getServletContext();
 	}
 
 	public static HttpSession getSession() {
-		return getRequest().getSession();
+		HttpServletRequest request = getRequest();
+
+		return (request == null) ? null : request.getSession();
 	}
 
 	public static Locale getLocale() {
-		return getRequest().getLocale();
+		HttpServletRequest request = getRequest();
+
+		return (request == null) ? null : request.getLocale();
 	}
 
 	public static WebApplicationContext getApplicationContext() {
-		return RequestContextUtils.findWebApplicationContext(getRequest());
+		HttpServletRequest request = getRequest();
+
+		return (request == null) ? null : RequestContextUtils.findWebApplicationContext(request);
 	}
 
 	public static HttpServletRequest getRequest() {
-		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes();
+
+		return (requestAttributes == null) ? null : requestAttributes.getRequest();
 	}
 
 	public static void printBeans(ListableBeanFactory beanFactory) {

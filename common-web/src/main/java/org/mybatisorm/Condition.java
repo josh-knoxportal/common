@@ -128,9 +128,7 @@ public class Condition {
 			if (it.hasNext())
 				sb.append(" ").append(seperator).append(" ");
 		}
-		// () 추가 by skoh
-//		return sb.toString();
-		return "(" + sb.toString() + ")";
+		return sb.toString();
 	}
 	
 	

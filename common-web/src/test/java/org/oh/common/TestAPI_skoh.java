@@ -13,10 +13,10 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com/gateway_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/gateway_get.json"));
 
-		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/com/sample_list4_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list4_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_put.json"));
@@ -98,9 +98,9 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_delete_delete.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_insert_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post3.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post2.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post3.json"));
 	}
 
 	@Test

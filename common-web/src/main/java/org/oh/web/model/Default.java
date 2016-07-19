@@ -48,7 +48,7 @@ public abstract class Default implements Serializable {
 	/**
 	 * 조회 조건
 	 */
-	protected Condition condition2;
+	protected Condition condition2 = new Condition();
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public Integer getSql_seq() {
@@ -98,14 +98,10 @@ public abstract class Default implements Serializable {
 	}
 
 	public void addCondition(String condition) {
-		addCondition(null, condition);
-	}
-
-	public void addCondition(String seperator, String condition) {
 		if (!Utils.isValidate(condition))
 			return;
 
-		getCondition(seperator).add(condition);
+		condition2.add(condition);
 	}
 
 	public void addCondition(String operator, Object... value) {
@@ -113,14 +109,25 @@ public abstract class Default implements Serializable {
 	}
 
 	public void addCondition(String field, String operator, Object... value) {
-		addCondition(null, field, operator, value);
-	}
-
-	public void addCondition(String seperator, String field, String operator, Object... value) {
 		if (!Utils.isValidate(value))
 			return;
 
-		getCondition(seperator).add(field, operator, value);
+		condition2.add(field, operator, value);
+	}
+
+	public Condition newCondition() {
+		return newCondition(null);
+	}
+
+	public Condition newCondition(String seperator) {
+		Condition condition = null;
+		if ("OR".equalsIgnoreCase(seperator)) {
+			condition = new Condition(Seperator.OR);
+		} else {
+			condition = new Condition();
+		}
+
+		return condition;
 	}
 
 	@JsonIgnore
@@ -128,20 +135,12 @@ public abstract class Default implements Serializable {
 		return condition2;
 	}
 
-	public void setCondition2(Condition condition2) {
-		this.condition2 = condition2;
+	public void setCondition2(Condition condition) {
+		this.condition2 = condition;
 	}
 
-	protected Condition getCondition(String seperator) {
-		if (condition2 == null) {
-			if ("OR".equalsIgnoreCase(seperator)) {
-				condition2 = new Condition(Seperator.OR);
-			} else {
-				condition2 = new Condition();
-			}
-		}
-
-		return condition2;
+	public void addCondition(Condition condition) {
+		this.condition2.add(condition);
 	}
 
 	@Override

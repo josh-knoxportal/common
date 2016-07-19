@@ -3,6 +3,8 @@ package org.oh.sample.controller;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.oh.common.util.Utils;
@@ -38,7 +40,9 @@ public class SampleController extends CommonController<Sample> {
 		return service;
 	}
 
+	// 주의) 로깅을 위해 Annotation 재정의
 	@Override
+	@RequestMapping(value = "list.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<Sample>>> list(Sample sample, BindingResult errors) throws Exception {
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.KOREA));
 
@@ -49,12 +53,12 @@ public class SampleController extends CommonController<Sample> {
 
 	// 주의) RequestMethod 추가시 메소드명을 다르게 정의
 	@RequestMapping(value = "/list3.do", method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample sample, BindingResult errors)
-			throws Exception {
+	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample sample, BindingResult errors,
+			HttpServletRequest request, HttpSession session) throws Exception {
 		return list(sample, errors);
 	}
 
-	@RequestMapping(value = "/get2", method = { RequestMethod.GET })
+	@RequestMapping(value = "/get2.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<Sample>> get2(Sample sample) throws Exception {
 		sample = service.get2(sample);
 		Response<Sample> response = Response.getSuccessResponse(sample);
@@ -62,8 +66,9 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<Sample>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/list2", method = { RequestMethod.GET })
-	public ResponseEntity<Response<List<Sample>>> list2(@Valid Sample sample, BindingResult errors) throws Exception {
+	@RequestMapping(value = "/list2.do", method = { RequestMethod.GET })
+	public ResponseEntity<Response<List<Sample>>> list2(@Valid Sample sample, BindingResult errors,
+			HttpServletRequest request, HttpSession session) throws Exception {
 //		log.info(messageSource.getMessage("field.required.sample.name", null, null));
 		log.info("errors: " + errors.hasErrors());
 		log.info("errors: " + Utils.toString(errors.getAllErrors()));
@@ -77,13 +82,19 @@ public class SampleController extends CommonController<Sample> {
 		}
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotNull");
 //		ValidationUtils.rejectIfEmpty(errors, "name", "field.required");
-		List<Sample> list = service.list(sample);
+		List<Sample> list = service.list2(sample);
 		Response<List<Sample>> response = Response.getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/count2", method = { RequestMethod.GET })
+	@RequestMapping(value = "/list4.do", method = { RequestMethod.POST })
+	public ResponseEntity<Response<List<Sample>>> list4(@RequestBody Sample sample, BindingResult errors,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		return list2(sample, errors, request, session);
+	}
+
+	@RequestMapping(value = "/count2.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<Integer>> count2(Sample sample) throws Exception {
 		int count = service.count2(sample);
 		Response<Integer> response = Response.getSuccessResponse(count);
@@ -91,7 +102,7 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/page2", method = { RequestMethod.GET })
+	@RequestMapping(value = "/page2.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<Sample>>> page(Sample sample) throws Exception {
 		List<Sample> list = service.page(sample);
 
@@ -103,15 +114,15 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<PageNavigator<Sample>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/insert2", method = RequestMethod.POST)
-	public ResponseEntity<Response<Integer>> insert2(Sample sample) throws Exception {
+	@RequestMapping(value = "/insert2.do", method = RequestMethod.POST)
+	public ResponseEntity<Response<Integer>> insert2(@Valid Sample sample) throws Exception {
 		int result = service.insert2(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/update2", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update2.do", method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> update2(Sample sample) throws Exception {
 		int result = service.update2(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
@@ -119,7 +130,7 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/delete2", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete2.do", method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> delete2(Sample sample) throws Exception {
 		int result = service.delete2(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
@@ -127,7 +138,7 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/merge", method = RequestMethod.POST)
+	@RequestMapping(value = "/merge.do", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> merge(Sample sample) throws Exception {
 		int result = service.merge(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);

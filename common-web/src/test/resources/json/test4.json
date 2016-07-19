@@ -1,58 +1,31 @@
-[
-	{
-		"name":"1",
-		"age":2,
-		"smoker":false,
-		"job":{
-			"title":"3",
-			"job":{
-				"title":"4"
-			}
+{
+	"request":{
+		"parameters":{
+			"id":[
+				"1"
+			],
+			"name":[
+				"s"
+			],
+			"condition":[
+				"name LIKE 's%'"
+			],
+			"order_by":[
+				"id DESC"
+			]
 		}
 	},
-	[
-		{
-			"name":"1",
-			"age":2,
-			"smoker":false,
-			"job":{
-				"title":"3",
-				"job":{
-					"title":"4"
-				}
-			}
-		},
-		{
-			"name":"1",
-			"age":2,
-			"smoker":false,
-			"job":{
-				"title":"3",
-				"job":{
-					"title":"4"
-				}
-			}
+	"headers":{
+		"host":"localhost:8050",
+		"connection":"Keep-Alive",
+		"user-agent":"Apache-HttpClient/4.5.1 (Java/1.7.0_79)",
+		"cookie":"JSESSIONID=C6A8ACE9B193E5C592509E3CD79D839E; SCOUTER=z12mr48uecn3bt",
+		"accept-encoding":"gzip,deflate"
+	},
+	"session":{
+		"attributes":{
+			
 		}
-	],
-	{
-		"reg_id":null,
-		"reg_dt":null,
-		"mod_id":null,
-		"mod_dt":null,
-		"sql_seq":null,
-		"hint":null,
-		"fields":null,
-		"order_by":null,
-		"condition":null,
-		"condition2":{
-			"seperator":{
-				"name":"AND",
-				"ordinal":0
-			},
-			"list":[
-				
-			],
-			"query":null
-		}
-	}
-]
+	},
+	"client":"127.0.0.1"
+}

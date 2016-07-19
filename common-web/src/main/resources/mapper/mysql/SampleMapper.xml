@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 샘플 매퍼 -->
+<mapper namespace="org.oh.sample.mapper.SampleMapper">
+	<!-- Mybatis(로컬) 캐쉬 사용 -->
+	<!-- <cache /> -->
+
+	<select id="list" resultType="sample">
+		<include refid="org.oh.web.mapper.CommonMapper.page_top" />
+
+		<![CDATA[
+SELECT id
+      ,name
+      ,test_id
+      ,reg_id
+      ,reg_dt
+      ,mod_id
+      ,mod_dt
+		]]>
+
+		<include refid="org.oh.web.mapper.CommonMapper.page_middle" />
+
+		<![CDATA[
+  FROM sample
+		]]>
+
+		<where>
+			<if test="id != null and id != 0">
+			<![CDATA[
+   AND id = ${id}
+			]]>
+			</if>
+
+			<if test="name != null and name != ''">
+			<![CDATA[
+   AND name = #{name}
+			]]>
+			</if>
+
+			<if test="test_id != null and test_id != ''">
+			<![CDATA[
+   AND test_id = #{test_id}
+			]]>
+			</if>
+
+			<if test="condition != null and condition != ''">
+			<![CDATA[
+   AND ${condition}
+			]]>
+			</if>
+		</where>
+
+		<if test="order_by != null and order_by != ''">
+		<![CDATA[
+ORDER BY ${order_by}
+		]]>
+		</if>
+
+		<include refid="org.oh.web.mapper.CommonMapper.page_bottom" />
+	</select>
+
+	<select id="count" parameterType="sample" resultType="java.lang.Integer">
+		<include refid="org.oh.web.mapper.CommonMapper.count_top" />
+
+		<![CDATA[
+  FROM sample
+		]]>
+
+		<where>
+			<if test="id != null and id != 0">
+			<![CDATA[
+   AND id = #{id}
+			]]>
+			</if>
+
+			<if test="name != null and name != ''">
+			<![CDATA[
+   AND name = #{name}
+			]]>
+			</if>
+
+			<if test="test_id != null and test_id != ''">
+			<![CDATA[
+   AND test_id = #{test_id}
+			]]>
+			</if>
+
+			<if test="condition != null and condition != ''">
+			<![CDATA[
+   AND ${condition}
+			]]>
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="sample">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+			<![CDATA[
+SELECT sample_seq.NEXTVAL AS id
+  FROM dual
+/*SELECT NVL (MAX (id) + 1, 1) AS id
+  FROM sample*/
+			]]>
+		</selectKey>
+
+		<![CDATA[
+INSERT INTO sample (id
+		]]>
+
+		<if test="name != null and name != ''">
+		<![CDATA[
+                  ,name
+		]]>
+		</if>
+
+		<if test="test_id != null and test_id != ''">
+		<![CDATA[
+                  ,test_id
+		]]>
+		</if>
+
+		<![CDATA[
+                   ,reg_id
+                   ,reg_dt
+                   ,mod_id
+                   ,mod_dt
+		]]>
+
+		<![CDATA[
+                   )
+VALUES (#{id}
+		]]>
+
+		<if test="name != null and name != ''">
+		<![CDATA[
+       ,#{name}
+		]]>
+		</if>
+
+		<if test="test_id != null and test_id != ''">
+		<![CDATA[
+       ,#{test_id}
+		]]>
+		</if>
+
+		<![CDATA[
+       ,#{reg_id}
+       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+       ,#{mod_id}
+       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
+		]]>
+	</insert>
+
+	<update id="update" parameterType="sample">
+		<![CDATA[
+UPDATE sample SET
+		]]>
+
+		<set>
+			<if test="name != null and name != ''">
+			<![CDATA[
+       name = #{name},
+			]]>
+			</if>
+
+			<if test="test_id != null and test_id != ''">
+			<![CDATA[
+       test_id = #{test_id},
+			]]>
+			</if>
+		</set>
+
+		<![CDATA[
+       mod_id = #{mod_id},
+       mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+ WHERE id = #{id}
+		]]>
+	</update>
+
+	<delete id="delete" parameterType="sample">
+		<![CDATA[
+DELETE FROM sample
+ WHERE id = #{id}
+		]]>
+	</delete>
+
+	<insert id="merge" parameterType="sample">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+		<![CDATA[
+SELECT NVL (a.id, b.id) AS id
+  FROM (SELECT MAX (id) AS id
+          FROM sample
+         WHERE id = #{id}) a,
+       (SELECT NVL (MAX (id) + 1, 1) AS id FROM sample) b
+		]]>
+		</selectKey>
+
+		<![CDATA[
+MERGE INTO sample
+      USING DUAL
+         ON (id = #{id}) 
+ WHEN NOT MATCHED THEN
+      INSERT (id
+		]]>
+
+		<if test="name != null and name != ''">
+		<![CDATA[
+             ,name
+		]]>
+		</if>
+
+		<if test="test_id != null and test_id != ''">
+		<![CDATA[
+             ,test_id
+		]]>
+		</if>
+
+		<![CDATA[
+             ,reg_id
+             ,reg_dt
+             ,mod_id
+             ,mod_dt
+		]]>
+
+		<![CDATA[
+                   )
+VALUES (#{id}
+		]]>
+
+		<if test="name != null and name != ''">
+		<![CDATA[
+       ,#{name}
+		]]>
+		</if>
+
+		<if test="test_id != null and test_id != ''">
+		<![CDATA[
+       ,#{test_id}
+		]]>
+		</if>
+
+		<![CDATA[
+       ,#{reg_id}
+       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+       ,#{mod_id}
+       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
+ WHEN MATCHED THEN
+      UPDATE SET
+		]]>
+
+		<set>
+			<if test="name != null and name != ''">
+			<![CDATA[
+             name = #{name},
+			]]>
+			</if>
+
+			<if test="test_id != null and test_id != ''">
+			<![CDATA[
+             test_id = #{test_id},
+			]]>
+			</if>
+		</set>
+
+		<![CDATA[
+             mod_id = #{mod_id},
+             mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
+       WHERE id = #{id}
+		]]>
+	</insert>
+</mapper>

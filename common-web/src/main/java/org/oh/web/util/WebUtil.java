@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.LogUtil;
-import org.oh.common.util.Utils;
 import org.oh.web.common.Header;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
@@ -126,7 +125,6 @@ public abstract class WebUtil extends WebUtils {
 		// parameters
 		String client = request.getRemoteAddr();
 		String method = request.getMethod();
-		Map<String, String[]> parameter = request.getParameterMap();
 
 		// headers
 		Map<String, String> header = new LinkedHashMap<String, String>();
@@ -138,13 +136,13 @@ public abstract class WebUtil extends WebUtils {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("{\"request\": {");
-//		sb.append("\"uri\": \"" + request.getRequestURI() + "\"");
-//		sb.append(", \"method\": \"" + method + "\"");
-		sb.append("\"parameters\": " + JsonUtil2.toString(parameter));
-		sb.append(", \"headers\": " + JsonUtil2.toString(header));
+		sb.append("{\"request\":{");
+//		sb.append("\"uri\":\"" + request.getRequestURI() + "\"");
+//		sb.append(", \"method\":\"" + method + "\"");
+//		sb.append(toJsonParameter(request, prettyPrint, true));
+		sb.append(", \"headers\":" + JsonUtil2.toString(header));
 		sb.append(", " + toJsonSession(request.getSession(), prettyPrint, true));
-		sb.append(", \"client\": \"" + client + "\"");
+		sb.append(", \"client\":\"" + client + "\"");
 		sb.append("}}");
 
 		return JsonUtil2.toString(sb.toString(), prettyPrint);
@@ -163,8 +161,26 @@ public abstract class WebUtil extends WebUtils {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append((embeded ? "" : "{") + "\"session\": {");
-		sb.append("\"attributes\": " + JsonUtil2.readValue(attrMap));
+		sb.append((embeded ? "" : "{") + "\"session\":{");
+		sb.append("\"attributes\":" + JsonUtil2.readValue(attrMap));
+		sb.append("}" + (embeded ? "" : "}"));
+
+		return embeded ? sb.toString() : JsonUtil2.toString(sb.toString(), prettyPrint);
+	}
+
+	public static String toJsonParameter() {
+		return toJsonParameter(null, false);
+	}
+
+	public static String toJsonParameter(HttpServletRequest request, boolean prettyPrint) {
+		return toJsonParameter(request, prettyPrint, false);
+	}
+
+	protected static String toJsonParameter(HttpServletRequest request, boolean prettyPrint, boolean embeded) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(embeded ? "" : "{");
+		sb.append("\"parameters\":" + JsonUtil2.toString((request == null)
+				? WebApplicationContextUtil.getRequest().getParameterMap() : request.getParameterMap()));
 		sb.append("}" + (embeded ? "" : "}"));
 
 		return embeded ? sb.toString() : JsonUtil2.toString(sb.toString(), prettyPrint);

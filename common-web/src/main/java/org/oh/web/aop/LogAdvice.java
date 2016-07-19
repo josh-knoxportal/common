@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.aspectj.lang.JoinPoint;
@@ -22,21 +23,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author skoh
  */
 public class LogAdvice extends org.oh.common.aop.LogAdvice {
+	/**
+	 * Parameter, @RequestBody, HttpServletRequest, HttpSession 출력
+	 * 
+	 * @param method
+	 * @param args
+	 * 
+	 * @return
+	 */
 	protected static String toString(Method method, Object[] args) {
 		StringBuilder sb = new StringBuilder();
+		sb.append(WebUtil.toJsonParameter());
 
-		// HttpServletRequest 와 @RequestBody 만 출력
 		Annotation[][] paramAnnoss = method.getParameterAnnotations();
 		for (int i = 0; i < args.length; i++) {
-			if (args[i] instanceof HttpServletRequest) {
-				sb.append(((sb.length() > 0) ? ", " : "") + WebUtil.toJson(args[i]));
+			if (args[i] instanceof HttpServletRequest || args[i] instanceof HttpSession) {
+				sb.append(", " + WebUtil.toJson(args[i]));
 				continue;
 			}
 
 			for (Annotation paramAnno : paramAnnoss[i]) {
 				if (RequestBody.class.isInstance(paramAnno)) {
-//					sb.append(((sb.length() > 0) ? ", " : "") + JsonUtil2.toString(args[i]));
-					sb.append(((sb.length() > 0) ? ", " : "") + ReflectionUtil.toString(args[i]));
+					sb.append(", " + "{\"" + args[i].getClass().getSimpleName() + "\":"
+							+ ReflectionUtil.toString(args[i], "condition2") + "}");
 					break;
 				}
 			}

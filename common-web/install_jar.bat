@@ -12,3 +12,4 @@ CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=../common-libs/devms-t
 CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=../common-libs/lms_vo-1.0.jar -DgroupId=com.ssg.platform.lbs.lms.vo -DartifactId=lms_vo -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=../common-libs/mms_vo-1.0.jar -DgroupId=com.ssg.platform.lbs.mms.vo -DartifactId=mms_vo -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=../common-libs/zms_model-1.0.jar -DgroupId=com.ssg.platform.lbs.zms.model -DartifactId=zms_model -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+PAUSE

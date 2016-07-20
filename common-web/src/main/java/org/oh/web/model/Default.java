@@ -91,8 +91,6 @@ public abstract class Default implements Serializable {
 	}
 
 	public void setCondition(String condition) {
-		this.condition = condition;
-
 		addCondition(condition);
 	}
 

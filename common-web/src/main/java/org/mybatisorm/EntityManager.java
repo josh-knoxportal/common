@@ -500,7 +500,7 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	}
 
 	private synchronized String addStatement(String sourceName, Class<?> type) {
-		return addStatement(sourceName, type, "");
+		return addStatement(sourceName, type, null);
 	}
 
 	// SQL 순번 추가 by skoh
@@ -509,7 +509,7 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 		// id 변경 by skoh
 //		String id = "_" + sqlSourceClass.getSimpleName() + type.getSimpleName();
 		String id = "org.mybatisorm.mapper._" + sqlSourceClass.getSimpleName() + type.getSimpleName()
-				+ ((sqlName == null) ? 0 : sqlName);
+				+ ((sqlName == null) ? "" : sqlName);
 		if (!configuration.hasStatement(id)) {
 			if (logger.isDebugEnabled()) logger.debug("add a mapped statement, " + id);
 			Constructor<?> constructor = null;

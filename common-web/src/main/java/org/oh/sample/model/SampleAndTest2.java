@@ -1,6 +1,7 @@
 package org.oh.sample.model;
 
 import org.mybatisorm.annotation.Fields;
+import org.mybatisorm.annotation.Join;
 
 /**
  * Sample_Test 메핑 테이블을 기준으로 Sample, Test 테이블을 조인
@@ -29,6 +30,7 @@ import org.mybatisorm.annotation.Fields;
  * 
  * @author skoh
  */
+@Join
 public class SampleAndTest2 extends SampleAndTest {
 	@Fields("*")
 	protected Sample sample = new Sample();

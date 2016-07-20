@@ -111,6 +111,7 @@ public abstract class Default implements Serializable {
 		if (!Utils.isValidate(condition))
 			return;
 
+		this.condition = condition;
 		condition2.add(condition);
 	}
 

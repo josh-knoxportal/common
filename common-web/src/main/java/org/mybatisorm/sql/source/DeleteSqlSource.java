@@ -31,8 +31,19 @@ public class DeleteSqlSource extends DynamicSqlBuilder {
 	}
 
 	public BoundSql getBoundSql(Object parameter) {
-		String where = (parameter instanceof Query) ? ((Query)parameter).getCondition() :
-			handler.getNotNullColumnEqualFieldAnd(parameter);
+		// 모든 조건 적용 by skoh
+//		String where = (parameter instanceof Query) ? ((Query)parameter).getCondition() :
+//			handler.getNotNullColumnEqualFieldAnd(parameter);
+		String where = "";
+		if (parameter instanceof Query) {
+			Query query = (Query) parameter;
+			where += handler.getNotNullColumnEqualFieldAnd(query.getParameter(), Query.PARAMETER_PREFIX);
+			if (query.hasCondition()) {
+				where += ((where.length() > 0) ? " AND " : "") + query.getCondition();
+			}
+		} else {
+			where += handler.getNotNullColumnEqualFieldAnd(parameter);
+		}
 		return makeWhere(where,parameter);
 	}
 

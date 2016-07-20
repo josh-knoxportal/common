@@ -17,7 +17,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list4_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_page_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/com/sample_page_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update2_put.json"));
@@ -59,7 +59,7 @@ public class TestAPI_skoh extends TestAPI {
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_insert_list_json_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get2.json"));

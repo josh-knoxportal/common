@@ -77,6 +77,11 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "/list3.do", method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample sample, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
+		sample.setSql_name("list3");
+		sample.setHint("DISTINCT");
+		sample.setFields("id, name");
+		sample.setOrder_by("id DESC");
+
 		return list(sample, errors);
 	}
 
@@ -87,7 +92,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/get2.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Sample>> get2(Sample sample) throws Exception {
+	public ResponseEntity<Response<Sample>> get2(Sample sample, BindingResult errors) throws Exception {
 		sample = service.get2(sample);
 		Response<Sample> response = Response.getSuccessResponse(sample);
 
@@ -95,7 +100,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/count2.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Integer>> count2(Sample sample) throws Exception {
+	public ResponseEntity<Response<Integer>> count2(Sample sample, BindingResult errors) throws Exception {
 		int count = service.count2(sample);
 		Response<Integer> response = Response.getSuccessResponse(count);
 
@@ -103,7 +108,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/page2.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<PageNavigator<Sample>>> page(Sample sample) throws Exception {
+	public ResponseEntity<Response<PageNavigator<Sample>>> page(Sample sample, BindingResult errors) throws Exception {
 		List<Sample> list = service.page(sample);
 
 		int count = service.count2(sample);
@@ -115,7 +120,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/insert2.do", method = RequestMethod.POST)
-	public ResponseEntity<Response<Integer>> insert2(@Valid Sample sample) throws Exception {
+	public ResponseEntity<Response<Integer>> insert2(@Valid Sample sample, BindingResult errors) throws Exception {
 		int result = service.insert2(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
 
@@ -123,7 +128,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/update2.do", method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> update2(Sample sample) throws Exception {
+	public ResponseEntity<Response<Integer>> update2(Sample sample, BindingResult errors) throws Exception {
 		int result = service.update2(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
 
@@ -131,7 +136,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/delete2.do", method = RequestMethod.DELETE)
-	public ResponseEntity<Response<Integer>> delete2(Sample sample) throws Exception {
+	public ResponseEntity<Response<Integer>> delete2(Sample sample, BindingResult errors) throws Exception {
 		int result = service.delete2(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
 
@@ -139,7 +144,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/merge.do", method = RequestMethod.POST)
-	public ResponseEntity<Response<Integer>> merge(Sample sample) throws Exception {
+	public ResponseEntity<Response<Integer>> merge(Sample sample, BindingResult errors) throws Exception {
 		int result = service.merge(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
 

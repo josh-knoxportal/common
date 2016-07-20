@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-test.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestConfig {
-	private static Log log = LogFactory.getLog(TestConfig.class);
+public class ConfigTest {
+	private static Log log = LogFactory.getLog(ConfigTest.class);
 
 	@Autowired
 	Properties prop;

@@ -9,7 +9,8 @@ import org.oh.web.model.Default;
  * 
  * @author skoh
  */
-@Join("sample LEFT JOIN test")
+@Join // Inner Join
+//@Join("sample LEFT JOIN test") // Outer Join
 public class SampleAndTest extends Default {
 	@Fields("*")
 	protected Sample sample = new Sample(); // 인스턴스를 생성해야 기본 조건이 만들어짐.

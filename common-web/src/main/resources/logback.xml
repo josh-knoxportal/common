@@ -39,7 +39,7 @@
 	<!-- <logger name="org.springframework.web" level="trace" /> -->
 
 	<logger name="java.sql" level="info" />
-	<logger name="org.mybatisorm" level="info" />
+	<logger name="org.mybatisorm" level="trace" />
 	<logger name="org.mybatisorm.mapper" level="info" />
 
 	<logger name="log4jdbc" level="off" />

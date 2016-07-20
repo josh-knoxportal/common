@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/sample/page.do?condition=name LIKE 's%'&order_by=id DESC&page_number=1",
+	"url":"http://localhost:8050/sample/page.do?name=s&page_number=1",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

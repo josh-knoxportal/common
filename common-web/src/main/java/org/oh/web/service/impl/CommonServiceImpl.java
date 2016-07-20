@@ -2,9 +2,11 @@ package org.oh.web.service.impl;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.mybatisorm.Condition;
 import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
@@ -102,6 +104,12 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		}
 
 		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> select(Map<String, Object> model, Condition condition, String orderBy, String hint,
+			String fields, String sqlName) throws Exception {
+		return entityManager.list(model, condition, orderBy, hint, fields, sqlName);
 	}
 
 	@Override

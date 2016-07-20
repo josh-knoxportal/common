@@ -1,7 +1,9 @@
 package org.oh.web.service;
 
 import java.util.List;
+import java.util.Map;
 
+import org.mybatisorm.Condition;
 import org.mybatisorm.Page;
 import org.oh.web.model.Default;
 
@@ -39,6 +41,9 @@ public interface CommonService<T extends Default> {
 	 * @throws Exception
 	 */
 	public List<T> list(T model) throws Exception;
+
+	public List<Map<String, Object>> select(Map<String, Object> model, Condition condition, String orderBy, String hint,
+			String fields, String sqlName) throws Exception;
 
 	/**
 	 * 공통 건수 조회

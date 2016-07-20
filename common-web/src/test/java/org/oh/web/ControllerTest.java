@@ -1,6 +1,7 @@
 package org.oh.web;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,6 +10,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.mybatisorm.Condition;
 import org.mybatisorm.Page;
 import org.oh.Application;
 import org.oh.common.util.JsonUtil2;
@@ -19,6 +21,7 @@ import org.oh.sample.controller.SampleController;
 import org.oh.sample.model.Sample;
 import org.oh.sample.model.SampleAndTest;
 import org.oh.sample.model.SampleAndTest2;
+import org.oh.sample.service.SampleService;
 import org.oh.web.common.Response;
 import org.oh.web.page.PageNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +42,9 @@ import org.springframework.validation.BeanPropertyBindingResult;
 public class ControllerTest {
 	private static Log log = LogFactory.getLog(ControllerTest.class);
 
-//	/**
-//	 * 공통 서비스
-//	 */
+	/**
+	 * 공통 서비스
+	 */
 //	@Resource(name = "commonService")
 //	protected CommonService<Default> commonService;
 
@@ -50,6 +53,9 @@ public class ControllerTest {
 	 */
 	@Autowired
 	protected SampleController sampleController;
+
+	@Autowired
+	protected SampleService sampleService;
 
 	@Autowired
 	protected SampleAndTestController sampleAndTestController;
@@ -210,6 +216,15 @@ public class ControllerTest {
 				new BeanPropertyBindingResult(sample, "sample"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+	}
+
+	@Test
+	public void t11_list() throws Exception {
+		Test1 model = new Test1();
+
+		List<Map<String, Object>> response = sampleService.select(model, new Condition().add("name LIKE 's%'"),
+				(String) model.get("order_by"), (String) model.get("hint"), "*", "select");
+		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 	}
 
 	@Test

@@ -359,8 +359,8 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	}
 
 	// 힌트, 필드 추가, SQL 순번 by skoh
-	public <T> List<T> list(T parameter, Condition condition, String orderBy, String hint, String fields, Integer sqlSeq) {
-		return list(new Query(parameter, condition, orderBy, hint, fields, sqlSeq));
+	public <T> List<T> list(T parameter, Condition condition, String orderBy, String hint, String fields, String sqlName) {
+		return list(new Query(parameter, condition, orderBy, hint, fields, sqlName));
 	}
 
 	/**
@@ -381,7 +381,7 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	private <T> List<T> list(Query query) {
 		// SQL 순번 추가 by skoh
 //		String statementName = addStatement(SOURCE_LIST, query.getParameter().getClass());
-		String statementName = addStatement(SOURCE_LIST, query.getParameter().getClass(), query.getSqlSeq());
+		String statementName = addStatement(SOURCE_LIST, query.getParameter().getClass(), query.getSqlName());
 		return sqlSession.selectList(statementName, query);
 	}
 
@@ -500,15 +500,16 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	}
 
 	private synchronized String addStatement(String sourceName, Class<?> type) {
-		return addStatement(sourceName, type, 0);
+		return addStatement(sourceName, type, "");
 	}
 
 	// SQL 순번 추가 by skoh
-	private synchronized String addStatement(String sourceName, Class<?> type, Integer sqlSeq) {
+	private synchronized String addStatement(String sourceName, Class<?> type, String sqlName) {
 		Class<?> sqlSourceClass = getSourceTypeClass(sourceName);
 		// id 변경 by skoh
 //		String id = "_" + sqlSourceClass.getSimpleName() + type.getSimpleName();
-		String id = "org.mybatisorm.mapper._" + sqlSourceClass.getSimpleName() + type.getSimpleName() + ((sqlSeq == null) ? 0 : sqlSeq);
+		String id = "org.mybatisorm.mapper._" + sqlSourceClass.getSimpleName() + type.getSimpleName()
+				+ ((sqlName == null) ? 0 : sqlName);
 		if (!configuration.hasStatement(id)) {
 			if (logger.isDebugEnabled()) logger.debug("add a mapped statement, " + id);
 			Constructor<?> constructor = null;

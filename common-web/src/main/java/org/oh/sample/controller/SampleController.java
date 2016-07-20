@@ -51,21 +51,6 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<List<Sample>>>(responseEntity.getBody(), responseEntity.getStatusCode());
 	}
 
-	// 주의) RequestMethod 추가시 메소드명을 다르게 정의
-	@RequestMapping(value = "/list3.do", method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample sample, BindingResult errors,
-			HttpServletRequest request, HttpSession session) throws Exception {
-		return list(sample, errors);
-	}
-
-	@RequestMapping(value = "/get2.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Sample>> get2(Sample sample) throws Exception {
-		sample = service.get2(sample);
-		Response<Sample> response = Response.getSuccessResponse(sample);
-
-		return new ResponseEntity<Response<Sample>>(response, HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "/list2.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<Sample>>> list2(@Valid Sample sample, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
@@ -88,10 +73,25 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.OK);
 	}
 
+	// 주의) RequestMethod 추가시 메소드명을 다르게 정의
+	@RequestMapping(value = "/list3.do", method = { RequestMethod.POST })
+	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample sample, BindingResult errors,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		return list(sample, errors);
+	}
+
 	@RequestMapping(value = "/list4.do", method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Sample>>> list4(@RequestBody Sample sample, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
 		return list2(sample, errors, request, session);
+	}
+
+	@RequestMapping(value = "/get2.do", method = { RequestMethod.GET })
+	public ResponseEntity<Response<Sample>> get2(Sample sample) throws Exception {
+		sample = service.get2(sample);
+		Response<Sample> response = Response.getSuccessResponse(sample);
+
+		return new ResponseEntity<Response<Sample>>(response, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/count2.do", method = { RequestMethod.GET })

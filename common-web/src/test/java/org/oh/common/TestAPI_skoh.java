@@ -58,6 +58,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_insert_list_json_post.json"));
 		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get.json"));

@@ -95,7 +95,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		}
 
 		list = entityManager.list(model, model.getCondition2(), model.getOrder_by(), model.getHint(), model.getFields(),
-				model.getSql_seq());
+				model.getSql_name());
 
 		if (cache != null) {
 			cache.put(cacheKey, list);

@@ -8,7 +8,6 @@ import org.mybatisorm.Condition.Seperator;
 import org.oh.common.util.Utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * 기본 모델
@@ -20,10 +19,10 @@ public abstract class Default implements Serializable {
 	 * SQL 순번
 	 * 
 	 * <pre>
-	 * - hint 나 fields 를 변경할 경우 반드시 순번 지정 (1 부터 가능)
+	 * - hint 나 fields 를 지정하여 FROM 절 앞단을 변형할때 반드시 지정 (보통 호출하는 메소드명을 사용)
 	 * </pre>
 	 */
-	protected Integer sql_seq;
+	protected String sql_name;
 
 	/**
 	 * 힌트
@@ -41,7 +40,7 @@ public abstract class Default implements Serializable {
 	protected String order_by;
 
 	/**
-	 * 조회 조건 문자열
+	 * 조회 조건(문자열)
 	 */
 	protected String condition;
 
@@ -50,16 +49,16 @@ public abstract class Default implements Serializable {
 	 */
 	protected Condition condition2 = new Condition();
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	public Integer getSql_seq() {
-		return sql_seq;
+	@JsonIgnore
+	public String getSql_name() {
+		return sql_name;
 	}
 
-	public void setSql_seq(Integer sql_seq) {
-		this.sql_seq = sql_seq;
+	public void setSql_name(String sql_name) {
+		this.sql_name = sql_name;
 	}
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonIgnore
 	public String getHint() {
 		return hint;
 	}
@@ -68,7 +67,7 @@ public abstract class Default implements Serializable {
 		this.hint = hint;
 	}
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonIgnore
 	public String getFields() {
 		return fields;
 	}
@@ -77,7 +76,7 @@ public abstract class Default implements Serializable {
 		this.fields = fields;
 	}
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonIgnore
 	public String getOrder_by() {
 		return order_by;
 	}
@@ -86,7 +85,7 @@ public abstract class Default implements Serializable {
 		this.order_by = order_by;
 	}
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@JsonIgnore
 	public String getCondition() {
 		return condition;
 	}
@@ -96,6 +95,17 @@ public abstract class Default implements Serializable {
 
 		addCondition(condition);
 	}
+
+	@JsonIgnore
+	public Condition getCondition2() {
+		return condition2;
+	}
+
+	public void setCondition2(Condition condition2) {
+		this.condition2 = condition2;
+	}
+
+	///////////////////////////////////////////////////////////////////////////
 
 	public void addCondition(String condition) {
 		if (!Utils.isValidate(condition))
@@ -128,15 +138,6 @@ public abstract class Default implements Serializable {
 		}
 
 		return condition;
-	}
-
-	@JsonIgnore
-	public Condition getCondition2() {
-		return condition2;
-	}
-
-	public void setCondition2(Condition condition) {
-		this.condition2 = condition;
 	}
 
 	public void addCondition(Condition condition) {

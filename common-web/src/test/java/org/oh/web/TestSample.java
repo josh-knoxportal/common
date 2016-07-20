@@ -76,9 +76,9 @@ public class TestSample {
 	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
-//		sample.setSql_seq(1);
-//		sample.setHint("DISTINCT");
-//		sample.setFields("id, name");
+		sample.setSql_name("list");
+		sample.setHint("DISTINCT");
+		sample.setFields("id, name");
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
 		sample.addCondition(sample.newCondition().add("name LIKE 'ss%'").add("name", "LIKE", "sss%"));

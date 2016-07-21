@@ -10,7 +10,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.mybatisorm.Condition;
 import org.mybatisorm.Page;
 import org.oh.Application;
 import org.oh.common.util.JsonUtil2;
@@ -21,7 +20,6 @@ import org.oh.sample.controller.SampleController;
 import org.oh.sample.model.Sample;
 import org.oh.sample.model.SampleAndTest;
 import org.oh.sample.model.SampleAndTest2;
-import org.oh.sample.service.SampleService;
 import org.oh.web.common.Response;
 import org.oh.web.page.PageNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,9 +53,6 @@ public class ControllerTest {
 	protected SampleController sampleController;
 
 	@Autowired
-	protected SampleService sampleService;
-
-	@Autowired
 	protected SampleAndTestController sampleAndTestController;
 
 	@Autowired
@@ -83,6 +78,21 @@ public class ControllerTest {
 
 		ResponseEntity<Response<List<Sample>>> response = sampleController.list3(sample,
 				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest(), new MockHttpSession());
+		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+	}
+
+	@Test
+	public void t11_list() throws Exception {
+		SampleController.ModelMap model = new SampleController.ModelMap();
+		model.put("hint", "DISTINCT");
+		model.put("fields", "*");
+		model.put("table", "sample");
+		model.put("condition", "name LIKE 's%'");
+		model.put("order_by", "id DESC");
+
+		ResponseEntity<Response<List<Map<String, Object>>>> response = sampleController.select(model,
+				new BeanPropertyBindingResult(model, "model"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -216,15 +226,6 @@ public class ControllerTest {
 				new BeanPropertyBindingResult(sample, "sample"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
-	}
-
-	@Test
-	public void t11_list() throws Exception {
-		Test1 model = new Test1();
-
-		List<Map<String, Object>> response = sampleService.select(model, new Condition().add("name LIKE 's%'"),
-				(String) model.get("order_by"), (String) model.get("hint"), "*", "select");
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 	}
 
 	@Test

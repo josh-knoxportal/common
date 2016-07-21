@@ -97,7 +97,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		}
 
 		list = entityManager.list(model, model.getCondition2(), model.getOrder_by(), model.getHint(), model.getFields(),
-				model.getSql_name());
+				model.getTable(), model.getSql_name());
 
 		if (cache != null) {
 			cache.put(cacheKey, list);
@@ -108,8 +108,8 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 
 	@Override
 	public List<Map<String, Object>> select(Map<String, Object> model, Condition condition, String orderBy, String hint,
-			String fields, String sqlName) throws Exception {
-		return entityManager.list(model, condition, orderBy, hint, fields, sqlName);
+			String fields, String table, String sqlName) throws Exception {
+		return entityManager.list(model, condition, orderBy, hint, fields, table, sqlName);
 	}
 
 	@Override

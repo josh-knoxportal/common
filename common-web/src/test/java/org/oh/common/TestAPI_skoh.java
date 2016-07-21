@@ -17,6 +17,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list4_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_select_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_put.json"));
@@ -75,9 +76,10 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_from_geo_get.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_around_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_id_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/reset_get.json"));
@@ -85,7 +87,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get4.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get5.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get5.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_id_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone2_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/search_get.json"));

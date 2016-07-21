@@ -42,8 +42,23 @@ public interface CommonService<T extends Default> {
 	 */
 	public List<T> list(T model) throws Exception;
 
+	/**
+	 * 데이타 조회용
+	 * 
+	 * @param model
+	 * @param condition
+	 * @param orderBy
+	 * @param hint
+	 * @param fields
+	 * @param table
+	 * @param sqlName
+	 * 
+	 * @return
+	 * 
+	 * @throws Exception
+	 */
 	public List<Map<String, Object>> select(Map<String, Object> model, Condition condition, String orderBy, String hint,
-			String fields, String sqlName) throws Exception;
+			String fields, String table, String sqlName) throws Exception;
 
 	/**
 	 * 공통 건수 조회

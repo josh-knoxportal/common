@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public abstract class Default implements Serializable {
 	/**
-	 * SQL 순번
+	 * SQL명
 	 * 
 	 * <pre>
 	 * - hint 나 fields 를 지정하여 FROM 절 앞단을 변형할때 반드시 지정 (보통 호출하는 메소드명을 사용)
@@ -33,6 +33,11 @@ public abstract class Default implements Serializable {
 	 * 필드
 	 */
 	protected String fields;
+
+	/**
+	 * 테이블
+	 */
+	protected String table;
 
 	/**
 	 * 정렬 기준
@@ -74,6 +79,15 @@ public abstract class Default implements Serializable {
 
 	public void setFields(String fields) {
 		this.fields = fields;
+	}
+
+	@JsonIgnore
+	public String getTable() {
+		return table;
+	}
+
+	public void setTable(String table) {
+		this.table = table;
 	}
 
 	@JsonIgnore

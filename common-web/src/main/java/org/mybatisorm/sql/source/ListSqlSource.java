@@ -30,16 +30,17 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 
 	public BoundSql getBoundSql(final Object queryParam) {
 		Query query = (Query)queryParam;
-		// 필드 추가 by skoh
+		// (필드, 힌트), 테이블 추가 by skoh
 		makeFields(query);
-		// 힌트 추가 by skoh
 		makeHint(query);
-		String where = null;
+		makeTable(query);
+		// 주석 처리 by skoh
+//		String where = null;
 		StringBuilder sb = new StringBuilder(staticSql);
 		// 모든 조건 적용 by skoh
 //		where = query.hasCondition() ? query.getCondition() :
 //			handler.getNotNullColumnEqualFieldAnd(query.getParameter(),Query.PARAMETER_PREFIX);
-		where = query.getNotNullColumnEqualFieldAndVia(handler);
+		String where = query.getNotNullColumnEqualFieldAndVia(handler);
 		where = makeCondition(where, query);
 		if (where != null && where.length() > 0) {
 			sb.append(" WHERE ").append(where);

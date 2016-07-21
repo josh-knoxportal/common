@@ -358,9 +358,9 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 		return list(new Query(parameter, condition, orderBy));
 	}
 
-	// 힌트, 필드 추가, SQL 순번 by skoh
-	public <T> List<T> list(T parameter, Condition condition, String orderBy, String hint, String fields, String sqlName) {
-		return list(new Query(parameter, condition, orderBy, hint, fields, sqlName));
+	// 힌트, 필드, 테이블, SQL명 추가 by skoh
+	public <T> List<T> list(T parameter, Condition condition, String orderBy, String hint, String fields, String table, String sqlName) {
+		return list(new Query(parameter, condition, orderBy, hint, fields, table, sqlName));
 	}
 
 	/**
@@ -379,7 +379,7 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	 * @return
 	 */
 	private <T> List<T> list(Query query) {
-		// SQL 순번 추가 by skoh
+		// SQL명 추가 by skoh
 //		String statementName = addStatement(SOURCE_LIST, query.getParameter().getClass());
 		String statementName = addStatement(SOURCE_LIST, query.getParameter().getClass(), query.getSqlName());
 		return sqlSession.selectList(statementName, query);
@@ -503,7 +503,7 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 		return addStatement(sourceName, type, null);
 	}
 
-	// SQL 순번 추가 by skoh
+	// SQL명 추가 by skoh
 	private synchronized String addStatement(String sourceName, Class<?> type, String sqlName) {
 		Class<?> sqlSourceClass = getSourceTypeClass(sourceName);
 		// id 변경 by skoh

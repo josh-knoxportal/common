@@ -45,13 +45,13 @@ public interface CommonService<T extends Default> {
 	/**
 	 * 데이타 조회용
 	 * 
-	 * @param model
-	 * @param condition
-	 * @param orderBy
-	 * @param hint
-	 * @param fields
-	 * @param table
-	 * @param sqlName
+	 * @param model 모델
+	 * @param condition 조건
+	 * @param orderBy 정렬방식
+	 * @param hint 힌트
+	 * @param fields 필드
+	 * @param table 테이블
+	 * @param sqlName SQL명
 	 * 
 	 * @return
 	 * 

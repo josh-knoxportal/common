@@ -21,6 +21,7 @@ import org.oh.sample.model.Sample;
 import org.oh.sample.model.SampleAndTest;
 import org.oh.sample.model.SampleAndTest2;
 import org.oh.web.common.Response;
+import org.oh.web.model.Common;
 import org.oh.web.page.PageNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -84,12 +85,12 @@ public class ControllerTest {
 
 	@Test
 	public void t11_list() throws Exception {
-		SampleController.ModelMap model = new SampleController.ModelMap();
-		model.put("hint", "DISTINCT");
-		model.put("fields", "*");
-		model.put("table", "sample");
-		model.put("condition", "name LIKE 's%'");
-		model.put("order_by", "id DESC");
+		Common model = new Common();
+		model.setHint("DISTINCT");
+		model.setFields("*");
+		model.setTable("sample");
+		model.setCondition("name LIKE 's%'");
+		model.setOrder_by("id DESC");
 
 		ResponseEntity<Response<List<Map<String, Object>>>> response = sampleController.select(model,
 				new BeanPropertyBindingResult(model, "model"));

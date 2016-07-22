@@ -24,9 +24,9 @@ import org.springframework.web.client.RestTemplate;
 public class GatewayController {
 	public static final String PARAM_NAME = "api_uri";
 
-	private static final Log log = LogFactory.getLog(GatewayController.class);
+	protected final Log log = LogFactory.getLog(getClass());
 
-	@Autowired
+//	@Autowired
 	protected RestTemplate restTemplate;
 
 	/**

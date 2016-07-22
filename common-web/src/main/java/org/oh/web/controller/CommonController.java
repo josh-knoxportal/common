@@ -1,5 +1,6 @@
 package org.oh.web.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,9 @@ import javax.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
+import org.mybatisorm.annotation.Table;
 import org.oh.web.common.Response;
+import org.oh.web.model.Common;
 import org.oh.web.model.Default;
 import org.oh.web.model.ValidList;
 import org.oh.web.page.PageNavigator;
@@ -23,7 +26,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public abstract class CommonController<T extends Default> implements InitializingBean {
@@ -60,19 +62,14 @@ public abstract class CommonController<T extends Default> implements Initializin
 	}
 
 	@RequestMapping(value = "select.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<List<Map<String, Object>>>> select(@RequestParam Map model, BindingResult errors)
+	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
 			throws Exception {
-//		List<Map<String, Object>> list = service.select(model, new Condition().add((String) model.get("condition")),
-//				(String) model.get("order_by"), (String) model.get("hint"), (String) model.get("fields"),
-//				(String) model.get("table"), "select_");
-		Response<List<Map<String, Object>>> response = Response.getSuccessResponse(null);
+		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
+				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), "select_");
+		Response<List<Map<String, Object>>> response = Response.getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<Map<String, Object>>>>(response, HttpStatus.OK);
 	}
-
-//	@Table
-//	public static class ModelMap extends LinkedHashMap<String, Object> {
-//	}
 
 	@RequestMapping(value = "count.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<Integer>> count(T model, BindingResult errors) throws Exception {
@@ -204,5 +201,9 @@ public abstract class CommonController<T extends Default> implements Initializin
 		Response<Integer> response = ValidationUtil.getResponse(errors);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.BAD_REQUEST);
+	}
+
+	@Table
+	protected static class ModelMap extends LinkedHashMap<String, Object> {
 	}
 }

@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/geozone_around.do?filter=1&count=100&gps_lat=37.5032229&gps_lng=127.049096&xid=503872",
+	"url":"http://202.3.20.124/v1/zms/geozone_around.do?filter=1&count=100&gps_lat=37.5600614&gps_lng=126.9816629&xid=931185",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

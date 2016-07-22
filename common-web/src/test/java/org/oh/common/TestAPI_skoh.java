@@ -104,7 +104,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_delete_delete.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_insert_list_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post.json"));

@@ -30,21 +30,22 @@
 여기서 각 서버들 간에는 내부적으로도 모두 Rest 오픈 API 방식으로 인터페이스하고 있습니다.
 (즉, DBtoDB 등의 다른 인터페이스 방식은 제공하지 않고 있습니다.)
 
-캠페인을 등록하는 방법에는 2가지가 있습니다.
+<캠페인 등록 2가지 방법>
 1. CPGN 처럼 캠페인 등록시 존 선택 팝업을 통해 존을 1개씩 선택하는 방법
 2. 존에 카테고리(대/중/소분류)를 입력하고, 캠페인 등록시 카테고리 정보를 전달하여 다수의 캠페인을 매핑하는 방법
 
-Rest API를 사용하지 위한 토큰 발급 방법
-
+<Rest API 사용 방법>
+1. 해당 서버에 /v1/aams/token.do(POST)를 호출하여 access_token 을 얻어온다.
+2. 해당 서버에 HTTP 헤더에 access_token:"" 과 request_type:"2" 를 보낸다. 
 
 <CPGN 설치방법>
-. Eclipse, MySql, MAVEN, Tomcat 설치
-. MySql에서 CPGN/export_ddl_campaign_db.sql 실행
-. 터미널에서 CPGN/install_jar.sh 또는 install_jar.bat 실행
-. Eclipse에서 MAVEN Update
-. /CPGN/src/main/webapp/WEB-INF/spring/config/context-datasource.xml 에 MySql 계정 입력
-. Tomcat 실행
-. http://localhost:8090/campaign/login.do 접속 (로그인 계정은 모르면 연락 바람)
+1. Eclipse, MySql, MAVEN, Tomcat 설치
+2. MySql에서 CPGN/export_ddl_campaign_db.sql 실행
+3. 터미널에서 CPGN/install_jar.sh 또는 install_jar.bat 실행
+4. Eclipse에서 MAVEN Update
+5. /CPGN/src/main/webapp/WEB-INF/spring/config/context-datasource.xml 에 MySql 계정 입력
+6. Tomcat 실행
+7. http://localhost:8090/campaign/login.do 접속 (로그인 계정은 모르면 연락 바람)
 
 <첨부 파일>
 1. 캠페인 등록시(ZCMS 호출시) 전달 데이타 설명

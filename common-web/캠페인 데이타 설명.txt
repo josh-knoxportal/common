@@ -2,7 +2,7 @@
 [
 	{
 		"id": -1,                                // (숫자) insert 일경우 -1, update일 경우 (PUT) insert 성공후 회신 한 campaign id
-		"name": "[update]테스트 캠페인",          // (문자) 캠페인 이름,
+		"name": "[update]테스트 캠페인",         // (문자) 캠페인 이름,
 		"company_id": 1,                         // (숫자) 소속 회사 id
 		"company_brand_id": 1,                   // (숫자) 소속 회사 브랜드 id
 		"branch_id": 1,                          // (숫자) 소속 지점 id

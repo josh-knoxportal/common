@@ -1,5 +1,5 @@
 {
-	"url":"http://202.3.20.124/v1/zcms/campaign.do",
+	"url":"http://localhost:8080/v1/zcms/campaign.do",
 	"method":"PUT",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -21,15 +21,15 @@
 					"group_id":"",
 					"company_brand_id":7056,
 					"type":1,
-					"id":1408,
+					"id":1246,
 					"off_day":"",
 					"category_list":[
-						21211
+						"12120"
 					],
 					"loitering_time":3,
 					"end_time":"23:59",
 					"owner_group":1,
-					"name":"이마트 캠페인 02",
+					"name":"이마트 캠페인",
 					"start_time":"00:01",
 					"app_id":3,
 					"app_specific_data":"2",

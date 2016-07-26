@@ -1,5 +1,5 @@
 {
-	"url":"http://202.3.20.124/v1/zcms/campaign.do",
+	"url":"http://localhost:8080/v1/zcms/campaign.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -16,32 +16,26 @@
 					"off_week":"",
 					"company_id":7055,
 					"working_condition":1,
-					"interval":180,
-					"max_count_per_customer":2,
+					"interval":4,
+					"max_count_per_customer":5,
 					"group_id":"",
-					"branch_list":[
-						"7057"
-					],
 					"company_brand_id":7056,
 					"type":1,
 					"id":-1,
-					"zone_list":[
-						
-					],
 					"off_day":"",
 					"category_list":[
-						"21211"
+						"12120"
 					],
-					"loitering_time":-1,
-					"end_time":"12:00",
+					"loitering_time":3,
+					"end_time":"23:59",
 					"owner_group":1,
-					"name":"냉동 HMR 전체 12시 이전",
-					"start_time":"08:00",
+					"name":"이마트 캠페인",
+					"start_time":"00:01",
 					"app_id":3,
 					"app_specific_data":"2",
 					"branch_id":7057,
-					"str_end_date":"2016-08-20 12:00",
-					"str_start_date":"2016-07-20 08:00"
+					"str_end_date":"2016-12-31 23:59",
+					"str_start_date":"2016-06-01 00:01"
 				}
 			]
 		}

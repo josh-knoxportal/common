@@ -45,35 +45,53 @@
 		// 		$("#select01 option:eq(1)").prop('selected', true);
 		// 		$("#select01").empty();
 
-		var a = [];
-		a[0] = "0";
+		// 		var a = [];
+		// 		a[0] = "0";
 		// 		a[1] = "1";
-		a[2] = "2";
-		// 		a[3] = "3";
-		a[4] = "4";
-		console.log(a.length);
-		console.log(a);
+		// 		a[2] = "2";
+		// 		console.log(a.length);
+		// 		console.log(a);
+
+		// 		a.splice(1, 1);
+		// 		console.log(a.length);
+		// 		console.log(a);
+
 		// 		for (i = a.length - 1; i >= 0; i--) {
-		// 			console.log(a[i]);
+		// 			if (a[i] == null) {
+		// 				a.splice(i, 1);
+		// 			}
 		// 		}
+		// 		console.log(a.length);
+		// 		console.log(a);
 
-		a.splice(2, 1);
-		console.log(a.length);
-		console.log(a);
+		// 		$("#select02").prop("disabled", true);
 
-		a.splice(0, 1);
-		console.log(a.length);
-		console.log(a);
+// 		$("#input01").keydown(function() {
+// 			console.log("keydown");
+// 		});
 
-		for (i = a.length - 1; i >= 0; i--) {
-			if (a[i] == null) {
-				a.splice(i, 1);
-			}
-		}
-		console.log(a.length);
-		console.log(a);
+		$("#input01").keyup(function() {
+// 			console.log("keyup");
+	        $(this).data("old", $(this).data("new") || "");
+	        $(this).data("new", $(this).val());
+	        console.log($(this).data("old"));
+	        console.log($(this).data("new"));
+		});
 
-		$("#select02").prop("disabled", true);
+// 		$("#input01").keypress(function() {
+// 			console.log("keypress");
+
+// 		$("#input01").change(function() {
+// 			console.log("change");
+// 	        $(this).data("old", $(this).data("new") || "");
+// 	        $(this).data("new", $(this).val());
+// 	        console.log($(this).data("old"));
+// 	        console.log($(this).data("new"));
+// 		});
+
+// 		$("#input01").on("change", function() {
+// 			console.log("on");
+// 		});
 	});
 </script>
 </head>
@@ -83,15 +101,16 @@
 	<!-- 		<span id="a" name="a" class="demo">1</span> <span id="a" name="a" class="demo">2</span> <span>3</span> -->
 	<!-- 	</div> -->
 
-	<select id="select01" name="select01" title="select01">
-		<option value=""></option>
-		<option value="1">a</option>
-		<option value="2">b</option>
-	</select>
-	<select id="select02" name="select01" title="select02">
-		<option value=""></option>
-		<option value="3">c</option>
-		<option value="4">d</option>
-	</select>
+	<!-- 	<select id="select01" name="select01" title="select01"> -->
+	<!-- 		<option value=""></option> -->
+	<!-- 		<option value="1">a</option> -->
+	<!-- 		<option value="2">b</option> -->
+	<!-- 	</select> -->
+	<!-- 	<select id="select02" name="select01" title="select02"> -->
+	<!-- 		<option value=""></option> -->
+	<!-- 		<option value="3">c</option> -->
+	<!-- 		<option value="4">d</option> -->
+	<!-- 	</select> -->
+	<input id="input01" name="select01" title="select02" value="1" />
 </body>
 </html>

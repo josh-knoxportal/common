@@ -73,7 +73,7 @@ public class Sample extends Paging {
 	/**
 	 * 샘플 아이디(PK), 시퀀스
 	 */
-	@Column(primaryKey = true) // , sequence = "sample_seq") // oracle
+	@Column(primaryKey = true, autoIncrement = true) // mysql // , sequence = "sample_seq") // oracle
 	protected Long id;
 
 	/**

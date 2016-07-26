@@ -196,7 +196,7 @@ public class ControllerTest {
 		sample.setReg_id("1");
 		sample.setMod_id("1");
 
-		ResponseEntity<Response<Integer>> response = sampleController.insert(sample,
+		ResponseEntity<Response<Long>> response = sampleController.insert(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
@@ -292,7 +292,7 @@ public class ControllerTest {
 		sample.setReg_id("1");
 		sample.setMod_id("1");
 
-		ResponseEntity<Response<Integer>> response = sampleController.insert2(sample,
+		ResponseEntity<Response<Long>> response = sampleController.insert2(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());

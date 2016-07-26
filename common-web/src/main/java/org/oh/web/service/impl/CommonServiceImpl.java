@@ -1,6 +1,7 @@
 package org.oh.web.service.impl;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
  * @author skoh
  */
 @Service("commonService")
-public abstract class CommonServiceImpl<T extends Default> implements InitializingBean, CommonService<T> {
+public abstract class CommonServiceImpl<T extends Default> implements CommonService<T>, InitializingBean {
 	protected Log log = LogFactory.getLog(getClass());
 
 	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "{0}_{1}");
@@ -130,10 +131,13 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Override
 	@TransactionalException
 //	@CacheEvictCommon
-	public int insert(T model) throws Exception {
+	public long insert(T model) throws Exception {
 		model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
-		int result = entityManager.insert(model);
+		long result = entityManager.insert(model);
+		long id = getId(model);
+		if (id != -1)
+			result = id;
 
 		if (cache != null) {
 			cache.clear();
@@ -145,12 +149,18 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Override
 	@TransactionalException
 //	@CacheEvictCommon
-	public int insert(List<T> models) throws Exception {
-		int result = 0;
+	public List<Long> insert(List<T> models) throws Exception {
+		List<Long> result = new ArrayList<Long>();
+
 		for (T model : models) {
 			model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
-			result += entityManager.insert(model);
+			long result_ = entityManager.insert(model);
+			long id = getId(model);
+			if (id == -1)
+				result.add(result_);
+			else
+				result.add(id);
 		}
 
 		if (cache != null) {
@@ -186,6 +196,16 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		}
 
 		return result;
+	}
+
+	protected long getId(T model) {
+		long id = -1;
+		try {
+			id = (long) ReflectionUtil.getValue(model, "id");
+		} catch (Exception e) {
+		}
+
+		return id;
 	}
 
 	/**

@@ -69,7 +69,7 @@ import org.oh.web.page.Paging;
  */
 @Table("test")
 public class Test extends Paging {
-	@Column(primaryKey = true) // , sequence = "test_seq") // oracle
+	@Column(primaryKey = true, autoIncrement = true) // mysql // , sequence = "test_seq") // oracle
 	protected Long id;
 
 	@Column

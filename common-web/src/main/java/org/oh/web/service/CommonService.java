@@ -92,7 +92,7 @@ public interface CommonService<T extends Default> {
 	 * 
 	 * @throws Exception
 	 */
-	public int insert(T model) throws Exception;
+	public long insert(T model) throws Exception;
 
 	/**
 	 * 공통 리스트 등록
@@ -103,7 +103,7 @@ public interface CommonService<T extends Default> {
 	 * 
 	 * @throws Exception
 	 */
-	public int insert(List<T> models) throws Exception;
+	public List<Long> insert(List<T> models) throws Exception;
 
 	/**
 	 * 공통 수정

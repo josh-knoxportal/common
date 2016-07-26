@@ -120,11 +120,11 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/insert2.do", method = RequestMethod.POST)
-	public ResponseEntity<Response<Integer>> insert2(@Valid Sample sample, BindingResult errors) throws Exception {
-		int result = service.insert2(sample);
-		Response<Integer> response = Response.getSuccessResponse(result);
+	public ResponseEntity<Response<Long>> insert2(@Valid Sample sample, BindingResult errors) throws Exception {
+		long result = service.insert2(sample);
+		Response<Long> response = Response.getSuccessResponse(result);
 
-		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+		return new ResponseEntity<Response<Long>>(response, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/update2.do", method = RequestMethod.PUT)

@@ -8,9 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.mybatisorm.Condition;
 import org.oh.common.exception.CommonException;
-import org.oh.web.model.Common;
 import org.springframework.util.ReflectionUtils;
 
 /**
@@ -150,13 +148,14 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	}
 
 	public static Object getValue(Object target, Field field) throws CommonException {
-		field.setAccessible(true);
-
 		try {
-			return field.get(target);
+			field.setAccessible(true);
+
+			return getField(field, target);
 		} catch (Exception e) {
 			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(
-					"Get field value \"" + target + "." + field.getName() + "\" error", e.getMessage()), e);
+					"Get field value \"" + target + "." + ((field == null) ? "null" : field.getName()) + "\" error",
+					e.getMessage()), e);
 		}
 	}
 
@@ -252,7 +251,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	// Test -------------------------------------------------------------------
 
 	protected static class Person {
-		String name = "1";
+		String name;
 		int age = 2;
 		boolean smoker = false;
 		Job job = new Job();
@@ -268,11 +267,13 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.out.println(toString(new Person()));
-		System.out.println(toString(new Person[] { new Person(), new Person() }));
+//		System.out.println(toString(new Person()));
+//		System.out.println(toString(new Person[] { new Person(), new Person() }));
+//
+//		Common common = new Common();
+//		common.setCondition2(new Condition());
+//		System.out.println(toString(common, "condition2"));
 
-		Common common = new Common();
-		common.setCondition2(new Condition());
-		System.out.println(toString(common, "condition2"));
+		System.out.println(ReflectionUtil.getValue(new Person(), "name1"));
 	}
 }

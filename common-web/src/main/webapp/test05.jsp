@@ -45,15 +45,33 @@
 		// 		$("#select01 option:eq(1)").prop('selected', true);
 		// 		$("#select01").empty();
 
-		// 		var a = [];
-		// 		a[0] = "1";
-		// 		a[2] = "3";
-		// 		console.log(a.length);
-		// 		console.log(a);
+		var a = [];
+		a[0] = "0";
+		// 		a[1] = "1";
+		a[2] = "2";
+		// 		a[3] = "3";
+		a[4] = "4";
+		console.log(a.length);
+		console.log(a);
+		// 		for (i = a.length - 1; i >= 0; i--) {
+		// 			console.log(a[i]);
+		// 		}
 
-		// 		a.splice(1, 1); 
-		// 		console.log(a.length);
-		// 		console.log(a);
+		a.splice(2, 1);
+		console.log(a.length);
+		console.log(a);
+
+		a.splice(0, 1);
+		console.log(a.length);
+		console.log(a);
+
+		for (i = a.length - 1; i >= 0; i--) {
+			if (a[i] == null) {
+				a.splice(i, 1);
+			}
+		}
+		console.log(a.length);
+		console.log(a);
 
 		$("#select02").prop("disabled", true);
 	});

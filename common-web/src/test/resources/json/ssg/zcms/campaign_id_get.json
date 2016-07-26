@@ -1,5 +1,5 @@
 {
-	"url":"http://202.3.20.124/v1/zcms/campaign.do?zone_id=13861",
+	"url":"http://202.3.20.124/v1/zcms/campaign/1415.do",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

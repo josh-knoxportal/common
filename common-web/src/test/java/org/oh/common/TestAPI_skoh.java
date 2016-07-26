@@ -74,8 +74,11 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_id_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_put2.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_from_geo_get.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_get.json"));
@@ -105,6 +108,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_delete_delete.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_insert_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post.json"));

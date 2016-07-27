@@ -91,9 +91,10 @@ public abstract class CommonController<T extends Default> implements Initializin
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "insert.do", method = RequestMethod.POST)
-	public ResponseEntity<Response<Long>> insert(@Valid @RequestBody T model, BindingResult errors) throws Exception {
-		return insert_(model, errors);
+	@RequestMapping(value = "insert_json.do", method = RequestMethod.POST)
+	public ResponseEntity<Response<Long>> insertJson(@Valid @RequestBody T model, BindingResult errors)
+			throws Exception {
+		return insert(model, errors);
 	}
 
 	/**
@@ -106,8 +107,8 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "insert_.do", method = RequestMethod.POST)
-	public ResponseEntity<Response<Long>> insert_(@Valid T model, BindingResult errors) throws Exception {
+	@RequestMapping(value = "insert.do", method = RequestMethod.POST)
+	public ResponseEntity<Response<Long>> insert(@Valid T model, BindingResult errors) throws Exception {
 		if (errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
@@ -121,7 +122,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "inserts.do", method = RequestMethod.POST)
+	@RequestMapping(value = "inserts_json.do", method = RequestMethod.POST)
 	public ResponseEntity<Response<List<Long>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
 			throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -137,9 +138,9 @@ public abstract class CommonController<T extends Default> implements Initializin
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "update.do", method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> update(@RequestBody T model, BindingResult errors) throws Exception {
-		return update2(model, errors);
+	@RequestMapping(value = "update_json.do", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
+		return update(model, errors);
 	}
 
 	/**
@@ -152,8 +153,8 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update2.do", method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> update2(T model, BindingResult errors) throws Exception {
+	@RequestMapping(value = "update.do", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
 		int result = service.update(model);
 		Response<Integer> response = Response.getSuccessResponse(result);
 
@@ -161,7 +162,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	}
 
 	/**
-	 * Content-Type : application/x-www-form-urlencoded
+	 * Content-Type : application/json
 	 * 
 	 * @param model
 	 * @param errors
@@ -170,16 +171,16 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "delete.do", method = RequestMethod.DELETE)
-	public ResponseEntity<Response<Integer>> delete(@RequestBody T model, BindingResult errors) throws Exception {
-		return delete2(model, errors);
+	@RequestMapping(value = "delete_json.do", method = RequestMethod.DELETE)
+	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
+		return delete(model, errors);
 	}
 
 	/**
-	 * Content-Type : application/json
+	 * Content-Type : application/x-www-form-urlencoded
 	 */
-	@RequestMapping(value = "delete2.do", method = RequestMethod.DELETE)
-	public ResponseEntity<Response<Integer>> delete2(T model, BindingResult errors) throws Exception {
+	@RequestMapping(value = "delete.do", method = RequestMethod.DELETE)
+	public ResponseEntity<Response<Integer>> delete(T model, BindingResult errors) throws Exception {
 		int result = service.delete(model);
 		Response<Integer> response = Response.getSuccessResponse(result);
 

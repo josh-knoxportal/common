@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.mybatisorm.annotation.handler.HandlerFactory;
 import org.mybatisorm.annotation.handler.TableHandler;
+import org.oh.common.util.Utils;
 
 public class Condition {
 	public enum Seperator {AND, OR};
@@ -74,9 +75,11 @@ public class Condition {
 	}
 	
 	public Condition add(String field, String operator, Object ... value) {
-		list.add(new Item(field,
-				(operator == null) ? null : operator.trim(),
-						(value != null && value.length == 1) ? value[0] : value));
+		// 유효성 검사 by skoh
+		if (Utils.isValidate(value)) {
+			list.add(new Item(field, (operator == null) ? null : operator.trim(),
+					(value != null && value.length == 1) ? value[0] : value));
+		}
 		return this;
 	}
 	

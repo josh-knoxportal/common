@@ -13,6 +13,19 @@ import org.oh.common.util.ThreadUtils;
 import org.springframework.util.StopWatch;
 
 public abstract class AbstractDeployTask2 extends AbstractDeployTask {
+	/**
+	 * 병렬여부
+	 */
+	protected Boolean parallel2_yn = false;
+
+	public Boolean getParallel2_yn() {
+		return parallel2_yn;
+	}
+
+	public void setParallel2_yn(Boolean parallel2_yn) {
+		this.parallel2_yn = parallel2_yn;
+	}
+
 	@Override
 	public void execute() throws BuildException {
 		super.execute();
@@ -31,7 +44,7 @@ public abstract class AbstractDeployTask2 extends AbstractDeployTask {
 				if (!deployServer.getDeploy2_yn())
 					continue;
 
-				if (parallel_yn) {
+				if (parallel2_yn) {
 					FunctionCallback<Object[], Object> callback = new FunctionCallback<Object[], Object>() {
 						@Override
 						public Object executeTemplate(Object[] params) throws Exception {
@@ -49,7 +62,7 @@ public abstract class AbstractDeployTask2 extends AbstractDeployTask {
 				}
 			}
 
-			if (parallel_yn) {
+			if (parallel2_yn) {
 				ThreadUtils.resultThread(futureList);
 			}
 		} catch (Exception e) {

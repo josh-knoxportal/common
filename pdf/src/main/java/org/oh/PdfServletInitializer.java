@@ -1,4 +1,4 @@
-package org.oh.pdf.web;
+package org.oh;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;

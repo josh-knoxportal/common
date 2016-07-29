@@ -12,12 +12,12 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class })
 @ImportResource({ "classpath:config-spring.xml" }) // , "classpath:config-spring_jmx.xml" })
-public class Application {
+public class WebApplication {
 	@Autowired
 	protected static ApplicationContext applicationContext;
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext applicationContext = SpringApplication.run(Application.class, args);
+		ConfigurableApplicationContext applicationContext = SpringApplication.run(WebApplication.class, args);
 //		WebApplicationContextUtil.printBeans(applicationContext, true);
 	}
 }

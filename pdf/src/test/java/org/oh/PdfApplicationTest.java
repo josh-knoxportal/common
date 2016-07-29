@@ -1,4 +1,4 @@
-package org.oh.pdf;
+package org.oh;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,17 @@ import java.util.concurrent.Future;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.oh.pdf.web.PdfApplication;
+import org.oh.PdfApplication;
+import org.oh.pdf.Html;
+import org.oh.pdf.Jasper;
+import org.oh.pdf.KT;
+import org.oh.pdf.Montessori;
+import org.oh.pdf.PDFbox;
+import org.oh.pdf.Postopia;
+import org.oh.pdf.Postopia1;
+import org.oh.pdf.Postopia2;
+import org.oh.pdf.Postopia3;
+import org.oh.pdf.Test01;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;

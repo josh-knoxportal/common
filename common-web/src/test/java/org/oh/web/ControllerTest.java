@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
-import org.oh.Application;
+import org.oh.WebApplication;
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.LogUtil;
 import org.oh.sample.controller.SampleAndTest2Controller;
@@ -34,7 +34,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration("classpath:config-spring.xml")
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = WebApplication.class)
 @WebAppConfiguration
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

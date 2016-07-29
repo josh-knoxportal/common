@@ -1,7 +1,9 @@
-package org.oh.agent;
+package org.oh;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.oh.agent.AgentException;
+import org.oh.agent.Mybatis;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;

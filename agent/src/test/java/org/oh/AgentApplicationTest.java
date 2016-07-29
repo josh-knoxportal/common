@@ -1,11 +1,11 @@
-package org.oh.agent;
+package org.oh;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.oh.agent.AgentApplication;
+import org.oh.AgentApplication;
 import org.oh.agent.PropertyUtils;
 import org.oh.agent.service.SampleService;
 import org.slf4j.LoggerFactory;

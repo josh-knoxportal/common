@@ -23,8 +23,6 @@ public abstract class AbstractHttpServletRequestWrapper extends HttpServletReque
 		for (int i = 0; i < values.length; i++) {
 			if (values[i] != null) {
 				values[i] = checkValue(values[i]);
-			} else {
-				values[i] = null;
 			}
 		}
 

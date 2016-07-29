@@ -16,20 +16,22 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_inserts_json_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list4_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_select_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_test_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_test_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update2_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_json_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_test_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_and_test_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_and_test2_list_get.json"));
 
+//		arrayNode.add(readFile("src/test/resources/json/com/test_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/test_list_get.json"));
 
 		///////////////////////////////////////////////////////////////////////
@@ -59,7 +61,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
 

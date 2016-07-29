@@ -2,6 +2,10 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+	<settings>
+		<setting name="defaultExecutorType" value="BATCH" />
+	</settings>
+
 	<typeAliases>
 		<typeAlias alias="sample" type="org.oh.sample.model.Sample" />
 	</typeAliases>

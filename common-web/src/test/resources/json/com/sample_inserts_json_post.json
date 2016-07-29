@@ -10,16 +10,16 @@
 			},
 			"params":[
 				{
-					"name":"s1",
-					"test_id":3,
+					"name":"s",
+					"test_id":2,
 					"reg_id":"1",
 					"mod_id":"1"
 				},
 				{
-					"name":"s2",
-					"test_id":3,
-					"reg_id":"1",
-					"mod_id":"1"
+					"name":"ss",
+					"test_id":2,
+					"reg_id":"2",
+					"mod_id":"2"
 				}
 			]
 		}

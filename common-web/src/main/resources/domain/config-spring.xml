@@ -6,11 +6,12 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	<!-- DataSource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://112.217.207.164:23306/xe?autoReconnect=true&amp;useSSL=false" />
-<!-- 		<property name="url" value="jdbc:mysql://localhost:3306/xe?autoReconnect=true&amp;useSSL=false" /> -->
-<!-- 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" /> -->
-<!-- 		<property name="url" value="jdbc:oracle:thin:@192.168.3.179:1521:xe" /> -->
+		<!-- <property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/xe?autoReconnect=true&amp;useSSL=false" /> -->
+		<!-- <property name="url" value="jdbc:mysql://112.217.207.164:23306/xe?autoReconnect=true&amp;useSSL=false" /> -->
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<!-- <property name="url" value="jdbc:oracle:thin:@192.168.3.179:1521:xe" /> -->
+		<property name="url" value="jdbc:oracle:thin:@112.217.207.164:23389:orcl" />
 		<property name="username" value="skoh" />
 		<property name="password" value="skoh" />
 		<property name="initialSize" value="5" />
@@ -33,8 +34,8 @@
 
 	<!-- Poperties -->
 	<util:properties id="prop">
-		<prop key="dataSource.vendorType">mysql</prop>
-<!-- 		<prop key="dataSource.vendorType">oracle</prop> -->
+		<!-- <prop key="dataSource.vendorType">mysql</prop> -->
+		<prop key="dataSource.vendorType">oracle</prop>
 		<prop key="mybatis.mapper.basePackage">org.oh.sample.mapper</prop>
 	</util:properties>
 

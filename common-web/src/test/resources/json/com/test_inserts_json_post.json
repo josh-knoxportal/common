@@ -1,0 +1,27 @@
+{
+	"url":"http://localhost:8050/test/inserts_json.do",
+	"method":"POST",
+	"requestFormat":"JSON",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"application/json"
+			},
+			"params":[
+				{
+					"name":"t",
+					"sample_id":2,
+					"reg_id":"3",
+					"mod_id":"3"
+				},
+				{
+					"name":"tt",
+					"sample_id":2,
+					"reg_id":"4",
+					"mod_id":"4"
+				}
+			]
+		}
+	]
+}

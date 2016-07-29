@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/lms/verify/inserts_json.do",
+	"url":"http://localhost:8080/v1/lms/verify/inserts_json.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -12,7 +12,14 @@
 			},
 			"params":[
 				{
-					"company_id":7055
+					"company_id":7055,
+					"brand_id":0,
+					"date_":""
+				},
+				{
+					"company_id":7055,
+					"brand_id":0,
+					"date_":""
 				}
 			]
 		}

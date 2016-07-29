@@ -17,7 +17,7 @@
 		<constructor-arg ref="dataSource" />
 		<property name="logFormatter">
 			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
-				<!-- <property name="loggingType" value="MULTI_LINE" /> -->
+				<property name="loggingType" value="MULTI_LINE" />
 				<!-- <property name="sqlPrefix" value="Binded SQL : " /> -->
 			</bean>
 		</property>

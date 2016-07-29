@@ -1,5 +1,7 @@
 package org.oh.sample.model;
 
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
@@ -73,7 +75,7 @@ public class Sample extends Paging {
 	/**
 	 * 샘플 아이디(PK), 시퀀스
 	 */
-	@Column(primaryKey = true, autoIncrement = true) // mysql // , sequence = "sample_seq") // oracle
+	@Column(primaryKey = true, sequence = "sample_seq") // oracle // autoIncrement = true) // mysql
 	protected Long id;
 
 	/**
@@ -101,7 +103,7 @@ public class Sample extends Paging {
 	}
 
 	@NotEmpty // 반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다.
-//	@Size(min = 1, max = Integer.MAX_VALUE) // 반드시 최소값 1과(와) 최대값 2147483647 사이의 크기이어야 합니다.
+	@Size(min = 1, max = 2) // 반드시 최소값 1과(와) 최대값 2147483647 사이의 크기이어야 합니다.
 ///	@Length(min = 1, max = Integer.MAX_VALUE) // 반드시 최소값 1과(와) 최대값 2147483647 사이의 길이이어야 합니다.
 	public String getName() {
 		return name;

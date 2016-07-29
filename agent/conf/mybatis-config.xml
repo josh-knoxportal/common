@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <properties>
+    <property name="DATABASE" value="oracle" />
+  </properties>
+
+  <settings>
+    <!-- 쿼리 응답 시간(초) -->
+    <setting name="defaultStatementTimeout" value="10" />
+  </settings>
+
+  <environments default="db01">
+    <environment id="db01">
+      <transactionManager type="JDBC" />
+      <dataSource type="POOLED">
+        <property name="driver" value="oracle.jdbc.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@192.168.1.61:1521:xe" />
+        <property name="username" value="hr" />
+        <property name="password" value="hr" />
+      </dataSource>
+    </environment>
+    <environment id="db02">
+      <transactionManager type="JDBC" />
+      <dataSource type="POOLED">
+        <property name="driver" value="oracle.jdbc.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@192.168.1.61:1521:xe" />
+        <property name="username" value="hr" />
+        <property name="password" value="hr" />
+      </dataSource>
+    </environment>
+  </environments>
+
+  <mappers>
+    <mapper url="file:conf/mappers/${DATABASE}/sample-mapper.xml" />
+<!--     <mapper resource="mappers/${DATABASE}/sample-mapper.xml" /> -->
+  </mappers>
+</configuration>

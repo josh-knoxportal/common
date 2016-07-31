@@ -5,7 +5,7 @@
   <artifactId>oh_agent</artifactId>
   <version>0.0.1</version>
   <packaging>jar</packaging>
-  <name>agent</name>
+  <name>oh_agent</name>
   <url></url>
   <description>데이터 동기화 모듈</description>
 

@@ -7,7 +7,7 @@
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<name>oh_pdf</name>
-	<url>http://localhost:8080/pdf</url>
+	<url>http://localhost:8050/pdf</url>
 	<description>PDF 제작 모듈</description>
 
 	<properties>

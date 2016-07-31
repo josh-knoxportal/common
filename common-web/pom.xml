@@ -2,14 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>org.oh</groupId>
-	<artifactId>common-web</artifactId>
+	<artifactId>oh_web</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
-
-	<name>common-web</name>
-	<description>common-web</description>
+	<name>oh_web</name>
+	<url>http://localhost:8050/web</url>
+	<description>공통 웹 모듈</description>
 
 	<repositories>
 		<repository>

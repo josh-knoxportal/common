@@ -1,41 +1,59 @@
 package org.oh.common;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Future;
+
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.oh.common.test.TestAPI;
+import org.oh.common.util.HTTPUtils;
+import org.oh.common.util.JsonUtil2;
+import org.oh.common.util.LogUtil;
+import org.oh.common.util.Utils;
+import org.oh.web.common.Response;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestAPI_skoh extends TestAPI {
+public class TestAPI_ssg extends TestAPI {
+	@Override
+	protected void print(List<Future<Object>> futureList, String saveDir, String saveExt, String responseFormat)
+			throws Exception {
+		for (Future<Object> future : futureList) {
+			Map<String, Object> result = (Map) future.get();
+
+			// 파일로 저장
+			if (Utils.isValidate(saveDir) && Utils.isValidate(saveExt)) {
+				HTTPUtils.generateFile(
+						saveDir + "/" + Utils.formatCurrentDate(Utils.SDF_DATE_MILLI_TIME) + "." + saveExt,
+						(byte[]) result.get("content"));
+				// 콘솔에 출력
+			} else {
+				String content = HTTPUtils.getContentString(result);
+
+				Response<List<Map<String, Object>>> response = JsonUtil2.readValue(content, Response.class);
+				List<Map<String, Object>> list = response.getBody();
+				for (Map<String, Object> map : list) {
+					long reg_date = (long) map.get("START_DATE");
+					map.put("START_DATE", Utils.convertDateTimeToString(new Date(reg_date)));
+				}
+				response.setBody(list);
+				content = JsonUtil2.toString(response);
+
+				if (Utils.isValidate(responseFormat)) {
+					if ("JSON".equalsIgnoreCase(responseFormat)) {
+						content = JsonUtil2.toStringPretty(content);
+					}
+				}
+				LogUtil.writeLog("content: " + content);
+			}
+		}
+	}
+
 	@BeforeClass
 	public static void initClass() throws Exception {
-//		arrayNode.add(readFile("src/test/resources/json/com/gateway_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/gateway_get.json"));
-
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_inserts_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_list4_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_page_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_page2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_select_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_test_inserts_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_update_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_update2_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_update_json_put.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_test_inserts_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_and_test_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_and_test2_list_get.json"));
-
-//		arrayNode.add(readFile("src/test/resources/json/com/test_inserts_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/test_list_get.json"));
-
-		///////////////////////////////////////////////////////////////////////
-
 //		arrayNode.add(readFile("src/test/resources/json/ssg/aams/group_user_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/aams/group_user_list_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/aams/token_post.json"));
@@ -61,7 +79,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
 
@@ -91,6 +109,7 @@ public class TestAPI_skoh extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_insert_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get2.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_id_around_get.json"));

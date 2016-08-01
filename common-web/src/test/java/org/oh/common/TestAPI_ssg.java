@@ -18,6 +18,8 @@ import org.oh.web.common.Response;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAPI_ssg extends TestAPI {
+	public static final String[] DATE_FIELDS = { "REG_DATE", "UPD_DATE", "START_DATE", "END_DATE" };
+
 	@Override
 	protected void print(List<Future<Object>> futureList, String saveDir, String saveExt, String responseFormat)
 			throws Exception {
@@ -33,11 +35,15 @@ public class TestAPI_ssg extends TestAPI {
 			} else {
 				String content = HTTPUtils.getContentString(result);
 
+				// Date 를 long -> String 형태로 변환
 				Response<List<Map<String, Object>>> response = JsonUtil2.readValue(content, Response.class);
 				List<Map<String, Object>> list = response.getBody();
 				for (Map<String, Object> map : list) {
-					long reg_date = (long) map.get("START_DATE");
-					map.put("START_DATE", Utils.convertDateTimeToString(new Date(reg_date)));
+					for (String field : DATE_FIELDS) {
+						Long date = (Long) map.get(field);
+						if (date != null)
+							map.put(field, Utils.convertDateTimeToString(new Date(date)));
+					}
 				}
 				response.setBody(list);
 				content = JsonUtil2.toString(response);

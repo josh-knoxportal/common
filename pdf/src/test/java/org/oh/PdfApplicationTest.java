@@ -80,7 +80,7 @@ public class PdfApplicationTest {
 	@Test
 	public void test() throws Exception {
 		int pdfNumber = 1; // 쓰레드당 PDF 갯수
-		int threadNumber = 1; // 쓰레드 갯수
+		int threadNumber = 3; // 쓰레드 갯수
 		int repetitionNumber = 1; // 반복 횟수
 
 		double seconds = 0; // 쓰레드별 소요시간
@@ -96,7 +96,7 @@ public class PdfApplicationTest {
 
 			for (int j = 1; j <= threadNumber; j++) {
 				// 쓰레드당 PDF 갯수
-				Future<Double> future = montessori.run(j, pdfNumber);
+				Future<Double> future = test01.run(j, pdfNumber);
 				list.add(future);
 //				Thread t = new Thread(new Postopia(j, pdfNumber));
 //				t.start();

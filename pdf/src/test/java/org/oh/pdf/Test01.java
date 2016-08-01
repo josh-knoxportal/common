@@ -17,14 +17,15 @@ public class Test01 {
 	public void test() throws Exception {
 		run(1, 1);
 	}
-	
+
 	@Async
 	public Future<Double> run(int threadNo, int count) throws Exception {
 		StopWatch sw = new StopWatch();
 		sw.start();
 
 		for (int i = 1; i <= count; i++) {
-			System.out.println(threadNo + "-" + i);
+			System.out.println(threadNo + "(" + Thread.currentThread().getName() + ")-" + i);
+			Thread.sleep(1000);
 		}
 
 		sw.stop();

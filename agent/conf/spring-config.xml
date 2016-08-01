@@ -14,12 +14,12 @@
                       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 	<task:annotation-driven proxy-target-class="true" executor="executor" scheduler="scheduler" />
 
-	<task:executor id="executor" pool-size="2-10" queue-capacity="100" rejection-policy="CALLER_RUNS" />
-
-	<!-- 2초 마다 실행 -->
+	<task:executor id="executor" pool-size="5-10" queue-capacity="0" keep-alive="3" rejection-policy="CALLER_RUNS" />
 	<task:scheduler id="scheduler" pool-size="10" />
+
+	<!-- 1초 마다 실행 -->
 	<task:scheduled-tasks scheduler="scheduler">
-		<task:scheduled ref="sampleServiceImpl" method="task" cron="*/2 * * * * *" />
+		<task:scheduled ref="sampleServiceImpl" method="task" cron="*/1 * * * * *" />
 	</task:scheduled-tasks>
 
 	<context:component-scan base-package="org.oh.agent" />

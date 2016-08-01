@@ -31,7 +31,7 @@ public class Mybatis {
 	public Mybatis() throws AgentException {
 		String fileName = "mybatis-config.xml";
 
-		init(fileName);
+		init("conf/" + fileName);
 
 		try {
 			for (String id : factoryMap.keySet()) {
@@ -51,10 +51,10 @@ public class Mybatis {
 		Document doc = null;
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			doc = db.parse(new File("conf/" + fileName));
+			doc = db.parse(new File(fileName));
 //			doc = db.parse(getClass().getClassLoader().getResourceAsStream(fileName));
 		} catch (Exception e) {
-			throw new AgentException("Mybatis_002", "Mybatis DB정보 로드 중 오류 발생", e);
+			throw new AgentException("Mybatis_002", fileName + " Mybatis DB정보 로드 중 오류 발생", e);
 		}
 		if (doc == null)
 			return;

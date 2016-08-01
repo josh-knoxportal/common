@@ -7,7 +7,7 @@
 	<version>1.0</version>
 	<packaging>war</packaging>
 	<name>common_web</name>
-	<url>http://localhost:8050/web</url>
+	<url>http://localhost:8050/common_web</url>
 	<description>공통 웹 모듈</description>
 
 	<repositories>

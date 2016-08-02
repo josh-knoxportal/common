@@ -1,4 +1,4 @@
-package org.oh.agent.domain;
+package org.oh.agent.model;
 
 import java.io.Serializable;
 

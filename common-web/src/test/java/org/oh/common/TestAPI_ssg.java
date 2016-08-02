@@ -84,7 +84,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
 
@@ -114,7 +114,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_insert_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get2.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_id_around_get.json"));
@@ -136,9 +136,10 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_id_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone2_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post4.json"));
 	}
 }

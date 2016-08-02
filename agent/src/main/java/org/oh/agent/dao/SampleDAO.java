@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
-import org.oh.agent.domain.Sample;
+import org.oh.agent.model.Sample;
 import org.springframework.stereotype.Repository;
 
 @Repository

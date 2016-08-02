@@ -12,15 +12,16 @@
                       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
                       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.1.xsd
                       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+	<!-- Task -->
 	<task:annotation-driven proxy-target-class="true" executor="executor" scheduler="scheduler" />
 
 	<task:executor id="executor" pool-size="5-10" queue-capacity="0" keep-alive="3" rejection-policy="CALLER_RUNS" />
 	<task:scheduler id="scheduler" pool-size="10" />
 
 	<!-- 1초 마다 실행 -->
-	<task:scheduled-tasks scheduler="scheduler">
-		<task:scheduled ref="sampleServiceImpl" method="task" cron="*/1 * * * * *" />
-	</task:scheduled-tasks>
+<!-- 	<task:scheduled-tasks scheduler="scheduler"> -->
+<!-- 		<task:scheduled ref="sampleServiceImpl" method="task" cron="*/1 * * * * *" /> -->
+<!-- 	</task:scheduled-tasks> -->
 
 	<context:component-scan base-package="org.oh.agent" />
 </beans>

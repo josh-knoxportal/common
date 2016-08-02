@@ -1,17 +1,14 @@
 package org.oh.agent.service.impl;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.oh.agent.AgentException;
-import org.oh.agent.Mybatis;
 import org.oh.agent.dao.SampleDAO;
-import org.oh.agent.domain.Sample;
 import org.oh.agent.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,8 +22,9 @@ public class SampleServiceImpl implements SampleService {
 	}
 
 	@Async
+	@Scheduled(fixedRate = 1000)
 	public void task() throws AgentException {
-		log.debug("----- START task -----");
+		log.debug("----- Start task -----");
 
 		SqlSession session01 = null;
 		SqlSession session02 = null;
@@ -48,18 +46,21 @@ public class SampleServiceImpl implements SampleService {
 //
 //			session01.commit();
 //			session02.commit();
-			System.out.println(Thread.currentThread().getName());
-			Thread.sleep(12000);
+			Thread.sleep(2000);
 		} catch (Exception e) {
-//			session01.rollback();
-//			session02.rollback();
+			if (session01 != null)
+				session01.rollback();
+			if (session01 != null)
+				session02.rollback();
 
 			throw new AgentException("SampleService_001", "샘플 서비스 실행 중 오류 발생", e);
-//		} finally {
-//			session01.close();
-//			session02.close();
+		} finally {
+			if (session01 != null)
+				session01.close();
+			if (session01 != null)
+				session02.close();
 		}
 
-		log.debug("----- END task -----");
+		log.debug("----- End task -----");
 	}
 }

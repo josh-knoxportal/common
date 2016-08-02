@@ -2,7 +2,6 @@ package org.oh.common;
 
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
-import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.oh.common.test.TestAPI;
 
@@ -33,10 +32,5 @@ public class TestAPI_common extends TestAPI {
 
 //		arrayNode.add(readFile("src/test/resources/json/com/test_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/test_list_get.json"));
-	}
-
-	@Test
-	public void test01() throws Exception {
-		test(arrayNode);
 	}
 }

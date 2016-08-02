@@ -2,6 +2,7 @@
 	"url":"http://202.3.20.124/v1/zms/category/select.do?fields=*&table=zone&condition=id in (14)&order_by=id",
 	"method":"GET",
 	"responseFormat":"JSON",
+	"convertDate":true,
 	"list":[
 		{
 			"headers":{

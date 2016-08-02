@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.AfterClass;
+import org.junit.Test;
 import org.oh.common.thread.HTTPUtilTask;
 import org.oh.common.util.HTTPUtils;
 import org.oh.common.util.JsonUtil2;
@@ -35,6 +36,41 @@ public class TestAPI {
 	protected StopWatch sw = new StopWatch("all");
 
 	/**
+	 * URL
+	 */
+	protected String url;
+
+	/**
+	 * 메소드
+	 */
+	protected String method;
+
+	/**
+	 * 입력 포맷(JSON, ...)
+	 */
+	protected String requestFormat;
+
+	/**
+	 * 출력 포맷(JSON, ...)
+	 */
+	protected String responseFormat;
+
+	/**
+	 * 저장 경로
+	 */
+	protected String saveDir;
+
+	/**
+	 * 저장 확장자
+	 */
+	protected String saveExt;
+
+	/**
+	 * 일자(long -> String) 변환
+	 */
+	protected boolean convertDate;
+
+	/**
 	 * 파일 읽기
 	 * 
 	 * @param filePath JSON 파일경로
@@ -50,6 +86,11 @@ public class TestAPI {
 	@AfterClass
 	public static void destroy() throws Exception {
 		ThreadUtils.shutdownThreadPool();
+	}
+
+	@Test
+	public void test() throws Exception {
+		test(arrayNode);
 	}
 
 	protected void test(ArrayNode arrayNode) throws Exception {
@@ -69,26 +110,28 @@ public class TestAPI {
 	protected void test(JsonNode data) throws Exception {
 		sw.start();
 
-		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
-		String url = data.path("url").textValue();
+		url = data.path("url").textValue();
 		LogUtil.writeLog("url: " + url);
-		String method = data.path("method").textValue();
+		method = data.path("method").textValue();
 		LogUtil.writeLog("method: " + method);
-		String saveDir = data.path("saveDir").textValue();
+		saveDir = data.path("saveDir").textValue();
 		LogUtil.writeLog("saveDir: " + saveDir);
-		String saveExt = data.path("saveExt").textValue();
+		saveExt = data.path("saveExt").textValue();
 		LogUtil.writeLog("saveExt: " + saveExt);
-		String requestFormat = data.path("requestFormat").textValue();
+		requestFormat = data.path("requestFormat").textValue();
 		LogUtil.writeLog("requestFormat: " + requestFormat);
-		String responseFormat = data.path("responseFormat").textValue();
+		responseFormat = data.path("responseFormat").textValue();
 		LogUtil.writeLog("responseFormat: " + responseFormat);
+		convertDate = data.path("convertDate").booleanValue();
+		LogUtil.writeLog("convertDate: " + convertDate);
 
+		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
 		for (JsonNode json : data.path("list")) {
-			HTTPUtilTask task = test(json, url, method, requestFormat);
+			HTTPUtilTask task = test2(json);
 			futureList = ThreadUtils.executeThread(futureList, task);
 		}
 
-		print(futureList, saveDir, saveExt, responseFormat);
+		print(futureList);
 
 		sw.stop();
 		LogUtil.writeLog(sw.shortSummary());
@@ -98,15 +141,12 @@ public class TestAPI {
 	 * 테스트
 	 * 
 	 * @param json 입력데이타
-	 * @param url URL
-	 * @param method 메소드
-	 * @param requestFormat 입력포맷(JSON, ...)
 	 * 
 	 * @return HTTPUtilTask 테스트 쓰레드
 	 * 
 	 * @throws Exception
 	 */
-	protected HTTPUtilTask test(JsonNode json, String url, String method, String requestFormat) throws Exception {
+	protected HTTPUtilTask test2(JsonNode json) throws Exception {
 		// HTTP 헤더
 		JsonNode jsonNode = json.path("headers");
 		LogUtil.writeLog("headers: " + JsonUtil2.toStringPretty(jsonNode));
@@ -135,14 +175,10 @@ public class TestAPI {
 	 * 출력
 	 * 
 	 * @param futureList 결과 리스트
-	 * @param saveDir 저장 경로
-	 * @param saveExt 저장 확장자
-	 * @param responseFormat 출력 포맷(JSON, ...)
 	 * 
 	 * @throws Exception
 	 */
-	protected void print(List<Future<Object>> futureList, String saveDir, String saveExt, String responseFormat)
-			throws Exception {
+	protected void print(List<Future<Object>> futureList) throws Exception {
 		for (Future<Object> future : futureList) {
 			Map<String, Object> result = (Map) future.get();
 

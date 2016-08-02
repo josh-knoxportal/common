@@ -7,7 +7,6 @@ import java.util.concurrent.Future;
 
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
-import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.oh.common.test.TestAPI;
 import org.oh.common.util.HTTPUtils;
@@ -21,8 +20,7 @@ public class TestAPI_ssg extends TestAPI {
 	public static final String[] DATE_FIELDS = { "REG_DATE", "UPD_DATE", "START_DATE", "END_DATE" };
 
 	@Override
-	protected void print(List<Future<Object>> futureList, String saveDir, String saveExt, String responseFormat)
-			throws Exception {
+	protected void print(List<Future<Object>> futureList) throws Exception {
 		for (Future<Object> future : futureList) {
 			Map<String, Object> result = (Map) future.get();
 
@@ -35,18 +33,19 @@ public class TestAPI_ssg extends TestAPI {
 			} else {
 				String content = HTTPUtils.getContentString(result);
 
-				// Date 를 long -> String 형태로 변환
-				Response<List<Map<String, Object>>> response = JsonUtil2.readValue(content, Response.class);
-				List<Map<String, Object>> list = response.getBody();
-				for (Map<String, Object> map : list) {
-					for (String field : DATE_FIELDS) {
-						Long date = (Long) map.get(field);
-						if (date != null)
-							map.put(field, Utils.convertDateTimeToString(new Date(date)));
+				if (convertDate) {
+					Response<List<Map<String, Object>>> response = JsonUtil2.readValue(content, Response.class);
+					List<Map<String, Object>> list = response.getBody();
+					for (Map<String, Object> map : list) {
+						for (String field : DATE_FIELDS) {
+							Long date = (Long) map.get(field);
+							if (date != null)
+								map.put(field, Utils.convertDateTimeToString(new Date(date)));
+						}
 					}
+					response.setBody(list);
+					content = JsonUtil2.toString(response);
 				}
-				response.setBody(list);
-				content = JsonUtil2.toString(response);
 
 				if (Utils.isValidate(responseFormat)) {
 					if ("JSON".equalsIgnoreCase(responseFormat)) {
@@ -141,10 +140,5 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_post3.json"));
-	}
-
-	@Test
-	public void test01() throws Exception {
-		test(arrayNode);
 	}
 }

@@ -5,7 +5,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <property name="java-output-path" value="/common-web/target/classes"/>
-        <property name="context-root" value="common-web"/>
         <property name="component.exclusion.patterns"/>
+        <property name="context-root" value="common-web"/>
     </wb-module>
 </project-modules>

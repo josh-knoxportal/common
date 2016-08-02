@@ -49,7 +49,7 @@ public class SampleServiceImpl implements SampleService {
 //			session01.commit();
 //			session02.commit();
 			System.out.println(Thread.currentThread().getName());
-			Thread.sleep(5000);
+			Thread.sleep(12000);
 		} catch (Exception e) {
 //			session01.rollback();
 //			session02.rollback();

@@ -3,8 +3,8 @@ package org.oh.common;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -82,7 +82,7 @@ public class Test02 {
 //		System.out.println(staticSql);
 //		staticSql = select + " DISTINCT " + staticSql.substring(idxSelect + 7);
 //		System.out.println(staticSql);
-		
+
 //		Test01 test01 = new Test01();
 //		System.out.println(ReflectionUtil.getValue(test01, "id"));
 //		ReflectionUtil.setValue(test01, "id", 2);
@@ -90,13 +90,42 @@ public class Test02 {
 
 //		System.out.println(ReflectionUtil.findField(test01.getClass(), "id", long.class));
 //		System.out.println(ReflectionUtil.existField(test01, "name"));
-		
+
 //		System.out.println(JsonUtil2.toStringPretty("a"));
-		
-		System.out.println(new Date(1469782800000L));
-		System.out.println(Utils.convertDateTimeToString(new Date(1469782800000L)));
+
+//		System.out.println(new Date(1469782800000L));
+//		System.out.println(Utils.convertDateTimeToString(new Date(1469782800000L)));
+
+//		List<String> list = new ArrayList<String>();
+//		list.add("a");
+//		List<String> list2 = new ArrayList<String>();
+////		list2.add("a");
+//		list2.add("b");
+//		System.out.println(list.retainAll(list2));
+//		System.out.println(list);
+//		System.out.println(list2);
+
+		List<Integer> selectRouteLogList = new ArrayList<Integer>();
+		for (int i = 0; i < 4; i++) {
+			selectRouteLogList.add(i);
+		}
+		System.out.println(Utils.toString(selectRouteLogList));
+
+		int SELECT_LOG_MAX_COUNT = 2;
+		int size = selectRouteLogList.size();
+		for (int i = 0; i < (size / SELECT_LOG_MAX_COUNT) + 1; i++) {
+			List<Integer> selectRouteLogList_temp = null;
+			if (i == (size / SELECT_LOG_MAX_COUNT)) {
+				selectRouteLogList_temp = selectRouteLogList.subList(SELECT_LOG_MAX_COUNT * i, size);
+			} else {
+				selectRouteLogList_temp = selectRouteLogList.subList(SELECT_LOG_MAX_COUNT * i,
+						SELECT_LOG_MAX_COUNT * (i + 1));
+			}
+
+			System.out.println(Utils.toString(selectRouteLogList_temp));
+		}
 	}
-	
+
 	class Test01 {
 		private long id = 1;
 	}

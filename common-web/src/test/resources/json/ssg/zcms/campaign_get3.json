@@ -1,5 +1,5 @@
 {
-	"url":"https://ssglbs.shinsegae-inc.com/v1/zcms/campaign.do?zone_id=14176",
+	"url":"http://112.217.207.164:20080/v1/zcms/campaign.do?zone_id=14590",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

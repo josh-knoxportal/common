@@ -35,30 +35,6 @@
 						"branch_id":3,
 						"str_log_time":"2015-10-08 14:25:30",
 						"company_brand_id":2
-					},
-					{
-						"company_id":1,
-						"coord_y":0.0,
-						"floor_id":4,
-						"coord_x":0.0,
-						"app_user_id":"test_app_user_id2",
-						"app_id":"test_app_id2",
-						"device_id":"123456",
-						"branch_id":3,
-						"str_log_time":"2015-10-07 14:25:30",
-						"company_brand_id":2
-					},
-					{
-						"company_id":1,
-						"coord_y":0.0,
-						"floor_id":4,
-						"coord_x":0.0,
-						"app_user_id":"test_app_user_id2",
-						"app_id":"test_app_id2",
-						"device_id":"123456",
-						"branch_id":3,
-						"str_log_time":"2015-10-08 14:25:30",
-						"company_brand_id":2
 					}
 				]
 			}

@@ -109,6 +109,12 @@ public abstract class ThreadUtils {
 		return result;
 	}
 
+	public static void resultThreadVoid(List<Future<Void>> futureList) throws Exception {
+		for (Future<Void> future : futureList) {
+			future.get();
+		}
+	}
+
 	public static void shutdownThreadPool() {
 		shutdownThreadPool(null);
 	}

@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/search.do?search_filter=화장실&branch_id=11&brand_id=-1&company_id=-1&xid=200108&floor_id=-1",
+	"url":"http://202.3.20.124/v1/mms/path_find_by_coords.do?start_x=2073.0&end_y=933.0&start_y=1533.0&end_x=2090.0&xid=761114&end_map_id=946&start_map_id=949",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
@@ -9,6 +9,7 @@
 				"request_type":"1"
 			},
 			"params":{
+				
 			}
 		}
 	]

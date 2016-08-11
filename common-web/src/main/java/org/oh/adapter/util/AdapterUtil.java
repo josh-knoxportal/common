@@ -332,7 +332,7 @@ public class AdapterUtil {
 	 */
 	public static <T1, T2> T2 getResBody(boolean isOnline, String postfix, String trcode,
 			FunctionCallback<T1, T2> callback, T1 request, Class<T2> returnType) throws AdapterException {
-//		checkSession(obj); // skoh test
+//		checkSession(obj);
 
 		try {
 			Object resBody = null;

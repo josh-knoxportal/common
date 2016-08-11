@@ -1,7 +1,8 @@
 {
-	"url":"http://localhost:8080/v1/zms/search.do?search_filter=화장실&branch_id=11&brand_id=-1&company_id=-1&xid=200108&floor_id=-1",
+	"url":"http://202.3.20.124/v1/zms/category/select.do?fields=*&table=zone&condition=id in (16347)&order_by=id desc",
 	"method":"GET",
 	"responseFormat":"JSON",
+	"convertDate":true,
 	"list":[
 		{
 			"headers":{
@@ -9,6 +10,7 @@
 				"request_type":"1"
 			},
 			"params":{
+				
 			}
 		}
 	]

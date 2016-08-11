@@ -22,7 +22,7 @@ public abstract class ThreadUtils {
 	 */
 	protected static ThreadPool<Object> threadPool = null;
 
-	static {
+	public static void createThreadPool() {
 		String key = "thread.pool.min_size";
 		int minSize = PropertyUtils.getInstance().getInt(key, 10);
 		LogUtil.writeLog("properties:[" + key + "=" + minSize + "]", ThreadUtils.class);
@@ -83,6 +83,9 @@ public abstract class ThreadUtils {
 	 * @return 응답결과 리스트
 	 */
 	public static List<Future<Object>> executeThread(List<Future<Object>> futureList, Callable<Object> callable) {
+		if (threadPool == null)
+			createThreadPool();
+
 		Future<Object> future = threadPool.submit(callable);
 
 		futureList.add(future);
@@ -125,6 +128,9 @@ public abstract class ThreadUtils {
 	 * @param log
 	 */
 	public static void shutdownThreadPool(Log log) {
+		if (threadPool == null)
+			return;
+
 		String message = "Shutdown the thread pool.";
 		if (log == null)
 			LogUtil.writeLog(message, ThreadUtils.class);

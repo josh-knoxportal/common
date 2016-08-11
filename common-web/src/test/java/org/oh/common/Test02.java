@@ -3,13 +3,11 @@ package org.oh.common;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.oh.common.util.Utils;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -105,25 +103,32 @@ public class Test02 {
 //		System.out.println(list);
 //		System.out.println(list2);
 
-		List<Integer> selectRouteLogList = new ArrayList<Integer>();
-		for (int i = 0; i < 4; i++) {
-			selectRouteLogList.add(i);
-		}
-		System.out.println(Utils.toString(selectRouteLogList));
-
-		int SELECT_LOG_MAX_COUNT = 2;
-		int size = selectRouteLogList.size();
-		for (int i = 0; i < (size / SELECT_LOG_MAX_COUNT) + 1; i++) {
-			List<Integer> selectRouteLogList_temp = null;
-			if (i == (size / SELECT_LOG_MAX_COUNT)) {
-				selectRouteLogList_temp = selectRouteLogList.subList(SELECT_LOG_MAX_COUNT * i, size);
-			} else {
-				selectRouteLogList_temp = selectRouteLogList.subList(SELECT_LOG_MAX_COUNT * i,
-						SELECT_LOG_MAX_COUNT * (i + 1));
-			}
-
-			System.out.println(Utils.toString(selectRouteLogList_temp));
-		}
+//		System.out.println(5 % 2);
+		System.out.println((int) Math.ceil(4 * 0.1));
+//		List<Integer> selectRouteLogList = new ArrayList<Integer>();
+//		for (int i = 0; i < 4; i++) {
+//			selectRouteLogList.add(i);
+//		}
+//		System.out.println(Utils.toString(selectRouteLogList));
+//
+//		int SELECT_LOG_MAX_COUNT = 2;
+//		int size = selectRouteLogList.size();
+////		System.out.println(size / SELECT_LOG_MAX_COUNT);
+//		for (int i = 0; i < (size / SELECT_LOG_MAX_COUNT) + 1; i++) {
+//			List<Integer> selectRouteLogList_temp = null;
+//
+//			if (i == (size / SELECT_LOG_MAX_COUNT)) {
+//				if ((size % SELECT_LOG_MAX_COUNT) == 0)
+//					break;
+//				else
+//					selectRouteLogList_temp = selectRouteLogList.subList(SELECT_LOG_MAX_COUNT * i, size);
+//			} else {
+//				selectRouteLogList_temp = selectRouteLogList.subList(SELECT_LOG_MAX_COUNT * i,
+//						SELECT_LOG_MAX_COUNT * (i + 1));
+//			}
+//
+//			System.out.println(i + " " + Utils.toString(selectRouteLogList_temp));
+//		}
 	}
 
 	class Test01 {

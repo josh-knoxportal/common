@@ -23,9 +23,6 @@
 					"type":1,
 					"id":-1,
 					"off_day":"",
-					"category_list":[
-						"12120"
-					],
 					"loitering_time":3,
 					"end_time":"23:59",
 					"owner_group":1,
@@ -34,6 +31,18 @@
 					"app_id":3,
 					"app_specific_data":"2",
 					"branch_id":7057,
+					"zone_list":[
+						
+					],
+					"branch_list":[
+						"7057"
+					],
+					"category_array_list":[
+						[
+							"01",
+							"002"
+						]
+					],
 					"str_end_date":"2016-12-31 23:59",
 					"str_start_date":"2016-06-01 00:01"
 				}

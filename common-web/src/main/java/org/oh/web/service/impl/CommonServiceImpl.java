@@ -122,6 +122,8 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Override
 	public Page<T> page(T model, Page<T> page) throws Exception {
+		model.setOrder_by("id DESC");
+
 		model = setModel(model);
 
 		return entityManager.page(model, model.getCondition2(), model.getOrder_by(), page.getPageNumber(),

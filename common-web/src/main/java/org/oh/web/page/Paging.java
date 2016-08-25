@@ -26,6 +26,10 @@ public class Paging extends Common {
 	 */
 	protected int total_sise;
 
+	public Paging() {
+		order_by = "id DESC";
+	}
+
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	public int getPage_number() {
 		return page_number;

@@ -110,6 +110,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_from_geo_get.json"));
 
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_team_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_team_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_post.json"));

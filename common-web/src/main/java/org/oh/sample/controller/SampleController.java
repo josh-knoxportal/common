@@ -19,6 +19,7 @@ import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,8 +28,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+// produces 는 "Accept":"application/json" 생략하기 위해 기술
 @Controller
-@RequestMapping(value = "sample") // , produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController extends CommonController<Sample> {
 	@Autowired
 	private MessageSource messageSource;
@@ -59,7 +61,7 @@ public class SampleController extends CommonController<Sample> {
 			throws Exception {
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.KOREA));
 
-		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, sample, errors);
+		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, errors);
 
 		return new ResponseEntity<Response<List<Sample>>>(responseEntity.getBody(), responseEntity.getStatusCode());
 	}
@@ -74,6 +76,10 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "/list2", method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<Sample>>> list2(Sample sample, @Valid Common common, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 //		log.info(messageSource.getMessage("field.required.sample.name", null, null));
 		log.info("errors: " + errors.hasErrors());
 		log.info("errors: " + Utils.toString(errors.getAllErrors()));
@@ -88,10 +94,6 @@ public class SampleController extends CommonController<Sample> {
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotNull");
 //		ValidationUtils.rejectIfEmpty(errors, "name", "field.required");
 
-		if (errors.hasFieldErrors()) {
-			return (ResponseEntity) checkValidate(errors);
-		}
-
 		List<Sample> list = service.list2(sample);
 		Response<List<Sample>> response = Response.getSuccessResponse(list);
 
@@ -101,6 +103,10 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "/get2", method = { RequestMethod.GET })
 	public ResponseEntity<Response<Sample>> get2(Sample sample, @Valid Common common, BindingResult errors)
 			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		sample = service.get2(sample);
 		Response<Sample> response = Response.getSuccessResponse(sample);
 
@@ -110,6 +116,10 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "/count2", method = { RequestMethod.GET })
 	public ResponseEntity<Response<Integer>> count2(Sample sample, @Valid Common common, BindingResult errors)
 			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		int count = service.count2(sample);
 		Response<Integer> response = Response.getSuccessResponse(count);
 
@@ -119,6 +129,10 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "/page2", method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<Sample>>> page(Sample sample, @Valid Common common,
 			BindingResult errors) throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		List<Sample> list = service.page(sample);
 
 		int count = service.count2(sample);

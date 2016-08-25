@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/category/list.do?company_id=7057&creator_id=0",
+	"url":"http://localhost:8080/v1/zms/category/list_team.do?company_id=7057&creator_id=0",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

@@ -1,0 +1,23 @@
+[
+  {
+    "company_id":1,
+    "brand_id":2,
+    "branch_id":3,
+    "floor_id":4,
+    "date_":"YYYYMMDD",
+    "time_":"HH24MISS",
+    "os_type":1,
+    "os_ver":"",
+    "phone_model":"",
+    "test_id":"",
+    "tester_name":"",
+    "result":1,
+    "type":1,
+    "zone_id":5,
+    "campaign_id":6,
+    "map_edge_id":7,
+    "test_count":8,
+    "error_distance":9,
+    "beacon_id":10
+  }
+]

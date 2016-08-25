@@ -2,6 +2,8 @@ package org.oh.web.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Null;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.Condition;
 import org.mybatisorm.Condition.Seperator;
@@ -55,6 +57,7 @@ public abstract class Default implements Serializable {
 	protected Condition condition2 = new Condition();
 
 	@JsonIgnore
+	@Null(message = "사용할 수 없는 파라미터입니다.")
 	public String getSql_name() {
 		return sql_name;
 	}
@@ -64,6 +67,7 @@ public abstract class Default implements Serializable {
 	}
 
 	@JsonIgnore
+	@Null(message = "사용할 수 없는 파라미터입니다.")
 	public String getHint() {
 		return hint;
 	}
@@ -73,6 +77,7 @@ public abstract class Default implements Serializable {
 	}
 
 	@JsonIgnore
+	@Null(message = "사용할 수 없는 파라미터입니다.")
 	public String getFields() {
 		return fields;
 	}
@@ -82,6 +87,7 @@ public abstract class Default implements Serializable {
 	}
 
 	@JsonIgnore
+	@Null(message = "사용할 수 없는 파라미터입니다.")
 	public String getTable() {
 		return table;
 	}
@@ -91,6 +97,7 @@ public abstract class Default implements Serializable {
 	}
 
 	@JsonIgnore
+	@Null(message = "사용할 수 없는 파라미터입니다.")
 	public String getOrder_by() {
 		return order_by;
 	}
@@ -100,6 +107,7 @@ public abstract class Default implements Serializable {
 	}
 
 	@JsonIgnore
+	@Null(message = "사용할 수 없는 파라미터입니다.")
 	public String getCondition() {
 		return condition;
 	}

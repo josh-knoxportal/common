@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/sample/list2.do?id=1&name=s",
+	"url":"http://localhost:8050/sample/list2?id=1&name=s",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

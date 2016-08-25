@@ -198,6 +198,13 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		return result;
 	}
 
+	/**
+	 * id 필드의 값을 구한다.
+	 * 
+	 * @param model
+	 * 
+	 * @return id 필드가 없으면 -1
+	 */
 	protected long getId(T model) {
 		long id = -1;
 		try {

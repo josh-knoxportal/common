@@ -70,30 +70,17 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
 		sample.addCondition(sample.newCondition().add("name LIKE 's%'").add("name", "LIKE", "s%"));
 
-		ResponseEntity<Response<List<Sample>>> response = sampleController.list3(sample,
-				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest(), new MockHttpSession());
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
-		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
-	}
-
-	@Test
-	public void t11_list() throws Exception {
-		Common model = new Common();
-		model.setHint("DISTINCT");
-		model.setFields("*");
-		model.setTable("sample");
-		model.setCondition("name LIKE 's%'");
-		model.setOrder_by("id DESC");
-
-		ResponseEntity<Response<List<Map<String, Object>>>> response = sampleController.select(model,
-				new BeanPropertyBindingResult(model, "model"));
+		ResponseEntity<Response<List<Sample>>> response = sampleController.list(sample,
+				new BeanPropertyBindingResult(sample, "sample"));
+//		ResponseEntity<Response<List<Sample>>> response = sampleController.list3(sample,
+//				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest(), new MockHttpSession());
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -229,6 +216,20 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
+//	@Test
+	public void t11_select() throws Exception {
+		Common model = new Common();
+		model.setHint("DISTINCT");
+		model.setFields("*");
+		model.setTable("sample");
+		model.setCondition("name LIKE 's%'");
+		model.setOrder_by("id DESC");
+
+		ResponseEntity<Response<List<Map<String, Object>>>> response = sampleController.select(model);
+		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+	}
+
 	@Test
 	public void t50() throws Exception {
 		log.info("================================================================================");
@@ -239,7 +240,7 @@ public class ControllerTest {
 		Sample sample = new Sample();
 		sample.setId(1L);
 
-		ResponseEntity<Response<Sample>> response = sampleController.get2(sample,
+		ResponseEntity<Response<Sample>> response = sampleController.get2(sample, null,
 				new BeanPropertyBindingResult(sample, "sample"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
@@ -252,7 +253,7 @@ public class ControllerTest {
 		sample.addCondition("name LIKE 's%'");
 		sample.setOrder_by("id DESC");
 
-		ResponseEntity<Response<List<Sample>>> response = sampleController.list2(sample,
+		ResponseEntity<Response<List<Sample>>> response = sampleController.list2(sample, null,
 				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest(), new MockHttpSession());
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
@@ -264,7 +265,7 @@ public class ControllerTest {
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
 
-		ResponseEntity<Response<Integer>> response = sampleController.count2(sample,
+		ResponseEntity<Response<Integer>> response = sampleController.count2(sample, null,
 				new BeanPropertyBindingResult(sample, "sample"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
@@ -278,7 +279,7 @@ public class ControllerTest {
 		sample.setOrder_by("id DESC");
 		sample.setPage_number(1);
 
-		ResponseEntity<Response<PageNavigator<Sample>>> response = sampleController.page(sample,
+		ResponseEntity<Response<PageNavigator<Sample>>> response = sampleController.page(sample, (Common) null,
 				new BeanPropertyBindingResult(sample, "sample"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());

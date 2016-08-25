@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
 import org.mybatisorm.annotation.Table;
+import org.oh.web.Constants;
 import org.oh.web.common.Response;
 import org.oh.web.model.Common;
 import org.oh.web.model.Default;
@@ -45,25 +46,77 @@ public abstract class CommonController<T extends Default> implements Initializin
 		service = getService();
 	}
 
-	@RequestMapping(value = "get.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<T>> get(T model, BindingResult errors) throws Exception {
+		return get(model, null, errors);
+	}
+
+	// Common 파라미터는 GET 방식의 보안을 위해 사용
+	@RequestMapping(value = "get" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		model = service.get(model);
 		Response<T> response = Response.getSuccessResponse(model);
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "list.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<T>>> list(T model, BindingResult errors) throws Exception {
+		return list(model, null, errors);
+	}
+
+	@RequestMapping(value = "list" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ResponseEntity<Response<List<T>>> list(T model, @Valid Common common, BindingResult errors)
+			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		List<T> list = service.list(model);
 		Response<List<T>> response = Response.getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<T>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "select.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
+	public ResponseEntity<Response<Integer>> count(T model, BindingResult errors) throws Exception {
+		return count(model, null, errors);
+	}
+
+	@RequestMapping(value = "count" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ResponseEntity<Response<Integer>> count(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		int count = service.count(model);
+		Response<Integer> response = Response.getSuccessResponse(count);
+
+		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+	}
+
+	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, BindingResult errors)
+			throws Exception {
+		return page(model, page, null, errors);
+	}
+
+	@RequestMapping(value = "page" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, @Valid Common common,
+			BindingResult errors) throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		page = service.page(model, page);
+		Response<PageNavigator<T>> response = Response.getSuccessResponse(PageNavigator.getInstance(page));
+
+		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "select" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model) throws Exception {
 		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
 				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), "select_");
 		Response<List<Map<String, Object>>> response = Response.getSuccessResponse(list);
@@ -71,27 +124,10 @@ public abstract class CommonController<T extends Default> implements Initializin
 		return new ResponseEntity<Response<List<Map<String, Object>>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "count.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Integer>> count(T model, BindingResult errors) throws Exception {
-		int count = service.count(model);
-		Response<Integer> response = Response.getSuccessResponse(count);
-
-		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "page.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, BindingResult errors)
-			throws Exception {
-		page = service.page(model, page);
-		Response<PageNavigator<T>> response = Response.getSuccessResponse(PageNavigator.getInstance(page));
-
-		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
-	}
-
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "insert_json.do", method = RequestMethod.POST)
+	@RequestMapping(value = "insert_json" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Long>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
 		return insert(model, errors);
@@ -107,7 +143,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "insert.do", method = RequestMethod.POST)
+	@RequestMapping(value = "insert" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Long>> insert(@Valid T model, BindingResult errors) throws Exception {
 		if (errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
@@ -119,10 +155,14 @@ public abstract class CommonController<T extends Default> implements Initializin
 		return new ResponseEntity<Response<Long>>(response, HttpStatus.OK);
 	}
 
+	public ResponseEntity<Response<List<Long>>> inserts(List<T> models, BindingResult errors) throws Exception {
+		return inserts(new ValidList<T>(models), null);
+	}
+
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "inserts_json.do", method = RequestMethod.POST)
+	@RequestMapping(value = "inserts_json" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<List<Long>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
 			throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -138,7 +178,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "update_json.do", method = RequestMethod.PUT)
+	@RequestMapping(value = "update_json" + Constants.POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return update(model, errors);
 	}
@@ -153,7 +193,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update.do", method = RequestMethod.PUT)
+	@RequestMapping(value = "update" + Constants.POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
 		int result = service.update(model);
 		Response<Integer> response = Response.getSuccessResponse(result);
@@ -171,7 +211,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "delete_json.do", method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete_json" + Constants.POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return delete(model, errors);
 	}
@@ -179,7 +219,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	/**
 	 * Content-Type : application/x-www-form-urlencoded
 	 */
-	@RequestMapping(value = "delete.do", method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete" + Constants.POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> delete(T model, BindingResult errors) throws Exception {
 		int result = service.delete(model);
 		Response<Integer> response = Response.getSuccessResponse(result);

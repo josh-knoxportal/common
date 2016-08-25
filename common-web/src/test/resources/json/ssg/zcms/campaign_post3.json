@@ -12,36 +12,36 @@
 			},
 			"params":[
 				{
-					"marketing_type":1,
-					"off_week":"",
-					"company_id":7055,
-					"working_condition":1,
-					"interval":180,
-					"max_count_per_customer":2,
-					"group_id":"",
-					"company_brand_id":7056,
-					"type":1,
 					"id":-1,
-					"off_day":"",
-					"loitering_time":-1,
-					"end_time":"23:59",
-					"owner_group":1,
-					"name":"이마트 캠페인",
-					"start_time":"00:01",
+					"name":"성수점 비콘",
 					"app_id":3,
-					"app_specific_data":"2",
+					"owner_group":1,
+					"working_condition":1,
+					"type":1,
+					"marketing_type":1,
+					"loitering_time":-1,
+					"max_count_per_customer":5,
+					"off_week":"",
+					"off_day":"",
+					"interval":1,
+					"start_time":"08:00",
+					"end_time":"20:00",
+					"str_start_date":"2016-08-17 08:00",
+					"str_end_date":"2016-08-19 20:00",
+					"app_specific_data":"1",
+					"company_id":7055,
+					"company_brand_id":7056,
 					"branch_id":7057,
-					"zone_list":[
-						
-					],
+					"group_id":"",
 					"branch_list":[
 						"7057"
 					],
 					"category_list":[
 						"34340"
 					],
-					"str_end_date":"2016-12-31 23:59",
-					"str_start_date":"2016-06-01 00:01"
+					"category_array_list":[
+						
+					]
 				}
 			]
 		}

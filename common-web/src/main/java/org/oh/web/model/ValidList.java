@@ -11,6 +11,13 @@ public class ValidList<E> extends AbstractList<E> implements Serializable {
 	@Valid
 	protected List<E> list = new ArrayList<E>();
 
+	public ValidList() {
+	}
+
+	public ValidList(List<E> list) {
+		this.list = list;
+	}
+
 	public List<E> getList() {
 		return list;
 	}

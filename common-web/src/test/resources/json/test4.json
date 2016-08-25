@@ -1,14 +1,16 @@
 {
-	"id":1,
-	"device_id":"1465fe66-dbf5-49ef-923d-006590a9b93c",
-	"app_id":"com.F1.ShinSG",
-	"app_user_id":"baboyah1/C10101586",
-	"company_id":-1,
-	"company_brand_id":-1,
-	"branch_id":-1,
-	"floor_id":-1,
-	"coord_x":37.6179824,
-	"coord_y":127.0745446,
-	"log_time":"16/08/11 00:48:49",
-	"reg_date":"16/08/06 01:30:22"
+	"route_list":[
+		{
+			"device_id":"1465fe66-dbf5-49ef-923d-006590a9b93c",
+			"app_id":"com.F1.ShinSG",
+			"app_user_id":"baboyah1/C10101586",
+			"company_id":-1,
+			"company_brand_id":-1,
+			"branch_id":-1,
+			"floor_id":-1,
+			"coord_x":37.6179824,
+			"coord_y":127.0745446,
+			"str_log_time":"2016-08-12 00:48:49"
+		}
+	]
 }

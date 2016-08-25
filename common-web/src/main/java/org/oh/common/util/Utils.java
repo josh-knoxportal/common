@@ -693,47 +693,15 @@ public abstract class Utils {
 		return (int) ((dEnd.getTime() - dStart.getTime()) / 1000);
 	}
 
-	public static String convertSecToString(int sec) {
-		String time = "";
-		String min = "";
-		String se = "";
-		if (sec <= 60) {
-			se = sec + "";
-			if (sec < 10)
-				time = "0" + se + "초";
-			else
-				time = se + "초";
-		} else if (sec <= 3600 && sec >= 60) {
-			min = (sec / 60) + "";
-			se = (sec % 60) + "";
-			if ((sec / 60) < 10 && (sec % 60) < 10)
-				time = "0" + min + "분" + "0" + se + "초";
-			else if ((sec / 60) >= 10 && (sec % 60) < 10)
-				time = min + "분" + "0" + se + "초";
-			else if ((sec / 60) < 10 && (sec % 60) >= 10)
-				time = "0" + min + "분" + se + "초";
-			else
-				time = min + "분" + se + "초";
-		} else if (sec >= 3600) {
-			String hour = (sec / 3600) + "";
-			int rest = sec % 3600;
-			min = (rest / 60) + "";
-			se = (rest % 60) + "";
-			if ((sec / 3600) < 10)
-				time = "0" + hour + "시간";
-			else
-				time = hour + "시간";
-			if ((rest / 60) < 10)
-				time += "0" + min + "분";
-			else
-				time += min + "분";
-			if ((rest % 60) < 10)
-				time += "0" + se + "초";
-			else
-				time += se + "초";
-		}
-
-		return time;
+	/**
+	 * 시분초로 변경한다.
+	 * 
+	 * @param sec
+	 * 
+	 * @return 시:분:초(00:00:00)
+	 */
+	public static String convertSecToString(int seconds) {
+		return String.format("%02d:%02d:%02d", seconds / 3600, seconds % 3600 / 60, seconds % 3600 % 60);
 	}
 
 	// File --------------------------------------------------------------------
@@ -2246,5 +2214,8 @@ public abstract class Utils {
 //		System.out.println(isIncludeCho(str));
 
 //		System.out.println(replace("a\bc", null, ""));
+
+		int seconds = 60 * 60 * 2 + 60 * 3 + 13;
+		System.out.println(convertSecToString(seconds));
 	}
 }

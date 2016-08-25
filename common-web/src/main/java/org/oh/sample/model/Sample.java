@@ -90,7 +90,7 @@ public class Sample extends Paging {
 	@Column(references = "Test.id")
 	protected Long test_id;
 
-//	@Null // 반드시 값이 있어야 합니다.
+//	@Null(message = "반드시 값이 없어야 합니다.") // 반드시 값이 있어야 합니다.
 //	@NotNull(message = "반드시 값이 있어야 합니다.") // 반드시 값이 없어야 합니다.
 //	@Min(1) // 반드시 1보다 같거나 커야 합니다.
 //	@Max(Long.MAX_VALUE) // 반드시 9223372036854775807보다 같거나 작아야 합니다.

@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -104,31 +107,40 @@ public class Test02 {
 //		System.out.println(list2);
 
 //		System.out.println(5 % 2);
-		System.out.println((int) Math.ceil(4 * 0.1));
+//		System.out.println((int) Math.ceil(4 * 0.1));
 //		List<Integer> selectRouteLogList = new ArrayList<Integer>();
 //		for (int i = 0; i < 4; i++) {
 //			selectRouteLogList.add(i);
 //		}
 //		System.out.println(Utils.toString(selectRouteLogList));
 //
-//		int SELECT_LOG_MAX_COUNT = 2;
+//		int INSERT_LOG_REPEAT_COUNT = 2;
 //		int size = selectRouteLogList.size();
-////		System.out.println(size / SELECT_LOG_MAX_COUNT);
-//		for (int i = 0; i < (size / SELECT_LOG_MAX_COUNT) + 1; i++) {
+////		System.out.println(size / INSERT_LOG_REPEAT_COUNT);
+//		for (int i = 0; i < (size / INSERT_LOG_REPEAT_COUNT) + 1; i++) {
 //			List<Integer> selectRouteLogList_temp = null;
 //
-//			if (i == (size / SELECT_LOG_MAX_COUNT)) {
-//				if ((size % SELECT_LOG_MAX_COUNT) == 0)
+//			if (i == (size / INSERT_LOG_REPEAT_COUNT)) {
+//				if ((size % INSERT_LOG_REPEAT_COUNT) == 0)
 //					break;
 //				else
-//					selectRouteLogList_temp = selectRouteLogList.subList(SELECT_LOG_MAX_COUNT * i, size);
+//					selectRouteLogList_temp = selectRouteLogList.subList(INSERT_LOG_REPEAT_COUNT * i, size);
 //			} else {
-//				selectRouteLogList_temp = selectRouteLogList.subList(SELECT_LOG_MAX_COUNT * i,
-//						SELECT_LOG_MAX_COUNT * (i + 1));
+//				selectRouteLogList_temp = selectRouteLogList.subList(INSERT_LOG_REPEAT_COUNT * i,
+//						INSERT_LOG_REPEAT_COUNT * (i + 1));
 //			}
 //
 //			System.out.println(i + " " + Utils.toString(selectRouteLogList_temp));
 //		}
+
+//		for (int i = -10; i <= 0; i++) {
+//			System.out.println(i);
+//		}
+
+		ExpressionParser parser = new SpelExpressionParser();
+		Expression exp = parser.parseExpression(
+				"T(org.oh.common.util.PropertyUtils).getInstance().getString('web.requestmapping.postfix', '')");
+		System.out.println(exp.getValue());
 	}
 
 	class Test01 {

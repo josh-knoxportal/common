@@ -10,14 +10,15 @@ import javax.validation.Valid;
 import org.oh.common.util.Utils;
 import org.oh.sample.model.Sample;
 import org.oh.sample.service.SampleService;
+import org.oh.web.Constants;
 import org.oh.web.common.Response;
 import org.oh.web.controller.CommonController;
+import org.oh.web.model.Common;
 import org.oh.web.page.PageNavigator;
 import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "sample") // , produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController extends CommonController<Sample> {
 	@Autowired
 	private MessageSource messageSource;
@@ -40,19 +41,38 @@ public class SampleController extends CommonController<Sample> {
 		return service;
 	}
 
+	@RequestMapping(value = "/list3", method = { RequestMethod.POST })
+	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample sample, BindingResult errors,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		sample.setSql_name("list3");
+		sample.setHint("DISTINCT");
+		sample.setFields("id, name");
+		sample.setOrder_by("id DESC");
+
+		return list(sample, null, errors);
+	}
+
 	// 주의) 로깅을 위해 Annotation 재정의
 	@Override
-	@RequestMapping(value = "list.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<List<Sample>>> list(Sample sample, BindingResult errors) throws Exception {
+	@RequestMapping(value = "list" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ResponseEntity<Response<List<Sample>>> list(Sample sample, @Valid Common common, BindingResult errors)
+			throws Exception {
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.KOREA));
 
-		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, errors);
+		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, sample, errors);
 
 		return new ResponseEntity<Response<List<Sample>>>(responseEntity.getBody(), responseEntity.getStatusCode());
 	}
 
-	@RequestMapping(value = "/list2.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<List<Sample>>> list2(@Valid Sample sample, BindingResult errors,
+	@RequestMapping(value = "/list4", method = { RequestMethod.POST })
+	public ResponseEntity<Response<List<Sample>>> list4(@RequestBody Sample sample, BindingResult errors,
+			HttpServletRequest request, HttpSession session) throws Exception {
+		return list2(sample, null, errors, request, session);
+	}
+
+	// 주의) RequestMethod 추가시 메소드명을 다르게 정의
+	@RequestMapping(value = "/list2", method = { RequestMethod.GET })
+	public ResponseEntity<Response<List<Sample>>> list2(Sample sample, @Valid Common common, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
 //		log.info(messageSource.getMessage("field.required.sample.name", null, null));
 		log.info("errors: " + errors.hasErrors());
@@ -67,48 +87,38 @@ public class SampleController extends CommonController<Sample> {
 		}
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotNull");
 //		ValidationUtils.rejectIfEmpty(errors, "name", "field.required");
+
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		List<Sample> list = service.list2(sample);
 		Response<List<Sample>> response = Response.getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.OK);
 	}
 
-	// 주의) RequestMethod 추가시 메소드명을 다르게 정의
-	@RequestMapping(value = "/list3.do", method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample sample, BindingResult errors,
-			HttpServletRequest request, HttpSession session) throws Exception {
-		sample.setSql_name("list3");
-		sample.setHint("DISTINCT");
-		sample.setFields("id, name");
-		sample.setOrder_by("id DESC");
-
-		return list(sample, errors);
-	}
-
-	@RequestMapping(value = "/list4.do", method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Sample>>> list4(@RequestBody Sample sample, BindingResult errors,
-			HttpServletRequest request, HttpSession session) throws Exception {
-		return list2(sample, errors, request, session);
-	}
-
-	@RequestMapping(value = "/get2.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Sample>> get2(Sample sample, BindingResult errors) throws Exception {
+	@RequestMapping(value = "/get2", method = { RequestMethod.GET })
+	public ResponseEntity<Response<Sample>> get2(Sample sample, @Valid Common common, BindingResult errors)
+			throws Exception {
 		sample = service.get2(sample);
 		Response<Sample> response = Response.getSuccessResponse(sample);
 
 		return new ResponseEntity<Response<Sample>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/count2.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Integer>> count2(Sample sample, BindingResult errors) throws Exception {
+	@RequestMapping(value = "/count2", method = { RequestMethod.GET })
+	public ResponseEntity<Response<Integer>> count2(Sample sample, @Valid Common common, BindingResult errors)
+			throws Exception {
 		int count = service.count2(sample);
 		Response<Integer> response = Response.getSuccessResponse(count);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/page2.do", method = { RequestMethod.GET })
-	public ResponseEntity<Response<PageNavigator<Sample>>> page(Sample sample, BindingResult errors) throws Exception {
+	@RequestMapping(value = "/page2", method = { RequestMethod.GET })
+	public ResponseEntity<Response<PageNavigator<Sample>>> page(Sample sample, @Valid Common common,
+			BindingResult errors) throws Exception {
 		List<Sample> list = service.page(sample);
 
 		int count = service.count2(sample);
@@ -119,7 +129,7 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<PageNavigator<Sample>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/insert2.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/insert2", method = RequestMethod.POST)
 	public ResponseEntity<Response<Long>> insert2(@Valid Sample sample, BindingResult errors) throws Exception {
 		long result = service.insert2(sample);
 		Response<Long> response = Response.getSuccessResponse(result);
@@ -127,7 +137,7 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<Long>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/update2.do", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update2", method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> update2(Sample sample, BindingResult errors) throws Exception {
 		int result = service.update2(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
@@ -135,7 +145,7 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/delete2.do", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete2", method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> delete2(Sample sample, BindingResult errors) throws Exception {
 		int result = service.delete2(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);
@@ -143,7 +153,7 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/merge.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/merge", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> merge(Sample sample, BindingResult errors) throws Exception {
 		int result = service.merge(sample);
 		Response<Integer> response = Response.getSuccessResponse(result);

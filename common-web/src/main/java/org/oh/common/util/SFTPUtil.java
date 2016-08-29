@@ -69,7 +69,7 @@ public class SFTPUtil {
 		String pwd = channelSftp.pwd();
 		channelSftp.cd(targetDir);
 
-		System.out.print("[Upload file] " + targetDir + File.separator + sourceFile);
+		LogUtil.writeLog("[Upload file] " + targetDir + File.separator + sourceFile, getClass());
 		InputStream in = null;
 		try {
 			in = new BufferedInputStream(new FileInputStream(sourceDir + File.separator + sourceFile));
@@ -78,7 +78,7 @@ public class SFTPUtil {
 			if (in != null)
 				in.close();
 		}
-		LogUtil.writeLog(" [Upload complete]", getClass());
+		LogUtil.writeLog("[Upload complete]", getClass());
 
 		if (list) {
 			Vector<ChannelSftp.LsEntry> files = channelSftp.ls(".");
@@ -94,7 +94,7 @@ public class SFTPUtil {
 		String pwd = channelSftp.pwd();
 		channelSftp.cd(targetDir);
 
-		System.out.print("[Download file] " + targetDir + File.separator + sourceFile);
+		LogUtil.writeLog("[Download file] " + targetDir + File.separator + sourceFile, getClass());
 		InputStream in = channelSftp.get(sourceFile);
 		OutputStream out = null;
 		try {

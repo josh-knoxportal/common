@@ -48,7 +48,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 예)
 	 *      String str = "20120422";    //지정된 날짜
 	 *      <br>
-	 *      DateUtil.addDays(str, 1, "yyyyMMdd");    //지정된 날짜에 Day 더한 날짜 값
+	 *      addDays(str, 1, "yyyyMMdd");    //지정된 날짜에 Day 더한 날짜 값
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -57,7 +57,11 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 지정된 일만큼 더한 일시
 	 */
 	public static String addDays(String dateString, int amount, String pattern) throws SmartException {
-		return format(addDays(toDate(dateString, pattern), amount), pattern);
+		return addDays(toDate(dateString, pattern), amount, pattern);
+	}
+
+	public static String addDays(Date date, int amount, String pattern) throws SmartException {
+		return format(addDays(date, amount), pattern);
 	}
 
 	/**
@@ -67,7 +71,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 예)
 	 *      String str = "20120420";    //지정된 날짜
 	 *      <br>
-	 *      DateUtil.addMonths(str, 1, "yyyyMMdd");  //지정된 날짜에 월을 더한 날짜 값
+	 *      addMonths(str, 1, "yyyyMMdd");  //지정된 날짜에 월을 더한 날짜 값
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -76,7 +80,11 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 지정된 달만큼 더한 일시
 	 */
 	public static String addMonths(String dateString, int amount, String pattern) throws SmartException {
-		return format(addMonths(toDate(dateString, pattern), amount), pattern);
+		return addMonths(toDate(dateString, pattern), amount, pattern);
+	}
+
+	public static String addMonths(Date date, int amount, String pattern) throws SmartException {
+		return format(addMonths(date, amount), pattern);
 	}
 
 	/**
@@ -97,7 +105,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 예)
 	 *      String str = "20120420";    //지정된 날짜
 	 *      <br>
-	 *      DateUtil.addYears(str, 1, "yyyyMMdd");   //지정된 날짜에 년을 더한 날짜 값
+	 *      addYears(str, 1, "yyyyMMdd");   //지정된 날짜에 년을 더한 날짜 값
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -106,7 +114,11 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 지정된 년만큼 더한 일시
 	 */
 	public static String addYears(String dateString, int amount, String pattern) throws SmartException {
-		return format(addYears(toDate(dateString, pattern), amount), pattern);
+		return addYears(toDate(dateString, pattern), amount, pattern);
+	}
+
+	public static String addYears(Date date, int amount, String pattern) throws SmartException {
+		return format(addYears(date, amount), pattern);
 	}
 
 	/**
@@ -117,7 +129,7 @@ public abstract class DateUtil extends DateUtils {
 	 *      String str = "20120420";    //지정날짜
 	 *      String str2 = "20120430";
 	 *      <br>
-	 *      DateUtil.differenceDays(str, str2, "yyyyMMdd");  //날짜 차이 계산된 값
+	 *      differenceDays(str, str2, "yyyyMMdd");  //날짜 차이 계산된 값
 	 * </pre>
 	 * 
 	 * @param fromDate 시작일시
@@ -138,7 +150,7 @@ public abstract class DateUtil extends DateUtils {
 	 *      String str = "20120419";        //지정날짜
 	 *      String str2 = "20120430";
 	 *      <br>
-	 *      DateUtil.differenceSeconds(str, str2, "yyyyMMdd");   //두 날짜 사이의 초 차이 계산 값
+	 *      differenceSeconds(str, str2, "yyyyMMdd");   //두 날짜 사이의 초 차이 계산 값
 	 * </pre>
 	 * 
 	 * @param fromDate 시작일시
@@ -162,7 +174,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 
 	 * <pre>
 	 * 예)
-	 * DateUtil.getCurrentDate(); // 현재 일자 생성
+	 * getCurrentDate(); // 현재 일자 생성
 	 * </pre>
 	 * 
 	 * @return 오늘일자 (yyyyMMdd형 문자열)
@@ -176,7 +188,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 
 	 * <pre>
 	 * 예)
-	 * DateUtil.getCurrentDateTime(); // 현재 년 월 일 시간 생성
+	 * getCurrentDateTime(); // 현재 년 월 일 시간 생성
 	 * </pre>
 	 * 
 	 * @return 현재일시 (yyyyMMddHHmmss형 문자열)
@@ -193,7 +205,7 @@ public abstract class DateUtil extends DateUtils {
 	 *      String dateStr = "20120419";        //지정날짜
 	 *      String patternStr = "yyyyMMdd";     //지정패턴
 	 *      <br>
-	 *      DateUtil.toDate(dateStr, patternStr);
+	 *      toDate(dateStr, patternStr);
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -217,7 +229,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 
 	 * <pre>
 	 * 예)
-	 * DateUtil.getCurrentDateTime(&quot;yyyy-MM-dd HH:mm:ss:SSS&quot;) // 패턴을 정하여 현재 일시 리턴
+	 * getCurrentDateTime(&quot;yyyy-MM-dd HH:mm:ss:SSS&quot;) // 패턴을 정하여 현재 일시 리턴
 	 * </pre>
 	 * 
 	 * @param pattern DateFormat 패턴
@@ -234,7 +246,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 예)
 	 *      String str = "20120420142030";
 	 *      <br>
-	 *      DateUtil.addSeconds(str, 10, "yyyyMMddHHmmss")  //지정된 초만큼 더한 값 리턴
+	 *      addSeconds(str, 10, "yyyyMMddHHmmss")  //지정된 초만큼 더한 값 리턴
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -243,7 +255,11 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 지정된 초만큼 더한 일시
 	 */
 	public static String addSeconds(String dateString, int amount, String pattern) throws SmartException {
-		return format(addSeconds(toDate(dateString, pattern), amount), pattern);
+		return addSeconds(toDate(dateString, pattern), amount, pattern);
+	}
+
+	public static String addSeconds(Date date, int amount, String pattern) throws SmartException {
+		return format(addSeconds(date, amount), pattern);
 	}
 
 	/**
@@ -253,7 +269,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 예)
 	 *      String str = "20120420142030";
 	 *      <br>
-	 *      DateUtil.addMinutes(str, 10, "yyyyMMddHHmmss")  //지정된 분 만큼 더한 값 리턴
+	 *      addMinutes(str, 10, "yyyyMMddHHmmss")  //지정된 분 만큼 더한 값 리턴
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -262,7 +278,11 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 지정된 분만큼 더한 일시
 	 */
 	public static String addMinutes(String dateString, int amount, String pattern) throws SmartException {
-		return format(addMinutes(DateUtil.toDate(dateString, pattern), amount), pattern);
+		return addMinutes(toDate(dateString, pattern), amount, pattern);
+	}
+
+	public static String addMinutes(Date date, int amount, String pattern) throws SmartException {
+		return format(addMinutes(date, amount), pattern);
 	}
 
 	/**
@@ -272,7 +292,7 @@ public abstract class DateUtil extends DateUtils {
 	 * 예)
 	 *      String str = "20120420142030";
 	 *      <br>
-	 *      DateUtil.addHours(str, 12, "yyyyMMddHHmmss")    //지정된 시간 만큼 더한 값 리턴
+	 *      addHours(str, 12, "yyyyMMddHHmmss")    //지정된 시간 만큼 더한 값 리턴
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -281,7 +301,11 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 지정된 시간만큼 더한 일시
 	 */
 	public static String addHours(String dateString, int amount, String pattern) throws SmartException {
-		return format(addHours(DateUtil.toDate(dateString, pattern), amount), pattern);
+		return addHours(toDate(dateString, pattern), amount, pattern);
+	}
+
+	public static String addHours(Date date, int amount, String pattern) throws SmartException {
+		return format(addHours(date, amount), pattern);
 	}
 
 	/**
@@ -290,10 +314,10 @@ public abstract class DateUtil extends DateUtils {
 	 * <pre>
 	 * 예)
 	 *      String fromdate = "20120401000000";             //비교시작일시
-	 *      String todate = DateUtil.getCurrentDateTime();  //비교종료일시
+	 *      String todate = getCurrentDateTime();  //비교종료일시
 	 *      String thedate = "20120420000000";              //비교대상 일시
 	 *      <br>
-	 *      DateUtil.isValidDateTime(thedate, fromdate, todate) //해당 값을 비교해서 Boolean값 리턴
+	 *      isValidDateTime(thedate, fromdate, todate) //해당 값을 비교해서 Boolean값 리턴
 	 * </pre>
 	 * 
 	 * @param theDateTime 기준일시 (yyyyMMddHHmmss)
@@ -312,10 +336,10 @@ public abstract class DateUtil extends DateUtils {
 	 * <pre>
 	 * 예)
 	 *      String fromdate = "20120401000000";             //비교시작일시
-	 *      String todate = DateUtil.getCurrentDateTime();  //비교종료일시
+	 *      String todate = getCurrentDateTime();  //비교종료일시
 	 *      String thedate = "20120420000000";              //비교대상 일시
 	 *      <br>
-	 *      DateUtil.isValidDateTime(thedate, fromdate, todate) //해당 값을 비교해서 Boolean값 리턴
+	 *      isValidDateTime(thedate, fromdate, todate) //해당 값을 비교해서 Boolean값 리턴
 	 * </pre>
 	 * 
 	 * @param theDateTime 기준일시 (yyyyMMddHHmmss)
@@ -334,10 +358,10 @@ public abstract class DateUtil extends DateUtils {
 	 * <pre>
 	 * 예)
 	 *      String fromdate = "20120401000000";             //시작일시
-	 *      String todate = DateUtil.getCurrentDateTime();  //종료일시
+	 *      String todate = getCurrentDateTime();  //종료일시
 	 *      String dateformat = "yyyyMMddHHmmss";           //리턴될 패턴
 	 *      <br>
-	 *      DateUtil.differenceMinutes(fromdate, todate, dateformat)    //비교된 두 시간 사이의 분을 리턴한다.
+	 *      differenceMinutes(fromdate, todate, dateformat)    //비교된 두 시간 사이의 분을 리턴한다.
 	 * </pre>
 	 * 
 	 * @param fromDate 시작일시
@@ -356,10 +380,10 @@ public abstract class DateUtil extends DateUtils {
 	 * <pre>
 	 * 예)
 	 *      String fromdate = "20120401000000";             //시작일시
-	 *      String todate = DateUtil.getCurrentDateTime();  //종료일시
+	 *      String todate = getCurrentDateTime();  //종료일시
 	 *      String dateformat = "yyyyMMddHHmmss";           //리턴될 패턴
 	 *      <br>
-	 *      DateUtil.differenceHours(fromdate, todate, dateformat)    //비교된 두 시간 사이의 시간을 리턴한다.
+	 *      differenceHours(fromdate, todate, dateformat)    //비교된 두 시간 사이의 시간을 리턴한다.
 	 * </pre>
 	 * 
 	 * @param fromDate 시작일시
@@ -381,7 +405,7 @@ public abstract class DateUtil extends DateUtils {
 	 *      String dateformat = "yyyyMMddHHmmss";   //현재일시패턴
 	 *      String dateformat2 = "yyyyMMdd";        //바뀔일시패턴
 	 *      <br>
-	 *      DateUtil.convertDateFormat(date, dateformat, dateformat2)
+	 *      convertDateFormat(date, dateformat, dateformat2)
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -408,7 +432,7 @@ public abstract class DateUtil extends DateUtils {
 	 *      String dateformat = "yyyy/MM/dd HH:mm:ss";  //현재일시패턴
 	 *      String dateformat2 = "yyyy-MM-dd";          //바뀔일시패턴
 	 *      <br>
-	 *      DateUtil.format(date, dateformat, dateformat2)
+	 *      format(date, dateformat, dateformat2)
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열
@@ -433,7 +457,7 @@ public abstract class DateUtil extends DateUtils {
 	 *      long millis = 10000;                        //지정한밀리초
 	 *      String dateformat = "yyyy/MM/dd HH:mm:ss";  //계산되어 나올 날짜의 패턴
 	 *      <br>
-	 *      DateUtil.format(millis, dateformat)
+	 *      format(millis, dateformat)
 	 * </pre>
 	 * 
 	 * @param millis millisecond 시간
@@ -455,8 +479,8 @@ public abstract class DateUtil extends DateUtils {
 	 *      String dateformat2 = "yyyy-MM-dd";
 	 *      <br>
 	 *      //date String을 Date 타입으로 변경해주어야 한다.
-	 *      DateUtil.format(DateUtil.toDate(date, "yyyyMMddHHmmss"), dateformat)
-	 *      DateUtil.format(DateUtil.toDate(date2, "yyyyMMdd"), dateformat2)
+	 *      format(toDate(date, "yyyyMMddHHmmss"), dateformat)
+	 *      format(toDate(date2, "yyyyMMdd"), dateformat2)
 	 * </pre>
 	 * 
 	 * @param date Date 객체
@@ -475,7 +499,7 @@ public abstract class DateUtil extends DateUtils {
 	 *      String formatStr = "yyyyMMdd";      //패턴
 	 *      String dateStr = "20120501";        //요일을 원하는 날짜
 	 *      <br>
-	 *      DateUtil.getDayOfWeek(dateStr, formatStr)
+	 *      getDayOfWeek(dateStr, formatStr)
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열 (yyyyMMdd)
@@ -502,7 +526,7 @@ public abstract class DateUtil extends DateUtils {
 	 *      String formatStr = "yyyyMMdd";  //패턴
 	 *      int dayOfweek = 2;              //원하는 요일
 	 *      <br>
-	 *      DateUtil.getDayOfThisWeek(dateStr, formatStr, dayOfweek)
+	 *      getDayOfThisWeek(dateStr, formatStr, dayOfweek)
 	 * </pre>
 	 * 
 	 * @param dateString 일시 문자열 (yyyyMMdd)

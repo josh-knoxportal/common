@@ -60,7 +60,7 @@ public class FTPUtil {
 		ftp.changeWorkingDirectory(targetDir);
 		ftp.setFileType(FTP.BINARY_FILE_TYPE);
 
-		System.out.print("[Upload file] " + targetDir + File.separator + sourceFile);
+		LogUtil.writeLog("[Upload file] " + targetDir + File.separator + sourceFile, getClass());
 		BufferedInputStream bis = null;
 		try {
 			bis = new BufferedInputStream(new FileInputStream(sourceDir + File.separator + sourceFile));
@@ -68,7 +68,7 @@ public class FTPUtil {
 		} finally {
 			IOUtils.closeQuietly(bis);
 		}
-		LogUtil.writeLog(" [Upload complete]", getClass());
+		LogUtil.writeLog("[Upload complete]", getClass());
 
 		if (list) {
 			FTPFile[] ftpFiles = ftp.listFiles();
@@ -81,7 +81,7 @@ public class FTPUtil {
 		ftp.changeWorkingDirectory(targetDir);
 		ftp.setFileType(FTP.BINARY_FILE_TYPE);
 
-		System.out.print("[Download file] " + targetDir + File.separator + sourceFile);
+		LogUtil.writeLog("[Download file] " + targetDir + File.separator + sourceFile, getClass());
 		BufferedOutputStream bos = null;
 		try {
 			bos = new BufferedOutputStream(new FileOutputStream(sourceDir + File.separator + sourceFile));

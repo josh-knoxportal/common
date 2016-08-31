@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Paging extends Common {
+	public static final String DEFAULT_ORDER_BY = "id DESC";
+
 	/**
 	 * 페이지 번호
 	 */
@@ -27,7 +29,7 @@ public class Paging extends Common {
 	protected int total_sise;
 
 	public Paging() {
-		order_by = "id DESC";
+		order_by = DEFAULT_ORDER_BY;
 	}
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

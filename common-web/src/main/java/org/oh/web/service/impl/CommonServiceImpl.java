@@ -15,6 +15,7 @@ import org.oh.common.annotation.TransactionalException;
 import org.oh.common.util.ReflectionUtil;
 import org.oh.web.model.Common;
 import org.oh.web.model.Default;
+import org.oh.web.page.Paging;
 import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,9 +123,10 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Override
 	public Page<T> page(T model, Page<T> page) throws Exception {
-		model.setOrder_by("id DESC");
-
 		model = setModel(model);
+
+		if (model.getOrder_by() == null)
+			model.setOrder_by(Paging.DEFAULT_ORDER_BY);
 
 		return entityManager.page(model, model.getCondition2(), model.getOrder_by(), page.getPageNumber(),
 				page.getRows());

@@ -12,6 +12,11 @@
 	<!-- Poperties -->
 	<context:property-placeholder properties-ref="prop" />
 
+	<!-- Locale -->
+	<!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"> -->
+	<!-- <property name="defaultLocale" value="en" /> -->
+	<!-- </bean> -->
+
 	<!-- DataSource -->
 	<bean id="log4jdbcProxyDataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="dataSource" />

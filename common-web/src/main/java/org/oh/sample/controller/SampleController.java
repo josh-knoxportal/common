@@ -61,7 +61,7 @@ public class SampleController extends CommonController<Sample> {
 			throws Exception {
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.KOREA));
 
-		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, errors);
+		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, common, errors);
 
 		return new ResponseEntity<Response<List<Sample>>>(responseEntity.getBody(), responseEntity.getStatusCode());
 	}

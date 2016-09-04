@@ -1,0 +1,23 @@
+{
+	"url":"http://localhost:8050/sample/insert.do",
+	"method":"POST",
+	"requestFormat":"File",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"multipart/form-data;boundary=__boundary__"
+			},
+			"params":{
+				"name":"s",
+				"test_id":3,
+				"reg_id":"1",
+				"mod_id":"1",
+				"file":[
+					"/Users/skoh/Downloads/tumb_hi04.png",
+					"/Users/skoh/Downloads/header_logo.png"
+				]
+			}
+		}
+	]
+}

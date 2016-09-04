@@ -202,7 +202,7 @@ public abstract class FileUtil extends FileUtils {
 
 		try {
 			out = new FileOutputStream(filePath);
-			HTTPUtil.copyLarge(in, out);
+			IOUtils.copyLarge(in, out);
 			out.flush();
 			result = true;
 		} catch (Exception e) {

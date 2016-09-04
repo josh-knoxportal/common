@@ -26,6 +26,7 @@ public class HTTPUtilTask implements Callable<Object> {
 	public HTTPUtilTask(String url, String method, List<NameValuePair> headers, List<NameValuePair> params,
 			String charset) {
 		this(url, method, headers, params);
+
 		this.charset = charset;
 	}
 

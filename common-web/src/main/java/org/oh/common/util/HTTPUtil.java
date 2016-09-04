@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -33,26 +35,24 @@ import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MIME;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.log4j.PropertyConfigurator;
 import org.oh.common.download.Attachment;
 import org.oh.common.download.URLDownloader;
 import org.oh.common.exception.CommonException;
 
 /**
- * 파일/디렉토리 관련 유틸리티 클래스.<br/>
- * - org.apache.commons.io.IOUtils 클래스를 상속받음.
- *
- * @see <a href=http://commons.apache.org/io/api-release/org/apache/commons/io/IOUtils.html>org.apache.commons.io.IOUtils</a>
+ * HTTP 유틸리티 클래스
  */
-public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
+public abstract class HTTPUtil {
 //	public static final BasicResponseHandler BASIC_RESPONSE_HANDLER = new BasicResponseHandler();
 
 	protected static HttpClient httpClient = null;
@@ -197,12 +197,12 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 		try {
 			bis = new BufferedInputStream(new FileInputStream(filePath));
 
-			return toByteArray(bis);
+			return IOUtils.toByteArray(bis);
 		} catch (Exception e) {
 			throw new CommonException(CommonException.ERROR,
 					LogUtil.buildMessage("Load bytes file \"" + filePath + "\" error", e.getMessage()), e);
 		} finally {
-			closeQuietly(bis);
+			IOUtils.closeQuietly(bis);
 		}
 	}
 
@@ -368,7 +368,7 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(
 					"Download url \"" + url + "\" to file \"" + filePath + "\" error", e.getMessage()), e);
 		} finally {
-			closeQuietly(bos);
+			IOUtils.closeQuietly(bos);
 		}
 	}
 
@@ -449,7 +449,7 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 //			}
 
 			response.put("header", resHttp.getAllHeaders());
-			response.put("content", toByteArray(entity.getContent()));
+			response.put("content", IOUtils.toByteArray(entity.getContent()));
 //			Charset defaultCharset = ContentType.getOrDefault(entity).getCharset();
 //			String responseString = BASIC_RESPONSE_HANDLER.handleResponse(resHttp);
 //			response.put("content", responseString.getBytes(defaultCharset));
@@ -501,31 +501,42 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 		try {
 			url = HTTPUtils.encodeURL(url, charset);
 			httpPost = new HttpPost(url);
-			if (attachs != null && attachs.size() > 0) {
-				// ver 4.0
-//				MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, null,
-//						encCharset);
-				// ver 4.3
-				MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-				builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-				builder.setCharset(encCharset);
-				if (params != null) {
-					for (NameValuePair param : params) {
+
+			// ver 4.0
+//			MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, null,
+//					encCharset);
+			// ver 4.3
+			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+			builder.setCharset(encCharset);
+
+			if (params != null) {
+				for (NameValuePair param : params) {
 //						multipartEntity.addPart(param.getName(), new StringBody(param.getValue(), encCharset));
-						builder.addPart(param.getName(), new StringBody(param.getValue(), encCharset));
+					builder.addPart(param.getName(), new StringBody(param.getValue(), encCharset));
+				}
+			}
+
+			if (headers != null) {
+				for (NameValuePair header : headers) {
+					if (MIME.CONTENT_TYPE.equals(header.getName())) {
+						List<NameValuePair> contentType = URLEncodedUtils.parse(header.getValue(), Consts.ISO_8859_1,
+								';');
+						builder.setContentType(ContentType.MULTIPART_FORM_DATA.withParameters(contentType
+								.subList(1, contentType.size()).toArray(new NameValuePair[contentType.size() - 1])));
+						break;
 					}
 				}
-				for (Attachment attachment : attachs) {
-//					multipartEntity.addPart(attachment.getFileName(),
-//							new ByteArrayBody(attachment.getBytes(), attachment.getFileName()));
-					builder.addPart(attachment.getFileName(),
-							new ByteArrayBody(attachment.getBytes(), attachment.getFileName()));
-				}
-//				httpPost.setEntity(multipartEntity);
-				httpPost.setEntity(builder.build());
-			} else if (Utils.isValidate(params)) {
-				httpPost.setEntity(new UrlEncodedFormEntity(params, encCharset));
 			}
+
+			for (Attachment attachment : attachs) {
+//				multipartEntity.addPart(attachment.getFileName(),
+//						new ByteArrayBody(attachment.getBytes(), attachment.getFileName()));
+				builder.addPart("file", new ByteArrayBody(attachment.getBytes(), attachment.getFileName()));
+			}
+
+//			httpPost.setEntity(multipartEntity);
+			httpPost.setEntity(builder.build());
 
 			if (headers != null) {
 				for (NameValuePair header : headers) {
@@ -551,7 +562,7 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 //			}
 
 			response.put("header", resHttp.getAllHeaders());
-			response.put("content", toByteArray(entity.getContent()));
+			response.put("content", IOUtils.toByteArray(entity.getContent()));
 		} catch (CommonException e) {
 			throw e;
 		} catch (HttpResponseException e) {
@@ -567,8 +578,8 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.setProperty("HOME", "C:/dev/workspace/workspace_common/HOME");
-		PropertyConfigurator.configure(System.getProperty("HOME") + "/conf/server/log4j.properties");
+//		System.setProperty("HOME", "C:/dev/workspace/workspace_common/HOME");
+//		PropertyConfigurator.configure(System.getProperty("HOME") + "/conf/server/log4j.properties");
 
 //		String url = "https://www.google.co.kr/images/srpr/logo11w.png";
 //		byte[] bytes = getBytes(url, "logo11w.png");
@@ -613,11 +624,15 @@ public abstract class HTTPUtil extends org.apache.commons.io.IOUtils {
 //				NSG326Request_Body.class);
 //		System.out.println(body);
 
-		String url = "http://localhost/openapi/login.crd?userid=bW9iaWdlbg==&userdomain=bm9uZ3NoaW0=&en_userpass_md5=e2ac6dbc3f59b7ac9b3943e50e51e21f&en_userpass_sha2=df34cbc326c92ce89d529d2df34e3db74aaa09696c710c78174ad143c3670de6";
-		Map<String, Object> result = callHttp(url);
+//		String url = "http://localhost/openapi/login.crd?userid=bW9iaWdlbg==&userdomain=bm9uZ3NoaW0=&en_userpass_md5=e2ac6dbc3f59b7ac9b3943e50e51e21f&en_userpass_sha2=df34cbc326c92ce89d529d2df34e3db74aaa09696c710c78174ad143c3670de6";
+//		Map<String, Object> result = callHttp(url);
+//
+//		System.out.println(result);
+//		System.out.println(new String((byte[]) result.get("content")));
 
-		System.out.println(result);
-		System.out.println(new String((byte[]) result.get("content")));
+		List<NameValuePair> list = URLEncodedUtils.parse("multipart/form-data;boundary=__boundary__", null, ';');
+		System.out.println(ContentType.MULTIPART_FORM_DATA
+				.withParameters(list.subList(1, list.size()).toArray(new NameValuePair[list.size() - 1])));
 	}
 
 	public static class Test01 {

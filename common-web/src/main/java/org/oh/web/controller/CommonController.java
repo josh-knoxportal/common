@@ -1,15 +1,22 @@
 package org.oh.web.controller;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
 import org.mybatisorm.annotation.Table;
+import org.oh.common.util.Utils;
 import org.oh.web.Constants;
 import org.oh.web.common.Response;
 import org.oh.web.model.Common;
@@ -27,6 +34,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public abstract class CommonController<T extends Default> implements InitializingBean {
@@ -128,15 +137,16 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "insert_json" + Constants.POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Long>> insertJson(@Valid @RequestBody T model, BindingResult errors)
-			throws Exception {
-		return insert(model, errors);
+	public ResponseEntity<Response<Long>> insertJson(@Valid @RequestBody T model, HttpServletRequest request,
+			BindingResult errors) throws Exception {
+		return insert(model, request, errors);
 	}
 
 	/**
 	 * Content-Type : application/x-www-form-urlencoded
 	 * 
 	 * @param model
+	 * @param request
 	 * @param errors
 	 * 
 	 * @return ResponseEntity
@@ -144,9 +154,19 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "insert" + Constants.POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Long>> insert(@Valid T model, BindingResult errors) throws Exception {
+	public ResponseEntity<Response<Long>> insert(@Valid T model, HttpServletRequest request, BindingResult errors)
+			throws Exception {
 		if (errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
+		}
+
+		// @RequestParam("file") MultipartFile[] files
+		List<MultipartFile> files = getFiles(request);
+		for (MultipartFile file : files) {
+			if (!Utils.isValidate(file.getOriginalFilename()))
+				continue;
+			FileUtils.writeByteArrayToFile(new File("/Users/skoh/Downloads/file/" + file.getOriginalFilename()),
+					IOUtils.toByteArray(file.getInputStream()));
 		}
 
 		long result = service.insert(model);
@@ -241,6 +261,19 @@ public abstract class CommonController<T extends Default> implements Initializin
 		Response<T> response = ValidationUtil.getResponse(errors);
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.BAD_REQUEST);
+	}
+
+	protected List<MultipartFile> getFiles(HttpServletRequest request) throws Exception {
+		List<MultipartFile> files = new ArrayList<MultipartFile>();
+		if (request instanceof MultipartHttpServletRequest) {
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			Iterator<String> fileNames = multipartRequest.getFileNames();
+			while (fileNames.hasNext()) {
+				files.addAll(multipartRequest.getFiles((String) fileNames.next()));
+			}
+		}
+
+		return files;
 	}
 
 	@Table

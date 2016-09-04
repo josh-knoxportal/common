@@ -66,32 +66,32 @@
 
 		// 		$("#select02").prop("disabled", true);
 
-// 		$("#input01").keydown(function() {
-// 			console.log("keydown");
-// 		});
+		// 		$("#input01").keydown(function() {
+		// 			console.log("keydown");
+		// 		});
 
-		$("#input01").keyup(function() {
-// 			console.log("keyup");
-	        $(this).data("old", $(this).data("new") || "");
-	        $(this).data("new", $(this).val());
-	        console.log($(this).data("old"));
-	        console.log($(this).data("new"));
-		});
+		// 		$("#input01").keyup(function() {
+		// // 			console.log("keyup");
+		// 	        $(this).data("old", $(this).data("new") || "");
+		// 	        $(this).data("new", $(this).val());
+		// 	        console.log($(this).data("old"));
+		// 	        console.log($(this).data("new"));
+		// 		});
 
-// 		$("#input01").keypress(function() {
-// 			console.log("keypress");
+		// 		$("#input01").keypress(function() {
+		// 			console.log("keypress");
 
-// 		$("#input01").change(function() {
-// 			console.log("change");
-// 	        $(this).data("old", $(this).data("new") || "");
-// 	        $(this).data("new", $(this).val());
-// 	        console.log($(this).data("old"));
-// 	        console.log($(this).data("new"));
-// 		});
+		// 		$("#input01").change(function() {
+		// 			console.log("change");
+		// 	        $(this).data("old", $(this).data("new") || "");
+		// 	        $(this).data("new", $(this).val());
+		// 	        console.log($(this).data("old"));
+		// 	        console.log($(this).data("new"));
+		// 		});
 
-// 		$("#input01").on("change", function() {
-// 			console.log("on");
-// 		});
+		// 		$("#input01").on("change", function() {
+		// 			console.log("on");
+		// 		});
 	});
 </script>
 </head>
@@ -111,6 +111,17 @@
 	<!-- 		<option value="3">c</option> -->
 	<!-- 		<option value="4">d</option> -->
 	<!-- 	</select> -->
-	<input id="input01" name="select01" title="select02" value="1" />
+	<!-- 	<input id="input01" name="select01" title="select02" value="1" /> -->
+
+	<form method="post" action="http://localhost:8050/sample/insert.do" enctype="multipart/form-data">
+		<input type="hidden" name="name" value="s">
+		<input type="hidden" name="test_id" value="3">
+		<input type="hidden" name="reg_id" value="1">
+		<input type="hidden" name="mod_id" value="1">
+		<input type="file" name="file">
+		<input type="file" name="file">
+		<input type="file" name="skoh">
+		<input type="submit">
+	</form>
 </body>
 </html>

@@ -1,18 +1,23 @@
 package org.oh.common.test;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.AfterClass;
 import org.junit.Test;
+import org.oh.common.download.Attachment;
+import org.oh.common.thread.HTTPUtilFileTask;
 import org.oh.common.thread.HTTPUtilTask;
+import org.oh.common.util.FileUtil;
 import org.oh.common.util.HTTPUtils;
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.LogUtil;
@@ -168,7 +173,20 @@ public class TestAPI {
 		}
 
 		// 서버 호출
-		return new HTTPUtilTask(url, method, headers, params);
+		if ("File".equalsIgnoreCase(requestFormat)) {
+			// 파일
+			List<Attachment> attachs = new ArrayList<Attachment>();
+			if (jsonNode.get("file") != null) {
+				for (JsonNode file : jsonNode.get("file")) {
+					attachs.add(new Attachment(FileUtil.getPath(file.textValue()), FileUtil.getName(file.textValue()),
+							IOUtils.toByteArray(new FileInputStream(file.textValue()))));
+				}
+			}
+
+			return new HTTPUtilFileTask(url, method, headers, params, attachs);
+		} else {
+			return new HTTPUtilTask(url, method, headers, params);
+		}
 	}
 
 	/**

@@ -70,7 +70,7 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");
@@ -183,7 +183,7 @@ public class ControllerTest {
 		sample.setReg_id("1");
 		sample.setMod_id("1");
 
-		ResponseEntity<Response<Long>> response = sampleController.insert(sample,
+		ResponseEntity<Response<Long>> response = sampleController.insert(sample, new MockHttpServletRequest(),
 				new BeanPropertyBindingResult(sample, "sample"));
 		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());

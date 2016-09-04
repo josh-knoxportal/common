@@ -11,7 +11,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.ContentType;
 import org.oh.adapter.exception.AdapterException;
-import org.oh.common.util.HTTPUtil;
 
 /**
  * HTTP 기본 매퍼
@@ -47,7 +46,7 @@ public class HttpResponseMapper extends AbstractHttpMapper<DefaultHttpResponse> 
 
 			DefaultHttpResponse resHttp = new DefaultHttpResponse();
 			resHttp.setLocale(response.getLocale());
-			resHttp.setContent(HTTPUtil.toByteArray(contentStream));
+			resHttp.setContent(IOUtils.toByteArray(contentStream));
 
 			ContentType contentType = ContentType.getOrDefault(resEntity);
 			resHttp.setMimeType(contentType.getMimeType());

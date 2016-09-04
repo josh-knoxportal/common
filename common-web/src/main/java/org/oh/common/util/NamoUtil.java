@@ -210,7 +210,7 @@ public abstract class NamoUtil {
 
 			in = part.getInputStream();
 			out = new FileOutputStream(filePath);
-			HTTPUtil.copyLarge(in, out);
+			IOUtils.copyLarge(in, out);
 		} catch (Exception e) {
 			throw e;
 		} finally {

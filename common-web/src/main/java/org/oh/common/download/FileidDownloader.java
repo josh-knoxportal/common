@@ -56,7 +56,7 @@ public class FileidDownloader extends AbstractDownloader implements Downloader {
 		try {
 			// 스토래지에서 파일을 다운로드할 경우
 			byte[] bytes = storageAccessor.load(fileId);
-			log.debug("file_info : " + storageAccessor.getFileInfo(fileId));
+//			log.debug("file_info : " + storageAccessor.getFileInfo(fileId));
 			in = new ByteArrayInputStream(bytes);
 
 			send(response, fileName, fileType, in, bytes.length, fileStartPos);

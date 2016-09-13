@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.oh.common.util.CollectionUtil;
-import org.oh.common.util.LogUtil;
 import org.oh.common.util.MapUtil;
 import org.oh.sample.model.Sample;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,7 @@ public class RedisTest {
 	public ListOperations<String, Sample> sampleListOps;
 
 	public void flushDb() throws Exception {
-		LogUtil.writeLog("flushDb");
+		System.out.println("flushDb");
 		redisTemplate.execute(new RedisCallback<Object>() {
 			public Object doInRedis(RedisConnection connection) throws DataAccessException {
 				connection.flushDb();
@@ -70,7 +69,7 @@ public class RedisTest {
 
 	@Test
 	public void test00Init() throws Exception {
-		LogUtil.writeLog("========== Init ================================================================");
+		System.out.println("========== Init ================================================================");
 
 //		valueOps = redisTemplate.opsForValue();
 //		listOps = redisTemplate.opsForList();
@@ -84,23 +83,23 @@ public class RedisTest {
 
 	@Test
 	public void test10Value() throws Exception {
-		LogUtil.writeLog("========== Value ===============================================================");
+		System.out.println("========== Value ===============================================================");
 
 		valueOps.set("value", "1");
 
 		Object value = valueOps.get("value");
-		LogUtil.writeLog("get: " + value);
+		System.out.println("get: " + value);
 
 		value = valueOps.getAndSet("value", 2);
-		LogUtil.writeLog("getAndSet: " + value);
+		System.out.println("getAndSet: " + value);
 
 		long size = valueOps.size("value");
-		LogUtil.writeLog("size: " + size);
+		System.out.println("size: " + size);
 	}
 
 //	@Test
 	public void test11Sample() throws Exception {
-		LogUtil.writeLog("========== Sample =============================================================");
+		System.out.println("========== Sample =============================================================");
 
 		Sample model = new Sample();
 		model.setId(1L);
@@ -109,76 +108,76 @@ public class RedisTest {
 		sampleOps.set("model", model);
 
 		long size = sampleOps.size("model");
-		LogUtil.writeLog("size: " + size);
+		System.out.println("size: " + size);
 
 		// 주의) 가져온 객체의 결과값은 Map 이다.
 		Map<String, Object> map = (Map) sampleOps.get("model");
 		model = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("get: " + model);
+		System.out.println("get: " + model);
 
 		map = (Map) sampleOps.getAndSet("model", model);
 		model = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("getAndSet: " + model);
+		System.out.println("getAndSet: " + model);
 	}
 
 //	@Test
 	public void test20Map() throws Exception {
-		LogUtil.writeLog("========== Map =================================================================");
+		System.out.println("========== Map =================================================================");
 
 		hashOps.putAll("map", MapUtil.convertArrayToMap(new Object[] { "1", "11" }, new Object[] { "2", "22" }));
 		hashOps.putAll("map", MapUtil.convertArrayToMap(new Object[] { "3", 33 }));
 
 		long size = hashOps.size("map");
-		LogUtil.writeLog("size: " + size);
+		System.out.println("size: " + size);
 
 		Map<String, Object> map = hashOps.entries("map");
-		LogUtil.writeLog("entries: " + map);
+		System.out.println("entries: " + map);
 
 		Set<String> set = hashOps.keys("map");
-		LogUtil.writeLog("keys: " + set);
+		System.out.println("keys: " + set);
 
 		List<Object> list = hashOps.values("map");
-		LogUtil.writeLog("values: " + list);
+		System.out.println("values: " + list);
 
 		hashOps.delete("map", "1", "2");
 
 		map = hashOps.entries("map");
-		LogUtil.writeLog("entries" + map);
+		System.out.println("entries" + map);
 	}
 
 //	@Test
 	public void test30List() throws Exception {
-		LogUtil.writeLog("========== List ================================================================");
+		System.out.println("========== List ================================================================");
 
 		listOps.leftPushAll("list", (Collection) Arrays.asList("1", "2"));
 		listOps.leftPushAll("list", (Collection) Arrays.asList("2"));
 		listOps.leftPushAll("list", (Collection) Arrays.asList(3));
 
 		long size = listOps.size("list");
-		LogUtil.writeLog("size: " + size);
+		System.out.println("size: " + size);
 
 		List<Object> list = listOps.range("list", 0, size - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 
 		Object value = listOps.rightPop("list");
-		LogUtil.writeLog("rightPop: " + value);
+		System.out.println("rightPop: " + value);
 
 		list = listOps.range("list", 0, listOps.size("list") - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 
 		value = listOps.index("list", 1);
-		LogUtil.writeLog("index: " + value);
+		System.out.println("index: " + value);
 
 		size = listOps.remove("list", 0, value);
-		LogUtil.writeLog("remove: " + size);
+		System.out.println("remove: " + size);
 
 		list = listOps.range("list", 0, listOps.size("list") - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 	}
 
 //	@Test
 	public void test31MapList() throws Exception {
-		LogUtil.writeLog("========== MapList =============================================================");
+		System.out.println("========== MapList =============================================================");
 
 		mapListOps.leftPushAll("mapList",
 				(Collection) Arrays.asList(MapUtil.convertArrayToMap(new Object[] { "1", "11" }),
@@ -189,30 +188,30 @@ public class RedisTest {
 				.asList(MapUtil.convertArrayToMap(new Object[] { "2", "22" }, new Object[] { "3", 33 })));
 
 		long size = mapListOps.size("mapList");
-		LogUtil.writeLog("size: " + size);
+		System.out.println("size: " + size);
 
 		List<Map<String, Object>> list = mapListOps.range("mapList", 0, size - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 
 		Map<String, Object> map = mapListOps.rightPop("mapList");
-		LogUtil.writeLog("rightPop: " + map);
+		System.out.println("rightPop: " + map);
 
 		list = mapListOps.range("mapList", 0, mapListOps.size("mapList") - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 
 		map = mapListOps.index("mapList", 1);
-		LogUtil.writeLog("index: " + map);
+		System.out.println("index: " + map);
 
 		size = mapListOps.remove("mapList", 0, map);
-		LogUtil.writeLog("remove: " + size);
+		System.out.println("remove: " + size);
 
 		list = mapListOps.range("mapList", 0, mapListOps.size("mapList") - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 	}
 
 //	@Test
 	public void test32SampleList() throws Exception {
-		LogUtil.writeLog("========== SampleList =========================================================");
+		System.out.println("========== SampleList =========================================================");
 
 		Sample model = new Sample();
 		model.setId(1L);
@@ -233,36 +232,36 @@ public class RedisTest {
 		sampleListOps.leftPushAll("sampleList", Arrays.asList(sample3));
 
 		long size = sampleListOps.size("sampleList");
-		LogUtil.writeLog("size: " + size);
+		System.out.println("size: " + size);
 
 		List<Sample> list = (List) sampleListOps.range("sampleList", 0, size - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 
 		Map<String, Object> map = (Map) sampleListOps.rightPop("sampleList");
 		model = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("rightPop: " + map);
+		System.out.println("rightPop: " + map);
 
 		list = (List) sampleListOps.range("sampleList", 0, sampleListOps.size("sampleList") - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 
 		// 주의) 가져온 객체의 결과값은 Map 이다.
 		map = (Map) sampleListOps.index("sampleList", 1);
 		model = CollectionUtil.mapToObject(map, Sample.class);
-		LogUtil.writeLog("index: " + map);
+		System.out.println("index: " + map);
 
 		size = sampleListOps.remove("sampleList", 0, model);
-		LogUtil.writeLog("remove: " + size);
+		System.out.println("remove: " + size);
 
 		list = (List) sampleListOps.range("sampleList", 0, sampleListOps.size("sampleList") - 1);
-		LogUtil.writeLog("range: " + list);
+		System.out.println("range: " + list);
 	}
 
 //	@Test
 	public void test90Template() throws Exception {
-		LogUtil.writeLog("========== Template ============================================================");
+		System.out.println("========== Template ============================================================");
 
 		Set<String> set = redisTemplate.keys("*");
-		LogUtil.writeLog("keys: " + set);
+		System.out.println("keys: " + set);
 	}
 
 }

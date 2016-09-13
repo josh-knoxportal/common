@@ -12,8 +12,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
 import org.oh.WebApplication;
+import org.oh.common.storage.LocalFileStorageAccessor;
+import org.oh.common.storage.StorageAccessor;
 import org.oh.common.util.JsonUtil2;
-import org.oh.common.util.LogUtil;
 import org.oh.sample.controller.SampleAndTest2Controller;
 import org.oh.sample.controller.SampleAndTestController;
 import org.oh.sample.controller.SampleController;
@@ -28,18 +29,22 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BeanPropertyBindingResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration("classpath:config-spring.xml")
+@ContextConfiguration("classpath:config-spring.xml")
 @SpringApplicationConfiguration(classes = WebApplication.class)
 @WebAppConfiguration
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ControllerTest {
 	private static Log log = LogFactory.getLog(ControllerTest.class);
+
+	@Autowired
+	protected StorageAccessor storageAccessor;
 
 	/**
 	 * 공통 서비스
@@ -66,7 +71,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Sample>> response = sampleController.get(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -81,7 +86,7 @@ public class ControllerTest {
 				new BeanPropertyBindingResult(sample, "sample"));
 //		ResponseEntity<Response<List<Sample>>> response = sampleController.list3(sample,
 //				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest(), new MockHttpSession());
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -93,7 +98,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Integer>> response = sampleController.count(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -108,7 +113,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<PageNavigator<Sample>>> response = sampleController.page(sample, page,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -131,7 +136,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<List<SampleAndTest>>> response = sampleAndTestController.list(sat,
 				new BeanPropertyBindingResult(sat, "sat"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -152,7 +157,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<PageNavigator<SampleAndTest>>> response = sampleAndTestController.page(sat, page,
 				new BeanPropertyBindingResult(sat, "sat"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -171,7 +176,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<List<SampleAndTest2>>> response = sampleAndTest2Controller.list(sat,
 				new BeanPropertyBindingResult(sat, "sat"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -185,7 +190,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Long>> response = sampleController.insert(sample, new MockHttpServletRequest(),
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -199,7 +204,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Integer>> response = sampleController.update(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -212,7 +217,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Integer>> response = sampleController.delete(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -226,7 +231,7 @@ public class ControllerTest {
 		model.setOrder_by("id DESC");
 
 		ResponseEntity<Response<List<Map<String, Object>>>> response = sampleController.select(model);
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -242,7 +247,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Sample>> response = sampleController.get2(sample, null,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -255,7 +260,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<List<Sample>>> response = sampleController.list2(sample, null,
 				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest(), new MockHttpSession());
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -267,7 +272,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Integer>> response = sampleController.count2(sample, null,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -281,7 +286,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<PageNavigator<Sample>>> response = sampleController.page(sample, (Common) null,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -295,7 +300,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Long>> response = sampleController.insert2(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -309,7 +314,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Integer>> response = sampleController.update2(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -322,7 +327,7 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Integer>> response = sampleController.delete2(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
@@ -337,7 +342,25 @@ public class ControllerTest {
 
 		ResponseEntity<Response<Integer>> response = sampleController.merge(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
-		LogUtil.writeLog("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+	}
+
+	@Test
+	public void t90() throws Exception {
+		log.info("================================================================================");
+	}
+
+	@Test
+	public void t91() throws Exception {
+		for (int i = 0; i < 1; i++) {
+			String UID = LocalFileStorageAccessor.generateUID();
+
+			storageAccessor.save(UID, "테스트.txt", "테스트".getBytes());
+//			System.out.println("fileInfo: " + storageAccessor.getFileInfo(UID));
+
+			byte[] file = storageAccessor.load(UID);
+			System.out.println(new String(file, "UTF-8"));
+		}
 	}
 }

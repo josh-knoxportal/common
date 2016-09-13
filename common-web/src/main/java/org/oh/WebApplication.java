@@ -1,5 +1,6 @@
 package org.oh;
 
+import org.oh.web.util.WebApplicationContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,8 +18,15 @@ public class WebApplication {
 	@Autowired
 	protected static ApplicationContext applicationContext;
 
-	public static void main(String[] args) {
+	public WebApplication() {
+	}
+
+	public WebApplication(String[] args) {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(WebApplication.class, args);
-//		WebApplicationContextUtil.printBeans(applicationContext, true);
+		WebApplicationContextUtil.printBeans(applicationContext, true);
+	}
+
+	public static void main(String[] args) {
+		new WebApplication(args);
 	}
 }

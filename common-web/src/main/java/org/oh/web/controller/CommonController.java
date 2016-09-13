@@ -162,14 +162,8 @@ public abstract class CommonController<T extends Default> implements Initializin
 
 		// @RequestParam("file") MultipartFile[] files
 		List<MultipartFile> files = getFiles(request);
-		for (MultipartFile file : files) {
-			if (!Utils.isValidate(file.getOriginalFilename()))
-				continue;
-			FileUtils.writeByteArrayToFile(new File("/Users/skoh/Downloads/file/" + file.getOriginalFilename()),
-					IOUtils.toByteArray(file.getInputStream()));
-		}
 
-		long result = service.insert(model);
+		long result = service.insert(model, files);
 		Response<Long> response = Response.getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Long>>(response, HttpStatus.OK);

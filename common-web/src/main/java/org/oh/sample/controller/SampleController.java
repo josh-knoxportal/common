@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-// produces 는 "Accept":"application/json" 생략하기 위해 기술
+// produces 는 "Accept":"application/json" 생략하기 위해 기술 (생략시 application/xml)
 @Controller
 @RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController extends CommonController<Sample> {

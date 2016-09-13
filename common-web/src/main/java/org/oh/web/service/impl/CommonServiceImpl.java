@@ -1,10 +1,12 @@
 package org.oh.web.service.impl;
 
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Condition;
@@ -12,7 +14,9 @@ import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
 import org.oh.common.annotation.TransactionalException;
+import org.oh.common.storage.StorageAccessor;
 import org.oh.common.util.ReflectionUtil;
+import org.oh.common.util.Utils;
 import org.oh.web.model.Common;
 import org.oh.web.model.Default;
 import org.oh.web.page.Paging;
@@ -22,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author skoh
@@ -47,6 +52,9 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Autowired
 	protected EntityManager entityManager;
+
+	@Autowired
+	protected StorageAccessor storageAccessor;
 
 	@Override
 	public String getCacheName() {
@@ -135,7 +143,16 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	@Override
 	@TransactionalException
 //	@CacheEvictCommon
-	public long insert(T model) throws Exception {
+	public long insert(T model, List<MultipartFile> files) throws Exception {
+		for (MultipartFile file : files) {
+			if (!Utils.isValidate(file.getOriginalFilename()))
+				continue;
+
+//			FileUtils.writeByteArrayToFile(new File("/Users/skoh/Downloads/file/" + file.getOriginalFilename()),
+//					file.getBytes());
+			storageAccessor.save(file.getOriginalFilename(), file.getBytes());
+		}
+
 		model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
 		long result = entityManager.insert(model);

@@ -1,68 +1,56 @@
 package org.oh.common.util;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
-import org.oh.common.Constants;
 
 /**
  * 프로퍼티 유틸
  */
 public class PropertyUtils {
-	public static final String CONFIG_FILEPATH = Constants.HOME_DIR + File.separator + Constants.CONF_DIR_NAME
-			+ File.separator + "common.properties";
+//	public static final String CONFIG_FILEPATH = Constants.HOME_DIR + File.separator + Constants.CONF_DIR_NAME
+//			+ File.separator + "common.properties";
+	public static final String CONFIG_FILEPATH = PropertyUtils.class.getClassLoader().getResource("common.properties")
+			.getPath();
 
 	protected static PropertyUtils propertyUtils = null;
 
 	protected Configuration configuration = null;
 
 	public static PropertyUtils getInstance() {
-		if (propertyUtils == null)
-			propertyUtils = new PropertyUtils();
+		if (propertyUtils == null) {
+			try {
+				propertyUtils = new PropertyUtils();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		return propertyUtils;
 	}
 
-	protected static InputStream getInputStream() {
-		String fileName = FileUtil.getName(CONFIG_FILEPATH);
-		InputStream is = PropertyUtils.class.getClassLoader().getResourceAsStream(fileName);
-
-		if (is == null) {
-			LogUtil.writeLog("Not exists the \"classpath: " + fileName + "\" file.", PropertyUtils.class);
-			return null;
-		} else {
-			return is;
-		}
+	protected PropertyUtils() throws Exception {
+		this(CONFIG_FILEPATH);
 	}
 
-	public PropertyUtils() {
-//		this(CONFIG_FILEPATH);
-		this(getInputStream());
-	}
-
-	public PropertyUtils(String filePath) throws FileNotFoundException {
+	public PropertyUtils(String filePath) throws Exception {
 		this(new FileInputStream(filePath));
 	}
 
-	public PropertyUtils(InputStream is) {
+	public PropertyUtils(InputStream is) throws Exception {
 		if (is == null) {
 			return;
 		}
 
 		PropertiesConfiguration pc = new PropertiesConfiguration();
-		try {
-			pc.setEncoding("UTF-8");
-			pc.load(is);
-			pc.setReloadingStrategy(new FileChangedReloadingStrategy());
-			configuration = pc;
-		} catch (Exception e) {
-			LogUtil.writeLog(e, PropertyUtils.class);
-		}
+		pc.setEncoding("UTF-8");
+		pc.setReloadingStrategy(new FileChangedReloadingStrategy());
+		pc.load(is);
+
+		configuration = pc;
 	}
 
 	public Configuration getConfiguration() {

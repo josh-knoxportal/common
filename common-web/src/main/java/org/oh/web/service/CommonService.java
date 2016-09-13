@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatisorm.Condition;
 import org.mybatisorm.Page;
 import org.oh.web.model.Default;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 공통 서비스
@@ -87,17 +88,18 @@ public interface CommonService<T extends Default> {
 	 * 공통 등록
 	 * 
 	 * @param model 모델
+	 * @param files 파일 리스트
 	 * 
 	 * @return 결과
 	 * 
 	 * @throws Exception
 	 */
-	public long insert(T model) throws Exception;
+	public long insert(T model, List<MultipartFile> files) throws Exception;
 
 	/**
 	 * 공통 리스트 등록
 	 * 
-	 * @param model 모델 배열
+	 * @param models 모델 리스트
 	 * 
 	 * @return 결과
 	 * 

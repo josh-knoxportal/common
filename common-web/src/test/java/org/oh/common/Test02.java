@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -137,10 +134,23 @@ public class Test02 {
 //			System.out.println(i);
 //		}
 
-		ExpressionParser parser = new SpelExpressionParser();
-		Expression exp = parser.parseExpression(
-				"T(org.oh.common.util.PropertyUtils).getInstance().getString('web.requestmapping.postfix', '')");
-		System.out.println(exp.getValue());
+//		ExpressionParser parser = new SpelExpressionParser();
+//		Expression exp = parser.parseExpression(
+//				"T(org.oh.common.util.PropertyUtils).getInstance().getString('web.requestmapping.postfix', '')");
+//		System.out.println(exp.getValue());
+
+//		System.out.println(getClass().getResource("").getPath());
+//		System.out.println(getClass().getClassLoader().getResource("common.properties").getPath());
+//		LocalFileStorageAccessor storageAccessor = new LocalFileStorageAccessor();
+//		for (int i = 0; i < 1; i++) {
+//			String UID = LocalFileStorageAccessor.generateUID();
+//
+//			storageAccessor.save(UID, "테스트.txt", "테스트".getBytes());
+////			System.out.println("fileInfo: " + storageAccessor.getFileInfo(UID));
+//
+//			byte[] file = storageAccessor.load(UID);
+//			System.out.println(new String(file, "UTF-8"));
+//		}
 	}
 
 	class Test01 {

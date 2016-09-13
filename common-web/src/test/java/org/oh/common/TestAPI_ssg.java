@@ -11,7 +11,6 @@ import org.junit.runners.MethodSorters;
 import org.oh.common.test.TestAPI;
 import org.oh.common.util.HTTPUtils;
 import org.oh.common.util.JsonUtil2;
-import org.oh.common.util.LogUtil;
 import org.oh.common.util.Utils;
 import org.oh.web.common.Response;
 
@@ -52,7 +51,7 @@ public class TestAPI_ssg extends TestAPI {
 						content = JsonUtil2.toStringPretty(content);
 					}
 				}
-				LogUtil.writeLog("content: " + content);
+				System.out.println("content: " + content);
 			}
 		}
 	}
@@ -85,6 +84,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
@@ -134,7 +134,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/searchall_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/searchall_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/reset_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/zms/upload_image_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/upload_image_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_get3.json"));

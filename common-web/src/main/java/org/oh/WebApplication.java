@@ -23,7 +23,7 @@ public class WebApplication {
 
 	public WebApplication(String[] args) {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(WebApplication.class, args);
-		WebApplicationContextUtil.printBeans(applicationContext, true);
+//		WebApplicationContextUtil.printBeans(applicationContext, true);
 	}
 
 	public static void main(String[] args) {

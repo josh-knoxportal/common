@@ -1,6 +1,5 @@
 package org.oh.web.controller;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -10,13 +9,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
 import org.mybatisorm.annotation.Table;
-import org.oh.common.util.Utils;
 import org.oh.web.Constants;
 import org.oh.web.common.Response;
 import org.oh.web.model.Common;
@@ -259,6 +255,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 
 	protected List<MultipartFile> getFiles(HttpServletRequest request) throws Exception {
 		List<MultipartFile> files = new ArrayList<MultipartFile>();
+
 		if (request instanceof MultipartHttpServletRequest) {
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			Iterator<String> fileNames = multipartRequest.getFileNames();

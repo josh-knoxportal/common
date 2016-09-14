@@ -113,7 +113,7 @@
 	<!-- 	</select> -->
 	<!-- 	<input id="input01" name="select01" title="select02" value="1" /> -->
 
-	<form method="post" action="http://localhost:8050/sample/insert.do" enctype="multipart/form-data">
+	<form method="post" action="http://localhost:8050/sample/insert_json.do" enctype="multipart/form-data">
 		<input type="hidden" name="name" value="s">
 		<input type="hidden" name="test_id" value="3">
 		<input type="hidden" name="reg_id" value="1">

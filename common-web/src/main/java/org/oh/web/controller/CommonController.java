@@ -133,9 +133,9 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "insert_json" + Constants.POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Long>> insertJson(@Valid @RequestBody T model, HttpServletRequest request,
-			BindingResult errors) throws Exception {
-		return insert(model, request, errors);
+	public ResponseEntity<Response<Long>> insertJson(@Valid @RequestBody T model, BindingResult errors)
+			throws Exception {
+		return insert(model, null, errors);
 	}
 
 	/**

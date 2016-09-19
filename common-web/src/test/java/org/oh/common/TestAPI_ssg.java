@@ -58,17 +58,21 @@ public class TestAPI_ssg extends TestAPI {
 
 	@BeforeClass
 	public static void initClass() throws Exception {
+		// AAMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/aams/group_user_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/aams/group_user_list_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/aams/token_post.json"));
 
+		// Admin
 //		arrayNode.add(readFile("src/test/resources/json/ssg/admin/gateway_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/admin/gateway.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/admin/login_post.json"));
 
+		// BMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/bms/beacon_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/bms/beacon_get.json"));
 
+		// CBMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/branch_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get2.json"));
@@ -77,19 +81,24 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/reset_get.json"));
 
+		// CPGN
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cpgn/event_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cpgn/event_post.json"));
 
+		// DEVMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_post.json"));
 
+		// LMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get.json"));
 
+		// MMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_datas_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_reset.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/path_find_by_coords_get.json"));
@@ -100,6 +109,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get2.json"));
 
+		// ZCMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get3.json"));
@@ -111,6 +121,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_from_geo_get.json"));
 
+		// ZMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_team_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_team_get2.json"));

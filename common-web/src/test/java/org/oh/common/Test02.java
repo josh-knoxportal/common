@@ -104,7 +104,7 @@ public class Test02 {
 //		System.out.println(list2);
 
 //		System.out.println(5 % 2);
-//		System.out.println((int) Math.ceil(4 * 0.1));
+//		System.out.println((int) Math.ceil(10 * 1.0));
 //		List<Integer> selectRouteLogList = new ArrayList<Integer>();
 //		for (int i = 0; i < 4; i++) {
 //			selectRouteLogList.add(i);
@@ -151,6 +151,9 @@ public class Test02 {
 //			byte[] file = storageAccessor.load(UID);
 //			System.out.println(new String(file, "UTF-8"));
 //		}
+
+		System.out.println("A20160920".compareTo("A20160919") > 0);
+		System.out.println("A20160920".compareTo("A20160920") > 0);
 	}
 
 	class Test01 {

@@ -1,0 +1,16 @@
+{
+	"url":"http://localhost:8050/sample/select.do?fields=ALTER&table=TABLE sample ADD (upd_date DATE, validity NUMBER(9) DEFAULT 1, server_ip VARCHAR2(50))",
+	"method":"GET",
+	"responseFormat":"JSON",
+	"convertDate":true,
+	"list":[
+		{
+			"headers":{
+				
+			},
+			"params":{
+				
+			}
+		}
+	]
+}

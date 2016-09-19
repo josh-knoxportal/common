@@ -121,7 +121,12 @@ public abstract class CommonController<T extends Default> implements Initializin
 	}
 
 	@RequestMapping(value = "select" + Constants.POSTFIX, method = { RequestMethod.GET })
-	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model) throws Exception {
+	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
+			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
 				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), "select_");
 		Response<List<Map<String, Object>>> response = Response.getSuccessResponse(list);

@@ -223,14 +223,15 @@ public class ControllerTest {
 
 //	@Test
 	public void t11_select() throws Exception {
-		Common model = new Common();
-		model.setHint("DISTINCT");
-		model.setFields("*");
-		model.setTable("sample");
-		model.setCondition("name LIKE 's%'");
-		model.setOrder_by("id DESC");
+		Common common = new Common();
+		common.setHint("DISTINCT");
+		common.setFields("*");
+		common.setTable("sample");
+		common.setCondition("name LIKE 's%'");
+		common.setOrder_by("id DESC");
 
-		ResponseEntity<Response<List<Map<String, Object>>>> response = sampleController.select(model);
+		ResponseEntity<Response<List<Map<String, Object>>>> response = sampleController.select(common,
+				new BeanPropertyBindingResult(common, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}

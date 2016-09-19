@@ -18,6 +18,7 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.mybatisorm.Query;
 import org.mybatisorm.annotation.SqlCommand;
 import org.mybatisorm.sql.builder.DynamicSqlBuilder;
+import org.oh.common.util.StringUtil;
 
 @SqlCommand(value = SqlCommandType.SELECT)
 public abstract class AbstractSelectSqlSource extends DynamicSqlBuilder {
@@ -67,6 +68,11 @@ public abstract class AbstractSelectSqlSource extends DynamicSqlBuilder {
 		int index = staticSql.indexOf("FROM");
 		if (query.getTable() != null && index >= 0) {
 			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 4) + " " + query.getTable();
+
+			if (query.getTable().startsWith("TABLE ")) {
+				staticSql = StringUtil.replace(staticSql, "SELECT", "");
+				staticSql = StringUtil.replace(staticSql, "FROM", "");
+			}
 		}
 	}
 }

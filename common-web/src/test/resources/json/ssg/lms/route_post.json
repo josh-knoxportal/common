@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/lms/route.do",
+	"url":"http://localhost:8080/v1/lms/route.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -22,7 +22,7 @@
 						"floor_id":4,
 						"coord_y":0.0,
 						"coord_x":0.0,
-						"str_log_time":"2016-08-24 14:25:30"
+						"str_log_time":"2016-09-19 14:25:30"
 					},
 					{
 						"device_id":"123456",
@@ -34,7 +34,7 @@
 						"floor_id":4,
 						"coord_y":0.0,
 						"coord_x":0.0,
-						"str_log_time":"2016-08-24 14:25:30"
+						"str_log_time":"2016-09-19 14:25:30"
 					}
 				]
 			}

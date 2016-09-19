@@ -29,15 +29,11 @@ import org.springframework.stereotype.Component;
 public class LocalFileStorageAccessor implements StorageAccessor {
 	protected static Log log = LogFactory.getLog(LocalFileStorageAccessor.class);
 
-//	private static final String CONFIG_FILEPATH = Constants.HOME_DIR + File.separator + Constants.CONF_DIR_NAME
+//	protected static String CONFIG_FILEPATH = Constants.HOME_DIR + File.separator + Constants.CONF_DIR_NAME
 //			+ File.separator + "storage.properties";
-//	private static final String TEMP_DIR = Constants.HOME_DIR + File.separator + "temp";
-//	public static final String CONFIG_FILEPATH = LocalFileStorageAccessor.class.getClassLoader()
-//			.getResource("common.properties").getPath();
-
-	private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-	private static final Random RANDOM = new Random();
-
+//	protected static String TEMP_DIR = Constants.HOME_DIR + File.separator + "temp";
+	protected static SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+	protected static Random RANDOM = new Random();
 	protected static StorageAccessor storageAccessor = null;
 
 	// File Storage (HashMap <UID,FileName>)
@@ -63,15 +59,14 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 //				chars[random.nextInt(len)], chars[random.nextInt(len)], chars[random.nextInt(len)], c);
 
 		StringBuilder sb = new StringBuilder();
-
 		sb.append(SDF.format(new Date()));
 
 		String chars[] = "1,2,3,4,5,6,7,8,9,0,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".split(",");
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 5; i++) {
 			sb.append(chars[RANDOM.nextInt(chars.length)]);
 		}
 
-		// 20151228171448753(17) + Q0F(3)
+		// 20151228171448753(17) + Q0FAB(5) = 22
 		return sb.toString();
 	}
 
@@ -83,7 +78,6 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	public static StorageAccessor getInstance() {
 		if (storageAccessor == null) {
 			log.info("Create Local File Storage Accessor");
-
 			storageAccessor = new LocalFileStorageAccessor(getStorageFilePath());
 		}
 
@@ -95,7 +89,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	 * 
 	 * @return
 	 */
-	public static String getStorageFilePath() {
+	protected static String getStorageFilePath() {
 		String storageFilePath = null;
 
 //		log.info("Configuration File : " + CONFIG_FILEPATH);
@@ -107,10 +101,10 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 //
 //			storageFilePath = prop.getProperty("storage.file.path").toString();
 //		} catch (Exception e) {
-//			LogUtil.writeLog(e, LocalFileStorageAccessor.class);
+//			storageFilePath = TEMP_DIR;
+//			log.warn("Failed to read " + CONFIG_FILEPATH + "! Default value : " + storageFilePath);
 //		}
 		storageFilePath = PropertyUtils.getInstance().getString("storage.file.path", "storage");
-		log.info("storage.file.path : " + storageFilePath);
 
 		return storageFilePath;
 	}

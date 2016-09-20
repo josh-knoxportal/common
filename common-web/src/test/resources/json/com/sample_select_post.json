@@ -1,0 +1,17 @@
+{
+	"url":"http://localhost:8050/sample/select.do",
+	"method":"POST",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				
+			},
+			"params":{
+				"fields":"*",
+				"table":"sample",
+				"condition":"id in (1)"
+			}
+		}
+	]
+}

@@ -113,15 +113,24 @@
 	<!-- 	</select> -->
 	<!-- 	<input id="input01" name="select01" title="select02" value="1" /> -->
 
-	<form method="post" action="http://localhost:8050/sample/insert_json.do" enctype="multipart/form-data">
-		<input type="hidden" name="name" value="s">
-		<input type="hidden" name="test_id" value="3">
-		<input type="hidden" name="reg_id" value="1">
-		<input type="hidden" name="mod_id" value="1">
-		<input type="file" name="file">
-		<input type="file" name="file">
-		<input type="file" name="skoh">
+	/sample/select.do
+	<form method="post" action="http://localhost:8050/sample/select.do">
+		fields : <input name="fields" value="*"><br>
+		table : <input name="table" value="sample"><br>
+		condition : <input name="condition" value="id IN (1)"><br>
 		<input type="submit">
-	</form>
+	</form><br>
+
+	/sample/insert_json.do
+	<form method="post" action="http://localhost:8050/sample/insert_json.do" enctype="multipart/form-data">
+		name : <input name="name" value="s"><br>
+		test_id : <input name="test_id" value="3"><br>
+		reg_id : <input name="reg_id" value="1"><br>
+		mod_id : <input name="mod_id" value="1"><br>
+		file1 : <input type="file" name="file"><br>
+		file2 : <input type="file" name="file"><br>
+		file3 : <input type="file" name="skoh"><br>
+		<input type="submit">
+	</form><br>
 </body>
 </html>

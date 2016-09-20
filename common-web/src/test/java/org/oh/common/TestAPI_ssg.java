@@ -16,7 +16,7 @@ import org.oh.web.common.Response;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAPI_ssg extends TestAPI {
-	public static final String[] DATE_FIELDS = { "REG_DATE", "UPD_DATE", "START_DATE", "END_DATE" };
+	public static final String[] DATE_FIELDS = { "REG_DATE", "UPD_DATE", "START_DATE", "END_DATE", "LOG_TIME" };
 
 	@Override
 	protected void print(List<Future<Object>> futureList) throws Exception {
@@ -92,11 +92,13 @@ public class TestAPI_ssg extends TestAPI {
 		// LMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post.json"));
 
 		// MMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_datas_put.json"));

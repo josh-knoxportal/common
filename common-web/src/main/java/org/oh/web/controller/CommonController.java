@@ -120,7 +120,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "select" + Constants.POSTFIX, method = { RequestMethod.GET })
+	@RequestMapping(value = "select" + Constants.POSTFIX, method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
 			throws Exception {
 		if (errors.hasFieldErrors()) {

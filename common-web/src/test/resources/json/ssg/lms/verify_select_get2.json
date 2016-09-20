@@ -1,5 +1,5 @@
 {
-	"url":"http://202.3.20.124/v1/zms/category/select.do?fields=*&table=zone&condition=id in (16347)&order_by=id desc",
+	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do?fields=COUNT(1)&table=route_log_20160920&condition=validity IN (9)",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"convertDate":true,

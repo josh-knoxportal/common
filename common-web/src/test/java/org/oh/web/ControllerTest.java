@@ -188,8 +188,8 @@ public class ControllerTest {
 		sample.setReg_id("1");
 		sample.setMod_id("1");
 
-		ResponseEntity<Response<Long>> response = sampleController.insert(sample, new MockHttpServletRequest(),
-				new BeanPropertyBindingResult(sample, "sample"));
+		ResponseEntity<Response<Long>> response = sampleController.insert(sample,
+				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}

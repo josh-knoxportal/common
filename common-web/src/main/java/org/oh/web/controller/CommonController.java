@@ -60,7 +60,8 @@ public abstract class CommonController<T extends Default> implements Initializin
 		return get(model, null, errors);
 	}
 
-	// Common 파라미터는 GET 방식의 보안을 위해 사용
+	// 1. Common 파라미터는 GET 방식의 보안을 위해 사용
+	// 2. BindingResult 인자는 반드시 @Valid 로 선언한 인자의 바로 뒤에 와야 함
 	@RequestMapping(value = "get" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -145,22 +146,22 @@ public abstract class CommonController<T extends Default> implements Initializin
 	@RequestMapping(value = "insert_json" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Long>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
-		return insert(model, null, errors);
+		return insert(model, errors, null);
 	}
 
 	/**
 	 * Content-Type : application/x-www-form-urlencoded
 	 * 
 	 * @param model
-	 * @param request
 	 * @param errors
+	 * @param request
 	 * 
 	 * @return ResponseEntity
 	 * 
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "insert" + Constants.POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Long>> insert(@Valid T model, HttpServletRequest request, BindingResult errors)
+	public ResponseEntity<Response<Long>> insert(@Valid T model, BindingResult errors, HttpServletRequest request)
 			throws Exception {
 		if (errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);

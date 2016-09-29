@@ -3,13 +3,11 @@ package org.oh.common;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Future;
 
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 import org.oh.common.test.TestAPI;
-import org.oh.common.util.HTTPUtils;
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.Utils;
 import org.oh.web.common.Response;
@@ -19,41 +17,19 @@ public class TestAPI_ssg extends TestAPI {
 	public static final String[] DATE_FIELDS = { "REG_DATE", "UPD_DATE", "START_DATE", "END_DATE", "LOG_TIME" };
 
 	@Override
-	protected void print(List<Future<Object>> futureList) throws Exception {
-		for (Future<Object> future : futureList) {
-			Map<String, Object> result = (Map) future.get();
-
-			// 파일로 저장
-			if (Utils.isValidate(saveDir) && Utils.isValidate(saveExt)) {
-				HTTPUtils.generateFile(
-						saveDir + "/" + Utils.formatCurrentDate(Utils.SDF_DATE_MILLI_TIME) + "." + saveExt,
-						(byte[]) result.get("content"));
-				// 콘솔에 출력
-			} else {
-				String content = HTTPUtils.getContentString(result);
-
-				if (convertDate) {
-					Response<List<Map<String, Object>>> response = JsonUtil2.readValue(content, Response.class);
-					List<Map<String, Object>> list = response.getBody();
-					for (Map<String, Object> map : list) {
-						for (String field : DATE_FIELDS) {
-							Long date = (Long) map.get(field);
-							if (date != null)
-								map.put(field, Utils.convertDateTimeToString(new Date(date)));
-						}
-					}
-					response.setBody(list);
-					content = JsonUtil2.toString(response);
-				}
-
-				if (Utils.isValidate(responseFormat)) {
-					if ("JSON".equalsIgnoreCase(responseFormat)) {
-						content = JsonUtil2.toStringPretty(content);
-					}
-				}
-				System.out.println("content: " + content);
+	protected String convertbody(String body) throws Exception {
+		Response<List<Map<String, Object>>> response = JsonUtil2.readValue(body, Response.class);
+		List<Map<String, Object>> list = response.getBody();
+		for (Map<String, Object> map : list) {
+			for (String field : DATE_FIELDS) {
+				Long date = (Long) map.get(field);
+				if (date != null)
+					map.put(field, Utils.convertDateTimeToString(new Date(date)));
 			}
 		}
+		response.setBody(list);
+
+		return JsonUtil2.toString(response);
 	}
 
 	@BeforeClass
@@ -64,6 +40,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/aams/token_post.json"));
 
 		// Admin
+//		arrayNode.add(readFile("src/test/resources/json/ssg/admin/check_session_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/admin/gateway_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/admin/gateway.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/admin/login_post.json"));
@@ -97,7 +74,8 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post.json"));
 
 		// MMS
@@ -115,13 +93,17 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_get4.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_id_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_put2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_put3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_post4.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/campaign_from_geo_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/company_campaign_get.json"));
 
 		// ZMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_get.json"));
@@ -133,7 +115,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get3.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_get4.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_id_around_get.json"));
@@ -159,10 +141,12 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone2_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_category_gcode_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_category_gcode_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post4.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_select_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_select_post.json"));
 	}
 }

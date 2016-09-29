@@ -2,7 +2,7 @@
 	"url":"http://localhost:8080/v1/zms/category/select.do?fields=*&table=zone_category&condition=validity in (1) and category_code like '21211%'&order_by=category_code",
 	"method":"GET",
 	"responseFormat":"JSON",
-	"convertDate":true,
+	"convertBody":true,
 	"list":[
 		{
 			"headers":{

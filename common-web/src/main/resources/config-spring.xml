@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
 	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
@@ -17,7 +18,28 @@
 	<!-- <property name="defaultLocale" value="en" /> -->
 	<!-- </bean> -->
 
+	<!-- Messages (id는 반드시 messageSource) -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames" value="classpath:messages/messages" />
+		<property name="cacheSeconds" value="3" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<!-- JMX -->
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<property name="locateExistingServerIfPossible" value="true" />
+	</bean>
+
 	<!-- DataSource -->
+	<bean id="mbeanExporter" class="org.springframework.jmx.export.MBeanExporter">
+		<property name="server" ref="mbeanServer" />
+		<property name="beans">
+			<map>
+				<entry key="dataSource:name=DataSource_oh-common" value-ref="dataSource" />
+			</map>
+		</property>
+	</bean>
+
 	<bean id="log4jdbcProxyDataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="dataSource" />
 		<property name="logFormatter">
@@ -52,6 +74,51 @@
 		<property name="sourceType" value="${dataSource.vendorType}" />
 	</bean>
 
+	<!-- RestTemplate -->
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetObject" value="#{@systemProperties}" />
+		<property name="targetMethod" value="putAll" />
+		<property name="arguments">
+			<props>
+				<prop key="http.maxConnections">100</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<constructor-arg>
+			<bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+				<property name="connectTimeout" value="2000" />
+				<property name="readTimeout" value="600000" />
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<!-- Validation -->
+	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" /> -->
+	<!-- <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor" /> -->
+	<!-- <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"> -->
+	<!-- <property name="validator" ref="validator" /> -->
+	<!-- </bean> -->
+
+	<!-- AOP -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- Logging -->
+	<bean id="logAdvice" class="org.oh.web.aop.LogAdvice" />
+
+	<aop:config>
+		<aop:pointcut id="publicMethod"
+			expression="execution(public * org.oh..*Controller.*(..)) or execution(public * org.oh..*Service.*(..))" />
+		<aop:aspect ref="logAdvice">
+			<!-- <aop:before method="before" pointcut-ref="publicMethod" /> -->
+			<!-- <aop:after-returning method="afterReturning" pointcut-ref="publicMethod" returning="result" /> -->
+			<!-- <aop:after-throwing method="afterThrowing" pointcut-ref="publicMethod" throwing="ex" /> -->
+			<!-- <aop:after method="after" pointcut-ref="publicMethod" /> -->
+			<aop:around method="around" pointcut-ref="publicMethod" />
+		</aop:aspect>
+	</aop:config>
+
 	<!-- Cache -->
 	<cache:annotation-driven proxy-target-class="true" />
 
@@ -59,11 +126,20 @@
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="shared" value="true" />
 		<property name="configLocation" value="classpath:ehcache.xml" />
-		<property name="cacheManagerName" value="common" />
+		<property name="cacheManagerName" value="oh-common" />
 	</bean>
 
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcache" />
+	</bean>
+
+	<bean id="managementService" class="net.sf.ehcache.management.ManagementService" init-method="init">
+		<constructor-arg ref="ehcache" />
+		<constructor-arg ref="mbeanServer" />
+		<constructor-arg index="2" value="true" />
+		<constructor-arg index="3" value="true" />
+		<constructor-arg index="4" value="true" />
+		<constructor-arg index="5" value="true" />
 	</bean>
 
 	<!-- Cache Redis -->
@@ -91,51 +167,12 @@
 	<!-- <constructor-arg name="redisOperations" ref="redisTemplate" /> -->
 	<!-- </bean> -->
 
-	<!-- RestTemplate -->
-	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="targetObject" value="#{@systemProperties}" />
-		<property name="targetMethod" value="putAll" />
-		<property name="arguments">
-			<props>
-				<prop key="http.maxConnections">100</prop>
-			</props>
-		</property>
-	</bean>
+	<!-- Task -->
+	<task:annotation-driven proxy-target-class="true" executor="executor" scheduler="scheduler" />
 
-	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-		<constructor-arg>
-			<bean class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
-				<property name="connectTimeout" value="2000" />
-				<property name="readTimeout" value="600000" />
-			</bean>
-		</constructor-arg>
-	</bean>
+	<task:executor id="executor" pool-size="10-100" queue-capacity="0" keep-alive="10" rejection-policy="CALLER_RUNS" />
+	<task:scheduler id="scheduler" pool-size="100" />
 
-	<!-- AOP -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
-
-	<!-- Logging -->
-	<bean id="logAdvice" class="org.oh.web.aop.LogAdvice" />
-
-	<aop:config>
-		<aop:pointcut id="publicMethod"
-			expression="execution(public * org.oh..*Controller.*(..)) or execution(public * org.oh..*Service.*(..))" />
-		<aop:aspect ref="logAdvice">
-			<!-- <aop:before method="before" pointcut-ref="publicMethod" /> -->
-			<!-- <aop:after-returning method="afterReturning" pointcut-ref="publicMethod" returning="result" /> -->
-			<!-- <aop:after-throwing method="afterThrowing" pointcut-ref="publicMethod" throwing="ex" /> -->
-			<!-- <aop:after method="after" pointcut-ref="publicMethod" /> -->
-			<aop:around method="around" pointcut-ref="publicMethod" />
-		</aop:aspect>
-	</aop:config>
-
-	<!-- Validation -->
-	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" /> -->
-	<!-- <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor" /> -->
-	<!-- <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"> -->
-	<!-- <property name="validator" ref="validator" /> -->
-	<!-- </bean> -->
-
-	<!-- Package -->
+	<!-- Common Package -->
 	<context:component-scan base-package="org.oh.adapter org.oh.common org.oh.web" />
 </beans>

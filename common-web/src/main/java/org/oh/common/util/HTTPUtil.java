@@ -15,6 +15,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.http.Consts;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -363,7 +364,7 @@ public abstract class HTTPUtil {
 		BufferedOutputStream bos = null;
 		try {
 			bos = new BufferedOutputStream(new FileOutputStream(filePath));
-			bos.write((byte[]) callHttp(url, method, headers, params, charset).get("content"));
+			bos.write((byte[]) callHttp(url, method, headers, params, charset).get("body"));
 		} catch (Exception e) {
 			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(
 					"Download url \"" + url + "\" to file \"" + filePath + "\" error", e.getMessage()), e);
@@ -449,10 +450,10 @@ public abstract class HTTPUtil {
 //			}
 
 			response.put("header", resHttp.getAllHeaders());
-			response.put("content", IOUtils.toByteArray(entity.getContent()));
+			response.put("body", IOUtils.toByteArray(entity.getContent()));
 //			Charset defaultCharset = ContentType.getOrDefault(entity).getCharset();
 //			String responseString = BASIC_RESPONSE_HANDLER.handleResponse(resHttp);
-//			response.put("content", responseString.getBytes(defaultCharset));
+//			response.put("body", responseString.getBytes(defaultCharset));
 		} catch (CommonException e) {
 			throw e;
 		} catch (HttpResponseException e) {
@@ -562,7 +563,7 @@ public abstract class HTTPUtil {
 //			}
 
 			response.put("header", resHttp.getAllHeaders());
-			response.put("content", IOUtils.toByteArray(entity.getContent()));
+			response.put("body", IOUtils.toByteArray(entity.getContent()));
 		} catch (CommonException e) {
 			throw e;
 		} catch (HttpResponseException e) {
@@ -575,6 +576,16 @@ public abstract class HTTPUtil {
 		}
 
 		return response;
+	}
+
+	/**
+	 * result Map -> header Header[]
+	 */
+	public static Header[] getHeader(Map<String, Object> result) {
+		if (!Utils.isValidate(result) || !result.containsKey("header"))
+			return null;
+
+		return (Header[]) result.get("header");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -628,7 +639,7 @@ public abstract class HTTPUtil {
 //		Map<String, Object> result = callHttp(url);
 //
 //		System.out.println(result);
-//		System.out.println(new String((byte[]) result.get("content")));
+//		System.out.println(new String((byte[]) result.get("body")));
 
 		List<NameValuePair> list = URLEncodedUtils.parse("multipart/form-data;boundary=__boundary__", null, ';');
 		System.out.println(ContentType.MULTIPART_FORM_DATA

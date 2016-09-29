@@ -92,6 +92,16 @@
 		// 		$("#input01").on("change", function() {
 		// 			console.log("on");
 		// 		});
+		var json = {
+			"a" : "1"
+		};
+		var json2 = {
+			"b" : 2
+		};
+		$.extend(json, json2);
+		console.log(JSON.stringify(json));
+		json.c = 3;
+		console.log(JSON.stringify(json));
 	});
 </script>
 </head>

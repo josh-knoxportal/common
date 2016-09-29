@@ -1,8 +1,7 @@
 {
-	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do",
-	"method":"POST",
+	"url":"http://localhost:8080/v1/zcms/campaign.do",
+	"method":"GET",
 	"responseFormat":"JSON",
-	"convertBody":true,
 	"list":[
 		{
 			"headers":{
@@ -10,9 +9,6 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"COUNT(1)",
-				"table":"route_log_20160920",
-				"condition":"validity IN (9)"
 			}
 		}
 	]

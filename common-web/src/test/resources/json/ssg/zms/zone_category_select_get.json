@@ -1,8 +1,7 @@
 {
-	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do",
-	"method":"POST",
+	"url":"http://202.3.20.124/v1/zms/zone_category/select.do?fields=*&table=zone_category&condition=rownum in (1)",
+	"method":"GET",
 	"responseFormat":"JSON",
-	"convertBody":true,
 	"list":[
 		{
 			"headers":{
@@ -10,9 +9,7 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"COUNT(1)",
-				"table":"route_log_20160920",
-				"condition":"validity IN (9)"
+				
 			}
 		}
 	]

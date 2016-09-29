@@ -1,0 +1,15 @@
+{
+	"url":"http://localhost:8080/admin/check_session.do",
+	"method":"GET",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Cookie":"JSESSIONID=1F8BFEB89DDCE30403D15DB8EC302633"
+			},
+			"params":{
+				
+			}
+		}
+	]
+}

@@ -50,24 +50,24 @@
 	</bean>
 
 	<!-- Thread Pool -->
-	<task:annotation-driven executor="executor" />
+	<!-- <task:annotation-driven executor="executor" /> -->
 
-	<task:executor id="executor" keep-alive="3" pool-size="10" queue-capacity="10" rejection-policy="CALLER_RUNS" />
+	<!-- <task:executor id="executor" keep-alive="3" pool-size="10" queue-capacity="10" rejection-policy="CALLER_RUNS" /> -->
 
 	<!-- Init Bind -->
 	<!-- deprecated ver 3.2 -->
 	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.RequestMappingHandlerAdapter"> -->
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<property name="webBindingInitializer" ref="webBindingInitializer" />
-	</bean>
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"> -->
+	<!-- <property name="webBindingInitializer" ref="webBindingInitializer" /> -->
+	<!-- </bean> -->
 
-	<bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-		<property name="conversionService" ref="conversionService" />
-	</bean>
+	<!-- <bean id="webBindingInitializer" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer"> -->
+	<!-- <property name="conversionService" ref="conversionService" /> -->
+	<!-- </bean> -->
 
-	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-		<property name="converters">
-			<set />
-		</property>
-	</bean>
+	<!-- <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"> -->
+	<!-- <property name="converters"> -->
+	<!-- <set /> -->
+	<!-- </property> -->
+	<!-- </bean> -->
 </beans>

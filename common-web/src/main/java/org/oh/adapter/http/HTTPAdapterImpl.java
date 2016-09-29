@@ -22,7 +22,9 @@ import org.oh.adapter.HTTPAdapter;
 import org.oh.adapter.aspect.AuditRequired;
 import org.oh.adapter.exception.AdapterException;
 import org.springframework.beans.DirectFieldAccessor;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HTTPAdapterImpl implements HTTPAdapter {
 
 	public static final String DATE_FORMAT = "EEE, dd MM yyyy HH:mm:ss zzz";

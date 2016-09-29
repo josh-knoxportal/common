@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author skoh
  */
 public abstract class Default implements Serializable {
+	public static final String PARAMETER_ERROR_MESSAGE = "This parameter can not be used.";
+
 	/**
 	 * SQL명
 	 * 
@@ -24,31 +26,42 @@ public abstract class Default implements Serializable {
 	 * - hint 나 fields 를 지정하여 FROM 절 앞단을 변형할때 반드시 지정 (보통 호출하는 메소드명을 사용)
 	 * </pre>
 	 */
+	@JsonIgnore // 클라이언트가 사용하지 않는 필드
+	@Null(message = PARAMETER_ERROR_MESSAGE) // 파라미터로 사용하지 않는 필드
 	protected String sql_name;
 
 	/**
 	 * 힌트
 	 */
+	@JsonIgnore
+	@Null(message = PARAMETER_ERROR_MESSAGE)
 	protected String hint;
 
 	/**
 	 * 필드
 	 */
+	@JsonIgnore
+	@Null(message = PARAMETER_ERROR_MESSAGE)
 	protected String fields;
 
 	/**
 	 * 테이블
 	 */
+	@JsonIgnore
+	@Null(message = PARAMETER_ERROR_MESSAGE)
 	protected String table;
 
 	/**
-	 * 정렬 기준
+	 * 정렬 방식
 	 */
+	@JsonIgnore
 	protected String order_by;
 
 	/**
 	 * 조회 조건(문자열)
 	 */
+	@JsonIgnore
+	@Null(message = PARAMETER_ERROR_MESSAGE)
 	protected String condition;
 
 	/**
@@ -56,8 +69,6 @@ public abstract class Default implements Serializable {
 	 */
 	protected Condition condition2 = new Condition();
 
-	@JsonIgnore
-	@Null(message = "This parameter can not be used.")
 	public String getSql_name() {
 		return sql_name;
 	}
@@ -66,8 +77,6 @@ public abstract class Default implements Serializable {
 		this.sql_name = sql_name;
 	}
 
-	@JsonIgnore
-	@Null(message = "This parameter can not be used.")
 	public String getHint() {
 		return hint;
 	}
@@ -76,8 +85,6 @@ public abstract class Default implements Serializable {
 		this.hint = hint;
 	}
 
-	@JsonIgnore
-	@Null(message = "This parameter can not be used.")
 	public String getFields() {
 		return fields;
 	}
@@ -86,8 +93,6 @@ public abstract class Default implements Serializable {
 		this.fields = fields;
 	}
 
-	@JsonIgnore
-	@Null(message = "This parameter can not be used.")
 	public String getTable() {
 		return table;
 	}
@@ -96,7 +101,6 @@ public abstract class Default implements Serializable {
 		this.table = table;
 	}
 
-	@JsonIgnore
 	public String getOrder_by() {
 		return order_by;
 	}
@@ -105,8 +109,6 @@ public abstract class Default implements Serializable {
 		this.order_by = order_by;
 	}
 
-	@JsonIgnore
-	@Null(message = "This parameter can not be used.")
 	public String getCondition() {
 		return condition;
 	}
@@ -123,8 +125,6 @@ public abstract class Default implements Serializable {
 	public void setCondition2(Condition condition2) {
 		this.condition2 = condition2;
 	}
-
-	///////////////////////////////////////////////////////////////////////////
 
 	public void addCondition(String condition) {
 		if (!Utils.isValidate(condition))

@@ -272,23 +272,44 @@ public abstract class HTTPUtils {
 		return files;
 	}
 
-	public static String getContentString(Map<String, Object> result) {
-		return getContentString(result, getCharset());
+	/**
+	 * result Map -> header Map
+	 */
+	public static Map<String, List<String>> getHeader(Map<String, Object> result) {
+		if (!Utils.isValidate(result) || !result.containsKey("header"))
+			return null;
+
+		return (Map) result.get("header");
+	}
+
+	public static String getBodyString(Map<String, Object> result) {
+		return getBodyString(result, getCharset());
 	}
 
 	/**
-	 * result Map -> content String
+	 * result Map -> body String
 	 */
-	public static String getContentString(Map<String, Object> result, String charset) {
-		if (!Utils.isValidate(result) || !result.containsKey("content"))
+	public static String getBodyString(Map<String, Object> result, String charset) {
+		byte[] content = getBody(result);
+		if (!Utils.isValidate(content))
 			return "";
 
 		try {
-			return new String((byte[]) result.get("content"), charset);
+			return new String(content, charset);
 		} catch (Exception e) {
 			LogUtil.writeLog(e.getMessage(), HTTPUtils.class);
 			return "";
 		}
+	}
+
+	/**
+	 * result Map -> body byte[]
+	 */
+	public static byte[] getBody(Map<String, Object> result) {
+		if (!Utils.isValidate(result) || !result.containsKey("body"))
+			return null;
+
+		return (byte[]) result.get("body");
 	}
 
 	// 공통 /////////////////////////////////////////////////////////////////////////
@@ -372,7 +393,7 @@ public abstract class HTTPUtils {
 
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				response.put("header", conn.getHeaderFields());
-				response.put("content", getFileBytes(conn.getInputStream()));
+				response.put("body", getFileBytes(conn.getInputStream()));
 			}
 			LogUtil.writeLog("result: " + response, HTTPUtils.class);
 		} catch (IOException e) {
@@ -679,7 +700,7 @@ public abstract class HTTPUtils {
 
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				response.put("header", conn.getHeaderFields());
-				response.put("content", getFileBytes(conn.getInputStream()));
+				response.put("body", getFileBytes(conn.getInputStream()));
 			}
 			LogUtil.writeLog("result: " + response, HTTPUtils.class);
 		} catch (IOException e) {
@@ -778,7 +799,7 @@ public abstract class HTTPUtils {
 //		Map<String, Object> result = callHttp(url);
 
 //		System.out.println(result);
-//		System.out.println(new String((byte[]) result.get("content")));
+//		System.out.println(new String((byte[]) result.get("body")));
 
 		System.out.println(encodeURL("가"));
 		System.out.println(decodeURL("%EA%B0%80"));
@@ -799,8 +820,8 @@ public abstract class HTTPUtils {
 		String cookies = null;
 		args[1] = args[1].toLowerCase();
 		if (args[1].indexOf("l") >= 0) {
-			Map<String, List<String>> header = (Map<String, List<String>>) callHttp(xml.get("login_url"),
-					convertListToMap(xml.get("login_params"))).get("header");
+			Map<String, List<String>> header = (Map<String, List<String>>) getHeader(
+					callHttp(xml.get("login_url"), convertListToMap(xml.get("login_params"))));
 			cookies = ((List<String>) header.get("Set-Cookie")).get(0);
 		}
 

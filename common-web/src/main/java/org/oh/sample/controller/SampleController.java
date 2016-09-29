@@ -57,9 +57,12 @@ public class SampleController extends CommonController<Sample> {
 	// 주의) 로깅을 위해 Annotation 재정의
 	@Override
 	@RequestMapping(value = "list" + Constants.POSTFIX, method = { RequestMethod.GET })
-	public ResponseEntity<Response<List<Sample>>> list(Sample sample, @Valid Common common, BindingResult errors)
+	public ResponseEntity<Response<List<Sample>>> list(@Valid Sample sample, @Valid Common common, BindingResult errors)
 			throws Exception {
+//		return ValidationUtil.getResponseEntity(HttpStatus.NOT_FOUND); // 사용하지 않을 경우
+		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.getDefault()));
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.KOREA));
+		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.ENGLISH));
 
 		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(sample, common, errors);
 

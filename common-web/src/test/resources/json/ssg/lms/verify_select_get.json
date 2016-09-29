@@ -2,7 +2,7 @@
 	"url":"http://localhost:8080/v1/lms/verify/select.do?fields=ALTER&table=TABLE route_log_20160920 ADD (upd_date DATE, validity NUMBER(9) DEFAULT 1, server_ip VARCHAR2(50))",
 	"method":"GET",
 	"responseFormat":"JSON",
-	"convertDate":true,
+	"convertBody":true,
 	"list":[
 		{
 			"headers":{

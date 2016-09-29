@@ -1,8 +1,7 @@
 {
 	"url":"http://localhost:8080/v1/zms/zone.do?branch_id=11&floor_id=25",
 	"method":"GET",
-	"saveDir":"/Users/skoh/git/skoh/common/common-web/src/test/resources/json",
-	"saveExt":"json",
+	"responseFormat":"JSON",
 	"list":[
 		{
 			"headers":{

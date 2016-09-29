@@ -105,7 +105,7 @@ public abstract class PushUtils {
 			params.add(new BasicNameValuePair("", getRequestMessage(userId, message).toString()));
 			Map<String, Object> result = HTTPUtil.callHttp(url, HttpPost.METHOD_NAME, params);
 
-			return JsonUtil2.readValue(HTTPUtils.getContentString(result));
+			return JsonUtil2.readValue(HTTPUtils.getBodyString(result));
 		} catch (Exception e) {
 			String errorCode = trcode + CommonException.PREFIX_SYSTEM;
 			throw new CommonException(errorCode, LogUtil.buildMessage("Send push data error", e.getMessage()), e);

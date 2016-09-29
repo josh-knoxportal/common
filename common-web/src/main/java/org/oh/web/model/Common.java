@@ -73,7 +73,7 @@ public class Common extends Default {
 	}
 
 	/**
-	 * 쓰기 전용
+	 * 쓰기 전용 : 입력(write)만 가능
 	 * 
 	 * @author skoh
 	 */

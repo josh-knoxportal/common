@@ -18,6 +18,7 @@ import org.oh.common.download.Attachment;
 import org.oh.common.thread.HTTPUtilFileTask;
 import org.oh.common.thread.HTTPUtilTask;
 import org.oh.common.util.FileUtil;
+import org.oh.common.util.HTTPUtil;
 import org.oh.common.util.HTTPUtils;
 import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.LogUtil;
@@ -71,9 +72,9 @@ public class TestAPI {
 	protected String saveExt;
 
 	/**
-	 * 일자(long -> String) 변환
+	 * 바디 변환
 	 */
-	protected boolean convertDate;
+	protected boolean convertBody;
 
 	/**
 	 * 파일 읽기
@@ -127,8 +128,8 @@ public class TestAPI {
 		LogUtil.writeLog("requestFormat: " + requestFormat);
 		responseFormat = data.path("responseFormat").textValue();
 		LogUtil.writeLog("responseFormat: " + responseFormat);
-		convertDate = data.path("convertDate").booleanValue();
-		LogUtil.writeLog("convertDate: " + convertDate);
+		convertBody = data.path("convertBody").booleanValue();
+		LogUtil.writeLog("convertBody: " + convertBody);
 
 		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
 		for (JsonNode json : data.path("list")) {
@@ -199,23 +200,50 @@ public class TestAPI {
 	protected void print(List<Future<Object>> futureList) throws Exception {
 		for (Future<Object> future : futureList) {
 			Map<String, Object> result = (Map) future.get();
+			String body = "";
 
 			// 파일로 저장
 			if (Utils.isValidate(saveDir) && Utils.isValidate(saveExt)) {
+				byte[] bytes = null;
+				if (convertBody) {
+					body = HTTPUtils.getBodyString(result);
+					body = convertbody(body);
+					bytes = body.getBytes(HTTPUtils.getCharset());
+				} else {
+					bytes = HTTPUtils.getBody(result);
+				}
+
 				HTTPUtils.generateFile(
-						saveDir + "/" + Utils.formatCurrentDate(Utils.SDF_DATE_MILLI_TIME) + "." + saveExt,
-						(byte[]) result.get("content"));
+						saveDir + "/" + Utils.formatCurrentDate(Utils.SDF_DATE_MILLI_TIME) + "." + saveExt, bytes);
 				// 콘솔에 출력
 			} else {
-				String content = HTTPUtils.getContentString(result);
+				body = HTTPUtils.getBodyString(result);
+				if (convertBody) {
+					body = convertbody(body);
+				}
+
 				if (Utils.isValidate(responseFormat)) {
 					if ("JSON".equalsIgnoreCase(responseFormat)) {
-						content = JsonUtil2.toStringPretty(content);
+						body = JsonUtil2.toStringPretty(body);
 					}
 				}
-				LogUtil.writeLog("content: " + content);
+				LogUtil.writeLog("header: " + Utils.toString(HTTPUtil.getHeader(result)));
+				LogUtil.writeLog("body: " + body);
 			}
 		}
+	}
+
+	/**
+	 * 바디를 변환한다.
+	 * 
+	 * @param content
+	 * 
+	 * @return
+	 * 
+	 * @throws Exception
+	 */
+	protected String convertbody(String body) throws Exception {
+		return body;
 	}
 
 	public static void main(String[] args) throws Exception {

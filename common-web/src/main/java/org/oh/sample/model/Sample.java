@@ -73,12 +73,20 @@ public class Sample extends Paging {
 	/**
 	 * 샘플 아이디(PK), 시퀀스
 	 */
+//	@Null(message = "반드시 값이 없어야 합니다.") // must be null : 반드시 값이 있어야 합니다.
+//	@NotNull(message = "반드시 값이 있어야 합니다.") // may not be null : 반드시 값이 없어야 합니다.
+//	@Min(1) // must be greater than or equal to 1 : 반드시 1보다 같거나 커야 합니다.
+//	@Max(2) // must be less than or equal to 9223372036854775807 : 반드시 9223372036854775807보다 같거나 작아야 합니다.
 	@Column(primaryKey = true, sequence = "sample_seq") // oracle // autoIncrement = true) // mysql
 	protected Long id;
 
 	/**
 	 * 샘플명
 	 */
+//	@Size(max = 0) // Empty
+	@NotEmpty // may not be empty : 반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다.
+//	@Size(min = 1, max = 2) // size must be between 1 and 2147483647 : 반드시 최소값 1과(와) 최대값 2147483647 사이의 크기이어야 합니다.
+///	@Length(min = 1, max = 2) // length must be between 1 and 2147483647 : 반드시 최소값 1과(와) 최대값 2147483647 사이의 길이이어야 합니다.
 	@Column
 	protected String name;
 
@@ -88,10 +96,6 @@ public class Sample extends Paging {
 	@Column(references = "Test.id")
 	protected Long test_id;
 
-//	@Null(message = "반드시 값이 없어야 합니다.") // must be null : 반드시 값이 있어야 합니다.
-//	@NotNull(message = "반드시 값이 있어야 합니다.") // may not be null : 반드시 값이 없어야 합니다.
-//	@Min(1) // must be greater than or equal to 1 : 반드시 1보다 같거나 커야 합니다.
-//	@Max(2) // must be less than or equal to 9223372036854775807 : 반드시 9223372036854775807보다 같거나 작아야 합니다.
 	public Long getId() {
 		return id;
 	}
@@ -100,10 +104,6 @@ public class Sample extends Paging {
 		this.id = id;
 	}
 
-//	@Size(max = 0) // Empty
-	@NotEmpty // may not be empty : 반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다.
-//	@Size(min = 1, max = 2) // size must be between 1 and 2147483647 : 반드시 최소값 1과(와) 최대값 2147483647 사이의 크기이어야 합니다.
-///	@Length(min = 1, max = 2) // length must be between 1 and 2147483647 : 반드시 최소값 1과(와) 최대값 2147483647 사이의 길이이어야 합니다.
 	public String getName() {
 		return name;
 	}

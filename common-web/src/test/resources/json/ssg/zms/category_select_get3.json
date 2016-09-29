@@ -2,7 +2,7 @@
 	"url":"http://112.217.207.164:20080/v1/zms/category/select.do?fields=*&table=campaign&condition=id in (1248)&order_by=id desc",
 	"method":"GET",
 	"responseFormat":"JSON",
-	"convertDate":true,
+	"convertBody":true,
 	"list":[
 		{
 			"headers":{

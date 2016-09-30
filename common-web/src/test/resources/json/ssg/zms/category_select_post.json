@@ -10,10 +10,9 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"*",
-				"table":"zone_category",
-				"condition":"validity in (1)",
-				"order_by":"category_code"
+				"fields":"COUNT(1)",
+				"table":"zone",
+				"condition":"validity in (1) AND ROWNUM = 1"
 			}
 		}
 	]

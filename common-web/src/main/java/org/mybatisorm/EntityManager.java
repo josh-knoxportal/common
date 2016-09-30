@@ -508,7 +508,7 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 		Class<?> sqlSourceClass = getSourceTypeClass(sourceName);
 		// id 변경 by skoh
 //		String id = "_" + sqlSourceClass.getSimpleName() + type.getSimpleName();
-		String id = "org.mybatisorm.mapper._" + sqlSourceClass.getSimpleName() + type.getSimpleName()
+		String id = "org.mybatisorm.mapper._" + sqlSourceClass.getSimpleName() + "_" + type.getSimpleName()
 				+ ((sqlName == null) ? "" : sqlName);
 		if (!configuration.hasStatement(id)) {
 			if (logger.isDebugEnabled()) logger.debug("add a mapped statement, " + id);

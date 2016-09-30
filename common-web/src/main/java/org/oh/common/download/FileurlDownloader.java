@@ -29,7 +29,7 @@ public class FileurlDownloader extends AbstractDownloader implements Downloader 
 
 	public void download(String target, String uid, Map<String, Object> params) throws Exception {
 		log.info(String.format("========Start downloading from %s : %s ", target, uid));
-		log.debug("params : " + params);
+		log.debug("params: " + params);
 
 		int mode = 0;
 		int fileStartPos = Integer.parseInt(params.get("index").toString());
@@ -47,10 +47,10 @@ public class FileurlDownloader extends AbstractDownloader implements Downloader 
 			mode = 0;
 		}
 
-		log.debug("uid : " + uid);
-		log.debug("mode : " + mode);
-		log.debug("file_name : " + fileName);
-		log.debug("file_url : " + fileUrl);
+		log.debug("uid: " + uid);
+		log.debug("mode: " + mode);
+		log.debug("file_name: " + fileName);
+		log.debug("file_url: " + fileUrl);
 
 		try {
 			// URL에서 파일을 다운로드할 경우

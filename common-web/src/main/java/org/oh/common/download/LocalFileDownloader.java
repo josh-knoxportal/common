@@ -23,8 +23,8 @@ public class LocalFileDownloader implements AttachmentDownloader {
 	 */
 	public Attachment download(String fileName, String filePath) throws Exception {
 		log.trace("Start::download()");
-		log.trace("  > fileName : " + fileName);
-		log.trace("  > filePath : " + filePath);
+		log.trace("  > fileName: " + fileName);
+		log.trace("  > filePath: " + filePath);
 
 		Attachment file = new Attachment(fileName, 0, null);
 		FileInputStream fis = null;
@@ -46,7 +46,7 @@ public class LocalFileDownloader implements AttachmentDownloader {
 
 		file.setSize(data.length);
 
-		log.trace("  > RV(file.size) : " + file.getSize());
+		log.trace("  > RV(file.size): " + file.getSize());
 		log.trace("End::download()");
 
 		return file;

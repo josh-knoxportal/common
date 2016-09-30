@@ -38,7 +38,7 @@ public abstract class Constants {
 			System.out.println(Utils.toString(messages, null, 2));
 		} else {
 //			messages.insert(0, "[INFO] ");
-			messages.append("HOME location : ").append(HOME_DIR);
+			messages.append("HOME location: ").append(HOME_DIR);
 			System.out.println(Utils.toString(messages, null, 2));
 		}
 	}

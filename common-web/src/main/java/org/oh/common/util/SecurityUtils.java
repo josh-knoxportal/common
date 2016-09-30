@@ -36,7 +36,7 @@ public abstract class SecurityUtils {
 		for (int i = 0; i < str.length; i++) {
 			strEnc[i] = SecurityUtils.getBase64EncodeString(EncryptionUtils.seedEncode(str[i], "9987665433210000"));
 
-			System.out.println(str[i] + " : " + strEnc[i]);
+			System.out.println(str[i] + ": " + strEnc[i]);
 		}
 	}
 }

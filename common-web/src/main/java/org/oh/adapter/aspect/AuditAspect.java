@@ -27,7 +27,7 @@ public class AuditAspect {
 	public void logAfterReturing(JoinPoint joinPoint, Object result) {
 		log.info(result + " 와 함께 " + joinPoint.getSignature().getName() + "() 메서드 종료");
 		endEventTime = System.currentTimeMillis();
-		log.info("Legacy Processed Time : " + (endEventTime - startEventTime));
+		log.info("Legacy Processed Time: " + (endEventTime - startEventTime));
 	}
 
 	@AfterThrowing(pointcut = "AuditPointcuts.auditOperation()", throwing = "e")

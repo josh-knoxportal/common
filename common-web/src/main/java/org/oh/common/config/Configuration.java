@@ -56,7 +56,7 @@ public class Configuration extends PropertiesConfiguration implements Initializi
 			while (keys.hasMoreElements()) {
 				String key = (String) keys.nextElement();
 				String value = this.properties.getProperty(key);
-				elements.append("\n").append("[" + key + "] : " + value);
+				elements.append("\n").append("[" + key + "]: " + value);
 				super.setProperty(key, value);
 			}
 		} else {

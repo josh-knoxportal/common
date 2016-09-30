@@ -250,15 +250,18 @@ public abstract class CommonController<T extends Default> implements Initializin
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Response<T>> handleException(Exception e) {
-		String error_code = HttpStatus.INTERNAL_SERVER_ERROR + " " + HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
-		log.error(error_code, e);
-		Response<T> response = Response.getFailResponse(error_code, e.getMessage());
+		log.error(ValidationUtil.getHttpErrorCodeMaessage(HttpStatus.INTERNAL_SERVER_ERROR), e);
+
+		Response<T> response = Response.getFailResponse(
+				ValidationUtil.getHttpErrorCode(HttpStatus.INTERNAL_SERVER_ERROR),
+				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	protected ResponseEntity<Response<T>> checkValidate(BindingResult errors) throws Exception {
-		log.error("field errors: " + errors.getFieldErrors());
+		log.error("Validate errors: " + errors.getFieldErrors());
+
 		Response<T> response = ValidationUtil.getResponse(errors);
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.BAD_REQUEST);

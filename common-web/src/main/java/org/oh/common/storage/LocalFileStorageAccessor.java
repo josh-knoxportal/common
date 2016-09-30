@@ -92,7 +92,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	protected static String getStorageFilePath() {
 		String storageFilePath = null;
 
-//		log.info("Configuration File : " + CONFIG_FILEPATH);
+//		log.info("Configuration File: " + CONFIG_FILEPATH);
 //		try {
 //			PropertiesConfiguration prop = new PropertiesConfiguration();
 //			prop.setEncoding("UTF-8");
@@ -102,7 +102,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 //			storageFilePath = prop.getProperty("storage.file.path").toString();
 //		} catch (Exception e) {
 //			storageFilePath = TEMP_DIR;
-//			log.warn("Failed to read " + CONFIG_FILEPATH + "! Default value : " + storageFilePath);
+//			log.warn("Failed to read " + CONFIG_FILEPATH + "! Default value: " + storageFilePath);
 //		}
 		storageFilePath = PropertyUtils.getInstance().getString("storage.file.path", "storage");
 
@@ -120,7 +120,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	 */
 	public LocalFileStorageAccessor(String storageFilePath) {
 		log.info("Create Local File Storage Accessor");
-		log.info("Storage Path : " + storageFilePath);
+		log.info("Storage Path: " + storageFilePath);
 
 		this.storageFilePath = storageFilePath;
 
@@ -153,8 +153,8 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	@Override
 	public boolean save(String UID, String fileName, byte[] data) {
 		log.debug("Start::save()");
-		log.debug("  > UID : " + UID);
-		log.debug("  > fileName : " + fileName);
+		log.debug("  > UID: " + UID);
+		log.debug("  > fileName: " + fileName);
 		log.debug("  > data length: " + ((data == null) ? 0 : data.length));
 
 		boolean result = false;
@@ -171,7 +171,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 
 			// 파일 이름
 			File file = new File(dir.getAbsolutePath() + File.separator + UID + "." + "file");
-			log.debug("  > filePath : " + file.getAbsolutePath());
+			log.debug("  > filePath: " + file.getAbsolutePath());
 			fos = new FileOutputStream(file);
 
 			channel = fos.getChannel();
@@ -209,7 +209,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 //		file.setReadable(true, false);
 //		file.setWritable(true, false);
 
-		log.debug("  > RV(result) : " + result);
+		log.debug("  > RV(result): " + result);
 		log.debug("End::save()");
 
 		return result;
@@ -218,7 +218,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	@Override
 	public byte[] load(String UID) {
 		log.debug("Start::load()");
-		log.debug("  > UID : " + UID);
+		log.debug("  > UID: " + UID);
 
 		FileInputStream fin = null;
 		byte[] bytes = null;
@@ -227,7 +227,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 //			fin = new FileInputStream(storageFilePath + File.separator + UID + "." + "file");
 			// 파일 이름
 			File file = new File(storageFilePath + getFilePath(UID) + File.separator + UID + "." + "file");
-			log.debug("  > filePath : " + file.getAbsolutePath());
+			log.debug("  > filePath: " + file.getAbsolutePath());
 			fin = new FileInputStream(file);
 
 			bytes = IOHelper.readToEnd(fin);
@@ -237,7 +237,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 			IOUtils.closeQuietly(fin);
 		}
 
-		log.debug("  > RV(bytes length) : " + ((bytes == null) ? 0 : bytes.length));
+		log.debug("  > RV(bytes length): " + ((bytes == null) ? 0 : bytes.length));
 		log.debug("End::load()");
 
 		return bytes;
@@ -246,7 +246,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	@Override
 	public boolean remove(String UID) {
 		log.debug("Start::remove()");
-		log.debug("  > UID : " + UID);
+		log.debug("  > UID: " + UID);
 
 		boolean result = false;
 
@@ -254,7 +254,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 //			if (FileUtil.forceDelete(storageFilePath + File.separator + UID + "." + "file")) {
 			// 파일 이름
 			File file = new File(storageFilePath + getFilePath(UID) + File.separator + UID + "." + "file");
-			log.debug("  > filePath : " + file.getAbsolutePath());
+			log.debug("  > filePath: " + file.getAbsolutePath());
 			if (FileUtil.forceDelete(file.getAbsolutePath())) {
 //				this.localFileStorage.remove(UID);
 				log.debug("Deleted!");
@@ -268,7 +268,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 			log.warn("Failed to remove the file!", e);
 		}
 
-		log.debug("  > RV(result) : " + result);
+		log.debug("  > RV(result): " + result);
 		log.debug("End::remove()");
 
 		return result;
@@ -313,7 +313,7 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 
 		for (int i = 0; i < fileDir.length(); i++) {
 			File f = new File(storageFilePath + File.separator + fileList[i]);
-			log.debug("File Delete : " + f.getName());
+			log.debug("File Delete: " + f.getName());
 			f.delete();
 		}
 

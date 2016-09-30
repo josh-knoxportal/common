@@ -92,7 +92,7 @@ public class MyBatisConfig {
 	 */
 	public static SqlSessionFactory getSqlSessionFactory(String envName) {
 		log.info("Start::getSqlSessionFactory()");
-		log.debug("  > evnName : " + envName);
+		log.debug("  > evnName: " + envName);
 
 		if (factoryMap.containsKey(envName)) {
 			return factoryMap.get(envName);

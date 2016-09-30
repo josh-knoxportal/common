@@ -170,7 +170,7 @@ public class SapMapper extends AbstractSapMapper {
 							String structFieldName = structField.getName();
 							if (objectNode.get(structFieldName) == null) {
 //								throw new AdapterException("SAP" + PointiException.PREFIX_USER + "00",
-//										"입력 데이터(Structure) 오류 : " + structFieldName + " 데이터를 확인해 주세요.");
+//										"입력 데이터(Structure) 오류: " + structFieldName + " 데이터를 확인해 주세요.");
 								continue;
 							}
 
@@ -180,7 +180,7 @@ public class SapMapper extends AbstractSapMapper {
 					} else {
 						if (bodyNode.get(fieldName) == null) {
 //							throw new AdapterException("SAP" + PointiException.PREFIX_USER + "01",
-//									"입력 데이터(Object) 오류 : " + fieldName + " 데이터를 확인해 주세요.");
+//									"입력 데이터(Object) 오류: " + fieldName + " 데이터를 확인해 주세요.");
 							continue;
 						}
 
@@ -207,7 +207,7 @@ public class SapMapper extends AbstractSapMapper {
 						ArrayNode arrayNode = (ArrayNode) bodyNode.get(field.getName());
 						if (arrayNode == null || arrayNode.equals("") == true) {
 //							throw new AdapterException("SAP" + PointiException.PREFIX_USER + "02",
-//									"입력 데이터(Table) 오류 : " + field.getName() + " 데이터를 확인해 주세요.");
+//									"입력 데이터(Table) 오류: " + field.getName() + " 데이터를 확인해 주세요.");
 							continue;
 						}
 
@@ -221,7 +221,7 @@ public class SapMapper extends AbstractSapMapper {
 
 								if (node.get(tableFieldName) == null) {
 //									throw new AdapterException("SAP" + PointiException.PREFIX_USER + "03",
-//											"입력 데이터(Table Field) 오류 : " + tableFieldName + "데이터를 확인해 주세요.");
+//											"입력 데이터(Table Field) 오류: " + tableFieldName + "데이터를 확인해 주세요.");
 									continue;
 								}
 

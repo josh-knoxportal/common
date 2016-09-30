@@ -139,9 +139,9 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone2_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_category_gcode_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_category_gcode_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_category_gcode_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post3.json"));

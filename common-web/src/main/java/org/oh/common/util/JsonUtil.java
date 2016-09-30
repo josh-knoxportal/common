@@ -967,7 +967,7 @@ public abstract class JsonUtil {
 //		HashMap map = new HashMap();
 //		for (Iterator<Entry<String, JsonNode>> fields = objectNode.getFields(); fields.hasNext();) {
 //			Entry<String, JsonNode> entry = fields.next();
-//			System.out.println(entry.getKey() + " : " + entry.getValue().asText());
+//			System.out.println(entry.getKey() + ": " + entry.getValue().asText());
 //		}
 //		System.out.println(readValue2(map));
 

@@ -35,7 +35,7 @@ public abstract class AbstractHttpParameterFilter implements Filter {
 	public void init(FilterConfig config) throws ServletException {
 		this.config = config;
 		excludeUrls = StringUtils.tokenizeToStringArray(config.getInitParameter("excludeUrls"), ",; \t\n");
-		LogUtil.writeLog("excludeUrls : " + Utils.toString(excludeUrls), getClass());
+		LogUtil.writeLog("excludeUrls: " + Utils.toString(excludeUrls), getClass());
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

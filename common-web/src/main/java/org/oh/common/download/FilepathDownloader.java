@@ -33,7 +33,7 @@ public class FilepathDownloader extends AbstractDownloader implements Downloader
 
 	public void download(String target, String uid, Map<String, Object> params) throws Exception {
 		log.info(String.format("========Start downloading from %s : %s ", target, uid));
-		log.debug("params : " + params);
+		log.debug("params: " + params);
 
 		int mode = 0;
 		int fileStartPos = Integer.parseInt(params.get("index").toString());
@@ -52,9 +52,9 @@ public class FilepathDownloader extends AbstractDownloader implements Downloader
 			mode = 0;
 		}
 
-		log.debug("uid : " + uid);
-		log.debug("mode : " + mode);
-		log.debug("file_name : " + fileName);
+		log.debug("uid: " + uid);
+		log.debug("mode: " + mode);
+		log.debug("file_name: " + fileName);
 
 		ByteArrayInputStream in = null;
 		try {
@@ -80,7 +80,7 @@ public class FilepathDownloader extends AbstractDownloader implements Downloader
 			// 파일 이름
 			File file = new File(PropertyUtils.getInstance().getString(Constants.PROPERTY_DOWNLOAD_PATH)
 					+ File.separator + fileName);
-			log.debug("  > filePath : " + file.getAbsolutePath());
+			log.debug("  > filePath: " + file.getAbsolutePath());
 
 			fin = new FileInputStream(file);
 			bytes = IOHelper.readToEnd(fin);
@@ -90,7 +90,7 @@ public class FilepathDownloader extends AbstractDownloader implements Downloader
 			IOUtils.closeQuietly(fin);
 		}
 
-		log.debug("  > RV(bytes length) : " + ((bytes == null) ? 0 : bytes.length));
+		log.debug("  > RV(bytes length): " + ((bytes == null) ? 0 : bytes.length));
 		log.debug("End::load()");
 
 		return bytes;

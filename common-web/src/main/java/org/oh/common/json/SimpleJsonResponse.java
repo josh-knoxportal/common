@@ -148,7 +148,7 @@ public class SimpleJsonResponse {
 		} finally {
 		}
 
-		log.trace("  > RV(text) : " + text);
+		log.trace("  > RV(text): " + text);
 		log.trace("End::toString()");
 
 		return text;
@@ -178,7 +178,7 @@ public class SimpleJsonResponse {
 			rootNode = null;
 		}
 
-		log.trace("  > RV(rootNode) : " + rootNode);
+		log.trace("  > RV(rootNode): " + rootNode);
 		log.trace("End::toJson");
 
 		return rootNode;

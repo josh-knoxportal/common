@@ -196,7 +196,7 @@ public abstract class CompressUtil {
 							out.flush();
 							IOUtils.closeQuietly(out);
 						}
-						debug("file : " + name);
+						debug("file: " + name);
 					}
 				} catch (Exception e) {
 				} finally {
@@ -407,7 +407,7 @@ public abstract class CompressUtil {
 						}
 					}
 				} else {
-					debug("file : " + name);
+					debug("file: " + name);
 					ZipArchiveEntry entry = new ZipArchiveEntry(name);
 					zipOut.putArchiveEntry(entry);
 					in = new FileInputStream(f);

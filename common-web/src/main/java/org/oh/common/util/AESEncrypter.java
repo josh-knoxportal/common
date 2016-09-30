@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
  * 	AESEncrypter aesEncrypter = new AESEncrypter();
  * 	String encryptSSO = aesEncrypter.encrypt(sso);
  * 	String decryptSSO = aesEncrypter.decrypt(encryptSSO);
- * 	Toast.makeText(this, "[AESEncrypter]\n\n원문 : " + sso + "\n\n암호 : " + encryptSSO + "\n\n복호 : " + decryptSSO,
+ * 	Toast.makeText(this, "[AESEncrypter]\n\n원문: " + sso + "\n\n암호: " + encryptSSO + "\n\n복호: " + decryptSSO,
  * 			Toast.LENGTH_SHORT).show();
  * } catch (Exception ex) {
  * 	Toast.makeText(this, "[AESEncrypter] Error\n\n" + ex, Toast.LENGTH_SHORT).show();

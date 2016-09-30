@@ -144,7 +144,7 @@ public class DefaultDomParser {
 
 						resultMap.put(subNodeName, subNodeValue);
 					}
-//					LogUtil.writeLog("parentNode : " + subNode.getParentNode().getNodeName() + ", NodeName : " + subNode.getNodeName() + " - " + subNode.getChildNodes().getLength() + ", " + subNode.hasChildNodes(), getClass());
+//					LogUtil.writeLog("parentNode: " + subNode.getParentNode().getNodeName() + ", NodeName: " + subNode.getNodeName() + " - " + subNode.getChildNodes().getLength() + ", " + subNode.hasChildNodes(), getClass());
 				}
 			}
 		}

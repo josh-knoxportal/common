@@ -85,12 +85,12 @@ public class AbstractDownloader {
 	 */
 	public void send(HttpServletResponse response, String name, String type, FileChannel ch, long size, long start) {
 		log.info("Start::send()");
-		log.trace("  > response : " + response);
-		log.trace("  > name : " + name);
-		log.trace("  > type : " + type);
-		log.trace("  > data(FileChannel) : " + ch);
-		log.trace("  > size : " + size);
-		log.trace("  > start : " + start);
+		log.trace("  > response: " + response);
+		log.trace("  > name: " + name);
+		log.trace("  > type: " + type);
+		log.trace("  > data(FileChannel): " + ch);
+		log.trace("  > size: " + size);
+		log.trace("  > start: " + start);
 
 		WritableByteChannel outCh = null;
 
@@ -103,7 +103,7 @@ public class AbstractDownloader {
 				outCh = Channels.newChannel(response.getOutputStream());
 				ch.transferTo(start, size, outCh);
 			} catch (Exception e) {
-				log.error("Send exception : " + e);
+				log.error("Send exception: " + e);
 			} finally {
 				IOUtils.closeQuietly(outCh);
 			} // end of try
@@ -123,11 +123,11 @@ public class AbstractDownloader {
 	 */
 	public void send(HttpServletResponse response, String name, String type, InputStream in, long start) {
 		log.info("Start::send()");
-		log.trace("  > response : " + response);
-		log.trace("  > name : " + name);
-		log.trace("  > type : " + type);
-		log.trace("  > data(InputStream) : " + in);
-		log.trace("  > start : " + start);
+		log.trace("  > response: " + response);
+		log.trace("  > name: " + name);
+		log.trace("  > type: " + type);
+		log.trace("  > data(InputStream): " + in);
+		log.trace("  > start: " + start);
 
 		int contentLength = 0;
 		WritableByteChannel outCh = null;
@@ -149,14 +149,14 @@ public class AbstractDownloader {
 				response.setHeader("Content-Length", "" + contentLength);
 				setHeader(response, name, type, contentLength);
 
-				log.trace("Content-Length : " + contentLength);
-				log.trace("ByteBuffer's info. : " + bb);
+				log.trace("Content-Length: " + contentLength);
+				log.trace("ByteBuffer's info.: " + bb);
 
 				outCh = Channels.newChannel(response.getOutputStream());
 				outCh.write(bb);
 				bb.clear();
 			} catch (Exception e) {
-				log.error("Send exception! Cause : ", e);
+				log.error("Send exception! Cause: ", e);
 			} finally {
 				IOUtils.closeQuietly(byteCh);
 				IOUtils.closeQuietly(outCh);
@@ -178,11 +178,11 @@ public class AbstractDownloader {
 	 */
 	public void send(HttpServletResponse response, String name, String type, InputStream in, long size, long start) {
 		log.info("Start::send()");
-		log.trace("  > response : " + response);
-		log.trace("  > name : " + name);
-		log.trace("  > type : " + type);
-		log.trace("  > data(InputStream) : " + in);
-		log.trace("  > start : " + start);
+		log.trace("  > response: " + response);
+		log.trace("  > name: " + name);
+		log.trace("  > type: " + type);
+		log.trace("  > data(InputStream): " + in);
+		log.trace("  > start: " + start);
 
 		WritableByteChannel outCh = null;
 		ReadableByteChannel byteCh = null;
@@ -217,7 +217,7 @@ public class AbstractDownloader {
 					bb.clear();
 				}
 			} catch (Exception e) {
-				log.error("Send exception! Cause : ", e);
+				log.error("Send exception! Cause: ", e);
 			} finally {
 				IOUtils.closeQuietly(byteCh);
 				IOUtils.closeQuietly(outCh);

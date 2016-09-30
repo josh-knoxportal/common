@@ -108,7 +108,7 @@ public class HttpClientHelper {
 			return null;
 		} finally {
 //            httpclient.getConnectionManager().shutdown();
-			log.debug("### Http Running Time : " + (endTime - startTime) + "ms");
+			log.debug("### Http Running Time: " + (endTime - startTime) + "ms");
 		}
 	}
 

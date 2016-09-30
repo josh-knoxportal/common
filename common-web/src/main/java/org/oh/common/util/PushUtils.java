@@ -81,7 +81,7 @@ public abstract class PushUtils {
 				log.error(e.getMessage(), e);
 			}
 		}
-		log.debug("responses : " + responses);
+		log.debug("responses: " + responses);
 
 		return responses;
 	}

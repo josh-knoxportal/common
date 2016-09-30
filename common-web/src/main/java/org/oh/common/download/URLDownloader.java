@@ -27,8 +27,8 @@ public class URLDownloader implements AttachmentDownloader {
 
 	public Attachment download(String fileName, String URL) throws Exception {
 		log.info("Start::download()");
-		log.trace("  > fileName : " + fileName);
-		log.trace("  > URL : " + URL);
+		log.trace("  > fileName: " + fileName);
+		log.trace("  > URL: " + URL);
 
 		Attachment attch = new Attachment();
 
@@ -48,14 +48,14 @@ public class URLDownloader implements AttachmentDownloader {
 					"/" + URLEncoder.encode(hostTokens[1], "UTF-8").replaceAll("\\+", "%20").replaceAll("%2F", "/"));
 			byte[] rawData = IOHelper.readToEnd(url.openStream());
 
-			log.trace("Decoded URL : " + url.toString());
-			log.trace("File Name : " + fileName);
-			log.trace("File Size : " + rawData.length);
+			log.trace("Decoded URL: " + url.toString());
+			log.trace("File Name: " + fileName);
+			log.trace("File Size: " + rawData.length);
 
 			attch.setName(fileName);
 			attch.setSize(rawData.length);
 			attch.setBytes(rawData);
-			log.debug("  > RV(attch) : " + attch);
+			log.debug("  > RV(attch): " + attch);
 		} catch (MalformedURLException e) {
 			log.error("MalformedURLException > ", e);
 			log.trace("Throw MalformedURLException!");
@@ -86,19 +86,19 @@ public class URLDownloader implements AttachmentDownloader {
 	 */
 	public Attachment download(String fileName, String URL, String charset) throws Exception {
 		log.info("Start::download()");
-		log.trace("  > fileName : " + fileName);
-		log.trace("  > URL : " + URL);
+		log.trace("  > fileName: " + fileName);
+		log.trace("  > URL: " + URL);
 
 		byte[] rawData = (byte[]) HTTPUtil.callHttp(URL, null, null, null, charset).get("content");
-		log.trace("Decoded URL : " + URL);
-		log.trace("File Name : " + fileName);
-		log.trace("File Size : " + rawData.length);
+		log.trace("Decoded URL: " + URL);
+		log.trace("File Name: " + fileName);
+		log.trace("File Size: " + rawData.length);
 
 		Attachment attch = new Attachment();
 		attch.setName(fileName);
 		attch.setSize(rawData.length);
 		attch.setBytes(rawData);
-		log.debug("  > RV(attch) : " + attch);
+		log.debug("  > RV(attch): " + attch);
 
 		return attch;
 	}

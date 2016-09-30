@@ -32,8 +32,8 @@ public class SimpleJsonSchemaValidator implements JsonValidator {
 
 	public boolean validate(String text, String schema) {
 		log.debug("Start::validate()");
-		log.debug("  > text : " + text);
-		log.debug("  > schema : " + schema);
+		log.debug("  > text: " + text);
+		log.debug("  > schema: " + schema);
 
 		List<String> errs = null;
 		boolean value = false;
@@ -57,7 +57,7 @@ public class SimpleJsonSchemaValidator implements JsonValidator {
 
 			if (!errs.isEmpty()) {
 				for (String s : errs) {
-					log.debug("Validation error : " + s);
+					log.debug("Validation error: " + s);
 					this.errors.add(s);
 				}
 			}
@@ -67,7 +67,7 @@ public class SimpleJsonSchemaValidator implements JsonValidator {
 			}
 		}
 
-		log.debug("  > RV(value) : " + value);
+		log.debug("  > RV(value): " + value);
 		log.debug("End::validate");
 
 		return value;

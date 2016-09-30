@@ -837,7 +837,7 @@ public abstract class Utils {
 		while ((nVarStart = szLine.indexOf("${")) != -1) {
 			nVarEnd = szLine.indexOf("}", nVarStart);
 			if (nVarEnd == -1)
-				throw new RuntimeException("} Not found Properties Variable in Line : " + szLine);
+				throw new RuntimeException("} Not found Properties Variable in Line: " + szLine);
 
 			String szVariable = szLine.substring(nVarStart + 2, nVarEnd);
 			String szReplace = null;

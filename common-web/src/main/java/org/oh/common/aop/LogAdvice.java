@@ -74,7 +74,7 @@ public class LogAdvice {
 
 			throw ex;
 		} finally {
-			log.debug(format("END", "[" + signature.toLongString() + "] Response Time : "
+			log.debug(format("END", "[" + signature.toLongString() + "] Response Time: "
 					+ (System.currentTimeMillis() - start) + " ms"));
 			printLine(signature);
 		}

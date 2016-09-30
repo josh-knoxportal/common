@@ -181,8 +181,8 @@ public class DBSqlResult {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public <T> T get(int index, Class<T> clazz) {
 		log.trace("Start::get()");
-		log.trace("  > index : " + index);
-		log.trace("  > clazz : " + clazz);
+		log.trace("  > index: " + index);
+		log.trace("  > clazz: " + clazz);
 
 		T obj;
 
@@ -202,7 +202,7 @@ public class DBSqlResult {
 			}
 		}
 
-		log.trace("  > RV(<T> T) : " + obj);
+		log.trace("  > RV(<T> T): " + obj);
 		log.trace("End::get()");
 
 		return obj;
@@ -228,8 +228,8 @@ public class DBSqlResult {
 	@SuppressWarnings("unchecked")
 	public <T> T getOutParamerterValue(String parameterName, Class<T> clazz) {
 		log.trace("Start::getOutParamerterValue()");
-		log.trace("  > parameterName : " + parameterName);
-		log.trace("  > clazz : " + clazz);
+		log.trace("  > parameterName: " + parameterName);
+		log.trace("  > clazz: " + clazz);
 
 		T obj;
 		String key = String.format("%s%d", _RESULTSET_PREFIX, 0);
@@ -250,7 +250,7 @@ public class DBSqlResult {
 			}
 		}
 
-		log.trace("  > RV(<T> T) : " + obj);
+		log.trace("  > RV(<T> T): " + obj);
 		log.trace("End::getOutParamerterValue()");
 
 		return obj;

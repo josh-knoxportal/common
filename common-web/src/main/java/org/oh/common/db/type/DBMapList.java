@@ -61,7 +61,7 @@ public class DBMapList extends ArrayList<DBMap> {
 	 */
 	public void toJsonNode(ArrayNode parentNode) throws NullPointerException {
 		log.trace("Start::toJsonNode()");
-		log.trace("  > parentNode : " + parentNode);
+		log.trace("  > parentNode: " + parentNode);
 
 		ObjectNode objNode = null;
 
@@ -83,8 +83,8 @@ public class DBMapList extends ArrayList<DBMap> {
 	 */
 	public void toJsonNode(ArrayNode parentNode, boolean upperCase) throws NullPointerException {
 		log.trace("Start::toJsonNode()");
-		log.trace("  > parentNode : " + parentNode);
-		log.trace("  > upperCase : " + upperCase);
+		log.trace("  > parentNode: " + parentNode);
+		log.trace("  > upperCase: " + upperCase);
 
 		ObjectNode objNode = null;
 

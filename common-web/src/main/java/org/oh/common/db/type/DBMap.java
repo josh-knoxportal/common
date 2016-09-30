@@ -82,8 +82,8 @@ public class DBMap extends HashMap<String, Object> {
 	 */
 	public boolean getBoolean(String key, boolean defaultVal) {
 		log.trace("Start::getBoolean()");
-		log.trace("  > key : " + key);
-		log.trace("  > defaultVal : " + defaultVal);
+		log.trace("  > key: " + key);
+		log.trace("  > defaultVal: " + defaultVal);
 
 		try {
 			Object obj = super.get(key);
@@ -152,7 +152,7 @@ public class DBMap extends HashMap<String, Object> {
 	 */
 	public void toJsonNode(ObjectNode parentNode) throws NullPointerException {
 		log.trace("Start::toJsonNode()");
-		log.trace("  > parentNode : " + parentNode);
+		log.trace("  > parentNode: " + parentNode);
 
 		for (Map.Entry<String, Object> entry : this.entrySet()) {
 			addJsonNode(parentNode, entry.getKey(), entry.getValue());
@@ -171,8 +171,8 @@ public class DBMap extends HashMap<String, Object> {
 	 */
 	public void toJsonNode(ObjectNode parentNode, boolean upperCase) throws NullPointerException {
 		log.trace("Start::toJsonNode()");
-		log.trace("  > parentNode : " + parentNode);
-		log.trace("  > upperCase : " + upperCase);
+		log.trace("  > parentNode: " + parentNode);
+		log.trace("  > upperCase: " + upperCase);
 
 		for (Map.Entry<String, Object> entry : this.entrySet()) {
 			String keyName = entry.getKey();

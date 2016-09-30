@@ -42,7 +42,7 @@ public class MyBatisDao implements DBDao {
 	public DBSqlResult execute(DBSqlParameter sqlParam) throws SQLException {
 		MappedStatement stmt = getSqlFactory(sqlParam).getConfiguration().getMappedStatement(sqlParam.getSqlID());
 
-		log.trace("SQL Command Type : " + stmt.getSqlCommandType().name());
+		log.trace("SQL Command Type: " + stmt.getSqlCommandType().name());
 
 		if (stmt.getSqlCommandType() == SqlCommandType.SELECT) {
 			return select(sqlParam);
@@ -185,7 +185,7 @@ public class MyBatisDao implements DBDao {
 	 */
 	public DBSqlResult insert(DBSqlParameter sqlParam) {
 		log.trace("Start::insert()");
-		log.trace("  > SQL ID : " + sqlParam.getSqlID());
+		log.trace("  > SQL ID: " + sqlParam.getSqlID());
 
 		SqlSession session = getSqlFactory(sqlParam).openSession(false);
 		int count = -1;
@@ -205,7 +205,7 @@ public class MyBatisDao implements DBDao {
 			}
 		}
 
-		log.trace("  > RV(count) : " + count);
+		log.trace("  > RV(count): " + count);
 		log.trace("End::insert()");
 
 		return new DBSqlResult(count);
@@ -216,7 +216,7 @@ public class MyBatisDao implements DBDao {
 	 */
 	public DBSqlResult executeTransaction(DBSqlParameter[] sqlParams, String dsName) {
 		log.trace("Start::executeTransaction()");
-		log.trace("  > sqlParams count : " + sqlParams.length);
+		log.trace("  > sqlParams count: " + sqlParams.length);
 
 		DBSqlParameter dsParam = new DBSqlParameter();
 		dsParam.setDsName(dsName);
@@ -253,7 +253,7 @@ public class MyBatisDao implements DBDao {
 				session.close();
 			}
 
-			log.info("  > RV(Transaction commit count) : " + uncommitRows);
+			log.info("  > RV(Transaction commit count): " + uncommitRows);
 			log.trace("End::executeTransaction()");
 		}
 	}
@@ -266,8 +266,8 @@ public class MyBatisDao implements DBDao {
 	@SuppressWarnings("rawtypes")
 	public DBSqlResult insertBatch(DBSqlParameter sqlParam, int commitSize) {
 		log.trace("Start::insertBatch()");
-		log.trace("  > sqlParam : " + sqlParam);
-		log.trace("  > commitSize : " + commitSize);
+		log.trace("  > sqlParam: " + sqlParam);
+		log.trace("  > commitSize: " + commitSize);
 
 		SqlSession session = getSqlFactory(sqlParam).openSession(ExecutorType.BATCH, false);
 		List parameters = (List) sqlParam.getParameters();
@@ -319,7 +319,7 @@ public class MyBatisDao implements DBDao {
 
 	public DBSqlResult delete(DBSqlParameter sqlParam) throws SQLException {
 		log.trace("Start::delete()");
-		log.trace("  > sqlParam : " + sqlParam);
+		log.trace("  > sqlParam: " + sqlParam);
 
 		SqlSession session = getSqlFactory(sqlParam).openSession(false);
 		int count = -1;
@@ -340,7 +340,7 @@ public class MyBatisDao implements DBDao {
 			}
 		}
 
-		log.trace("  > RV(count) : " + count);
+		log.trace("  > RV(count): " + count);
 		log.trace("Start::delete()");
 
 		return new DBSqlResult(count);
@@ -348,7 +348,7 @@ public class MyBatisDao implements DBDao {
 
 	public DBSqlResult update(DBSqlParameter sqlParam) throws SQLException {
 		log.trace("Start::update()");
-		log.trace("  > sqlParam : " + sqlParam);
+		log.trace("  > sqlParam: " + sqlParam);
 
 		SqlSession session = getSqlFactory(sqlParam).openSession();
 		int count = -1;
@@ -369,7 +369,7 @@ public class MyBatisDao implements DBDao {
 			}
 		}
 
-		log.trace("  > RV(count) : " + count);
+		log.trace("  > RV(count): " + count);
 		log.trace("Start::update()");
 
 		return new DBSqlResult(count);

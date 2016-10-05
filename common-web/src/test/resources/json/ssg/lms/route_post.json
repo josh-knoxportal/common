@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/lms/route.do",
+	"url":"http://localhost:8080/v1/lms/route.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -13,16 +13,16 @@
 			"params":{
 				"route_list":[
 					{
-						"device_id":"123456",
+						"device_id":"22c04630-910b-43fb-95d3-e786b4114b0a",
 						"app_id":"test_app_id2",
 						"app_user_id":"test_app_user_id2",
-						"company_id":1,
+						"company_id":11,
 						"company_brand_id":2,
 						"branch_id":3,
 						"floor_id":4,
 						"coord_y":0.0,
 						"coord_x":0.0,
-						"str_log_time":"2016-09-20 14:25:30"
+						"str_log_time":"2016-10-03 14:25:30"
 					}
 				]
 			}

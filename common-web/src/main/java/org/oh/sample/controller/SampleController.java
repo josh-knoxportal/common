@@ -103,6 +103,12 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.OK);
 	}
 
+	@Override
+	@RequestMapping(value = "update" + Constants.POSTFIX, method = RequestMethod.PUT)
+	public ResponseEntity<Response<Integer>> update(@Valid Sample model, BindingResult errors) throws Exception {
+		return super.update(model, errors);
+	}
+
 	@RequestMapping(value = "/get2", method = { RequestMethod.GET })
 	public ResponseEntity<Response<Sample>> get2(Sample sample, @Valid Common common, BindingResult errors)
 			throws Exception {

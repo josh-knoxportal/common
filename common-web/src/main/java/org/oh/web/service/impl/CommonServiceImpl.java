@@ -56,6 +56,11 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	@Autowired
 	protected StorageAccessor storageAccessor;
 
+	/**
+	 * 캐쉬명을 설정한다.
+	 * 
+	 * @return null 은 캐쉬 사용 안함
+	 */
 	@Override
 	public String getCacheName() {
 		return null;
@@ -106,8 +111,8 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			}
 		}
 
-		list = entityManager.list(model, model.getCondition2(), model.getOrder_by(), model.getHint(), model.getFields(),
-				model.getTable(), model.getSql_name());
+		list = entityManager.list(model, model.getConditionObj(), model.getOrder_by(), model.getHint(),
+				model.getFields(), model.getTable(), model.getSql_name());
 
 		if (cache != null) {
 			cache.put(cacheKey, list);
@@ -126,7 +131,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	public int count(T model) throws Exception {
 		model = setModel(model);
 
-		return entityManager.count(model, model.getCondition2());
+		return entityManager.count(model, model.getConditionObj());
 	}
 
 	@Override
@@ -136,7 +141,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (model.getOrder_by() == null)
 			model.setOrder_by(Paging.DEFAULT_ORDER_BY);
 
-		return entityManager.page(model, model.getCondition2(), model.getOrder_by(), page.getPageNumber(),
+		return entityManager.page(model, model.getConditionObj(), model.getOrder_by(), page.getPageNumber(),
 				page.getRows());
 	}
 
@@ -169,7 +174,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Override
 	@TransactionalException
-//	@CacheEvictCommon
 	public List<Long> insert(List<T> models) throws Exception {
 		List<Long> result = new ArrayList<Long>();
 
@@ -193,11 +197,10 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Override
 	@TransactionalException
-//	@CacheEvictCommon
 	public int update(T model) throws Exception {
 		model = setDefaultModifyDate(model);
 
-		int result = entityManager.update(model, model.getCondition2());
+		int result = entityManager.update(model, model.getConditionObj());
 
 		if (cache != null) {
 			cache.clear();
@@ -208,9 +211,42 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Override
 	@TransactionalException
-//	@CacheEvictCommon
+	public int update(List<T> models) throws Exception {
+		int result = 0;
+
+		for (T model : models) {
+			model = setDefaultModifyDate(model);
+
+			result += entityManager.update(model, model.getConditionObj());
+		}
+
+		if (cache != null) {
+			cache.clear();
+		}
+
+		return result;
+	}
+
+	@Override
+	@TransactionalException
 	public int delete(T model) throws Exception {
-		int result = entityManager.delete(model, model.getCondition2());
+		int result = entityManager.delete(model, model.getConditionObj());
+
+		if (cache != null) {
+			cache.clear();
+		}
+
+		return result;
+	}
+
+	@Override
+	@TransactionalException
+	public int delete(List<T> models) throws Exception {
+		int result = 0;
+
+		for (T model : models) {
+			result += entityManager.delete(model, model.getConditionObj());
+		}
 
 		if (cache != null) {
 			cache.clear();

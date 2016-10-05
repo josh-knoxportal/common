@@ -56,7 +56,7 @@ public abstract class AbstractSelectSqlSource extends DynamicSqlBuilder {
 	// 필드 추가 by skoh
 	protected void makeFields(Query query) {
 		int idxSelect = staticSql.indexOf("SELECT");
-		int idxFrom = staticSql.indexOf("FROM");
+		int idxFrom = staticSql.lastIndexOf("FROM");
 		if (query.getFields() != null && idxSelect >= 0 && idxFrom >= 0) {
 			staticSql = staticSql.substring(0, idxSelect) + staticSql.substring(idxSelect, idxSelect + 6) + " "
 					+ query.getFields() + " " + staticSql.substring(idxFrom);
@@ -65,7 +65,7 @@ public abstract class AbstractSelectSqlSource extends DynamicSqlBuilder {
 
 	// 테이블 추가 by skoh
 	protected void makeTable(Query query) {
-		int index = staticSql.indexOf("FROM");
+		int index = staticSql.lastIndexOf("FROM");
 		if (query.getTable() != null && index >= 0) {
 			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 4) + " " + query.getTable();
 

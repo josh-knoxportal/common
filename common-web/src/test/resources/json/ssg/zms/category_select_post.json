@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/category/select.do",
+	"url":"https://ssglbs.shinsegae-inc.com/v1/zms/category/select.do",
 	"method":"POST",
 	"responseFormat":"JSON",
 	"convertBody":true,
@@ -12,7 +12,7 @@
 			"params":{
 				"fields":"COUNT(1)",
 				"table":"zone",
-				"condition":"validity in (1) AND ROWNUM = 1"
+				"condition":"validity in (1)"
 			}
 		}
 	]

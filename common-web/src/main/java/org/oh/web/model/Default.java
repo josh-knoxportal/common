@@ -67,7 +67,7 @@ public abstract class Default implements Serializable {
 	/**
 	 * 조회 조건
 	 */
-	protected Condition condition2 = new Condition();
+	protected Condition conditionObj = new Condition();
 
 	public String getSql_name() {
 		return sql_name;
@@ -118,12 +118,12 @@ public abstract class Default implements Serializable {
 	}
 
 	@JsonIgnore
-	public Condition getCondition2() {
-		return condition2;
+	public Condition getConditionObj() {
+		return conditionObj;
 	}
 
-	public void setCondition2(Condition condition2) {
-		this.condition2 = condition2;
+	public void setConditionObj(Condition conditionObj) {
+		this.conditionObj = conditionObj;
 	}
 
 	public void addCondition(String condition) {
@@ -131,7 +131,7 @@ public abstract class Default implements Serializable {
 			return;
 
 		this.condition = condition;
-		condition2.add(condition);
+		conditionObj.add(condition);
 	}
 
 	public void addCondition(String operator, Object... value) {
@@ -142,7 +142,7 @@ public abstract class Default implements Serializable {
 		if (!Utils.isValidate(value))
 			return;
 
-		condition2.add(field, operator, value);
+		conditionObj.add(field, operator, value);
 	}
 
 	public Condition newCondition() {
@@ -161,7 +161,7 @@ public abstract class Default implements Serializable {
 	}
 
 	public void addCondition(Condition condition) {
-		this.condition2.add(condition);
+		this.conditionObj.add(condition);
 	}
 
 	@Override

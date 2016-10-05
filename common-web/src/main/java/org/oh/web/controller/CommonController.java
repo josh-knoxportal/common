@@ -216,7 +216,27 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 */
 	@RequestMapping(value = "update" + Constants.POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		int result = service.update(model);
+		Response<Integer> response = Response.getSuccessResponse(result);
+
+		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+	}
+
+	/**
+	 * Content-Type : application/json
+	 */
+	@RequestMapping(value = "updates_json" + Constants.POSTFIX, method = RequestMethod.POST)
+	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
+			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		int result = service.update(models);
 		Response<Integer> response = Response.getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
@@ -242,7 +262,27 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 */
 	@RequestMapping(value = "delete" + Constants.POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> delete(T model, BindingResult errors) throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
 		int result = service.delete(model);
+		Response<Integer> response = Response.getSuccessResponse(result);
+
+		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+	}
+
+	/**
+	 * Content-Type : application/json
+	 */
+	@RequestMapping(value = "deletes_json" + Constants.POSTFIX, method = RequestMethod.POST)
+	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
+			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		int result = service.delete(models);
 		Response<Integer> response = Response.getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);

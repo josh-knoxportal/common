@@ -119,6 +119,17 @@ public interface CommonService<T extends Default> {
 	public int update(T model) throws Exception;
 
 	/**
+	 * 공통 리스트 수정
+	 * 
+	 * @param models 모델 리스트
+	 * 
+	 * @return 결과
+	 * 
+	 * @throws Exception
+	 */
+	public int update(List<T> models) throws Exception;
+
+	/**
 	 * 공통 삭제
 	 * 
 	 * @param model 모델
@@ -128,4 +139,15 @@ public interface CommonService<T extends Default> {
 	 * @throws Exception
 	 */
 	public int delete(T model) throws Exception;
+
+	/**
+	 * 공통 리스트 삭제
+	 * 
+	 * @param models 모델 리스트
+	 * 
+	 * @return 결과
+	 * 
+	 * @throws Exception
+	 */
+	public int delete(List<T> models) throws Exception;
 }

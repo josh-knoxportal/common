@@ -2,7 +2,7 @@ package org.oh.sample.model;
 
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
-import org.oh.web.page.Paging;
+import org.oh.common.page.Paging;
 
 /**
  * DDL : 테스트 테이블

@@ -14,7 +14,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.AfterClass;
 import org.junit.Test;
-import org.oh.common.download.Attachment;
+import org.oh.common.file.Files;
 import org.oh.common.thread.HTTPUtilFileTask;
 import org.oh.common.thread.HTTPUtilTask;
 import org.oh.common.util.FileUtil;
@@ -176,10 +176,10 @@ public class TestAPI {
 		// 서버 호출
 		if ("File".equalsIgnoreCase(requestFormat)) {
 			// 파일
-			List<Attachment> attachs = new ArrayList<Attachment>();
+			List<Files> attachs = new ArrayList<Files>();
 			if (jsonNode.get("file") != null) {
 				for (JsonNode file : jsonNode.get("file")) {
-					attachs.add(new Attachment(FileUtil.getPath(file.textValue()), FileUtil.getName(file.textValue()),
+					attachs.add(new Files(FileUtil.getPath(file.textValue()), FileUtil.getName(file.textValue()),
 							IOUtils.toByteArray(new FileInputStream(file.textValue()))));
 				}
 			}

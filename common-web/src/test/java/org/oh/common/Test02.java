@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -141,19 +142,10 @@ public class Test02 {
 
 //		System.out.println(getClass().getResource("").getPath());
 //		System.out.println(getClass().getClassLoader().getResource("common.properties").getPath());
-//		LocalFileStorageAccessor storageAccessor = new LocalFileStorageAccessor();
-//		for (int i = 0; i < 1; i++) {
-//			String UID = LocalFileStorageAccessor.generateUID();
-//
-//			storageAccessor.save(UID, "테스트.txt", "테스트".getBytes());
-////			System.out.println("fileInfo: " + storageAccessor.getFileInfo(UID));
-//
-//			byte[] file = storageAccessor.load(UID);
-//			System.out.println(new String(file, "UTF-8"));
-//		}
-
-		System.out.println("A20160920".compareTo("A20160919") > 0);
-		System.out.println("A20160920".compareTo("A20160920") > 0);
+//		System.out.println("A20160920".compareTo("A20160919") > 0);
+//		System.out.println("A20160920".compareTo("A20160920") > 0);
+		
+		System.out.println(FilenameUtils.getPathNoEndSeparator("/a/b/c.xtx"));
 	}
 
 	class Test01 {

@@ -1324,7 +1324,7 @@ public abstract class StringUtil extends StringUtils {
 //		System.out.println(convertFormat(1L, "00"));
 //		System.out.println(encodeMD5("1234")); // 05841730f0329c9ad0c80ff268da9dfe
 //		System.out.println(generateUID());
-//		String uid = LocalFileStorageAccessor.generateUID().substring(6);
+//		String uid = LocalFileStorage.generateUID().substring(6);
 //		String uid = "00000001371200140695";
 //		System.out.println(getDateTime(Long.parseLong(uid)));
 

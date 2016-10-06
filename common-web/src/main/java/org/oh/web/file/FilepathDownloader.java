@@ -1,4 +1,4 @@
-package org.oh.common.download;
+package org.oh.web.file;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
  * 예) http://127.0.0.1:8080/common/download/filepath/?mode=1&file_name=/filepath/테스트.xlsx
  */
 @Component
-public class FilepathDownloader extends AbstractDownloader implements Downloader {
+public class FilepathDownloader extends FileDownloader implements Downloader {
 	protected static Log log = LogFactory.getLog(FilepathDownloader.class);
 
 	public FilepathDownloader() {

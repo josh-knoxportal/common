@@ -1,4 +1,4 @@
-package org.oh.common.download;
+package org.oh.web.file;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,10 +22,10 @@ import org.oh.common.helper.IOHelper;
  * 
  * @version 1.0.0
  */
-public class AbstractDownloader {
-	protected static Log log = LogFactory.getLog(AbstractDownloader.class);
+public class FileDownloader {
+	protected static Log log = LogFactory.getLog(FileDownloader.class);
 
-	private static AbstractDownloader _INSTANCE = new AbstractDownloader();
+	private static FileDownloader _INSTANCE = new FileDownloader();
 	/**
 	 * 읽기 버퍼의 크기로 8KB
 	 */
@@ -35,7 +35,7 @@ public class AbstractDownloader {
 	/**
 	 * 생성자
 	 */
-	public AbstractDownloader() {
+	public FileDownloader() {
 		this(BUFFER_SIZE);
 	}
 
@@ -44,7 +44,7 @@ public class AbstractDownloader {
 	 * 
 	 * @param bufSize Stream 방식으 data를 읽어서 전송할 때 읽기 버퍼의 크기
 	 */
-	public AbstractDownloader(int bufSize) {
+	public FileDownloader(int bufSize) {
 		this.bufSize = bufSize;
 	}
 
@@ -261,7 +261,7 @@ public class AbstractDownloader {
 	 * 
 	 * @return Singleton 객체
 	 */
-	public static AbstractDownloader getInstance() {
+	public static FileDownloader getInstance() {
 		return _INSTANCE;
 	}
 }

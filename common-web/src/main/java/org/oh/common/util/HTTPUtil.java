@@ -46,9 +46,9 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
-import org.oh.common.download.Attachment;
-import org.oh.common.download.URLDownloader;
 import org.oh.common.exception.CommonException;
+import org.oh.common.file.Files;
+import org.oh.common.file.URLDownloader;
 
 /**
  * HTTP 유틸리티 클래스
@@ -115,13 +115,13 @@ public abstract class HTTPUtil {
 	}
 
 	/**
-	 * List<Attachment> -> Map<String, byte[]> 변환
+	 * List<Files> -> Map<String, byte[]> 변환
 	 */
-	public static Map<String, byte[]> convertAttachListToMap(List<Attachment> attachs) {
+	public static Map<String, byte[]> convertAttachListToMap(List<Files> filesList) {
 		Map<String, byte[]> fileMap = new HashMap<String, byte[]>();
-		if (attachs != null) {
-			for (Attachment attachment2 : attachs) {
-				fileMap.put(attachment2.getName(), attachment2.getBytes());
+		if (filesList != null) {
+			for (Files files : filesList) {
+				fileMap.put(files.getFile_name(), files.getFile_bytes());
 			}
 		}
 
@@ -129,13 +129,14 @@ public abstract class HTTPUtil {
 	}
 
 	/**
-	 * 파일경로 -> List<Attachment> 변환
+	 * 파일경로 -> List<Files> 변환
 	 */
-	public static List<Attachment> convertFileArrayToList(String... filePaths) {
-		List<Attachment> list = new ArrayList<Attachment>();
+	public static List<Files> convertFileArrayToList(String... filePaths) {
+		List<Files> list = new ArrayList<Files>();
 		if (filePaths != null) {
 			for (String filePath : filePaths) {
-				list.add(new Attachment("", FilenameUtils.getName(filePath), getFileBytes(filePath)));
+				list.add(new Files(FilenameUtils.getPathNoEndSeparator(filePath), FilenameUtils.getName(filePath),
+						getFileBytes(filePath)));
 			}
 		}
 
@@ -162,19 +163,19 @@ public abstract class HTTPUtil {
 	}
 
 	/**
-	 * Object -> List<Attachment> 변환
+	 * Object -> List<Files> 변환
 	 */
-	public static List<Attachment> convertObjectToAttachList(Object obj) {
-		List<Attachment> list = new ArrayList<Attachment>();
+	public static List<Files> convertObjectToAttachList(Object obj) {
+		List<Files> list = new ArrayList<Files>();
 
-		Attachment attach = ReflectionUtil.getValue(obj, Attachment.class);
+		Files attach = ReflectionUtil.getValue(obj, Files.class);
 		if (Utils.isValidate(attach)) {
 			list.add(attach);
 		}
 
-		Attachment[] attachs = ReflectionUtil.getValue(obj, Attachment[].class);
-		if (Utils.isValidate(attachs)) {
-			list.addAll(Utils.convertArrayToList(ReflectionUtil.getValue(obj, Attachment[].class)));
+		Files[] files = ReflectionUtil.getValue(obj, Files[].class);
+		if (Utils.isValidate(files)) {
+			list.addAll(Utils.convertArrayToList(ReflectionUtil.getValue(obj, Files[].class)));
 		}
 
 		return list;
@@ -229,7 +230,7 @@ public abstract class HTTPUtil {
 	public static byte[] getBytes(String url, String fileName) throws CommonException {
 		URLDownloader urlDownloader = new URLDownloader();
 
-		Attachment attch = null;
+		Files attch = null;
 		try {
 			attch = urlDownloader.download(fileName, url);
 		} catch (Exception e) {
@@ -237,7 +238,7 @@ public abstract class HTTPUtil {
 					"Download bytes from url \"" + url + "\", file \"" + fileName + "\" error", e.getMessage()), e);
 		}
 
-		return attch.getBytes();
+		return attch.getFile_bytes();
 	}
 
 	// //////////////////////////////////////////////////////////////////////////
@@ -468,23 +469,23 @@ public abstract class HTTPUtil {
 		return response;
 	}
 
-	public static Map<String, Object> upload(String url, List<Attachment> attachs) throws CommonException {
-		return upload(url, null, attachs);
+	public static Map<String, Object> upload(String url, List<Files> filesList) throws CommonException {
+		return upload(url, null, filesList);
 	}
 
-	public static Map<String, Object> upload(String url, List<NameValuePair> params, List<Attachment> attachs)
+	public static Map<String, Object> upload(String url, List<NameValuePair> params, List<Files> filesList)
 			throws CommonException {
-		return upload(url, getDefaultMethod(params), params, attachs);
+		return upload(url, getDefaultMethod(params), params, filesList);
 	}
 
 	public static Map<String, Object> upload(String url, String method, List<NameValuePair> params,
-			List<Attachment> attachs) throws CommonException {
-		return upload(url, method, null, params, attachs);
+			List<Files> filesList) throws CommonException {
+		return upload(url, method, null, params, filesList);
 	}
 
 	public static Map<String, Object> upload(String url, String method, List<NameValuePair> headers,
-			List<NameValuePair> params, List<Attachment> attachs) throws CommonException {
-		return upload(url, method, headers, params, attachs, null);
+			List<NameValuePair> params, List<Files> filesList) throws CommonException {
+		return upload(url, method, headers, params, filesList, null);
 	}
 
 	/**
@@ -493,10 +494,10 @@ public abstract class HTTPUtil {
 	 * @return Map(header, content)
 	 */
 	public static Map<String, Object> upload(String url, String method, List<NameValuePair> headers,
-			List<NameValuePair> params, List<Attachment> attachs, String charset) throws CommonException {
+			List<NameValuePair> params, List<Files> filesList, String charset) throws CommonException {
 		Map<String, Object> response = new HashMap<String, Object>();
 
-		String message = "Upload files \"" + attachs + "\" to url \"" + url + "\" error";
+		String message = "Upload files \"" + filesList + "\" to url \"" + url + "\" error";
 		Charset encCharset = getCharset(charset);
 		HttpPost httpPost = null;
 		try {
@@ -530,10 +531,10 @@ public abstract class HTTPUtil {
 				}
 			}
 
-			for (Attachment attachment : attachs) {
-//				multipartEntity.addPart(attachment.getFileName(),
-//						new ByteArrayBody(attachment.getBytes(), attachment.getFileName()));
-				builder.addPart("file", new ByteArrayBody(attachment.getBytes(), attachment.getFileName()));
+			for (Files files : filesList) {
+//				multipartEntity.addPart(files.getFile_name(),
+//						new ByteArrayBody(files.getFile_bytes(), files.getFile_name()));
+				builder.addPart("file", new ByteArrayBody(files.getFile_bytes(), files.getFile_name()));
 			}
 
 //			httpPost.setEntity(multipartEntity);
@@ -624,10 +625,10 @@ public abstract class HTTPUtil {
 //		System.out.println(t);
 //		ReflectionUtils2.setValue(t, "s", "b");
 //		System.out.println(t);
-//		Attachment[] field = ReflectionUtils2.getValue(t, Attachment[].class);
+//		Files[] field = ReflectionUtils2.getValue(t, Files[].class);
 //		System.out.println(Utils.toString("field:", field));
 
-//		List<Attachment> list = convertObjectToList(t);
+//		List<Files> list = convertObjectToList(t);
 //		System.out.println(list);
 
 //		String query = "mode=1&file_name=&I_BUKRS=1000&I_BNUMB=0000000724&I_GJAHR=2014&I_OBJKEY=FOL38000000000004EXT39000000000165";
@@ -651,9 +652,8 @@ public abstract class HTTPUtil {
 		private String moduleName = "brd";
 		private String moduleName2 = null;
 
-//		private Attachment attach1 = new Attachment("", "attach", null);
-//		private Attachment[] attachs = new Attachment[] { new Attachment("", "attachs1", null),
-//				new Attachment("", "attachs2", null) };
+//		private Files file = new Files("attach", null);
+//		private Files[] files = new Files[] { new Files("file1", null), new Files("file2", null) };
 //		public byte[] bytes = new byte[] { 65 };
 
 		public String toString() {

@@ -3,7 +3,7 @@ package org.oh.sample.model;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
-import org.oh.web.page.Paging;
+import org.oh.common.page.Paging;
 
 /**
  * DDL : 샘플 테이블
@@ -71,7 +71,7 @@ import org.oh.web.page.Paging;
 @Table("sample")
 public class Sample extends Paging {
 	/**
-	 * 샘플 아이디(PK), 시퀀스
+	 * 아이디(PK)
 	 */
 //	@Null(message = "반드시 값이 없어야 합니다.") // must be null : 반드시 값이 있어야 합니다.
 //	@NotNull(message = "반드시 값이 있어야 합니다.") // may not be null : 반드시 값이 없어야 합니다.
@@ -81,7 +81,7 @@ public class Sample extends Paging {
 	protected Long id;
 
 	/**
-	 * 샘플명
+	 * 명칭
 	 */
 //	@Size(max = 0) // Empty
 	@NotEmpty // may not be empty : 반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다.
@@ -93,7 +93,7 @@ public class Sample extends Paging {
 	/**
 	 * 테스트 아이디(FK)
 	 */
-	@Column(references = "Test.id")
+	@Column // (references = "Test.id")
 	protected Long test_id;
 
 	public Long getId() {

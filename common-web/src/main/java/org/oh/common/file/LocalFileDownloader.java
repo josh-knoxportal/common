@@ -1,4 +1,4 @@
-package org.oh.common.download;
+package org.oh.common.file;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,26 +15,27 @@ import org.oh.common.helper.IOHelper;
  * @version 1.0.0
  *
  */
-public class LocalFileDownloader implements AttachmentDownloader {
+public class LocalFileDownloader implements IFileDownloader {
 	protected static Log log = LogFactory.getLog(LocalFileDownloader.class);
 
 	/**
 	 * @param filePath 파일의 로컬 경로(절대 경로 권장)
 	 */
-	public Attachment download(String fileName, String filePath) throws Exception {
+	public Files download(String fileName, String filePath) throws Exception {
 		log.trace("Start::download()");
 		log.trace("  > fileName: " + fileName);
 		log.trace("  > filePath: " + filePath);
 
-		Attachment file = new Attachment(fileName, 0, null);
+		Files files = new Files(filePath, fileName, null);
 		FileInputStream fis = null;
-		byte[] data = null;
+		byte[] bytes = null;
 
 		try {
-			fileName = filePath + File.separator + file.getFileName();
+			fileName = filePath + File.separator + files.getFile_name();
 			fis = new FileInputStream(fileName);
-			data = IOHelper.readToEnd(fis);
-			file.setBytes(data);
+			bytes = IOHelper.readToEnd(fis);
+
+			files.setFile_bytes(bytes);
 		} catch (IOException e) {
 			log.error("IOException > ", e);
 			log.trace("Throw IOException!");
@@ -44,11 +45,11 @@ public class LocalFileDownloader implements AttachmentDownloader {
 			IOUtils.closeQuietly(fis);
 		}
 
-		file.setSize(data.length);
+		files.setFile_size((long) bytes.length);
 
-		log.trace("  > RV(file.size): " + file.getSize());
+		log.trace("  > RV(files.size): " + files.getFile_size());
 		log.trace("End::download()");
 
-		return file;
+		return files;
 	}
 }

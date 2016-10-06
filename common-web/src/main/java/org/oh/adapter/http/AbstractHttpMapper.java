@@ -32,7 +32,7 @@ import org.apache.http.params.HttpConnectionParamBean;
 import org.apache.http.util.EntityUtils;
 import org.oh.adapter.exception.AdapterException;
 import org.oh.adapter.util.AdapterUtil;
-import org.oh.common.download.Attachment;
+import org.oh.common.file.Files;
 import org.oh.common.util.PropertyUtils;
 import org.oh.common.util.Utils;
 import org.springframework.beans.DirectFieldAccessor;
@@ -199,7 +199,7 @@ public abstract class AbstractHttpMapper<T> implements IHttpMapper<T> {
 	/**
 	 * 파일 업로드(POST)
 	 */
-	protected HttpRequestBase bodyMultipart(HttpRequestBase request, Object paramObj, List<Attachment> attachs)
+	protected HttpRequestBase bodyMultipart(HttpRequestBase request, Object paramObj, List<Files> filesList)
 			throws AdapterException {
 		List<NameValuePair> paramList = AdapterUtil.convertObjectToList(paramObj, includes, excludes);
 
@@ -212,9 +212,9 @@ public abstract class AbstractHttpMapper<T> implements IHttpMapper<T> {
 			throw new AdapterException("", "Add multipart parameter \"" + paramList + "\" error", e);
 		}
 
-		for (Attachment attachment : attachs) {
-			multipartEntity.addPart(attachment.getFileName(),
-					new ByteArrayBody(attachment.getBytes(), attachment.getFileName()));
+		for (Files files : filesList) {
+			multipartEntity.addPart(files.getFile_name(),
+					new ByteArrayBody(files.getFile_bytes(), files.getFile_name()));
 		}
 
 		return body(request, multipartEntity);

@@ -5,14 +5,14 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.oh.adapter.exception.AdapterException;
-import org.oh.common.download.Attachment;
+import org.oh.common.file.Files;
 
 /**
  * HTTP 기본 매퍼
  * : HTTP 업로드 서비스와 연계(Response 응답)
  */
 public class HttpUploadMapper extends HttpResponseMapper {
-	protected List<Attachment> attaches = null;
+	protected List<Files> attaches = null;
 
 	public HttpUploadMapper() {
 		super();
@@ -34,7 +34,7 @@ public class HttpUploadMapper extends HttpResponseMapper {
 		super(trcode, charset, includes, excludes);
 	}
 
-	public HttpUploadMapper(String trcode, List<Attachment> attaches, String charset, List<NameValuePair> includes,
+	public HttpUploadMapper(String trcode, List<Files> attaches, String charset, List<NameValuePair> includes,
 			String... excludes) {
 		super(trcode, charset, includes, excludes);
 		this.attaches = attaches;

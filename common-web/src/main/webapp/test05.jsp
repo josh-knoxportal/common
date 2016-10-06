@@ -131,8 +131,8 @@
 		<input type="submit">
 	</form><br>
 
-	/sample/insert_json.do
-	<form method="post" action="http://localhost:8050/sample/insert_json.do" enctype="multipart/form-data">
+	/sample/insert.do
+	<form method="post" action="http://localhost:8050/sample/insert.do" enctype="multipart/form-data">
 		name : <input name="name" value="s"><br>
 		test_id : <input name="test_id" value="3"><br>
 		reg_id : <input name="reg_id" value="1"><br>

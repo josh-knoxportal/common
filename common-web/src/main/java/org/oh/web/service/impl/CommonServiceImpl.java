@@ -12,19 +12,21 @@ import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
 import org.oh.common.annotation.TransactionalException;
-import org.oh.common.storage.StorageAccessor;
+import org.oh.common.file.Files;
+import org.oh.common.page.Paging;
+import org.oh.common.storage.FileStorage;
 import org.oh.common.util.ReflectionUtil;
 import org.oh.common.util.Utils;
 import org.oh.web.model.Common;
 import org.oh.web.model.Default;
-import org.oh.web.page.Paging;
 import org.oh.web.service.CommonService;
+import org.oh.web.service.FilesService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * https://github.com/skoh/common.git
@@ -54,7 +56,11 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	protected EntityManager entityManager;
 
 	@Autowired
-	protected StorageAccessor storageAccessor;
+	protected FileStorage fileStorage;
+
+	@Lazy
+	@Autowired
+	protected FilesService fileService;
 
 	/**
 	 * 캐쉬명을 설정한다.
@@ -64,18 +70,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	@Override
 	public String getCacheName() {
 		return null;
-	}
-
-	public void setCacheName(String cacheName) {
-		this.cacheName = cacheName;
-	}
-
-	public Cache getCache() {
-		return cache;
-	}
-
-	public void setCache(Cache cache) {
-		this.cache = cache;
 	}
 
 	@Override
@@ -148,22 +142,21 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	@Override
 	@TransactionalException
 //	@CacheEvictCommon
-	public long insert(T model, List<MultipartFile> files) throws Exception {
-		for (MultipartFile file : files) {
-			if (!Utils.isValidate(file.getOriginalFilename()))
-				continue;
+	public Object insert(T model) throws Exception {
+		return insert(model, new ArrayList<Files>());
+	}
 
-//			FileUtils.writeByteArrayToFile(new File("/Users/skoh/Downloads/file/" + file.getOriginalFilename()),
-//					file.getBytes());
-			storageAccessor.save(file.getOriginalFilename(), file.getBytes());
-		}
-
+	@Override
+	@TransactionalException
+	public Object insert(T model, List<Files> files) throws Exception {
 		model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
-		long result = entityManager.insert(model);
-		long id = getId(model);
-		if (id != -1)
+		Object result = String.valueOf(entityManager.insert(model));
+		Object id = getId(model);
+		if (Utils.isValidate(id))
 			result = id;
+
+		insertFile(model, files);
 
 		if (cache != null) {
 			cache.clear();
@@ -174,18 +167,18 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Override
 	@TransactionalException
-	public List<Long> insert(List<T> models) throws Exception {
-		List<Long> result = new ArrayList<Long>();
+	public List<Object> insert(List<T> models) throws Exception {
+		List<Object> result = new ArrayList<Object>();
 
 		for (T model : models) {
 			model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
-			long result_ = entityManager.insert(model);
-			long id = getId(model);
-			if (id == -1)
-				result.add(result_);
-			else
+			Object result_ = entityManager.insert(model);
+			Object id = getId(model);
+			if (Utils.isValidate(id))
 				result.add(id);
+			else
+				result.add(result_);
 		}
 
 		if (cache != null) {
@@ -198,6 +191,12 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	@Override
 	@TransactionalException
 	public int update(T model) throws Exception {
+		return update(model, new ArrayList<Files>());
+	}
+
+	@Override
+	@TransactionalException
+	public int update(T model, List<Files> files) throws Exception {
 		model = setDefaultModifyDate(model);
 
 		int result = entityManager.update(model, model.getConditionObj());
@@ -256,16 +255,31 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	}
 
 	/**
+	 * 파일 등록
+	 * 
+	 * @param files
+	 * 
+	 * @throws Exception
+	 */
+	protected List<Object> insertFile(T model, List<Files> files) throws Exception {
+		for (Files file : files) {
+			fileStorage.save(file);
+		}
+
+		return fileService.insert(files);
+	}
+
+	/**
 	 * id 필드의 값을 구한다.
 	 * 
 	 * @param model
 	 * 
-	 * @return id 필드가 없으면 -1
+	 * @return id 필드가 없으면 null
 	 */
-	protected long getId(T model) {
-		long id = -1;
+	protected Object getId(T model) {
+		Object id = null;
 		try {
-			id = (long) ReflectionUtil.getValue(model, "id");
+			id = ReflectionUtil.getValue(model, "id");
 		} catch (Exception e) {
 		}
 
@@ -273,7 +287,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	}
 
 	/**
-	 * Model에 대한 쿼리를 가공할 경우에 사용
+	 * Model에 대한 쿼리를 가공할 경우에 Override하여 사용
 	 * 
 	 * @param model
 	 * 

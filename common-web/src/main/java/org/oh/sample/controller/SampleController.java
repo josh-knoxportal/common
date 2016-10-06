@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.oh.common.page.PageNavigator;
 import org.oh.common.util.Utils;
 import org.oh.sample.model.Sample;
 import org.oh.sample.service.SampleService;
@@ -14,7 +15,6 @@ import org.oh.web.Constants;
 import org.oh.web.common.Response;
 import org.oh.web.controller.CommonController;
 import org.oh.web.model.Common;
-import org.oh.web.page.PageNavigator;
 import org.oh.web.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

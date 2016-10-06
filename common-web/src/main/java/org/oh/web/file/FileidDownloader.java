@@ -1,4 +1,4 @@
-package org.oh.common.download;
+package org.oh.web.file;
 
 import java.io.ByteArrayInputStream;
 import java.util.Map;
@@ -9,21 +9,23 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.oh.common.util.StringUtil;
+import org.oh.common.storage.FileStorage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 파일URL 다운로드
- * : http://{context_root}/{context_path}/download/fileurl/? 로 매핑된다.
- * 예) http://127.0.0.1:8080/common/download/fileurl/?mode=1&file_name=테스트.xls&file_url=127.0.0.1:8090/context/test.xls
+ * 파일ID 다운로드
+ * : http://{context_root}/{context_path}/download/fileid/? 로 매핑된다.
+ * 예) http://127.0.0.1:8080/common/download/fileid/?mode=1&file_name=테스트.xls&file_id=ZBWMO00000001371200140695
  */
 @Component
-public class FileurlDownloader extends AbstractDownloader implements Downloader {
-	protected static Log log = LogFactory.getLog(FileurlDownloader.class);
+public class FileidDownloader extends FileDownloader implements Downloader {
+	protected static Log log = LogFactory.getLog(FileidDownloader.class);
 
-	protected String charset = null;
+	@Autowired
+	protected FileStorage fileStorage;
 
-	public FileurlDownloader() {
+	public FileidDownloader() {
 		super();
 	}
 
@@ -36,8 +38,7 @@ public class FileurlDownloader extends AbstractDownloader implements Downloader 
 		HttpServletRequest request = (HttpServletRequest) params.get("HttpServletRequest");
 		HttpServletResponse response = (HttpServletResponse) params.get("HttpServletResponse");
 		String fileName = String.valueOf(params.get("file_name"));
-		String fileUrl = request.getParameter("file_url");
-		fileUrl = StringUtil.replace(fileUrl, "@", "&");
+		String fileId = request.getParameter("file_id");
 		String fileType = getMimeType(request, fileName);
 		ByteArrayInputStream in = null;
 
@@ -50,15 +51,15 @@ public class FileurlDownloader extends AbstractDownloader implements Downloader 
 		log.debug("uid: " + uid);
 		log.debug("mode: " + mode);
 		log.debug("file_name: " + fileName);
-		log.debug("file_url: " + fileUrl);
+		log.debug("file_id: " + fileId);
 
 		try {
-			// URL에서 파일을 다운로드할 경우
-			URLDownloader urlDownloader = new URLDownloader();
-			Attachment attch = urlDownloader.download(fileName, fileUrl, charset);
-			in = new ByteArrayInputStream(attch.getBytes());
+			// 스토래지에서 파일을 다운로드할 경우
+			byte[] bytes = fileStorage.load(fileId);
+//			log.debug("file_info: " + fileStorage.getFileInfo(fileId));
+			in = new ByteArrayInputStream(bytes);
 
-			send(response, fileName, fileType, in, attch.getSize(), fileStartPos);
+			send(response, fileName, fileType, in, bytes.length, fileStartPos);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}

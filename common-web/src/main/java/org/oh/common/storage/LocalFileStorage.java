@@ -3,7 +3,6 @@ package org.oh.common.storage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
@@ -13,10 +12,12 @@ import java.util.Random;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.oh.common.exception.CommonException;
+import org.oh.common.file.Files;
 import org.oh.common.helper.IOHelper;
 import org.oh.common.util.FileUtil;
-import org.oh.common.util.LogUtil;
 import org.oh.common.util.PropertyUtils;
+import org.oh.common.util.Utils;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,22 +27,22 @@ import org.springframework.stereotype.Component;
  * @since 1.5
  */
 @Component
-public class LocalFileStorageAccessor implements StorageAccessor {
-	protected static Log log = LogFactory.getLog(LocalFileStorageAccessor.class);
+public class LocalFileStorage implements FileStorage {
+	protected static Log log = LogFactory.getLog(LocalFileStorage.class);
 
 //	protected static String CONFIG_FILEPATH = Constants.HOME_DIR + File.separator + Constants.CONF_DIR_NAME
 //			+ File.separator + "storage.properties";
 //	protected static String TEMP_DIR = Constants.HOME_DIR + File.separator + "temp";
 	protected static SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	protected static Random RANDOM = new Random();
-	protected static StorageAccessor storageAccessor = null;
+	protected static FileStorage fileStorage = null;
 
-	// File Storage (HashMap <UID,FileName>)
+	// File Storage (HashMap <fileID,FileName>)
 //	protected Map<String, String> localFileStorage;
-//	protected Map<String, Attachment> localFileStorage;
+//	protected Map<String, Files> localFileStorage;
 
-	// Local file storage save file path
-	protected String storageFilePath = null;
+	// Local file storage save root path
+	protected String storageRootPath = null;
 
 	/**
 	 * Unique ID를 생성한다.
@@ -71,26 +72,12 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	}
 
 	/**
-	 * Singleton 객체를 돌려 준다.
-	 * 
-	 * @return Singleton 객체
-	 */
-	public static StorageAccessor getInstance() {
-		if (storageAccessor == null) {
-			log.info("Create Local File Storage Accessor");
-			storageAccessor = new LocalFileStorageAccessor(getStorageFilePath());
-		}
-
-		return storageAccessor;
-	}
-
-	/**
-	 * Storage 경로를 구한다.
+	 * Storage 루트 경로를 구한다.
 	 * 
 	 * @return
 	 */
-	protected static String getStorageFilePath() {
-		String storageFilePath = null;
+	public static String getStorageRootPath() {
+		String storageRootPath = null;
 
 //		log.info("Configuration File: " + CONFIG_FILEPATH);
 //		try {
@@ -99,33 +86,68 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 //			prop.setReloadingStrategy(new FileChangedReloadingStrategy());
 //			prop.load(new FileInputStream(CONFIG_FILEPATH));
 //
-//			storageFilePath = prop.getProperty("storage.file.path").toString();
+//			storageRootPath = prop.getProperty("storage.file.path").toString();
 //		} catch (Exception e) {
-//			storageFilePath = TEMP_DIR;
-//			log.warn("Failed to read " + CONFIG_FILEPATH + "! Default value: " + storageFilePath);
+//			storageRootPath = TEMP_DIR;
+//			log.warn("Failed to read " + CONFIG_FILEPATH + "! Default value: " + storageRootPath);
 //		}
-		storageFilePath = PropertyUtils.getInstance().getString("storage.file.path", "storage");
+		storageRootPath = PropertyUtils.getInstance().getString("storage.root.path", "storage");
 
-		return storageFilePath;
+		return storageRootPath;
 	}
 
-	public LocalFileStorageAccessor() {
-		this(getStorageFilePath());
+	/**
+	 * 파일 경로를 가져온다.
+	 */
+	public static String getFilePath() {
+		return File.separator + Utils.formatCurrentDate(Utils.SDF_YEAR) + File.separator
+				+ Utils.formatCurrentDate(Utils.SDF_MONTH);
+	}
+
+	/**
+	 * 파일 경로를 가져온다.
+	 * 
+	 * @param fileID
+	 * 
+	 * @return
+	 */
+	public static String getFilePath(String fileID) {
+//		String fileDate = StringUtil.getDate(Long.parseLong(fileID.substring(6)));
+//		return File.separator + fileDate.substring(0, 4) + File.separator + fileDate.substring(4, 6);
+		return File.separator + fileID.substring(0, 4) + File.separator + fileID.substring(4, 6);
+	}
+
+	/**
+	 * Singleton 객체를 돌려 준다.
+	 * 
+	 * @return Singleton 객체
+	 */
+	public static FileStorage getInstance() {
+		if (fileStorage == null) {
+			log.info("Create Local File Storage Accessor");
+			fileStorage = new LocalFileStorage(getStorageRootPath());
+		}
+
+		return fileStorage;
+	}
+
+	public LocalFileStorage() {
+		this(getStorageRootPath());
 	}
 
 	/**
 	 * 생성자
 	 * 
-	 * @param storageFilePath 서버로 전송한 파일을 임시로 저장할 폴더
+	 * @param storageRootPath 서버로 전송한 파일을 임시로 저장할 폴더
 	 */
-	public LocalFileStorageAccessor(String storageFilePath) {
+	public LocalFileStorage(String storageRootPath) {
 		log.info("Create Local File Storage Accessor");
-		log.info("Storage Path: " + storageFilePath);
+		log.info("Storage Path: " + storageRootPath);
 
-		this.storageFilePath = storageFilePath;
+		this.storageRootPath = storageRootPath;
 
 //		this.localFileStorage = Collections.synchronizedMap(new HashMap<String, String>());
-//		this.localFileStorage = Collections.synchronizedMap(new HashMap<String, Attachment>());
+//		this.localFileStorage = Collections.synchronizedMap(new HashMap<String, Files>());
 	}
 
 //	@SuppressWarnings("rawtypes")
@@ -133,56 +155,52 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 //		return this.localFileStorage;
 //	}
 
+	@Override
 	@Deprecated
-	public String getFileUID(String fileName) {
+	public String getFileID(String fileName) {
 //		return this.localFileStorage.get(fileName);
 		return null;
 	}
 
 	@Override
-//	public boolean save(String UID, byte[] data) {
-//		return save(UID, null, data);
+//	public boolean save(String fileID, byte[] bytes) {
+//		return save(fileID, null, bytes);
 //	}
-	public boolean save(String fileName, byte[] data) {
-		return save(generateUID(), fileName, data);
+	public boolean save(String fileName, byte[] bytes) {
+		return save(new Files(fileName, bytes));
 	}
 
-	/**
-	 * Local File 저장 후 Storage에 UID와 File명을 저장
-	 */
 	@Override
-	public boolean save(String UID, String fileName, byte[] data) {
+	public boolean save(Files files) throws CommonException {
 		log.debug("Start::save()");
-		log.debug("  > UID: " + UID);
-		log.debug("  > fileName: " + fileName);
-		log.debug("  > data length: " + ((data == null) ? 0 : data.length));
+		log.debug("  > files: " + files);
 
 		boolean result = false;
 		FileOutputStream fos = null;
 		FileChannel channel = null;
 
 		try {
-//			fos = new FileOutputStream(storageFilePath + File.separator + UID + "." + "file");
-			String filePath = getFilePath(UID);
+//			fos = new FileOutputStream(storageRootPath + File.separator + fileID + "." + "file");
+			String filePath = getFilePath(files.getId());
 
 			// 파일 경로
-			File dir = new File(storageFilePath + filePath);
+			File dir = new File(storageRootPath + filePath);
 			dir.mkdirs();
 
 			// 파일 이름
-			File file = new File(dir.getAbsolutePath() + File.separator + UID + "." + "file");
+			File file = new File(dir.getAbsolutePath() + File.separator + files.getId() + "." + "file");
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			fos = new FileOutputStream(file);
 
 			channel = fos.getChannel();
 			ByteBuffer bytebuffer = ByteBuffer.allocate(IOHelper.READ_BLOCK);
 			int offset = 0;
-			int length = data.length;
+			int length = files.getFile_bytes().length;
 
 			// Save File
 			while (offset < length) {
 				int chunkSize = IOHelper.READ_BLOCK > (length - offset) ? length - offset : IOHelper.READ_BLOCK;
-				bytebuffer.put(data, offset, chunkSize);
+				bytebuffer.put(files.getFile_bytes(), offset, chunkSize);
 				bytebuffer.flip();
 				offset += chunkSize;
 				channel.write(bytebuffer);
@@ -191,21 +209,21 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 
 			// Save Storage
 //			if (fileName != null && fileName.trim().length() > 0) {
-//				Attachment pAttach = new Attachment(filePath, fileName, data);
-////				this.localFileStorage.put(UID, fileName);
-//				this.localFileStorage.put(UID, pAttach);
+////			this.localFileStorage.put(fileID, fileName);
+//				this.localFileStorage.put(fileID, files);
 //			}
 
 			result = true;
 		} catch (Exception e) {
-			return false;
+			throw new CommonException("Failed to save the file(" + files.getId() + ")", e);
+//			return false;
 		} finally {
 			IOUtils.closeQuietly(channel);
 			IOUtils.closeQuietly(fos);
 		}
 
 		// 파일 권한 추가
-//		File file = new File(storageFilePath + File.separator + UID + "." + "file");
+//		File file = new File(storageRootPath + File.separator + fileID + "." + "file");
 //		file.setReadable(true, false);
 //		file.setWritable(true, false);
 
@@ -216,23 +234,23 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	}
 
 	@Override
-	public byte[] load(String UID) {
+	public byte[] load(String fileID) {
 		log.debug("Start::load()");
-		log.debug("  > UID: " + UID);
+		log.debug("  > fileID: " + fileID);
 
 		FileInputStream fin = null;
 		byte[] bytes = null;
 
 		try {
-//			fin = new FileInputStream(storageFilePath + File.separator + UID + "." + "file");
+//			fin = new FileInputStream(storageRootPath + File.separator + fileID + "." + "file");
 			// 파일 이름
-			File file = new File(storageFilePath + getFilePath(UID) + File.separator + UID + "." + "file");
+			File file = new File(storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + "file");
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			fin = new FileInputStream(file);
 
 			bytes = IOHelper.readToEnd(fin);
-		} catch (IOException e) {
-			LogUtil.writeLog(e, getClass());
+		} catch (Exception e) {
+			log.error("Failed to load the file(" + fileID + ")", e);
 		} finally {
 			IOUtils.closeQuietly(fin);
 		}
@@ -244,28 +262,26 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 	}
 
 	@Override
-	public boolean remove(String UID) {
+	public boolean remove(String fileID) {
 		log.debug("Start::remove()");
-		log.debug("  > UID: " + UID);
+		log.debug("  > fileID: " + fileID);
 
 		boolean result = false;
 
 		try {
-//			if (FileUtil.forceDelete(storageFilePath + File.separator + UID + "." + "file")) {
+//			if (FileUtil.forceDelete(storageRootPath + File.separator + fileID + "." + "file")) {
 			// 파일 이름
-			File file = new File(storageFilePath + getFilePath(UID) + File.separator + UID + "." + "file");
+			File file = new File(storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + "file");
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			if (FileUtil.forceDelete(file.getAbsolutePath())) {
-//				this.localFileStorage.remove(UID);
+//				this.localFileStorage.remove(fileID);
 				log.debug("Deleted!");
 				result = true;
-			}
-
-			else {
-				log.warn("Failed to remove the UID, but the file was removed.");
+			} else {
+				log.warn("Failed to remove the file(" + fileID + ")");
 			}
 		} catch (Exception e) {
-			log.warn("Failed to remove the file!", e);
+			log.error("Failed to remove the file(" + fileID + ")", e);
 		}
 
 		log.debug("  > RV(result): " + result);
@@ -274,45 +290,16 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 		return result;
 	}
 
-//	@Override
-//	public String getFileName(String UID) {
-////		return this.localFileStorage.get(UID);
-//		return this.localFileStorage.get(UID).getFileName();
-//	}
-
-//	@Override
-//	public Attachment getFileInfo(String UID) {
-//		Attachment pAttach = this.localFileStorage.get(UID);
-//		if (pAttach != null)
-//			return pAttach;
-//
-//		byte[] bytes = load(UID);
-////		this.localFileStorage.put(UID, new Attachment(getFilePath(UID), null, bytes));
-//
-//		return this.localFileStorage.get(UID);
-//	}
-
-	/**
-	 * 파일 경로를 가져온다.
-	 */
-	protected String getFilePath(String UID) {
-//		String fileDate = StringUtil.getDate(Long.parseLong(UID.substring(6)));
-//		return File.separator + fileDate.substring(0, 4) + File.separator + fileDate.substring(4, 6);
-		return File.separator + UID.substring(0, 4) + File.separator + UID.substring(4, 6);
-	}
-
-	/**
-	 * 저장한 모든 파일을 지운다.
-	 */
+	@Override
 	public void removeAll() {
 		log.debug("Start::removeAll()");
 
-		File fileDir = new File(storageFilePath);
+		File fileDir = new File(storageRootPath);
 
 		String[] fileList = fileDir.list();
 
 		for (int i = 0; i < fileDir.length(); i++) {
-			File f = new File(storageFilePath + File.separator + fileList[i]);
+			File f = new File(storageRootPath + File.separator + fileList[i]);
 			log.debug("File Delete: " + f.getName());
 			f.delete();
 		}
@@ -322,18 +309,36 @@ public class LocalFileStorageAccessor implements StorageAccessor {
 		log.debug("End::removeAll()");
 	}
 
+//	@Override
+//	public String getFileName(String fileID) {
+////		return this.localFileStorage.get(fileID);
+//		return this.localFileStorage.get(fileID).getFileName();
+//	}
+
+//	@Override
+//	public Files getFileInfo(String fileID) {
+//		Files files = this.localFileStorage.get(fileID);
+//		if (files != null)
+//			return files;
+//
+//		byte[] bytes = load(fileID);
+////		this.localFileStorage.put(fileID, new Files(fileID, null, null, bytes));
+//
+//		return this.localFileStorage.get(fileID);
+//	}
+
 	public static void main(String[] args) throws Exception {
 //		System.setProperty("HOME", "C:/dev/workspace/workspace_common/HOME");
 //		PropertyConfigurator.configure(System.getProperty("HOME") + "/conf/server/log4j.properties");
 
-		LocalFileStorageAccessor storageAccessor = new LocalFileStorageAccessor();
+		LocalFileStorage fileStorage = new LocalFileStorage();
 		for (int i = 0; i < 1; i++) {
-			String UID = LocalFileStorageAccessor.generateUID();
+			Files files = new Files("테스트.txt", "테스트".getBytes());
 
-			storageAccessor.save(UID, "테스트.txt", "테스트".getBytes());
-//			System.out.println("fileInfo: " + storageAccessor.getFileInfo(UID));
+			fileStorage.save(files);
+//			System.out.println("fileInfo: " + fileStorage.getFileInfo(fileID));
 
-			byte[] file = storageAccessor.load(UID);
+			byte[] file = fileStorage.load(files.getId());
 			System.out.println(new String(file, "UTF-8"));
 		}
 	}

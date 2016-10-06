@@ -4,22 +4,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
-import org.oh.common.download.Attachment;
+import org.oh.common.file.Files;
 import org.oh.common.util.HTTPUtil;
 import org.oh.common.util.LogUtil;
 
 public class HTTPUtilFileTask extends HTTPUtilTask {
-	protected List<Attachment> attachs = null;
+	protected List<Files> attachs = null;
 
 	public HTTPUtilFileTask(String url, String method, List<NameValuePair> headers, List<NameValuePair> params,
-			List<Attachment> attachs) {
+			List<Files> attachs) {
 		super(url, method, headers, params);
 
 		this.attachs = attachs;
 	}
 
 	public HTTPUtilFileTask(String url, String method, List<NameValuePair> headers, List<NameValuePair> params,
-			List<Attachment> attachs, String charset) {
+			List<Files> attachs, String charset) {
 		this(url, method, headers, params, attachs);
 
 		this.charset = charset;

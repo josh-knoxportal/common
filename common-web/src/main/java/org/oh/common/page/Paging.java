@@ -1,4 +1,4 @@
-package org.oh.web.page;
+package org.oh.common.page;
 
 import org.oh.web.model.Common;
 

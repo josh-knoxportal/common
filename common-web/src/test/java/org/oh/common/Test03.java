@@ -5,18 +5,14 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.oh.common.storage.LocalFileStorageAccessor;
-import org.oh.common.storage.StorageAccessor;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import org.oh.common.storage.FileStorage;
+import org.oh.common.storage.LocalFileStorage;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = "file:conf/config-spring02.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test03 {
-	public StorageAccessor storageAccessor = LocalFileStorageAccessor.getInstance();
+	public FileStorage fileStorage = LocalFileStorage.getInstance();
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
@@ -32,7 +28,7 @@ public class Test03 {
 //		inner.setField01("skoh1");
 //		inner.setField02("skoh2");
 //		System.out.println(inner);
-		
+
 		ParentClass inner = new ParentClass();
 		System.out.println(inner);
 	}

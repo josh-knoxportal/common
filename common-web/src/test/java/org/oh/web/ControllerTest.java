@@ -3,8 +3,6 @@ package org.oh.web;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -12,18 +10,19 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
 import org.oh.WebApplication;
-import org.oh.common.storage.LocalFileStorageAccessor;
-import org.oh.common.storage.StorageAccessor;
+import org.oh.common.page.PageNavigator;
 import org.oh.common.util.JsonUtil2;
+import org.oh.sample.controller.SampleAndFilesController;
 import org.oh.sample.controller.SampleAndTest2Controller;
 import org.oh.sample.controller.SampleAndTestController;
 import org.oh.sample.controller.SampleController;
+import org.oh.sample.model.Files2;
 import org.oh.sample.model.Sample;
+import org.oh.sample.model.SampleAndFiles;
 import org.oh.sample.model.SampleAndTest;
 import org.oh.sample.model.SampleAndTest2;
 import org.oh.web.common.Response;
 import org.oh.web.model.Common;
-import org.oh.web.page.PageNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.ResponseEntity;
@@ -41,17 +40,6 @@ import org.springframework.validation.BeanPropertyBindingResult;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ControllerTest {
-	private static Log log = LogFactory.getLog(ControllerTest.class);
-
-	@Autowired
-	protected StorageAccessor storageAccessor;
-
-	/**
-	 * 공통 서비스
-	 */
-//	@Resource(name = "commonService")
-//	protected CommonService<Default> commonService;
-
 	/**
 	 * 샘플 컨트롤러
 	 */
@@ -63,6 +51,9 @@ public class ControllerTest {
 
 	@Autowired
 	protected SampleAndTest2Controller sampleAndTest2Controller;
+
+	@Autowired
+	protected SampleAndFilesController sampleAndFilesController;
 
 //	@Test
 	public void t01_get() throws Exception {
@@ -117,18 +108,18 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t05_joinList() throws Exception {
 		Sample sample = new Sample();
-		sample.setName("s");
+		sample.setName("ss");
 
 		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
-		test.setName("t");
+//		test.setName("tt");
 
 		SampleAndTest sat = new SampleAndTest(sample, test);
 		sat.addCondition("sample_.name LIKE 's%'");
 		sat.addCondition("test_.name LIKE 't%'");
-		sat.addCondition("sample_.name", "IN", "s");
+		sat.addCondition("sample_.name", "IN", "ss");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
@@ -138,6 +129,15 @@ public class ControllerTest {
 				new BeanPropertyBindingResult(sat, "sat"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+
+		Files2 files = new Files2();
+
+		SampleAndFiles saf = new SampleAndFiles(sample, files);
+
+		ResponseEntity<Response<List<SampleAndFiles>>> response2 = sampleAndFilesController.list(saf,
+				new BeanPropertyBindingResult(sat, "saf"));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response2));
+		Assert.assertTrue("Fail", response2.getBody().getHeader().getSuccess_yn());
 	}
 
 //	@Test
@@ -188,10 +188,20 @@ public class ControllerTest {
 		sample.setReg_id("1");
 		sample.setMod_id("1");
 
-		ResponseEntity<Response<Long>> response = sampleController.insert(sample,
+//		long result = sampleService.insert(sample);
+//		System.out.println("result: " + result);
+
+		ResponseEntity<Response<Object>> response = sampleController.insert(sample,
 				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+
+//		Files files = new Files("p1", "n1", "1".getBytes());
+//		files.setReg_id("1");
+//		files.setMod_id("1");
+//
+//		long result = filesService.insert(files);
+//		System.out.println("result: " + result);
 	}
 
 //	@Test
@@ -238,7 +248,7 @@ public class ControllerTest {
 
 	@Test
 	public void t50() throws Exception {
-		log.info("================================================================================");
+		System.out.println("================================================================================");
 	}
 
 //	@Test
@@ -345,23 +355,5 @@ public class ControllerTest {
 				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
-	}
-
-	@Test
-	public void t90() throws Exception {
-		log.info("================================================================================");
-	}
-
-	@Test
-	public void t91() throws Exception {
-		for (int i = 0; i < 1; i++) {
-			String UID = LocalFileStorageAccessor.generateUID();
-
-			storageAccessor.save(UID, "테스트.txt", "테스트".getBytes());
-//			System.out.println("fileInfo: " + storageAccessor.getFileInfo(UID));
-
-			byte[] file = storageAccessor.load(UID);
-			System.out.println(new String(file, "UTF-8"));
-		}
 	}
 }

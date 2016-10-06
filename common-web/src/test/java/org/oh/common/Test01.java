@@ -6,8 +6,8 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.oh.common.storage.LocalFileStorageAccessor;
-import org.oh.common.storage.StorageAccessor;
+import org.oh.common.storage.LocalFileStorage;
+import org.oh.common.storage.FileStorage;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -17,7 +17,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 //@ContextConfiguration(locations = "file:conf/config-spring02.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test01 {
-	public StorageAccessor storageAccessor = LocalFileStorageAccessor.getInstance();
+	public FileStorage fileStorage = LocalFileStorage.getInstance();
 	
 	public String targetClass = "1";
 
@@ -31,7 +31,7 @@ public class Test01 {
 
 //	@Test
 	public void test01() {
-		System.out.println(storageAccessor.toString());
+		System.out.println(fileStorage.toString());
 	}
 
 	@Cacheable(value = "test", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + #root.args[0]")

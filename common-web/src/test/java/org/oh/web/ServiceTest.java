@@ -1,7 +1,6 @@
 package org.oh.web;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import org.oh.WebApplication;
 import org.oh.common.file.Files;
 import org.oh.common.storage.FileStorage;
 import org.oh.sample.model.Sample;
-import org.oh.sample.service.Files2Service;
 import org.oh.sample.service.SampleService;
 import org.oh.web.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,12 +48,6 @@ public class ServiceTest {
 	 */
 	@Autowired
 	protected FilesService filesService;
-
-	/**
-	 * 파일2 서비스
-	 */
-	@Autowired
-	protected Files2Service files2Service;
 
 //	@Test
 	public void t01_save() throws Exception {

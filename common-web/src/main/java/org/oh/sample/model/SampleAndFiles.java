@@ -9,7 +9,7 @@ import org.oh.web.model.Default;
  * 
  * @author skoh
  */
-@Join
+@Join("sample LEFT JOIN files")
 public class SampleAndFiles extends Default {
 	@Fields("*")
 	protected Sample sample = new Sample();

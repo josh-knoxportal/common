@@ -4,6 +4,8 @@ cd \dev\git\skoh\common\common-web
 REM e:
 REM cd \git\skoh\common\common-web
 
+CALL ant.bat
+
 REM CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=lib/org/oh/common/client/61/client-61.jar -DgroupId=org.oh.common -DartifactId=client -Dversion=61 -Dpackaging=jar -DgeneratePom=true
 REM CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=lib/org/oh/common/json-schema-validator/0.0.1-RELEASE/json-schema-validator-0.0.1-RELEASE.jar -DgroupId=org.oh.common -DartifactId=json-schema-validator -Dversion=0.0.1-RELEASE -Dpackaging=jar -DgeneratePom=true
 REM CALL %MAVEN_HOME%/bin/mvn.cmd install:install-file -Dfile=lib/org/oh/common/mybatis-orm/0.5.0/mybatis-orm-0.5.0.jar -DgroupId=org.oh.common -DartifactId=mybatis-orm -Dversion=0.5.0 -Dpackaging=jar -DgeneratePom=true

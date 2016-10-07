@@ -1,6 +1,7 @@
 package org.oh.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.oh.WebApplication;
 import org.oh.common.file.Files;
 import org.oh.common.storage.FileStorage;
 import org.oh.sample.model.Sample;
+import org.oh.sample.service.Files2Service;
 import org.oh.sample.service.SampleService;
 import org.oh.web.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,12 @@ public class ServiceTest {
 	@Autowired
 	protected FilesService filesService;
 
+	/**
+	 * 파일2 서비스
+	 */
+	@Autowired
+	protected Files2Service files2Service;
+
 //	@Test
 	public void t01_save() throws Exception {
 		FileUtils.writeByteArrayToFile(new File("/Users/skoh/git/skoh/common/common-web/storage/1.file"),
@@ -73,19 +81,32 @@ public class ServiceTest {
 	}
 
 //	@Test
-	public void t11_insert() throws Exception {
+	public void t11_list() throws Exception {
+		Sample model = new Sample();
+		model.setId(1L);
+
+		List<Sample> result = sampleService.list(model);
+		System.out.println("result: " + result);
+	}
+
+//	@Test
+	public void t12_insert() throws Exception {
 		Sample model = new Sample();
 		model.setName("s1");
 		model.setTest_id(3L);
 		model.setReg_id("1");
 		model.setMod_id("1");
 
-		Object result = sampleService.insert(model);
+		Files files = new Files("1.txt", "1".getBytes());
+		files.setReg_id("1");
+		files.setMod_id("1");
+
+		Object result = sampleService.insert(model, Arrays.asList(new Files[] { files }));
 		System.out.println("result: " + result);
 	}
 
 //	@Test
-	public void t12_inserts() throws Exception {
+	public void t13_inserts() throws Exception {
 		Sample model = new Sample();
 		model.setName("s1");
 		model.setTest_id(3L);
@@ -97,11 +118,26 @@ public class ServiceTest {
 	}
 
 //	@Test
-	public void t13_list() throws Exception {
+	public void t14_update() throws Exception {
 		Sample model = new Sample();
-		model.setId(1L);
+		model.setId(471L);
+		model.setName("s1");
+		model.setMod_id("2");
 
-		List<Sample> result = sampleService.list(model);
+		Files files = new Files("2.txt", "2".getBytes());
+		files.setReg_id("1");
+		files.setMod_id("1");
+
+		Object result = sampleService.update(model, Arrays.asList(new Files[] { files }));
+		System.out.println("result: " + result);
+	}
+
+//	@Test
+	public void t15_delete() throws Exception {
+		Sample model = new Sample();
+		model.setId(471L);
+
+		Object result = sampleService.delete(model);
 		System.out.println("result: " + result);
 	}
 
@@ -111,21 +147,21 @@ public class ServiceTest {
 	}
 
 //	@Test
-	public void t21_insert() throws Exception {
+	public void t31_list() throws Exception {
+		Files model = new Files();
+		model.setId("201610061204378114BNFL");
+
+		List<Files> result = filesService.list(model);
+		System.out.println("result: " + result);
+	}
+
+//	@Test
+	public void t32_insert() throws Exception {
 		Files files = new Files("p1", "n1", "1".getBytes());
 		files.setReg_id("1");
 		files.setMod_id("1");
 
 		Object result = filesService.insert(files);
-		System.out.println("result: " + result);
-	}
-
-//	@Test
-	public void t22_list() throws Exception {
-		Files model = new Files();
-		model.setId("201610061204378114BNFL");
-
-		List<Files> result = filesService.list(model);
 		System.out.println("result: " + result);
 	}
 }

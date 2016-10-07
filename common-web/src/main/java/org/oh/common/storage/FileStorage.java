@@ -23,10 +23,12 @@ public interface FileStorage {
 	 * 
 	 * @param fileName 파일 이름
 	 * @param data 저장할 파일 data의 byte 배열
-	 * @return 저장에 성공하면 <code>true</code>
+	 * 
+	 * @return 저장된 파일경로
 	 */
+	// 저장에 성공하면 <code>true</code>
 //	public boolean save(String fileID, byte[] data);
-	public boolean save(String fileName, byte[] data);
+	public String save(String fileName, byte[] data);
 
 	/**
 	 * 지정한 fileID에 지정한 파일 이름을 매핑하고 파일을 저장한다.
@@ -34,9 +36,10 @@ public interface FileStorage {
 	 * @param fileID Unique ID
 	 * @param fileName 파일 이름
 	 * @param data 저장할 파일 data의 byte 배열
-	 * @return 저장에 성공하면 <code>true</code>
+	 * 
+	 * @return 저장된 파일경로
 	 */
-	public boolean save(Files files);
+	public String save(Files files);
 
 	/**
 	 * 파일을 읽어 온다.

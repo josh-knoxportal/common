@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -144,8 +143,20 @@ public class Test02 {
 //		System.out.println(getClass().getClassLoader().getResource("common.properties").getPath());
 //		System.out.println("A20160920".compareTo("A20160919") > 0);
 //		System.out.println("A20160920".compareTo("A20160920") > 0);
-		
-		System.out.println(FilenameUtils.getPathNoEndSeparator("/a/b/c.xtx"));
+//		System.out.println(FilenameUtils.getPathNoEndSeparator("/a/b/c.xtx"));
+
+//		Files files = new Files("p1", "n1", "1".getBytes());
+//		Files2 files2 = new Files2(files, "1");
+//		System.out.println(files2);
+
+		File file = new File("./a/b/c.txt");
+		// 절대경로
+		System.out.println(file.getAbsolutePath()); // /Users/skoh/git/skoh/common/common-web/./a/b/c.txt
+		System.out.println(file.getCanonicalPath()); // /Users/skoh/git/skoh/common/common-web/a/b/c.txt
+		// 상대경로
+		System.out.println(file.getPath()); // ./a/b/c.txt
+		System.out.println(file.getParent()); // ./a/b
+		System.out.println(file.getName()); // c.txt
 	}
 
 	class Test01 {

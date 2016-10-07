@@ -40,6 +40,20 @@ public class Common extends Default {
 	@Column
 	protected String mod_dt;
 
+	public Common() {
+	}
+
+	public Common(String reg_id, String mod_id) {
+		this(reg_id, null, mod_id, null);
+	}
+
+	public Common(String reg_id, String reg_dt, String mod_id, String mod_dt) {
+		this.reg_id = reg_id;
+		this.reg_dt = reg_dt;
+		this.mod_id = mod_id;
+		this.mod_dt = mod_dt;
+	}
+
 	public String getReg_id() {
 		return reg_id;
 	}

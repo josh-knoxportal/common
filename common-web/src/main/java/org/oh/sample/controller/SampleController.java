@@ -104,9 +104,10 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@Override
-	@RequestMapping(value = "update" + Constants.POSTFIX, method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> update(@Valid Sample model, BindingResult errors) throws Exception {
-		return super.update(model, errors);
+	@RequestMapping(value = "update" + Constants.POSTFIX, method = { RequestMethod.POST, RequestMethod.PUT })
+	public ResponseEntity<Response<Integer>> update(@Valid Sample model, BindingResult errors,
+			HttpServletRequest request) throws Exception {
+		return super.update(model, errors, request);
 	}
 
 	@RequestMapping(value = "/get2", method = { RequestMethod.GET })

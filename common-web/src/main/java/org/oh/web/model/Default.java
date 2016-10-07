@@ -69,6 +69,20 @@ public abstract class Default implements Serializable {
 	 */
 	protected Condition conditionObj = new Condition();
 
+	public Default() {
+	}
+
+	public Default(String sql_name, String hint, String fields, String table, String order_by, String condition,
+			Condition conditionObj) {
+		this.sql_name = sql_name;
+		this.hint = hint;
+		this.fields = fields;
+		this.table = table;
+		this.order_by = order_by;
+		this.condition = condition;
+		this.conditionObj = conditionObj;
+	}
+
 	public String getSql_name() {
 		return sql_name;
 	}

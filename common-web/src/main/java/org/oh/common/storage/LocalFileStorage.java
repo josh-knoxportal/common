@@ -166,16 +166,17 @@ public class LocalFileStorage implements FileStorage {
 //	public boolean save(String fileID, byte[] bytes) {
 //		return save(fileID, null, bytes);
 //	}
-	public boolean save(String fileName, byte[] bytes) {
+	public String save(String fileName, byte[] bytes) {
 		return save(new Files(fileName, bytes));
 	}
 
 	@Override
-	public boolean save(Files files) throws CommonException {
+	public String save(Files files) throws CommonException {
 		log.debug("Start::save()");
 		log.debug("  > files: " + files);
 
-		boolean result = false;
+//		boolean result = false;
+		File file = null;
 		FileOutputStream fos = null;
 		FileChannel channel = null;
 
@@ -188,7 +189,7 @@ public class LocalFileStorage implements FileStorage {
 			dir.mkdirs();
 
 			// 파일 이름
-			File file = new File(dir.getAbsolutePath() + File.separator + files.getId() + "." + "file");
+			file = new File(dir.getAbsolutePath() + File.separator + files.getId() + "." + "file");
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			fos = new FileOutputStream(file);
 
@@ -213,7 +214,7 @@ public class LocalFileStorage implements FileStorage {
 //				this.localFileStorage.put(fileID, files);
 //			}
 
-			result = true;
+//			result = true;
 		} catch (Exception e) {
 			throw new CommonException("Failed to save the file(" + files.getId() + ")", e);
 //			return false;
@@ -227,10 +228,11 @@ public class LocalFileStorage implements FileStorage {
 //		file.setReadable(true, false);
 //		file.setWritable(true, false);
 
-		log.debug("  > RV(result): " + result);
+		log.debug("  > RV(result): " + file.getAbsolutePath());
 		log.debug("End::save()");
 
-		return result;
+//		return result;
+		return file.getAbsolutePath();
 	}
 
 	@Override

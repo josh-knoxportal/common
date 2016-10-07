@@ -201,6 +201,8 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 		int result = entityManager.update(model, model.getConditionObj());
 
+		updateFile(model, files);
+
 		if (cache != null) {
 			cache.clear();
 		}
@@ -235,6 +237,8 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			cache.clear();
 		}
 
+		deleteFile(model);
+
 		return result;
 	}
 
@@ -255,18 +259,52 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	}
 
 	/**
+	 * 파일 수정
+	 * 
+	 * <pre>
+	 * - 기존 파일은 삭제하지 않음
+	 * - 파일 정보는 삭제하고 다시 생성함
+	 * </pre>
+	 * 
+	 * @param model
+	 * @param files
+	 * 
+	 * @throws Exception
+	 */
+	protected List<Object> updateFile(T model, List<Files> files) throws Exception {
+		return insertFile(model, files);
+	}
+
+	/**
 	 * 파일 등록
 	 * 
+	 * @param model
 	 * @param files
 	 * 
 	 * @throws Exception
 	 */
 	protected List<Object> insertFile(T model, List<Files> files) throws Exception {
 		for (Files file : files) {
-			fileStorage.save(file);
+			file.setFile_path(fileStorage.save(file));
 		}
 
 		return fileService.insert(files);
+	}
+
+	/**
+	 * 파일 삭제
+	 * 
+	 * <pre>
+	 * - 기존 파일은 삭제하지 않음
+	 * - 파일 정보는 삭제함
+	 * </pre>
+	 * 
+	 * @param model
+	 * 
+	 * @throws Exception
+	 */
+	protected int deleteFile(T model) throws Exception {
+		return 0;
 	}
 
 	/**

@@ -108,34 +108,34 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t05_joinList() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("ss");
 
-		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
-//		test.setName("tt");
-
-		SampleAndTest sat = new SampleAndTest(sample, test);
-		sat.addCondition("sample_.name LIKE 's%'");
-		sat.addCondition("test_.name LIKE 't%'");
-		sat.addCondition("sample_.name", "IN", "ss");
-		sat.setOrder_by("sample_.id DESC, test_.id DESC");
+//		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
+////		test.setName("tt");
+//
+//		SampleAndTest sat = new SampleAndTest(sample, test);
+//		sat.addCondition("sample_.name LIKE 's%'");
+//		sat.addCondition("test_.name LIKE 't%'");
+//		sat.addCondition("sample_.name", "IN", "ss");
+//		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
 //		System.out.println(handler.getName());
 
-		ResponseEntity<Response<List<SampleAndTest>>> response = sampleAndTestController.list(sat,
-				new BeanPropertyBindingResult(sat, "sat"));
-		System.out.println("response: " + JsonUtil2.toStringPretty(response));
-		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+//		ResponseEntity<Response<List<SampleAndTest>>> response = sampleAndTestController.list(sat,
+//				new BeanPropertyBindingResult(sat, "sat"));
+//		System.out.println("response: " + JsonUtil2.toStringPretty(response));
+//		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 
 		Files2 files = new Files2();
 
 		SampleAndFiles saf = new SampleAndFiles(sample, files);
 
 		ResponseEntity<Response<List<SampleAndFiles>>> response2 = sampleAndFilesController.list(saf,
-				new BeanPropertyBindingResult(sat, "saf"));
+				new BeanPropertyBindingResult(saf, "saf"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response2));
 		Assert.assertTrue("Fail", response2.getBody().getHeader().getSuccess_yn());
 	}
@@ -188,32 +188,22 @@ public class ControllerTest {
 		sample.setReg_id("1");
 		sample.setMod_id("1");
 
-//		long result = sampleService.insert(sample);
-//		System.out.println("result: " + result);
-
 		ResponseEntity<Response<Object>> response = sampleController.insert(sample,
 				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
-
-//		Files files = new Files("p1", "n1", "1".getBytes());
-//		files.setReg_id("1");
-//		files.setMod_id("1");
-//
-//		long result = filesService.insert(files);
-//		System.out.println("result: " + result);
 	}
 
 //	@Test
 	public void t09_update() throws Exception {
 		Sample sample = new Sample();
-//		sample.setId(1L);
+		sample.setId(1L);
 		sample.setName("s2");
 		sample.setMod_id("2");
 		sample.addCondition("name LIKE 's1%'");
 
 		ResponseEntity<Response<Integer>> response = sampleController.update(sample,
-				new BeanPropertyBindingResult(sample, "sample"));
+				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}

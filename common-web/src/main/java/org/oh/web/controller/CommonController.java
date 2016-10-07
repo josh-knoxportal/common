@@ -151,7 +151,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	}
 
 	/**
-	 * Content-Type : application/x-www-form-urlencoded
+	 * Content-Type : application/x-www-form-urlencoded, multipart/form-data
 	 * 
 	 * @param model
 	 * @param errors
@@ -201,11 +201,11 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 */
 	@RequestMapping(value = "update_json" + Constants.POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
-		return update(model, errors);
+		return update(model, errors, null);
 	}
 
 	/**
-	 * Content-Type : application/x-www-form-urlencoded
+	 * Content-Type : application/x-www-form-urlencoded (PUT), multipart/form-data (POST)
 	 * 
 	 * @param model
 	 * @param errors
@@ -214,13 +214,15 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update" + Constants.POSTFIX, method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
+	@RequestMapping(value = "update" + Constants.POSTFIX, method = { RequestMethod.PUT, RequestMethod.POST })
+	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors, HttpServletRequest request)
+			throws Exception {
 		if (errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
-		int result = service.update(model);
+		List<Files> files = getFiles(model, request);
+		int result = service.update(model, files);
 		Response<Integer> response = Response.getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
@@ -336,7 +338,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 				Files files_ = new Files(file.getOriginalFilename(), file.getBytes());
 				if (model instanceof Common) {
 					Common common = (Common) model;
-					files_.setReg_id(common.getReg_id());
+					files_.setReg_id(common.getMod_id());
 					files_.setMod_id(common.getMod_id());
 				}
 

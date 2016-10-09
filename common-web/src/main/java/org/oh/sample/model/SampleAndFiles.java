@@ -2,7 +2,7 @@ package org.oh.sample.model;
 
 import org.mybatisorm.annotation.Fields;
 import org.mybatisorm.annotation.Join;
-import org.oh.web.model.Default;
+import org.oh.common.model.Default;
 
 /**
  * Sample 테이블을 기준으로 Files 테이블을 조인
@@ -23,6 +23,16 @@ public class SampleAndFiles extends Default {
 	public SampleAndFiles(Sample sample, Files2 files) {
 		this.sample = sample;
 		this.files = files;
+	}
+
+	@Override
+	public Default getModel() {
+		return sample;
+	}
+
+	@Override
+	public Default[] getJoinModels() {
+		return new Default[] { files };
 	}
 
 	public Sample getSample() {

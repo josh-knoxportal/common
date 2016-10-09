@@ -1,4 +1,4 @@
-package org.oh.web.model;
+package org.oh.common.model;
 
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;

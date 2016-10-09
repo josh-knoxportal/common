@@ -1,8 +1,12 @@
 package org.oh.sample.model;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
+import org.oh.common.file.Files;
 import org.oh.common.page.Paging;
 
 /**
@@ -96,6 +100,20 @@ public class Sample extends Paging {
 	@Column // (references = "Test.id")
 	protected Long test_id;
 
+	protected Set<Test> testSet = new LinkedHashSet<Test>();
+
+	protected Set<Files> filesSet = new LinkedHashSet<Files>();
+
+	public Sample() {
+	}
+
+	public Sample(Long id, String name, Long test_id) {
+		this.id = id;
+		this.name = name;
+		this.test_id = test_id;
+	}
+
+	@Override
 	public Long getId() {
 		return id;
 	}
@@ -118,5 +136,21 @@ public class Sample extends Paging {
 
 	public void setTest_id(Long test_id) {
 		this.test_id = test_id;
+	}
+
+	public Set<Test> getTestSet() {
+		return testSet;
+	}
+
+	public void setTestSet(Set<Test> testSet) {
+		this.testSet = testSet;
+	}
+
+	public Set<Files> getFilesSet() {
+		return filesSet;
+	}
+
+	public void setFilesSet(Set<Files> filesSet) {
+		this.filesSet = filesSet;
 	}
 }

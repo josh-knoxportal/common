@@ -78,6 +78,15 @@ public class Test extends Paging {
 	@Column(references = "Sample.id")
 	protected Long sample_id;
 
+	public Test() {
+	}
+
+	public Test(Long id, String name, Long sample_id) {
+		this.id = id;
+		this.name = name;
+		this.sample_id = sample_id;
+	}
+
 	public Long getId() {
 		return id;
 	}

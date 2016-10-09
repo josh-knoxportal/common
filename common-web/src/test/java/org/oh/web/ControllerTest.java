@@ -1,5 +1,6 @@
 package org.oh.web;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -10,19 +11,20 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
 import org.oh.WebApplication;
+import org.oh.common.model.Common;
+import org.oh.common.model.Default;
 import org.oh.common.page.PageNavigator;
 import org.oh.common.util.JsonUtil2;
+import org.oh.common.util.MapperUtils;
 import org.oh.sample.controller.SampleAndFilesController;
 import org.oh.sample.controller.SampleAndTest2Controller;
 import org.oh.sample.controller.SampleAndTestController;
 import org.oh.sample.controller.SampleController;
 import org.oh.sample.model.Files2;
 import org.oh.sample.model.Sample;
-import org.oh.sample.model.SampleAndFiles;
 import org.oh.sample.model.SampleAndTest;
 import org.oh.sample.model.SampleAndTest2;
 import org.oh.web.common.Response;
-import org.oh.web.model.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.ResponseEntity;
@@ -108,15 +110,17 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t05_joinList() throws Exception {
 		Sample sample = new Sample();
-		sample.setName("ss");
+//		sample.setName("ss");
 
-//		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
-////		test.setName("tt");
-//
-//		SampleAndTest sat = new SampleAndTest(sample, test);
+		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
+//		test.setName("tt");
+
+		Files2 files = new Files2();
+
+		SampleAndTest sat = new SampleAndTest(sample, test, files);
 //		sat.addCondition("sample_.name LIKE 's%'");
 //		sat.addCondition("test_.name LIKE 't%'");
 //		sat.addCondition("sample_.name", "IN", "ss");
@@ -125,19 +129,23 @@ public class ControllerTest {
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
 //		System.out.println(handler.getName());
 
-//		ResponseEntity<Response<List<SampleAndTest>>> response = sampleAndTestController.list(sat,
-//				new BeanPropertyBindingResult(sat, "sat"));
+		ResponseEntity<Response<List<SampleAndTest>>> response = sampleAndTestController.list(sat,
+				new BeanPropertyBindingResult(sat, "sat"));
 //		System.out.println("response: " + JsonUtil2.toStringPretty(response));
-//		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 
-		Files2 files = new Files2();
+		List<Default> list = MapperUtils.convertModels(response.getBody().getBody(), "testSet", "filesSet");
+		System.out.println("list: " + JsonUtil2.toStringPretty(list));
 
-		SampleAndFiles saf = new SampleAndFiles(sample, files);
-
-		ResponseEntity<Response<List<SampleAndFiles>>> response2 = sampleAndFilesController.list(saf,
-				new BeanPropertyBindingResult(saf, "saf"));
-		System.out.println("response: " + JsonUtil2.toStringPretty(response2));
-		Assert.assertTrue("Fail", response2.getBody().getHeader().getSuccess_yn());
+//		Sample sample = new Sample();
+//		sample.setName("s1");
+//
+//		SampleAndFiles saf = new SampleAndFiles(sample, files);
+//
+//		ResponseEntity<Response<List<SampleAndFiles>>> response2 = sampleAndFilesController.list(saf,
+//				new BeanPropertyBindingResult(saf, "saf"));
+//		System.out.println("response: " + JsonUtil2.toStringPretty(response2));
+//		Assert.assertTrue("Fail", response2.getBody().getHeader().getSuccess_yn());
 	}
 
 //	@Test
@@ -148,7 +156,9 @@ public class ControllerTest {
 		org.oh.sample.model.Test test = new org.oh.sample.model.Test();
 		test.setName("t");
 
-		SampleAndTest sat = new SampleAndTest(sample, test);
+		Files2 files = new Files2();
+
+		SampleAndTest sat = new SampleAndTest(sample, test, files);
 		sat.addCondition("sample_.name LIKE 's%'");
 		sat.addCondition("test_.name LIKE 't%'");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");

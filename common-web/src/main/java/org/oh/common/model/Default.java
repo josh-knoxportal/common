@@ -1,4 +1,4 @@
-package org.oh.web.model;
+package org.oh.common.model;
 
 import java.io.Serializable;
 
@@ -67,6 +67,7 @@ public abstract class Default implements Serializable {
 	/**
 	 * 조회 조건
 	 */
+	@JsonIgnore
 	protected Condition conditionObj = new Condition();
 
 	public Default() {
@@ -81,6 +82,59 @@ public abstract class Default implements Serializable {
 		this.order_by = order_by;
 		this.condition = condition;
 		this.conditionObj = conditionObj;
+	}
+
+	/**
+	 * 데이타 중복을 제거하기 위해
+	 */
+	@Override
+	public int hashCode() {
+		if (getId() == null)
+			return super.hashCode();
+
+		return getId().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (getId() == null)
+			return super.equals(obj);
+
+		if (obj instanceof Default) {
+			if (getId().equals(((Default) obj).getId()))
+				return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * 아이디를 구한다.
+	 * 
+	 * @return
+	 */
+	public Object getId() {
+		return null;
+	}
+
+	/**
+	 * 기본 모델을 구한다.
+	 * 
+	 * @return
+	 */
+	@JsonIgnore
+	public Default getModel() {
+		return null;
+	}
+
+	/**
+	 * 조인 모델을 구한다.
+	 * 
+	 * @return
+	 */
+	@JsonIgnore
+	public Default[] getJoinModels() {
+		return new Default[] { null };
 	}
 
 	public String getSql_name() {
@@ -131,7 +185,6 @@ public abstract class Default implements Serializable {
 		addCondition(condition);
 	}
 
-	@JsonIgnore
 	public Condition getConditionObj() {
 		return conditionObj;
 	}

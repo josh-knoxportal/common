@@ -3,11 +3,16 @@ package org.oh.common;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
+import org.oh.common.model.Default;
+import org.oh.common.util.JsonUtil2;
+import org.oh.sample.model.Sample;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -149,14 +154,41 @@ public class Test02 {
 //		Files2 files2 = new Files2(files, "1");
 //		System.out.println(files2);
 
-		File file = new File("./a/b/c.txt");
-		// 절대경로
-		System.out.println(file.getAbsolutePath()); // /Users/skoh/git/skoh/common/common-web/./a/b/c.txt
-		System.out.println(file.getCanonicalPath()); // /Users/skoh/git/skoh/common/common-web/a/b/c.txt
-		// 상대경로
-		System.out.println(file.getPath()); // ./a/b/c.txt
-		System.out.println(file.getParent()); // ./a/b
-		System.out.println(file.getName()); // c.txt
+//		File file = new File("./a/b/c.txt");
+//		// 절대경로
+//		System.out.println(file.getAbsolutePath()); // /Users/skoh/git/skoh/common/common-web/./a/b/c.txt
+//		System.out.println(file.getCanonicalPath()); // /Users/skoh/git/skoh/common/common-web/a/b/c.txt
+//		// 상대경로
+//		System.out.println(file.getPath()); // ./a/b/c.txt
+//		System.out.println(file.getParent()); // ./a/b
+//		System.out.println(file.getName()); // c.txt
+
+//		Set<Test> set = new LinkedHashSet<Test>();
+//		set.add(new Test(2L, "t", 2L));
+//		set.add(new Test(2L, "t", 2L));
+//		set.add(new Test(6L, "t", 2L));
+//		set.add(new Test(4L, "t", 2L));
+//		set.add(new Test(1L, "t", 2L));
+//		set.add(new Test(1L, "t", 2L));
+//		set.add(new Test(5L, "t", 2L));
+//		set.add(new Test(3L, "t", 2L));
+//		System.out.println(JsonUtil2.toStringPretty(set));
+
+//		List<SampleAndTest> list = Arrays.asList(new SampleAndTest[] {
+//				new SampleAndTest(new Sample(1L, "s1", 2L), new Test(1L, "t1", 2L),
+//						new Files2(new Files("f1", null), null)),
+//				new SampleAndTest(new Sample(2L, "s2", 2L), new Test(2L, "t1", 2L),
+//						new Files2(new Files("f2", null), null)) });
+//
+//		List<Default> list2 = MapperUtils.convertModels(list, "testSet", "filesSet");
+//		System.out.println("list: " + list2);
+//		System.out.println("json: " + JsonUtil2.toStringPretty(list2));
+
+		ArrayList<LinkedHashSet<Default>> list = new ArrayList<LinkedHashSet<Default>>();
+		list.get(0).add(new Sample(1L, "s1", 2L));
+		list.get(0).add(new Sample(1L, "s1", 2L));
+
+		System.out.println("json: " + JsonUtil2.toStringPretty(list));
 	}
 
 	class Test01 {

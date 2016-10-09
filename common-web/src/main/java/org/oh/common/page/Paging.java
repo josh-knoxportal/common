@@ -1,6 +1,6 @@
 package org.oh.common.page;
 
-import org.oh.web.model.Common;
+import org.oh.common.model.Common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

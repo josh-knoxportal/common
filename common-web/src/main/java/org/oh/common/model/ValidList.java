@@ -1,4 +1,4 @@
-package org.oh.web.model;
+package org.oh.common.model;
 
 import java.io.Serializable;
 import java.util.AbstractList;

@@ -28,8 +28,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class LocalFileStorage implements FileStorage {
-	protected static Log log = LogFactory.getLog(LocalFileStorage.class);
+	public static String FILE_EXTENSION = "file";;
 
+	protected static Log log = LogFactory.getLog(LocalFileStorage.class);
 //	protected static String CONFIG_FILEPATH = Constants.HOME_DIR + File.separator + Constants.CONF_DIR_NAME
 //			+ File.separator + "storage.properties";
 //	protected static String TEMP_DIR = Constants.HOME_DIR + File.separator + "temp";
@@ -181,7 +182,7 @@ public class LocalFileStorage implements FileStorage {
 		FileChannel channel = null;
 
 		try {
-//			fos = new FileOutputStream(storageRootPath + File.separator + fileID + "." + "file");
+//			fos = new FileOutputStream(storageRootPath + File.separator + fileID + "." + FILE_EXTENSION);
 			String filePath = getFilePath(files.getId());
 
 			// 파일 경로
@@ -189,7 +190,7 @@ public class LocalFileStorage implements FileStorage {
 			dir.mkdirs();
 
 			// 파일 이름
-			file = new File(dir.getAbsolutePath() + File.separator + files.getId() + "." + "file");
+			file = new File(dir.getAbsolutePath() + File.separator + files.getId() + "." + FILE_EXTENSION);
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			fos = new FileOutputStream(file);
 
@@ -224,7 +225,7 @@ public class LocalFileStorage implements FileStorage {
 		}
 
 		// 파일 권한 추가
-//		File file = new File(storageRootPath + File.separator + fileID + "." + "file");
+//		File file = new File(storageRootPath + File.separator + fileID + "." + FILE_EXTENSION);
 //		file.setReadable(true, false);
 //		file.setWritable(true, false);
 
@@ -244,9 +245,9 @@ public class LocalFileStorage implements FileStorage {
 		byte[] bytes = null;
 
 		try {
-//			fin = new FileInputStream(storageRootPath + File.separator + fileID + "." + "file");
+//			fin = new FileInputStream(storageRootPath + File.separator + fileID + "." + FILE_EXTENSION);
 			// 파일 이름
-			File file = new File(storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + "file");
+			File file = new File(storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION);
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			fin = new FileInputStream(file);
 
@@ -271,9 +272,9 @@ public class LocalFileStorage implements FileStorage {
 		boolean result = false;
 
 		try {
-//			if (FileUtil.forceDelete(storageRootPath + File.separator + fileID + "." + "file")) {
+//			if (FileUtil.forceDelete(storageRootPath + File.separator + fileID + "." + FILE_EXTENSION)) {
 			// 파일 이름
-			File file = new File(storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + "file");
+			File file = new File(storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION);
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			if (FileUtil.forceDelete(file.getAbsolutePath())) {
 //				this.localFileStorage.remove(fileID);

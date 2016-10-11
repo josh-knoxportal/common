@@ -1320,6 +1320,27 @@ public abstract class StringUtil extends StringUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * 값만 문자열로 구한다.
+	 * 
+	 * @param object
+	 * 
+	 * @return
+	 */
+	public static String toStringValue(Object object) {
+		StandardToStringStyle style = new StandardToStringStyle();
+		style.setUseClassName(false);
+		style.setUseIdentityHashCode(false);
+		style.setUseFieldNames(false);
+		style.setContentStart("");
+		style.setContentEnd("");
+		style.setArrayStart("");
+		style.setArrayEnd("");
+		style.setNullText("");
+
+		return ReflectionToStringBuilder.toString(object, style);
+	}
+
 	public static void main(String[] args) {
 //		System.out.println(convertFormat(1L, "00"));
 //		System.out.println(encodeMD5("1234")); // 05841730f0329c9ad0c80ff268da9dfe

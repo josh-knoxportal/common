@@ -12,22 +12,25 @@ import org.oh.common.util.JsonUtil2;
 import org.oh.common.util.Utils;
 import org.oh.web.common.Response;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAPI_ssg extends TestAPI {
 	public static final String[] DATE_FIELDS = { "REG_DATE", "UPD_DATE", "START_DATE", "END_DATE", "LOG_TIME" };
 
 	@Override
 	protected String convertbody(String body) throws Exception {
-		Response<List<Map<String, Object>>> response = JsonUtil2.readValue(body, Response.class);
-		List<Map<String, Object>> list = response.getBody();
-		for (Map<String, Object> map : list) {
+		Response<List<Map<String, Object>>> response = JsonUtil2.getObjectMapper().readValue(body,
+				new TypeReference<Response<List<Map<String, Object>>>>() {
+				});
+		for (Map<String, Object> map : response.getBody()) {
 			for (String field : DATE_FIELDS) {
 				Long date = (Long) map.get(field);
 				if (date != null)
 					map.put(field, Utils.convertDateTimeToString(new Date(date)));
 			}
 		}
-		response.setBody(list);
+		response.setBody(response.getBody());
 
 		return JsonUtil2.toString(response);
 	}
@@ -68,8 +71,8 @@ public class TestAPI_ssg extends TestAPI {
 
 		// LMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_updates_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_deletes_json_post.json"));

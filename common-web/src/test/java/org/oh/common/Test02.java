@@ -9,14 +9,10 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.oh.common.file.Files;
-import org.oh.common.model.Default;
 import org.oh.common.util.JsonUtil2;
-import org.oh.common.util.MapperUtils;
-import org.oh.sample.model.Files2;
 import org.oh.sample.model.Sample;
-import org.oh.sample.model.SampleAndTest;
-import org.oh.sample.model.Test;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -178,24 +174,27 @@ public class Test02 {
 //		set.add(new Test(3L, "t", 2L));
 //		System.out.println(JsonUtil2.toStringPretty(set));
 
-		List<SampleAndTest> list = Arrays.asList(new SampleAndTest[] {
-				new SampleAndTest(new Sample(1L, "s1", 2L), new Test(1L, "t1", 2L),
-						new Files2(new Files("f1", null), null)),
-				new SampleAndTest(new Sample(2L, "s2", 2L), new Test(2L, "t1", 2L),
-						new Files2(new Files("f2", null), null)) });
-//		String json = JsonUtil2.toStringPretty(list);
-//		list = JsonUtil2.getObjectMapper().readValue(json, new TypeReference<List<SampleAndTest>>() {
-//		});
-
-		List<Default> list2 = MapperUtils.convertModels(list, "testSet", "filesSet");
+//		List<SampleAndTest> list = Arrays.asList(new SampleAndTest[] {
+//				new SampleAndTest(new Sample(1L, "s1", 2L), new Test(1L, "t1", 2L),
+//						new Files2(new Files("f1", null), null)),
+//				new SampleAndTest(new Sample(2L, "s2", 2L), new Test(2L, "t1", 2L),
+//						new Files2(new Files("f2", null), null)) });
+//
+//		List<Default> list2 = MapperUtils.convertModels(list, "testSet", "filesSet");
 //		System.out.println("list: " + list2);
-		System.out.println("json: " + JsonUtil2.toStringPretty(list2));
+//		System.out.println("json: " + JsonUtil2.toStringPretty(list2));
 
 //		ArrayList<LinkedHashSet<Default>> list = new ArrayList<LinkedHashSet<Default>>();
 //		list.get(0).add(new Sample(1L, "s1", 2L));
 //		list.get(0).add(new Sample(1L, "s1", 2L));
 //
 //		System.out.println("json: " + JsonUtil2.toStringPretty(list));
+
+		List<List<Sample>> list = Arrays.asList(Arrays.asList(new Sample[] { new Sample(), new Sample(), }));
+		String json = JsonUtil2.toString(list);
+		list = JsonUtil2.getObjectMapper().readValue(json, new TypeReference<List<List<Sample>>>() {
+		});
+		System.out.println("list: " + JsonUtil2.toStringPretty(list));
 	}
 
 	class Test01 {

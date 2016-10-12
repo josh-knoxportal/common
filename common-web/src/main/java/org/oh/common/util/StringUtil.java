@@ -1355,5 +1355,7 @@ public abstract class StringUtil extends StringUtils {
 //		System.out.println(leftPad("2121003", 8, "0"));
 
 //		System.out.println(defaultIfBlank("1", "abc"));
+
+		System.out.println(toStringValue(Arrays.asList(1, 2)));
 	}
 }

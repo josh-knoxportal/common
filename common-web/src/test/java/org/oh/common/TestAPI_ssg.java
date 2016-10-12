@@ -72,7 +72,8 @@ public class TestAPI_ssg extends TestAPI {
 		// LMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_updates_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_deletes_json_post.json"));
@@ -117,6 +118,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_delete_delete.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_insert_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_id_around_get.json"));
@@ -148,5 +150,6 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post4.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_select_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_coords_list_zone_get.json"));
 	}
 }

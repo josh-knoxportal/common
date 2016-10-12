@@ -10,9 +10,9 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"*",
-				"table":"campaign a, zone_campaign_mapping b, branch c",
-				"condition":"a.id = 2703 AND a.id = b.campaign_id AND a.branch_id = c.id AND TRUNC(a.start_date, 'dd') <= TRUNC(sysdate, 'dd') AND TRUNC(a.end_date, 'mi') >= TRUNC(sysdate, 'mi') AND c.validity(+) = 1 AND a.validity = 1 AND b.validity = 1 AND a.group_id IS NULL"
+				"fields":"a.major, b.name",
+				"table":"branch_major a, branch b",
+				"condition":"a.branch_id = b.id AND a.company_id = 13825"
 			}
 		}
 	]

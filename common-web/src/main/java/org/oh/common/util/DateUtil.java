@@ -40,6 +40,7 @@ public abstract class DateUtil extends DateUtils {
 	public static final String PATTERN_yyyyMMddHHmmss_DASH = "yyyy-MM-dd HH:mm:ss";
 	public static final String PATTERN_yyyyMMddHHmmssSSS = "yyyyMMddHHmmssSSS";
 	public static final String PATTERN_yyyyMMddHHmmssSSS_DASH = "yyyy-MM-dd HH:mm:ss.SSS";
+	public static final String PATTERN_HHmmss = "HH:mm:ss";
 
 	/**
 	 * 주어진 일시에 지정된 일만큼 더한 일시를 가져온다.

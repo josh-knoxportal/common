@@ -11,25 +11,25 @@ public class JsonRecursiveToStringStyle extends RecursiveToStringStyle {
 	public JsonRecursiveToStringStyle() {
 		super();
 
-		this.setUseClassName(false);
-		this.setUseIdentityHashCode(false);
+		setUseClassName(false);
+		setUseIdentityHashCode(false);
 
-		this.setContentStart("{");
-		this.setContentEnd("}");
+		setContentStart("{");
+		setContentEnd("}");
 
-		this.setArrayStart("[");
-		this.setArrayEnd("]");
+		setArrayStart("[");
+		setArrayEnd("]");
 
-		this.setFieldSeparator(",");
-		this.setFieldNameValueSeparator(":");
+		setFieldSeparator(",");
+		setFieldNameValueSeparator(":");
 
-		this.setNullText("null");
+		setNullText("null");
 
-		this.setSummaryObjectStartText("\"<");
-		this.setSummaryObjectEndText(">\"");
+		setSummaryObjectStartText("\"<");
+		setSummaryObjectEndText(">\"");
 
-		this.setSizeStartText("\"<size=");
-		this.setSizeEndText(">\"");
+		setSizeStartText("\"<size=");
+		setSizeEndText(">\"");
 	}
 
 	@Override

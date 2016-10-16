@@ -7,7 +7,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.oh.common.exception.CommonException;
 import org.springframework.util.ReflectionUtils;
 
@@ -213,23 +212,6 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 		return map2;
 	}
 
-	/**
-	 * 객체를 문자열로 변환한다.
-	 * 
-	 * @param object
-	 * @param excludeFieldNamesParam
-	 * 
-	 * @return
-	 */
-	public static String toString(Object object, String... excludeFieldNamesParam) {
-		String str = new ReflectionToStringBuilder(object, new JsonRecursiveToStringStyle())
-				.setExcludeFieldNames(excludeFieldNamesParam).toString();
-		str = StringUtil.replace(str, "{[", "[");
-		str = StringUtil.replace(str, "]}", "]");
-
-		return str;
-	}
-
 	// Inner class ------------------------------------------------------------
 
 	/**
@@ -269,11 +251,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	public static void main(String[] args) throws Exception {
 //		System.out.println(toString(new Person()));
 //		System.out.println(toString(new Person[] { new Person(), new Person() }));
-//
-//		Common common = new Common();
-//		common.setCondition2(new Condition());
-//		System.out.println(toString(common, "condition2"));
 
-		System.out.println(ReflectionUtil.getValue(new Person(), "name1"));
+//		System.out.println(ReflectionUtil.getValue(new Person(), "name1"));
 	}
 }

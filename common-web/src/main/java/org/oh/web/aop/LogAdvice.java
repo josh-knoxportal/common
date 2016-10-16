@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.oh.common.util.ReflectionUtil;
+import org.oh.common.util.StringUtil;
 import org.oh.web.util.WebUtil;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
@@ -45,7 +45,7 @@ public class LogAdvice extends org.oh.common.aop.LogAdvice {
 			for (Annotation paramAnno : paramAnnoss[i]) {
 				if (RequestBody.class.isInstance(paramAnno)) {
 					sb.append(", " + "{\"" + args[i].getClass().getSimpleName() + "\":"
-							+ ReflectionUtil.toString(args[i], "condition2") + "}");
+							+ StringUtil.toString(args[i], "conditionObj") + "}");
 					break;
 				}
 			}

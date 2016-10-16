@@ -3,16 +3,13 @@ package org.oh.common;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.oh.common.util.JsonUtil2;
-import org.oh.sample.model.Sample;
-
-import com.fasterxml.jackson.core.type.TypeReference;
+import org.oh.common.util.DateUtil;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -195,6 +192,12 @@ public class Test02 {
 //		list = JsonUtil2.getObjectMapper().readValue(json, new TypeReference<List<List<Sample>>>() {
 //		});
 //		System.out.println("list: " + JsonUtil2.toStringPretty(list));
+
+//		System.out.println("20161010".substring(0, 6));
+//		for (int i = -3; i <= -1; i++) {
+//			System.out.println(DateUtil.addDays(new Date(), i, org.oh.common.util.DateUtil.PATTERN_yyyyMMdd));
+//		}
+		System.out.println(DateUtil.addDays(new Date(), -1, org.oh.common.util.DateUtil.PATTERN_yyyyMM));
 	}
 
 	class Test01 {

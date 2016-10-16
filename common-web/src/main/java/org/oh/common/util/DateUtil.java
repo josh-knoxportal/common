@@ -94,7 +94,7 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 현재일시 (yyyyMMddHHmmssSSS형 문자열)
 	 */
 	public static final String getCurrentDateMillisTime() {
-		return DateFormatUtils.format(new java.util.Date(), PATTERN_yyyyMMddHHmmssSSS);
+		return format(new Date(), PATTERN_yyyyMMddHHmmssSSS);
 	}
 
 	/**
@@ -181,7 +181,7 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 오늘일자 (yyyyMMdd형 문자열)
 	 */
 	public static final String getCurrentDate() {
-		return format(new java.util.Date(), PATTERN_yyyyMMdd);
+		return format(new Date(), PATTERN_yyyyMMdd);
 	}
 
 	/**
@@ -195,7 +195,7 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 현재일시 (yyyyMMddHHmmss형 문자열)
 	 */
 	public static final String getCurrentDateTime() {
-		return format(new java.util.Date(), PATTERN_yyyyMMddHHmmss);
+		return format(new Date(), PATTERN_yyyyMMddHHmmss);
 	}
 
 	/**
@@ -237,7 +237,7 @@ public abstract class DateUtil extends DateUtils {
 	 * @return 현재일시
 	 */
 	public static final String getCurrentDateTime(String pattern) {
-		return format(new java.util.Date(), pattern);
+		return format(new Date(), pattern);
 	}
 
 	/**

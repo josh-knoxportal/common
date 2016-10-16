@@ -18,6 +18,7 @@ import org.oh.common.model.Default;
 import org.oh.common.page.Paging;
 import org.oh.common.storage.FileStorage;
 import org.oh.common.util.ReflectionUtil;
+import org.oh.common.util.StringUtil;
 import org.oh.common.util.Utils;
 import org.oh.web.service.CommonService;
 import org.oh.web.service.FilesService;
@@ -96,7 +97,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 		String cacheKey = null;
 		if (cache != null) {
-			cacheKey = cacheKeyFormat.format(new Object[] { "list", ReflectionUtil.toString(model, "condition2") });
+			cacheKey = cacheKeyFormat.format(new Object[] { "list", StringUtil.toString(model, "conditionObj") });
 			log.debug("cacheKey: " + cacheKey);
 
 			list = cache.get(cacheKey, List.class);

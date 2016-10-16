@@ -20,8 +20,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.StandardToStringStyle;
+import org.oh.common.model.Common;
 import org.oh.common.util.Tokenizer.Token;
 
 /**
@@ -1273,13 +1275,28 @@ public abstract class StringUtil extends StringUtils {
 	}
 
 	/**
-	 * 객체배열을 문자열로 변환한다.
+	 * 객체를 문자열로 변환한다.
+	 * 
+	 * @param object
+	 * @param excludeFieldNamesParam
+	 * 
+	 * @return
+	 */
+	public static String toString(Object object, String... excludeFieldNamesParam) {
+		StandardToStringStyle style = new StandardToStringStyle();
+		style.setUseIdentityHashCode(false);
+
+		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
+	}
+
+	/**
+	 * 객체 배열을 문자열로 변환한다.
 	 * 
 	 * @param objs
 	 * 
 	 * @return
 	 */
-	public static String toString(Object... objs) {
+	public static String toStringArray(Object... objs) {
 		if (objs == null || objs.length == 0)
 			return "[]";
 
@@ -1297,6 +1314,57 @@ public abstract class StringUtil extends StringUtils {
 		}
 
 		return sb.toString();
+	}
+
+	/**
+	 * 객체 멤버 내부까지 탐색한다.
+	 * 
+	 * @param object
+	 * @param excludeFieldNamesParam
+	 * 
+	 * @return
+	 */
+	public static String toStringRecursive(Object object, String... excludeFieldNamesParam) {
+		return new ReflectionToStringBuilder(object, new RecursiveToStringStyle2())
+				.setExcludeFieldNames(excludeFieldNamesParam).toString();
+	}
+
+	/**
+	 * 객체를 JSON 형태의 문자열로 변환한다.
+	 * 
+	 * @param object
+	 * @param excludeFieldNamesParam
+	 * 
+	 * @return
+	 */
+	public static String toStringJson(Object object, String... excludeFieldNamesParam) {
+		String str = new ReflectionToStringBuilder(object, new JsonRecursiveToStringStyle())
+				.setExcludeFieldNames(excludeFieldNamesParam).toString();
+//		str = StringUtil.replace(str, "{[", "[");
+//		str = StringUtil.replace(str, "]}", "]");
+
+		return str;
+	}
+
+	/**
+	 * 값만 문자열로 구한다.
+	 * 
+	 * @param object
+	 * 
+	 * @return
+	 */
+	public static String toStringValue(Object object, String... excludeFieldNamesParam) {
+		StandardToStringStyle style = new StandardToStringStyle();
+		style.setUseClassName(false);
+		style.setUseIdentityHashCode(false);
+		style.setUseFieldNames(false);
+		style.setContentStart("");
+		style.setContentEnd("");
+		style.setArrayStart("");
+		style.setArrayEnd("");
+		style.setNullText("");
+
+		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
 	}
 
 	/**
@@ -1320,25 +1388,12 @@ public abstract class StringUtil extends StringUtils {
 		return sb.toString();
 	}
 
-	/**
-	 * 값만 문자열로 구한다.
-	 * 
-	 * @param object
-	 * 
-	 * @return
-	 */
-	public static String toStringValue(Object object) {
-		StandardToStringStyle style = new StandardToStringStyle();
-		style.setUseClassName(false);
-		style.setUseIdentityHashCode(false);
-		style.setUseFieldNames(false);
-		style.setContentStart("");
-		style.setContentEnd("");
-		style.setArrayStart("");
-		style.setArrayEnd("");
-		style.setNullText("");
+	protected static class RecursiveToStringStyle2 extends RecursiveToStringStyle {
+		public RecursiveToStringStyle2() {
+			super();
 
-		return ReflectionToStringBuilder.toString(object, style);
+			setUseIdentityHashCode(false);
+		}
 	}
 
 	public static void main(String[] args) {
@@ -1356,6 +1411,15 @@ public abstract class StringUtil extends StringUtils {
 
 //		System.out.println(defaultIfBlank("1", "abc"));
 
-		System.out.println(toStringValue(Arrays.asList(1, 2)));
+//		System.out.println(toStringValue(Arrays.asList(1, 2)));
+
+//		Common list = new Common();
+//		List<Common> list = Arrays.asList(new Common[] { new Common() });
+		List<String> list = Arrays.asList(new String[] { "1" });
+		System.out.println(toString(list, "conditionObj"));
+		System.out.println(toStringArray(list, list));
+		System.out.println(toStringRecursive(list, "conditionObj"));
+		System.out.println(toStringJson(list, "conditionObj"));
+		System.out.println(toStringValue(list, "conditionObj"));
 	}
 }

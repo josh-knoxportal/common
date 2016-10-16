@@ -1,27 +1,24 @@
 [
 	{
-		"id":-1,
-		"name":"시나리오 테스트0000",
-		"app_id":3,
-		"owner_group":1,
-		"working_condition":3,
-		"type":1,
-		"marketing_type":1,
-		"loitering_time":1,
-		"max_count_per_customer":10,
-		"off_week":"2/4",
-		"off_day":1,
-		"interval":3,
-		"str_start_date":"2016-09-11",
-		"str_end_date":"2016-11-11",
-		"start_time":"00:00",
-		"end_time":"23:59",
-		"app_specific_data":"",
-		"zone_list":[
-			46354
-		],
-		"company_id":14112,
-		"company_brand_id":14113,
-		"branch_id":14113
+		"reg_id":null,
+		"reg_dt":null,
+		"mod_id":null,
+		"mod_dt":null,
+		"sql_name":null,
+		"hint":null,
+		"fields":null,
+		"table":null,
+		"order_by":null,
+		"condition":null,
+		"conditionObj":{
+			"seperator":{
+				"name":"AND",
+				"ordinal":0
+			},
+			"list":[
+				
+			],
+			"query":null
+		}
 	}
 ]

@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +24,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.StandardToStringStyle;
-import org.oh.common.model.Common;
 import org.oh.common.util.Tokenizer.Token;
 
 /**
@@ -194,6 +194,7 @@ public abstract class StringUtil extends StringUtils {
 		} else if (str2 == null) {
 			return false;
 		}
+
 		return str1.compareTo(str2) <= 0;
 	}
 
@@ -223,6 +224,7 @@ public abstract class StringUtil extends StringUtils {
 		} else if (str2 == null) {
 			return true;
 		}
+
 		return str1.compareTo(str2) > 0;
 	}
 
@@ -252,6 +254,7 @@ public abstract class StringUtil extends StringUtils {
 		} else if (str2 == null) {
 			return true;
 		}
+
 		return str1.compareTo(str2) >= 0;
 	}
 
@@ -361,6 +364,7 @@ public abstract class StringUtil extends StringUtils {
 		}
 
 		int ellipsisLength = (ellipsis == null) ? 0 : ellipsis.length();
+
 		return str.substring(0, maxLength - ellipsisLength) + ellipsis;
 	}
 
@@ -565,6 +569,7 @@ public abstract class StringUtil extends StringUtils {
 				return str.replaceAll("&gt;", ">");
 			}
 		} catch (Exception e) {
+			LogUtil.writeLog(e, StringUtils.class);
 		}
 
 		return str;
@@ -583,6 +588,7 @@ public abstract class StringUtil extends StringUtils {
 				return str.replaceAll("&gt;", ">").replaceAll("&lt;", "<");
 			}
 		} catch (Exception e) {
+			LogUtil.writeLog(e, StringUtils.class);
 		}
 
 		return str;
@@ -609,6 +615,7 @@ public abstract class StringUtil extends StringUtils {
 				}
 			}
 		} catch (Exception e) {
+			LogUtil.writeLog(e, StringUtils.class);
 		}
 	}
 
@@ -622,13 +629,11 @@ public abstract class StringUtil extends StringUtils {
 	 * @return 토큰이 변환값으로 맵핑된 문자열.
 	 */
 	public static String mapping(String str, Map<String, String> map, String beginDelim, String endDelim) {
-		Tokenizer tokenizer = new Tokenizer(str, beginDelim, endDelim);
-
 		StringWriter out = new StringWriter();
 
+		Tokenizer tokenizer = new Tokenizer(str, beginDelim, endDelim);
 		String lineBuf = null;
 		Token token = null;
-
 		while (tokenizer.hasMoreTokens()) {
 			token = tokenizer.nextToken();
 			lineBuf = token.isToken() ? defaultString(map.get(token.getValue().trim())) : token.getValue();
@@ -648,8 +653,11 @@ public abstract class StringUtil extends StringUtils {
 		try {
 			Matcher htmlMatcher = PATTERN_HTML_TAG.matcher(html);
 			Matcher charMatcher = PATTERN_HTML_CHAR.matcher(htmlMatcher.replaceAll("").trim());
+
 			return charMatcher.replaceAll("").trim();
 		} catch (Exception e) {
+			LogUtil.writeLog(e, StringUtils.class);
+
 			return html;
 		}
 	}
@@ -680,6 +688,7 @@ public abstract class StringUtil extends StringUtils {
 
 		String[] noBlankArray = new String[listSize];
 		strList.toArray(noBlankArray);
+
 		return noBlankArray;
 	}
 
@@ -692,6 +701,7 @@ public abstract class StringUtil extends StringUtils {
 	public static String subString(String str, int offset) {
 		byte bytes[] = str.getBytes();
 		int size = bytes.length - (offset - 1);
+
 		return new String(bytes, offset - 1, size);
 	}
 
@@ -730,16 +740,15 @@ public abstract class StringUtil extends StringUtils {
 		}
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static String[] toStringArray(String str) {
-		List list = new ArrayList();
+		List<Object> list = new ArrayList<Object>();
 		for (StringTokenizer st = new StringTokenizer(str); st.hasMoreTokens(); list.add(st.nextToken()))
 			;
+
 		return toStringArray(list);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public static String[] toStringArray(List list) {
+	public static String[] toStringArray(List<Object> list) {
 		String strings[] = new String[list.size()];
 		for (int idx = 0; idx < list.size(); idx++)
 			strings[idx] = list.get(idx).toString();
@@ -754,6 +763,7 @@ public abstract class StringUtil extends StringUtils {
 			return src;
 		if (to == null)
 			to = "";
+
 		StringBuilder buf = new StringBuilder();
 		int pos;
 		while ((pos = src.indexOf(from)) >= 0) {
@@ -762,12 +772,14 @@ public abstract class StringUtil extends StringUtils {
 			src = src.substring(pos + from.length());
 		}
 		buf.append(src);
+
 		return buf.toString();
 	}
 
 	public static String cutString(String str, int limit) {
 		if (str == null || limit < 4)
 			return str;
+
 		int len = str.length();
 		int cnt = 0;
 		int index;
@@ -779,6 +791,7 @@ public abstract class StringUtil extends StringUtils {
 
 		if (index < len)
 			str = str.substring(0, index - 1) + "...";
+
 		return str;
 	}
 
@@ -787,15 +800,18 @@ public abstract class StringUtil extends StringUtils {
 			return null;
 		if (end == null)
 			return src;
+
 		int pos = src.indexOf(end);
 		if (pos >= 0)
 			src = src.substring(0, pos);
+
 		return src;
 	}
 
 	public static char[] makeCharArray(char c, int cnt) {
 		char a[] = new char[cnt];
 		Arrays.fill(a, c);
+
 		return a;
 	}
 
@@ -859,6 +875,7 @@ public abstract class StringUtil extends StringUtils {
 	public static String getRight(String str, int len) {
 		if (str == null)
 			return "";
+
 		String dest = "";
 		for (int i = str.length() - 1; i >= 0; i--)
 			dest = dest + str.charAt(i);
@@ -905,6 +922,7 @@ public abstract class StringUtil extends StringUtils {
 	public static String escapeXml(String s) {
 		if (s == null)
 			return "";
+
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < s.length(); i++) {
 			char c = s.charAt(i);
@@ -917,20 +935,22 @@ public abstract class StringUtil extends StringUtils {
 		return sb.toString();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static List getTokenList(String s, String token) {
+	public static List<Object> getTokenList(String s, String token) {
 		if (isEmpty(s))
 			return null;
-		List tokenList = new ArrayList();
+
+		List<Object> tokenList = new ArrayList<Object>();
 		for (StringTokenizer st = new StringTokenizer(s, token); st.hasMoreTokens(); tokenList
 				.add(st.nextToken().trim()))
 			;
+
 		return tokenList;
 	}
 
 	public static int getTokenLength(String s, String token) {
 		if (s == null)
 			return 0;
+
 		int len = 0;
 		for (StringTokenizer st = new StringTokenizer(s, token); st.hasMoreTokens();)
 			len++;
@@ -1278,11 +1298,13 @@ public abstract class StringUtil extends StringUtils {
 	 * 객체를 문자열로 변환한다.
 	 * 
 	 * @param object
-	 * @param excludeFieldNamesParam
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * 
 	 * @return
 	 */
 	public static String toString(Object object, String... excludeFieldNamesParam) {
+		object = convertArray(object);
+
 		StandardToStringStyle style = new StandardToStringStyle();
 		style.setUseIdentityHashCode(false);
 
@@ -1296,7 +1318,7 @@ public abstract class StringUtil extends StringUtils {
 	 * 
 	 * @return
 	 */
-	public static String toStringArray(Object... objs) {
+	public static String toString2(Object... objs) {
 		if (objs == null || objs.length == 0)
 			return "[]";
 
@@ -1305,6 +1327,8 @@ public abstract class StringUtil extends StringUtils {
 
 		StringBuilder sb = new StringBuilder("[");
 		for (int i = 0; i < objs.length; i++) {
+			objs[i] = convertArray(objs[i]);
+
 			sb.append(ReflectionToStringBuilder.toString(objs[i], style));
 			if (i == objs.length - 1) {
 				sb.append("]");
@@ -1320,11 +1344,13 @@ public abstract class StringUtil extends StringUtils {
 	 * 객체 멤버 내부까지 탐색한다.
 	 * 
 	 * @param object
-	 * @param excludeFieldNamesParam
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * 
 	 * @return
 	 */
 	public static String toStringRecursive(Object object, String... excludeFieldNamesParam) {
+		object = convertArray(object);
+
 		return new ReflectionToStringBuilder(object, new RecursiveToStringStyle2())
 				.setExcludeFieldNames(excludeFieldNamesParam).toString();
 	}
@@ -1333,15 +1359,17 @@ public abstract class StringUtil extends StringUtils {
 	 * 객체를 JSON 형태의 문자열로 변환한다.
 	 * 
 	 * @param object
-	 * @param excludeFieldNamesParam
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * 
 	 * @return
 	 */
 	public static String toStringJson(Object object, String... excludeFieldNamesParam) {
+		object = convertArray(object);
+
 		String str = new ReflectionToStringBuilder(object, new JsonRecursiveToStringStyle())
 				.setExcludeFieldNames(excludeFieldNamesParam).toString();
-//		str = StringUtil.replace(str, "{[", "[");
-//		str = StringUtil.replace(str, "]}", "]");
+		str = StringUtil.replace(str, "{[", "[");
+		str = StringUtil.replace(str, "]}", "]");
 
 		return str;
 	}
@@ -1350,10 +1378,13 @@ public abstract class StringUtil extends StringUtils {
 	 * 값만 문자열로 구한다.
 	 * 
 	 * @param object
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * 
 	 * @return
 	 */
 	public static String toStringValue(Object object, String... excludeFieldNamesParam) {
+		object = convertArray(object);
+
 		StandardToStringStyle style = new StandardToStringStyle();
 		style.setUseClassName(false);
 		style.setUseIdentityHashCode(false);
@@ -1388,6 +1419,25 @@ public abstract class StringUtil extends StringUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * Collection 객체를 배열 형태로 변환한다.
+	 * 
+	 * @param object
+	 * 
+	 * @return
+	 */
+	protected static Object convertArray(Object object) {
+		if (object instanceof Collection) {
+			Collection<Object> col = (Collection) object;
+			object = col.toArray();
+		}
+
+		return object;
+	}
+
+	/**
+	 * RecursiveToStringStyle 객체 재정의
+	 */
 	protected static class RecursiveToStringStyle2 extends RecursiveToStringStyle {
 		public RecursiveToStringStyle2() {
 			super();
@@ -1413,13 +1463,24 @@ public abstract class StringUtil extends StringUtils {
 
 //		System.out.println(toStringValue(Arrays.asList(1, 2)));
 
-//		Common list = new Common();
-//		List<Common> list = Arrays.asList(new Common[] { new Common() });
-		List<String> list = Arrays.asList(new String[] { "1" });
-		System.out.println(toString(list, "conditionObj"));
-		System.out.println(toStringArray(list, list));
-		System.out.println(toStringRecursive(list, "conditionObj"));
-		System.out.println(toStringJson(list, "conditionObj"));
-		System.out.println(toStringValue(list, "conditionObj"));
+//		System.out.println(Utils.toString(toStringArray("1 2 3")));
+
+//		Common common = new Common();
+//		System.out.println("common: " + common);
+//		System.out.println("toString: " + toString(common, "conditionObj"));
+//		System.out.println("toString2: " + toString2(common));
+//		System.out.println("toStringRecursive: " + toStringRecursive(common, "conditionObj"));
+//		System.out.println("toStringJson: " + toStringJson(common, "conditionObj"));
+//		System.out.println("toStringValue: " + toStringValue(common, "conditionObj"));
+//		System.out.println();
+//
+//		List<Common> list = new ArrayList<Common>();
+//		list.add(new Common());
+//		System.out.println("common: " + list);
+//		System.out.println("toString: " + toString(list, "conditionObj"));
+//		System.out.println("toString2: " + toString2(list));
+//		System.out.println("toStringRecursive: " + toStringRecursive(list, "conditionObj"));
+//		System.out.println("toStringJson: " + toStringJson(list, "conditionObj"));
+//		System.out.println("toStringValue: " + toStringValue(list, "conditionObj"));
 	}
 }

@@ -3,13 +3,13 @@ package org.oh.common;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.oh.common.util.DateUtil;
+import org.oh.common.util.StringUtil;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -197,15 +197,8 @@ public class Test02 {
 //		for (int i = -3; i <= -1; i++) {
 //			System.out.println(DateUtil.addDays(new Date(), i, org.oh.common.util.DateUtil.PATTERN_yyyyMMdd));
 //		}
-		System.out.println(DateUtil.addDays(new Date(), -1, org.oh.common.util.DateUtil.PATTERN_yyyyMM));
-	}
+//		System.out.println(DateUtil.addDays(new Date(), -1, org.oh.common.util.DateUtil.PATTERN_yyyyMM));
 
-	class Test01 {
-		private long id = 1;
-	}
-
-	public static void main(String[] args) throws Exception {
-		new Test02().test01();
 //		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("config-spring.xml");
 //		String[] beanNames = context.getBeanDefinitionNames();
 //		for (String beanName : beanNames) {
@@ -230,6 +223,28 @@ public class Test02 {
 //		System.out.println(MessageFormat.format("13", new Object[] { "2", "4" }));
 
 //		System.out.println(new Date());
+
+		int n = 1;
+		String[] branch_ids = { "1103,11,1105", "5771,5777", "6653,6727,6722,6725,6724,6726,6723", "6855,6954,6948",
+				"6962,6965,6963", "7081,6986,7078", "7124", "7338,7209,7350", "9427,9432", "9585,9596" };
+		for (String branch_id : branch_ids) {
+			String[] branch_array = StringUtil.split(branch_id, ',');
+			List<String> list = Arrays.asList(branch_array);
+			for (int i = 0; i < list.size(); i++) {
+				for (int j = i + 1; j < list.size(); j++) {
+					System.out.println(n++ + ":\t" + list.get(i) + ", " + list.get(j));
+				}
+			}
+			System.out.println();
+		}
+	}
+
+	class Test01 {
+		private long id = 1;
+	}
+
+	public static void main(String[] args) throws Exception {
+		new Test02().test01();
 	}
 
 }

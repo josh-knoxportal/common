@@ -103,6 +103,7 @@ public class Files extends Paging {
 		this.file_bytes = file_bytes;
 	}
 
+	@Override
 	public String getId() {
 		return id;
 	}

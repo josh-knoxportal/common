@@ -87,6 +87,7 @@ public class Test extends Paging {
 		this.sample_id = sample_id;
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}

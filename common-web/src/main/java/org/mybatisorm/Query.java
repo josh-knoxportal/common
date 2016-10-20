@@ -126,6 +126,18 @@ public class Query {
 		this.rows = rows;
 		this.condition = condition;
 	}
+
+	// 힌트, 필드, 테이블, 그룹방식, HAVING, SQL명 추가 by skoh
+	public Query(Object parameter, Condition condition, String orderBy, int pageNumber, int rows,
+			String hint, String fields, String table, String groupBy, String having, String sqlName) {
+		this(parameter, condition, orderBy, pageNumber, rows);
+		this.hint = hint;
+		this.fields = fields;
+		this.table = table;
+		this.groupBy = groupBy;
+		this.having = having;
+		this.sqlName = sqlName;
+	}
 	
 	public String buildOrderBy() {
 		if (orderBy == null)

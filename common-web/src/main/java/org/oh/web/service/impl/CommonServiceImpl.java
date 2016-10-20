@@ -137,7 +137,8 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			model.setOrder_by(Paging.DEFAULT_ORDER_BY);
 
 		return entityManager.page(model, model.getConditionObj(), model.getOrder_by(), page.getPageNumber(),
-				page.getRows());
+				page.getRows(), model.getHint(), model.getFields(), model.getTable(), model.getGroup_by(),
+				model.getHaving(), model.getSql_name());
 	}
 
 	@Override

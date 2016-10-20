@@ -45,6 +45,12 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 		if (where != null && where.length() > 0) {
 			sb.append(" WHERE ").append(where);
 		}
+		// 그룹방식 추가 by skoh
+		if (query.hasGroupBy())
+			sb.append(" GROUP BY ").append(query.buildGroupBy());
+		// HAVING 추가 by skoh
+		if (query.hasHaving())
+			sb.append(" HAVING ").append(query.getHaving());
 		if (query.hasOrderBy())
 			sb.append(" ORDER BY ").append(query.buildOrderBy());
 		return getBoundSql(sb.toString(),queryParam);

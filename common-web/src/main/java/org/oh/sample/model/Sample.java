@@ -81,7 +81,7 @@ public class Sample extends Paging {
 //	@NotNull(message = "반드시 값이 있어야 합니다.") // may not be null : 반드시 값이 없어야 합니다.
 //	@Min(1) // must be greater than or equal to 1 : 반드시 1보다 같거나 커야 합니다.
 //	@Max(2) // must be less than or equal to 9223372036854775807 : 반드시 9223372036854775807보다 같거나 작아야 합니다.
-	@Column(primaryKey = true, sequence = "sample_seq") // oracle // autoIncrement = true) // mysql
+	@Column(primaryKey = true, autoIncrement = true, sequence = "sample_seq")
 	protected Long id;
 
 	/**
@@ -99,6 +99,12 @@ public class Sample extends Paging {
 	 */
 	@Column // (references = "Test.id")
 	protected Long test_id;
+
+	/**
+	 * 갯수 필드
+	 */
+//	@Column
+	protected Integer count;
 
 	protected Set<Test> testSet = new LinkedHashSet<Test>();
 
@@ -136,6 +142,14 @@ public class Sample extends Paging {
 
 	public void setTest_id(Long test_id) {
 		this.test_id = test_id;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	public Set<Test> getTestSet() {

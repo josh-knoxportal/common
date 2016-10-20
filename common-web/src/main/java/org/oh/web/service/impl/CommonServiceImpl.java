@@ -107,7 +107,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		}
 
 		list = entityManager.list(model, model.getConditionObj(), model.getOrder_by(), model.getHint(),
-				model.getFields(), model.getTable(), model.getSql_name());
+				model.getFields(), model.getTable(), model.getGroup_by(), model.getHaving(), model.getSql_name());
 
 		if (cache != null) {
 			cache.put(cacheKey, list);
@@ -118,8 +118,8 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Override
 	public List<Map<String, Object>> select(Map<String, Object> model, Condition condition, String orderBy, String hint,
-			String fields, String table, String sqlName) throws Exception {
-		return entityManager.list(model, condition, orderBy, hint, fields, table, sqlName);
+			String fields, String table, String groupBy, String having, String sqlName) throws Exception {
+		return entityManager.list(model, condition, orderBy, hint, fields, table, groupBy, having, sqlName);
 	}
 
 	@Override

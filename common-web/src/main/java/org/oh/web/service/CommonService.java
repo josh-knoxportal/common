@@ -53,6 +53,8 @@ public interface CommonService<T extends Default> {
 	 * @param hint 힌트
 	 * @param fields 필드
 	 * @param table 테이블
+	 * @param groupBy 그룹방식
+	 * @param having HAVING
 	 * @param sqlName SQL명
 	 * 
 	 * @return
@@ -60,7 +62,7 @@ public interface CommonService<T extends Default> {
 	 * @throws Exception
 	 */
 	public List<Map<String, Object>> select(Map<String, Object> model, Condition condition, String orderBy, String hint,
-			String fields, String table, String sqlName) throws Exception;
+			String fields, String table, String groupBy, String having, String sqlName) throws Exception;
 
 	/**
 	 * 공통 건수 조회

@@ -52,6 +52,18 @@ public abstract class Default implements Serializable {
 	protected String table;
 
 	/**
+	 * 그룹 방식
+	 */
+	@JsonIgnore
+	protected String group_by;
+
+	/**
+	 * HAVING
+	 */
+	@JsonIgnore
+	protected String having;
+
+	/**
 	 * 정렬 방식
 	 */
 	@JsonIgnore
@@ -167,6 +179,22 @@ public abstract class Default implements Serializable {
 
 	public void setTable(String table) {
 		this.table = table;
+	}
+
+	public String getGroup_by() {
+		return group_by;
+	}
+
+	public void setGroup_by(String group_by) {
+		this.group_by = group_by;
+	}
+
+	public String getHaving() {
+		return having;
+	}
+
+	public void setHaving(String having) {
+		this.having = having;
 	}
 
 	public String getOrder_by() {

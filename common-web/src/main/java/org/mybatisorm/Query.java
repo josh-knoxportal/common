@@ -47,6 +47,10 @@ public class Query {
 	protected String fields;
 	// 테이블 추가 by skoh
 	protected String table;
+	// 그룹방식 추가 by skoh
+	protected String groupBy;
+	// HAVING 추가 by skoh
+	protected String having;
 	
 	private String orderBy;
 	private Condition condition;
@@ -81,7 +85,7 @@ public class Query {
 	public Query(Object parameter, String condition, String orderBy) {
 		// 조건이 있을 경우만 추가 by skoh
 //		this(parameter, new Condition().add(condition), orderBy);
-		this(parameter, new Condition().add(condition), orderBy, null, null, null, "");
+		this(parameter, new Condition().add(condition), orderBy, null, null, null, null, null, "");
 	}
 	
 	public Query(Object parameter, Condition condition, String orderBy) {
@@ -90,12 +94,15 @@ public class Query {
 		this.condition = condition;
 	}
 	
-	// 힌트, 필드, 테이블, SQL명 추가 by skoh
-	public Query(Object parameter, Condition condition, String orderBy, String hint, String fields, String table, String sqlName) {
+	// 힌트, 필드, 테이블, 그룹방식, HAVING, SQL명 추가 by skoh
+	public Query(Object parameter, Condition condition, String orderBy,
+			String hint, String fields, String table, String groupBy, String having, String sqlName) {
 		this(parameter, condition, orderBy);
 		this.hint = hint;
 		this.fields = fields;
 		this.table = table;
+		this.groupBy = groupBy;
+		this.having = having;
 		this.sqlName = sqlName;
 	}
 	
@@ -142,24 +149,73 @@ public class Query {
 	public void setParameter(Object parameter) {
 		this.parameter = parameter;
 	}
+	
 	// SQL명 추가 by skoh
 	public String getSqlName() {
 		return sqlName;
 	}
+	public void setSqlName(String sqlName) {
+		this.sqlName = sqlName;
+	}
+	
 	// 힌트 추가 by skoh
 	public String getHint() {
 		return hint;
 	}
+	public void setHint(String hint) {
+		this.hint = hint;
+	}
+	
 	// 필드 추가 by skoh
 	public String getFields() {
 		return fields;
 	}
+	public void setFields(String fields) {
+		this.fields = fields;
+	}
+	
 	// 테이블 추가 by skoh
 	public String getTable() {
 		return table;
 	}
+	public void setTable(String table) {
+		this.table = table;
+	}
+	
+	// 그룹방식 추가 by skoh
+	public String getGroupBy() {
+		return groupBy;
+	}
+	public void setGroupBy(String groupBy) {
+		this.groupBy = groupBy;
+	}
+	public boolean hasGroupBy() {
+		return groupBy != null;
+	}
+	public String buildGroupBy() {
+		if (groupBy == null)
+			return null;
+		
+		return HandlerFactory.getHandler(parameter).buildGroupBy(groupBy);
+	}
+	
+	// HAVING 추가 by skoh
+	public String getHaving() {
+		return having;
+	}
+	public void setHaving(String having) {
+		this.having = having;
+	}
+	public boolean hasHaving() {
+		return having != null;
+	}
+	
 	public String getCondition() {
 		return condition.build(this);
+	}
+	// 조건 추가 by skoh
+	public void setCondition(Condition condition) {
+		this.condition = condition;
 	}
 	public boolean hasCondition() {
 		// 조건 변경 by skoh

@@ -71,9 +71,13 @@ public class ControllerTest {
 //	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
-		sample.setName("s");
-		sample.addCondition("name LIKE 's%'");
-		sample.addCondition(sample.newCondition().add("name LIKE 's%'").add("name", "LIKE", "s%"));
+//		sample.setName("s");
+//		sample.addCondition("name LIKE 's%'");
+//		sample.addCondition(sample.newCondition().add("name LIKE 's%'").add("name", "LIKE", "s%"));
+		sample.setFields("name, COUNT(1) AS count");
+		sample.setGroup_by("name");
+		sample.setHaving("COUNT(1) > 0");
+		sample.setOrder_by("name");
 
 		ResponseEntity<Response<List<Sample>>> response = sampleController.list(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
@@ -121,9 +125,13 @@ public class ControllerTest {
 		Files2 files = new Files2();
 
 		SampleAndTest sat = new SampleAndTest(sample, test, files);
+		sat.setFields("sample_.name sample_name, COUNT(1) sample_count"); // skoh
 //		sat.addCondition("sample_.name LIKE 's%'");
 //		sat.addCondition("test_.name LIKE 't%'");
 //		sat.addCondition("sample_.name", "IN", "ss");
+		sat.setGroup_by("sample_.name");
+		sat.setHaving("COUNT(1) > 1");
+		sat.setOrder_by("sample_.name");
 //		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
@@ -131,11 +139,11 @@ public class ControllerTest {
 
 		ResponseEntity<Response<List<SampleAndTest>>> response = sampleAndTestController.list(sat,
 				new BeanPropertyBindingResult(sat, "sat"));
-//		System.out.println("response: " + JsonUtil2.toStringPretty(response));
+		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 
-		List<Default> list = MapperUtils.convertModels(response.getBody().getBody(), "testSet", "filesSet");
-		System.out.println("list: " + JsonUtil2.toStringPretty(list));
+//		List<Default> list = MapperUtils.convertModels(response.getBody().getBody(), "testSet", "filesSet");
+//		System.out.println("list: " + JsonUtil2.toStringPretty(list));
 
 //		Sample sample = new Sample();
 //		sample.setName("s1");

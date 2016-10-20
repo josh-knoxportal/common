@@ -479,5 +479,30 @@ public class JoinHandler extends TableHandler {
 		}
 		return sb.toString();
 	}
+	
+	// 그룹방식 추가 by skoh
+	public String buildGroupBy(String groupBy) {
+		StringBuilder sb = new StringBuilder();
+		QueryTokenizer tokenizer = new QueryTokenizer(groupBy);
+		QueryTokenizer.TokenType type;
+		String text;
+		
+		while ((type = tokenizer.next()) != QueryTokenizer.TokenType.EOS) {
+			text = tokenizer.getText();
+			switch (type) {
+			case CLASS_FIELD:
+				String name = findColumnName(text);
+				if (name == null)
+					sb.append(text);
+				else
+					sb.append(name);
+				break;
+			default:
+				sb.append(text);
+				break;
+			}
+		}
+		return sb.toString();
+	}
 
 }

@@ -54,7 +54,7 @@ public class Files extends Paging {
 	/**
 	 * 아이디(PK)
 	 */
-	@Column(primaryKey = true) // , sequence = "files_seq") // oracle // autoIncrement = true) // mysql
+	@Column(primaryKey = true, autoIncrement = true, sequence = "files_seq")
 	protected String id;
 
 	/**

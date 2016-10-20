@@ -135,7 +135,8 @@ public abstract class CommonController<T extends Default> implements Initializin
 		}
 
 		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
-				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), "select_");
+				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), model.getGroup_by(),
+				model.getHaving(), "select_");
 		Response<List<Map<String, Object>>> response = Response.getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<Map<String, Object>>>>(response, HttpStatus.OK);

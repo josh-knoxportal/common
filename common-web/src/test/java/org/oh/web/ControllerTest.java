@@ -1,6 +1,5 @@
 package org.oh.web;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +11,8 @@ import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
 import org.oh.WebApplication;
 import org.oh.common.model.Common;
-import org.oh.common.model.Default;
 import org.oh.common.page.PageNavigator;
 import org.oh.common.util.JsonUtil2;
-import org.oh.common.util.MapperUtils;
 import org.oh.sample.controller.SampleAndFilesController;
 import org.oh.sample.controller.SampleAndTest2Controller;
 import org.oh.sample.controller.SampleAndTestController;
@@ -99,16 +96,12 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t04_page() throws Exception {
 		Sample sample = new Sample();
-//		sample.setName("s");
-//		sample.addCondition("name LIKE 's%'");
-//		sample.setOrder_by("id DESC");
-		sample.setFields("name, COUNT(1) AS count");
-		sample.setGroup_by("name");
-		sample.setHaving("COUNT(1) > 0");
-		sample.setOrder_by("name");
+		sample.setName("s");
+		sample.addCondition("name LIKE 's%'");
+		sample.setOrder_by("id DESC");
 
 		Page<Sample> page = new Page<Sample>(1);
 
@@ -118,7 +111,7 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t05_joinList() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("ss");

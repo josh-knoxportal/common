@@ -500,21 +500,6 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 		return page;
 	}
 
-	// 힌트, 필드, 테이블, 그룹방식, HAVING, SQL명 추가 by skoh
-	@SuppressWarnings("unchecked")
-	public <T> Page<T> page(T parameter, Condition condition, String orderBy, int pageNumber, int rows,
-			String hint, String fields, String table, String groupBy, String having, String sqlName) {
-		int count = count(parameter, condition);
-		Page<T> page = new Page<T>(pageNumber, rows, count);
-		if (count > (pageNumber - 1) * rows) {
-			Class<?> clazz = parameter.getClass();
-			String statementName = addStatement(SOURCE_PAGE, clazz);
-			page.setList((List<T>) sqlSession.selectList(statementName, new Query(parameter, condition, orderBy,
-					pageNumber, rows, hint, fields, table, groupBy, having, sqlName)));
-		}
-		return page;
-	}
-
 	private synchronized String addStatement(String sourceName, Class<?> type) {
 		return addStatement(sourceName, type, null);
 	}

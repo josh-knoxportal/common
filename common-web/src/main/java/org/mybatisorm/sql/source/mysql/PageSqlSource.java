@@ -29,25 +29,22 @@ public class PageSqlSource extends AbstractSelectSqlSource {
 		super(sqlSourceParser, clazz);
 	}
 
-	public BoundSql getBoundSql(final Object queryParam) {
+	// final 제거 by skoh
+//	public BoundSql getBoundSql(final Object queryParam) {
+	public BoundSql getBoundSql(Object queryParam) {
 		Query query = (Query)queryParam;
-		String where = null;
+		// 주석 처리 by skoh
+//		String where = null;
 
 		StringBuilder sb = new StringBuilder(staticSql);
 		// 모든 조건 적용 by skoh
 //		where = (query.getCondition() != null) ? query.getCondition() :
 //			handler.getNotNullColumnEqualFieldAnd(query.getParameter());
-		where = handler.getNotNullColumnEqualFieldAnd(query.getParameter(), Query.PARAMETER_PREFIX);
+		String where = handler.getNotNullColumnEqualFieldAnd(query.getParameter(), Query.PARAMETER_PREFIX);
 		where = makeCondition(where, query);
 		if (where.length() > 0) {
 			sb.append(" WHERE ").append(where);
 		}
-		// 그룹방식 추가 by skoh
-		if (query.hasGroupBy())
-			sb.append(" GROUP BY ").append(query.buildGroupBy());
-		// HAVING 추가 by skoh
-		if (query.hasHaving())
-			sb.append(" HAVING ").append(query.getHaving());
 		if (query.hasOrderBy())
 			sb.append(" ORDER BY ").append(query.buildOrderBy());
 

@@ -31,9 +31,6 @@ public class PageSqlSource extends LimitSqlSource {
 	public BoundSql getBoundSql(Object queryParam) {
 		Query query = (Query)queryParam;
 		query.setStart((query.getPageNumber()-1)*query.getRows()+1);
-		// 그룹방식 추가 by skoh
-		if (query.hasGroupBy())
-			sb.append(" GROUP BY ").append(query.buildGroupBy());
 		return super.getBoundSql(queryParam);
 	}
 }

@@ -189,7 +189,7 @@ public class Test02 {
 
 //		List<List<Sample>> list = Arrays.asList(Arrays.asList(new Sample[] { new Sample(), new Sample(), }));
 //		String json = JsonUtil2.toString(list);
-//		list = JsonUtil2.getObjectMapper().readValue(json, new TypeReference<List<List<Sample>>>() {
+//		list = JsonUtil2.readValue(json, new TypeReference<List<List<Sample>>>() {
 //		});
 //		System.out.println("list: " + JsonUtil2.toStringPretty(list));
 

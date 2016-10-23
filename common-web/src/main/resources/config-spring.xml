@@ -25,21 +25,6 @@
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
-	<!-- JMX -->
-	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
-		<property name="locateExistingServerIfPossible" value="true" />
-	</bean>
-
-	<!-- DataSource -->
-	<bean id="mbeanExporter" class="org.springframework.jmx.export.MBeanExporter">
-		<property name="server" ref="mbeanServer" />
-		<property name="beans">
-			<map>
-				<entry key="dataSource:name=DataSource_oh-common" value-ref="dataSource" />
-			</map>
-		</property>
-	</bean>
-
 	<bean id="log4jdbcProxyDataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="dataSource" />
 		<property name="logFormatter">
@@ -131,15 +116,6 @@
 
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcache" />
-	</bean>
-
-	<bean id="managementService" class="net.sf.ehcache.management.ManagementService" init-method="init">
-		<constructor-arg ref="ehcache" />
-		<constructor-arg ref="mbeanServer" />
-		<constructor-arg index="2" value="true" />
-		<constructor-arg index="3" value="true" />
-		<constructor-arg index="4" value="true" />
-		<constructor-arg index="5" value="true" />
 	</bean>
 
 	<!-- Cache Redis -->

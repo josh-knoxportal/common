@@ -19,6 +19,7 @@ import org.oh.common.exception.CommonException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -655,6 +656,25 @@ public abstract class JsonUtil2 {
 		} catch (Exception e) {
 			throw new CommonException(CommonException.ERROR,
 					LogUtil.buildMessage("Read json data \"" + src + "\" error", e.getMessage()), e);
+		}
+	}
+
+	/**
+	 * 객체를 지정한 클래스 타입으로 변환한다.
+	 * 
+	 * @param content
+	 * @param valueTypeRef
+	 * 
+	 * @return
+	 * 
+	 * @throws CommonException
+	 */
+	public static <T> T readValue(String content, TypeReference valueTypeRef) throws CommonException {
+		try {
+			return getObjectMapper().readValue(content, valueTypeRef);
+		} catch (Exception e) {
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Read json data \"" + content + "\" error", e.getMessage()), e);
 		}
 	}
 

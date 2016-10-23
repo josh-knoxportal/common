@@ -29,9 +29,7 @@ public class LimitSqlSource extends AbstractSelectSqlSource {
 		super(sqlSourceParser, clazz);
 	}
 
-	// final 제거 by skoh
-//	public BoundSql getBoundSql(final Object queryParam) {
-	public BoundSql getBoundSql(Object queryParam) {
+	public BoundSql getBoundSql(final Object queryParam) {
 		Query query = (Query)queryParam;
 		// 주석 처리 by skoh
 //		String where = null;

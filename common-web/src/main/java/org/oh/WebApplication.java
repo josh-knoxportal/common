@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class,
 		JmxAutoConfiguration.class })
-@ImportResource({ "classpath:config-spring.xml" }) // , "classpath:config-spring_jmx.xml" })
+@ImportResource({ "classpath:config-spring.xml", "classpath:config-spring_jmx.xml" })
 public class WebApplication {
 	@Autowired
 	protected static ApplicationContext applicationContext;

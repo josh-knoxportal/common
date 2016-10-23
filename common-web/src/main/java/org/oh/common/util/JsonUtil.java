@@ -25,6 +25,7 @@ import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.MissingNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.codehaus.jackson.node.POJONode;
+import org.codehaus.jackson.type.TypeReference;
 import org.oh.common.exception.CommonException;
 
 /**
@@ -653,6 +654,25 @@ public abstract class JsonUtil {
 		} catch (Exception e) {
 			throw new CommonException(CommonException.ERROR,
 					LogUtil.buildMessage("Read json data \"" + src + "\" error", e.getMessage()), e);
+		}
+	}
+
+	/**
+	 * 객체를 지정한 클래스 타입으로 변환한다.
+	 * 
+	 * @param content
+	 * @param valueTypeRef
+	 * 
+	 * @return
+	 * 
+	 * @throws CommonException
+	 */
+	public static <T> T readValue(String content, TypeReference valueTypeRef) throws CommonException {
+		try {
+			return getObjectMapper().readValue(content, valueTypeRef);
+		} catch (Exception e) {
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Read json data \"" + content + "\" error", e.getMessage()), e);
 		}
 	}
 

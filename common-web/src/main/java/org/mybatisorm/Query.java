@@ -83,9 +83,7 @@ public class Query {
 	}
 	
 	public Query(Object parameter, String condition, String orderBy) {
-		// 조건이 있을 경우만 추가 by skoh
-//		this(parameter, new Condition().add(condition), orderBy);
-		this(parameter, new Condition().add(condition), orderBy, null, null, null, null, null, "");
+		this(parameter, new Condition().add(condition), orderBy);
 	}
 	
 	public Query(Object parameter, Condition condition, String orderBy) {
@@ -94,10 +92,18 @@ public class Query {
 		this.condition = condition;
 	}
 	
+	// 생성자 추가 by skoh
+	public Query(Object parameter, Condition condition, String orderBy, String table, String sqlName) {
+		this(parameter, condition, orderBy, null, null, table, null, null, sqlName);
+	}
+	
 	// 힌트, 필드, 테이블, 그룹방식, HAVING, SQL명 추가 by skoh
 	public Query(Object parameter, Condition condition, String orderBy,
 			String hint, String fields, String table, String groupBy, String having, String sqlName) {
 		this(parameter, condition, orderBy);
+		this.parameter = parameter;
+		this.condition = condition;
+		this.orderBy = orderBy;
 		this.hint = hint;
 		this.fields = fields;
 		this.table = table;

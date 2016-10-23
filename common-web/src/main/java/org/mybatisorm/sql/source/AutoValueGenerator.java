@@ -26,7 +26,9 @@ import org.mybatisorm.sql.source.ValueGeneratorImpl;
 
 public class AutoValueGenerator extends ValueGeneratorImpl {
 
-	protected KeyGenerator keyGenerator(Builder builder, String parentId, Class<?> clazz) {
+	// keyPrefix 추가 by skoh
+//	protected KeyGenerator keyGenerator(Builder builder, String parentId, Class<?> clazz) {
+	protected KeyGenerator keyGenerator(Builder builder, String parentId, Class<?> clazz, String keyPrefix) {
 		GeneratedField generated = getGeneratedField(clazz);
 		return generated == null ? new NoKeyGenerator() : newJdbc3KeyGenerator(builder,generated);
 	}

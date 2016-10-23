@@ -39,7 +39,8 @@ public abstract class ValueGeneratorImpl implements ValueGenerator {
 
 	protected abstract GeneratedField getGeneratedField(Class<?> clazz);
 
-	protected abstract KeyGenerator keyGenerator(Builder builder, String parentId, Class<?> clazz);
+	// keyPrefix 추가 by skoh
+	protected abstract KeyGenerator keyGenerator(Builder builder, String parentId, Class<?> clazz, String keyPrefix);
 
 	public abstract boolean getExecuteBefore();
 	
@@ -47,12 +48,18 @@ public abstract class ValueGeneratorImpl implements ValueGenerator {
 		this.configuration = configuration;
 	}
 	
-	public void generate(Builder builder, String parentId, Class<?> clazz) {
-		KeyGenerator keygen = keyGenerator(builder,parentId,clazz);
+	// keyPrefix 추가 by skoh
+//	public void generate(Builder builder, String parentId, Class<?> clazz) {
+	public void generate(Builder builder, String parentId, Class<?> clazz, String keyPrefix) {
+		// keyPrefix 추가 by skoh
+//		KeyGenerator keygen = keyGenerator(builder,parentId,clazz);
+		KeyGenerator keygen = keyGenerator(builder,parentId,clazz,keyPrefix);
 		builder.keyGenerator(keygen);
 	}
 
-	protected KeyGenerator newSelectKeyGenerator(GeneratedField generated, String parentId) {
+	// keyPrefix 추가 by skoh
+//	protected KeyGenerator newSelectKeyGenerator(GeneratedField generated, String parentId) {
+	protected KeyGenerator newSelectKeyGenerator(GeneratedField generated, String parentId, String keyPrefix) {
 		SqlSource sqlSource = new StaticSqlSource(configuration,generated.getSql(),null); 
 		String id = parentId + SelectKeyGenerator.SELECT_KEY_SUFFIX;
 		Class<?> resultTypeClass = generated.getField().getType();
@@ -69,7 +76,9 @@ public abstract class ValueGeneratorImpl implements ValueGenerator {
 		builder.resultMaps(resultMaps);
 		builder.resultSetType(null);
 		builder.keyGenerator(new NoKeyGenerator());
-		builder.keyProperty(generated.getField().getName());
+		// keyPrefix 추가 by skoh
+//		builder.keyProperty(generated.getField().getName());
+		builder.keyProperty(((keyPrefix == null) ? "" : keyPrefix) + generated.getField().getName());
 		
 		MappedStatement statement = builder.build();
 		configuration.addMappedStatement(statement);

@@ -19,6 +19,8 @@ import org.apache.ibatis.mapping.MappedStatement.Builder;
 import org.apache.ibatis.session.Configuration;
 
 public interface ValueGenerator {
-	public void generate(Builder builder, String parentId, Class<?> clazz);
+	// keyPrefix 추가 by skoh
+//	public void generate(Builder builder, String parentId, Class<?> clazz);
+	public void generate(Builder builder, String parentId, Class<?> clazz, String keyPrefix);
 	public void setConfiguration(Configuration configuration);
 }

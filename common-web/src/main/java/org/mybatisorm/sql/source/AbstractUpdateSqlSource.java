@@ -21,6 +21,7 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.mybatisorm.Query;
 import org.mybatisorm.annotation.SqlCommand;
 import org.mybatisorm.sql.builder.DynamicSqlBuilder;
+import org.oh.common.util.Utils;
 
 @SqlCommand(SqlCommandType.UPDATE)
 public abstract class AbstractUpdateSqlSource extends DynamicSqlBuilder {
@@ -43,6 +44,7 @@ public abstract class AbstractUpdateSqlSource extends DynamicSqlBuilder {
 		sb.append(set);
 		if (parameter instanceof Query) {
 			Query query = (Query) parameter;
+			sb.replace(0, sb.length(), Utils.replaceString(sb.toString(), "UPDATE", "SET", query.getTable()));
 			where = handler.getPrimaryKeyEqualFieldAnd(query.getParameter(), Query.PARAMETER_PREFIX);
 			where = makeCondition(where, query);
 		} else {

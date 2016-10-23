@@ -26,9 +26,13 @@ import org.mybatisorm.sql.source.ValueGeneratorImpl;
 
 public class SequenceValueGenerator extends ValueGeneratorImpl {
 
-	protected KeyGenerator keyGenerator(Builder builder, String parentId, Class<?> clazz) {
+	// keyPrefix 추가 by skoh
+//	protected KeyGenerator keyGenerator(Builder builder, String parentId, Class<?> clazz) {
+	protected KeyGenerator keyGenerator(Builder builder, String parentId, Class<?> clazz, String keyPrefix) {
 		GeneratedField generated = getGeneratedField(clazz);
-		return generated == null ? new NoKeyGenerator() : newSelectKeyGenerator(generated,parentId);
+		// keyPrefix 추가 by skoh
+//		return generated == null ? new NoKeyGenerator() : newSelectKeyGenerator(generated,parentId);
+		return generated == null ? new NoKeyGenerator() : newSelectKeyGenerator(generated,parentId,keyPrefix);
 	}
 	
 	protected GeneratedField getGeneratedField(Class<?> clazz) {

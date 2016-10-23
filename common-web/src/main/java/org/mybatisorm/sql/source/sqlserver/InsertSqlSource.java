@@ -18,6 +18,8 @@ package org.mybatisorm.sql.source.sqlserver;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.log4j.Logger;
+import org.mybatisorm.Query;
+import org.mybatisorm.annotation.handler.FieldList;
 import org.mybatisorm.sql.source.AbstractInsertSqlSource;
 
 public class InsertSqlSource extends AbstractInsertSqlSource {
@@ -29,6 +31,15 @@ public class InsertSqlSource extends AbstractInsertSqlSource {
 	}
 
 	public BoundSql getBoundSql(final Object parameter) {
-		return getBoundSql(parameter,handler.getNotNullFieldList(parameter));
+		// parameter 구분 by skoh
+//		return getBoundSql(parameter,handler.getNotNullFieldList(parameter));
+		FieldList fieldList = null;
+		if (parameter instanceof Query) {
+			Query query = (Query) parameter;
+			fieldList = handler.getNotNullFieldList(query.getParameter());
+		} else {
+			fieldList = handler.getNotNullFieldList(parameter);
+		}
+		return getBoundSql(parameter, fieldList);
 	}
 }

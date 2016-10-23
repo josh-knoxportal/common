@@ -152,7 +152,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	public Object insert(T model, List<Files> files) throws Exception {
 		model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
-		Object result = String.valueOf(entityManager.insert(model));
+		Object result = String.valueOf(entityManager.insert(model, model.getTable(), model.getSql_name()));
 		Object id = getId(model);
 		if (Utils.isValidate(id))
 			result = id;
@@ -174,7 +174,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		for (T model : models) {
 			model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
-			Object result_ = entityManager.insert(model);
+			Object result_ = entityManager.insert(model, model.getTable(), model.getSql_name());
 			Object id = getId(model);
 			if (Utils.isValidate(id))
 				result.add(id);
@@ -200,7 +200,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	public int update(T model, List<Files> files) throws Exception {
 		model = setDefaultModifyDate(model);
 
-		int result = entityManager.update(model, model.getConditionObj());
+		int result = entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 
 		updateFile(model, files);
 
@@ -219,7 +219,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		for (T model : models) {
 			model = setDefaultModifyDate(model);
 
-			result += entityManager.update(model, model.getConditionObj());
+			result += entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 		}
 
 		if (cache != null) {
@@ -232,7 +232,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	@Override
 	@TransactionalException
 	public int delete(T model) throws Exception {
-		int result = entityManager.delete(model, model.getConditionObj());
+		int result = entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 
 		if (cache != null) {
 			cache.clear();
@@ -249,7 +249,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		int result = 0;
 
 		for (T model : models) {
-			result += entityManager.delete(model, model.getConditionObj());
+			result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 		}
 
 		if (cache != null) {

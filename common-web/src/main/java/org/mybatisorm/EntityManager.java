@@ -126,10 +126,18 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	// 결과값 반환 by skoh
 //	public void insert(Object parameter) {
 	public int insert(Object parameter) {
-		Class<?> clazz = parameter.getClass();
-		String statementName = addStatement(SOURCE_INSERT, clazz);
+//		Class<?> clazz = parameter.getClass();
+//		String statementName = addStatement(SOURCE_INSERT, clazz);
 //		sqlSession.insert(statementName, parameter);
-		return sqlSession.insert(statementName, parameter);
+		return insert(parameter, null, null);
+	}
+
+	// 메소드 추가 by skoh
+	public int insert(Object parameter, String table, String sqlName) {
+		Class<?> clazz = parameter.getClass();
+		String statementName = addStatement(SOURCE_INSERT, clazz, sqlName, Query.PARAMETER_PREFIX);
+//		return sqlSession.insert(statementName, parameter);
+		return sqlSession.insert(statementName, new Query(parameter, null, null, table, sqlName));
 	}
 
 	/**
@@ -168,10 +176,10 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	 * @since 0.2.2
 	 */
 	// 모든 조건 적용 by skoh
-	public int update(Object parameter, Condition condition) {
+	public int update(Object parameter, Condition condition, String table, String sqlName) {
 		Class<?> clazz = parameter.getClass();
-		String statementName = addStatement(SOURCE_UPDATE, clazz);
-		return sqlSession.update(statementName, new Query(parameter, condition, null));
+		String statementName = addStatement(SOURCE_UPDATE, clazz, sqlName);
+		return sqlSession.update(statementName, new Query(parameter, condition, null, table, sqlName));
 	}
 
 	/**
@@ -213,11 +221,11 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	 */
 	// 결과값 반환 by skoh
 //	public void delete(Object parameter, Condition condition) {
-	public int delete(Object parameter, Condition condition) {
+	public int delete(Object parameter, Condition condition, String table, String sqlName) {
 		Class<?> clazz = parameter.getClass();
-		String statementName = addStatement(SOURCE_DELETE, clazz);
+		String statementName = addStatement(SOURCE_DELETE, clazz, sqlName);
 //		sqlSession.delete(statementName, new Query(parameter, condition, null));
-		return sqlSession.delete(statementName, new Query(parameter, condition, null));
+		return sqlSession.delete(statementName, new Query(parameter, condition, null, table, sqlName));
 	}
 
 	/**
@@ -500,17 +508,24 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 		return page;
 	}
 
-	private synchronized String addStatement(String sourceName, Class<?> type) {
+	// 메소드 추가 by skoh
+	private String addStatement(String sourceName, Class<?> type) {
 		return addStatement(sourceName, type, null);
 	}
 
-	// SQL명 추가 by skoh
-	private synchronized String addStatement(String sourceName, Class<?> type, String sqlName) {
+	// 메소드 추가 by skoh
+	private String addStatement(String sourceName, Class<?> type, String sqlName) {
+		return addStatement(sourceName, type, sqlName, null);
+	}
+
+	// SQL명, keyPrefix 추가 by skoh
+	private synchronized String addStatement(String sourceName, Class<?> type, String sqlName, String keyPrefix) {
 		Class<?> sqlSourceClass = getSourceTypeClass(sourceName);
 		// id 변경 by skoh
 //		String id = "_" + sqlSourceClass.getSimpleName() + type.getSimpleName();
+		// org.mybatisorm.mapper._ListSqlSource_Sample_(sqlName)
 		String id = "org.mybatisorm.mapper._" + sqlSourceClass.getSimpleName() + "_" + type.getSimpleName()
-				+ ((sqlName == null) ? "" : sqlName);
+				+ ((sqlName == null) ? "" : ("_" + sqlName));
 		if (!configuration.hasStatement(id)) {
 			if (logger.isDebugEnabled()) logger.debug("add a mapped statement, " + id);
 			Constructor<?> constructor = null;
@@ -532,7 +547,8 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 				statementBuilder.resultMaps(resultMaps);
 			}
 			if (SqlCommandType.INSERT.equals(sqlType)) {
-				valueGenerator.generate(statementBuilder, id, type);
+				// keyPrefix 추가 by skoh
+				valueGenerator.generate(statementBuilder, id, type, keyPrefix);
 			}
 			MappedStatement statement = statementBuilder.build();
 			configuration.addMappedStatement(statement);

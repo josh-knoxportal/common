@@ -111,7 +111,7 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t05_joinList() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("ss");
@@ -198,6 +198,8 @@ public class ControllerTest {
 //	@Test
 	public void t08_insert() throws Exception {
 		Sample sample = new Sample();
+//		sample.setSql_name("insert2");
+//		sample.setTable("sample");
 		sample.setName("s1");
 		sample.setTest_id(3L);
 		sample.setReg_id("1");
@@ -212,6 +214,8 @@ public class ControllerTest {
 //	@Test
 	public void t09_update() throws Exception {
 		Sample sample = new Sample();
+//		sample.setSql_name("update2");
+//		sample.setTable("sample");
 		sample.setId(1L);
 		sample.setName("s2");
 		sample.setMod_id("2");
@@ -226,9 +230,11 @@ public class ControllerTest {
 //	@Test
 	public void t10_delete() throws Exception {
 		Sample sample = new Sample();
-//		sample.setId(1L);
-		sample.setName("s2");
-		sample.addCondition("name LIKE 's2%'");
+//		sample.setSql_name("delete2");
+//		sample.setTable("sample");
+		sample.setId(541L);
+		sample.setName("s1");
+		sample.addCondition("name LIKE 's1%'");
 
 		ResponseEntity<Response<Integer>> response = sampleController.delete(sample,
 				new BeanPropertyBindingResult(sample, "sample"));

@@ -516,101 +516,165 @@ public abstract class Utils {
 		return (temp.indexOf(searchVal) >= 0);
 	}
 
+	/**
+	 * startStr 뒤에 insertStr 를 삽입한다.
+	 * 
+	 * @param str
+	 * @param startStr
+	 * @param insertStr
+	 * 
+	 * @return
+	 */
+	public static String insertString(String str, String startStr, String insertStr) {
+		if (!(Utils.isValidate(str) && Utils.isValidate(startStr) && Utils.isValidate(insertStr))) {
+			return str;
+		}
+
+		int startIdx = str.indexOf(startStr);
+
+		return str.substring(0, startIdx) + str.substring(startIdx, startIdx + startStr.length()) + " " + insertStr
+				+ " " + str.substring(startIdx + startStr.length());
+	}
+
+	/**
+	 * startStr 와 endStr 사이를 replaceStr 로 대체한다.
+	 * 
+	 * @param str
+	 * @param startStr
+	 * @param endStr
+	 * @param replaceStr
+	 * 
+	 * @return
+	 */
+	public static String replaceString(String str, String startStr, String endStr, String replaceStr) {
+		if (!(Utils.isValidate(str) && Utils.isValidate(startStr) && Utils.isValidate(endStr)
+				&& Utils.isValidate(replaceStr))) {
+			return str;
+		}
+
+		int startIdx = str.indexOf(startStr);
+		int endIdx = str.indexOf(endStr);
+
+		return str.substring(0, startIdx) + str.substring(startIdx, startIdx + startStr.length()) + " " + replaceStr
+				+ " " + str.substring(endIdx);
+	}
+
+	/**
+	 * 마지막 startStr 뒤에 replaceStr 를 대체한다.
+	 * 
+	 * @param str
+	 * @param startStr
+	 * @param replaceStr
+	 * 
+	 * @return
+	 */
+	public static String replaceLastString(String str, String startStr, String replaceStr) {
+		if (!(Utils.isValidate(str) && Utils.isValidate(startStr) && Utils.isValidate(replaceStr))) {
+			return str;
+		}
+
+		int startIdx = str.lastIndexOf(startStr);
+
+		return str.substring(0, startIdx) + str.substring(startIdx, startIdx + startStr.length()) + " " + replaceStr;
+	}
+
+	/**
+	 * startStr 와 마지막 endStr 사이를 replaceStr 로 대체한다.
+	 * 
+	 * @param str
+	 * @param startStr
+	 * @param endStr
+	 * @param replaceStr
+	 * 
+	 * @return
+	 */
+	public static String replaceLastString(String str, String startStr, String endStr, String replaceStr) {
+		if (!(Utils.isValidate(str) && Utils.isValidate(startStr) && Utils.isValidate(endStr)
+				&& Utils.isValidate(replaceStr))) {
+			return str;
+		}
+
+		int startIdx = str.indexOf(startStr);
+		int endIdx = str.lastIndexOf(endStr);
+
+		return str.substring(0, startIdx) + str.substring(startIdx, startIdx + startStr.length()) + " " + replaceStr
+				+ " " + str.substring(endIdx);
+	}
+
 	// Date --------------------------------------------------------------------
 
 	// ex) 2006
-	public static SimpleDateFormat SDF_YEAR = new SimpleDateFormat("yyyy");
+	public static String SDF_YEAR = "yyyy";
 	// ex) 12
-	public static SimpleDateFormat SDF_MONTH = new SimpleDateFormat("MM");
+	public static String SDF_MONTH = "MM";
 	// ex) 11
-	public static SimpleDateFormat SDF_DAY = new SimpleDateFormat("dd");
+	public static String SDF_DAY = "dd";
 	// ex) 오후
-	public static SimpleDateFormat SDF_APM = new SimpleDateFormat("a");
+	public static String SDF_APM = "a";
 	// ex) 13
-	public static SimpleDateFormat SDF_HOUR = new SimpleDateFormat("HH");
+	public static String SDF_HOUR = "HH";
 	// ex) 01
-	public static SimpleDateFormat SDF_HOUR2 = new SimpleDateFormat("hh");
+	public static String SDF_HOUR2 = "hh";
 	// ex) 1
-	public static SimpleDateFormat SDF_HOUR3 = new SimpleDateFormat("h");
+	public static String SDF_HOUR3 = "h";
 	// ex) 10
-	public static SimpleDateFormat SDF_MINUTE = new SimpleDateFormat("mm");
+	public static String SDF_MINUTE = "mm";
 	// ex) 20
-	public static SimpleDateFormat SDF_SECOND = new SimpleDateFormat("ss");
+	public static String SDF_SECOND = "ss";
 	// ex) 999
-	public static SimpleDateFormat SDF_MILLI_SECOND = new SimpleDateFormat("SSS");
+	public static String SDF_MILLI_SECOND = "SSS";
 
 	// ex) 20061211
-	public static SimpleDateFormat SDF_DATE = new SimpleDateFormat(
-			SDF_YEAR.toPattern() + SDF_MONTH.toPattern() + SDF_DAY.toPattern());
+	public static String SDF_DATE = SDF_YEAR + SDF_MONTH + SDF_DAY;
 
 	// ex) 131020
-	public static SimpleDateFormat SDF_TIME = new SimpleDateFormat(
-			SDF_HOUR.toPattern() + SDF_MINUTE.toPattern() + SDF_SECOND.toPattern());
+	public static String SDF_TIME = SDF_HOUR + SDF_MINUTE + SDF_SECOND;
 
 	// ex) 131020999
-	public static SimpleDateFormat SDF_MILLI_TIME = new SimpleDateFormat(
-			SDF_TIME.toPattern() + SDF_MILLI_SECOND.toPattern());
+	public static String SDF_MILLI_TIME = SDF_TIME + SDF_MILLI_SECOND;
 
 	// ex) 13:10:20
-	public static SimpleDateFormat SDF_TIME1 = new SimpleDateFormat(
-			SDF_HOUR.toPattern() + ":" + SDF_MINUTE.toPattern() + ":" + SDF_SECOND.toPattern());
+	public static String SDF_TIME1 = SDF_HOUR + ":" + SDF_MINUTE + ":" + SDF_SECOND;
 	// ex) 오후 01:10:20
-	public static SimpleDateFormat SDF_TIME2 = new SimpleDateFormat(SDF_APM.toPattern() + " " + SDF_HOUR2.toPattern()
-			+ ":" + SDF_MINUTE.toPattern() + ":" + SDF_SECOND.toPattern());
+	public static String SDF_TIME2 = SDF_APM + " " + SDF_HOUR2 + ":" + SDF_MINUTE + ":" + SDF_SECOND;
 	// ex) 오후 1:10:20
-	public static SimpleDateFormat SDF_TIME3 = new SimpleDateFormat(SDF_APM.toPattern() + " " + SDF_HOUR3.toPattern()
-			+ ":" + SDF_MINUTE.toPattern() + ":" + SDF_SECOND.toPattern());
+	public static String SDF_TIME3 = SDF_APM + " " + SDF_HOUR3 + ":" + SDF_MINUTE + ":" + SDF_SECOND;
 
 	// ex) 13:10:20:999
-	public static SimpleDateFormat SDF_MILLI_TIME1 = new SimpleDateFormat(
-			SDF_TIME1.toPattern() + ":" + SDF_MILLI_SECOND.toPattern());
+	public static String SDF_MILLI_TIME1 = SDF_TIME1 + ":" + SDF_MILLI_SECOND;
 
 	// ex) 20061211_131020
-	public static SimpleDateFormat SDF_DATE_TIME = new SimpleDateFormat(
-			SDF_DATE.toPattern() + "_" + SDF_TIME.toPattern());
+	public static String SDF_DATE_TIME = SDF_DATE + "_" + SDF_TIME;
 	// ex) 20061211 13:10:20
-	public static SimpleDateFormat SDF_DATE_TIME1 = new SimpleDateFormat(
-			SDF_DATE.toPattern() + " " + SDF_TIME1.toPattern());
+	public static String SDF_DATE_TIME1 = SDF_DATE + " " + SDF_TIME1;
 	// ex) 20061211 오후 01:10:20
-	public static SimpleDateFormat SDF_DATE_TIME2 = new SimpleDateFormat(
-			SDF_DATE.toPattern() + " " + SDF_TIME2.toPattern());
+	public static String SDF_DATE_TIME2 = SDF_DATE + " " + SDF_TIME2;
 	// ex) 20061211 오후 1:10:20
-	public static SimpleDateFormat SDF_DATE_TIME3 = new SimpleDateFormat(
-			SDF_DATE.toPattern() + " " + SDF_TIME3.toPattern());
+	public static String SDF_DATE_TIME3 = SDF_DATE + " " + SDF_TIME3;
 
 	// ex) 20061211_131020999
-	public static SimpleDateFormat SDF_DATE_MILLI_TIME = new SimpleDateFormat(
-			SDF_DATE.toPattern() + "_" + SDF_MILLI_TIME.toPattern());
+	public static String SDF_DATE_MILLI_TIME = SDF_DATE + "_" + SDF_MILLI_TIME;
 
 	// ex) 2006-12-11
-	public static SimpleDateFormat SDF_DATE_HYPEN = new SimpleDateFormat(
-			SDF_YEAR.toPattern() + "-" + SDF_MONTH.toPattern() + "-" + SDF_DAY.toPattern());
+	public static String SDF_DATE_HYPEN = SDF_YEAR + "-" + SDF_MONTH + "-" + SDF_DAY;
 	// ex) 2006-12-11 13:10:20
-	public static SimpleDateFormat SDF_DATE_HYPEN_TIME1 = new SimpleDateFormat(
-			SDF_DATE_HYPEN.toPattern() + " " + SDF_TIME1.toPattern());
+	public static String SDF_DATE_HYPEN_TIME1 = SDF_DATE_HYPEN + " " + SDF_TIME1;
 	// ex) 2006-12-11 오후 01:10:20
-	public static SimpleDateFormat SDF_DATE_HYPEN_TIME2 = new SimpleDateFormat(
-			SDF_DATE_HYPEN.toPattern() + " " + SDF_TIME2.toPattern());
+	public static String SDF_DATE_HYPEN_TIME2 = SDF_DATE_HYPEN + " " + SDF_TIME2;
 	// ex) 2006-12-11 오후 1:10:20
-	public static SimpleDateFormat SDF_DATE_HYPEN_TIME3 = new SimpleDateFormat(
-			SDF_DATE_HYPEN.toPattern() + " " + SDF_TIME3.toPattern()); // Oracle Default Format
+	public static String SDF_DATE_HYPEN_TIME3 = SDF_DATE_HYPEN + " " + SDF_TIME3; // Oracle Default Format
 
 	// ex) 2006-12-11 13:10:20:999
-	public static SimpleDateFormat SDF_DATE_HYPEN_MILLI_TIME1 = new SimpleDateFormat(
-			SDF_DATE_HYPEN.toPattern() + " " + SDF_MILLI_TIME1.toPattern());
+	public static String SDF_DATE_HYPEN_MILLI_TIME1 = SDF_DATE_HYPEN + " " + SDF_MILLI_TIME1;
 
 	// ex) 2006.12.11
-	public static SimpleDateFormat SDF_DATE_DOT = new SimpleDateFormat(
-			SDF_YEAR.toPattern() + "." + SDF_MONTH.toPattern() + "." + SDF_DAY.toPattern());
+	public static String SDF_DATE_DOT = SDF_YEAR + "." + SDF_MONTH + "." + SDF_DAY;
 	// ex) 2006.12.11 13:10:20
-	public static SimpleDateFormat SDF_DATE_DOT_TIMES1 = new SimpleDateFormat(
-			SDF_DATE_DOT.toPattern() + " " + SDF_TIME1.toPattern());
+	public static String SDF_DATE_DOT_TIMES1 = SDF_DATE_DOT + " " + SDF_TIME1;
 	// ex) 2006.12.11 오후 01:10:20
-	public static SimpleDateFormat SDF_DATE_DOT_TIME2 = new SimpleDateFormat(
-			SDF_DATE_DOT.toPattern() + " " + SDF_TIME2.toPattern());
+	public static String SDF_DATE_DOT_TIME2 = SDF_DATE_DOT + " " + SDF_TIME2;
 	// ex) 2006.12.11 오후 1:10:20
-	public static SimpleDateFormat SDF_DATE_DOT_TIME3 = new SimpleDateFormat(
-			SDF_DATE_DOT.toPattern() + " " + SDF_TIME3.toPattern());
+	public static String SDF_DATE_DOT_TIME3 = SDF_DATE_DOT + " " + SDF_TIME3;
 
 	/**
 	 * 시스템의 현재 날짜를 구한다.
@@ -627,6 +691,10 @@ public abstract class Utils {
 		return convertDateTimeToString(new Date());
 	}
 
+	public static String formatCurrentDate(String datePattern) {
+		return formatCurrentDate(new SimpleDateFormat(datePattern));
+	}
+
 	public static String formatCurrentDate(SimpleDateFormat simpleDateFormat) {
 		return convertDateToString(new Date(), simpleDateFormat);
 	}
@@ -636,15 +704,15 @@ public abstract class Utils {
 	}
 
 	public static String convertDateToString(java.util.Date date) {
-		return convertDateToString(date, SDF_DATE);
+		return convertDateToString(date, new SimpleDateFormat(SDF_DATE));
 	}
 
 	public static String convertTimeToString(java.util.Date date) {
-		return convertDateToString(date, SDF_TIME);
+		return convertDateToString(date, new SimpleDateFormat(SDF_TIME));
 	}
 
 	public static String convertDateTimeToString(java.util.Date date) {
-		return convertDateToString(date, SDF_DATE_TIME);
+		return convertDateToString(date, new SimpleDateFormat(SDF_DATE_TIME));
 	}
 
 	public static String convertDateToString(long date, SimpleDateFormat simpleDateFormat) {
@@ -2215,7 +2283,14 @@ public abstract class Utils {
 
 //		System.out.println(replace("a\bc", null, ""));
 
-		int seconds = 60 * 60 * 2 + 60 * 3 + 13;
-		System.out.println(convertSecToString(seconds));
+//		int seconds = 60 * 60 * 2 + 60 * 3 + 13;
+//		System.out.println(convertSecToString(seconds));
+
+		StringBuilder sb = new StringBuilder("1234567890");
+		System.out.println(sb.replace(4, 4, " ab "));
+		System.out.println(insertString("1234561234", "34", "ab"));
+		System.out.println(replaceString("1234561234", "34", "12", "ab"));
+		System.out.println(replaceLastString("1234561234", "12", "ab"));
+		System.out.println(replaceLastString("1234561234", "34", "12", "ab"));
 	}
 }

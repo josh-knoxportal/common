@@ -19,6 +19,8 @@ import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
+import org.oh.common.util.StringUtil;
+import org.oh.common.util.Utils;
 
 public class ListSqlSource extends AbstractSelectSqlSource {
 
@@ -31,9 +33,13 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 	public BoundSql getBoundSql(final Object queryParam) {
 		Query query = (Query)queryParam;
 		// (필드, 힌트), 테이블 추가 by skoh
-		makeFields(query);
-		makeHint(query);
-		makeTable(query);
+		staticSql = Utils.replaceLastString(staticSql, "SELECT", "FROM", query.getFields());
+		staticSql = Utils.insertString(staticSql, "SELECT", query.getHint());
+		staticSql = Utils.replaceLastString(staticSql, "FROM", query.getTable());
+		if (query.getTable().startsWith("TABLE ")) {
+			staticSql = StringUtil.replace(staticSql, "SELECT", "");
+			staticSql = StringUtil.replace(staticSql, "FROM", "");
+		}
 		// 주석 처리 by skoh
 //		String where = null;
 		StringBuilder sb = new StringBuilder(staticSql);

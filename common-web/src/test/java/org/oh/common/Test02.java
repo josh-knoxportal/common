@@ -224,19 +224,23 @@ public class Test02 {
 
 //		System.out.println(new Date());
 
-		int n = 1;
-		String[] branch_ids = { "1103,11,1105", "5771,5777", "6653,6727,6722,6725,6724,6726,6723", "6855,6954,6948",
-				"6962,6965,6963", "7081,6986,7078", "7124", "7338,7209,7350", "9427,9432", "9585,9596" };
-		for (String branch_id : branch_ids) {
-			String[] branch_array = StringUtil.split(branch_id, ',');
-			List<String> list = Arrays.asList(branch_array);
-			for (int i = 0; i < list.size(); i++) {
-				for (int j = i + 1; j < list.size(); j++) {
-					System.out.println(n++ + ":\t" + list.get(i) + ", " + list.get(j));
-				}
-			}
-			System.out.println();
-		}
+//		int n = 1;
+//		String[] branch_ids = { "1103,11,1105", "5771,5777", "6653,6727,6722,6725,6724,6726,6723", "6855,6954,6948",
+//				"6962,6965,6963", "7081,6986,7078", "7124", "7338,7209,7350", "9427,9432", "9585,9596" };
+//		for (String branch_id : branch_ids) {
+//			String[] branch_array = StringUtil.split(branch_id, ',');
+//			List<String> list = Arrays.asList(branch_array);
+//			for (int i = 0; i < list.size(); i++) {
+//				for (int j = i + 1; j < list.size(); j++) {
+//					System.out.println(n++ + ":\t" + list.get(i) + ", " + list.get(j));
+//				}
+//			}
+//			System.out.println();
+//		}
+		
+		StringBuilder sb = new StringBuilder("abc");
+		sb.replace(0, sb.length(), "1234");
+		System.out.println(sb);
 	}
 
 	class Test01 {

@@ -15,10 +15,8 @@ import java.util.List;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.mapping.SqlCommandType;
-import org.mybatisorm.Query;
 import org.mybatisorm.annotation.SqlCommand;
 import org.mybatisorm.sql.builder.DynamicSqlBuilder;
-import org.oh.common.util.StringUtil;
 
 @SqlCommand(value = SqlCommandType.SELECT)
 public abstract class AbstractSelectSqlSource extends DynamicSqlBuilder {
@@ -42,37 +40,5 @@ public abstract class AbstractSelectSqlSource extends DynamicSqlBuilder {
 
 	public Class<?> getResultType() {
 		return handler.getTargetClass();
-	}
-
-	// 힌트 추가 by skoh
-	protected void makeHint(Query query) {
-		int index = staticSql.indexOf("SELECT");
-		if (query.getHint() != null && index >= 0) {
-			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 6) + " " + query.getHint()
-					+ " " + staticSql.substring(index + 7);
-		}
-	}
-
-	// 필드 추가 by skoh
-	protected void makeFields(Query query) {
-		int index = staticSql.indexOf("SELECT");
-		int index2 = staticSql.lastIndexOf("FROM");
-		if (query.getFields() != null && index >= 0 && index2 >= 0) {
-			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 6) + " " + query.getFields()
-					+ " " + staticSql.substring(index2);
-		}
-	}
-
-	// 테이블 추가 by skoh
-	protected void makeTable(Query query) {
-		int index = staticSql.lastIndexOf("FROM");
-		if (query.getTable() != null && index >= 0) {
-			staticSql = staticSql.substring(0, index) + staticSql.substring(index, index + 4) + " " + query.getTable();
-
-			if (query.getTable().startsWith("TABLE ")) {
-				staticSql = StringUtil.replace(staticSql, "SELECT", "");
-				staticSql = StringUtil.replace(staticSql, "FROM", "");
-			}
-		}
 	}
 }

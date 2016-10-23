@@ -21,6 +21,7 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.mybatisorm.Query;
 import org.mybatisorm.annotation.SqlCommand;
 import org.mybatisorm.sql.builder.DynamicSqlBuilder;
+import org.oh.common.util.Utils;
 
 @SqlCommand(SqlCommandType.DELETE)
 public class DeleteSqlSource extends DynamicSqlBuilder {
@@ -37,6 +38,7 @@ public class DeleteSqlSource extends DynamicSqlBuilder {
 		String where = "";
 		if (parameter instanceof Query) {
 			Query query = (Query) parameter;
+			staticSql = Utils.replaceLastString(staticSql, "FROM", query.getTable());
 			where += handler.getNotNullColumnEqualFieldAnd(query.getParameter(), Query.PARAMETER_PREFIX);
 			if (query.hasCondition()) {
 				where += ((where.length() > 0) ? " AND " : "") + query.getCondition();

@@ -126,17 +126,16 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	// 결과값 반환 by skoh
 //	public void insert(Object parameter) {
 	public int insert(Object parameter) {
-//		Class<?> clazz = parameter.getClass();
-//		String statementName = addStatement(SOURCE_INSERT, clazz);
+		Class<?> clazz = parameter.getClass();
+		String statementName = addStatement(SOURCE_INSERT, clazz);
 //		sqlSession.insert(statementName, parameter);
-		return insert(parameter, null, null);
+		return sqlSession.insert(statementName, parameter);
 	}
 
-	// 메소드 추가 by skoh
+	// 모든 조건 적용 by skoh
 	public int insert(Object parameter, String table, String sqlName) {
 		Class<?> clazz = parameter.getClass();
 		String statementName = addStatement(SOURCE_INSERT, clazz, sqlName, Query.PARAMETER_PREFIX);
-//		return sqlSession.insert(statementName, parameter);
 		return sqlSession.insert(statementName, new Query(parameter, null, null, table, sqlName));
 	}
 
@@ -159,21 +158,6 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	 * 
 	 * @param parameter
 	 * @param condition
-	 * @since 0.2.2
-	 */
-	// 모든 조건 적용 by skoh
-	public int update(Object parameter, String condition) {
-		Class<?> clazz = parameter.getClass();
-		String statementName = addStatement(SOURCE_UPDATE, clazz);
-		return sqlSession.update(statementName, new Query(parameter, condition, null));
-	}
-
-	/**
-	 * condition으로 where 조건을 생성하여 매핑 테이블을 update 한다.
-	 * 
-	 * @param parameter
-	 * @param condition
-	 * @since 0.2.2
 	 */
 	// 모든 조건 적용 by skoh
 	public int update(Object parameter, Condition condition, String table, String sqlName) {
@@ -221,10 +205,17 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	 */
 	// 결과값 반환 by skoh
 //	public void delete(Object parameter, Condition condition) {
+//		Class<?> clazz = parameter.getClass();
+//		String statementName = addStatement(SOURCE_DELETE, clazz);
+//		sqlSession.delete(statementName, new Query(parameter, condition, null));
+	public int delete(Object parameter, Condition condition) {
+		return delete(parameter, condition, null, null);
+	}
+
+	// 모든 조건 적용 by skoh
 	public int delete(Object parameter, Condition condition, String table, String sqlName) {
 		Class<?> clazz = parameter.getClass();
 		String statementName = addStatement(SOURCE_DELETE, clazz, sqlName);
-//		sqlSession.delete(statementName, new Query(parameter, condition, null));
 		return sqlSession.delete(statementName, new Query(parameter, condition, null, table, sqlName));
 	}
 
@@ -367,8 +358,8 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	}
 
 	// 힌트, 필드, 테이블, 그룹방식, HAVING, SQL명 추가 by skoh
-	public <T> List<T> list(T parameter, Condition condition, String orderBy,
-			String hint, String fields, String table, String groupBy, String having, String sqlName) {
+	public <T> List<T> list(T parameter, Condition condition, String orderBy, String hint, String fields, String table,
+			String groupBy, String having, String sqlName) {
 		return list(new Query(parameter, condition, orderBy, hint, fields, table, groupBy, having, sqlName));
 	}
 

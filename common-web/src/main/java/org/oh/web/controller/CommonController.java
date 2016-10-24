@@ -39,6 +39,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  * https://github.com/skoh/common.git
  * 
  * @author skoh
+ * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
 @Controller
 public abstract class CommonController<T extends Default> implements InitializingBean {

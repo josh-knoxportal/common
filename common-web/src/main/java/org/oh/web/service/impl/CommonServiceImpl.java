@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
  * https://github.com/skoh/common.git
  * 
  * @author skoh
+ * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
 @Service("commonService")
 public abstract class CommonServiceImpl<T extends Default> implements CommonService<T>, InitializingBean {

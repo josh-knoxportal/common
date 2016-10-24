@@ -36,7 +36,7 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 		staticSql = Utils.replaceLastString(staticSql, "SELECT", "FROM", query.getFields());
 		staticSql = Utils.insertString(staticSql, "SELECT", query.getHint());
 		staticSql = Utils.replaceLastString(staticSql, "FROM", query.getTable());
-		if (query.getTable().startsWith("TABLE ")) {
+		if (query.getTable() != null && query.getTable().startsWith("TABLE ")) {
 			staticSql = StringUtil.replace(staticSql, "SELECT", "");
 			staticSql = StringUtil.replace(staticSql, "FROM", "");
 		}

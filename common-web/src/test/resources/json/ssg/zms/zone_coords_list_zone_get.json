@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zms/zone_coords/list_zone.do?zone.floor_id=15",
+	"url":"http://localhost:8080/v1/zms/zone_coords/list_zone.do?zone.floor_id=7464",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

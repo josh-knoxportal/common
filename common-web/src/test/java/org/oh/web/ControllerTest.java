@@ -70,7 +70,10 @@ public class ControllerTest {
 		Sample sample = new Sample();
 //		sample.setName("s");
 //		sample.addCondition("name LIKE 's%'");
-//		sample.addCondition(sample.newCondition().add("name LIKE 's%'").add("name", "LIKE", "s%"));
+//		sample.addCondition("name", "LIKE", "s%");
+//		sample.addCondition("name", "IN", "s1", "s2");
+//		sample.addCondition("name", "BETWEEN", "s1", "s2");
+//		sample.addCondition(sample.newCondition("OR").add("name LIKE 's%'").add("name", "LIKE", "s%"));
 		sample.setFields("name, COUNT(1) AS count");
 		sample.setGroup_by("name");
 		sample.setHaving("COUNT(1) > 0");

@@ -65,6 +65,26 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	protected FilesService fileService;
 
 	/**
+	 * 변수 바인딩
+	 * 
+	 * @param variable
+	 * 
+	 * @return
+	 */
+	public static String makeVariable(String variable) {
+		return Query.makeVariable(variable);
+	}
+
+	/**
+	 * 소스타입 조회
+	 * 
+	 * @return 소스타입(mysql, oracle, sqlserver)
+	 */
+	public String getSourceType() {
+		return entityManager.getSourceType();
+	}
+
+	/**
 	 * 캐쉬명을 설정한다.
 	 * 
 	 * @return null 은 캐쉬 사용 안함
@@ -301,12 +321,13 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (model instanceof Common) {
 			Common common = (Common) model;
 			if (common.getReg_dt() == null) {
-				if ("mysql".equals(entityManager.getSourceType())) {
-					common.setReg_dt(Query.makeVariable(Common.DEFAULT_DATE_MYSQL));
-				} else if ("oracle".equals(entityManager.getSourceType())) {
-					common.setReg_dt(Query.makeVariable(Common.DEFAULT_DATE_ORACLE));
+				if (SOURCE_TYPE_MYSQL.equals(getSourceType())) {
+					common.setReg_dt(makeVariable(DEFAULT_DATE_CHAR_MYSQL));
+				} else if (SOURCE_TYPE_ORACLE.equals(getSourceType())) {
+					common.setReg_dt(makeVariable(DEFAULT_DATE_CHAR_ORACLE));
 //					common.setReg_dt(new Date()); // to_timestamp('07/10/2016 21:21:31.915', 'mm/dd/yyyy hh24:mi:ss.ff3')
-				} else if ("sqlserver".equals(entityManager.getSourceType())) {
+				} else if (SOURCE_TYPE_SQLSERVER.equals(getSourceType())) {
+					common.setReg_dt(makeVariable(DEFAULT_DATE_CHAR_SQLSERVER));
 				}
 			}
 		}
@@ -327,11 +348,12 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (model instanceof Common) {
 			Common common = (Common) model;
 			if (common.getMod_dt() == null) {
-				if ("mysql".equals(entityManager.getSourceType())) {
-					common.setMod_dt(Query.makeVariable(Common.DEFAULT_DATE_MYSQL));
-				} else if ("oracle".equals(entityManager.getSourceType())) {
-					common.setMod_dt(Query.makeVariable(Common.DEFAULT_DATE_ORACLE));
-				} else if ("sqlserver".equals(entityManager.getSourceType())) {
+				if (SOURCE_TYPE_MYSQL.equals(getSourceType())) {
+					common.setMod_dt(makeVariable(DEFAULT_DATE_CHAR_MYSQL));
+				} else if (SOURCE_TYPE_ORACLE.equals(getSourceType())) {
+					common.setMod_dt(makeVariable(DEFAULT_DATE_CHAR_ORACLE));
+				} else if (SOURCE_TYPE_SQLSERVER.equals(getSourceType())) {
+					common.setMod_dt(makeVariable(DEFAULT_DATE_CHAR_SQLSERVER));
 				}
 			}
 		}

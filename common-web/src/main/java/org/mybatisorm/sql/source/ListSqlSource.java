@@ -32,14 +32,8 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 
 	public BoundSql getBoundSql(final Object queryParam) {
 		Query query = (Query)queryParam;
-		// (필드, 힌트), 테이블 추가 by skoh
-		staticSql = Utils.replaceLastString(staticSql, "SELECT", "FROM", query.getFields());
-		staticSql = Utils.insertString(staticSql, "SELECT", query.getHint());
-		staticSql = Utils.replaceLastString(staticSql, "FROM", query.getTable());
-		if (query.getTable() != null && query.getTable().startsWith("TABLE ")) {
-			staticSql = StringUtil.replace(staticSql, "SELECT", "");
-			staticSql = StringUtil.replace(staticSql, "FROM", "");
-		}
+		// 필드, 힌트, 테이블 추가 by skoh
+		staticSql = makeSql(staticSql, query);
 		// 주석 처리 by skoh
 //		String where = null;
 		StringBuilder sb = new StringBuilder(staticSql);
@@ -60,5 +54,27 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 		if (query.hasOrderBy())
 			sb.append(" ORDER BY ").append(query.buildOrderBy());
 		return getBoundSql(sb.toString(),queryParam);
+	}
+
+	/**
+	 * 필드, 힌트, 테이블 추가
+	 * 
+	 * @param sql
+	 * @param query
+	 * 
+	 * @return
+	 */
+	protected String makeSql(String sql, Query query) {
+		sql = Utils.replaceLastString(sql, "SELECT", "FROM", query.getFields());
+
+		sql = Utils.insertString(sql, "SELECT", query.getHint());
+
+		sql = Utils.replaceLastString(sql, "FROM", query.getTable());
+		if (query.getTable() != null && query.getTable().startsWith("TABLE ")) {
+			sql = StringUtil.replace(sql, "SELECT", "");
+			sql = StringUtil.replace(sql, "FROM", "");
+		}
+		
+		return sql;
 	}
 }

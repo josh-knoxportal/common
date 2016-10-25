@@ -12,10 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Table
 public class Common extends Default {
-	public static final String DEFAULT_DATE_MYSQL = "DATE_FORMAT (NOW(), '%Y%m%d%H%i%s')";
-	public static final String DEFAULT_DATE_ORACLE = "TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS')";
-	public static final String DEFAULT_DATE_SQLSERVER = "";
-
 	/**
 	 * 등록자 아이디
 	 */

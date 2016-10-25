@@ -500,17 +500,18 @@ public class EntityManager extends SqlSessionDaoSupport implements InitializingB
 	}
 
 	// 메소드 추가 by skoh
-	private String addStatement(String sourceName, Class<?> type) {
+	protected String addStatement(String sourceName, Class<?> type) {
 		return addStatement(sourceName, type, null);
 	}
 
 	// 메소드 추가 by skoh
-	private String addStatement(String sourceName, Class<?> type, String sqlName) {
+	protected String addStatement(String sourceName, Class<?> type, String sqlName) {
 		return addStatement(sourceName, type, sqlName, null);
 	}
 
 	// SQL명, keyPrefix 추가 by skoh
-	private synchronized String addStatement(String sourceName, Class<?> type, String sqlName, String keyPrefix) {
+//	private synchronized String addStatement(String sourceName, Class<?> type) {
+	protected synchronized String addStatement(String sourceName, Class<?> type, String sqlName, String keyPrefix) {
 		Class<?> sqlSourceClass = getSourceTypeClass(sourceName);
 		// id 변경 by skoh
 //		String id = "_" + sqlSourceClass.getSimpleName() + type.getSimpleName();

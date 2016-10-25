@@ -169,6 +169,8 @@ public abstract class Utils {
 			String str = (String) obj;
 			if (str.length() > 0)
 				return true;
+		} else if (obj instanceof Number) {
+			return ((Number) obj).doubleValue() > 0;
 		} else if (obj instanceof Boolean) {
 			return ((Boolean) obj).booleanValue();
 
@@ -2248,6 +2250,16 @@ public abstract class Utils {
 //		String[] arrs = usersNode.toArray(new String[usersNode.size()]);
 //		System.out.println(toString(arrs));
 
+		System.out.println(isValidate(new Integer(-1)));
+		System.out.println(isValidate(new Integer(0)));
+		System.out.println(isValidate(new Integer(1)));
+		System.out.println(isValidate(new Long(0)));
+		System.out.println(isValidate(new Long(1)));
+		System.out.println(isValidate(new Float(-0.1)));
+		System.out.println(isValidate(new Float(0)));
+		System.out.println(isValidate(new Float(0.1)));
+		System.out.println(isValidate(new Double(0)));
+		System.out.println(isValidate(new Double(0.1)));
 //		System.out.println(isValidate(new String[][] { {} }));
 
 //		System.out.println(convertList(new String[] { "1", "2" }));
@@ -2286,11 +2298,11 @@ public abstract class Utils {
 //		int seconds = 60 * 60 * 2 + 60 * 3 + 13;
 //		System.out.println(convertSecToString(seconds));
 
-		StringBuilder sb = new StringBuilder("1234567890");
-		System.out.println(sb.replace(4, 4, " ab "));
-		System.out.println(insertString("1234561234", "34", "ab"));
-		System.out.println(replaceString("1234561234", "34", "12", "ab"));
-		System.out.println(replaceLastString("1234561234", "12", "ab"));
-		System.out.println(replaceLastString("1234561234", "34", "12", "ab"));
+//		StringBuilder sb = new StringBuilder("1234567890");
+//		System.out.println(sb.replace(4, 4, " ab "));
+//		System.out.println(insertString("1234561234", "34", "ab"));
+//		System.out.println(replaceString("1234561234", "34", "12", "ab"));
+//		System.out.println(replaceLastString("1234561234", "12", "ab"));
+//		System.out.println(replaceLastString("1234561234", "34", "12", "ab"));
 	}
 }

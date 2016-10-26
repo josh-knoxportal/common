@@ -68,7 +68,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 * 변수 바인딩
 	 * 
 	 * @param variable
-	 * 
 	 * @return
 	 */
 	public static String makeVariable(String variable) {
@@ -284,7 +283,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 * id 필드의 값을 구한다.
 	 * 
 	 * @param model
-	 * 
 	 * @return id 필드가 없으면 null
 	 */
 	protected Object getId(T model) {
@@ -301,7 +299,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 * Model에 대한 쿼리를 가공할 경우에 Override하여 사용
 	 * 
 	 * @param model
-	 * 
 	 * @return model
 	 */
 	protected T setModel(T model) throws Exception {
@@ -312,9 +309,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 * 등록일자의 DB벤더별 기본값을 설정
 	 * 
 	 * @param model
-	 * 
 	 * @return model
-	 * 
 	 * @throws Exception
 	 */
 	protected T setDefaultRegisterDate(T model) throws Exception {
@@ -339,9 +334,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 * 수정일자의 DB벤더별 기본값을 설정
 	 * 
 	 * @param model
-	 * 
 	 * @return model
-	 * 
 	 * @throws Exception
 	 */
 	protected T setDefaultModifyDate(T model) throws Exception {
@@ -366,7 +359,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 * 
 	 * @param model
 	 * @param files
-	 * 
 	 * @throws Exception
 	 */
 	protected List<Object> insertFile(T model, List<Files> files) throws Exception {
@@ -387,7 +379,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 * 
 	 * @param model
 	 * @param files
-	 * 
 	 * @throws Exception
 	 */
 	protected List<Object> updateFile(T model, List<Files> files) throws Exception {
@@ -403,7 +394,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 * </pre>
 	 * 
 	 * @param model
-	 * 
 	 * @throws Exception
 	 */
 	protected int deleteFile(T model) throws Exception {

@@ -21,9 +21,7 @@ import org.oh.common.util.LogUtil;
  * <code>{HOME}/SqlMapConfig.xml</code> 파일을 읽어서 mybatis를 사용할 수 있도록 구성한다.
  * 설정 파일의 구성 등은 <a href="http://www.mybatis.org/">mybatis</a>를 참고한다.
  * 
- * 
  * @version 1.0.0
- * 
  */
 public class MyBatisConfig {
 	protected static final Charset CHARSET = Charset.forName("UTF-8");

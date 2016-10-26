@@ -158,9 +158,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * @param model
 	 * @param errors
 	 * @param request
-	 * 
 	 * @return ResponseEntity
-	 * 
 	 * @throws Exception
 	 */
 	// @RequestParam("file") MultipartFile[] files
@@ -211,9 +209,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @param model
 	 * @param errors
-	 * 
 	 * @return ResponseEntity
-	 * 
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "update" + Constants.POSTFIX, method = { RequestMethod.PUT, RequestMethod.POST })
@@ -251,9 +247,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @param model
 	 * @param errors
-	 * 
 	 * @return ResponseEntity
-	 * 
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "delete_json" + Constants.POSTFIX, method = RequestMethod.DELETE)
@@ -316,9 +310,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	 * 
 	 * @param model
 	 * @param request
-	 * 
 	 * @return
-	 * 
 	 * @throws Exception
 	 */
 	protected List<Files> getFiles(T model, HttpServletRequest request) throws Exception {

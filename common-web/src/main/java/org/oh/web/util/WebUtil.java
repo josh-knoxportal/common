@@ -27,7 +27,6 @@ public abstract class WebUtil extends WebUtils {
 	 * 파라미터를 Map를 반환한다.
 	 * 
 	 * @param request ServletRequest
-	 * 
 	 * @return Map<String, Object>
 	 */
 	public static Map<String, Object> getParametersStartingWith(ServletRequest request) {

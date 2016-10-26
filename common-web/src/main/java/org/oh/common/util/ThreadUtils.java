@@ -64,7 +64,6 @@ public abstract class ThreadUtils {
 	 * @param title 실행명
 	 * @param log 로그
 	 * @param params 파라미터
-	 * 
 	 * @return 응답결과 리스트
 	 */
 	public static List<Future<Object>> executeThread(List<Future<Object>> futureList,
@@ -79,7 +78,6 @@ public abstract class ThreadUtils {
 	 * 
 	 * @param futureList 응답결과 리스트
 	 * @param callable 쓰레드
-	 * 
 	 * @return 응답결과 리스트
 	 */
 	public static List<Future<Object>> executeThread(List<Future<Object>> futureList, Callable<Object> callable) {
@@ -97,7 +95,6 @@ public abstract class ThreadUtils {
 	 * 쓰레드 결과
 	 * 
 	 * @param futureList 응답결과 리스트
-	 * 
 	 * @return 쓰레드 결과
 	 */
 	public static Map<String, Object> resultThread(List<Future<Object>> futureList) throws Exception {

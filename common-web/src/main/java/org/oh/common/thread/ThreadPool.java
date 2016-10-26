@@ -97,7 +97,6 @@ public class ThreadPool<T> {
 	 * 쓰레드를 실행한다.
 	 * 
 	 * @param task
-	 * 
 	 * @return
 	 */
 	public Future<T> submit(Callable<T> task) {

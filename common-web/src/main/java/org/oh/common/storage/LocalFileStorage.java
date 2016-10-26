@@ -109,7 +109,6 @@ public class LocalFileStorage implements FileStorage {
 	 * 파일 경로를 가져온다.
 	 * 
 	 * @param fileID
-	 * 
 	 * @return
 	 */
 	public static String getFilePath(String fileID) {

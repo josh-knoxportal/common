@@ -105,7 +105,6 @@ public abstract class AbstractThread<T1, T2> implements Callable<T2> {
 	 * 쓰레드 실행
 	 * 
 	 * @return 응답결과
-	 * 
 	 * @throws Exception
 	 */
 	protected abstract T2 excute() throws Exception;

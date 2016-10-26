@@ -28,7 +28,6 @@ public class LogAdvice extends org.oh.common.aop.LogAdvice {
 	 * 
 	 * @param method
 	 * @param args
-	 * 
 	 * @return
 	 */
 	protected static String toString(Method method, Object[] args) {

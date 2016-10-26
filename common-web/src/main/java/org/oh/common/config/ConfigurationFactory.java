@@ -58,9 +58,7 @@ public class ConfigurationFactory implements InitializingBean, FactoryBean<Objec
 	 * Gets the object.
 	 * 
 	 * @return the object
-	 * 
 	 * @throws Exception the exception
-	 * 
 	 * @see org.springframework.beans.factory.FactoryBean#getObject()
 	 */
 	public Object getObject() throws Exception {
@@ -71,7 +69,6 @@ public class ConfigurationFactory implements InitializingBean, FactoryBean<Objec
 	 * Gets the object type.
 	 * 
 	 * @return the object type
-	 * 
 	 * @see org.springframework.beans.factory.FactoryBean#getObjectType()
 	 */
 	public Class<?> getObjectType() {
@@ -157,11 +154,9 @@ public class ConfigurationFactory implements InitializingBean, FactoryBean<Objec
 	 * After properties set.
 	 * 
 	 * @throws Exception the exception
-	 * 
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
 	 */
 	public void afterPropertiesSet() throws Exception {
-
 		if (configuration == null && (configurations == null || configurations.length == 0)
 				&& (locations == null || locations.length == 0))
 			throw new IllegalArgumentException("no configuration object or location specified");

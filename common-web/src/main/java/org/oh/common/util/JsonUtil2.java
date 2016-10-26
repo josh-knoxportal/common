@@ -664,9 +664,7 @@ public abstract class JsonUtil2 {
 	 * 
 	 * @param content
 	 * @param valueTypeRef
-	 * 
 	 * @return
-	 * 
 	 * @throws CommonException
 	 */
 	public static <T> T readValue(String content, TypeReference valueTypeRef) throws CommonException {

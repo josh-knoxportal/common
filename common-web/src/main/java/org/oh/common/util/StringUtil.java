@@ -1299,7 +1299,6 @@ public abstract class StringUtil extends StringUtils {
 	 * 
 	 * @param object
 	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
-	 * 
 	 * @return
 	 */
 	public static String toString(Object object, String... excludeFieldNamesParam) {
@@ -1315,7 +1314,6 @@ public abstract class StringUtil extends StringUtils {
 	 * 객체 배열을 문자열로 변환한다.
 	 * 
 	 * @param objs
-	 * 
 	 * @return
 	 */
 	public static String toString2(Object... objs) {
@@ -1345,7 +1343,6 @@ public abstract class StringUtil extends StringUtils {
 	 * 
 	 * @param object
 	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
-	 * 
 	 * @return
 	 */
 	public static String toStringRecursive(Object object, String... excludeFieldNamesParam) {
@@ -1360,7 +1357,6 @@ public abstract class StringUtil extends StringUtils {
 	 * 
 	 * @param object
 	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
-	 * 
 	 * @return
 	 */
 	public static String toStringJson(Object object, String... excludeFieldNamesParam) {
@@ -1379,7 +1375,6 @@ public abstract class StringUtil extends StringUtils {
 	 * 
 	 * @param object
 	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
-	 * 
 	 * @return
 	 */
 	public static String toStringValue(Object object, String... excludeFieldNamesParam) {
@@ -1402,7 +1397,6 @@ public abstract class StringUtil extends StringUtils {
 	 * 시작하는 문자열에 대한 정규표현식을 만든다. 예) [ "11", "12" ] -> "^11|^12"
 	 * 
 	 * @param list
-	 * 
 	 * @return
 	 */
 	public static String getStartWithRegExp(List<String> list) {
@@ -1423,7 +1417,6 @@ public abstract class StringUtil extends StringUtils {
 	 * Collection 객체를 배열 형태로 변환한다.
 	 * 
 	 * @param object
-	 * 
 	 * @return
 	 */
 	protected static Object convertArray(Object object) {

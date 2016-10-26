@@ -18,7 +18,6 @@ public abstract class MapUtil extends MapUtils {
 	 * 파라미터를 Map<String, Object>으로 반환한다.
 	 * 
 	 * @param params 파라미터
-	 * 
 	 * @return
 	 */
 	public static <T> Map<String, T> convertArrayToMap(T[]... params) {

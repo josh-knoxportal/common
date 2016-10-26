@@ -43,7 +43,6 @@ public abstract class XMLUtils {
 	 * JSON에 포함된 XML 데이타를 교정한다.
 	 * 
 	 * @param xml
-	 * 
 	 * @return
 	 */
 	public static String correctXmlInJson(String xml) {

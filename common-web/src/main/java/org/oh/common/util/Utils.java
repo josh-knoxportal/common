@@ -524,7 +524,6 @@ public abstract class Utils {
 	 * @param str
 	 * @param startStr
 	 * @param insertStr
-	 * 
 	 * @return
 	 */
 	public static String insertString(String str, String startStr, String insertStr) {
@@ -545,7 +544,6 @@ public abstract class Utils {
 	 * @param startStr
 	 * @param endStr
 	 * @param replaceStr
-	 * 
 	 * @return
 	 */
 	public static String replaceString(String str, String startStr, String endStr, String replaceStr) {
@@ -567,7 +565,6 @@ public abstract class Utils {
 	 * @param str
 	 * @param startStr
 	 * @param replaceStr
-	 * 
 	 * @return
 	 */
 	public static String replaceLastString(String str, String startStr, String replaceStr) {
@@ -587,7 +584,6 @@ public abstract class Utils {
 	 * @param startStr
 	 * @param endStr
 	 * @param replaceStr
-	 * 
 	 * @return
 	 */
 	public static String replaceLastString(String str, String startStr, String endStr, String replaceStr) {
@@ -767,7 +763,6 @@ public abstract class Utils {
 	 * 시분초로 변경한다.
 	 * 
 	 * @param sec
-	 * 
 	 * @return 시:분:초(00:00:00)
 	 */
 	public static String convertSecToString(int seconds) {
@@ -870,7 +865,6 @@ public abstract class Utils {
 	 *
 	 * @param szPropertiesFile properties file path.
 	 * @param bSystemProperties if true, System properties is used, otherwise arbitary properties object is created.
-	 * 
 	 * @return Properties
 	 */
 	public static Properties loadProperties(String szPropertiesFile, boolean bSystemProperties) {
@@ -2038,7 +2032,6 @@ public abstract class Utils {
 	 * 초성이 포함되어 있는지 확인
 	 * 
 	 * @param str
-	 * 
 	 * @return
 	 */
 	public static boolean isIncludeCho(String str) {
@@ -2055,7 +2048,6 @@ public abstract class Utils {
 	 * 해당 문자열의 초성을 추출
 	 * 
 	 * @param str 문자열
-	 * 
 	 * @return 초성 문자열
 	 */
 	public static String getChoSung(String str) {
@@ -2071,7 +2063,6 @@ public abstract class Utils {
 	 * 해당 문자의 초성을 추출
 	 * 
 	 * @param c 문자
-	 * 
 	 * @return 초성 문자
 	 */
 	public static char getChoSung(char c) {
@@ -2088,7 +2079,6 @@ public abstract class Utils {
 	 * 해당 문자가 한글인지 검사
 	 * 
 	 * @param c 문자
-	 * 
 	 * @return 한글 : true, 아니면 : false
 	 */
 	public static boolean isHangul(char c) {

@@ -15,7 +15,6 @@ public abstract class PageUtil {
 	 *
 	 * @param totalRow 전체 로우수
 	 * @param rowsPerPage 페이지당 로우수
-	 * 
 	 * @return 전체 페이지수
 	 */
 	public static int getTotalPage(int totalRow, int rowsPerPage) {
@@ -34,7 +33,6 @@ public abstract class PageUtil {
 	 * @param totalRow 전체 로우수
 	 * @param rowsPerPage 페이지당 로우수
 	 * @param pageNo 페이지 번호
-	 * 
 	 * @return 주어진 페이지 번호의 마지막 로우 인덱스
 	 */
 	public static int getEndIndex(int totalRow, int rowsPerPage, int pageNo) {

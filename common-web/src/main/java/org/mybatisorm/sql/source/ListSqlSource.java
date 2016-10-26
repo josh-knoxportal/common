@@ -61,7 +61,6 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 	 * 
 	 * @param sql
 	 * @param query
-	 * 
 	 * @return
 	 */
 	protected String makeSql(String sql, Query query) {

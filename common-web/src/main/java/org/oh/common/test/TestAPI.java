@@ -80,9 +80,7 @@ public class TestAPI {
 	 * 파일 읽기
 	 * 
 	 * @param filePath JSON 파일경로
-	 * 
 	 * @return JsonNode
-	 * 
 	 * @throws Exception
 	 */
 	public static JsonNode readFile(String filePath) throws Exception {
@@ -110,7 +108,6 @@ public class TestAPI {
 	 * 테스트
 	 * 
 	 * @param 입력데이타
-	 * 
 	 * @throws Exception
 	 */
 	protected void test(JsonNode data) throws Exception {
@@ -147,9 +144,7 @@ public class TestAPI {
 	 * 테스트
 	 * 
 	 * @param json 입력데이타
-	 * 
 	 * @return HTTPUtilTask 테스트 쓰레드
-	 * 
 	 * @throws Exception
 	 */
 	protected HTTPUtilTask test2(JsonNode json) throws Exception {
@@ -194,7 +189,6 @@ public class TestAPI {
 	 * 출력
 	 * 
 	 * @param futureList 결과 리스트
-	 * 
 	 * @throws Exception
 	 */
 	protected void print(List<Future<Object>> futureList) throws Exception {
@@ -237,9 +231,7 @@ public class TestAPI {
 	 * 바디를 변환한다.
 	 * 
 	 * @param content
-	 * 
 	 * @return
-	 * 
 	 * @throws Exception
 	 */
 	protected String convertbody(String body) throws Exception {

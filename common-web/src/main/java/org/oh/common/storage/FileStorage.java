@@ -23,7 +23,6 @@ public interface FileStorage {
 	 * 
 	 * @param fileName 파일 이름
 	 * @param data 저장할 파일 data의 byte 배열
-	 * 
 	 * @return 저장된 파일경로
 	 */
 	// 저장에 성공하면 <code>true</code>
@@ -36,7 +35,6 @@ public interface FileStorage {
 	 * @param fileID Unique ID
 	 * @param fileName 파일 이름
 	 * @param data 저장할 파일 data의 byte 배열
-	 * 
 	 * @return 저장된 파일경로
 	 */
 	public String save(Files files);

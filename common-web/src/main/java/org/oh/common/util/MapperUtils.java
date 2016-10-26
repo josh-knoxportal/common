@@ -24,7 +24,6 @@ public abstract class MapperUtils {
 	 * 
 	 * @param sourceList 변환하고자 하는 Default 객체 리스트
 	 * @param targetFieldNames Default 객체를 담을 Set 필드명들
-	 * 
 	 * @return
 	 */
 	public static <T extends Default> List<Default> convertModels(List<T> sourceList, String... targetFieldNames) {

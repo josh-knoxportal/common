@@ -805,9 +805,11 @@ public abstract class DateUtil extends DateUtils {
 		return date;
 	}
 
-	public static void main(String[] args) {
-		Date date = new Date();
-		System.out.println(date);
-		System.out.println(addSeconds(date, 30));
+	public static void main(String[] args) throws Exception {
+//		Date date = new Date();
+//		System.out.println(date);
+//		System.out.println(addSeconds(date, 30));
+
+		System.out.println(addDays(new Date(), -30, PATTERN_yyyyMMdd));
 	}
 }

@@ -33,7 +33,6 @@ public class GatewayController {
 	 * HttpMethod객체를 반환한다.
 	 * 
 	 * @param method HTTP method
-	 * 
 	 * @return
 	 */
 	public static HttpMethod getHttpMethod(String method) {
@@ -60,9 +59,7 @@ public class GatewayController {
 	 * @param body
 	 * @param request
 	 * @param response
-	 * 
 	 * @return ResponseEntity<Object>
-	 * 
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "gateway.do")
@@ -90,9 +87,7 @@ public class GatewayController {
 	 * @param method
 	 * @param header
 	 * @param body
-	 * 
 	 * @return ResponseEntity<Object>
-	 * 
 	 * @throws RestClientException
 	 */
 	protected ResponseEntity<Object> callHttp(String url, String method, HttpHeaders header, Map<String, Object> body)

@@ -419,7 +419,6 @@ public abstract class FileUtil extends FileUtils {
 	 * 
 	 * @param dir 디렉토리
 	 * @param fileName 파일명
-	 * 
 	 * @return File[]
 	 */
 	public static File[] findFiles(String dir, String fileName) {

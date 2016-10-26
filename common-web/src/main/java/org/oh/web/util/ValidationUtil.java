@@ -56,7 +56,6 @@ public abstract class ValidationUtil extends ValidationUtils {
 	 * 
 	 * @param httpStatus
 	 * @param maessage
-	 * 
 	 * @return
 	 */
 	public static String getHttpErrorCodeMaessage(HttpStatus httpStatus, String maessage) {
@@ -67,7 +66,6 @@ public abstract class ValidationUtil extends ValidationUtils {
 	 * ex) E-HTTP-400
 	 * 
 	 * @param httpStatus
-	 * 
 	 * @return
 	 */
 	public static String getHttpErrorCode(HttpStatus httpStatus) {
@@ -83,7 +81,6 @@ public abstract class ValidationUtil extends ValidationUtils {
 	 * 
 	 * @param httpStatus
 	 * @param maessage
-	 * 
 	 * @return
 	 */
 	public static String getHttpErrorMaessage(HttpStatus httpStatus, String maessage) {

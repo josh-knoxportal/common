@@ -24,7 +24,6 @@ public class Response<T> implements Serializable {
 	 * 실패 응답을 반환한다.
 	 * 
 	 * @param body
-	 * 
 	 * @return
 	 */
 	public static <T> Response<T> getSuccessResponse(T body) {
@@ -36,7 +35,6 @@ public class Response<T> implements Serializable {
 	 * 
 	 * @param error_code
 	 * @param error_message
-	 * 
 	 * @return
 	 */
 	public static <T> Response<T> getFailResponse(String error_code, String error_message) {
@@ -48,7 +46,6 @@ public class Response<T> implements Serializable {
 	 * 
 	 * @param response
 	 * @param body
-	 * 
 	 * @return
 	 */
 	public static <T1, T2> Response<T2> getResponse(Response<T1> response, T2 body) {

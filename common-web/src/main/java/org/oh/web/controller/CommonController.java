@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
@@ -292,7 +293,8 @@ public abstract class CommonController<T extends Default> implements Initializin
 
 		Response<T> response = Response.getFailResponse(
 				ValidationUtil.getHttpErrorCode(HttpStatus.INTERNAL_SERVER_ERROR),
-				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
+				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR,
+						StringUtils.substringBefore(e.getMessage().trim(), System.lineSeparator())));
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}

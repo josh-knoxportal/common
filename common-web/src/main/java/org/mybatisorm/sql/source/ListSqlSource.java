@@ -19,6 +19,7 @@ import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
+import org.mybatisorm.annotation.handler.TokenMaker;
 import org.oh.common.util.StringUtil;
 import org.oh.common.util.Utils;
 
@@ -32,8 +33,10 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 
 	public BoundSql getBoundSql(final Object queryParam) {
 		Query query = (Query)queryParam;
+
 		// 필드, 힌트, 테이블 추가 by skoh
-		staticSql = makeSql(staticSql, query);
+		staticSql = makeSelectSql(staticSql, query);
+
 		// 주석 처리 by skoh
 //		String where = null;
 		StringBuilder sb = new StringBuilder(staticSql);
@@ -45,12 +48,10 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 		if (where != null && where.length() > 0) {
 			sb.append(" WHERE ").append(where);
 		}
-		// 그룹방식 추가 by skoh
-		if (query.hasGroupBy())
-			sb.append(" GROUP BY ").append(query.buildGroupBy());
-		// HAVING 추가 by skoh
-		if (query.hasHaving())
-			sb.append(" HAVING ").append(query.getHaving());
+
+		// 그룹방식, HAVING, 정렬방식 추가 by skoh
+		sb.replace(0, sb.length(), makeGroupSql(sb.toString(), query));
+
 		if (query.hasOrderBy())
 			sb.append(" ORDER BY ").append(query.buildOrderBy());
 		return getBoundSql(sb.toString(),queryParam);
@@ -63,17 +64,44 @@ public class ListSqlSource extends AbstractSelectSqlSource {
 	 * @param query
 	 * @return
 	 */
-	protected String makeSql(String sql, Query query) {
-		sql = Utils.replaceLastString(sql, "SELECT", "FROM", query.getFields());
-
-		sql = Utils.insertString(sql, "SELECT", query.getHint());
-
-		sql = Utils.replaceLastString(sql, "FROM", query.getTable());
-		if (query.getTable() != null && query.getTable().startsWith("TABLE ")) {
-			sql = StringUtil.replace(sql, "SELECT", "");
-			sql = StringUtil.replace(sql, "FROM", "");
+	protected String makeSelectSql(String sql, Query query) {
+		if (Utils.isValidate(query.getFields())) {
+			sql = Utils.replaceLastString(sql, "SELECT", "FROM", query.getFields());
 		}
-		
+
+		if (Utils.isValidate(query.getHint())) {
+			sql = Utils.insertString(sql, "SELECT", query.getHint());
+		}
+
+		if (Utils.isValidate(query.getTable())) {
+			sql = Utils.replaceLastString(sql, "FROM", query.getTable());
+			if (query.getTable().startsWith("TABLE ")) {
+				sql = StringUtil.replace(sql, "SELECT", "");
+				sql = StringUtil.replace(sql, "FROM", "");
+			}
+		}
+
 		return sql;
+	}
+
+	/**
+	 * 그룹방식, HAVING 추가
+	 * 
+	 * @param sql
+	 * @param query
+	 * @return
+	 */
+	protected String makeGroupSql(String sql, Query query) {
+		StringBuilder sb = new StringBuilder(sql);
+
+		if (Utils.isValidate(query.getGroupBy())) {
+			sb.append(" GROUP BY ").append(query.getGroupBy());
+		}
+
+		if (Utils.isValidate(query.getHaving())) {
+			sb.append(" HAVING ").append(query.getHaving());
+		}
+
+		return sb.toString();
 	}
 }

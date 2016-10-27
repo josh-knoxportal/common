@@ -547,8 +547,7 @@ public abstract class Utils {
 	 * @return
 	 */
 	public static String replaceString(String str, String startStr, String endStr, String replaceStr) {
-		if (!(Utils.isValidate(str) && Utils.isValidate(startStr) && Utils.isValidate(endStr)
-				&& Utils.isValidate(replaceStr))) {
+		if (!Utils.isValidate(str) || !Utils.isValidate(startStr) || !Utils.isValidate(endStr)) {
 			return str;
 		}
 
@@ -568,7 +567,7 @@ public abstract class Utils {
 	 * @return
 	 */
 	public static String replaceLastString(String str, String startStr, String replaceStr) {
-		if (!(Utils.isValidate(str) && Utils.isValidate(startStr) && Utils.isValidate(replaceStr))) {
+		if (!Utils.isValidate(str) || !Utils.isValidate(startStr)) {
 			return str;
 		}
 
@@ -587,8 +586,7 @@ public abstract class Utils {
 	 * @return
 	 */
 	public static String replaceLastString(String str, String startStr, String endStr, String replaceStr) {
-		if (!(Utils.isValidate(str) && Utils.isValidate(startStr) && Utils.isValidate(endStr)
-				&& Utils.isValidate(replaceStr))) {
+		if (!Utils.isValidate(str) || !Utils.isValidate(startStr) || !Utils.isValidate(endStr)) {
 			return str;
 		}
 

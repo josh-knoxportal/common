@@ -74,7 +74,10 @@ public class ControllerTest {
 //		sample.addCondition("name", "IN", "s1", "s2");
 //		sample.addCondition("name", "BETWEEN", "s1", "s2");
 //		sample.addCondition(sample.newCondition("OR").add("name LIKE 's%'").add("name", "LIKE", "s%"));
+		sample.setSql_name("t02_list");
+		sample.setHint("DISTINCT");
 		sample.setFields("name, COUNT(1) AS count");
+		sample.setTable("sample");
 		sample.setGroup_by("name");
 		sample.setHaving("COUNT(1) > 0");
 		sample.setOrder_by("name");
@@ -125,6 +128,7 @@ public class ControllerTest {
 		Files2 files = new Files2();
 
 		SampleAndTest sat = new SampleAndTest(sample, test, files);
+		sample.setSql_name("t05_joinList");
 		sat.setFields("sample_.name sample_name, COUNT(1) sample_count"); // skoh
 //		sat.addCondition("sample_.name LIKE 's%'");
 //		sat.addCondition("test_.name LIKE 't%'");
@@ -201,7 +205,7 @@ public class ControllerTest {
 //	@Test
 	public void t08_insert() throws Exception {
 		Sample sample = new Sample();
-//		sample.setSql_name("insert2");
+//		sample.setSql_name("t08_insert");
 //		sample.setTable("sample");
 		sample.setName("s1");
 		sample.setTest_id(3L);
@@ -217,7 +221,7 @@ public class ControllerTest {
 //	@Test
 	public void t09_update() throws Exception {
 		Sample sample = new Sample();
-//		sample.setSql_name("update2");
+//		sample.setSql_name("t09_update");
 //		sample.setTable("sample");
 		sample.setId(1L);
 		sample.setName("s2");
@@ -233,7 +237,7 @@ public class ControllerTest {
 //	@Test
 	public void t10_delete() throws Exception {
 		Sample sample = new Sample();
-//		sample.setSql_name("delete2");
+//		sample.setSql_name("t10_delete");
 //		sample.setTable("sample");
 		sample.setId(541L);
 		sample.setName("s1");
@@ -248,6 +252,7 @@ public class ControllerTest {
 //	@Test
 	public void t11_select() throws Exception {
 		Common common = new Common();
+		common.setSql_name("t11_select");
 		common.setHint("DISTINCT");
 		common.setFields("*");
 		common.setTable("sample");

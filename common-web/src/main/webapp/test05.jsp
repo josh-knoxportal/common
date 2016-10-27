@@ -92,16 +92,28 @@
 		// 		$("#input01").on("change", function() {
 		// 			console.log("on");
 		// 		});
-		var json = {
-			"a" : "1"
-		};
-		var json2 = {
-			"b" : 2
-		};
-		$.extend(json, json2);
-		console.log(JSON.stringify(json));
-		json.c = 3;
-		console.log(JSON.stringify(json));
+// 		var json = {
+// 			"a" : "1"
+// 		};
+// 		var json2 = {
+// 			"b" : 2
+// 		};
+// 		$.extend(json, json2);
+// 		console.log(JSON.stringify(json));
+// 		json.c = 3;
+// 		console.log(JSON.stringify(json));
+
+		var dt = new Date();
+		dt.setDate(dt.getDate() - 30);
+		
+		var year = dt.getFullYear();
+		var month = dt.getMonth() + 1; // 1월(0)
+		var date = dt.getDate();
+		var day = dt.getDay() + 1; // 일요일(0)
+		console.log(year + '.' + month + '.' + date + ' ' + day);
+
+		dt.setDate(dt.getDate() - 30);
+		console.log(dt);
 	});
 </script>
 </head>

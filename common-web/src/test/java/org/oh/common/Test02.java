@@ -3,13 +3,12 @@ package org.oh.common;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.oh.common.util.StringUtil;
+import org.mybatisorm.annotation.handler.TokenMaker;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -237,9 +236,35 @@ public class Test02 {
 //			}
 //			System.out.println();
 //		}
+
+//		StringBuilder sb = new StringBuilder("abc");
+//		sb.replace(0, sb.length(), "1234");
+//		System.out.println(sb);
+
+//		Exception e = new Exception("skoh");
+//		Exception e1 = new Exception("skoh1", e);
+//		Exception e2 = new Exception("\nskoh2\nabc\n".trim(), e1);
+//		e2.printStackTrace();
+//		System.out.println();
+//
+//		System.out.println(e2.getMessage());
+////		System.out.println(e2.getLocalizedMessage());
+////		System.out.println(e2.toString());
+//		System.out.println();
+//
+//		System.out.println(StringUtil.substringBefore(e2.getMessage(), System.lineSeparator()));
+//		System.out.println();
+//
+//		StackTraceElement[] stacks = e2.getStackTrace();
+//		for (StackTraceElement stack : stacks) {
+//			System.out.println(stack);
+//		}
 		
-		StringBuilder sb = new StringBuilder("abc");
-		sb.replace(0, sb.length(), "1234");
+//		System.out.println(TokenMaker.mybatisToken("fieldName", null, null, "value\b"));
+		StringBuilder sb = new StringBuilder("skoh");
+		sb.setLength(0);
+		sb.trimToSize();
+		sb.append("123");
 		System.out.println(sb);
 	}
 

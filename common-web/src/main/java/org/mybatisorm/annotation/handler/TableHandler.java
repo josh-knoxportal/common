@@ -423,30 +423,6 @@ public class TableHandler {
 		return sb.toString();
 	}
 
-	// 그룹방식 추가 by skoh
-	public String buildGroupBy(String groupBy) {
-		QueryTokenizer tokenizer = new QueryTokenizer(groupBy);
-		QueryTokenizer.TokenType type;
-		String text;
-		StringBuilder sb = new StringBuilder();
-
-		while ((type = tokenizer.next()) != QueryTokenizer.TokenType.EOS) {
-			text = tokenizer.getText();
-			switch (type) {
-				case IDENTIFIER:
-					String name = findColumnName(text);
-					if (name == null) sb.append(text);
-					else sb.append(name);
-					break;
-				default:
-					sb.append(text);
-					break;
-			}
-		}
-
-		return sb.toString();
-	}
-
 	static class QueryTokenizer {
 
 		public enum TokenType {

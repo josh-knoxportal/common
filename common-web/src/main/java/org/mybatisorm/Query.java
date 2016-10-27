@@ -195,15 +195,6 @@ public class Query {
 	public void setGroupBy(String groupBy) {
 		this.groupBy = groupBy;
 	}
-	public boolean hasGroupBy() {
-		return groupBy != null;
-	}
-	public String buildGroupBy() {
-		if (groupBy == null)
-			return null;
-		
-		return HandlerFactory.getHandler(parameter).buildGroupBy(groupBy);
-	}
 	
 	// HAVING 추가 by skoh
 	public String getHaving() {
@@ -211,9 +202,6 @@ public class Query {
 	}
 	public void setHaving(String having) {
 		this.having = having;
-	}
-	public boolean hasHaving() {
-		return having != null;
 	}
 	
 	public String getCondition() {

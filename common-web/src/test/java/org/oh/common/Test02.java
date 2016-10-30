@@ -4,11 +4,13 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.mybatisorm.annotation.handler.TokenMaker;
+import org.oh.common.util.DateUtil;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -259,13 +261,22 @@ public class Test02 {
 //		for (StackTraceElement stack : stacks) {
 //			System.out.println(stack);
 //		}
-		
+
 //		System.out.println(TokenMaker.mybatisToken("fieldName", null, null, "value\b"));
-		StringBuilder sb = new StringBuilder("skoh");
-		sb.setLength(0);
-		sb.trimToSize();
-		sb.append("123");
-		System.out.println(sb);
+//		StringBuilder sb = new StringBuilder("skoh");
+//		sb.setLength(0);
+//		sb.trimToSize();
+//		sb.append("123");
+//		System.out.println(sb);
+
+//		Set<String> set = new LinkedHashSet<String>();
+//		set.add("20160930");
+//		set.add("20160930");
+//		for (String s : set) {
+//			System.out.println(s);
+//		}
+
+		System.out.println(DateUtil.differenceDays("20161001", "20160930", DateUtil.PATTERN_yyyyMMdd));
 	}
 
 	class Test01 {

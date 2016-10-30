@@ -31,20 +31,45 @@ public abstract class ValidationUtil extends ValidationUtils {
 
 	public static final String HTTP_CODE = "HTTP";
 
-	public static <T> ResponseEntity<Response<T>> getResponseEntity(HttpStatus httpStatus) {
-		Response<T> response = Response.getFailResponse(getHttpErrorCode(httpStatus), getHttpErrorMaessage(httpStatus));
-
-		return new ResponseEntity<Response<T>>(response, httpStatus);
-	}
-
-	public static <T> Response<T> getResponse(BindingResult errors) {
+	public static <T> Response<T> getFailResponse(BindingResult errors) {
 		List<String> maessage = new ArrayList<String>();
 		for (FieldError fieldError : errors.getFieldErrors()) {
 			maessage.add(fieldError.getField() + " = " + fieldError.getDefaultMessage());
 		}
 
-		return Response.getFailResponse(getHttpErrorCode(HttpStatus.BAD_REQUEST),
-				getHttpErrorMaessage(HttpStatus.BAD_REQUEST, maessage.toString()));
+		return getFailResponse(HttpStatus.BAD_REQUEST, maessage.toString());
+	}
+
+	public static <T> ResponseEntity<Response<T>> getFailResponseEntity(HttpStatus httpStatus) {
+		return getFailResponseEntity(httpStatus, null);
+	}
+
+	/**
+	 * 실패 응답 결과를 구한다.
+	 * 
+	 * @param httpStatus
+	 * @param maessage
+	 * @return
+	 */
+	public static <T> ResponseEntity<Response<T>> getFailResponseEntity(HttpStatus httpStatus, String maessage) {
+		Response<T> response = getFailResponse(httpStatus, maessage);
+
+		return new ResponseEntity<Response<T>>(response, httpStatus);
+	}
+
+	public static <T> Response<T> getFailResponse(HttpStatus httpStatus) {
+		return getFailResponse(httpStatus, null);
+	}
+
+	/**
+	 * 실패 응답 결과를 구한다.
+	 * 
+	 * @param httpStatus
+	 * @param maessage
+	 * @return
+	 */
+	public static <T> Response<T> getFailResponse(HttpStatus httpStatus, String maessage) {
+		return Response.getFailResponse(getHttpErrorCode(httpStatus), getHttpErrorMaessage(httpStatus, maessage));
 	}
 
 	public static String getHttpErrorCodeMaessage(HttpStatus httpStatus) {

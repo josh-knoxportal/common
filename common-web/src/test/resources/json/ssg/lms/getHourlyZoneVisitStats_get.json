@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/lms/daily_device_visit_log/device_count.do?days=0&month_stay_time=200",
+	"url":"http://localhost:8080/v1/lms/getHourlyZoneVisitStats.do?company_id=7055&brand_id=7056&srchMonth=201610&srchDay=20161022",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

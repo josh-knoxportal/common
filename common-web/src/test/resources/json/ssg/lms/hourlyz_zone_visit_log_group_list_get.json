@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/lms/daily_device_visit_log/device_count.do?days=0&month_stay_time=200",
+	"url":"http://localhost:8080/v1/lms/hourlyz_zone_visit_log/group_list.do?start_day=20160930&end_day=20160929",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

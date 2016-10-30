@@ -302,7 +302,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 	protected ResponseEntity<Response<T>> checkValidate(BindingResult errors) throws Exception {
 		log.error("Validate errors: " + errors.getFieldErrors());
 
-		Response<T> response = ValidationUtil.getResponse(errors);
+		Response<T> response = ValidationUtil.getFailResponse(errors);
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.BAD_REQUEST);
 	}

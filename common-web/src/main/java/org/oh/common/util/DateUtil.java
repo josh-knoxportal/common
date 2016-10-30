@@ -164,7 +164,7 @@ public abstract class DateUtil extends DateUtils {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 			formatter.setTimeZone(TimeZone.getDefault());
-			return Math.abs(formatter.parse(fromDate).getTime() - formatter.parse(toDate).getTime()) / 1000;
+			return (formatter.parse(fromDate).getTime() - formatter.parse(toDate).getTime()) / 1000;
 		} catch (Exception e) {
 			throw new SmartException(e);
 		}
@@ -705,14 +705,8 @@ public abstract class DateUtil extends DateUtils {
 		return dateFormat.parse(yyyyMMdd + " " + HHmm);
 	}
 
-	public static String dateConverter(String date, String inFormat, String outFormat) {
-
-		SimpleDateFormat inDateFormat = new SimpleDateFormat(inFormat, Locale.ENGLISH);
+	public static String dateConverter(String date, String outFormat) {
 		SimpleDateFormat outDateFormat = new SimpleDateFormat(outFormat);
-
-		ParsePosition pos = new ParsePosition(0);
-		// Date frmTime = inDateFormat.parse ( date, pos );
-
 		Date frmTime = new Date(date);
 
 		return outDateFormat.format(frmTime);
@@ -810,6 +804,11 @@ public abstract class DateUtil extends DateUtils {
 //		System.out.println(date);
 //		System.out.println(addSeconds(date, 30));
 
-		System.out.println(addDays(new Date(), -30, PATTERN_yyyyMMdd));
+//		System.out.println(addMonths("20161001", 1, PATTERN_yyyyMMdd));
+//		System.out.println(addDays(new Date(), 1, PATTERN_yyyyMMdd));
+//		System.out.println(toDate("20161001", PATTERN_yyyyMMdd));
+//		System.out.println(format("20161001", PATTERN_yyyyMMdd, PATTERN_yyyyMM));
+//		System.out.println(dateConverter("Sat, 12 Aug 1995 13:30:00 GMT+0430", PATTERN_yyyyMMddHHmmssSSS_DASH));
+		System.out.println(differenceDays("20161001", "20161002", PATTERN_yyyyMMdd));
 	}
 }

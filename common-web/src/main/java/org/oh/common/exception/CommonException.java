@@ -1,5 +1,7 @@
 package org.oh.common.exception;
 
+import org.oh.common.util.Utils;
+
 /**
  * 공통 에러
  */
@@ -32,7 +34,7 @@ public class CommonException extends RuntimeException {
 	 * @param cause 에러상세
 	 */
 	public CommonException(String errorCode, String errorMessage, Throwable cause) {
-		super("[" + errorCode + "]" + errorMessage, cause);
+		super(((Utils.isValidate(errorCode)) ? "[" + errorCode + "]" : "") + errorMessage, cause);
 
 		this.errorCode = errorCode;
 	}
@@ -47,6 +49,6 @@ public class CommonException extends RuntimeException {
 
 	@Override
 	public String toString() {
-		return "[" + errorCode + "]" + super.toString();
+		return ((Utils.isValidate(errorCode)) ? "[" + errorCode + "]" : "") + super.toString();
 	}
 }

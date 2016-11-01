@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-@Controller
+//@Controller
 public class GatewayController {
 	public static final String PARAM_NAME = "api_uri";
 
 	protected final Log log = LogFactory.getLog(getClass());
 
-//	@Autowired
+	@Autowired
 	protected RestTemplate restTemplate;
 
 	/**

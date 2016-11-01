@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/lms/hourlyz_zone_visit_log/group_list.do?start_day=20160930&end_day=20160929",
+	"url":"http://localhost:8080/v1/lms/daily_zone_visit_log/group_list.do?start_day=-1&end_day=-30",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

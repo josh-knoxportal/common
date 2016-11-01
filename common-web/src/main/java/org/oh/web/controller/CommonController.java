@@ -42,7 +42,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  * @author skoh
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
-@Controller
+//@Controller
 public abstract class CommonController<T extends Default> implements InitializingBean {
 	protected Log log = LogFactory.getLog(getClass());
 

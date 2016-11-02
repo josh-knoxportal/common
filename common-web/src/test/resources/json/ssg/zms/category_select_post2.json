@@ -10,9 +10,9 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"count(1)",
-				"table":"device",
-				"condition":"validity = 1"
+				"fields":"*",
+				"table":"tenant",
+				"condition":"UPD_DATE > TO_DATE('20161001000000', 'yyyymmddhh24miss')"
 			}
 		}
 	]

@@ -38,7 +38,8 @@ public class DeleteSqlSource extends DynamicSqlBuilder {
 		String where = "";
 		if (parameter instanceof Query) {
 			Query query = (Query) parameter;
-			staticSql = Utils.replaceLastString(staticSql, "FROM", query.getTable());
+			if (Utils.isValidate(query.getTable()))
+				staticSql = Utils.replaceLastString(staticSql, "FROM", query.getTable());
 			where += handler.getNotNullColumnEqualFieldAnd(query.getParameter(), Query.PARAMETER_PREFIX);
 			if (query.hasCondition()) {
 				where += ((where.length() > 0) ? " AND " : "") + query.getCondition();

@@ -43,7 +43,8 @@ public abstract class AbstractInsertSqlSource extends DynamicSqlBuilder {
 		// parameter 구분 by skoh
 		if (parameter instanceof Query) {
 			Query query = (Query) parameter;
-			sb.replace(0, sb.length(), Utils.replaceString(sb.toString(), "INTO", "(", query.getTable()));
+			if (Utils.isValidate(query.getTable()))
+				sb.replace(0, sb.length(), Utils.replaceString(sb.toString(), "INTO", "(", query.getTable()));
 			for (String fname : fieldList.getFieldNames()) {
 				fields.add(TokenMaker.mybatisToken(fname, fieldList.getTypeHandler(fname), Query.PARAMETER_PREFIX,
 						ReflectionUtil.getValue(query.getParameter(), fname)));

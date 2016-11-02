@@ -44,7 +44,8 @@ public abstract class AbstractUpdateSqlSource extends DynamicSqlBuilder {
 		sb.append(set);
 		if (parameter instanceof Query) {
 			Query query = (Query) parameter;
-			sb.replace(0, sb.length(), Utils.replaceString(sb.toString(), "UPDATE", "SET", query.getTable()));
+			if (Utils.isValidate(query.getTable()))
+				sb.replace(0, sb.length(), Utils.replaceString(sb.toString(), "UPDATE", "SET", query.getTable()));
 			where = handler.getPrimaryKeyEqualFieldAnd(query.getParameter(), Query.PARAMETER_PREFIX);
 			where = makeCondition(where, query);
 		} else {

@@ -10,9 +10,9 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"*",
-				"table":"tenant",
-				"condition":"UPD_DATE > TO_DATE('20161001000000', 'yyyymmddhh24miss')"
+				"fields":"count(1) count",
+				"table":"floor",
+				"condition":"validity = 1"
 			}
 		}
 	]

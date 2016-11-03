@@ -4,13 +4,10 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.oh.common.util.DateUtil;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -276,7 +273,7 @@ public class Test02 {
 //			System.out.println(s);
 //		}
 
-		System.out.println(DateUtil.differenceDays("20161001", "20160930", DateUtil.PATTERN_yyyyMMdd));
+//		System.out.println(DateUtil.differenceDays("20161001", "20160930", DateUtil.PATTERN_yyyyMMdd));
 	}
 
 	class Test01 {

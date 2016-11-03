@@ -16,6 +16,7 @@ import org.oh.web.Constants;
 import org.oh.web.common.Response;
 import org.oh.web.controller.CommonController;
 import org.oh.web.service.CommonService;
+import org.oh.web.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -60,6 +61,12 @@ public class SampleController extends CommonController<Sample> {
 	public ResponseEntity<Response<List<Sample>>> list(Sample sample, @Valid Common common, BindingResult errors)
 			throws Exception {
 //		return ValidationUtil.getResponseEntity(HttpStatus.NOT_FOUND); // 사용하지 않을 경우
+
+		// 수기로 유효성 체크
+		if (Utils.isValidate(sample.getName())) {
+			return ValidationUtil.getFailResponseEntity(HttpStatus.BAD_REQUEST, "에러 메세지");
+		}
+
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.getDefault()));
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.KOREA));
 		log.info("message: " + messageSource.getMessage("NotEmpty.sample.name", null, Locale.ENGLISH));

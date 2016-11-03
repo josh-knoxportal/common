@@ -36,16 +36,16 @@ public class ConfigTest {
 	@Test
 	public void t01() throws Exception {
 //		log.info(prop);
-//		log.info(value1);
+		log.info(value1);
 //		log.info(value2);
 
-		String message = messageSource.getMessage("skoh", null, null);
-		String usMessage = messageSource.getMessage("skoh", null, "skoh2", Locale.US);
-		String korMessage = messageSource.getMessage("skoh", null, "skoh2", Locale.KOREA);
-//		String localeMessage = messageSource.getMessage("hello.test",null, "no surch", localeResolver.resolveLocale(request)); //현재 설정된 위치 기준의 메시지 요청
-		log.info(message);
-		log.info(usMessage);
-		log.info(korMessage);
+//		String message = messageSource.getMessage("skoh", null, null);
+//		String usMessage = messageSource.getMessage("skoh", null, "skoh2", Locale.US);
+//		String korMessage = messageSource.getMessage("skoh", null, "skoh2", Locale.KOREA);
+////		String localeMessage = messageSource.getMessage("hello.test",null, "no surch", localeResolver.resolveLocale(request)); //현재 설정된 위치 기준의 메시지 요청
+//		log.info(message);
+//		log.info(usMessage);
+//		log.info(korMessage);
 
 //		Assert.assertTrue("model == null", model != null);
 	}

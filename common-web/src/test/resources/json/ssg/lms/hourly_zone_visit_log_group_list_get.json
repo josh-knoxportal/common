@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/lms/hourly_zone_visit_log/hour_group_list.do?start_day=-1&end_day=-30",
+	"url":"http://localhost:8080/v1/lms/hourly_zone_visit_log/hour_group_list.do?start_day=-30&end_day=-1",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

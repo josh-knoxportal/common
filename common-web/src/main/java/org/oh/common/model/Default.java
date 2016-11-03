@@ -23,7 +23,8 @@ public abstract class Default implements Serializable {
 	 * SQL명
 	 * 
 	 * <pre>
-	 * - hint 나 fields 를 지정하여 FROM 절 앞단을 변형할때 반드시 지정 (보통 호출하는 메소드명을 사용)
+	 * - hint, fields, table, group_by, having 를 지정하여 쿼리를 변형할때 반드시 지정
+	 * - 보통 호출하는 메소드명을 사용
 	 * </pre>
 	 */
 	@JsonIgnore // 클라이언트가 사용하지 않는 필드
@@ -55,12 +56,14 @@ public abstract class Default implements Serializable {
 	 * 그룹 방식
 	 */
 	@JsonIgnore
+	@Null(message = PARAMETER_ERROR_MESSAGE)
 	protected String group_by;
 
 	/**
 	 * HAVING
 	 */
 	@JsonIgnore
+	@Null(message = PARAMETER_ERROR_MESSAGE)
 	protected String having;
 
 	/**

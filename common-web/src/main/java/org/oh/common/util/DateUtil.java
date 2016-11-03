@@ -1,11 +1,11 @@
 package org.oh.common.util;
 
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -799,6 +799,58 @@ public abstract class DateUtil extends DateUtils {
 		return date;
 	}
 
+	/**
+	 * 기간 사이의 월을 구한다.
+	 * 
+	 * @param start_date YYYYMMDD
+	 * @param end_date YYYYMMDD
+	 * @return
+	 * @throws SmartException
+	 */
+	public static List<String> getMonthList(String start_date, String end_date) throws SmartException {
+		List<String> list = new ArrayList<String>();
+		if (DateUtil.differenceDays(start_date, end_date, DateUtil.PATTERN_yyyyMMdd) > 0) {
+			return list;
+		}
+
+		String startMonth = start_date.substring(0, 6);
+		String endMonth = end_date.substring(0, 6);
+		while (true) {
+			list.add(startMonth);
+
+			if (endMonth.equals(startMonth))
+				break;
+			startMonth = DateUtil.addMonths(startMonth, 1, DateUtil.PATTERN_yyyyMM);
+		}
+
+		return list;
+	}
+
+	/**
+	 * 기간 사이의 일자를 구한다.
+	 * 
+	 * @param start_date YYYYMMDD
+	 * @param end_date YYYYMMDD
+	 * @return
+	 * @throws SmartException
+	 */
+	public static List<String> getDateList(String start_date, String end_date) throws SmartException {
+		List<String> list = new ArrayList<String>();
+		if (DateUtil.differenceDays(start_date, end_date, DateUtil.PATTERN_yyyyMMdd) > 0) {
+			return list;
+		}
+
+		while (true) {
+			list.add(start_date);
+
+			if (end_date.equals(start_date))
+				break;
+			start_date = DateUtil.addDays(start_date, 1, DateUtil.PATTERN_yyyyMMdd);
+		}
+
+		return list;
+	}
+
 	public static void main(String[] args) throws Exception {
 //		Date date = new Date();
 //		System.out.println(date);
@@ -809,6 +861,9 @@ public abstract class DateUtil extends DateUtils {
 //		System.out.println(toDate("20161001", PATTERN_yyyyMMdd));
 //		System.out.println(format("20161001", PATTERN_yyyyMMdd, PATTERN_yyyyMM));
 //		System.out.println(dateConverter("Sat, 12 Aug 1995 13:30:00 GMT+0430", PATTERN_yyyyMMddHHmmssSSS_DASH));
-		System.out.println(differenceDays("20161001", "20161002", PATTERN_yyyyMMdd));
+//		System.out.println(differenceDays("20161001", "20161002", PATTERN_yyyyMMdd));
+		System.out.println(getMonthList("20161102", "20161101"));
+//		System.out.println(getMonthList("20161001", "20161101"));
+//		System.out.println(getDateList("20161001", "20161101"));
 	}
 }

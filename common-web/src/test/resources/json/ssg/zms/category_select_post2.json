@@ -11,7 +11,7 @@
 			},
 			"params":{
 				"fields":"count(1) count",
-				"table":"floor",
+				"table":"company",
 				"condition":"validity = 1"
 			}
 		}

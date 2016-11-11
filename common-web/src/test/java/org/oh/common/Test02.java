@@ -274,6 +274,21 @@ public class Test02 {
 //		}
 
 //		System.out.println(DateUtil.differenceDays("20161001", "20160930", DateUtil.PATTERN_yyyyMMdd));
+
+		// 1 2 3 5 10
+		int widthPixel = 3300; // pixel
+		double scale = 42.4268137463; // mm/pixel
+		double widthMMeter = widthPixel * scale;
+		double widthMeter = widthMMeter / 1000;
+
+		System.out.println("width");
+		System.out.println(widthPixel + " px");
+		System.out.println(widthMMeter + " mm");
+		System.out.println(widthMeter + " m");
+		System.out.println();
+		System.out.println("scale");
+		System.out.println(scale + " mm/px");
+		System.out.println(1000 / scale + " px/m");
 	}
 
 	class Test01 {

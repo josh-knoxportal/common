@@ -194,7 +194,7 @@ public class LocalFileStorage implements FileStorage {
 			fos = new FileOutputStream(file);
 
 			channel = fos.getChannel();
-			ByteBuffer bytebuffer = ByteBuffer.allocate(IOHelper.READ_BLOCK);
+			ByteBuffer bytebuffer = ByteBuffer.allocateDirect(IOHelper.READ_BLOCK);
 			int offset = 0;
 			int length = files.getFile_bytes().length;
 

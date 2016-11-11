@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 // produces 는 "Accept":"application/json" 생략하기 위해 기술 (생략시 application/xml)
 @Controller
-@RequestMapping(value = "model", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController extends CommonController<Sample> {
 	@Autowired
 	private MessageSource messageSource;
@@ -62,7 +62,7 @@ public class SampleController extends CommonController<Sample> {
 //		return ValidationUtil.getResponseEntity(HttpStatus.NOT_FOUND); // 사용하지 않을 경우
 
 		// 수기로 유효성 체크
-//		if (Utils.isValidate(model.getName())) {
+//		if (!Utils.isValidate(model.getName())) {
 //			return ValidationUtil.getFailResponseEntity(HttpStatus.BAD_REQUEST, "에러 메세지");
 //		}
 

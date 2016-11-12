@@ -1,6 +1,6 @@
-//import org.oh.common.util.FileUtil;
-//import org.oh.common.util.SFTPUtil;
-import org.oh.common.util.SSHUtil;
+//import com.nemustech.common.util.FileUtil;
+//import com.nemustech.common.util.SFTPUtil;
+import com.nemustech.common.util.SSHUtil;
 
 String os_name = "Linux";
 String[] system_names = [

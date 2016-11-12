@@ -30,13 +30,13 @@
 	</bean>
 
 	<!-- Package -->
-	<context:component-scan base-package="org.oh.sample" />
+	<context:component-scan base-package="com.nemustech.sample" />
 
 	<!-- Poperties -->
 	<util:properties id="prop">
 		<!-- <prop key="dataSource.vendorType">mysql</prop> -->
 		<prop key="dataSource.vendorType">oracle</prop>
-		<prop key="mybatis.mapper.basePackage">org.oh.sample.mapper</prop>
+		<prop key="mybatis.mapper.basePackage">com.nemustech.sample.mapper</prop>
 	</util:properties>
 
 </beans>

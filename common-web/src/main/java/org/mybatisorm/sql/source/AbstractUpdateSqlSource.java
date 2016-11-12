@@ -21,7 +21,7 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.mybatisorm.Query;
 import org.mybatisorm.annotation.SqlCommand;
 import org.mybatisorm.sql.builder.DynamicSqlBuilder;
-import org.oh.common.util.Utils;
+import com.nemustech.common.util.Utils;
 
 @SqlCommand(SqlCommandType.UPDATE)
 public abstract class AbstractUpdateSqlSource extends DynamicSqlBuilder {

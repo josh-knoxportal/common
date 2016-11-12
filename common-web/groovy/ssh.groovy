@@ -1,7 +1,7 @@
 import java.text.MessageFormat
 
 import org.apache.commons.io.FileUtils;
-import org.oh.common.util.SSHUtil
+import com.nemustech.common.util.SSHUtil
 
 String os_name = "Linux";
 String[] system_names = [

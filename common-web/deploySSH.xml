@@ -13,7 +13,7 @@
 		<echo message="Deploying the war file to WAS" />
 		<copy file="${source_dir}/${artifactId}-${version}.war" tofile="${source_dir}/${source_file}" />
 
-		<taskdef name="deployTask" classname="org.oh.common.task.TomcatSSHDeployTask" classpath="${classpath}" />
+		<taskdef name="deployTask" classname="com.nemustech.common.task.TomcatSSHDeployTask" classpath="${classpath}" />
 		<deployTask source_dir="${source_dir}" source_file="${source_file}" target_dir="${target_dir}">
 			<deployServer deploy_yn="true" server_ip="112.217.207.164" server_port="20022" user_id="oracle" user_pw="nemustech" system_name="${system_name}" os_name="${os_name}" />
 		</deployTask>

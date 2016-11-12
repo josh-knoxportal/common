@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.oh</groupId>
+	<groupId>com.nemustech</groupId>
 	<artifactId>common-web</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
@@ -45,7 +45,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<start-class>org.oh.Application</start-class>
+		<start-class>com.nemustech.Application</start-class>
 		<java.version>1.7</java.version>
 		<tomcat.version>7.0.57</tomcat.version>
 		<servlet-api.version>3.0</servlet-api.version>
@@ -470,17 +470,17 @@
 
 		<!-- Local -->
 		<dependency>
-			<groupId>org.oh.common</groupId>
+			<groupId>com.nemustech.common</groupId>
 			<artifactId>client</artifactId>
 			<version>61</version>
 		</dependency>
 		<dependency>
-			<groupId>org.oh.common</groupId>
+			<groupId>com.nemustech.common</groupId>
 			<artifactId>json-schema-validator</artifactId>
 			<version>0.0.1-RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>org.oh.common</groupId>
+			<groupId>com.nemustech.common</groupId>
 			<artifactId>sapjco</artifactId>
 			<version>3</version>
 		</dependency>

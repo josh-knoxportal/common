@@ -90,11 +90,11 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- Logging -->
-	<bean id="logAdvice" class="org.oh.web.aop.LogAdvice" />
+	<bean id="logAdvice" class="com.nemustech.web.aop.LogAdvice" />
 
 	<aop:config>
 		<aop:pointcut id="publicMethod"
-			expression="execution(public * org.oh..*Controller.*(..)) or execution(public * org.oh..*Service.*(..))" />
+			expression="execution(public * com.nemustech..*Controller.*(..)) or execution(public * com.nemustech..*Service.*(..))" />
 		<aop:aspect ref="logAdvice">
 			<!-- <aop:before method="before" pointcut-ref="publicMethod" /> -->
 			<!-- <aop:after-returning method="afterReturning" pointcut-ref="publicMethod" returning="result" /> -->
@@ -150,5 +150,5 @@
 	<task:scheduler id="scheduler" pool-size="100" />
 
 	<!-- Common Package -->
-	<context:component-scan base-package="org.oh.adapter org.oh.common org.oh.web" />
+	<context:component-scan base-package="com.nemustech.adapter com.nemustech.common com.nemustech.web" />
 </beans>

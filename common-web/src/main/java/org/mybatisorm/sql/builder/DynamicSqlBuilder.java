@@ -23,7 +23,7 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.parsing.PropertyParser;
 import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
-import org.oh.common.util.Utils;
+import com.nemustech.common.util.Utils;
 
 public abstract class DynamicSqlBuilder extends SqlBuilder {
 

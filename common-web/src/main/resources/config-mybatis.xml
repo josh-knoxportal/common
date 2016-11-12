@@ -7,12 +7,12 @@
 	</settings>
 
 	<typeAliases>
-		<typeAlias alias="sample" type="org.oh.sample.model.Sample" />
+		<typeAlias alias="sample" type="com.nemustech.sample.model.Sample" />
 	</typeAliases>
 
 	<plugins>
-		<plugin interceptor="org.oh.common.db.mybatis.ExecutorInterceptor" />
-		<!-- <plugin interceptor="org.oh.common.db.mybatis.StatementInterceptor" /> -->
-		<!-- <plugin interceptor="org.oh.common.db.mybatis.ResultSetInterceptor" /> -->
+		<plugin interceptor="com.nemustech.common.db.mybatis.ExecutorInterceptor" />
+		<!-- <plugin interceptor="com.nemustech.common.db.mybatis.StatementInterceptor" /> -->
+		<!-- <plugin interceptor="com.nemustech.common.db.mybatis.ResultSetInterceptor" /> -->
 	</plugins>
 </configuration>

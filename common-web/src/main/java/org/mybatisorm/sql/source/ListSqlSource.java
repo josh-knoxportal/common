@@ -20,8 +20,8 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
 import org.mybatisorm.annotation.handler.TokenMaker;
-import org.oh.common.util.StringUtil;
-import org.oh.common.util.Utils;
+import com.nemustech.common.util.StringUtil;
+import com.nemustech.common.util.Utils;
 
 public class ListSqlSource extends AbstractSelectSqlSource {
 

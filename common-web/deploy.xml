@@ -10,7 +10,7 @@
 	<target name="deploy">
 		<echo message="Deploying the war file to WAS" />
 		<!-- <taskdef classpathref="build.classpath" /> -->
-		<taskdef name="deployTask" classname="org.oh.common.task.TomcatDeployTask" classpath="${classpath}" />
+		<taskdef name="deployTask" classname="com.nemustech.common.task.TomcatDeployTask" classpath="${classpath}" />
 		<deployTask source_dir="${source_dir}" source_file="${source_file}" target_dir="${target_dir}">
 			<deployServer deploy_yn="true" server_ip="192.168.3.115" user_id="skoh" user_pw="skoh" system_name="${system_name}" os_name="${os_name}" />
 		</deployTask>

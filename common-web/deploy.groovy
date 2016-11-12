@@ -1,6 +1,6 @@
-import org.oh.common.util.FileUtil;
-import org.oh.common.util.FTPUtil;
-import org.oh.common.util.TelnetUtil;
+import com.nemustech.common.util.FileUtil;
+import com.nemustech.common.util.FTPUtil;
+import com.nemustech.common.util.TelnetUtil;
 
 String os_name = "Microsoft";
 String system_name = "skoh";

@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.mybatisorm.annotation.handler.HandlerFactory;
 import org.mybatisorm.annotation.handler.TableHandler;
-import org.oh.common.util.Utils;
+import com.nemustech.common.util.Utils;
 
 public class Condition {
 	public enum Seperator {AND, OR};

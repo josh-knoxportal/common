@@ -23,8 +23,8 @@ import org.mybatisorm.annotation.handler.FieldList;
 import org.mybatisorm.annotation.handler.TokenMaker;
 import org.mybatisorm.sql.builder.DynamicSqlBuilder;
 import org.mybatisorm.util.StringUtil;
-import org.oh.common.util.ReflectionUtil;
-import org.oh.common.util.Utils;
+import com.nemustech.common.util.ReflectionUtil;
+import com.nemustech.common.util.Utils;
 
 @SqlCommand(SqlCommandType.INSERT)
 public abstract class AbstractInsertSqlSource extends DynamicSqlBuilder {

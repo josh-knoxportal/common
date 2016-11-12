@@ -5,7 +5,7 @@
 <%@ page import="java.util.Map"%>
 
 <%@ page import="org.codehaus.jackson.map.ObjectMapper"%>
-<%@ page import="org.oh.common.util.Utils"%>
+<%@ page import="com.nemustech.common.util.Utils"%>
 
 <%
 	System.out.println(Utils.toString(request));

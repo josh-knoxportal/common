@@ -1,8 +1,6 @@
 set MAVEN_HOME=C:/dev/lib/apache-maven-3.3.9
 
-cd \dev\git\skoh\common\common-web
-REM e:
-REM cd \git\skoh\common\common-web
+cd dev/git/skoh/common/common-web
 
 CALL ant.bat
 

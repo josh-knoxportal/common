@@ -104,19 +104,19 @@ public abstract class Default implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		if (getId() == null)
+		if (id() == null)
 			return super.hashCode();
 
-		return getId().hashCode();
+		return id().hashCode();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (getId() == null)
+		if (id() == null)
 			return super.equals(obj);
 
 		if (obj instanceof Default) {
-			if (getId().equals(((Default) obj).getId()))
+			if (id().equals(((Default) obj).id()))
 				return true;
 		}
 
@@ -128,7 +128,7 @@ public abstract class Default implements Serializable {
 	 * 
 	 * @return
 	 */
-	public Object getId() {
+	public Object id() {
 		return null;
 	}
 
@@ -137,8 +137,7 @@ public abstract class Default implements Serializable {
 	 * 
 	 * @return
 	 */
-	@JsonIgnore
-	public Default getModel() {
+	public Default model() {
 		return null;
 	}
 
@@ -147,8 +146,7 @@ public abstract class Default implements Serializable {
 	 * 
 	 * @return
 	 */
-	@JsonIgnore
-	public Default[] getJoinModels() {
+	public Default[] joinModels() {
 		return new Default[] { null };
 	}
 

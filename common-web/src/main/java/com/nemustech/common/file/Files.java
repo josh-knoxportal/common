@@ -104,6 +104,10 @@ public class Files extends Paging {
 	}
 
 	@Override
+	public String id() {
+		return id;
+	}
+
 	public String getId() {
 		return id;
 	}

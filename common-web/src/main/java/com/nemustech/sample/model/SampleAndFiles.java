@@ -26,12 +26,12 @@ public class SampleAndFiles extends Default {
 	}
 
 	@Override
-	public Default getModel() {
+	public Default model() {
 		return sample;
 	}
 
 	@Override
-	public Default[] getJoinModels() {
+	public Default[] joinModels() {
 		return new Default[] { files };
 	}
 

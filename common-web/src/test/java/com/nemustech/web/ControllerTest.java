@@ -9,19 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
-import com.nemustech.WebApplication;
-import com.nemustech.common.model.Common;
-import com.nemustech.common.page.PageNavigator;
-import com.nemustech.common.util.JsonUtil2;
-import com.nemustech.sample.controller.SampleAndFilesController;
-import com.nemustech.sample.controller.SampleAndTest2Controller;
-import com.nemustech.sample.controller.SampleAndTestController;
-import com.nemustech.sample.controller.SampleController;
-import com.nemustech.sample.model.Files2;
-import com.nemustech.sample.model.Sample;
-import com.nemustech.sample.model.SampleAndTest;
-import com.nemustech.sample.model.SampleAndTest2;
-import com.nemustech.web.common.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +18,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BeanPropertyBindingResult;
+
+import com.nemustech.WebApplication;
+import com.nemustech.common.model.Common;
+import com.nemustech.common.model.Default;
+import com.nemustech.common.page.PageNavigator;
+import com.nemustech.common.util.JsonUtil2;
+import com.nemustech.common.util.MapperUtils;
+import com.nemustech.sample.controller.SampleAndFilesController;
+import com.nemustech.sample.controller.SampleAndTest2Controller;
+import com.nemustech.sample.controller.SampleAndTestController;
+import com.nemustech.sample.controller.SampleController;
+import com.nemustech.sample.model.Files2;
+import com.nemustech.sample.model.Sample;
+import com.nemustech.sample.model.SampleAndTest;
+import com.nemustech.sample.model.SampleAndTest2;
+import com.nemustech.web.common.Response;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
@@ -128,15 +131,16 @@ public class ControllerTest {
 		Files2 files = new Files2();
 
 		SampleAndTest sat = new SampleAndTest(sample, test, files);
-		sample.setSql_name("t05_joinList");
-		sat.setFields("sample_.name sample_name, COUNT(1) sample_count"); // skoh
-//		sat.addCondition("sample_.name LIKE 's%'");
+		sat.addCondition("sample_.name LIKE 's%'");
 //		sat.addCondition("test_.name LIKE 't%'");
 //		sat.addCondition("sample_.name", "IN", "ss");
-		sat.setGroup_by("sample_.name");
-		sat.setHaving("COUNT(1) > 1");
-		sat.setOrder_by("sample_.name");
 //		sat.setOrder_by("sample_.id DESC, test_.id DESC");
+
+//		sample.setSql_name("t05_joinList");
+//		sat.setFields("sample_.name sample_name, COUNT(1) sample_count"); // skoh
+//		sat.setGroup_by("sample_.name");
+//		sat.setHaving("COUNT(1) > 1");
+//		sat.setOrder_by("sample_.name");
 
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
 //		System.out.println(handler.getName());
@@ -146,8 +150,8 @@ public class ControllerTest {
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 
-//		List<Default> list = MapperUtils.convertModels(response.getBody().getBody(), "testSet", "filesSet");
-//		System.out.println("list: " + JsonUtil2.toStringPretty(list));
+		List<Default> list = MapperUtils.convertModels(response.getBody().getBody(), "testSet", "filesSet");
+		System.out.println("list: " + JsonUtil2.toStringPretty(list));
 
 //		Sample sample = new Sample();
 //		sample.setName("s1");

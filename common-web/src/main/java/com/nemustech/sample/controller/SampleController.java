@@ -72,7 +72,7 @@ public class SampleController extends CommonController<Sample> {
 //				(responseEntity.getBody().getBody() == null) ? null : responseEntity.getBody().getBody().size());
 //		return new ResponseEntity<Response<Integer>>(response, responseEntity.getStatusCode());
 
-		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.getDefault()));
+		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.getDefault())); // skoh
 		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.KOREA));
 		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.ENGLISH));
 

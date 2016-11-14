@@ -120,6 +120,10 @@ public class Sample extends Paging {
 	}
 
 	@Override
+	public Long id() {
+		return id;
+	}
+
 	public Long getId() {
 		return id;
 	}

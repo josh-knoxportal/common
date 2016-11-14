@@ -32,29 +32,29 @@ public abstract class MapperUtils {
 
 		Map<Object, Default> targetMap = new LinkedHashMap<Object, Default>();
 		for (T source : sourceList) {
-			if (source == null || source.getModel() == null)
+			if (source == null || source.model() == null)
 				continue;
 
 			// 기본 모델
-			Default tempModel = source.getModel();
+			Default tempModel = source.model();
 
 			// 중복 제거
-			Default sourceModel = targetMap.get(tempModel.getId());
+			Default sourceModel = targetMap.get(tempModel.id());
 			if (sourceModel == null)
 				sourceModel = tempModel;
 
 			// 조인 모델들
 			for (int i = 0; i < targetFieldNames.length; i++) {
-				Default sourceJoinModel = source.getJoinModels()[i];
+				Default sourceJoinModel = source.joinModels()[i];
 
 				// 아이디가 null 이 아닌 것만 담는다.
-				if (sourceJoinModel != null && sourceJoinModel.getId() != null) {
+				if (sourceJoinModel != null && sourceJoinModel.id() != null) {
 					Set<Default> targetSet = (Set) ReflectionUtil.getValue(sourceModel, targetFieldNames[i]);
 					targetSet.add(sourceJoinModel);
 				}
 			}
 
-			targetMap.put(sourceModel.getId(), sourceModel);
+			targetMap.put(sourceModel.id(), sourceModel);
 		}
 
 		return new ArrayList<Default>(targetMap.values());

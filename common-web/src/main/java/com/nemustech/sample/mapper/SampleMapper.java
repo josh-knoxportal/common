@@ -1,9 +1,9 @@
 package com.nemustech.sample.mapper;
 
-import java.util.List;
-
-import com.nemustech.sample.model.Sample;
 import org.springframework.stereotype.Repository;
+
+import com.nemustech.common.mapper.CommonMapper;
+import com.nemustech.sample.model.Sample;
 
 /**
  * 샘플 매퍼
@@ -11,16 +11,6 @@ import org.springframework.stereotype.Repository;
  * @author skoh
  */
 @Repository
-public interface SampleMapper {
-	public List<Sample> list(Sample sample);
-
-	public int count(Sample sample);
-
-	public int insert(Sample sample);
-
-	public int update(Sample sample);
-
-	public int delete(Sample sample);
-
+public interface SampleMapper extends CommonMapper<Sample> {
 	public int merge(Sample sample);
 }

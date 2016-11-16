@@ -1,7 +1,7 @@
 package com.nemustech.sample.service;
 
+import com.nemustech.common.service.CommonService;
 import com.nemustech.sample.model.Test;
-import com.nemustech.web.service.CommonService;
 
 /**
  * @author skoh

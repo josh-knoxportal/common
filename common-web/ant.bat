@@ -21,11 +21,11 @@ REM support, things would be much easier, but sadly, it is not yet time.
 REM Be cautious about editing this, and only add WinNT specific stuff in code that
 REM only runs on WinNT.
 
-set JAVA_HOME=C:/dev/java/jdk1.7.0_72
-set ANT_HOME=E:/dev/lib/apache-ant-1.9.5
+set JAVA_HOME=C:\dev\java\jdk1.7.0_72
+set ANT_HOME=C:\dev\lib\apache-ant-1.9.7
 set ANT_OPTS=-Dfile.encoding=UTF-8
 
-cd git/skoh/common/common-web
+cd \dev\git\skoh\common\common-web
 
 if "%HOME%"=="" goto homeDrivePathPre
 if exist "%HOME%\antrc_pre.bat" call "%HOME%\antrc_pre.bat"
@@ -191,7 +191,6 @@ set ANT_ERROR=%err100%%err10%%err1%
 for %%i in (1 10 100) do set err%%i=
 
 :end
-pause
 rem bug ID 32069: resetting an undefined env variable changes the errorlevel.
 if not "%_JAVACMD%"=="" set _JAVACMD=
 if not "%_ANT_CMD_LINE_ARGS%"=="" set ANT_CMD_LINE_ARGS=

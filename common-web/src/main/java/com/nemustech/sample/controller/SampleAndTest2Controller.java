@@ -1,9 +1,10 @@
 package com.nemustech.sample.controller;
 
+import com.nemustech.common.service.CommonService;
 import com.nemustech.sample.model.SampleAndTest2;
 import com.nemustech.sample.service.SampleAndTest2Service;
 import com.nemustech.web.controller.CommonController;
-import com.nemustech.web.service.CommonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

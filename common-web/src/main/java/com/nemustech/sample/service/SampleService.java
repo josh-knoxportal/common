@@ -2,8 +2,8 @@ package com.nemustech.sample.service;
 
 import java.util.List;
 
+import com.nemustech.common.service.CommonService;
 import com.nemustech.sample.model.Sample;
-import com.nemustech.web.service.CommonService;
 
 /**
  * 샘플 서비스

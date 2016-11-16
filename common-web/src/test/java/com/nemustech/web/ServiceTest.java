@@ -11,10 +11,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import com.nemustech.WebApplication;
 import com.nemustech.common.file.Files;
+import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.service.SampleService;
-import com.nemustech.web.service.FilesService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ContextConfiguration;

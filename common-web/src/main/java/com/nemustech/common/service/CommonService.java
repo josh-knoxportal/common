@@ -1,4 +1,4 @@
-package com.nemustech.web.service;
+package com.nemustech.common.service;
 
 import java.util.List;
 import java.util.Map;

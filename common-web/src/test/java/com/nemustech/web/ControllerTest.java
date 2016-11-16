@@ -274,7 +274,7 @@ public class ControllerTest {
 		System.out.println("================================================================================");
 	}
 
-//	@Test
+	@Test
 	public void t51_get() throws Exception {
 		Sample sample = new Sample();
 		sample.setId(1L);

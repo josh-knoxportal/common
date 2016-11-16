@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
+import com.nemustech.common.service.impl.CommonServiceImpl;
 import com.nemustech.common.util.Utils;
 import com.nemustech.sample.Constants;
 import com.nemustech.sample.annotation.CacheEvictSample;
@@ -14,7 +15,7 @@ import com.nemustech.sample.model.Files2;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.service.Files2Service;
 import com.nemustech.sample.service.SampleService;
-import com.nemustech.web.service.impl.CommonServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

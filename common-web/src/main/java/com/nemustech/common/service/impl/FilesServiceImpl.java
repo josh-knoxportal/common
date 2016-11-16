@@ -1,8 +1,9 @@
-package com.nemustech.web.service.impl;
+package com.nemustech.common.service.impl;
 
 import com.nemustech.common.file.Files;
+import com.nemustech.common.service.FilesService;
 import com.nemustech.sample.Constants;
-import com.nemustech.web.service.FilesService;
+
 import org.springframework.stereotype.Service;
 
 /**

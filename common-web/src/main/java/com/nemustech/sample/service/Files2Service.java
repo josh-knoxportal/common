@@ -1,7 +1,7 @@
 package com.nemustech.sample.service;
 
+import com.nemustech.common.service.CommonService;
 import com.nemustech.sample.model.Files2;
-import com.nemustech.web.service.CommonService;
 
 /**
  * 파일 서비스

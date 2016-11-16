@@ -1,4 +1,4 @@
-package com.nemustech.web.service.impl;
+package com.nemustech.common.service.impl;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -16,12 +16,13 @@ import com.nemustech.common.file.Files;
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
 import com.nemustech.common.page.Paging;
+import com.nemustech.common.service.CommonService;
+import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.ReflectionUtil;
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
-import com.nemustech.web.service.CommonService;
-import com.nemustech.web.service.FilesService;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;

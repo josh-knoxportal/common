@@ -1,8 +1,9 @@
 package com.nemustech.web.controller;
 
 import com.nemustech.common.file.Files;
-import com.nemustech.web.service.CommonService;
-import com.nemustech.web.service.FilesService;
+import com.nemustech.common.service.CommonService;
+import com.nemustech.common.service.FilesService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

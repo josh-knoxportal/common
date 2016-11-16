@@ -1,9 +1,10 @@
 package com.nemustech.sample.service.impl;
 
+import com.nemustech.common.service.impl.CommonServiceImpl;
 import com.nemustech.sample.Constants;
 import com.nemustech.sample.model.Files2;
 import com.nemustech.sample.service.Files2Service;
-import com.nemustech.web.service.impl.CommonServiceImpl;
+
 import org.springframework.stereotype.Service;
 
 /**

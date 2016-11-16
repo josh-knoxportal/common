@@ -1,4 +1,4 @@
-package com.nemustech.web.service;
+package com.nemustech.common.service;
 
 import com.nemustech.common.file.Files;
 

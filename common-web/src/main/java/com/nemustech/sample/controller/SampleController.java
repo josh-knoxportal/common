@@ -7,15 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import com.nemustech.common.model.Common;
-import com.nemustech.common.page.PageNavigator;
-import com.nemustech.common.util.Utils;
-import com.nemustech.sample.model.Sample;
-import com.nemustech.sample.service.SampleService;
-import com.nemustech.web.Constants;
-import com.nemustech.web.common.Response;
-import com.nemustech.web.controller.CommonController;
-import com.nemustech.web.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -27,6 +18,18 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.nemustech.common.model.Common;
+import com.nemustech.common.page.PageNavigator;
+import com.nemustech.common.util.Utils;
+import com.nemustech.sample.model.Sample;
+import com.nemustech.sample.model.Sample.Sample2;
+import com.nemustech.sample.service.SampleService;
+import com.nemustech.web.Constants;
+import com.nemustech.web.common.Response;
+import com.nemustech.web.controller.CommonController;
+import com.nemustech.web.service.CommonService;
+import com.nemustech.web.util.ValidationUtil;
 
 // produces 는 "Accept":"application/json" 생략하기 위해 기술 (생략시 application/xml)
 @Controller
@@ -44,7 +47,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@RequestMapping(value = "/list3", method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Sample>>> list3(@RequestBody Sample model, BindingResult errors,
+	public ResponseEntity<Response<List<Sample>>> list3(@Valid @RequestBody Sample2 model, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
 		model.setSql_name("list3");
 		model.setHint("DISTINCT");
@@ -62,9 +65,9 @@ public class SampleController extends CommonController<Sample> {
 //		return ValidationUtil.getResponseEntity(HttpStatus.NOT_FOUND); // 사용하지 않을 경우
 
 		// 수기로 유효성 체크
-//		if (!Utils.isValidate(model.getName())) {
-//			return ValidationUtil.getFailResponseEntity(HttpStatus.BAD_REQUEST, "에러 메세지");
-//		}
+		if ("s1".equals(model.getName())) {
+			return ValidationUtil.getFailResponseEntity(HttpStatus.BAD_REQUEST, "name 의 값이 's1' 입니다.");
+		}
 
 		// 다른 타입으로 반환
 //		ResponseEntity<Response<List<Sample>>> responseEntity = list(model, errors);
@@ -72,9 +75,9 @@ public class SampleController extends CommonController<Sample> {
 //				(responseEntity.getBody().getBody() == null) ? null : responseEntity.getBody().getBody().size());
 //		return new ResponseEntity<Response<Integer>>(response, responseEntity.getStatusCode());
 
-		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.getDefault())); // skoh
-		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.KOREA));
-		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.ENGLISH));
+//		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.getDefault())); // skoh
+//		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.KOREA));
+//		log.info("message: " + messageSource.getMessage("NotEmpty.model.name", null, Locale.ENGLISH));
 
 		ResponseEntity<Response<List<Sample>>> responseEntity = super.list(model, common, errors);
 

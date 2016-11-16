@@ -16,9 +16,9 @@ public class TestAPI_common extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_file_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list4_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page2_get.json"));

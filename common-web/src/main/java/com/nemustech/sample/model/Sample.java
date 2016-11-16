@@ -3,9 +3,12 @@ package com.nemustech.sample.model;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.validation.constraints.Min;
+
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
+
 import com.nemustech.common.file.Files;
 import com.nemustech.common.page.Paging;
 
@@ -77,20 +80,12 @@ public class Sample extends Paging {
 	/**
 	 * 아이디(PK)
 	 */
-//	@Null(message = "반드시 값이 없어야 합니다.") // must be null : 반드시 값이 있어야 합니다.
-//	@NotNull(message = "반드시 값이 있어야 합니다.") // may not be null : 반드시 값이 없어야 합니다.
-//	@Min(1) // must be greater than or equal to 1 : 반드시 1보다 같거나 커야 합니다.
-//	@Max(2) // must be less than or equal to 9223372036854775807 : 반드시 9223372036854775807보다 같거나 작아야 합니다.
 	@Column(primaryKey = true, autoIncrement = true, sequence = "sample_seq")
 	protected Long id;
 
 	/**
 	 * 명칭
 	 */
-//	@Size(max = 0) // Empty
-	@NotEmpty // may not be empty : 반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다.
-//	@Size(min = 1, max = 2) // size must be between 1 and 2147483647 : 반드시 최소값 1과(와) 최대값 2147483647 사이의 크기이어야 합니다.
-///	@Length(min = 1, max = 2) // length must be between 1 and 2147483647 : 반드시 최소값 1과(와) 최대값 2147483647 사이의 길이이어야 합니다.
 	@Column
 	protected String name;
 
@@ -106,6 +101,9 @@ public class Sample extends Paging {
 //	@Column
 	protected Integer count;
 
+	/**
+	 * 내부 객체 리스트
+	 */
 	protected Set<Test> testSet = new LinkedHashSet<Test>();
 
 	protected Set<Files> filesSet = new LinkedHashSet<Files>();
@@ -170,5 +168,26 @@ public class Sample extends Paging {
 
 	public void setFilesSet(Set<Files> filesSet) {
 		this.filesSet = filesSet;
+	}
+
+	/**
+	 * 유효성 체트
+	 */
+	public static class Sample2 extends Sample {
+//		@Null(message = "반드시 값이 없어야 합니다.") // must be null : 반드시 값이 있어야 합니다.
+//		@NotNull(message = "반드시 값이 있어야 합니다.") // may not be null : 반드시 값이 없어야 합니다.
+		@Min(0) // must be greater than or equal to 1 : 반드시 0보다 같거나 커야 합니다.
+//		@Max(10) // must be less than or equal to 9223372036854775807 : 반드시 9223372036854775807보다 같거나 작아야 합니다.
+		public Long getId() {
+			return super.getId();
+		}
+
+//		@Size(max = 0) // = Empty
+		@NotEmpty // may not be empty : 반드시 값이 존재하고 길이 혹은 크기가 0보다 커야 합니다.
+//		@Size(min = 1, max = 2) // size must be between 1 and 2147483647 : 반드시 최소값 1과(와) 최대값 2147483647 사이의 크기이어야 합니다.
+///		@Length(min = 1, max = 2) // length must be between 1 and 2147483647 : 반드시 최소값 1과(와) 최대값 2147483647 사이의 길이이어야 합니다.
+		public String getName() {
+			return super.getName();
+		}
 	}
 }

@@ -170,7 +170,7 @@ public abstract class Utils {
 			if (str.length() > 0)
 				return true;
 		} else if (obj instanceof Number) {
-			return ((Number) obj).doubleValue() > 0;
+			return ((Number) obj).doubleValue() >= 0;
 		} else if (obj instanceof Boolean) {
 			return ((Boolean) obj).booleanValue();
 
@@ -2241,11 +2241,13 @@ public abstract class Utils {
 		System.out.println(isValidate(new Integer(-1)));
 		System.out.println(isValidate(new Integer(0)));
 		System.out.println(isValidate(new Integer(1)));
+		System.out.println(isValidate(new Long(-1)));
 		System.out.println(isValidate(new Long(0)));
 		System.out.println(isValidate(new Long(1)));
 		System.out.println(isValidate(new Float(-0.1)));
 		System.out.println(isValidate(new Float(0)));
 		System.out.println(isValidate(new Float(0.1)));
+		System.out.println(isValidate(new Double(-0.1)));
 		System.out.println(isValidate(new Double(0)));
 		System.out.println(isValidate(new Double(0.1)));
 //		System.out.println(isValidate(new String[][] { {} }));

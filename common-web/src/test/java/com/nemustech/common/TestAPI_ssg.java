@@ -7,11 +7,11 @@ import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
+
+import com.nemustech.common.model.Response;
 import com.nemustech.common.test.TestAPI;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.Utils;
-import com.nemustech.web.common.Response;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -73,7 +73,7 @@ public class TestAPI_ssg extends TestAPI {
 
 		// LMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/anal_result_flow_list_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/anal_result_visit_list_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/anal_result_visit_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/daily_device_visit_log_device_count_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/getHourlyZoneVisitStats_get.json"));
@@ -161,6 +161,6 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_post4.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_select_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_coords_list_zone_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_coords_list_zone_get.json"));
 	}
 }

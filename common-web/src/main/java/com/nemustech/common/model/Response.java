@@ -1,4 +1,4 @@
-package com.nemustech.web.common;
+package com.nemustech.common.model;
 
 import java.io.Serializable;
 

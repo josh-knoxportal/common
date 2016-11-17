@@ -3,8 +3,9 @@ package com.nemustech.web.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nemustech.common.model.Response;
 import com.nemustech.common.util.Utils;
-import com.nemustech.web.common.Response;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;

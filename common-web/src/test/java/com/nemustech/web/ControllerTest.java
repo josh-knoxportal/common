@@ -22,6 +22,7 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import com.nemustech.WebApplication;
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
+import com.nemustech.common.model.Response;
 import com.nemustech.common.page.PageNavigator;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.MapperUtils;
@@ -33,7 +34,6 @@ import com.nemustech.sample.model.Files2;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.SampleAndTest;
 import com.nemustech.sample.model.SampleAndTest2;
-import com.nemustech.web.common.Response;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")

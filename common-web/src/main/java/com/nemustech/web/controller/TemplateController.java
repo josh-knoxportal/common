@@ -1,5 +1,7 @@
 package com.nemustech.web.controller;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +22,8 @@ public class TemplateController<T extends Default> {
 	public ModelAndView create(Sample model, ModelAndView mav) throws Exception {
 		mav.setViewName("templateMapper");
 
-		mav.addObject("table_name", "sample");
+		mav.addObject("table", "sample");
+		mav.addObject("column_list", Arrays.asList("id", "name"));
 
 		return mav;
 	}

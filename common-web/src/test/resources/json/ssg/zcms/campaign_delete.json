@@ -1,8 +1,7 @@
 {
-	"url":"https://ssglbs.shinsegae-inc.com/v1/zms/category/select.do",
-	"method":"POST",
+	"url":"https://ssglbs.shinsegae-inc.com/v1/zcms/campaign.do?campaign_id=3203",
+	"method":"DELETE",
 	"responseFormat":"JSON",
-	"convertBody":true,
 	"list":[
 		{
 			"headers":{
@@ -10,9 +9,6 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"*",
-				"table":"zone a",
-				"condition":"a.id = 35279"
 			}
 		}
 	]

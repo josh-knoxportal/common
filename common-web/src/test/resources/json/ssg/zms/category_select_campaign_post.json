@@ -10,9 +10,9 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"*",
-				"table":"map",
-				"condition":"id in (30921)"
+				"fields":"a.*, b.*, c.*, a.branch_id branch_id, c.branch_id branch_id3, b.validity validity2, c.validity validity3",
+				"table":"campaign a, zone_campaign_mapping b, zone c",
+				"condition":"a.id in (3202, 3203) and a.id = b.campaign_id(+) and b.zone_id = c.id(+) and a.validity = 1 and b.validity(+) = 1 and c.validity(+) = 1 AND TRUNC(a.start_date, 'dd') <= TRUNC(sysdate, 'dd') AND TRUNC(a.end_date, 'mi') >= TRUNC(sysdate, 'mi')"
 			}
 		}
 	]

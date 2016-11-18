@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/zcms/campaign.do",
+	"url":"https://ssglbs.shinsegae-inc.com/v1/zcms/campaign.do",
 	"method":"PUT",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -12,31 +12,32 @@
 			},
 			"params":[
 				{
+					"id":3059,
 					"marketing_type":1,
-					"off_week":"1",
+					"off_week":"",
 					"company_id":7055,
 					"working_condition":1,
-					"interval":4,
+					"interval":5,
 					"max_count_per_customer":100,
 					"group_id":"",
 					"company_brand_id":-1,
 					"type":1,
-					"off_day":"",
-					"loitering_time":3,
-					"end_time":"24:00",
+					"off_day":0,
+					"loitering_time":-1,
+					"end_time":"23:59",
 					"owner_group":1,
-					"name":"껍질까지 달콤한 포도",
+					"name":"우리아이 성장을 위해",
 					"start_time":"08:00",
 					"app_id":3,
 					"app_specific_data":"0",
 					"branch_id":7057,
-					"str_end_date":"2016-10-29 08:00",
-					"str_start_date":"2016-09-28 20:00",
+					"str_start_date":"2016-11-02 08:00",
+					"str_end_date":"2016-12-09 23:59",
 					"branch_list":[
 						"7057"
 					],
 					"category_list":[
-						"34340"
+						"33330"
 					]
 				}
 			]

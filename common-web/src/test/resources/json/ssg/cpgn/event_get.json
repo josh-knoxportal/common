@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8090/campaign/eventlist.do?group_id=20",
+	"url":"http://localhost:8090/campaign/eventlist.do",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

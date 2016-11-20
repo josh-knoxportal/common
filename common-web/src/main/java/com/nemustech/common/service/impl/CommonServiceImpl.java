@@ -11,8 +11,16 @@ import org.mybatisorm.Condition;
 import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
+import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
 import com.nemustech.common.page.Paging;
@@ -23,13 +31,6 @@ import com.nemustech.common.util.ReflectionUtil;
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
-
 /**
  * https://github.com/skoh/common.git
  * 
@@ -37,8 +38,13 @@ import org.springframework.stereotype.Service;
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
 @Service("commonService")
-public abstract class CommonServiceImpl<T extends Default> implements CommonService<T>, InitializingBean {
+public abstract class CommonServiceImpl<T extends Default> implements InitializingBean, CommonService<T> {
 	protected Log log = LogFactory.getLog(getClass());
+
+	@Override
+	public CommonMapper<T> getMapper() {
+		return null;
+	}
 
 	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "{0}_{1}");
 
@@ -84,6 +90,14 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		return entityManager.getSourceType();
 	}
 
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		cacheName = getCacheName();
+		if (cacheName != null) {
+			cache = cacheManager.getCache(cacheName);
+		}
+	}
+
 	/**
 	 * 캐쉬명을 설정한다.
 	 * 
@@ -95,18 +109,15 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
-		cacheName = getCacheName();
-		if (cacheName != null) {
-			cache = cacheManager.getCache(cacheName);
-		}
-	}
-
-	@Override
 	public T get(T model) throws Exception {
 		model = setModel(model);
 
-		return entityManager.get(model);
+		if (getMapper() == null) {
+			return entityManager.get(model);
+		} else {
+			List<T> list = getMapper().list(model);
+			return (list.size() > 0) ? list.get(0) : null;
+		}
 	}
 
 	@Override
@@ -127,8 +138,12 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			}
 		}
 
-		list = entityManager.list(model, model.getConditionObj(), model.getOrder_by(), model.getHint(),
-				model.getFields(), model.getTable(), model.getGroup_by(), model.getHaving(), model.getSql_name());
+		if (getMapper() == null) {
+			list = entityManager.list(model, model.getConditionObj(), model.getOrder_by(), model.getHint(),
+					model.getFields(), model.getTable(), model.getGroup_by(), model.getHaving(), model.getSql_name());
+		} else {
+			list = getMapper().list(model);
+		}
 
 		if (cache != null) {
 			cache.put(cacheKey, list);
@@ -147,7 +162,16 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	public int count(T model) throws Exception {
 		model = setModel(model);
 
-		return entityManager.count(model, model.getConditionObj());
+		if (getMapper() == null) {
+			return entityManager.count(model, model.getConditionObj());
+		} else {
+			return getMapper().count(model);
+		}
+	}
+
+	@Override
+	public List<T> page(Paging model) throws Exception {
+		return getMapper().list((T) model);
 	}
 
 	@Override
@@ -173,7 +197,14 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	public Object insert(T model, List<Files> files) throws Exception {
 		model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
-		Object result = String.valueOf(entityManager.insert(model, model.getTable(), model.getSql_name()));
+		Object result = null;
+		if (getMapper() == null) {
+			result = entityManager.insert(model, model.getTable(), model.getSql_name());
+		} else {
+			result = getMapper().insert(model);
+		}
+
+		result = String.valueOf(result);
 		Object id = getId(model);
 		if (Utils.isValidate(id))
 			result = id;
@@ -195,7 +226,13 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		for (T model : models) {
 			model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
-			Object result_ = entityManager.insert(model, model.getTable(), model.getSql_name());
+			Object result_ = null;
+			if (getMapper() == null) {
+				result_ = entityManager.insert(model, model.getTable(), model.getSql_name());
+			} else {
+				result_ = getMapper().insert(model);
+			}
+
 			Object id = getId(model);
 			if (Utils.isValidate(id))
 				result.add(id);
@@ -221,7 +258,12 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	public int update(T model, List<Files> files) throws Exception {
 		model = setDefaultModifyDate(model);
 
-		int result = entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+		int result = 0;
+		if (getMapper() == null) {
+			result = entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+		} else {
+			result = getMapper().update(model);
+		}
 
 		updateFile(model, files);
 
@@ -240,7 +282,11 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		for (T model : models) {
 			model = setDefaultModifyDate(model);
 
-			result += entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+			if (getMapper() == null) {
+				result += entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+			} else {
+				result += getMapper().update(model);
+			}
 		}
 
 		if (cache != null) {
@@ -253,7 +299,12 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	@Override
 	@TransactionalException
 	public int delete(T model) throws Exception {
-		int result = entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+		int result = 0;
+		if (getMapper() == null) {
+			result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+		} else {
+			result += getMapper().delete(model);
+		}
 
 		if (cache != null) {
 			cache.clear();
@@ -270,7 +321,11 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		int result = 0;
 
 		for (T model : models) {
-			result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+			if (getMapper() == null) {
+				result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+			} else {
+				result += getMapper().delete(model);
+			}
 		}
 
 		if (cache != null) {

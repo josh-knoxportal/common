@@ -13,6 +13,6 @@ import org.springframework.cache.annotation.Cacheable;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@Cacheable(value = "sample", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + T(com.nemustech.common.util.ReflectionUtil).toString(#root.args, 'condition2')")
+@Cacheable(value = "sample", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + T(com.nemustech.common.util.StringUtil).toString(#root.args, 'condition2')")
 public @interface CacheableSample {
 }

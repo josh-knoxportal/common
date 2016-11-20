@@ -46,7 +46,7 @@ SELECT id
 
 			<if test="condition != null and condition != ''">
 			<![CDATA[
-   AND (${condition})
+   AND ${condition}
 			]]>
 			</if>
 		</where>
@@ -88,7 +88,7 @@ ORDER BY ${order_by}
 
 			<if test="condition != null and condition != ''">
 			<![CDATA[
-   AND (${condition})
+   AND ${condition}
 			]]>
 			</if>
 		</where>
@@ -154,7 +154,7 @@ VALUES (#{id}
 
 	<update id="update" parameterType="sample">
 		<![CDATA[
-UPDATE sample SET
+UPDATE sample
 		]]>
 
 		<set>
@@ -172,7 +172,7 @@ UPDATE sample SET
 		</set>
 
 		<![CDATA[
-       mod_id = #{mod_id},
+      ,mod_id = #{mod_id},
        mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
  WHERE id = #{id}
 		]]>
@@ -246,7 +246,7 @@ VALUES (#{id}
        ,#{mod_id}
        ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
  WHEN MATCHED THEN
-      UPDATE SET
+      UPDATE
 		]]>
 
 		<set>
@@ -264,7 +264,7 @@ VALUES (#{id}
 		</set>
 
 		<![CDATA[
-             mod_id = #{mod_id},
+            ,mod_id = #{mod_id},
              mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
        WHERE id = #{id}
 		]]>

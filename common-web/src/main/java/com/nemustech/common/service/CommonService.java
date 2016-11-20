@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.mybatisorm.Condition;
 import org.mybatisorm.Page;
+
 import com.nemustech.common.file.Files;
+import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.model.Default;
+import com.nemustech.common.page.Paging;
 
 /**
  * 공통 서비스
@@ -42,6 +45,13 @@ public interface CommonService<T extends Default> {
 	 * @return 캐쉬명
 	 */
 	public String getCacheName();
+
+	/**
+	 * 매퍼 정의
+	 * 
+	 * @return 매퍼명
+	 */
+	public CommonMapper<T> getMapper();
 
 	/**
 	 * 공통 조회
@@ -87,6 +97,15 @@ public interface CommonService<T extends Default> {
 	 * @throws Exception
 	 */
 	public int count(T model) throws Exception;
+
+	/**
+	 * 공통 목록(페이지) 조회
+	 * 
+	 * @param model 페이지
+	 * @return List<T>
+	 * @throws Exception
+	 */
+	public List<T> page(Paging model) throws Exception;
 
 	/**
 	 * 공통 목록(페이지) 조회

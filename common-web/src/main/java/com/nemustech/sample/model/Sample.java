@@ -98,7 +98,6 @@ public class Sample extends Paging {
 	/**
 	 * 갯수 필드
 	 */
-//	@Column
 	protected Integer count;
 
 	/**

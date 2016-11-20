@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nemustech.WebApplication;
 import com.nemustech.common.model.Common;
@@ -71,13 +72,14 @@ public class ControllerTest {
 //	@Test
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
-//		sample.setName("s");
+		sample.setName("s");
 //		sample.addCondition("name LIKE 's%'");
 //		sample.addCondition("name", "LIKE", "s%");
 //		sample.addCondition("name", "IN", "s1", "s2");
 //		sample.addCondition("name", "BETWEEN", "s1", "s2");
 //		sample.addCondition(sample.newCondition("OR").add("name LIKE 's%'").add("name", "LIKE", "s%"));
-		sample.setSql_name("t02_list");
+
+//		sample.setSql_name("t02_list");
 		sample.setHint("DISTINCT");
 		sample.setFields("name, COUNT(1) AS count");
 		sample.setTable("sample");
@@ -270,6 +272,13 @@ public class ControllerTest {
 	}
 
 	@Test
+	public void t41_template() throws Exception {
+		Sample sample = new Sample();
+
+		sampleController.template(sample, new ModelAndView());
+	}
+
+	@Test
 	public void t50() throws Exception {
 		System.out.println("================================================================================");
 	}
@@ -279,7 +288,7 @@ public class ControllerTest {
 		Sample sample = new Sample();
 		sample.setId(1L);
 
-		ResponseEntity<Response<Sample>> response = sampleController.get2(sample, null,
+		ResponseEntity<Response<Sample>> response = sampleController.get(sample, null,
 				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
@@ -288,8 +297,12 @@ public class ControllerTest {
 //	@Test
 	public void t52_list() throws Exception {
 		Sample sample = new Sample();
+		sample.setHint("DISTINCT");
+		sample.setFields("id, COUNT(1) count");
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
+		sample.setGroup_by("id");
+		sample.setHaving("COUNT(1) > 0");
 		sample.setOrder_by("id DESC");
 
 		ResponseEntity<Response<List<Sample>>> response = sampleController.list2(sample, null,
@@ -299,12 +312,12 @@ public class ControllerTest {
 	}
 
 //	@Test
-	public void t53_count2() throws Exception {
+	public void t53_count() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
 
-		ResponseEntity<Response<Integer>> response = sampleController.count2(sample, null,
+		ResponseEntity<Response<Integer>> response = sampleController.count(sample, null,
 				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
@@ -332,8 +345,8 @@ public class ControllerTest {
 		sample.setReg_id("1");
 		sample.setMod_id("1");
 
-		ResponseEntity<Response<Long>> response = sampleController.insert2(sample,
-				new BeanPropertyBindingResult(sample, "sample"));
+		ResponseEntity<Response<Object>> response = sampleController.insert(sample,
+				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -346,8 +359,8 @@ public class ControllerTest {
 		sample.setMod_id("2");
 		sample.addCondition("name LIKE 's1%'");
 
-		ResponseEntity<Response<Integer>> response = sampleController.update2(sample,
-				new BeanPropertyBindingResult(sample, "sample"));
+		ResponseEntity<Response<Integer>> response = sampleController.update(sample,
+				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -359,7 +372,7 @@ public class ControllerTest {
 		sample.setName("s2");
 		sample.addCondition("name LIKE 's2%'");
 
-		ResponseEntity<Response<Integer>> response = sampleController.delete2(sample,
+		ResponseEntity<Response<Integer>> response = sampleController.delete(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());

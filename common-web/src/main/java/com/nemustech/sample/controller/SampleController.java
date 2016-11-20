@@ -112,7 +112,7 @@ public class SampleController extends CommonController<Sample> {
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotNull");
 //		ValidationUtils.rejectIfEmpty(errors, "name", "field.required");
 
-		List<Sample> list = service.list2(model);
+		List<Sample> list = service.list(model);
 		Response<List<Sample>> response = Response.getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.OK);
@@ -125,72 +125,72 @@ public class SampleController extends CommonController<Sample> {
 		return super.update(model, errors, request);
 	}
 
-	@RequestMapping(value = "/get2", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Sample>> get2(Sample model, @Valid Common common, BindingResult errors)
-			throws Exception {
-		if (errors.hasFieldErrors()) {
-			return (ResponseEntity) checkValidate(errors);
-		}
-
-		model = service.get2(model);
-		Response<Sample> response = Response.getSuccessResponse(model);
-
-		return new ResponseEntity<Response<Sample>>(response, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/count2", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Integer>> count2(Sample model, @Valid Common common, BindingResult errors)
-			throws Exception {
-		if (errors.hasFieldErrors()) {
-			return (ResponseEntity) checkValidate(errors);
-		}
-
-		int count = service.count2(model);
-		Response<Integer> response = Response.getSuccessResponse(count);
-
-		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/page2", method = { RequestMethod.GET })
-	public ResponseEntity<Response<PageNavigator<Sample>>> page(Sample model, @Valid Common common,
-			BindingResult errors) throws Exception {
-		if (errors.hasFieldErrors()) {
-			return (ResponseEntity) checkValidate(errors);
-		}
-
-		List<Sample> list = service.page(model);
-
-		int count = service.count2(model);
-		model.setTotal_sise(count);
-
-		Response<PageNavigator<Sample>> response = Response.getSuccessResponse(PageNavigator.getInstance(model, list));
-
-		return new ResponseEntity<Response<PageNavigator<Sample>>>(response, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/insert2", method = RequestMethod.POST)
-	public ResponseEntity<Response<Long>> insert2(@Valid Sample model, BindingResult errors) throws Exception {
-		long result = service.insert2(model);
-		Response<Long> response = Response.getSuccessResponse(result);
-
-		return new ResponseEntity<Response<Long>>(response, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/update2", method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> update2(Sample model, BindingResult errors) throws Exception {
-		int result = service.update2(model);
-		Response<Integer> response = Response.getSuccessResponse(result);
-
-		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = "/delete2", method = RequestMethod.DELETE)
-	public ResponseEntity<Response<Integer>> delete2(Sample model, BindingResult errors) throws Exception {
-		int result = service.delete2(model);
-		Response<Integer> response = Response.getSuccessResponse(result);
-
-		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
-	}
+//	@RequestMapping(value = "/get2", method = { RequestMethod.GET })
+//	public ResponseEntity<Response<Sample>> get2(Sample model, @Valid Common common, BindingResult errors)
+//			throws Exception {
+//		if (errors.hasFieldErrors()) {
+//			return (ResponseEntity) checkValidate(errors);
+//		}
+//
+//		model = service.get2(model);
+//		Response<Sample> response = Response.getSuccessResponse(model);
+//
+//		return new ResponseEntity<Response<Sample>>(response, HttpStatus.OK);
+//	}
+//
+//	@RequestMapping(value = "/count2", method = { RequestMethod.GET })
+//	public ResponseEntity<Response<Integer>> count2(Sample model, @Valid Common common, BindingResult errors)
+//			throws Exception {
+//		if (errors.hasFieldErrors()) {
+//			return (ResponseEntity) checkValidate(errors);
+//		}
+//
+//		int count = service.count2(model);
+//		Response<Integer> response = Response.getSuccessResponse(count);
+//
+//		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+//	}
+//
+//	@RequestMapping(value = "/page2", method = { RequestMethod.GET })
+//	public ResponseEntity<Response<PageNavigator<Sample>>> page2(Sample model, @Valid Common common,
+//			BindingResult errors) throws Exception {
+//		if (errors.hasFieldErrors()) {
+//			return (ResponseEntity) checkValidate(errors);
+//		}
+//
+//		List<Sample> list = service.page2(model);
+//
+//		int count = service.count2(model);
+//		model.setTotal_sise(count);
+//
+//		Response<PageNavigator<Sample>> response = Response.getSuccessResponse(PageNavigator.getInstance(model, list));
+//
+//		return new ResponseEntity<Response<PageNavigator<Sample>>>(response, HttpStatus.OK);
+//	}
+//
+//	@RequestMapping(value = "/insert2", method = RequestMethod.POST)
+//	public ResponseEntity<Response<Long>> insert2(@Valid Sample model, BindingResult errors) throws Exception {
+//		long result = service.insert2(model);
+//		Response<Long> response = Response.getSuccessResponse(result);
+//
+//		return new ResponseEntity<Response<Long>>(response, HttpStatus.OK);
+//	}
+//
+//	@RequestMapping(value = "/update2", method = RequestMethod.PUT)
+//	public ResponseEntity<Response<Integer>> update2(Sample model, BindingResult errors) throws Exception {
+//		int result = service.update2(model);
+//		Response<Integer> response = Response.getSuccessResponse(result);
+//
+//		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+//	}
+//
+//	@RequestMapping(value = "/delete2", method = RequestMethod.DELETE)
+//	public ResponseEntity<Response<Integer>> delete2(Sample model, BindingResult errors) throws Exception {
+//		int result = service.delete2(model);
+//		Response<Integer> response = Response.getSuccessResponse(result);
+//
+//		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+//	}
 
 	@RequestMapping(value = "/merge", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> merge(Sample model, BindingResult errors) throws Exception {

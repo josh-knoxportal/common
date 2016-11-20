@@ -9,25 +9,18 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.collections.KeyValue;
+import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
 import org.mybatisorm.annotation.Table;
-import com.nemustech.common.file.Files;
-import com.nemustech.common.model.Common;
-import com.nemustech.common.model.Default;
-import com.nemustech.common.model.Response;
-import com.nemustech.common.model.ValidList;
-import com.nemustech.common.page.PageNavigator;
-import com.nemustech.common.service.CommonService;
-import com.nemustech.common.util.Utils;
-import com.nemustech.web.Constants;
-import com.nemustech.web.util.ValidationUtil;
+import org.mybatisorm.annotation.handler.HandlerFactory;
+import org.mybatisorm.annotation.handler.TableHandler;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +28,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.nemustech.common.file.Files;
+import com.nemustech.common.model.Common;
+import com.nemustech.common.model.Default;
+import com.nemustech.common.model.Response;
+import com.nemustech.common.model.ValidList;
+import com.nemustech.common.page.PageNavigator;
+import com.nemustech.common.page.Paging;
+import com.nemustech.common.service.CommonService;
+import com.nemustech.common.util.Utils;
+import com.nemustech.web.Constants;
+import com.nemustech.web.util.ValidationUtil;
 
 /**
  * https://github.com/skoh/common.git
@@ -111,12 +117,29 @@ public abstract class CommonController<T extends Default> implements Initializin
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/page" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ResponseEntity<Response<PageNavigator<T>>> page(Paging model, @Valid Common common, BindingResult errors)
+			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		List<T> list = service.page(model);
+
+		int count = service.count((T) model);
+		model.setTotal_sise(count);
+
+		Response<PageNavigator<T>> response = Response.getSuccessResponse(PageNavigator.getInstance(model, list));
+
+		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
+	}
+
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, BindingResult errors)
 			throws Exception {
 		return page(model, page, null, errors);
 	}
 
-	@RequestMapping(value = "page" + Constants.POSTFIX, method = { RequestMethod.GET })
+	@RequestMapping(value = "page2" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, @Valid Common common,
 			BindingResult errors) throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -285,6 +308,39 @@ public abstract class CommonController<T extends Default> implements Initializin
 		Response<Integer> response = Response.getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "mapper", method = { RequestMethod.GET })
+	public ModelAndView template(T model, ModelAndView mav) throws Exception {
+		Class<? extends Default> clz = model.getClass();
+		TableHandler handler = HandlerFactory.getHandler(clz);
+
+		// 클래스
+		String package_ = clz.getPackage().getName();
+		mav.addObject("namespace",
+				package_.substring(0, package_.lastIndexOf('.')) + ".mapper." + clz.getSimpleName() + "Mapper");
+
+		// 필드
+		String fields = handler.getColumnAsFieldComma();
+		mav.addObject("fields", fields);
+
+		// 테이블
+		String table = handler.getName();
+		mav.addObject("table", table);
+
+		// 조건
+		List<KeyValue> columnList = new ArrayList<KeyValue>();
+		String[] columnArray = StringUtils.split(fields, ',');
+		for (String column : columnArray) {
+			String[] field = StringUtils.split(column, ' ');
+			columnList.add(new DefaultKeyValue(field[0], field[1]));
+		}
+		mav.addObject("columnList", columnList);
+
+		mav.setViewName("templateMapper");
+		log.debug("mav: " + mav);
+
+		return mav;
 	}
 
 	@ExceptionHandler(Exception.class)

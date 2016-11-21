@@ -2187,6 +2187,23 @@ public abstract class Utils {
 		return null;
 	}
 
+	/**
+	 * 쿼리시 SUM()을 사용할 경우 적용
+	 * 
+	 * @param list
+	 * @return
+	 */
+	public static <T> List<T> getSumList(List<T> list) {
+		if (list.size() > 0 && list.get(0) == null)
+			return new ArrayList<T>();
+
+		return list;
+	}
+
+	/**
+	 */
+	public static <T> List<T> getSumList(List<T> list) {
+
 	public static void main(String[] args) {
 //		System.out.println(new Timestamp(System.currentTimeMillis()));
 //		System.out.println(isValid_juminChk(""));
@@ -2238,18 +2255,18 @@ public abstract class Utils {
 //		String[] arrs = usersNode.toArray(new String[usersNode.size()]);
 //		System.out.println(toString(arrs));
 
-		System.out.println(isValidate(new Integer(-1)));
-		System.out.println(isValidate(new Integer(0)));
-		System.out.println(isValidate(new Integer(1)));
-		System.out.println(isValidate(new Long(-1)));
-		System.out.println(isValidate(new Long(0)));
-		System.out.println(isValidate(new Long(1)));
-		System.out.println(isValidate(new Float(-0.1)));
-		System.out.println(isValidate(new Float(0)));
-		System.out.println(isValidate(new Float(0.1)));
-		System.out.println(isValidate(new Double(-0.1)));
-		System.out.println(isValidate(new Double(0)));
-		System.out.println(isValidate(new Double(0.1)));
+//		System.out.println(isValidate(new Integer(-1)));
+//		System.out.println(isValidate(new Integer(0)));
+//		System.out.println(isValidate(new Integer(1)));
+//		System.out.println(isValidate(new Long(-1)));
+//		System.out.println(isValidate(new Long(0)));
+//		System.out.println(isValidate(new Long(1)));
+//		System.out.println(isValidate(new Float(-0.1)));
+//		System.out.println(isValidate(new Float(0)));
+//		System.out.println(isValidate(new Float(0.1)));
+//		System.out.println(isValidate(new Double(-0.1)));
+//		System.out.println(isValidate(new Double(0)));
+//		System.out.println(isValidate(new Double(0.1)));
 //		System.out.println(isValidate(new String[][] { {} }));
 
 //		System.out.println(convertList(new String[] { "1", "2" }));

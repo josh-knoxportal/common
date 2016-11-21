@@ -87,4 +87,18 @@ ORDER BY <c:out value="\${"/>order_by<c:out value="}"/>
 	</if></c:forEach>
 	</where>
 	</select>
+
+	<insert id="insert" parameterType="${table}">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+			<![CDATA[
+SELECT sample_seq.NEXTVAL AS id
+  FROM dual
+			]]>
+		</selectKey>
+
+		<![CDATA[
+INSERT INTO ${table} (
+		]]><c:forEach var="column" items="${columnList}">, ${column.key}</c:forEach>
+
+	</insert>
 </mapper>

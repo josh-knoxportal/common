@@ -1,7 +1,6 @@
 package com.nemustech.common.util;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -405,18 +404,5 @@ public abstract class CollectionUtil extends CollectionUtils {
 			}
 		}
 		return resultMap;
-	}
-
-	/**
-	 * 쿼리시 SUM()을 사용할 경우 적용
-	 * 
-	 * @param list
-	 * @return
-	 */
-	public static <T> List<T> getSumList(List<T> list) {
-		if (list.size() > 0 && list.get(0) == null)
-			return new ArrayList<T>();
-
-		return list;
 	}
 }

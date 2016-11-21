@@ -88,14 +88,15 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_inserts_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_updates_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_deletes_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post.json"));
 
 		// MMS
-//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_datas_put.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_data_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_data_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_reset.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/path_find_by_coords_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/rssi_get.json"));
@@ -131,7 +132,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_delete_delete.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_insert_list_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_campaign_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_select_campaign_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_around_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/geozone_id_around_get.json"));

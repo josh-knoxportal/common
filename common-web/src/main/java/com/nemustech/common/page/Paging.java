@@ -1,16 +1,15 @@
 package com.nemustech.common.page;
 
-import com.nemustech.common.model.Common;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nemustech.common.model.Default;
 
 /**
  * 페이징 처리용 모델
  *
  * @author skoh
  */
-public class Paging extends Common {// Common.CommonWrite {
+public class Paging extends Default {
 	/**
 	 * 기본 정렬 방식
 	 */
@@ -41,8 +40,6 @@ public class Paging extends Common {// Common.CommonWrite {
 	protected int total_sise;
 
 	public Paging() {
-//		new Common().super();
-
 		order_by = DEFAULT_ORDER_BY;
 	}
 

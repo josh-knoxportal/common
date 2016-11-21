@@ -12,5 +12,5 @@ import com.nemustech.sample.model.Sample;
  */
 @Repository
 public interface SampleMapper extends CommonMapper<Sample> {
-	public int merge(Sample sample);
+	public int merge(Sample model);
 }

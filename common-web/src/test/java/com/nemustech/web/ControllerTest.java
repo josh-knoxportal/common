@@ -272,10 +272,10 @@ public class ControllerTest {
 	}
 
 	@Test
-	public void t41_template() throws Exception {
+	public void t41_mapper() throws Exception {
 		Sample sample = new Sample();
 
-		sampleController.template(sample, new ModelAndView());
+		sampleController.mapper(sample, new ModelAndView());
 	}
 
 	@Test

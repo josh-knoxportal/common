@@ -2,7 +2,9 @@ package com.nemustech.sample.model;
 
 import org.mybatisorm.annotation.Fields;
 import org.mybatisorm.annotation.Join;
+
 import com.nemustech.common.model.Default;
+import com.nemustech.common.page.Paging;
 
 /**
  * Sample 테이블을 기준으로 Test 테이블을 조인
@@ -12,7 +14,7 @@ import com.nemustech.common.model.Default;
 //@Join // Inner Join
 //@Join("sample LEFT JOIN test") // Outer Join
 @Join("sample LEFT JOIN test LEFT JOIN files")
-public class SampleAndTest extends Default {
+public class SampleAndTest extends Paging {
 	@Fields("*")
 	protected Sample sample = new Sample(); // 인스턴스를 생성해야 기본 조건이 만들어짐.
 

@@ -310,8 +310,8 @@ public abstract class CommonController<T extends Default> implements Initializin
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "mapper", method = { RequestMethod.GET })
-	public ModelAndView template(T model, ModelAndView mav) throws Exception {
+	@RequestMapping(value = "mapper" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ModelAndView mapper(T model, ModelAndView mav) throws Exception {
 		Class<? extends Default> clz = model.getClass();
 		TableHandler handler = HandlerFactory.getHandler(clz);
 

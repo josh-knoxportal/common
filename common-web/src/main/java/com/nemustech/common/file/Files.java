@@ -2,7 +2,8 @@ package com.nemustech.common.file;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.annotation.Column;
-import com.nemustech.common.page.Paging;
+
+import com.nemustech.common.model.Common;
 import com.nemustech.common.storage.LocalFileStorage;
 import com.nemustech.common.util.Utils;
 
@@ -50,7 +51,7 @@ import com.nemustech.common.util.Utils;
  * 
  * @author skoh
  */
-public class Files extends Paging {
+public class Files extends Common {
 	/**
 	 * 아이디(PK)
 	 */

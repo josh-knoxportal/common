@@ -28,7 +28,7 @@ import com.nemustech.sample.service.SampleService;
 @Service
 public class SampleServiceImpl extends CommonServiceImpl<Sample> implements SampleService {
 	@Autowired
-	protected SampleMapper sampleMapper;
+	protected SampleMapper mapper;
 
 	@Lazy
 	@Autowired
@@ -41,57 +41,57 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 
 	@Override
 	public CommonMapper<Sample> getMapper() {
-		return sampleMapper;
+		return mapper;
 	}
 
 //	@Override
 //	public Sample get2(Sample sample) throws Exception {
-//		List<Sample> list = sampleMapper.list(sample);
+//		List<Sample> list = mapper.list(sample);
 //		return (list.size() > 0) ? list.get(0) : null;
 //	}
 //
 //	@Override
 //	@CacheableSample
 //	public List<Sample> list2(Sample sample) throws Exception {
-//		return sampleMapper.list(sample);
+//		return mapper.list(sample);
 //	}
 //
 //	@Override
 //	public int count2(Sample sample) throws Exception {
-//		return sampleMapper.count(sample);
+//		return mapper.count(sample);
 //	}
 //
 //	@Override
 //	public List<Sample> page2(Sample sample) throws Exception {
-//		return sampleMapper.list(sample);
+//		return mapper.list(sample);
 //	}
 //
 //	@Override
 //	@TransactionalException
 //	@CacheEvictSample
 //	public int insert2(Sample sample) throws Exception {
-//		return sampleMapper.insert(sample);
+//		return mapper.insert(sample);
 //	}
 //
 //	@Override
 //	@TransactionalException
 //	@CacheEvictSample
 //	public int update2(Sample sample) throws Exception {
-//		return sampleMapper.update(sample);
+//		return mapper.update(sample);
 //	}
 //
 //	@Override
 //	@TransactionalException
 //	@CacheEvictSample
 //	public int delete2(Sample sample) throws Exception {
-//		return sampleMapper.delete(sample);
+//		return mapper.delete(sample);
 //	}
 
 	@Override
 	@TransactionalException
 	@CacheEvictSample
 	public int merge(Sample sample) throws Exception {
-		return sampleMapper.merge(sample);
+		return mapper.merge(sample);
 	}
 
 	@Override

@@ -36,6 +36,7 @@ import com.nemustech.web.util.ValidationUtil;
 @RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController extends CommonController<Sample> {
 	@Autowired
+	
 	private MessageSource messageSource;
 
 	@Autowired
@@ -59,7 +60,7 @@ public class SampleController extends CommonController<Sample> {
 
 	// 주의) 로깅을 위해 Annotation 재정의
 	@Override
-	@RequestMapping(value = "list" + Constants.POSTFIX, method = { RequestMethod.GET })
+	@RequestMapping(value = "list.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<Sample>>> list(Sample model, @Valid Common common, BindingResult errors)
 			throws Exception {
 //		return ValidationUtil.getResponseEntity(HttpStatus.NOT_FOUND); // 사용하지 않을 경우
@@ -119,7 +120,7 @@ public class SampleController extends CommonController<Sample> {
 	}
 
 	@Override
-	@RequestMapping(value = "update" + Constants.POSTFIX, method = { RequestMethod.POST, RequestMethod.PUT })
+	@RequestMapping(value = "update.do", method = { RequestMethod.POST, RequestMethod.PUT })
 	public ResponseEntity<Response<Integer>> update(@Valid Sample model, BindingResult errors,
 			HttpServletRequest request) throws Exception {
 		return super.update(model, errors, request);

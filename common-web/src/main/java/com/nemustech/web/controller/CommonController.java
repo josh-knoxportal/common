@@ -1,5 +1,6 @@
 package com.nemustech.web.controller;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -38,6 +39,7 @@ import com.nemustech.common.model.ValidList;
 import com.nemustech.common.page.PageNavigator;
 import com.nemustech.common.page.Paging;
 import com.nemustech.common.service.CommonService;
+import com.nemustech.common.util.ORMUtil;
 import com.nemustech.common.util.Utils;
 import com.nemustech.web.Constants;
 import com.nemustech.web.util.ValidationUtil;
@@ -312,13 +314,13 @@ public abstract class CommonController<T extends Default> implements Initializin
 
 	@RequestMapping(value = "mapper" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ModelAndView mapper(T model, ModelAndView mav) throws Exception {
-		Class<? extends Default> clz = model.getClass();
-		TableHandler handler = HandlerFactory.getHandler(clz);
+		Class<? extends Default> clazz = model.getClass();
+		TableHandler handler = HandlerFactory.getHandler(clazz);
 
 		// 클래스
-		String package_ = clz.getPackage().getName();
+		String package_ = clazz.getPackage().getName();
 		mav.addObject("namespace",
-				package_.substring(0, package_.lastIndexOf('.')) + ".mapper." + clz.getSimpleName() + "Mapper");
+				package_.substring(0, package_.lastIndexOf('.')) + ".mapper." + clazz.getSimpleName() + "Mapper");
 
 		// 필드
 		String fields = handler.getColumnAsFieldComma();
@@ -336,6 +338,10 @@ public abstract class CommonController<T extends Default> implements Initializin
 			columnList.add(new DefaultKeyValue(field[0], field[1]));
 		}
 		mav.addObject("columnList", columnList);
+
+		Field field = ORMUtil.getSequenceField(clazz);
+		mav.addObject("sequence", ORMUtil.getSequence(field));
+		mav.addObject("sequenceFieldName", field.getName());
 
 		mav.setViewName("templateMapper");
 		log.debug("mav: " + mav);

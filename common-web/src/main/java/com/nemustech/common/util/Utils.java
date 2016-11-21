@@ -2200,10 +2200,6 @@ public abstract class Utils {
 		return list;
 	}
 
-	/**
-	 */
-	public static <T> List<T> getSumList(List<T> list) {
-
 	public static void main(String[] args) {
 //		System.out.println(new Timestamp(System.currentTimeMillis()));
 //		System.out.println(isValid_juminChk(""));

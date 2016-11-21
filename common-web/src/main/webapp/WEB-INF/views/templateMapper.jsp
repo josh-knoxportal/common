@@ -91,7 +91,7 @@ ORDER BY <c:out value="\${"/>order_by<c:out value="}"/>
 	<insert id="insert" parameterType="${table}">
 		<selectKey keyProperty="id" resultType="long" order="BEFORE">
 			<![CDATA[
-SELECT sample_seq.NEXTVAL AS id
+SELECT ${sequence}.NEXTVAL AS ${sequenceFieldName}
   FROM dual
 			]]>
 		</selectKey>

@@ -12,18 +12,18 @@ SELECT
 
 		<if test="hint != null">
 			<![CDATA[
- <c:out value="\${"/>hint<c:out value="}"/>
+\${hint}
 			]]>
 		</if>
 
 		<if test="fields == null">
 			<![CDATA[
- ${fields}
+${fields}
 			]]>
 		</if>
 		<if test="fields != null">
 			<![CDATA[
- <c:out value="\${"/>fields<c:out value="}"/>
+\${fields}
 			]]>
 		</if>
 
@@ -36,33 +36,32 @@ SELECT
 		<where>
 			<if test="condition != null">
 				<![CDATA[
-   AND <c:out value="\${"/>condition<c:out value="}"/>
+   AND \${condition}
 				]]>
 			</if>
-
 <c:forEach var="column" items="${columnList}">
 			<if test="${column.value} != null">
 				<![CDATA[
-   AND ${column.key} = <c:out value="#{"/>${column.value}<c:out value="}"/>
+   AND ${column.key} = \#{${column.value}}
 				]]>
 			</if></c:forEach>
 		</where>
 
 		<if test="having != null">
 			<![CDATA[
-HAVING <c:out value="\${"/>having<c:out value="}"/>
+HAVING \${having}
 			]]>
 		</if>
 
 		<if test="group_by != null">
 			<![CDATA[
-GROUP BY <c:out value="\${"/>group_by<c:out value="}"/>
+GROUP BY \${group_by}
 			]]>
 		</if>
 
 		<if test="order_by != null">
 			<![CDATA[
-ORDER BY <c:out value="\${"/>order_by<c:out value="}"/>
+ORDER BY \${order_by}
 			]]>
 		</if>
 
@@ -79,14 +78,13 @@ ORDER BY <c:out value="\${"/>order_by<c:out value="}"/>
 		<where>
 			<if test="condition != null">
 				<![CDATA[
-   AND <c:out value="\${"/>condition<c:out value="}"/>
+   AND \${condition}
 				]]>
 			</if>
-
 <c:forEach var="column" items="${columnList}">
 			<if test="${column.value} != null">
 				<![CDATA[
-   AND ${column.key} = <c:out value="#{"/>${column.value}<c:out value="}"/>
+   AND ${column.key} = \#{${column.value}}
 				]]>
 			</if></c:forEach>
 		</where>
@@ -104,24 +102,20 @@ SELECT ${sequence}.NEXTVAL AS ${sequenceFieldName}
 INSERT INTO ${table} (
 		]]>
 
-		<trim prefixOverrides=","><c:forEach var="column" items="${columnList}">
-			<if test="${column.value} != null">
-				<![CDATA[
+		<trim prefixOverrides=","><c:forEach var="column" items="${defaultValueList}">
+			<![CDATA[
 , ${column.key}
-				]]>
-			</if></c:forEach>
+			]]></c:forEach>
 		</trim>
 
 		<![CDATA[
 ) VALUES (
 		]]>
 
-		<trim prefixOverrides=","><c:forEach var="column" items="${columnList}">
-			<if test="${column.value} != null">
-				<![CDATA[
-, <c:out value="#{"/>${column.value}<c:out value="}"/>
-				]]>
-			</if></c:forEach>
+		<trim prefixOverrides=","><c:forEach var="column" items="${defaultValueList}">
+			<![CDATA[
+, ${column.value}
+			]]></c:forEach>
 		</trim>
 
 		<![CDATA[

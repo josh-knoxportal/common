@@ -31,4 +31,5 @@ public @interface Column {
 	boolean autoIncrement() default false;
 	String sequence() default "";
 	String references() default "";
+	String defaultValue() default "";
 }

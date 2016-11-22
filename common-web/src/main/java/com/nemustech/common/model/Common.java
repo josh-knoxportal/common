@@ -21,7 +21,7 @@ public class Common extends Default {
 	/**
 	 * 등록 일시
 	 */
-	@Column
+	@Column(defaultValue = "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")
 	protected String reg_dt;
 
 	/**
@@ -33,7 +33,7 @@ public class Common extends Default {
 	/**
 	 * 수정 일시
 	 */
-	@Column
+	@Column(defaultValue = "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")
 	protected String mod_dt;
 
 	public Common() {

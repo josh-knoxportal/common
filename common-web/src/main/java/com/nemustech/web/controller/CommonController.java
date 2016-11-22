@@ -41,7 +41,6 @@ import com.nemustech.common.page.Paging;
 import com.nemustech.common.service.CommonService;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.ORMUtil;
-import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 import com.nemustech.web.Constants;
 import com.nemustech.web.util.ValidationUtil;
@@ -344,9 +343,14 @@ public abstract class CommonController<T extends Default> implements Initializin
 		}
 		mav.addObject("columnList", columnList);
 
+		// 시퀀스
 		Field field = ORMUtil.getSequenceField(clazz);
 		mav.addObject("sequence", ORMUtil.getSequence(field));
 		mav.addObject("sequenceFieldName", field.getName());
+
+		// 기본값 리스트
+		List<KeyValue> defaultValueList = ORMUtil.getDefaultValueList(clazz);
+		mav.addObject("defaultValueList", defaultValueList);
 
 		mav.setViewName("templateMapper");
 		log.debug("mav: " + JsonUtil2.toStringPretty(mav));

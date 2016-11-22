@@ -31,10 +31,12 @@ import com.nemustech.sample.controller.SampleAndFilesController;
 import com.nemustech.sample.controller.SampleAndTest2Controller;
 import com.nemustech.sample.controller.SampleAndTestController;
 import com.nemustech.sample.controller.SampleController;
+import com.nemustech.sample.controller.Sample_TestController;
 import com.nemustech.sample.model.Files2;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.SampleAndTest;
 import com.nemustech.sample.model.SampleAndTest2;
+import com.nemustech.sample.model.Sample_Test;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
@@ -48,6 +50,9 @@ public class ControllerTest {
 	 */
 	@Autowired
 	protected SampleController sampleController;
+
+	@Autowired
+	protected Sample_TestController sample_TestController;
 
 	@Autowired
 	protected SampleAndTestController sampleAndTestController;
@@ -73,26 +78,33 @@ public class ControllerTest {
 	public void t02_list() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");
-//		sample.addCondition("name LIKE 's%'");
-//		sample.addCondition("name", "LIKE", "s%");
-//		sample.addCondition("name", "IN", "s1", "s2");
-//		sample.addCondition("name", "BETWEEN", "s1", "s2");
-//		sample.addCondition(sample.newCondition("OR").add("name LIKE 's%'").add("name", "LIKE", "s%"));
-
-//		sample.setSql_name("t02_list");
-		sample.setHint("DISTINCT");
-		sample.setFields("name, COUNT(1) AS count");
-		sample.setTable("sample");
-		sample.setGroup_by("name");
-		sample.setHaving("COUNT(1) > 0");
-		sample.setOrder_by("name");
-
+////		sample.addCondition("name LIKE 's%'");
+////		sample.addCondition("name", "LIKE", "s%");
+////		sample.addCondition("name", "IN", "s1", "s2");
+////		sample.addCondition("name", "BETWEEN", "s1", "s2");
+////		sample.addCondition(sample.newCondition("OR").add("name LIKE 's%'").add("name", "LIKE", "s%"));
+//		sample.setPage_number(1);
+//
+////		sample.setSql_name("t02_list");
+////		sample.setHint("DISTINCT");
+////		sample.setFields("name, COUNT(1) AS count");
+////		sample.setTable("sample");
+////		sample.setGroup_by("name");
+////		sample.setHaving("COUNT(1) > 0");
+////		sample.setOrder_by("name");
+//
 		ResponseEntity<Response<List<Sample>>> response = sampleController.list(sample,
 				new BeanPropertyBindingResult(sample, "sample"));
 //		ResponseEntity<Response<List<Sample>>> response = sampleController.list3(sample,
 //				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest(), new MockHttpSession());
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+
+//		Sample_Test sample_Test = new Sample_Test();
+//
+//		ResponseEntity<Response<List<Sample_Test>>> response2 = sample_TestController.list(sample_Test,
+//				new BeanPropertyBindingResult(sample_Test, "sample_test"));
+//		System.out.println("response: " + JsonUtil2.toStringPretty(response2));
 	}
 
 //	@Test
@@ -271,7 +283,7 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t41_mapper() throws Exception {
 		Sample sample = new Sample();
 

@@ -3,99 +3,101 @@
 
 
 <mapper namespace="com.nemustech.sample.mapper.SampleMapper">
-<select id="list" resultType="sample">
-	<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
+	<select id="list" resultType="sample">
+		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
 
-	<![CDATA[
+		<![CDATA[
 SELECT
-	]]>
+		]]>
 
-	<if test="hint != null">
-	<![CDATA[
+		<if test="hint != null">
+			<![CDATA[
  ${hint}
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<if test="fields == null">
-	<![CDATA[
+		<if test="fields == null">
+			<![CDATA[
  reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
-	]]>
-	</if>
-	<if test="fields != null">
-	<![CDATA[
+			]]>
+		</if>
+		<if test="fields != null">
+			<![CDATA[
  ${fields}
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<include refid="com.nemustech.common.mapper.CommonMapper.page_middle" />
+		<include refid="com.nemustech.common.mapper.CommonMapper.page_middle" />
 
-	<![CDATA[
+		<![CDATA[
   FROM sample
-	]]>
+		]]>
 
-	<where>
-	<if test="condition != null">
-	<![CDATA[
+		<where>
+			<if test="condition != null">
+				<![CDATA[
    AND ${condition}
-	]]>
-	</if>
-	<if test="reg_id != null">
-	<![CDATA[
+				]]>
+			</if>
+
+
+			<if test="reg_id != null">
+				<![CDATA[
    AND reg_id = #{reg_id}
-	]]>
-	</if>
-	<if test="reg_dt != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
    AND reg_dt = #{reg_dt}
-	]]>
-	</if>
-	<if test="mod_id != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
    AND mod_id = #{mod_id}
-	]]>
-	</if>
-	<if test="mod_dt != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
    AND mod_dt = #{mod_dt}
-	]]>
-	</if>
-	<if test="id != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
    AND id = #{id}
-	]]>
-	</if>
-	<if test="name != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
    AND name = #{name}
-	]]>
-	</if>
-	<if test="test_id != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
    AND test_id = #{test_id}
-	]]>
-	</if>
-	</where>
+				]]>
+			</if>
+		</where>
 
-	<if test="having != null">
-	<![CDATA[
+		<if test="having != null">
+			<![CDATA[
 HAVING ${having}
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<if test="group_by != null">
-	<![CDATA[
+		<if test="group_by != null">
+			<![CDATA[
 GROUP BY ${group_by}
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<if test="order_by != null">
-	<![CDATA[
+		<if test="order_by != null">
+			<![CDATA[
 ORDER BY ${order_by}
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<include refid="com.nemustech.common.mapper.CommonMapper.page_bottom" />
-</select>
+		<include refid="com.nemustech.common.mapper.CommonMapper.page_bottom" />
+	</select>
 
 	<select id="count" parameterType="sample" resultType="java.lang.Integer">
 		<include refid="com.nemustech.common.mapper.CommonMapper.count_top" />
@@ -104,47 +106,146 @@ ORDER BY ${order_by}
   FROM sample
 		]]>
 
-	<where>
-	<if test="condition != null">
-	<![CDATA[
+		<where>
+			<if test="condition != null">
+				<![CDATA[
    AND ${condition}
-	]]>
-	</if>
-	<if test="reg_id != null">
-	<![CDATA[
+				]]>
+			</if>
+
+
+			<if test="reg_id != null">
+				<![CDATA[
    AND reg_id = #{reg_id}
-	]]>
-	</if>
-	<if test="reg_dt != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
    AND reg_dt = #{reg_dt}
-	]]>
-	</if>
-	<if test="mod_id != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
    AND mod_id = #{mod_id}
-	]]>
-	</if>
-	<if test="mod_dt != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
    AND mod_dt = #{mod_dt}
-	]]>
-	</if>
-	<if test="id != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
    AND id = #{id}
-	]]>
-	</if>
-	<if test="name != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
    AND name = #{name}
-	]]>
-	</if>
-	<if test="test_id != null">
-	<![CDATA[
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
    AND test_id = #{test_id}
-	]]>
-	</if>
-	</where>
+				]]>
+			</if>
+		</where>
 	</select>
+
+	<insert id="insert" parameterType="sample">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+			<![CDATA[
+SELECT sample_seq.NEXTVAL AS id
+  FROM dual
+			]]>
+		</selectKey>
+
+		<![CDATA[
+INSERT INTO sample (
+		]]>
+
+		<trim prefixOverrides=",">
+			<if test="reg_id != null">
+				<![CDATA[
+, reg_id
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
+, reg_dt
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+, mod_id
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+, mod_dt
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
+, id
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
+, name
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
+, test_id
+				]]>
+			</if>
+		</trim>
+
+		<![CDATA[
+) VALUES (
+		]]>
+
+		<trim prefixOverrides=",">
+			<if test="reg_id != null">
+				<![CDATA[
+, #{reg_id}
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
+, #{reg_dt}
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+, #{mod_id}
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+, #{mod_dt}
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
+, #{id}
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
+, #{name}
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
+, #{test_id}
+				]]>
+			</if>
+		</trim>
+
+		<![CDATA[
+)
+		]]>
+	</insert>
 </mapper>

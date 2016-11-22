@@ -39,7 +39,9 @@ import com.nemustech.common.model.ValidList;
 import com.nemustech.common.page.PageNavigator;
 import com.nemustech.common.page.Paging;
 import com.nemustech.common.service.CommonService;
+import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.ORMUtil;
+import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 import com.nemustech.web.Constants;
 import com.nemustech.web.util.ValidationUtil;
@@ -319,8 +321,11 @@ public abstract class CommonController<T extends Default> implements Initializin
 
 		// 클래스
 		String package_ = clazz.getPackage().getName();
+		String className = clazz.getSimpleName();
+		if (className.endsWith("Vo"))
+			className = className.substring(0, className.length() - 2);
 		mav.addObject("namespace",
-				package_.substring(0, package_.lastIndexOf('.')) + ".mapper." + clazz.getSimpleName() + "Mapper");
+				package_.substring(0, package_.lastIndexOf('.')) + ".mapper." + className + "Mapper");
 
 		// 필드
 		String fields = handler.getColumnAsFieldComma();
@@ -330,7 +335,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 		String table = handler.getName();
 		mav.addObject("table", table);
 
-		// 조건
+		// 컬럼 리스트
 		List<KeyValue> columnList = new ArrayList<KeyValue>();
 		String[] columnArray = StringUtils.split(fields, ',');
 		for (String column : columnArray) {
@@ -344,7 +349,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 		mav.addObject("sequenceFieldName", field.getName());
 
 		mav.setViewName("templateMapper");
-		log.debug("mav: " + mav);
+		log.debug("mav: " + JsonUtil2.toStringPretty(mav));
 
 		return mav;
 	}

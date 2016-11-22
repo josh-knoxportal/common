@@ -3,69 +3,71 @@
 <%@ page contentType="text/xml; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <mapper namespace="${namespace}">
-<select id="list" resultType="${table}">
-	<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
+	<select id="list" resultType="${table}">
+		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
 
-	<![CDATA[
+		<![CDATA[
 SELECT
-	]]>
+		]]>
 
-	<if test="hint != null">
-	<![CDATA[
+		<if test="hint != null">
+			<![CDATA[
  <c:out value="\${"/>hint<c:out value="}"/>
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<if test="fields == null">
-	<![CDATA[
+		<if test="fields == null">
+			<![CDATA[
  ${fields}
-	]]>
-	</if>
-	<if test="fields != null">
-	<![CDATA[
+			]]>
+		</if>
+		<if test="fields != null">
+			<![CDATA[
  <c:out value="\${"/>fields<c:out value="}"/>
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<include refid="com.nemustech.common.mapper.CommonMapper.page_middle" />
+		<include refid="com.nemustech.common.mapper.CommonMapper.page_middle" />
 
-	<![CDATA[
+		<![CDATA[
   FROM ${table}
-	]]>
+		]]>
 
-	<where>
-	<if test="condition != null">
-	<![CDATA[
+		<where>
+			<if test="condition != null">
+				<![CDATA[
    AND <c:out value="\${"/>condition<c:out value="}"/>
-	]]>
-	</if><c:forEach var="column" items="${columnList}">
-	<if test="${column.value} != null">
-	<![CDATA[
+				]]>
+			</if>
+
+<c:forEach var="column" items="${columnList}">
+			<if test="${column.value} != null">
+				<![CDATA[
    AND ${column.key} = <c:out value="#{"/>${column.value}<c:out value="}"/>
-	]]>
-	</if></c:forEach>
-	</where>
+				]]>
+			</if></c:forEach>
+		</where>
 
-	<if test="having != null">
-	<![CDATA[
+		<if test="having != null">
+			<![CDATA[
 HAVING <c:out value="\${"/>having<c:out value="}"/>
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<if test="group_by != null">
-	<![CDATA[
+		<if test="group_by != null">
+			<![CDATA[
 GROUP BY <c:out value="\${"/>group_by<c:out value="}"/>
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<if test="order_by != null">
-	<![CDATA[
+		<if test="order_by != null">
+			<![CDATA[
 ORDER BY <c:out value="\${"/>order_by<c:out value="}"/>
-	]]>
-	</if>
+			]]>
+		</if>
 
-	<include refid="com.nemustech.common.mapper.CommonMapper.page_bottom" />
-</select>
+		<include refid="com.nemustech.common.mapper.CommonMapper.page_bottom" />
+	</select>
 
 	<select id="count" parameterType="${table}" resultType="java.lang.Integer">
 		<include refid="com.nemustech.common.mapper.CommonMapper.count_top" />
@@ -74,18 +76,20 @@ ORDER BY <c:out value="\${"/>order_by<c:out value="}"/>
   FROM ${table}
 		]]>
 
-	<where>
-	<if test="condition != null">
-	<![CDATA[
+		<where>
+			<if test="condition != null">
+				<![CDATA[
    AND <c:out value="\${"/>condition<c:out value="}"/>
-	]]>
-	</if><c:forEach var="column" items="${columnList}">
-	<if test="${column.value} != null">
-	<![CDATA[
+				]]>
+			</if>
+
+<c:forEach var="column" items="${columnList}">
+			<if test="${column.value} != null">
+				<![CDATA[
    AND ${column.key} = <c:out value="#{"/>${column.value}<c:out value="}"/>
-	]]>
-	</if></c:forEach>
-	</where>
+				]]>
+			</if></c:forEach>
+		</where>
 	</select>
 
 	<insert id="insert" parameterType="${table}">
@@ -98,7 +102,30 @@ SELECT ${sequence}.NEXTVAL AS ${sequenceFieldName}
 
 		<![CDATA[
 INSERT INTO ${table} (
-		]]><c:forEach var="column" items="${columnList}">, ${column.key}</c:forEach>
+		]]>
 
+		<trim prefixOverrides=","><c:forEach var="column" items="${columnList}">
+			<if test="${column.value} != null">
+				<![CDATA[
+, ${column.key}
+				]]>
+			</if></c:forEach>
+		</trim>
+
+		<![CDATA[
+) VALUES (
+		]]>
+
+		<trim prefixOverrides=","><c:forEach var="column" items="${columnList}">
+			<if test="${column.value} != null">
+				<![CDATA[
+, <c:out value="#{"/>${column.value}<c:out value="}"/>
+				]]>
+			</if></c:forEach>
+		</trim>
+
+		<![CDATA[
+)
+		]]>
 	</insert>
 </mapper>

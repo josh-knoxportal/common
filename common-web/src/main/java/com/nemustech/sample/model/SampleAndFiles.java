@@ -4,7 +4,6 @@ import org.mybatisorm.annotation.Fields;
 import org.mybatisorm.annotation.Join;
 
 import com.nemustech.common.model.Default;
-import com.nemustech.common.page.Paging;
 
 /**
  * Sample 테이블을 기준으로 Files 테이블을 조인
@@ -12,7 +11,7 @@ import com.nemustech.common.page.Paging;
  * @author skoh
  */
 @Join("sample LEFT JOIN files")
-public class SampleAndFiles extends Paging {
+public class SampleAndFiles extends Default {
 	@Fields("*")
 	protected Sample sample = new Sample();
 

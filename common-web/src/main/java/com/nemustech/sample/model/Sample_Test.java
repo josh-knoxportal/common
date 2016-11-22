@@ -2,7 +2,8 @@ package com.nemustech.sample.model;
 
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
-import com.nemustech.common.page.Paging;
+
+import com.nemustech.common.model.Default;
 
 /**
  * DDL : 샘플 테스트 매핑테이블
@@ -44,7 +45,7 @@ import com.nemustech.common.page.Paging;
  * @author skoh
  */
 @Table("sample_test")
-public class Sample_Test extends Paging {
+public class Sample_Test extends Default {
 	@Column(references = "Sample.id")
 	protected Long sample_id;
 

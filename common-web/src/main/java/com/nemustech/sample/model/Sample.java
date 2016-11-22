@@ -10,7 +10,7 @@ import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
 import com.nemustech.common.file.Files;
-import com.nemustech.common.model.Common;
+import com.nemustech.common.page.Paging;
 
 /**
  * DDL : 샘플 테이블
@@ -76,7 +76,7 @@ import com.nemustech.common.model.Common;
  * @author skoh
  */
 @Table("sample")
-public class Sample extends Common {// Common.CommonWrite {
+public class Sample extends Paging {// Common.CommonWrite {
 	/**
 	 * 아이디(PK)
 	 */

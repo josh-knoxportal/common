@@ -1,8 +1,7 @@
 {
 	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do",
 	"method":"POST",
-	"responseFormat":"JSON",
-	"convertBody":true,
+	"responseFormat":"CSV",
 	"list":[
 		{
 			"headers":{
@@ -10,10 +9,10 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"DAY, HOUR, COMPANY_ID, COMPANY_BRAND_ID, BRANCH_ID, OS_TYPE, CUSTOM_COUNT, VISIT_COUNT, STAY_TIME",
-				"table":"HOURLY_BRANCH_VISIT_201612",
-				"condition":"DAY = '20161206' AND BRANCH_ID = 43872",
-				"order_by":"DAY, HOUR, COMPANY_ID, COMPANY_BRAND_ID, BRANCH_ID, OS_TYPE"
+				"fields":"*",
+				"table":"schedule_log_result",
+				"condition":"'20161210' <= day AND day <= '20161210'",
+				"order_by":"day, server_name, start_time, table_name"
 			}
 		}
 	]

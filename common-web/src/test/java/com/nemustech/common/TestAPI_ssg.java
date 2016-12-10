@@ -67,11 +67,13 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cpgn/event_post.json"));
 
 		// DEVMS
+//		arrayNode.add(readFile("src/test/resources/json/ssg/devms/policy_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/app_policy_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/devms/location_agree_post.json"));
 
 		// LMS
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/daily_visit_log_sum_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/anal_result_flow_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/anal_result_visit_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
@@ -81,7 +83,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/daily_zone_visit_log_dashboard_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/hourly_zone_visit_log_group_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_insert_post.json"));
@@ -92,7 +94,10 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get3.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post3.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post4.json"));
 
 		// MMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_data_get.json"));

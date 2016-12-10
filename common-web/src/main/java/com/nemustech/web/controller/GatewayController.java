@@ -13,7 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +28,16 @@ public class GatewayController {
 
 	@Autowired
 	protected RestTemplate restTemplate;
+
+	public GatewayController() {
+//		System.setProperty("http.maxConnections", "100");
+//
+//		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+//		requestFactory.setConnectTimeout(2000);
+//		requestFactory.setReadTimeout(600000);
+//
+//		restTemplate = new RestTemplate(requestFactory);
+	}
 
 	/**
 	 * HttpMethod객체를 반환한다.
@@ -94,5 +104,10 @@ public class GatewayController {
 			throws RestClientException {
 		return restTemplate.exchange(url, getHttpMethod(method), new HttpEntity<Map<String, Object>>(body, header),
 				Object.class);
+	}
+
+	public static void main(String[] args) {
+		GatewayController controller = new GatewayController();
+		controller.callHttp("http://localhost:8050/sample/list.do", "GET", null, null);
 	}
 }

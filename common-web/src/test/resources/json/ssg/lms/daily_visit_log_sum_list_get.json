@@ -1,8 +1,7 @@
 {
-	"url":"https://ssglbs.shinsegae-inc.com/v1/zms/category/select.do",
-	"method":"POST",
+	"url":"http://10.253.11.95:9082/v1/lms/daily_visit_log/sum_list.do?start_day=-1&end_day=-1",
+	"method":"GET",
 	"responseFormat":"JSON",
-	"convertBody":true,
 	"list":[
 		{
 			"headers":{
@@ -10,10 +9,6 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"name",
-				"table":"floor",
-				"condition":"validity = 1 and branch_id = 7057",
-				"order_by":"order_index"
 			}
 		}
 	]

@@ -10,10 +10,6 @@ import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 import org.mybatisorm.annotation.handler.TableHandler;
 
-import com.nemustech.common.model.Common;
-import com.nemustech.common.model.Default;
-import com.nemustech.sample.model.Sample;
-
 public abstract class ORMUtil {
 	/**
 	 * Table
@@ -223,33 +219,33 @@ public abstract class ORMUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("table:\t\t" + getTable(Default.class));
-		System.out.println("columnFields:\t" + getColumnFields(Default.class));
-		System.out.println("primaryKeyField:" + getPrimaryKeyField(Default.class));
-		System.out.println("autoIncrement:\t" + getAutoIncrementField(Default.class));
-		System.out.println("sequence:\t" + getSequence(Default.class));
-		System.out.println("defaultValue:\t" + getDefaultValueList(Default.class));
-		System.out.println("noneDefaultValue:" + getNoneDefaultValueList(Default.class));
-		System.out.println("defaultValue2:" + getColumnList(Default.class));
-		System.out.println();
-
-		System.out.println("table:\t\t" + getTable(Common.class));
-		System.out.println("columnFields:\t" + getColumnFields(Common.class));
-		System.out.println("primaryKeyField:" + getPrimaryKeyField(Common.class));
-		System.out.println("autoIncrement:\t" + getAutoIncrementField(Common.class));
-		System.out.println("sequence:\t" + getSequence(Common.class));
-		System.out.println("defaultValue:\t" + getDefaultValueList(Common.class));
-		System.out.println("noneDefaultValue:" + getNoneDefaultValueList(Common.class));
-		System.out.println("defaultValue2:" + getColumnList(Common.class));
-		System.out.println();
-
-		System.out.println("table:\t\t" + getTable(Sample.class));
-		System.out.println("columnFields:\t" + getColumnFields(Sample.class));
-		System.out.println("primaryKeyField: " + getPrimaryKeyField(Sample.class));
-		System.out.println("autoIncrement:\t" + getAutoIncrementField(Sample.class));
-		System.out.println("sequence:\t" + getSequence(Sample.class));
-		System.out.println("defaultValue:\t" + getDefaultValueList(Sample.class));
-		System.out.println("noneDefaultValue:" + getNoneDefaultValueList(Sample.class));
-		System.out.println("defaultValue2:" + getColumnList(Sample.class));
+//		System.out.println("table:\t\t" + getTable(Default.class));
+//		System.out.println("columnFields:\t" + getColumnFields(Default.class));
+//		System.out.println("primaryKeyField:" + getPrimaryKeyField(Default.class));
+//		System.out.println("autoIncrement:\t" + getAutoIncrementField(Default.class));
+//		System.out.println("sequence:\t" + getSequence(Default.class));
+//		System.out.println("defaultValue:\t" + getDefaultValueList(Default.class));
+//		System.out.println("noneDefaultValue:" + getNoneDefaultValueList(Default.class));
+//		System.out.println("defaultValue2:" + getColumnList(Default.class));
+//		System.out.println();
+//
+//		System.out.println("table:\t\t" + getTable(Common.class));
+//		System.out.println("columnFields:\t" + getColumnFields(Common.class));
+//		System.out.println("primaryKeyField:" + getPrimaryKeyField(Common.class));
+//		System.out.println("autoIncrement:\t" + getAutoIncrementField(Common.class));
+//		System.out.println("sequence:\t" + getSequence(Common.class));
+//		System.out.println("defaultValue:\t" + getDefaultValueList(Common.class));
+//		System.out.println("noneDefaultValue:" + getNoneDefaultValueList(Common.class));
+//		System.out.println("defaultValue2:" + getColumnList(Common.class));
+//		System.out.println();
+//
+//		System.out.println("table:\t\t" + getTable(Sample.class));
+//		System.out.println("columnFields:\t" + getColumnFields(Sample.class));
+//		System.out.println("primaryKeyField: " + getPrimaryKeyField(Sample.class));
+//		System.out.println("autoIncrement:\t" + getAutoIncrementField(Sample.class));
+//		System.out.println("sequence:\t" + getSequence(Sample.class));
+//		System.out.println("defaultValue:\t" + getDefaultValueList(Sample.class));
+//		System.out.println("noneDefaultValue:" + getNoneDefaultValueList(Sample.class));
+//		System.out.println("defaultValue2:" + getColumnList(Sample.class));
 	}
 }

@@ -1,7 +1,7 @@
 {
 	"url":"http://localhost:8050/sample/list2",
 	"method":"GET",
-	"responseFormat":"JSON",
+	"responseFormat":"CSV",
 	"list":[
 		{
 			"headers":{

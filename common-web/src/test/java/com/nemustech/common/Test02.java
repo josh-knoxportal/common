@@ -8,6 +8,16 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema.Builder;
+import com.nemustech.common.util.JsonUtil2;
+import com.nemustech.common.util.Utils;
+import com.nemustech.sample.model.Sample;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -136,8 +146,15 @@ public class Test02 {
 
 //		ExpressionParser parser = new SpelExpressionParser();
 //		Expression exp = parser.parseExpression(
-//				"T(com.nemustech.common.util.PropertyUtils).getInstance().getString('web.requestmapping.postfix', '')");
+//				"T(com.nemustech.common.util.PropertyUtils).getInstance().getString('thread.pool.min_size', '')");
 //		System.out.println(exp.getValue());
+
+//		Method[] methods = Sample.class.getMethods();
+//		for (Method method : methods) {
+//			JsonProperty anno = method.getAnnotation(JsonProperty.class);
+//			if (anno != null)
+//				System.out.println("value: " + anno.value());
+//		}
 
 //		System.out.println(getClass().getResource("").getPath());
 //		System.out.println(getClass().getClassLoader().getResource("common.properties").getPath());
@@ -276,19 +293,45 @@ public class Test02 {
 //		System.out.println(DateUtil.differenceDays("20161001", "20160930", DateUtil.PATTERN_yyyyMMdd));
 
 		// 1 2 3 5 10
-		int widthPixel = 3300; // pixel
-		double scale = 42.4268137463; // mm/pixel
-		double widthMMeter = widthPixel * scale;
-		double widthMeter = widthMMeter / 1000;
+//		int widthPixel = 3300; // pixel
+//		double scale = 42.4268137463; // mm/pixel
+//		double widthMMeter = widthPixel * scale;
+//		double widthMeter = widthMMeter / 1000;
+//
+//		System.out.println("width");
+//		System.out.println(widthPixel + " px");
+//		System.out.println(widthMMeter + " mm");
+//		System.out.println(widthMeter + " m");
+//		System.out.println();
+//		System.out.println("scale");
+//		System.out.println(scale + " mm/px");
+//		System.out.println(1000 / scale + " px/m");
 
-		System.out.println("width");
-		System.out.println(widthPixel + " px");
-		System.out.println(widthMMeter + " mm");
-		System.out.println(widthMeter + " m");
-		System.out.println();
-		System.out.println("scale");
-		System.out.println(scale + " mm/px");
-		System.out.println(1000 / scale + " px/m");
+//		System.out.println("{ {{ 1 }} }".replaceAll("[ |{|}]", ""));
+//		System.out.println("[ [[ 1 ]] ]".replaceAll("[ |\\[|\\]]", ""));
+
+		Sample sample = new Sample();
+		sample.setName("s");
+		System.out.println(JsonUtil2.toStringPretty(sample));
+
+		ObjectNode json = JsonUtil2.toObjectNode(sample);
+		String[] fieldNames = StringUtils.split(Utils.toString(json.fieldNames()).replaceAll("[ |\\[|\\]]", ""), ",");
+
+		CsvMapper mapper = new CsvMapper();
+
+//		CsvSchema schema = mapper.schemaFor(sample.getClass());
+		Builder builder = CsvSchema.builder();
+		for (String fieldName : fieldNames) {
+			builder = builder.addColumn(fieldName);
+		}
+		CsvSchema schema = builder.build().withHeader().withColumnSeparator(',');
+
+		ObjectWriter myObjectWriter = mapper.writer(schema);
+		String csv = myObjectWriter.writeValueAsString(json);
+		System.out.println(csv);
+
+//		sample = mapper.readerFor(sample.getClass()).with(schema).readValue(csv);
+//		System.out.println(JsonUtil2.toStringPretty(sample));
 	}
 
 	class Test01 {

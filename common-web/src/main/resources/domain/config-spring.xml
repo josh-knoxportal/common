@@ -32,7 +32,7 @@
 	<!-- Package -->
 	<context:component-scan base-package="com.nemustech.sample" />
 
-	<!-- Poperties -->
+	<!-- Properties -->
 	<util:properties id="prop">
 		<!-- <prop key="dataSource.vendorType">mysql</prop> -->
 		<prop key="dataSource.vendorType">oracle</prop>

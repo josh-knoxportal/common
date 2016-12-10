@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/devms/app_policy.do?package_name=com.ssg.platform.lbs.sample",
+	"url":"http://202.3.20.124/v1/devms/app_policy.do?package_name=com.ssg.platform.lbs.sample",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

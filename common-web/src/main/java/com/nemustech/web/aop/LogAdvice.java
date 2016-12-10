@@ -36,6 +36,9 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 
 		Annotation[][] paramAnnoss = method.getParameterAnnotations();
 		for (int i = 0; i < args.length; i++) {
+			if (args[i] == null)
+				continue;
+
 			if (args[i] instanceof HttpServletRequest || args[i] instanceof HttpSession) {
 				sb.append(", " + WebUtil.toJson(args[i]));
 				continue;

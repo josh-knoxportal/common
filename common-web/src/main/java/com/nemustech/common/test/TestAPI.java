@@ -8,12 +8,22 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.AfterClass;
 import org.junit.Test;
+import org.springframework.util.StopWatch;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema.Builder;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.thread.HTTPUtilFileTask;
 import com.nemustech.common.thread.HTTPUtilTask;
@@ -24,11 +34,6 @@ import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.LogUtil;
 import com.nemustech.common.util.ThreadUtils;
 import com.nemustech.common.util.Utils;
-import org.springframework.util.StopWatch;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 
 /**
  * 단위 테스트
@@ -219,6 +224,31 @@ public class TestAPI {
 				if (Utils.isValidate(responseFormat)) {
 					if ("JSON".equalsIgnoreCase(responseFormat)) {
 						body = JsonUtil2.toStringPretty(body);
+					} else if ("CSV".equalsIgnoreCase(responseFormat)) {
+						JsonNode jsonBody = JsonUtil2.toObjectNode(body).get("body");
+
+						String[] fieldNames = null;
+						if (jsonBody.isArray()) {
+							ArrayNode arrayNode = (ArrayNode) jsonBody;
+							if (arrayNode.size() > 0) {
+								fieldNames = StringUtils.split(
+										Utils.toString(arrayNode.get(0).fieldNames()).replaceAll("[ |\\[|\\]]", ""),
+										",");
+							}
+						}
+
+						if (fieldNames == null) {
+							body = "";
+						} else {
+							CsvMapper mapper = new CsvMapper();
+							Builder builder = CsvSchema.builder();
+							for (String fieldName : fieldNames) {
+								builder = builder.addColumn(fieldName);
+							}
+							CsvSchema schema = builder.build().withHeader().withColumnSeparator('\t');
+
+							body = System.lineSeparator() + mapper.writer(schema).writeValueAsString(jsonBody);
+						}
 					}
 				}
 				LogUtil.writeLog("header: " + Utils.toString(HTTPUtil.getHeader(result)));

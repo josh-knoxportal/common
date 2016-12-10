@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/cbms/prev_branch.do",
+	"url":"http://202.3.20.124/v1/cbms/prev_branch.do",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

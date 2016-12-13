@@ -135,7 +135,7 @@ public abstract class HTTPUtil {
 		List<Files> list = new ArrayList<Files>();
 		if (filePaths != null) {
 			for (String filePath : filePaths) {
-				list.add(new Files(FilenameUtils.getPathNoEndSeparator(filePath), FilenameUtils.getName(filePath),
+				list.add(new Files(FilenameUtils.getFullPathNoEndSeparator(filePath), FilenameUtils.getName(filePath),
 						getFileBytes(filePath)));
 			}
 		}

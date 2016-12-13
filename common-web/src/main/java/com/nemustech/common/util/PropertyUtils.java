@@ -8,6 +8,8 @@ import java.io.InputStream;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
+import org.apache.commons.io.FilenameUtils;
+
 import com.nemustech.common.Constants;
 
 /**
@@ -31,7 +33,7 @@ public class PropertyUtils {
 	}
 
 	protected static InputStream getInputStream() {
-		String fileName = FileUtil.getName(CONFIG_FILEPATH);
+		String fileName = FilenameUtils.getName(CONFIG_FILEPATH);
 		InputStream is = PropertyUtils.class.getClassLoader().getResourceAsStream(fileName);
 
 		if (is == null) {

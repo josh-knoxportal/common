@@ -8,12 +8,13 @@ import java.util.concurrent.Future;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+import org.springframework.util.StopWatch;
+
 import com.nemustech.common.FunctionCallback;
 import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.util.LogUtil;
 import com.nemustech.common.util.ThreadUtils;
 import com.nemustech.common.util.Utils;
-import org.springframework.util.StopWatch;
 
 /**
  * 배포작업
@@ -30,9 +31,24 @@ public abstract class AbstractDeployTask extends Task {
 	protected String source_file = null;
 
 	/**
+	 * 라이브러리파일
+	 */
+	protected String lib_path = null;
+
+	/**
 	 * 대상경로
 	 */
 	protected String target_dir = null;
+
+	/**
+	 * 업로드여부
+	 */
+	protected Boolean upload_yn = true;
+
+	/**
+	 * 재가동여부
+	 */
+	protected Boolean restart_yn = true;
 
 	/**
 	 * 병렬여부
@@ -52,14 +68,6 @@ public abstract class AbstractDeployTask extends Task {
 		this.source_dir = source_dir;
 	}
 
-	public String getTarget_dir() {
-		return this.target_dir;
-	}
-
-	public void setTarget_dir(String target_dir) {
-		this.target_dir = target_dir;
-	}
-
 	public String getSource_file() {
 		return this.source_file;
 	}
@@ -68,12 +76,44 @@ public abstract class AbstractDeployTask extends Task {
 		this.source_file = source_file;
 	}
 
+	public String getLib_path() {
+		return lib_path;
+	}
+
+	public void setLib_path(String lib_path) {
+		this.lib_path = lib_path;
+	}
+
+	public String getTarget_dir() {
+		return this.target_dir;
+	}
+
+	public void setTarget_dir(String target_dir) {
+		this.target_dir = target_dir;
+	}
+
 	public DeployServer getDeployServer(int index) {
 		return deployServerList.get(index);
 	}
 
 	public void addDeployServer(DeployServer deployServer) {
 		deployServerList.add(deployServer);
+	}
+
+	public Boolean getUpload_yn() {
+		return upload_yn;
+	}
+
+	public void setUpload_yn(Boolean upload_yn) {
+		this.upload_yn = upload_yn;
+	}
+
+	public Boolean getRestart_yn() {
+		return restart_yn;
+	}
+
+	public void setRestart_yn(Boolean restart_yn) {
+		this.restart_yn = restart_yn;
 	}
 
 	public Boolean getParallel_yn() {
@@ -137,7 +177,11 @@ public abstract class AbstractDeployTask extends Task {
 	protected void deployTask(String title, DeployServer deployServer) throws Exception {
 		deployServer.validate();
 
-		deploy(this, title, deployServer);
+		if (upload_yn)
+			upload(this, title, deployServer);
+
+		if (restart_yn)
+			restart(this, title, deployServer);
 	}
 
 	/**
@@ -153,9 +197,15 @@ public abstract class AbstractDeployTask extends Task {
 	}
 
 	/**
-	 * 프로그램 배포
+	 * 프로그램 업로드
 	 */
-	protected abstract void deploy(AbstractDeployTask deployTask, String title, DeployServer deployServer)
+	protected abstract void upload(AbstractDeployTask deployTask, String title, DeployServer deployServer)
+			throws CommonException;
+
+	/**
+	 * 프로그램 재가동
+	 */
+	protected abstract void restart(AbstractDeployTask deployTask, String title, DeployServer deployServer)
 			throws CommonException;
 
 	@Override

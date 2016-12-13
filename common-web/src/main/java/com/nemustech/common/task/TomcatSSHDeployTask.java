@@ -2,6 +2,8 @@ package com.nemustech.common.task;
 
 import java.io.File;
 
+import org.apache.commons.io.FilenameUtils;
+
 import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.util.FileUtil;
 import com.nemustech.common.util.LogUtil;
@@ -14,17 +16,34 @@ import com.nemustech.common.util.ThreadUtils;
  */
 public class TomcatSSHDeployTask extends AbstractDeployTask {
 	@Override
-	protected void deploy(AbstractDeployTask deployTask, String title, DeployServer deployServer)
+	protected void upload(AbstractDeployTask deployTask, String title, DeployServer deployServer)
 			throws CommonException {
 		try {
 			log("---------- " + title + " ----------");
+
 			log("Sending the war file to \"" + deployServer.getServer_ip() + "\"");
 			SFTPUtil ftp = new SFTPUtil(deployServer.getServer_ip(), deployServer.getServer_port(),
 					deployServer.getUser_id(), deployServer.getUser_pw());
-			ftp.backup(target_dir, source_file);
-			ftp.upload(source_dir, source_file, target_dir);
-			ftp.disconnect();
 
+			ftp.backup(target_dir + File.separator + source_file);
+			ftp.upload(source_dir + File.separator + source_file, target_dir);
+
+			if (lib_path != null) {
+				String lib_dir = FilenameUtils.getFullPathNoEndSeparator(lib_path);
+				ftp.backup(target_dir + File.separator + lib_path);
+				ftp.upload(source_dir + File.separator + lib_path, target_dir + File.separator + lib_dir);
+			}
+
+			ftp.disconnect();
+		} catch (Exception e) {
+			throw new CommonException(CommonException.ERROR, LogUtil.buildMessage(toString(), e.getMessage()), e);
+		}
+	}
+
+	@Override
+	protected void restart(AbstractDeployTask deployTask, String title, DeployServer deployServer)
+			throws CommonException {
+		try {
 			log("Restarting the WAS container \"" + deployServer.getSystem_name() + "\"");
 			SSHUtil ssh = new SSHUtil(deployServer.getServer_ip(), deployServer.getServer_port(),
 					deployServer.getUser_id(), deployServer.getUser_pw(), deployServer.getOs_name());
@@ -34,7 +53,7 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 			ssh.excuteCommand("ps -ef | grep /" + deployServer.getSystem_name());
 
 			ssh.excuteCommand("cd " + target_dir);
-			ssh.excuteCommand("rm -r " + FileUtil.getBaseName(deployTask.getSource_file()));
+			ssh.excuteCommand("rm -r " + FilenameUtils.getBaseName(deployTask.getSource_file()));
 
 			ssh.excuteCommand("cd /was/" + deployServer.getSystem_name() + "/bin");
 			ssh.excuteCommand("./startup.sh");

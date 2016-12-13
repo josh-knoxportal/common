@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -18,7 +19,6 @@ import org.junit.Test;
 import org.springframework.util.StopWatch;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -27,7 +27,6 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema.Builder;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.thread.HTTPUtilFileTask;
 import com.nemustech.common.thread.HTTPUtilTask;
-import com.nemustech.common.util.FileUtil;
 import com.nemustech.common.util.HTTPUtil;
 import com.nemustech.common.util.HTTPUtils;
 import com.nemustech.common.util.JsonUtil2;
@@ -179,7 +178,8 @@ public class TestAPI {
 			List<Files> attachs = new ArrayList<Files>();
 			if (jsonNode.get("file") != null) {
 				for (JsonNode file : jsonNode.get("file")) {
-					attachs.add(new Files(FileUtil.getPath(file.textValue()), FileUtil.getName(file.textValue()),
+					attachs.add(new Files(FilenameUtils.getFullPath(file.textValue()),
+							FilenameUtils.getName(file.textValue()),
 							IOUtils.toByteArray(new FileInputStream(file.textValue()))));
 				}
 			}

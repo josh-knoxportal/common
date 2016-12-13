@@ -160,7 +160,7 @@ public class Test02 {
 //		System.out.println(getClass().getClassLoader().getResource("common.properties").getPath());
 //		System.out.println("A20160920".compareTo("A20160919") > 0);
 //		System.out.println("A20160920".compareTo("A20160920") > 0);
-//		System.out.println(FilenameUtils.getPathNoEndSeparator("/a/b/c.xtx"));
+//		System.out.println(FilenameUtils.getFullPathNoEndSeparator("/a/b/c.xtx"));
 
 //		Files files = new Files("p1", "n1", "1".getBytes());
 //		Files2 files2 = new Files2(files, "1");

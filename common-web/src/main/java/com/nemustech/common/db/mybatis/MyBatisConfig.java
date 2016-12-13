@@ -7,14 +7,15 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import com.nemustech.common.Constants;
 import com.nemustech.common.exception.CommonException;
-import com.nemustech.common.util.FileUtil;
 import com.nemustech.common.util.LogUtil;
 
 /**
@@ -45,7 +46,7 @@ public class MyBatisConfig {
 //				reader = new InputStreamReader(
 //						MyBatisConfig.class.getClassLoader().getResourceAsStream(FileUtil.getName(configFile)),
 //						CHARSET);
-				reader = new InputStreamReader(Resources.getResourceAsStream(FileUtil.getName(configFile)));
+				reader = new InputStreamReader(Resources.getResourceAsStream(FilenameUtils.getName(configFile)));
 			} catch (Exception e) {
 				resource = "./SqlMapConfig.xml";
 				log.error("Failed to load " + configFile);
@@ -109,7 +110,7 @@ public class MyBatisConfig {
 //					reader = new InputStreamReader(
 //							MyBatisConfig.class.getClassLoader().getResourceAsStream(FileUtil.getName(configFile)),
 //							CHARSET);
-					reader = new InputStreamReader(Resources.getResourceAsStream(FileUtil.getName(configFile)));
+					reader = new InputStreamReader(Resources.getResourceAsStream(FilenameUtils.getName(configFile)));
 				} catch (Exception e) {
 					resource = "./SqlMapConfig.xml";
 					log.error("Failed to load " + configFile);

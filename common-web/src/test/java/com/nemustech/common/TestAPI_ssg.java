@@ -16,7 +16,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAPI_ssg extends TestAPI {
-	public static final String[] DATE_FIELDS = { "REG_DATE", "UPD_DATE", "START_DATE", "END_DATE", "LOG_TIME" };
+	public static final String[] DATE_FIELDS = { "REG_DATE", "UPD_DATE", "START_DATE", "END_DATE", "LOG_TIME", "LOG_DATE" };
 
 	@Override
 	protected String convertbody(String body) throws Exception {
@@ -83,7 +83,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/daily_zone_visit_log_dashboard_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/hourly_zone_visit_log_group_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/make_route_csv_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/route_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_insert_post.json"));
@@ -94,7 +94,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get3.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post4.json"));

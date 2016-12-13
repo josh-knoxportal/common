@@ -2,6 +2,7 @@
 	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do",
 	"method":"POST",
 	"responseFormat":"JSON",
+	"convertBody":true,
 	"list":[
 		{
 			"headers":{
@@ -9,10 +10,9 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"name",
-				"table":"floor",
-				"condition":"validity   = 1 and branch_id  = 7057",
-				"order_by":"order_index"
+				"fields":"*",
+				"table":"anal_result",
+				"condition":"TO_CHAR (log_date, 'yyyymmdd') BETWEEN '20161208' AND '20161211'"
 			}
 		}
 	]

@@ -11,12 +11,7 @@ public class DeployServer {
 	/**
 	 * 배포여부
 	 */
-	protected Boolean deploy_yn = false;
-
-	/**
-	 * 배포2여부
-	 */
-	protected Boolean deploy2_yn = true;
+	protected Boolean deploy_yn = true;
 
 	/**
 	 * 서버IP
@@ -64,14 +59,6 @@ public class DeployServer {
 
 	public void setDeploy_yn(Boolean deploy_yn) {
 		this.deploy_yn = deploy_yn;
-	}
-
-	public Boolean getDeploy2_yn() {
-		return deploy2_yn;
-	}
-
-	public void setDeploy2_yn(Boolean deploy2_yn) {
-		this.deploy2_yn = deploy2_yn;
 	}
 
 	public String getServer_ip() {
@@ -142,8 +129,6 @@ public class DeployServer {
 	 * 유효성 검사
 	 */
 	protected void validate() throws BuildException {
-		if (!Utils.isValidate(deploy_yn))
-			throw new BuildException("Required deploy_yn attribute");
 		if (!Utils.isValidate(server_ip))
 			throw new BuildException("Required server_ip attribute");
 		if (!Utils.isValidate(user_id))

@@ -17,6 +17,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+
 import com.nemustech.common.exception.SmartException;
 
 /**
@@ -263,7 +264,7 @@ public abstract class FileUtil extends FileUtils {
 			BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			out.getGraphics().drawImage(in, 0, 0, null);
 			File file = new File(toImagePath);
-			ImageIO.write(out, getExtension(toImagePath), file);
+			ImageIO.write(out, FilenameUtils.getExtension(toImagePath), file);
 		} catch (Exception e) {
 			LogUtil.writeLog(e, FileUtil.class);
 			throw new SmartException(e);
@@ -281,111 +282,11 @@ public abstract class FileUtil extends FileUtils {
 			BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			out.getGraphics().drawImage(in, 0, 0, null);
 			File file = new File(toImagePath);
-			ImageIO.write(out, getExtension(toImagePath), file);
+			ImageIO.write(out, FilenameUtils.getExtension(toImagePath), file);
 		} catch (Exception e) {
 			LogUtil.writeLog(e, FileUtil.class);
 			throw new SmartException(e);
 		}
-	}
-
-	/**
-	 * 주어진 파일 경로에서 파일 이름을 가져온다.
-	 *
-	 * <pre>
-	 * 예)
-	 *    String  filePath1    = "d:/test/code/code1.txt"; // 대상 파일1
-	 *    String  filePath2    = "d:/test/code/code2.xml"; // 대상 파일2
-	 *    <br>
-	 *    
-	 *    FileUtil.getExtension(filePath1); // "code1" 리턴
-	 *    FileUtil.getExtension(filePath2); // "code2" 리턴
-	 * </pre>
-	 *
-	 * @param filePath 파일 경로
-	 * @return 파일 이름
-	 */
-	public static String getBaseName(String filePath) {
-		return FilenameUtils.getBaseName(filePath);
-	}
-
-	/**
-	 * 주어진 파일 경로에서 파일 확장자를 가져온다.
-	 *
-	 * <pre>
-	 * 예)
-	 *    String  filePath1    = "d:/test/code/code.txt"; // 대상 파일1
-	 *    String  filePath2    = "d:/test/code/code.xml"; // 대상 파일2
-	 *    <br>
-	 *    
-	 *    FileUtil.getExtension(filePath1); // "txt" 리턴
-	 *    FileUtil.getExtension(filePath2); // "xml" 리턴
-	 * </pre>
-	 *
-	 * @param filePath 파일 경로
-	 * @return 파일 확장자.
-	 */
-	public static String getExtension(String filePath) {
-		return FilenameUtils.getExtension(filePath);
-	}
-
-	/**
-	 * 주어진 파일 경로에서 파일명을 가져온다.
-	 *
-	 * <pre>
-	 * 예)
-	 *    String  filePath1    = "d:/test/code/code.txt"; // 대상 파일1
-	 *    String  filePath2    = "d:/test/code/sample.xml"; // 대상 파일2
-	 *    <br>
-	 *    
-	 *    FileUtil.getName(filePath1); // "code.txt" 리턴
-	 *    FileUtil.getName(filePath2); // "sample.xml" 리턴
-	 * </pre>
-	 *
-	 * @param filePath 파일명
-	 * @return 파일명.
-	 */
-	public static String getName(String filePath) {
-		return FilenameUtils.getName(filePath);
-	}
-
-	/**
-	 * 주어진 파일 경로에서 경로를 가져온다.
-	 *
-	 * <pre>
-	 * 예)
-	 *    String  filePath1    = "d:/test/code/code.txt"; // 대상 파일1
-	 *    String  filePath2    = "d:/sample/test/code/sample.xml"; // 대상 파일2
-	 *    <br>
-	 *    
-	 *    FileUtil.getPath(filePath1); // "test\code\" 리턴 
-	 *    FileUtil.getPath(filePath2); // "sample\test\code" 리턴
-	 * </pre>
-	 *
-	 * @param filePath 파일 경로
-	 * @return 경로.
-	 */
-	public static String getPath(String filePath) {
-		return FilenameUtils.getPath(filePath);
-	}
-
-	/**
-	 * 주어진 경로내 모든 구분자(/, \)를 UINX 구분자(/)로 변환.
-	 *
-	 * <pre>
-	 * 예)
-	 *    String  filePath1    = "d:\\test\\code\\code.txt"; // 대상 파일1
-	 *    String  filePath2    = "d:\\sample\\test\\code\\sample.xml"; // 대상 파일2
-	 *    <br>
-	 *    
-	 *    FileUtil.separatorsToUnix(filePath1); // "d:/test/code/code.txt" 리턴 
-	 *    FileUtil.separatorsToUnix(filePath2); // "d:/sample/test/code/sample.xml" 리턴
-	 * </pre>
-	 *
-	 * @param path 경로
-	 * @return UINX 구분자(/)로 변환된 경로
-	 */
-	public static String separatorsToUnix(String path) {
-		return FilenameUtils.separatorsToUnix(path);
 	}
 
 	/**

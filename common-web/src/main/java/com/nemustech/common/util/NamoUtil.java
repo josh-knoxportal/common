@@ -15,6 +15,7 @@ import javax.mail.Part;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -155,7 +156,7 @@ public abstract class NamoUtil {
 				String saveFilePrefix = DateUtil.getCurrentDateMillisTime().substring(0, 15);
 				if (attachName.startsWith(saveFilePrefix.substring(0, 8)) == false) {
 					String saveFileSuffix = contentId.substring(0, 8);
-					String saveFileExt = FileUtil.getExtension(attachName);
+					String saveFileExt = FilenameUtils.getExtension(attachName);
 					attachName = saveFilePrefix + "_" + saveFileSuffix + "." + saveFileExt;
 				}
 

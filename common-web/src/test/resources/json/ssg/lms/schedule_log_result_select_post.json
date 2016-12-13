@@ -2,6 +2,7 @@
 	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do",
 	"method":"POST",
 	"responseFormat":"CSV",
+	"convertBody":true,
 	"list":[
 		{
 			"headers":{
@@ -11,7 +12,7 @@
 			"params":{
 				"fields":"*",
 				"table":"schedule_log_result",
-				"condition":"'20161210' <= day AND day <= '20161210'",
+				"condition":"day BETWEEN '20161211' AND '20161211'",
 				"order_by":"day, server_name, start_time, table_name"
 			}
 		}

@@ -577,8 +577,8 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<property name="artifactId" value="${artifactId}" />
-								<property name="version" value="${version}" />
+								<property name="artifactId" value="${project.artifactId}" />
+								<property name="version" value="${project.version}" />
 								<property name="classpath" refid="maven.test.classpath" />
 								<!-- <property name="classpath" refid="maven.compile.classpath" /> -->
 								<!-- <property name="classpath" refid="maven.runtime.classpath" /> -->
@@ -597,8 +597,8 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<property name="artifactId" value="${artifactId}" />
-								<property name="version" value="${version}" />
+								<property name="artifactId" value="${project.artifactId}" />
+								<property name="version" value="${project.version}" />
 								<property name="classpath" refid="maven.test.classpath" />
 
 								<!-- <ant antfile="${basedir}/deploy.xml"> -->

@@ -59,10 +59,6 @@ public abstract class CommonController<T extends Default> implements Initializin
 
 	public abstract CommonService<T> getService();
 
-	public void setService(CommonService<T> service) {
-		this.service = service;
-	}
-
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		service = getService();

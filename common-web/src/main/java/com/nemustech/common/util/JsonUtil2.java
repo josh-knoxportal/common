@@ -15,7 +15,6 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.http.NameValuePair;
-import com.nemustech.common.exception.CommonException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -28,6 +27,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.POJONode;
+import com.nemustech.common.exception.CommonException;
 
 /**
  * JSON 관련 유틸리티 클래스 <br />
@@ -132,6 +132,10 @@ public abstract class JsonUtil2 {
 		}
 
 		return "{}";
+	}
+
+	public static String toStringJson(Object object, String... excludeFieldNamesParam) {
+		return toStringPretty(StringUtil.toStringJson(object, excludeFieldNamesParam));
 	}
 
 	public static String toStringPretty(Object... pojos) {

@@ -310,25 +310,25 @@ public class Test02 {
 //		System.out.println("{ {{ 1 }} }".replaceAll("[ |{|}]", ""));
 //		System.out.println("[ [[ 1 ]] ]".replaceAll("[ |\\[|\\]]", ""));
 
-		Sample sample = new Sample();
-		sample.setName("s");
-		System.out.println(JsonUtil2.toStringPretty(sample));
-
-		ObjectNode json = JsonUtil2.toObjectNode(sample);
-		String[] fieldNames = StringUtils.split(Utils.toString(json.fieldNames()).replaceAll("[ |\\[|\\]]", ""), ",");
-
-		CsvMapper mapper = new CsvMapper();
-
-//		CsvSchema schema = mapper.schemaFor(sample.getClass());
-		Builder builder = CsvSchema.builder();
-		for (String fieldName : fieldNames) {
-			builder = builder.addColumn(fieldName);
-		}
-		CsvSchema schema = builder.build().withHeader().withColumnSeparator(',');
-
-		ObjectWriter myObjectWriter = mapper.writer(schema);
-		String csv = myObjectWriter.writeValueAsString(json);
-		System.out.println(csv);
+//		Sample sample = new Sample();
+//		sample.setName("s");
+//		System.out.println(JsonUtil2.toStringPretty(sample));
+//
+//		ObjectNode json = JsonUtil2.toObjectNode(sample);
+//		String[] fieldNames = StringUtils.split(Utils.toString(json.fieldNames()).replaceAll("[ |\\[|\\]]", ""), ",");
+//
+//		CsvMapper mapper = new CsvMapper();
+//
+////		CsvSchema schema = mapper.schemaFor(sample.getClass());
+//		Builder builder = CsvSchema.builder();
+//		for (String fieldName : fieldNames) {
+//			builder = builder.addColumn(fieldName);
+//		}
+//		CsvSchema schema = builder.build().withHeader().withColumnSeparator(',');
+//
+//		ObjectWriter myObjectWriter = mapper.writer(schema);
+//		String csv = myObjectWriter.writeValueAsString(json);
+//		System.out.println(csv);
 
 //		sample = mapper.readerFor(sample.getClass()).with(schema).readValue(csv);
 //		System.out.println(JsonUtil2.toStringPretty(sample));

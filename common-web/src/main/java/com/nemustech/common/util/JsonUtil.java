@@ -26,6 +26,7 @@ import org.codehaus.jackson.node.MissingNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.codehaus.jackson.node.POJONode;
 import org.codehaus.jackson.type.TypeReference;
+
 import com.nemustech.common.exception.CommonException;
 
 /**
@@ -132,6 +133,10 @@ public abstract class JsonUtil {
 		}
 
 		return "{}";
+	}
+
+	public static String toStringJson(Object object, String... excludeFieldNamesParam) {
+		return toStringPretty(StringUtil.toStringJson(object, excludeFieldNamesParam));
 	}
 
 	public static String toStringPretty(Object... pojos) {

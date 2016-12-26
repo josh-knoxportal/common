@@ -36,7 +36,6 @@ import com.nemustech.sample.model.Files2;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.SampleAndTest;
 import com.nemustech.sample.model.SampleAndTest2;
-import com.nemustech.sample.model.Sample_Test;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
@@ -76,6 +75,7 @@ public class ControllerTest {
 
 //	@Test
 	public void t02_list() throws Exception {
+		System.out.println("activeProfile" + sampleController.getService().getActiveProfile());
 		Sample sample = new Sample();
 		sample.setName("s");
 ////		sample.addCondition("name LIKE 's%'");

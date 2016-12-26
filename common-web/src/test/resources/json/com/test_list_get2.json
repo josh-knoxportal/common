@@ -1,0 +1,14 @@
+{
+	"url":"http://api.indoornow.com/app/geoZones.do",
+	"method":"POST",
+	"list":[
+		{
+			"headers":{
+				"api_key":"u4h0p0kd62dcte8osgj11gv0cv"
+			},
+			"params":{
+				"company_no":58
+			}
+		}
+	]
+}

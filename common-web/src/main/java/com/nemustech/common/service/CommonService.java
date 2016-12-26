@@ -54,6 +54,13 @@ public interface CommonService<T extends Default> {
 	public CommonMapper<T> getMapper();
 
 	/**
+	 * Spring active profile명 반환
+	 * 
+	 * @return profile명
+	 */
+	public String getActiveProfile();
+
+	/**
 	 * 공통 조회
 	 * 
 	 * @param model 모델

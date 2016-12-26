@@ -118,19 +118,13 @@ public class TestAPI {
 		sw.start();
 
 		url = data.path("url").textValue();
-		LogUtil.writeLog("url: " + url);
 		method = data.path("method").textValue();
-		LogUtil.writeLog("method: " + method);
 		saveDir = data.path("saveDir").textValue();
-		LogUtil.writeLog("saveDir: " + saveDir);
 		saveExt = data.path("saveExt").textValue();
-		LogUtil.writeLog("saveExt: " + saveExt);
 		requestFormat = data.path("requestFormat").textValue();
-		LogUtil.writeLog("requestFormat: " + requestFormat);
 		responseFormat = data.path("responseFormat").textValue();
-		LogUtil.writeLog("responseFormat: " + responseFormat);
 		convertBody = data.path("convertBody").booleanValue();
-		LogUtil.writeLog("convertBody: " + convertBody);
+		LogUtil.writeLog("data: " + JsonUtil2.toStringJson(this, "log", "sw"));
 
 		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
 		for (JsonNode json : data.path("list")) {

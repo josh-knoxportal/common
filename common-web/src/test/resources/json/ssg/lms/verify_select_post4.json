@@ -11,8 +11,8 @@
 			},
 			"params":{
 				"fields":"*",
-				"table":"anal_result",
-				"condition":"TO_CHAR (log_date, 'yyyymmdd') BETWEEN '20161208' AND '20161211'"
+				"table":"route_log_20161219",
+				"condition":"rownum = 1"
 			}
 		}
 	]

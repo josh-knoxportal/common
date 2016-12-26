@@ -17,6 +17,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import javax.net.ssl.X509TrustManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -801,8 +803,14 @@ public abstract class HTTPUtils {
 //		System.out.println(result);
 //		System.out.println(new String((byte[]) result.get("body")));
 
-		System.out.println(encodeURL("가"));
-		System.out.println(decodeURL("%EA%B0%80"));
+//		System.out.println(encodeURL("가"));
+//		System.out.println(decodeURL("%EA%B0%80"));
+
+		Map<String, Object> result = callHttp("http://api.indoornow.com/app/geoZones.do", "POST",
+				convertListToMap("api_key=u4h0p0kd62dcte8osgj11gv0cv"), convertListToMap("company_no=58"));
+		System.out.println("result: " + result);
+//		System.out
+//				.println("body: " + StringUtils.toEncodedString((byte[]) result.get("body"), Charset.forName("UTF-8")));
 
 		System.exit(0);
 

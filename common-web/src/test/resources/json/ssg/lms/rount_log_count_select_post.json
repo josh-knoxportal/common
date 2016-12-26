@@ -9,10 +9,10 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"*",
-				"table":"schedule_log_result",
-				"condition":"day BETWEEN TO_CHAR(SYSDATE, 'YYYYMMDD') - 0 AND TO_CHAR(SYSDATE, 'YYYYMMDD')",
-				"order_by":"day, schedule_name, server_name, table_name"
+				"fields":"server_ip,  validity, COUNT(1) AS count",
+				"table":"route_log_20161224",
+				"group_by":"server_ip,  validity",
+				"order_by":"server_ip,  validity"
 			}
 		}
 	]

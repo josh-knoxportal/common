@@ -13,6 +13,7 @@ import org.mybatisorm.Page;
 import org.mybatisorm.Query;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Lazy;
@@ -41,10 +42,8 @@ import com.nemustech.common.util.Utils;
 public abstract class CommonServiceImpl<T extends Default> implements InitializingBean, CommonService<T> {
 	protected Log log = LogFactory.getLog(getClass());
 
-	@Override
-	public CommonMapper<T> getMapper() {
-		return null;
-	}
+	@Value("${spring.profiles.active:default}")
+	protected String activeProfile;
 
 	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "{0}_{1}");
 
@@ -81,15 +80,6 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		return Query.makeVariable(variable);
 	}
 
-	/**
-	 * 소스타입 조회
-	 * 
-	 * @return 소스타입(mysql, oracle, sqlserver)
-	 */
-	public String getSourceType() {
-		return entityManager.getSourceType();
-	}
-
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		cacheName = getCacheName();
@@ -109,6 +99,16 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	}
 
 	@Override
+	public CommonMapper<T> getMapper() {
+		return null;
+	}
+
+	@Override
+	public String getActiveProfile() {
+		return activeProfile;
+	}
+
+	@Override
 	public T get(T model) throws Exception {
 		model = setModel(model);
 
@@ -118,6 +118,15 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 			List<T> list = getMapper().list(model);
 			return (list.size() > 0) ? list.get(0) : null;
 		}
+	}
+
+	/**
+	 * 소스타입 조회
+	 * 
+	 * @return 소스타입(mysql, oracle, sqlserver)
+	 */
+	public String getSourceType() {
+		return entityManager.getSourceType();
 	}
 
 	@Override

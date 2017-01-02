@@ -1,8 +1,10 @@
 package com.nemustech.web;
 
-import java.util.Locale;
 import java.util.Properties;
 
+import javax.annotation.Resource;
+
+import org.apache.commons.configuration.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.FixMethodOrder;
@@ -11,7 +13,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,23 +22,37 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ConfigTest {
 	private static Log log = LogFactory.getLog(ConfigTest.class);
 
+	// 기본형
 	@Autowired
-	Properties prop;
+	Properties properties;
 
-	@Value("#{prop['key1']}")
+	// 수동형
+	@Value("${key1}")
 	String value1;
 
-	@Autowired
+	// 능동형
+	@Value("#{properties['key2']}")
 	String value2;
 
-	@Autowired
-	private MessageSource messageSource;
+	// 조합형
+	@Resource(name = "properties2")
+	String properties2;
+
+	// 갱신형
+	@Resource(name = "propertiesConfiguration")
+	Configuration configuration;
+
+//	@Autowired
+//	MessageSource messageSource;
 
 	@Test
 	public void t01() throws Exception {
-//		log.info(prop);
-		log.info(value1);
-//		log.info(value2);
+//		while (true) {
+		log.info("properties: " + properties);
+		log.info("key1: " + value1);
+		log.info("key2: " + value2);
+		log.info("properties2: " + properties2);
+		log.info("key1_reload: " + configuration.getProperty("key1"));
 
 //		String message = messageSource.getMessage("skoh", null, null);
 //		String usMessage = messageSource.getMessage("skoh", null, "skoh2", Locale.US);
@@ -48,5 +63,8 @@ public class ConfigTest {
 //		log.info(korMessage);
 
 //		Assert.assertTrue("model == null", model != null);
+//			log.info("---------------------------------");
+//			Thread.currentThread().sleep(5000);
+//		}
 	}
 }

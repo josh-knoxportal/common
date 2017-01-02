@@ -13,7 +13,7 @@
 	<import resource="classpath:domain/config-spring.xml" />
 
 	<!-- Poperties -->
-	<context:property-placeholder properties-ref="prop" />
+	<context:property-placeholder properties-ref="properties" />
 
 	<!-- Locale -->
 	<!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"> -->
@@ -32,6 +32,8 @@
 		<property name="logFormatter">
 			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
 				<property name="loggingType" value="MULTI_LINE" />
+				<property name="margin" value="5" />
+				<property name="sqlPrefix" value="SQL:::" />
 				<!-- <property name="sqlPrefix" value="Binded SQL : " /> -->
 			</bean>
 		</property>
@@ -45,14 +47,15 @@
 	</bean>
 
 	<!-- MyBatis -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+	<bean id="sqlSessionFactory" class="com.nemustech.common.db.mybatis.RefreshableSqlSessionFactoryBean">
 		<property name="dataSource" ref="log4jdbcProxyDataSource" />
 		<property name="configLocation" value="classpath:config-mybatis.xml" />
 		<property name="mapperLocations" value="classpath:mapper/${dataSource.vendorType}/**/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="#{prop['mybatis.mapper.basePackage']}" />
+		<property name="basePackage" value="#{properties['mybatis.mapper.basePackage']}" />
 	</bean>
 
 	<!-- MyBatis ORM (sourceType : mysql, oracle, sqlserver) -->

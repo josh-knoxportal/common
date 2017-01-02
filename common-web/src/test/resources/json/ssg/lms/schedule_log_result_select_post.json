@@ -11,7 +11,7 @@
 			"params":{
 				"fields":"*",
 				"table":"schedule_log_result",
-				"condition":"day BETWEEN TO_CHAR(SYSDATE, 'YYYYMMDD') - 0 AND TO_CHAR(SYSDATE, 'YYYYMMDD')",
+				"condition":"day BETWEEN TO_CHAR(SYSDATE - 0, 'YYYYMMDD') AND TO_CHAR(SYSDATE, 'YYYYMMDD')",
 				"order_by":"day, schedule_name, server_name, table_name"
 			}
 		}

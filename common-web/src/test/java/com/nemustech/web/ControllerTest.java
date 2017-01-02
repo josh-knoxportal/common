@@ -73,7 +73,7 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t02_list() throws Exception {
 		System.out.println("activeProfile" + sampleController.getService().getActiveProfile());
 		Sample sample = new Sample();
@@ -297,6 +297,8 @@ public class ControllerTest {
 
 //	@Test
 	public void t51_get() throws Exception {
+//		while (true) {
+//			try {
 		Sample sample = new Sample();
 		sample.setId(1L);
 
@@ -304,6 +306,11 @@ public class ControllerTest {
 				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			Thread.currentThread().sleep(3000);
+//		}
 	}
 
 //	@Test

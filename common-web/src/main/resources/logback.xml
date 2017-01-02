@@ -42,8 +42,8 @@
 	<logger name="jdbc" level="off" />
 	<!-- <logger name="jdbc.audit" level="info" /> -->
 	<!-- <logger name="jdbc.resultset" level="info" /> -->
-	<!-- <logger name="jdbc.sqlonly" level="info" /> -->
-	<logger name="jdbc.sqltiming" level="info" />
+	<logger name="jdbc.sqlonly" level="info" />
+<!-- 	<logger name="jdbc.sqltiming" level="info" /> -->
 	<logger name="jdbc.resultsettable" level="info" />
 
 	<logger name="java.sql" level="info" />

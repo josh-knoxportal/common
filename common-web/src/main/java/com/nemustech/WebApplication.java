@@ -15,7 +15,6 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, SecurityAutoConfiguration.class,
 		JmxAutoConfiguration.class })
 @ImportResource({ "classpath:config-spring.xml", "classpath:config-spring_jmx.xml" })
-//@Slf4j
 public class WebApplication {
 	@Autowired
 	protected static ApplicationContext applicationContext;
@@ -31,7 +30,6 @@ public class WebApplication {
 	@Bean
 	protected ApplicationRunner init() {
 		System.out.println("init()");
-//		log.info("init");
 
 		return null;
 	}

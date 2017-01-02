@@ -33,7 +33,7 @@
 	<context:component-scan base-package="com.nemustech.sample" />
 
 	<!-- Properties -->
-	<util:properties id="prop">
+	<util:properties id="properties">
 		<!-- <prop key="dataSource.vendorType">mysql</prop> -->
 		<prop key="dataSource.vendorType">oracle</prop>
 		<prop key="mybatis.mapper.basePackage">com.nemustech.sample.mapper</prop>

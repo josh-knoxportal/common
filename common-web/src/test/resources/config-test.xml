@@ -6,40 +6,67 @@
 	xmlns:int-http="http://www.springframework.org/schema/integration/http" xmlns:int-ip="http://www.springframework.org/schema/integration/ip"
 	xmlns:int-stream="http://www.springframework.org/schema/integration/stream" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:redis="http://www.springframework.org/schema/redis"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p" xmlns:redis="http://www.springframework.org/schema/redis"
 	xmlns:security="http://www.springframework.org/schema/security" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:task="http://www.springframework.org/schema/task"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
-		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:cloud="http://www.springframework.org/schema/cloud"
+	xmlns:int-jmx="http://www.springframework.org/schema/integration/jmx" xmlns:plugin="http://www.springframework.org/schema/plugin"
+	xmlns:repository="http://www.springframework.org/schema/data/repository" xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-4.2.xsd
+		http://www.springframework.org/schema/integration/jmx http://www.springframework.org/schema/integration/jmx/spring-integration-jmx-4.2.xsd
 		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-4.2.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
-		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-4.2.xsd
+		http://www.springframework.org/schema/cloud http://www.springframework.org/schema/cloud/spring-cloud-0.1.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.2.xsd
+		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip-4.2.xsd
+		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.11.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+		http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/plugin http://www.springframework.org/schema/plugin/spring-plugin.xsd
 		http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis-1.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
-		http://www.springframework.org/schema/integration/ip http://www.springframework.org/schema/integration/ip/spring-integration-ip-4.2.xsd
-		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd">
 	<!-- Property -->
-	<context:property-placeholder properties-ref="prop" />
+	<context:property-placeholder properties-ref="properties" />
 
-	<bean class="java.lang.String">
-		<constructor-arg value="#{prop['key1']}, ${key2}" />
+	<!-- <util:properties id="properties"> -->
+	<!-- <prop key="key1">value1</prop> -->
+	<!-- <prop key="key2">value2</prop> -->
+	<!-- </util:properties> -->
+
+	<bean id="properties" class="org.springmodules.commons.configuration.CommonsConfigurationFactoryBean">
+		<property name="configurations">
+			<list>
+				<ref bean="propertiesConfiguration" />
+				<bean class="org.apache.commons.configuration.XMLConfiguration">
+					<constructor-arg type="java.lang.String">
+						<value>default_config.xml</value>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
 	</bean>
 
-	<util:properties id="prop">
-		<prop key="key1">value1</prop>
-		<prop key="key2">value2</prop>
-	</util:properties>
+	<bean id="propertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
+		<constructor-arg type="java.lang.String">
+			<value>local_config.properties</value>
+		</constructor-arg>
+		<property name="reloadingStrategy">
+			<bean class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy" />
+		</property>
+	</bean>
+
+	<bean id="properties2" class="java.lang.String">
+		<constructor-arg value="${key1}, #{properties['key2']}" />
+	</bean>
 
 	<!-- 반드시 id="messageSource" -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

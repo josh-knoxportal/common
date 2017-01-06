@@ -2,7 +2,7 @@
 
 MAVEN_HOME=/Users/skoh/dev/lib/apache-maven-3.3.9
 
-cd git/skoh/common/common-web
+cd $(dirname "$0")
 
 ant.sh
 

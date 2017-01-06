@@ -4,7 +4,12 @@
 	"list":[
 		{
 			"headers":{
-				"api_key":"u4h0p0kd62dcte8osgj11gv0cv"
+				"api_key":"u4h0p0kd62dcte8osgj11gv0cv",
+				"content-type":"application/x-www-form-urlencoded",
+				"accept-encoding":"gzip, deflate",
+				"user-agent":"indoorNow-sampleapp/1 CFNetwork/808.2.16 Darwin/16.3.0",
+				"accept":"/",
+				"accept-language":"ko-kr"
 			},
 			"params":{
 				"company_no":58

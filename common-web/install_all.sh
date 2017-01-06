@@ -2,7 +2,8 @@
 
 MAVEN_HOME=/Users/skoh/dev/lib/apache-maven-3.3.9
 
-cd git/skoh-nemus/s-lbs-server/common-libs
+cd $(dirname "$0")
+cd ../common-libs
 
 $MAVEN_HOME/bin/mvn install:install-file -Dfile=aams_vo-1.0.jar -DgroupId=com.ssg.platform.lbs.aams.vo -DartifactId=aams_vo -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
 $MAVEN_HOME/bin/mvn install:install-file -Dfile=bms_vo-1.0.jar -DgroupId=com.ssg.platform.lbs.bms.vo -DartifactId=bms_vo -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true

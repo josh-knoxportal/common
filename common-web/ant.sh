@@ -19,7 +19,7 @@ JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
 ANT_HOME=/Users/skoh/dev/lib/apache-ant-1.9.5
 ANT_OPTS=-Dfile.encoding=UTF-8
 
-cd git/skoh/common/common-web
+cd $(dirname "$0")
 
 # Extract launch and ant arguments, (see details below).
 ant_exec_args=

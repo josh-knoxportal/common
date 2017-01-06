@@ -42,7 +42,7 @@
 			<url>http://mesir.googlecode.com/svn/trunk/mavenrepo</url>
 		</repository>
 		<repository>
-			<id>local</id>
+			<id>local1</id>
 			<url>file://${basedir}/lib</url>
 		</repository>
 	</repositories>
@@ -460,7 +460,7 @@
 			<version>2.4</version>
 		</dependency>
 		<dependency>
-			<groupId>jdom</groupId>
+			<groupId>org.jdom</groupId>
 			<artifactId>jdom</artifactId>
 			<version>1.1</version>
 		</dependency>
@@ -632,8 +632,8 @@
 						<phase>package</phase>
 						<configuration>
 							<properties>
-								<artifactId>${artifactId}</artifactId>
-								<version>${version}</version>
+								<artifactId>${project.artifactId}</artifactId>
+								<version>${project.version}</version>
 							</properties>
 
 							<source>

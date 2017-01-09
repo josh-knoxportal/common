@@ -57,7 +57,7 @@ public class Test01 {
 		ExpressionParser parser = new SpelExpressionParser();
 		Expression exp = parser.parseExpression(s);
 		Object message = exp.getValue();
-//		System.out.println(message);
+		System.out.println(message);
 
 //		List<Integer> primes = new ArrayList<Integer>();
 //		primes.addAll(Arrays.asList(2, 3, 5, 7, 11, 13, 17));

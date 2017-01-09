@@ -61,6 +61,13 @@ public interface CommonService<T extends Default> {
 	public String getActiveProfile();
 
 	/**
+	 * 소스타입 조회
+	 * 
+	 * @return 소스타입(mysql, oracle, sqlserver)
+	 */
+	public String getSourceType();
+
+	/**
 	 * 공통 조회
 	 * 
 	 * @param model 모델

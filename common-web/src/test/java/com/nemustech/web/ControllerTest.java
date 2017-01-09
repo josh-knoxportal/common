@@ -75,6 +75,7 @@ public class ControllerTest {
 
 	@Test
 	public void t02_list() throws Exception {
+		System.out.println("sourceType: " + sampleController.getService().getSourceType());
 		System.out.println("activeProfile" + sampleController.getService().getActiveProfile());
 		Sample sample = new Sample();
 		sample.setName("s");

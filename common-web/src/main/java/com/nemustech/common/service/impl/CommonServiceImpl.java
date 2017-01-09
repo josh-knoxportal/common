@@ -71,6 +71,24 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	protected FilesService fileService;
 
 	/**
+	 * DBMS 벤더별 문자열 날짜표현을 구한다.
+	 * 
+	 * @param sourceType
+	 * @return
+	 */
+	public static String getDefaultDateValue(String sourceType) {
+		if (SOURCE_TYPE_MYSQL.equals(sourceType)) {
+			return DEFAULT_DATE_CHAR_MYSQL;
+		} else if (SOURCE_TYPE_ORACLE.equals(sourceType)) {
+			return DEFAULT_DATE_CHAR_ORACLE;
+		} else if (SOURCE_TYPE_SQLSERVER.equals(sourceType)) {
+			return DEFAULT_DATE_CHAR_SQLSERVER;
+		}
+
+		return null;
+	}
+
+	/**
 	 * 변수 바인딩
 	 * 
 	 * @param variable
@@ -120,11 +138,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		}
 	}
 
-	/**
-	 * 소스타입 조회
-	 * 
-	 * @return 소스타입(mysql, oracle, sqlserver)
-	 */
+	@Override
 	public String getSourceType() {
 		return entityManager.getSourceType();
 	}

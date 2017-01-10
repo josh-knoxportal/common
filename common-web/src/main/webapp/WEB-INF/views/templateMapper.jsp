@@ -92,7 +92,7 @@ ORDER BY \${order_by}
 	<insert id="insert" parameterType="${table}">
 		<selectKey keyProperty="id" resultType="long" order="BEFORE">
 			<![CDATA[
-SELECT ${sequence}.NEXTVAL AS ${sequenceFieldName}
+SELECT ${sequence.key}.NEXTVAL AS ${sequence.value}
   FROM dual
 			]]>
 		</selectKey>
@@ -101,24 +101,76 @@ SELECT ${sequence}.NEXTVAL AS ${sequenceFieldName}
 INSERT INTO ${table} (
 		]]>
 
-		<trim prefixOverrides=","><c:forEach var="column" items="${defaultValueList}">
-			<![CDATA[
+		<trim prefixOverrides=","><c:forEach var="column" items="${createColumnList}">
+			<if test="${column.key} != null">
+				<![CDATA[
 , ${column.key}
-			]]></c:forEach>
+				]]>
+			</if></c:forEach>
 		</trim>
 
 		<![CDATA[
 ) VALUES (
 		]]>
 
-		<trim prefixOverrides=","><c:forEach var="column" items="${defaultValueList}">
-			<![CDATA[
+		<trim prefixOverrides=","><c:forEach var="column" items="${createColumnList}">
+			<if test="${column.key} != null">
+				<![CDATA[
 , ${column.value}
-			]]></c:forEach>
+				]]>
+			</if></c:forEach>
 		</trim>
 
 		<![CDATA[
 )
 		]]>
 	</insert>
+
+	<update id="update" parameterType="${table}">
+		<![CDATA[
+UPDATE ${table}
+		]]>
+
+		<set><c:forEach var="column" items="${updatgeColumnList}">
+			<if test="${column.key} != null">
+				<![CDATA[
+${column.key} = ${column.value},
+				]]>
+			</if></c:forEach>
+		</set>
+
+		<where>
+			<if test="${primaryKey.value} != null">
+				<![CDATA[
+   AND ${primaryKey.key} = \#{${primaryKey.value}}
+				]]>
+			</if>
+
+			<if test="condition != null">
+				<![CDATA[
+   AND \${condition}
+				]]>
+			</if>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="${table}">
+		<![CDATA[
+DELETE FROM ${table}
+		]]>
+
+		<where>
+			<if test="condition != null">
+				<![CDATA[
+   AND \${condition}
+				]]>
+			</if>
+<c:forEach var="column" items="${columnList}">
+			<if test="${column.value} != null">
+				<![CDATA[
+   AND ${column.key} = \#{${column.value}}
+				]]>
+			</if></c:forEach>
+		</where>
+	</delete>
 </mapper>

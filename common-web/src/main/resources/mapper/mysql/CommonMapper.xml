@@ -2,11 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 공통 매퍼 -->
-<mapper namespace="com.nemustech.web.mapper.CommonMapper">
+<mapper namespace="com.nemustech.common.mapper.CommonMapper">
 	<sql id="page_top">
 		<if test="page_number != null and page_number != 0">
 		<![CDATA[
-/* 페이지 조회  */
 SELECT *
   FROM (
 		]]>
@@ -35,7 +34,6 @@ ORDER BY rnum
 
 	<sql id="count_top">
     <![CDATA[
-/* 건수 조회  */
 SELECT COUNT(1) AS count
     ]]>
 	</sql>

@@ -115,7 +115,7 @@
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="shared" value="true" />
 		<property name="configLocation" value="classpath:ehcache.xml" />
-		<property name="cacheManagerName" value="oh-common" />
+		<property name="cacheManagerName" value="nemustech-common" />
 	</bean>
 
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">

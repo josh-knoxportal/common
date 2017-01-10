@@ -4,6 +4,7 @@ import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nemustech.common.service.CommonService;
 
 /**
  * 공통 모델
@@ -21,7 +22,7 @@ public class Common extends Default {
 	/**
 	 * 등록 일시
 	 */
-	@Column(defaultValue = "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")
+	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE)
 	protected String reg_dt;
 
 	/**
@@ -33,7 +34,7 @@ public class Common extends Default {
 	/**
 	 * 수정 일시
 	 */
-	@Column(defaultValue = "TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')")
+	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE, defaultUpdate = true)
 	protected String mod_dt;
 
 	public Common() {

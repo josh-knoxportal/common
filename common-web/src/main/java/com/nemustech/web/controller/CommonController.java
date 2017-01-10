@@ -1,6 +1,5 @@
 package com.nemustech.web.controller;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -330,7 +329,7 @@ public abstract class CommonController<T extends Default> implements Initializin
 		String table = handler.getName();
 		mav.addObject("table", table);
 
-		// 컬럼 리스트
+		// 컬럼 리스트 (WHERE)
 		List<KeyValue> columnList = new ArrayList<KeyValue>();
 		String[] columnArray = StringUtils.split(fields, ',');
 		for (String column : columnArray) {
@@ -340,16 +339,24 @@ public abstract class CommonController<T extends Default> implements Initializin
 		mav.addObject("columnList", columnList);
 
 		// 시퀀스
-		Field field = ORMUtil.getSequenceField(clazz);
-		mav.addObject("sequence", ORMUtil.getSequence(field));
-		mav.addObject("sequenceFieldName", field.getName());
+		KeyValue sequence = ORMUtil.getSequence(clazz);
+		mav.addObject("sequence", sequence);
 
-		// 기본값 리스트
-		List<KeyValue> defaultValueList = ORMUtil.getDefaultValueList(clazz);
-		mav.addObject("defaultValueList", defaultValueList);
+		// 신규 컬럼 리스트 (INSERT)
+		List<KeyValue> createColumnList = columnList = ORMUtil.getCreateColumnList(clazz);
+		mav.addObject("createColumnList", createColumnList);
 
+		// 수정 컬럼 리스트 (UPDATE)
+		List<KeyValue> updatgeColumnList = columnList = ORMUtil.getUpdateColumnList(clazz);
+		mav.addObject("updatgeColumnList", updatgeColumnList);
+
+		// PrimaryKey
+		KeyValue primaryKey = ORMUtil.getPrimaryKey(clazz);
+		mav.addObject("primaryKey", primaryKey);
+
+		// 템플릿 매퍼
 		mav.setViewName("templateMapper");
-		log.debug("mav: " + JsonUtil2.toStringPretty(mav));
+		log.debug("model: " + JsonUtil2.toStringPretty(mav.getModel()));
 
 		return mav;
 	}

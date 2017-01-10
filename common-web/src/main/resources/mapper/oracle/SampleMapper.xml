@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="com.nemustech.sample.mapper.SampleMapper">
 	<select id="list" resultType="sample">
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
@@ -12,18 +11,18 @@ SELECT
 
 		<if test="hint != null">
 			<![CDATA[
- ${hint}
+${hint}
 			]]>
 		</if>
 
 		<if test="fields == null">
 			<![CDATA[
- reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
+reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
 			]]>
 		</if>
 		<if test="fields != null">
 			<![CDATA[
- ${fields}
+${fields}
 			]]>
 		</if>
 
@@ -39,7 +38,6 @@ SELECT
    AND ${condition}
 				]]>
 			</if>
-
 
 			<if test="reg_id != null">
 				<![CDATA[
@@ -112,7 +110,6 @@ ORDER BY ${order_by}
    AND ${condition}
 				]]>
 			</if>
-
 
 			<if test="reg_id != null">
 				<![CDATA[
@@ -214,7 +211,7 @@ INSERT INTO sample (
 			</if>
 			<if test="reg_dt != null">
 				<![CDATA[
-, #{reg_dt}
+, TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS')
 				]]>
 			</if>
 			<if test="mod_id != null">
@@ -224,7 +221,7 @@ INSERT INTO sample (
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-, #{mod_dt}
+, TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS')
 				]]>
 			</if>
 			<if test="id != null">
@@ -248,4 +245,102 @@ INSERT INTO sample (
 )
 		]]>
 	</insert>
+
+	<update id="update" parameterType="sample">
+		<![CDATA[
+UPDATE sample
+		]]>
+
+		<set>
+			<if test="reg_id != null">
+				<![CDATA[
+reg_id = #{reg_id},
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+mod_id = #{mod_id},
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+mod_dt = TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS'),
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
+name = #{name},
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
+test_id = #{test_id},
+				]]>
+			</if>
+		</set>
+
+		<where>
+			<if test="id != null">
+				<![CDATA[
+   AND id = #{id}
+				]]>
+			</if>
+
+			<if test="condition != null">
+				<![CDATA[
+   AND ${condition}
+				]]>
+			</if>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="sample">
+		<![CDATA[
+DELETE FROM sample
+		]]>
+
+		<where>
+			<if test="condition != null">
+				<![CDATA[
+   AND ${condition}
+				]]>
+			</if>
+
+			<if test="reg_id != null">
+				<![CDATA[
+   AND reg_id = #{reg_id}
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
+   AND reg_dt = #{reg_dt}
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+   AND mod_id = #{mod_id}
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+   AND mod_dt = #{mod_dt}
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
+   AND id = #{id}
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
+   AND name = #{name}
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
+   AND test_id = #{test_id}
+				]]>
+			</if>
+		</where>
+	</delete>
 </mapper>

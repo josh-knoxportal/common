@@ -32,4 +32,5 @@ public @interface Column {
 	String sequence() default "";
 	String references() default "";
 	String defaultValue() default "";
+	boolean defaultUpdate() default false;
 }

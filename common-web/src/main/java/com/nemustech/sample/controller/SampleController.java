@@ -36,7 +36,6 @@ import com.nemustech.web.util.ValidationUtil;
 @RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController extends CommonController<Sample> {
 	@Autowired
-	
 	private MessageSource messageSource;
 
 	@Autowired

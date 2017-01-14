@@ -26,7 +26,7 @@ public class LogAdvice {
 		log.debug(format("START", "[" + toString(signature) + "]"));
 
 		log.debug(format("INPUT",
-				"[" + toShortString(signature) + "] " + StringUtil.toStringRecursive(joinPoint.getArgs())));
+				"[" + toShortString(signature) + "] " + StringUtil.toStringRecursiveJson(joinPoint.getArgs())));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
@@ -35,7 +35,7 @@ public class LogAdvice {
 
 		Signature signature = joinPoint.getSignature();
 
-		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + StringUtil.toStringRecursive(result)));
+		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + StringUtil.toStringRecursiveJson(result)));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {

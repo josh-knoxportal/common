@@ -47,7 +47,7 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 			for (Annotation paramAnno : paramAnnoss[i]) {
 				if (RequestBody.class.isInstance(paramAnno)) {
 					sb.append(", " + "{\"" + args[i].getClass().getSimpleName() + "\":"
-							+ StringUtil.toString(args[i], "conditionObj") + "}");
+							+ StringUtil.toStringRecursiveJson(args[i], "conditionObj") + "}");
 					break;
 				}
 			}
@@ -79,7 +79,7 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 			}
 		} else {
 			log.debug(format("INPUT",
-					"[" + toShortString(signature) + "] " + StringUtil.toStringRecursive(joinPoint.getArgs())));
+					"[" + toShortString(signature) + "] " + StringUtil.toStringRecursiveJson(joinPoint.getArgs())));
 		}
 	}
 

@@ -25,7 +25,7 @@ import com.nemustech.adapter.DBAdapter;
 import com.nemustech.adapter.exception.AdapterException;
 import com.nemustech.adapter.http.DefaultHttpResponse;
 import com.nemustech.common.Constants;
-import com.nemustech.common.FunctionCallback;
+import com.nemustech.common.function.CallbackFunction;
 import com.nemustech.common.util.FileUtil;
 import com.nemustech.common.util.HTTPUtil;
 import com.nemustech.common.util.JsonUtil2;
@@ -275,46 +275,46 @@ public class AdapterUtil {
 		}
 	}
 
-	public static <T> JsonNode getResponse(String trcode, FunctionCallback<T, JsonNode> callback, T request)
+	public static <T> JsonNode getResponse(String trcode, CallbackFunction<T, JsonNode> callback, T request)
 			throws AdapterException {
 		return getResponse(true, trcode, callback, request);
 	}
 
 	// 확장 ///
 
-	public static <T> JsonNode getResponse(boolean isOnline, String trcode, FunctionCallback<T, JsonNode> callback,
+	public static <T> JsonNode getResponse(boolean isOnline, String trcode, CallbackFunction<T, JsonNode> callback,
 			T request) throws AdapterException {
 		return getResponse(isOnline, null, trcode, callback, request);
 	}
 
 	public static <T> JsonNode getResponse(boolean isOnline, String postfix, String trcode,
-			FunctionCallback<T, JsonNode> callback, T request) throws AdapterException {
+			CallbackFunction<T, JsonNode> callback, T request) throws AdapterException {
 		JsonNode resNode = getResBody(isOnline, postfix, trcode, callback, request, JsonNode.class);
 
 		return resNode;
 	}
 
-	public static <T> JsonNode getResBody(String trcode, FunctionCallback<T, JsonNode> callback, T request)
+	public static <T> JsonNode getResBody(String trcode, CallbackFunction<T, JsonNode> callback, T request)
 			throws AdapterException {
 		return getResBody(true, trcode, callback, request);
 	}
 
-	public static <T> JsonNode getResBody(boolean isOnline, String trcode, FunctionCallback<T, JsonNode> callback,
+	public static <T> JsonNode getResBody(boolean isOnline, String trcode, CallbackFunction<T, JsonNode> callback,
 			T request) throws AdapterException {
 		return getResBody(isOnline, trcode, callback, request, JsonNode.class);
 	}
 
 	public static <T> JsonNode getResBody(boolean isOnline, String postfix, String trcode,
-			FunctionCallback<T, JsonNode> callback, T request) throws AdapterException {
+			CallbackFunction<T, JsonNode> callback, T request) throws AdapterException {
 		return getResBody(isOnline, postfix, trcode, callback, request, JsonNode.class);
 	}
 
-	public static <T1, T2> T2 getResBody(String trcode, FunctionCallback<T1, T2> callback, T1 request,
+	public static <T1, T2> T2 getResBody(String trcode, CallbackFunction<T1, T2> callback, T1 request,
 			Class<T2> returnType) throws AdapterException {
 		return getResBody(true, trcode, callback, request, returnType);
 	}
 
-	public static <T1, T2> T2 getResBody(boolean isOnline, String trcode, FunctionCallback<T1, T2> callback, T1 request,
+	public static <T1, T2> T2 getResBody(boolean isOnline, String trcode, CallbackFunction<T1, T2> callback, T1 request,
 			Class<T2> returnType) throws AdapterException {
 		return getResBody(isOnline, null, trcode, callback, request, returnType);
 	}
@@ -331,7 +331,7 @@ public class AdapterUtil {
 	 * @param params 파라미터
 	 */
 	public static <T1, T2> T2 getResBody(boolean isOnline, String postfix, String trcode,
-			FunctionCallback<T1, T2> callback, T1 request, Class<T2> returnType) throws AdapterException {
+			CallbackFunction<T1, T2> callback, T1 request, Class<T2> returnType) throws AdapterException {
 //		checkSession(obj);
 
 		try {

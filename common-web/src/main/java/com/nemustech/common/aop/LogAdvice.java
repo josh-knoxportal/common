@@ -1,11 +1,12 @@
 package com.nemustech.common.aop;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+
+import com.nemustech.common.util.StringUtil;
 
 /**
  * 로깅 AOP
@@ -25,7 +26,7 @@ public class LogAdvice {
 		log.debug(format("START", "[" + toString(signature) + "]"));
 
 		log.debug(format("INPUT",
-				"[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(joinPoint.getArgs())));
+				"[" + toShortString(signature) + "] " + StringUtil.toStringRecursive(joinPoint.getArgs())));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
@@ -34,7 +35,7 @@ public class LogAdvice {
 
 		Signature signature = joinPoint.getSignature();
 
-		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(result)));
+		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + StringUtil.toStringRecursive(result)));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {

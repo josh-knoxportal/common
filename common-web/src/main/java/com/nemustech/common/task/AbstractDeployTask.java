@@ -10,8 +10,8 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.springframework.util.StopWatch;
 
-import com.nemustech.common.FunctionCallback;
 import com.nemustech.common.exception.CommonException;
+import com.nemustech.common.function.CallbackFunction;
 import com.nemustech.common.util.LogUtil;
 import com.nemustech.common.util.ThreadUtils;
 import com.nemustech.common.util.Utils;
@@ -146,7 +146,7 @@ public abstract class AbstractDeployTask extends Task {
 					continue;
 
 				if (parallel_yn) {
-					FunctionCallback<Object[], Object> callback = new FunctionCallback<Object[], Object>() {
+					CallbackFunction<Object[], Object> callback = new CallbackFunction<Object[], Object>() {
 						@Override
 						public Object executeTemplate(Object[] params) throws Exception {
 							DeployServer deployServer = (DeployServer) params[0];

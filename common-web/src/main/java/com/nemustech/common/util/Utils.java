@@ -1571,14 +1571,14 @@ public abstract class Utils {
 	}
 
 	public static <T> T convertMapToObject(Map<String, ?> map, Class<T> resultType) throws RuntimeException {
-		Object obj = null;
+		T obj = null;
 		try {
 			obj = resultType.newInstance();
 			for (Map.Entry<String, ?> entry : map.entrySet()) {
 				if (entry == null || entry.getValue() == null)
 					continue;
 
-				// java.lang.IllegalArgumentException: Can not set java.lang.Long field com.nemustech.common.model.Sample.sample_id to java.lang.Integer
+				// java.lang.IllegalArgumentException: Can not set java.lang.Long field com.nemustech.common.model.Sample.id to java.lang.String
 				Field field = null;
 				try {
 					field = resultType.getDeclaredField(entry.getKey());
@@ -1592,7 +1592,7 @@ public abstract class Utils {
 			throw new RuntimeException("Read map to object \"" + map + "\" error", e);
 		}
 
-		return (T) obj;
+		return obj;
 	}
 
 	public static Map<String, Object> convertObjectToMap(Object obj, String... excludeKeys) throws RuntimeException {

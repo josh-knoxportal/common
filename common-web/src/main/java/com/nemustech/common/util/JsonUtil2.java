@@ -134,16 +134,8 @@ public abstract class JsonUtil2 {
 		return "{}";
 	}
 
-	public static String toStringJson(Object object, String... excludeFieldNamesParam) {
-		return toStringPretty(StringUtil.toStringJson(object, excludeFieldNamesParam));
-	}
-
 	public static String toStringPretty(Object... pojos) {
-		if (pojos.length == 1) {
-			return toString(pojos[0], true);
-		} else {
-			return toString(pojos, true);
-		}
+		return toString(pojos, true);
 	}
 
 	/**
@@ -177,11 +169,7 @@ public abstract class JsonUtil2 {
 	 * @return Json 형식의 문자열. 변환에 실패하면, 에러메세지를 반환한다.
 	 */
 	public static String toString(Object... pojos) {
-		if (pojos.length == 1) {
-			return toString(pojos[0], false);
-		} else {
-			return toString(pojos, false);
-		}
+		return toString(pojos, false);
 	}
 
 	/**

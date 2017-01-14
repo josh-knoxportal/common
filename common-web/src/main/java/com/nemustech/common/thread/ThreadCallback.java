@@ -1,7 +1,8 @@
 package com.nemustech.common.thread;
 
 import org.apache.commons.logging.Log;
-import com.nemustech.common.FunctionCallback;
+
+import com.nemustech.common.function.CallbackFunction;
 
 /**
  * 쓰레드 콜백
@@ -12,16 +13,16 @@ import com.nemustech.common.FunctionCallback;
  * @param <T2> 응답 타입
  */
 public class ThreadCallback<T1, T2> extends AbstractThread<T1, T2> {
-	public ThreadCallback(FunctionCallback<T1, T2> callback, String title, T1 params) {
+	public ThreadCallback(CallbackFunction<T1, T2> callback, String title, T1 params) {
 		super(callback, title, params);
 	}
 	
-	public ThreadCallback(FunctionCallback<T1, T2> callback, String title, Log log, T1 params) {
+	public ThreadCallback(CallbackFunction<T1, T2> callback, String title, Log log, T1 params) {
 		super(callback, title, log, params);
 	}
 
 	@Override
 	public T2 excute() throws Exception {
-		return ((FunctionCallback<T1, T2>) target).executeTemplate(params);
+		return ((CallbackFunction<T1, T2>) target).executeTemplate(params);
 	}
 }

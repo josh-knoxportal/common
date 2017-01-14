@@ -60,6 +60,12 @@
 			<!-- <fileset dir="${classes_dir}" /> -->
 			<fileset dir="${classes_dir}" includes="**/*.class, common.properties, sql-sources.properties" />
 		</jar>
+
+		<delete file="${target_dir}/${artifactId}-${version}-sources.jar" />
+		<jar destfile="${target_dir}/${artifactId}-${version}-sources.jar" duplicate="preserve" compress="false">
+			<fileset dir="${src_dir}" includes="**/*.java" />
+			<fileset dir="${resources_dir}" includes="common.properties, sql-sources.properties" />
+		</jar>
 	</target>
 
 	<target name="copy" depends="package">
@@ -81,10 +87,10 @@
 			<os family="windows" />
 		</condition>
 		<delete>
-			<fileset dir="${copy_dir}" includes="${artifactId}-*.jar" />
+			<fileset dir="${copy_dir}" includes="${artifactId}*.jar" />
 		</delete>
 		<copy todir="${copy_dir}">
-			<fileset dir="${target_dir}" includes="${artifactId}-${version}.jar" />
+			<fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" />
 		</copy>
 	</target>
 </project>

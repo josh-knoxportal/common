@@ -1,0 +1,13 @@
+{
+	"url":"http://localhost:8080/user?name=name",
+	"method":"DELETE",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+			},
+			"params":{
+			}
+		}
+	]
+}

@@ -1,0 +1,16 @@
+{
+	"url":"http://localhost:8080/user",
+	"method":"PUT",
+	"requestFormat":"JSON",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"application/json"
+			},
+			"params":{
+				"title":"title"
+			}
+		}
+	]
+}

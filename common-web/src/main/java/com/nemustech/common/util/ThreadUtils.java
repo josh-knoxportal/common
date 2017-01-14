@@ -7,7 +7,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 import org.apache.commons.logging.Log;
-import com.nemustech.common.FunctionCallback;
+
+import com.nemustech.common.function.CallbackFunction;
 import com.nemustech.common.thread.ThreadCallback;
 import com.nemustech.common.thread.ThreadPool;
 
@@ -52,7 +53,7 @@ public abstract class ThreadUtils {
 	}
 
 	public static List<Future<Object>> executeThread(List<Future<Object>> futureList,
-			FunctionCallback<Object[], Object> callback, String title, Object... params) {
+			CallbackFunction<Object[], Object> callback, String title, Object... params) {
 		return executeThread(futureList, callback, title, null, params);
 	}
 
@@ -67,7 +68,7 @@ public abstract class ThreadUtils {
 	 * @return 응답결과 리스트
 	 */
 	public static List<Future<Object>> executeThread(List<Future<Object>> futureList,
-			FunctionCallback<Object[], Object> callback, String title, Log log, Object... params) {
+			CallbackFunction<Object[], Object> callback, String title, Log log, Object... params) {
 		Callable<Object> callable = new ThreadCallback<Object[], Object>(callback, title, log, params);
 
 		return executeThread(futureList, callable);

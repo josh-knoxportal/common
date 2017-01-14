@@ -1353,14 +1353,18 @@ public abstract class StringUtil extends StringUtils {
 				.setExcludeFieldNames(excludeFieldNamesParam).toString();
 	}
 
+	public static String toStringRecursiveJsonPretty(Object object, String... excludeFieldNamesParam) {
+		return JsonUtil2.toStringPretty(toStringRecursiveJson(object, excludeFieldNamesParam));
+	}
+
 	/**
-	 * 객체를 JSON 형태의 문자열로 변환한다.
+	 * 객체 내부까지 JSON 형태의 문자열로 변환한다.
 	 * 
 	 * @param object
 	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * @return
 	 */
-	public static String toStringJson(Object object, String... excludeFieldNamesParam) {
+	public static String toStringRecursiveJson(Object object, String... excludeFieldNamesParam) {
 		object = convertArray(object);
 
 		String str = new ReflectionToStringBuilder(object, new JsonRecursiveToStringStyle())
@@ -1464,7 +1468,7 @@ public abstract class StringUtil extends StringUtils {
 //		System.out.println("toString: " + toString(common, "conditionObj"));
 //		System.out.println("toString2: " + toString2(common));
 //		System.out.println("toStringRecursive: " + toStringRecursive(common, "conditionObj"));
-//		System.out.println("toStringJson: " + toStringJson(common, "conditionObj"));
+//		System.out.println("toStringRecursiveJson: " + toStringRecursiveJson(common, "conditionObj"));
 //		System.out.println("toStringValue: " + toStringValue(common, "conditionObj"));
 //		System.out.println();
 //
@@ -1474,7 +1478,7 @@ public abstract class StringUtil extends StringUtils {
 //		System.out.println("toString: " + toString(list, "conditionObj"));
 //		System.out.println("toString2: " + toString2(list));
 //		System.out.println("toStringRecursive: " + toStringRecursive(list, "conditionObj"));
-//		System.out.println("toStringJson: " + toStringJson(list, "conditionObj"));
+//		System.out.println("toStringRecursiveJson: " + toStringRecursiveJson(list, "conditionObj"));
 //		System.out.println("toStringValue: " + toStringValue(list, "conditionObj"));
 	}
 }

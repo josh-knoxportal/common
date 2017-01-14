@@ -73,7 +73,7 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t02_list() throws Exception {
 		System.out.println("sourceType: " + sampleController.getService().getSourceType());
 		System.out.println("activeProfile" + sampleController.getService().getActiveProfile());
@@ -242,8 +242,8 @@ public class ControllerTest {
 		Sample sample = new Sample();
 //		sample.setSql_name("t09_update");
 //		sample.setTable("sample");
-		sample.setId(1L);
-		sample.setName("s2");
+//		sample.setId(1L);
+		sample.setName("s1");
 		sample.setMod_id("2");
 		sample.addCondition("name LIKE 's1%'");
 
@@ -258,7 +258,7 @@ public class ControllerTest {
 		Sample sample = new Sample();
 //		sample.setSql_name("t10_delete");
 //		sample.setTable("sample");
-		sample.setId(541L);
+//		sample.setId(541L);
 		sample.setName("s1");
 		sample.addCondition("name LIKE 's1%'");
 

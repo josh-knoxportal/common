@@ -332,6 +332,8 @@ public class Test02 {
 
 //		sample = mapper.readerFor(sample.getClass()).with(schema).readValue(csv);
 //		System.out.println(JsonUtil2.toStringPretty(sample));
+
+		new Test01();
 	}
 
 	class Test01 {

@@ -6,16 +6,16 @@ import java.lang.reflect.Method;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
-import com.nemustech.common.util.StringUtil;
-import com.nemustech.web.util.WebUtil;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nemustech.common.util.StringUtil;
+import com.nemustech.web.util.WebUtil;
 
 /**
  * 로깅 AOP Web
@@ -79,7 +79,7 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 			}
 		} else {
 			log.debug(format("INPUT",
-					"[" + toShortString(signature) + "] " + ReflectionToStringBuilder.toString(joinPoint.getArgs())));
+					"[" + toShortString(signature) + "] " + StringUtil.toStringRecursive(joinPoint.getArgs())));
 		}
 	}
 

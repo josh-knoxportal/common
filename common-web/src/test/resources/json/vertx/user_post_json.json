@@ -1,0 +1,17 @@
+{
+	"url":"http://localhost:8080/user",
+	"method":"POST",
+	"requestFormat":"JSON",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"application/json"
+			},
+			"params":{
+				"cmp_no":"cmp_no",
+				"name":"name"
+			}
+		}
+	]
+}

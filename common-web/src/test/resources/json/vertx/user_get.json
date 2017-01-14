@@ -1,0 +1,13 @@
+{
+	"url":"http://localhost:8080/user/1",
+	"method":"GET",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+			},
+			"params":{
+			}
+		}
+	]
+}

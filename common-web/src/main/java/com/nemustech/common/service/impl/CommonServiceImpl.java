@@ -45,7 +45,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Value("${spring.profiles.active:default}")
 	protected String activeProfile;
 
-	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "{0}_{1}");
+	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "{0}");
 
 	/**
 	 * 캐쉬명
@@ -152,7 +152,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 
 		String cacheKey = null;
 		if (cache != null) {
-			cacheKey = cacheKeyFormat.format(new Object[] { "list", StringUtil.toString(model, "conditionObj") });
+			cacheKey = cacheKeyFormat.format(new Object[] { StringUtil.toString(model, "conditionObj") });
 			log.debug("cacheKey: " + cacheKey);
 
 			list = cache.get(cacheKey, List.class);

@@ -45,11 +45,13 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 			}
 
 			for (Annotation paramAnno : paramAnnoss[i]) {
+				sb.append("{\"" + args[i].getClass().getSimpleName() + "\":");
 				if (RequestBody.class.isInstance(paramAnno)) {
-					sb.append(", " + "{\"" + args[i].getClass().getSimpleName() + "\":"
-							+ StringUtil.toStringRecursiveJson(args[i], "conditionObj") + "}");
-					break;
+					sb.append(StringUtil.toStringRecursiveJson(args[i], "conditionObj"));
+				} else {
+					sb.append(StringUtil.toString(args[i]));
 				}
+				sb.append("} ");
 			}
 		}
 
@@ -67,7 +69,10 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 		log.debug(format("START", "[" + toString(signature) + "]"));
 
 		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
-		if (anno != null) {
+		if (anno == null) {
+			log.debug(
+					format("INPUT", "[" + toShortString(signature) + "] " + StringUtil.toString2(joinPoint.getArgs())));
+		} else {
 			if (signature instanceof MethodSignature) {
 				Method method = ((MethodSignature) signature).getMethod();
 				anno = AnnotationUtils.findAnnotation(method, RequestMapping.class);
@@ -77,9 +82,6 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 							"[" + toShortString(signature) + "] " + toString(method, joinPoint.getArgs())));
 				}
 			}
-		} else {
-			log.debug(format("INPUT",
-					"[" + toShortString(signature) + "] " + StringUtil.toStringRecursiveJson(joinPoint.getArgs())));
 		}
 	}
 

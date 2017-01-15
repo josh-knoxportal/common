@@ -6,6 +6,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 
+import com.nemustech.common.model.Default;
 import com.nemustech.common.util.StringUtil;
 
 /**
@@ -25,8 +26,18 @@ public class LogAdvice {
 		printLine(signature);
 		log.debug(format("START", "[" + toString(signature) + "]"));
 
-		log.debug(format("INPUT",
-				"[" + toShortString(signature) + "] " + StringUtil.toStringRecursiveJson(joinPoint.getArgs())));
+		StringBuilder sb = new StringBuilder();
+		for (Object arg : joinPoint.getArgs()) {
+			sb.append("{\"" + arg.getClass().getSimpleName() + "\":");
+			if (arg instanceof Default) {
+				sb.append(StringUtil.toStringRecursiveJson(arg, "conditionObj"));
+			} else {
+				sb.append(StringUtil.toString(arg));
+			}
+			sb.append("} ");
+		}
+
+		log.debug(format("INPUT", "[" + toShortString(signature) + "] " + sb.toString()));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {

@@ -1,110 +1,11 @@
 [
 	{
-		"id":1,
-		"cmp_no":"1",
-		"name":"dongho",
-		"title":"1",
-		"hp":"01040734758",
-		"email":"kdh0127@nemustech.co.kr",
-		"group_id":1,
-		"sql_name":null,
-		"hint":null,
-		"fields":null,
-		"table":null,
-		"group_by":null,
-		"having":null,
-		"order_by":null,
-		"condition":null,
-		"conditionObj":{
-			"seperator":{
-				"name":"AND",
-				"ordinal":0
-			},
-			"list":[
-				
-			],
-			"query":null
-		}
-	},
-	{
-		"id":2,
-		"cmp_no":"1",
-		"name":"kimdh",
-		"title":"2",
-		"hp":"01040734758",
-		"email":"kdh0127@nemustech.com",
-		"group_id":1,
-		"sql_name":null,
-		"hint":null,
-		"fields":null,
-		"table":null,
-		"group_by":null,
-		"having":null,
-		"order_by":null,
-		"condition":null,
-		"conditionObj":{
-			"seperator":{
-				"name":"AND",
-				"ordinal":0
-			},
-			"list":[
-				
-			],
-			"query":null
-		}
-	},
-	{
-		"id":5,
-		"cmp_no":"1",
-		"name":"kdh",
-		"title":"3",
-		"hp":"01040734758",
-		"email":"kdh0127@nemustech.com",
-		"group_id":-1,
-		"sql_name":null,
-		"hint":null,
-		"fields":null,
-		"table":null,
-		"group_by":null,
-		"having":null,
-		"order_by":null,
-		"condition":null,
-		"conditionObj":{
-			"seperator":{
-				"name":"AND",
-				"ordinal":0
-			},
-			"list":[
-				
-			],
-			"query":null
-		}
-	},
-	{
-		"id":31,
+		"id":32,
 		"cmp_no":"cmp_no",
 		"name":"name",
-		"title":null,
+		"title":"title",
 		"hp":null,
 		"email":null,
-		"group_id":null,
-		"sql_name":null,
-		"hint":null,
-		"fields":null,
-		"table":null,
-		"group_by":null,
-		"having":null,
-		"order_by":null,
-		"condition":null,
-		"conditionObj":{
-			"seperator":{
-				"name":"AND",
-				"ordinal":0
-			},
-			"list":[
-				
-			],
-			"query":null
-		}
+		"group_id":1
 	}
 ]

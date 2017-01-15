@@ -124,7 +124,7 @@ public class TestAPI {
 		requestFormat = data.path("requestFormat").textValue();
 		responseFormat = data.path("responseFormat").textValue();
 		convertBody = data.path("convertBody").booleanValue();
-		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this, "log", "sw"));
+		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this));
 
 		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
 		for (JsonNode json : data.path("list")) {

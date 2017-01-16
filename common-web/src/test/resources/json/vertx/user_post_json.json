@@ -10,7 +10,8 @@
 			},
 			"params":{
 				"cmp_no":"cmp_no",
-				"name":"name"
+				"name":"name",
+				"group_id":1
 			}
 		}
 	]

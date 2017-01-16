@@ -45,7 +45,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Value("${spring.profiles.active:default}")
 	protected String activeProfile;
 
-	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "{0}");
+	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "_{0}");
 
 	/**
 	 * 캐쉬명

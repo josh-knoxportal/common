@@ -21,7 +21,6 @@ REM support, things would be much easier, but sadly, it is not yet time.
 REM Be cautious about editing this, and only add WinNT specific stuff in code that
 REM only runs on WinNT.
 
-set JAVA_HOME=C:\dev\java\jdk1.7.0_72
 set ANT_HOME=C:\dev\lib\apache-ant-1.9.7
 set ANT_OPTS=-Dfile.encoding=UTF-8
 

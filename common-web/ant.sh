@@ -15,7 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
 ANT_HOME=/Users/skoh/dev/lib/apache-ant-1.9.5
 ANT_OPTS=-Dfile.encoding=UTF-8
 

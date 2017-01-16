@@ -2,7 +2,6 @@
 	"url":"http://localhost:8080/group_user",
 	"method":"POST",
 	"requestFormat":"JSON",
-	"responseFormat":"JSON",
 	"list":[
 		{
 			"headers":{

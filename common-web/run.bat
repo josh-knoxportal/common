@@ -1,5 +1,3 @@
-set JAVA_HOME=C:\dev\java\jdk1.7.0_72
+cd %CD%
 
-cd \dev\git\skoh\common\common-web
-
-%JAVA_HOME%/bin/java -jar -Xmx512m target/common-web-1.0.war
+java -jar -Xmx512m target/common-web-1.0.war

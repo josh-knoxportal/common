@@ -788,7 +788,7 @@ public abstract class HTTPUtils {
 //		String url = "https://m.dongwha-mh.com/Storage/GW/FileStorage/63/15909_안전표어 공모 양식.xlsx";
 //		download(url, "test/15909_안전표어 공모 양식.xlsx", "15909_안전표어 공모 양식.xlsx");
 
-//		String url = "http://localhost:8080/common/upload";
+//		String url = "http://localhost/common/upload";
 //		Map<String, String> params = new HashMap<String, String>();
 //		params.put("skoh", "테스트");
 ////		url = convertMapToURI(url, params); // GET

@@ -58,7 +58,7 @@ public class FileurlDownloader extends FileDownloader implements Downloader {
 			// URL에서 파일을 다운로드할 경우
 			URLDownloader urlDownloader = new URLDownloader();
 			Files files = urlDownloader.download(fileName, fileUrl, charset);
-			in = new ByteArrayInputStream(files.getFile_bytes());
+			in = new ByteArrayInputStream(files.getBytes());
 
 			send(response, fileName, fileType, in, files.getFile_size(), fileStartPos);
 		} finally {

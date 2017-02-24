@@ -90,14 +90,14 @@ ORDER BY \${order_by}
 	</select>
 
 	<insert id="insert" parameterType="${table}">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+<c:if test="${sequence != null}">		<selectKey keyProperty="id" resultType="long" order="BEFORE">
 			<![CDATA[
 SELECT ${sequence.key}.NEXTVAL AS ${sequence.value}
   FROM dual
 			]]>
 		</selectKey>
 
-		<![CDATA[
+</c:if>		<![CDATA[
 INSERT INTO ${table} (
 		]]>
 

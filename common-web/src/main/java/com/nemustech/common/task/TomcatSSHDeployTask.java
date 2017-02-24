@@ -10,6 +10,7 @@ import com.nemustech.common.util.LogUtil;
 import com.nemustech.common.util.SFTPUtil;
 import com.nemustech.common.util.SSHUtil;
 import com.nemustech.common.util.ThreadUtils;
+import com.nemustech.common.util.Utils;
 
 /**
  * 톰캣 서버(SSH) 배포
@@ -25,13 +26,15 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 			SFTPUtil ftp = new SFTPUtil(deployServer.getServer_ip(), deployServer.getServer_port(),
 					deployServer.getUser_id(), deployServer.getUser_pw());
 
-			ftp.backup(target_dir + File.separator + source_file);
-			ftp.upload(source_dir + File.separator + source_file, target_dir);
+			String target_full_dir = target_dir + File.separator + system_name + File.separator + target_path;
+			ftp.backup(target_full_dir + File.separator + source_file);
+			ftp.upload(source_dir + File.separator + source_file, target_full_dir);
 
-			if (lib_path != null) {
+			if (Utils.isValidate(lib_path) && !lib_path.startsWith("$")) {
 				String lib_dir = FilenameUtils.getFullPathNoEndSeparator(lib_path);
-				ftp.backup(target_dir + File.separator + lib_path);
-				ftp.upload(source_dir + File.separator + lib_path, target_dir + File.separator + lib_dir);
+				ftp.backup(target_full_dir + File.separator + lib_path);
+				ftp.upload(source_dir + File.separator + lib_path, target_dir + File.separator + system_name
+						+ File.separator + target_path + File.separator + lib_dir);
 			}
 
 			ftp.disconnect();
@@ -44,18 +47,18 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 	protected void restart(AbstractDeployTask deployTask, String title, DeployServer deployServer)
 			throws CommonException {
 		try {
-			log("Restarting the WAS container \"" + deployServer.getSystem_name() + "\"");
+			log("Restarting the WAS container \"" + system_name + "\"");
 			SSHUtil ssh = new SSHUtil(deployServer.getServer_ip(), deployServer.getServer_port(),
 					deployServer.getUser_id(), deployServer.getUser_pw(), deployServer.getOs_name());
-			ssh.excuteCommand("cd /was/" + deployServer.getSystem_name() + "/bin");
+			ssh.excuteCommand("cd /var/was/" + system_name + "/bin");
 			ssh.excuteCommand("./shutdown.sh");
 			Thread.sleep(3000);
-			ssh.excuteCommand("ps -ef | grep /" + deployServer.getSystem_name());
+			ssh.excuteCommand("ps -ef | grep /" + system_name);
 
-			ssh.excuteCommand("cd " + target_dir);
+			ssh.excuteCommand("cd " + target_dir + File.separator + system_name + File.separator + target_path);
 			ssh.excuteCommand("rm -r " + FilenameUtils.getBaseName(deployTask.getSource_file()));
 
-			ssh.excuteCommand("cd /was/" + deployServer.getSystem_name() + "/bin");
+			ssh.excuteCommand("cd /var/was/" + system_name + "/bin");
 			ssh.excuteCommand("./startup.sh");
 
 			ssh.excuteCommand("exit");
@@ -72,11 +75,12 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 		String os_name = "Linux";
 		String system_name = "cbms";
 		String source_dir = "target";
-		String target_dir = "/was/" + system_name + "/webapps";
+		String target_dir = "/var/was";
+		String target_path = "webapps";
 		String source_file = "v1#" + system_name + ".war";
 
-		String server_ip = "112.217.207.164";
-		int server_port = 20022;
+		String server_ip = "192.168.1.33";
+		int server_port = 22;
 		String user_id = "oracle";
 		String user_pw = "nemustech";
 
@@ -87,14 +91,16 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 
 			// 배포 및 WAS 재가동
 			TomcatSSHDeployTask task = new TomcatSSHDeployTask();
+			task.setSystem_name(system_name);
+			task.setSystem_name(system_name);
 			task.setSource_dir(source_dir);
 			task.setTarget_dir(target_dir);
+			task.setTarget_path(target_path);
 			task.setSource_file(source_file);
 
 			DeployServer deployServer = new DeployServer();
 			deployServer.setDeploy_yn(true);
 			deployServer.setOs_name(os_name);
-			deployServer.setSystem_name(system_name);
 			deployServer.setServer_ip(server_ip);
 			deployServer.setServer_port(server_port);
 			deployServer.setUser_id(user_id);
@@ -108,7 +114,6 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 			deployServer = new DeployServer();
 			deployServer.setDeploy_yn(true);
 			deployServer.setOs_name(os_name);
-			deployServer.setSystem_name(system_name);
 			deployServer.setServer_ip(server_ip);
 			deployServer.setUser_id(user_id);
 			deployServer.setUser_pw(user_pw);

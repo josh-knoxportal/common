@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.nemustech.common.annotation.TransactionalException;
@@ -57,18 +56,32 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	 */
 	protected Cache cache;
 
+	/**
+	 * 캐쉬 관리자
+	 */
 	@Autowired
 	protected CacheManager cacheManager;
 
+	/**
+	 * ORM 관리자
+	 */
 	@Autowired
 	protected EntityManager entityManager;
 
+	/**
+	 * 파일 저장소
+	 */
 	@Autowired
 	protected FileStorage fileStorage;
 
-	@Lazy
-	@Autowired
+	/**
+	 * 파일 서비스
+	 */
 	protected FilesService fileService;
+
+	public FilesService getFileService() {
+		return null;
+	}
 
 	/**
 	 * DBMS 벤더별 문자열 날짜표현을 구한다.
@@ -104,6 +117,9 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		if (cacheName != null) {
 			cache = cacheManager.getCache(cacheName);
 		}
+
+		// 파일 서비스
+		fileService = getFileService();
 	}
 
 	/**
@@ -232,7 +248,9 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		if (Utils.isValidate(id))
 			result = id;
 
-		insertFile(model, files);
+		// 파일 생성
+//		if (!(model instanceof Files))
+//			insertFile(model, files);
 
 		if (cache != null) {
 			cache.clear();
@@ -279,16 +297,23 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	@Override
 	@TransactionalException
 	public int update(T model, List<Files> files) throws Exception {
+		int result = 0;
+
+		// 파일 수정
+//		if (!(model instanceof Files)) {
+//			String condition = model.getCondition();
+//			model = (T) model.getClass().newInstance();
+//			model.setCondition(condition);
+//			updateFile(model, files);
+//		}
+
 		model = setDefaultModifyDate(model);
 
-		int result = 0;
 		if (getMapper() == null) {
 			result = entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 		} else {
 			result = getMapper().update(model);
 		}
-
-		updateFile(model, files);
 
 		if (cache != null) {
 			cache.clear();
@@ -320,9 +345,18 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	}
 
 	@Override
-	@TransactionalException
 	public int delete(T model) throws Exception {
+		return delete(model, new ArrayList<Files>());
+	}
+
+	@TransactionalException
+	public int delete(T model, List<Files> files) throws Exception {
 		int result = 0;
+
+		// 파일 삭제
+//		if (!(model instanceof Files))
+//			deleteFile(model, files);
+
 		if (getMapper() == null) {
 			result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 		} else {
@@ -333,8 +367,6 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 			cache.clear();
 		}
 
-		deleteFile(model);
-
 		return result;
 	}
 
@@ -344,6 +376,10 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		int result = 0;
 
 		for (T model : models) {
+			// 파일 삭제
+//			if (!(model instanceof Files))
+//				deleteFile(model);
+
 			if (getMapper() == null) {
 				result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 			} else {
@@ -442,7 +478,7 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	 */
 	protected List<Object> insertFile(T model, List<Files> files) throws Exception {
 		for (Files file : files) {
-			file.setFile_path(fileStorage.save(file));
+			file.setPath(fileStorage.save(file));
 		}
 
 		return fileService.insert(files);
@@ -461,6 +497,8 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	 * @throws Exception
 	 */
 	protected List<Object> updateFile(T model, List<Files> files) throws Exception {
+		deleteFile(model, files);
+
 		return insertFile(model, files);
 	}
 
@@ -473,9 +511,10 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 	 * </pre>
 	 * 
 	 * @param model
+	 * @param files
 	 * @throws Exception
 	 */
-	protected int deleteFile(T model) throws Exception {
+	protected int deleteFile(T model, List<Files> files) throws Exception {
 		return 0;
 	}
 }

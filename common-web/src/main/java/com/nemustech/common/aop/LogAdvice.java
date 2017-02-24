@@ -29,6 +29,7 @@ public class LogAdvice {
 		StringBuilder sb = new StringBuilder();
 		for (Object arg : joinPoint.getArgs()) {
 			sb.append("{\"" + arg.getClass().getSimpleName() + "\":");
+//			if (RequestBody.class.isInstance(arg)) {
 			if (arg instanceof Default) {
 				sb.append(StringUtil.toStringRecursiveJson(arg, "conditionObj"));
 			} else {
@@ -37,7 +38,7 @@ public class LogAdvice {
 			sb.append("} ");
 		}
 
-		log.debug(format("INPUT", "[" + toShortString(signature) + "] " + sb.toString()));
+		log.debug(format("INPUT", "[" + toString(signature) + "] " + sb.toString()));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
@@ -46,7 +47,7 @@ public class LogAdvice {
 
 		Signature signature = joinPoint.getSignature();
 
-		log.trace(format("OUTPUT", "[" + toShortString(signature) + "] " + StringUtil.toStringRecursiveJson(result)));
+		log.trace(format("OUTPUT", "[" + toString(signature) + "] " + StringUtil.toStringRecursiveJson(result)));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {
@@ -55,7 +56,7 @@ public class LogAdvice {
 
 		Signature signature = joinPoint.getSignature();
 
-		log.error(format("ERROR", "[" + toShortString(signature) + "]"), ex);
+		log.error(format("ERROR", "[" + toString(signature) + "]"), ex);
 	}
 
 	public void after(JoinPoint joinPoint) {

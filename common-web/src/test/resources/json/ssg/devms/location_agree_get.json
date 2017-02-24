@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/devms/location_agree.do?package_name=test&device_id=123&user_id=-&agree_yn=Y",
+	"url":"http://localhost:8080/v1/devms/location_agree.do?package_name=test&device_id=123&user_id=-&agree_yn=Y",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

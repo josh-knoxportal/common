@@ -9,18 +9,24 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import com.nemustech.WebApplication;
-import com.nemustech.common.file.Files;
-import com.nemustech.common.service.FilesService;
-import com.nemustech.common.storage.FileStorage;
-import com.nemustech.sample.model.Sample;
-import com.nemustech.sample.service.SampleService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import com.nemustech.WebApplication;
+import com.nemustech.common.file.Files;
+import com.nemustech.common.model.Default;
+import com.nemustech.common.service.FilesService;
+import com.nemustech.common.storage.FileStorage;
+import com.nemustech.common.util.JsonUtil2;
+import com.nemustech.common.util.MapperUtils;
+import com.nemustech.sample.model.Files2;
+import com.nemustech.sample.model.Sample;
+import com.nemustech.sample.model.SampleAndFiles;
+import com.nemustech.sample.service.SampleAndFilesService;
+import com.nemustech.sample.service.SampleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
@@ -43,6 +49,9 @@ public class ServiceTest {
 	 */
 	@Autowired
 	protected SampleService sampleService;
+
+	@Autowired
+	protected SampleAndFilesService sampleAndFilesService;
 
 	/**
 	 * 파일 서비스
@@ -74,16 +83,7 @@ public class ServiceTest {
 	}
 
 //	@Test
-	public void t11_list() throws Exception {
-		Sample model = new Sample();
-		model.setId(1L);
-
-		List<Sample> result = sampleService.list(model);
-		System.out.println("result: " + result);
-	}
-
-//	@Test
-	public void t12_insert() throws Exception {
+	public void t11_insert() throws Exception {
 		Sample model = new Sample();
 		model.setName("s1");
 		model.setTest_id(3L);
@@ -99,7 +99,7 @@ public class ServiceTest {
 	}
 
 //	@Test
-	public void t13_inserts() throws Exception {
+	public void t12_inserts() throws Exception {
 		Sample model = new Sample();
 		model.setName("s1");
 		model.setTest_id(3L);
@@ -111,10 +111,26 @@ public class ServiceTest {
 	}
 
 //	@Test
+	public void t13_list() throws Exception {
+//		Sample model = new Sample();
+//		model.setCondition("name = 's1'");
+//
+//		List<Sample> result = sampleService.list(model);
+//		System.out.println("result: " + result);
+		Sample sample = new Sample();
+		Files2 files = new Files2();
+		SampleAndFiles model = new SampleAndFiles(sample, files);
+		model.addCondition("sample_.name = 's1'");
+
+		List<SampleAndFiles> list = sampleAndFilesService.list(model);
+		List<Default> list2 = MapperUtils.convertModels(list, "filesSet");
+		System.out.println("list: " + JsonUtil2.toStringPretty(list2));
+	}
+
+	@Test
 	public void t14_update() throws Exception {
 		Sample model = new Sample();
-		model.setId(471L);
-		model.setName("s1");
+		model.setCondition("name = 's1'");
 		model.setMod_id("2");
 
 		Files files = new Files("2.txt", "2".getBytes());
@@ -128,7 +144,7 @@ public class ServiceTest {
 //	@Test
 	public void t15_delete() throws Exception {
 		Sample model = new Sample();
-		model.setId(471L);
+		model.setName("s1");
 
 		Object result = sampleService.delete(model);
 		System.out.println("result: " + result);
@@ -142,7 +158,7 @@ public class ServiceTest {
 //	@Test
 	public void t31_list() throws Exception {
 		Files model = new Files();
-		model.setId("201610061204378114BNFL");
+		model.setName("2.txt");
 
 		List<Files> result = filesService.list(model);
 		System.out.println("result: " + result);

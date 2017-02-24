@@ -20,9 +20,9 @@ String[] system_names = [
 
 
 String[] server_ips = [
-	"112.217.207.164"
+	"192.168.1.33"
 ];
-int server_port = 20022;
+int server_port = 22;
 String user_id = "oracle";
 String user_pw = "nemustech";
 

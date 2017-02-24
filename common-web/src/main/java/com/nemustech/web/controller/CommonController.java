@@ -21,6 +21,7 @@ import org.mybatisorm.annotation.handler.TableHandler;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,7 +51,7 @@ import com.nemustech.web.util.ValidationUtil;
  * @author skoh
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
-//@Controller
+@Controller
 public abstract class CommonController<T extends Default> implements InitializingBean {
 	protected Log log = LogFactory.getLog(getClass());
 
@@ -338,12 +339,17 @@ public abstract class CommonController<T extends Default> implements Initializin
 		}
 		mav.addObject("columnList", columnList);
 
-		// 시퀀스
+		// Sequence
 		KeyValue sequence = ORMUtil.getSequence(clazz);
 		mav.addObject("sequence", sequence);
 
+		// AutoIncrement
+		String autoIncrement = ORMUtil.getAutoIncrement(clazz);
+		mav.addObject("autoIncrement", autoIncrement);
+
 		// 신규 컬럼 리스트 (INSERT)
-		List<KeyValue> createColumnList = columnList = ORMUtil.getCreateColumnList(clazz);
+		List<KeyValue> createColumnList = (sequence != null || autoIncrement == null)
+				? ORMUtil.getCreateColumnList(clazz) : ORMUtil.getCreateColumnList(clazz, true);
 		mav.addObject("createColumnList", createColumnList);
 
 		// 수정 컬럼 리스트 (UPDATE)

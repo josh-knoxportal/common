@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/mms/map_reset.do",
+	"url":"http://192.168.1.33/v1/mms/map_reset.do",
 	"method":"GET",
 	"list":[
 		{

@@ -59,6 +59,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/company_get2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/names_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/prev_branch_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/cbms/reset_get.json"));
 
@@ -91,12 +92,13 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_updates_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_deletes_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get2.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_get3.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/rount_log_count_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post2.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post21.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post22.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/getDailyZoneVisitStats_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post4.json"));
 

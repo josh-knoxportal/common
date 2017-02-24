@@ -68,8 +68,8 @@ public class SSHUtil extends TelnetUtil {
 	}
 
 	public static void main(String[] arg) throws Exception {
-		String server = "112.217.207.164";
-		int port = 20022;
+		String server = "192.168.1.33";
+		int port = 22;
 		String userName = "oracle";
 		String password = "nemustech";
 		String os_name = "Linux";

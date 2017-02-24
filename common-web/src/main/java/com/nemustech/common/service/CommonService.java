@@ -141,7 +141,7 @@ public interface CommonService<T extends Default> {
 	public Object insert(T model) throws Exception;
 
 	/**
-	 * 공통 등록
+	 * 공통 파일 등록
 	 * 
 	 * @param model 모델
 	 * @param files 파일 리스트
@@ -169,7 +169,7 @@ public interface CommonService<T extends Default> {
 	public int update(T model) throws Exception;
 
 	/**
-	 * 공통 수정
+	 * 공통 파일 수정
 	 * 
 	 * @param model 모델
 	 * @param files 파일 리스트
@@ -195,6 +195,16 @@ public interface CommonService<T extends Default> {
 	 * @throws Exception
 	 */
 	public int delete(T model) throws Exception;
+
+	/**
+	 * 공통 파일 삭제
+	 * 
+	 * @param model
+	 * @param files
+	 * @return
+	 * @throws Exception
+	 */
+	public int delete(T model, List<Files> files) throws Exception;
 
 	/**
 	 * 공통 리스트 삭제

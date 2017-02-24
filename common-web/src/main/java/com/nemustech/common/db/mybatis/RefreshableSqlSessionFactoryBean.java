@@ -39,7 +39,7 @@ public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean impl
 	protected static final Log log = LogFactory.getLog(RefreshableSqlSessionFactoryBean.class);
 
 	protected SqlSessionFactory proxy;
-	protected int interval = 1000; // 1초
+	protected int interval = 3000; // 3초
 	protected Timer timer;
 	protected TimerTask task;
 	protected Resource configLocation;

@@ -35,7 +35,7 @@
 // 												'79E5F0BA4352C7D23BAF36618DF605E881E458BB0B803BF49E4DA8DE75741BEC23A28F0E795FCFA36FE7F89E573C6C05AB4D5738EA15D8511C4B4301095E5995B1E12ED670A78BC3AA014DECB98F30B2AD3F26BBBF510E9AF5A39D1D094DD1FDC381A7A05DB1C59D11A9B2AAC0231F30FDE8ACABD0A42DD948E997BDC6CB44C4');
 // 								request.setRequestHeader('request_type', '1');
 // 							},
-// 							url : "http://localhost:8080/v1/mms/rssi.do",
+// 							url : "http://localhost/v1/mms/rssi.do",
 // 							dataType : "jsonp",
 // 							jsonpCallback : "callback",
 // 							crossDomain : true,

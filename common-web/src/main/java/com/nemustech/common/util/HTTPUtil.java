@@ -121,7 +121,7 @@ public abstract class HTTPUtil {
 		Map<String, byte[]> fileMap = new HashMap<String, byte[]>();
 		if (filesList != null) {
 			for (Files files : filesList) {
-				fileMap.put(files.getFile_name(), files.getFile_bytes());
+				fileMap.put(files.getName(), files.getBytes());
 			}
 		}
 
@@ -238,7 +238,7 @@ public abstract class HTTPUtil {
 					"Download bytes from url \"" + url + "\", file \"" + fileName + "\" error", e.getMessage()), e);
 		}
 
-		return attch.getFile_bytes();
+		return attch.getBytes();
 	}
 
 	// //////////////////////////////////////////////////////////////////////////
@@ -534,7 +534,7 @@ public abstract class HTTPUtil {
 			for (Files files : filesList) {
 //				multipartEntity.addPart(files.getFile_name(),
 //						new ByteArrayBody(files.getFile_bytes(), files.getFile_name()));
-				builder.addPart("file", new ByteArrayBody(files.getFile_bytes(), files.getFile_name()));
+				builder.addPart("file", new ByteArrayBody(files.getBytes(), files.getName()));
 			}
 
 //			httpPost.setEntity(multipartEntity);
@@ -608,7 +608,7 @@ public abstract class HTTPUtil {
 //		String url = "https://appstore.dongwha-mh.com/NSG/upload"; // 운영
 //		Map<String, Object> result = upload(url, convertFileArrayToList("test/test.zip", "test/test1.zip"));
 
-//		String url = "http://localhost:8080/common/upload";
+//		String url = "http://localhost/common/upload";
 //		List<NameValuePair> params = new ArrayList<NameValuePair>();
 //		params.add(new BasicNameValuePair("skoh", "테스트"));
 //		url = convertObjectToURI(url, params); // GET

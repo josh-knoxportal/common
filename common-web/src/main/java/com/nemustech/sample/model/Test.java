@@ -17,9 +17,9 @@ import com.nemustech.common.page.Paging;
  *  ,name VARCHAR(100)
  *  ,sample_id INT(20) NOT NULL
  *  ,reg_id VARCHAR(100) NOT NULL
- *  ,reg_dt VARCHAR(14) DEFAULT DATE_FORMAT (NOW(), '%Y%m%d%H%i%s') NOT NULL
+ *  ,reg_dt VARCHAR(14) NOT NULL
  *  ,mod_id VARCHAR(100) NOT NULL
- *  ,mod_dt VARCHAR(14) DEFAULT DATE_FORMAT (NOW(), '%Y%m%d%H%i%s') NOT NULL
+ *  ,mod_dt VARCHAR(14) NOT NULL
  *  ,PRIMARY KEY
  * (
  *   id

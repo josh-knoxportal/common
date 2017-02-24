@@ -21,6 +21,11 @@ import com.nemustech.common.util.Utils;
  */
 public abstract class AbstractDeployTask extends Task {
 	/**
+	 * 시스템명
+	 */
+	protected String system_name = null;
+
+	/**
 	 * 소스경로
 	 */
 	protected String source_dir = null;
@@ -31,14 +36,19 @@ public abstract class AbstractDeployTask extends Task {
 	protected String source_file = null;
 
 	/**
-	 * 라이브러리파일
-	 */
-	protected String lib_path = null;
-
-	/**
 	 * 대상경로
 	 */
 	protected String target_dir = null;
+
+	/**
+	 * 대상패스
+	 */
+	protected String target_path = null;
+
+	/**
+	 * 라이브러리파일
+	 */
+	protected String lib_path = null;
 
 	/**
 	 * 업로드여부
@@ -60,6 +70,14 @@ public abstract class AbstractDeployTask extends Task {
 	 */
 	protected List<DeployServer> deployServerList = new ArrayList<DeployServer>();
 
+	public String getSystem_name() {
+		return this.system_name;
+	}
+
+	public void setSystem_name(String system_name) {
+		this.system_name = system_name;
+	}
+
 	public String getSource_dir() {
 		return this.source_dir;
 	}
@@ -76,20 +94,28 @@ public abstract class AbstractDeployTask extends Task {
 		this.source_file = source_file;
 	}
 
-	public String getLib_path() {
-		return lib_path;
-	}
-
-	public void setLib_path(String lib_path) {
-		this.lib_path = lib_path;
-	}
-
 	public String getTarget_dir() {
 		return this.target_dir;
 	}
 
 	public void setTarget_dir(String target_dir) {
 		this.target_dir = target_dir;
+	}
+
+	public String getTarget_path() {
+		return target_path;
+	}
+
+	public void setTarget_path(String target_path) {
+		this.target_path = target_path;
+	}
+
+	public String getLib_path() {
+		return lib_path;
+	}
+
+	public void setLib_path(String lib_path) {
+		this.lib_path = lib_path;
 	}
 
 	public DeployServer getDeployServer(int index) {
@@ -139,8 +165,7 @@ public abstract class AbstractDeployTask extends Task {
 			validate();
 
 			for (DeployServer deployServer : deployServerList) {
-				title = "Target \"" + deployServer.getServer_ip() + "\" server \"" + deployServer.getSystem_name()
-						+ "\" system";
+				title = "Target \"" + deployServer.getServer_ip() + "\" server \"" + system_name + "\" system";
 
 				if (!deployServer.getDeploy_yn())
 					continue;
@@ -188,12 +213,16 @@ public abstract class AbstractDeployTask extends Task {
 	 * 유효성 검사
 	 */
 	protected void validate() throws BuildException {
-		if (!Utils.isValidate(source_dir))
+		if (!Utils.isValidate(system_name))
+			throw new BuildException("Required system_name attribute");
+		else if (!Utils.isValidate(source_dir))
 			throw new BuildException("Required source_dir attribute");
 		else if (!Utils.isValidate(source_file))
 			throw new BuildException("Required source_file attribute");
 		else if (!Utils.isValidate(target_dir))
 			throw new BuildException("Required target_dir attribute");
+		else if (!Utils.isValidate(target_path))
+			throw new BuildException("Required target_path attribute");
 	}
 
 	/**

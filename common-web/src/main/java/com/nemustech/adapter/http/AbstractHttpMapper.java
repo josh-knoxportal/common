@@ -213,8 +213,8 @@ public abstract class AbstractHttpMapper<T> implements IHttpMapper<T> {
 		}
 
 		for (Files files : filesList) {
-			multipartEntity.addPart(files.getFile_name(),
-					new ByteArrayBody(files.getFile_bytes(), files.getFile_name()));
+			multipartEntity.addPart(files.getName(),
+					new ByteArrayBody(files.getBytes(), files.getName()));
 		}
 
 		return body(request, multipartEntity);

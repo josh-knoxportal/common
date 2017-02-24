@@ -8,6 +8,7 @@
 
 	<typeAliases>
 		<typeAlias alias="sample" type="com.nemustech.sample.model.Sample" />
+		<typeAlias alias="files" type="com.nemustech.sample.model.Files2" />
 	</typeAliases>
 
 	<plugins>

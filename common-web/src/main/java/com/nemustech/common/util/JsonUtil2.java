@@ -634,6 +634,9 @@ public abstract class JsonUtil2 {
 	 * </pre>
 	 */
 	public static <T> T readValue(Object src, Class<T> valueType) throws CommonException {
+		if (!Utils.isValidate(src))
+			return null;
+
 		try {
 			T result = null;
 			if (src instanceof String)
@@ -669,6 +672,9 @@ public abstract class JsonUtil2 {
 	 * @throws CommonException
 	 */
 	public static <T> T readValue(String content, TypeReference valueTypeRef) throws CommonException {
+		if (!Utils.isValidate(content))
+			return null;
+
 		try {
 			return getObjectMapper().readValue(content, valueTypeRef);
 		} catch (Exception e) {

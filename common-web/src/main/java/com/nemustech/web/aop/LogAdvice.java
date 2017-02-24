@@ -11,9 +11,9 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nemustech.common.model.Default;
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.web.util.WebUtil;
 
@@ -24,7 +24,7 @@ import com.nemustech.web.util.WebUtil;
  */
 public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 	/**
-	 * Parameter, @RequestBody, HttpServletRequest, HttpSession 출력
+	 * Controller 클래스 출력 (Parameter, HttpServletRequest, HttpSession, Default 등)
 	 * 
 	 * @param method
 	 * @param args
@@ -46,7 +46,7 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 
 			for (Annotation paramAnno : paramAnnoss[i]) {
 				sb.append("{\"" + args[i].getClass().getSimpleName() + "\":");
-				if (RequestBody.class.isInstance(paramAnno)) {
+				if (paramAnno instanceof Default) {
 					sb.append(StringUtil.toStringRecursiveJson(args[i], "conditionObj"));
 				} else {
 					sb.append(StringUtil.toString(args[i]));
@@ -71,15 +71,15 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
 		if (anno == null) {
 			log.debug(
-					format("INPUT", "[" + toShortString(signature) + "] " + StringUtil.toString2(joinPoint.getArgs())));
+					format("INPUT", "[" + toString(signature) + "] " + StringUtil.toStringArray(joinPoint.getArgs())));
 		} else {
 			if (signature instanceof MethodSignature) {
 				Method method = ((MethodSignature) signature).getMethod();
 				anno = AnnotationUtils.findAnnotation(method, RequestMapping.class);
 				if (anno != null) {
 					log.debug(format("REQUEST", anno.toString()));
-					log.debug(format("INPUT",
-							"[" + toShortString(signature) + "] " + toString(method, joinPoint.getArgs())));
+					log.debug(
+							format("INPUT", "[" + toString(signature) + "] " + toString(method, joinPoint.getArgs())));
 				}
 			}
 		}

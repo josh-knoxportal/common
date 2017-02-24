@@ -34,11 +34,6 @@ public class DeployServer {
 	protected String user_pw = null;
 
 	/**
-	 * 시스템명
-	 */
-	protected String system_name = null;
-
-	/**
 	 * OS명 (Solaris, HP-UX, AIX, Linux, Mac, Microsoft)
 	 */
 	protected String os_name = null;
@@ -91,14 +86,6 @@ public class DeployServer {
 
 	public void setUser_pw(String user_pw) {
 		this.user_pw = user_pw;
-	}
-
-	public String getSystem_name() {
-		return this.system_name;
-	}
-
-	public void setSystem_name(String system_name) {
-		this.system_name = system_name;
 	}
 
 	public String getOs_name() {

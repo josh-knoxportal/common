@@ -12,17 +12,18 @@ import com.nemustech.common.util.Utils;
  * 
  * <pre>
  * -- Mysql
+ * -- DEFAULT DATE_FORMAT (NOW(), '%Y%m%d%H%i%s')
  * DROP TABLE IF EXISTS files;
  * CREATE TABLE files
  * (
- *  id VARCHAR(30) NOT NULL-- AUTO_INCREMENT
- *  ,file_name VARCHAR(100)
+ *  id VARCHAR(30) NOT NULL
+ *  ,name VARCHAR(100)
  *  ,file_size INT(27) NOT NULL
- *  ,file_path VARCHAR(100)
+ *  ,path VARCHAR(100)
  *  ,reg_id VARCHAR(100) NOT NULL
- *  ,reg_dt VARCHAR(14) DEFAULT DATE_FORMAT (NOW(), '%Y%m%d%H%i%s') NOT NULL
+ *  ,reg_dt VARCHAR(14) NOT NULL
  *  ,mod_id VARCHAR(100) NOT NULL
- *  ,mod_dt VARCHAR(14) DEFAULT DATE_FORMAT (NOW(), '%Y%m%d%H%i%s') NOT NULL
+ *  ,mod_dt VARCHAR(14) NOT NULL
  *  ,PRIMARY KEY
  * (
  *   id
@@ -33,9 +34,9 @@ import com.nemustech.common.util.Utils;
  * CREATE TABLE files
  * (
  *   id VARCHAR2(30) NOT NULL
- *  ,file_name VARCHAR2(100)
+ *  ,name VARCHAR2(100)
  *  ,file_size NUMBER(27) NOT NULL
- *  ,file_path VARCHAR(100)
+ *  ,path VARCHAR(100)
  *  ,doc_id VARCHAR2(30)
  *  ,reg_id VARCHAR2(100) NOT NULL
  *  ,reg_dt VARCHAR2(14) DEFAULT TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS') NOT NULL
@@ -55,20 +56,20 @@ public class Files extends Common {
 	/**
 	 * 아이디(PK)
 	 */
-	@Column(primaryKey = true, autoIncrement = true, sequence = "files_seq")
+	@Column(primaryKey = true)
 	protected String id;
 
 	/**
 	 * 파일 경로
 	 */
 	@Column
-	protected String file_path;
+	protected String path;
 
 	/**
 	 * 파일 이름
 	 */
 	@Column
-	protected String file_name;
+	protected String name;
 
 	/**
 	 * 파일 크기
@@ -79,29 +80,29 @@ public class Files extends Common {
 	/**
 	 * 파일 데이타
 	 */
-	protected byte[] file_bytes;
+	protected byte[] bytes;
 
 	public Files() {
 	}
 
-	public Files(String file_name, byte[] file_bytes) {
-		this(null, file_name, file_bytes);
+	public Files(String name, byte[] bytes) {
+		this(null, name, bytes);
 	}
 
-	public Files(String file_path, String file_name, byte[] file_bytes) {
-		this(null, file_path, file_name, file_bytes);
+	public Files(String path, String name, byte[] bytes) {
+		this(null, path, name, bytes);
 	}
 
-	public Files(String id, String file_path, String file_name, byte[] file_bytes) {
-		this(id, file_path, file_name, Utils.isValidate(file_bytes) ? (long) file_bytes.length : 0, file_bytes);
+	public Files(String id, String path, String name, byte[] bytes) {
+		this(id, path, name, Utils.isValidate(bytes) ? (long) bytes.length : 0, bytes);
 	}
 
-	public Files(String id, String file_path, String file_name, Long file_size, byte[] file_bytes) {
+	public Files(String id, String path, String name, Long file_size, byte[] bytes) {
 		this.id = Utils.isValidate(id) ? id : LocalFileStorage.generateUID();
-		this.file_path = file_path;
-		this.file_name = file_name;
+		this.path = path;
+		this.name = name;
 		this.file_size = file_size;
-		this.file_bytes = file_bytes;
+		this.bytes = bytes;
 	}
 
 	@Override
@@ -117,20 +118,20 @@ public class Files extends Common {
 		this.id = id;
 	}
 
-	public String getFile_path() {
-		return file_path;
+	public String getPath() {
+		return path;
 	}
 
-	public void setFile_path(String file_path) {
-		this.file_path = file_path;
+	public void setPath(String path) {
+		this.path = path;
 	}
 
-	public String getFile_name() {
-		return file_name;
+	public String getName() {
+		return name;
 	}
 
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Long getFile_size() {
@@ -141,16 +142,16 @@ public class Files extends Common {
 		this.file_size = file_size;
 	}
 
-	public byte[] getFile_bytes() {
-		return file_bytes;
+	public byte[] getBytes() {
+		return bytes;
 	}
 
-	public void setFile_bytes(byte[] file_bytes) {
-		this.file_bytes = file_bytes;
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
 	}
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toStringExclude(this, "file_bytes");
+		return ReflectionToStringBuilder.toStringExclude(this, "bytes");
 	}
 }

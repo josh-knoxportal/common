@@ -29,7 +29,7 @@
         'beforeSend':function(request){
         	request.setRequestHeader('abc', 3);
         },
-// 				url : "http://localhost:8080/test04.jsp",
+// 				url : "http://localhost/test04.jsp",
 // 				dataType : "json",
 				url : "http://127.0.0.1:8080/test04.jsp",
 				dataType : "jsonp",

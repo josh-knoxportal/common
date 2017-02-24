@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.mapper.CommonMapper;
+import com.nemustech.common.service.FilesService;
 import com.nemustech.common.service.impl.CommonServiceImpl;
 import com.nemustech.common.util.Utils;
 import com.nemustech.sample.Constants;
@@ -33,6 +34,11 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	@Lazy
 	@Autowired
 	protected Files2Service files2Service;
+
+	@Override
+	public FilesService getFileService() {
+		return files2Service;
+	}
 
 	@Override
 	public String getCacheName() {
@@ -98,7 +104,7 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	protected List<Object> insertFile(Sample model, List<Files> files) throws Exception {
 		List<Files2> filesList = new ArrayList<Files2>();
 		for (Files file : files) {
-			file.setFile_path(fileStorage.save(file));
+			file.setPath(fileStorage.save(file));
 
 			filesList.add(new Files2(file, getId(model).toString()));
 		}
@@ -109,17 +115,24 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	@Override
 	protected List<Object> updateFile(Sample model, List<Files> files) throws Exception {
 		if (Utils.isValidate(files)) {
-			deleteFile(model);
+			deleteFile(model, files);
 		}
 
 		return super.updateFile(model, files);
 	}
 
 	@Override
-	protected int deleteFile(Sample model) throws Exception {
-		Files2 files2 = new Files2();
-		files2.addCondition("doc_id = '" + getId(model) + "'");
+	protected int deleteFile(Sample model, List<Files> files) throws Exception {
+		int result = 0;
 
-		return files2Service.delete(files2);
+		List<Sample> list = list(model);
+		for (Sample sample : list) {
+			Files2 files2 = new Files2();
+			files2.addCondition("doc_id = '" + sample.getId() + "'");
+
+			result += files2Service.delete(files2);
+		}
+
+		return result;
 	}
 }

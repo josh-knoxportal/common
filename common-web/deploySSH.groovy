@@ -8,8 +8,8 @@ String source_dir = "target";
 String target_dir = "/was/" + system_name + "/webapps";
 String source_file = "v1#" + system_name + ".war";
 
-String server_ip = "112.217.207.164";
-int server_port = 20022;
+String server_ip = "192.168.1.33";
+int server_port = 22;
 String user_id = "oracle";
 String user_pw = "nemustech";
 

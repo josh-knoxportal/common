@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.StandardToStringStyle;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.nemustech.common.util.Tokenizer.Token;
 
@@ -1305,30 +1306,53 @@ public abstract class StringUtil extends StringUtils {
 	public static String toString(Object object, String... excludeFieldNamesParam) {
 		object = convertArray(object);
 
-		StandardToStringStyle style = new StandardToStringStyle();
-		style.setUseIdentityHashCode(false);
+		ToStringStyle style = new StandardToStringStyle2();
 
 		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
 	}
 
 	/**
-	 * 객체 배열을 문자열로 변환한다.
+	 * 객체의 값만 문자열로 구한다.
 	 * 
-	 * @param objs
+	 * @param object
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * @return
 	 */
-	public static String toString2(Object... objs) {
+	public static String toStringValue(Object object, String... excludeFieldNamesParam) {
+		object = convertArray(object);
+
+		StandardToStringStyle style = new StandardToStringStyle();
+		style.setUseClassName(false);
+		style.setUseIdentityHashCode(false);
+		style.setUseFieldNames(false);
+		style.setContentStart("");
+		style.setContentEnd("");
+		style.setArrayStart("");
+		style.setArrayEnd("");
+		style.setNullText("");
+
+		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
+	}
+
+	/**
+	 * 객체 배열을 내부까지 문자열로 변환한다.
+	 * 
+	 * @param objs
+	 * @param excludeFieldNamesParam
+	 * @return
+	 */
+	public static String toStringArray(Object[] objs, String... excludeFieldNamesParam) {
 		if (objs == null || objs.length == 0)
 			return "[]";
 
-		StandardToStringStyle style = new StandardToStringStyle();
-		style.setUseIdentityHashCode(false);
+		ToStringStyle style = new StandardToStringStyle2();
 
 		StringBuilder sb = new StringBuilder("[");
 		for (int i = 0; i < objs.length; i++) {
 			objs[i] = convertArray(objs[i]);
 
-			sb.append(ReflectionToStringBuilder.toString(objs[i], style));
+			sb.append(new ReflectionToStringBuilder(objs[i], style).setExcludeFieldNames(excludeFieldNamesParam)
+					.toString());
 			if (i == objs.length - 1) {
 				sb.append("]");
 			} else {
@@ -1340,7 +1364,7 @@ public abstract class StringUtil extends StringUtils {
 	}
 
 	/**
-	 * 객체 멤버 내부까지 탐색한다.
+	 * 객체 내부까지 문자열로 변환한다.
 	 * 
 	 * @param object
 	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
@@ -1351,10 +1375,6 @@ public abstract class StringUtil extends StringUtils {
 
 		return new ReflectionToStringBuilder(object, new RecursiveToStringStyle2())
 				.setExcludeFieldNames(excludeFieldNamesParam).toString();
-	}
-
-	public static String toStringRecursiveJsonPretty(Object object, String... excludeFieldNamesParam) {
-		return JsonUtil2.toStringPretty(toStringRecursiveJson(object, excludeFieldNamesParam));
 	}
 
 	/**
@@ -1376,26 +1396,14 @@ public abstract class StringUtil extends StringUtils {
 	}
 
 	/**
-	 * 값만 문자열로 구한다.
+	 * 객체 내부까지 포매팅한 JSON 형태의 문자열로 변환한다.
 	 * 
 	 * @param object
-	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
+	 * @param excludeFieldNamesParam
 	 * @return
 	 */
-	public static String toStringValue(Object object, String... excludeFieldNamesParam) {
-		object = convertArray(object);
-
-		StandardToStringStyle style = new StandardToStringStyle();
-		style.setUseClassName(false);
-		style.setUseIdentityHashCode(false);
-		style.setUseFieldNames(false);
-		style.setContentStart("");
-		style.setContentEnd("");
-		style.setArrayStart("");
-		style.setArrayEnd("");
-		style.setNullText("");
-
-		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
+	public static String toStringRecursiveJsonPretty(Object object, String... excludeFieldNamesParam) {
+		return JsonUtil2.toStringPretty(toStringRecursiveJson(object, excludeFieldNamesParam));
 	}
 
 	/**
@@ -1431,6 +1439,17 @@ public abstract class StringUtil extends StringUtils {
 		}
 
 		return object;
+	}
+
+	/**
+	 * StandardToStringStyle 객체 재정의
+	 */
+	protected static class StandardToStringStyle2 extends StandardToStringStyle {
+		public StandardToStringStyle2() {
+			super();
+
+			setUseIdentityHashCode(false);
+		}
 	}
 
 	/**

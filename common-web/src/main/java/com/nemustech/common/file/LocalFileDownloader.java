@@ -31,11 +31,11 @@ public class LocalFileDownloader implements IFileDownloader {
 		byte[] bytes = null;
 
 		try {
-			fileName = filePath + File.separator + files.getFile_name();
+			fileName = filePath + File.separator + files.getName();
 			fis = new FileInputStream(fileName);
 			bytes = IOHelper.readToEnd(fis);
 
-			files.setFile_bytes(bytes);
+			files.setBytes(bytes);
 		} catch (IOException e) {
 			log.error("IOException > ", e);
 			log.trace("Throw IOException!");
@@ -47,7 +47,7 @@ public class LocalFileDownloader implements IFileDownloader {
 
 		files.setFile_size((long) bytes.length);
 
-		log.trace("  > RV(files.size): " + files.getFile_size());
+		log.trace("  > RV(file_size): " + files.getFile_size());
 		log.trace("End::download()");
 
 		return files;

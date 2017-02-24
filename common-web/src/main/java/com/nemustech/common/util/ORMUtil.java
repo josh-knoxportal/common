@@ -69,19 +69,29 @@ public abstract class ORMUtil {
 
 		return getSequence(field);
 	}
+	
+
+	public static <T> List<KeyValue> getCreateColumnList(Class<T> clazz) {
+		return getCreateColumnList(clazz, false);
+	}
 
 	/**
 	 * 신규 컬럼 리스트 <컬럼명, (#{필드명} | 기본값)>
 	 * 
 	 * @param clazz
+	 * @param primaryKey
 	 * @return
 	 */
-	public static <T> List<KeyValue> getCreateColumnList(Class<T> clazz) {
+	public static <T> List<KeyValue> getCreateColumnList(Class<T> clazz, boolean excludePrimaryKey) {
 		List<KeyValue> list = new ArrayList<KeyValue>();
 
 		List<Field> fieldList = getColumnFieldList(clazz);
 		for (Field field : fieldList) {
 			Column column = field.getAnnotation(Column.class);
+			if (excludePrimaryKey && column.primaryKey()) {
+				continue;
+			}
+
 			String columnName = ("".equals(column.value())) ? field.getName() : column.value();
 			String defaultValue = column.defaultValue();
 

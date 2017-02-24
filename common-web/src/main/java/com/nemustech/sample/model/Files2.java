@@ -2,6 +2,7 @@ package com.nemustech.sample.model;
 
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
+
 import com.nemustech.common.file.Files;
 
 @Table("files")
@@ -20,13 +21,12 @@ public class Files2 extends Files {
 	}
 
 	public Files2(Files files, String doc_id) {
-		super(files.getId(), files.getFile_path(), files.getFile_name(), files.getFile_size(), files.getFile_bytes());
+		super(files.getId(), files.getPath(), files.getName(), files.getFile_size(), files.getBytes());
 
 		reg_id = files.getReg_id();
 		mod_id = files.getMod_id();
 
 		this.doc_id = doc_id;
-
 	}
 
 	public String getDoc_id() {

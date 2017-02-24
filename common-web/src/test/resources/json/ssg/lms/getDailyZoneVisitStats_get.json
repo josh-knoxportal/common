@@ -1,8 +1,7 @@
 {
-	"url":"http://localhost:8080/v1/lms/verify/select.do?fields=ALTER&table=TABLE route_log_20160920 ADD (upd_date DATE, validity NUMBER(9) DEFAULT 1, server_ip VARCHAR2(50))",
+	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/getDailyZoneVisitStats.do?srchStartDay=20170201&srchEndDay=20170201&srchPeriodOpt=3&srchCompanyId=14112&srchBrandId=14113&srchBranchId=43872&srchFloorId=0&srchZoneIdList=",
 	"method":"GET",
 	"responseFormat":"JSON",
-	"convertBody":true,
 	"list":[
 		{
 			"headers":{
@@ -10,7 +9,6 @@
 				"request_type":"1"
 			},
 			"params":{
-				
 			}
 		}
 	]

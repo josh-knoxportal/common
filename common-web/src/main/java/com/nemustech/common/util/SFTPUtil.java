@@ -75,7 +75,7 @@ public class SFTPUtil {
 	public void list(String targetPath) throws SftpException {
 		LogUtil.writeLog("[Print file] " + targetPath, getClass());
 
-		Vector<ChannelSftp.LsEntry> files = channelSftp.ls(targetPath);
+		Vector<ChannelSftp.LsEntry> files = ls(targetPath);
 		for (ChannelSftp.LsEntry file : files) {
 			LogUtil.writeLog(file, getClass());
 		}
@@ -83,8 +83,7 @@ public class SFTPUtil {
 
 	public void backup(String targetPath) throws SftpException {
 		String targetDir = FilenameUtils.getFullPathNoEndSeparator(targetPath);
-		Vector<ChannelSftp.LsEntry> files = channelSftp.ls(targetPath);
-
+		Vector<ChannelSftp.LsEntry> files = ls(targetPath);
 		for (ChannelSftp.LsEntry file : files) {
 			if (file.getAttrs().isDir())
 				continue;
@@ -97,7 +96,7 @@ public class SFTPUtil {
 		LogUtil.writeLog("[Remove file] " + targetPath, getClass());
 
 		String targetDir = FilenameUtils.getFullPath(targetPath);
-		Vector<ChannelSftp.LsEntry> files = channelSftp.ls(targetPath);
+		Vector<ChannelSftp.LsEntry> files = ls(targetPath);
 		for (ChannelSftp.LsEntry file : files) {
 			if (file.getAttrs().isDir())
 				try {
@@ -130,8 +129,7 @@ public class SFTPUtil {
 
 	public void download(String sourceDir, String targetPath) throws IOException, SftpException {
 		String targetDir = FilenameUtils.getFullPathNoEndSeparator(targetPath);
-		Vector<ChannelSftp.LsEntry> files = channelSftp.ls(targetPath);
-
+		Vector<ChannelSftp.LsEntry> files = ls(targetPath);
 		for (ChannelSftp.LsEntry file : files) {
 			if (file.getAttrs().isDir())
 				continue;
@@ -149,11 +147,7 @@ public class SFTPUtil {
 	protected void _backup(String targetFile) {
 		LogUtil.writeLog("[Backup file] " + targetFile, getClass());
 
-		try {
-			channelSftp.rename(targetFile, targetFile + "_" + StringUtil.getDateTimeHypen());
-		} catch (SftpException e) {
-			LogUtil.writeLog(e, getClass());
-		}
+		rename(targetFile, targetFile + "_" + StringUtil.getDateTimeHypen());
 	}
 
 	protected void _upload(String sourcePath, String targetDir)
@@ -195,29 +189,62 @@ public class SFTPUtil {
 		LogUtil.writeLog(" [Download complete]", getClass());
 	}
 
+	/**
+	 * No such file 에러는 pass
+	 * 
+	 * @param filePath
+	 * @return
+	 */
+	protected Vector<ChannelSftp.LsEntry> ls(String filePath) {
+		try {
+			return channelSftp.ls(filePath);
+		} catch (SftpException e) {
+			LogUtil.writeLog(filePath + " : " + e.getMessage(), getClass());
+			return new Vector();
+		}
+	}
+
+	/**
+	 * No such file 에러는 pass
+	 * 
+	 * @param sourceFile
+	 * @param targetFile
+	 */
+	protected void rename(String sourceFile, String targetFile) {
+		try {
+			channelSftp.rename(sourceFile, targetFile);
+		} catch (SftpException e) {
+			LogUtil.writeLog(sourceFile + ", " + targetFile + " : " + e.getMessage(), getClass());
+		}
+	}
+
 	public static void main(String[] args) throws Exception {
 		SFTPUtil ftp = null;
 		try {
-			String server = "112.217.207.164";
-			String userName = "oracle";
-			String password = "nemustech";
+			String server = "192.168.1.38";
+			String userName = "hiserver";
+			String password = "spantmxpr";
 
+			String system_name = "ams";
 			String source_dir = "target";
-			String lib_path = "lib/SSG-LBS-Analyzer-Lib-assembly-0.1.3.jar";
-			String target_dir = "/was/ams/apps";
-			String fileName = "common-web-1.0.jar";
+			String lib_path = "lib/common-web-*.jar";
+			String target_dir = "/var/was";
+			String target_path = "apps";
+			String target_full_dir = target_dir + File.separator + system_name + File.separator + target_path;
+			String source_file = "common-web-1.0.jar";
 
-			ftp = new SFTPUtil(server, 20022, userName, password);
+			ftp = new SFTPUtil(server, 22, userName, password);
 
-//			ftp._backup(target_dir + File.separator + fileName);
-//			ftp._upload(source_dir + File.separator + fileName, target_dir);
-//			ftp._download(source_dir, target_dir + File.separator + fileName);
+			ftp._backup(target_full_dir + File.separator + source_file);
+			ftp._upload(source_dir + File.separator + source_file, target_full_dir);
+//			ftp._download(source_dir, target_full_dir + File.separator + fileName);
 
-			ftp.list(target_dir + File.separator + lib_path);
-//			ftp.backup(target_dir + File.separator + lib_path);
-//			ftp.remove(target_dir + File.separator + "*.jar");
-//			ftp.upload(source_dir + File.separator + "*.jar", target_dir);
-//			ftp.download(source_dir, target_dir + File.separator + "*.jar");
+//			ftp.list(target_full_dir + File.separator + lib_path);
+//			ftp.backup(target_full_dir + File.separator + lib_path);
+//			ftp.remove(target_full_dir + File.separator + "*.jar");
+//			String lib_dir = FilenameUtils.getFullPathNoEndSeparator(lib_path);
+//			ftp.upload(source_dir + File.separator + lib_path, target_full_dir + File.separator + lib_dir);
+//			ftp.download(source_dir, target_full_dir + File.separator + "*.jar");
 		} finally {
 			if (ftp != null)
 				ftp.disconnect();

@@ -7,5 +7,5 @@ import com.nemustech.common.file.Files;
  * 
  * @author skoh
  */
-public interface FilesService extends CommonService<Files> {
+public interface FilesService<T extends Files> extends CommonService<T> {
 }

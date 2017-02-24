@@ -1,5 +1,5 @@
 {
-	"url":"http://112.217.207.164:20080/v1/zcms/campaign_from_geo.do?req_zone_count=100&gps_lat=37.5600614&group_id=&gps_lng=126.9816629&xid=931189",
+	"url":"http://192.168.1.33/v1/zcms/campaign_from_geo.do?req_zone_count=100&gps_lat=37.5600614&group_id=&gps_lng=126.9816629&xid=931189",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

@@ -26,10 +26,12 @@
 	<!-- <property name="build_dir" value="${target_dir}/build" /> -->
 	<!-- <property name="classes_dir" value="${build_dir}/classes" /> -->
 	<property name="classes_dir" value="${target_dir}/classes" />
+
 	<property name="copy_dir_win" value="C:\dev\git\skoh-nemus\s-lbs-server\common-libs" />
 	<property name="copy_dir_etc" value="/Users/skoh/git/skoh-nemus/s-lbs-server/common-libs" />
-	<property name="copy_dir_win2" value="C:\dev\git\indoornow-v3\vertx-spring\lib" />
-	<property name="copy_dir_etc2" value="/Users/skoh/git/indoornow-v3/vertx-spring/lib" />
+
+	<property name="copy_dir_win2" value="C:\dev\git\indoornow-lginnotech\common-libs" />
+	<property name="copy_dir_etc2" value="/Users/skoh/git/indoornow-lginnotech/common-libs" />
 
 	<!-- <path id="classpath"> -->
 	<!-- <fileset dir="../../workspace_common/common-web/lib"> -->
@@ -85,15 +87,15 @@
 		<!-- <property name="copy_dir" value="${copy_dir_etc}" /> -->
 		<!-- </else> -->
 		<!-- </if> -->
-		<condition property="copy_dir" value="${copy_dir_win}" else="${copy_dir_etc}">
-			<os family="windows" />
-		</condition>
-		<delete>
-			<fileset dir="${copy_dir}" includes="${artifactId}*.jar" />
-		</delete>
-		<copy todir="${copy_dir}">
-			<fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" />
-		</copy>
+<!-- 		<condition property="copy_dir" value="${copy_dir_win}" else="${copy_dir_etc}"> -->
+<!-- 			<os family="windows" /> -->
+<!-- 		</condition> -->
+<!-- 		<delete> -->
+<!-- 			<fileset dir="${copy_dir}" includes="${artifactId}*.jar" /> -->
+<!-- 		</delete> -->
+<!-- 		<copy todir="${copy_dir}"> -->
+<!-- 			<fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" /> -->
+<!-- 		</copy> -->
 
 		<condition property="copy_dir2" value="${copy_dir_win2}" else="${copy_dir_etc2}">
 			<os family="windows" />

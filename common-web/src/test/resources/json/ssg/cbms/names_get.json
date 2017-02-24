@@ -1,5 +1,5 @@
 {
-	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do?fields=COUNT(1)&table=route_log_20160923&condition=validity IN (9)",
+	"url":"http://localhost:8080/v1/cbms/names.do?floor_id_list=1",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[
@@ -9,7 +9,6 @@
 				"request_type":"1"
 			},
 			"params":{
-				
 			}
 		}
 	]

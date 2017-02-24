@@ -2298,8 +2298,9 @@ public abstract class Utils {
 
 //		System.out.println(replace("a\bc", null, ""));
 
-//		int seconds = 60 * 60 * 2 + 60 * 3 + 13;
-//		System.out.println(convertSecToString(seconds));
+		int seconds = 3600 * 2 + 60 * 3 + 13;
+		System.out.println(seconds);
+		System.out.println(convertSecToString(seconds));
 
 //		StringBuilder sb = new StringBuilder("1234567890");
 //		System.out.println(sb.replace(4, 4, " ab "));

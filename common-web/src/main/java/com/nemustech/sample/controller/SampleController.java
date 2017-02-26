@@ -1,7 +1,6 @@
 package com.nemustech.sample.controller;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,13 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Response;
-import com.nemustech.common.page.PageNavigator;
 import com.nemustech.common.service.CommonService;
 import com.nemustech.common.util.Utils;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.Sample.Sample2;
 import com.nemustech.sample.service.SampleService;
-import com.nemustech.web.Constants;
 import com.nemustech.web.controller.CommonController;
 import com.nemustech.web.util.ValidationUtil;
 

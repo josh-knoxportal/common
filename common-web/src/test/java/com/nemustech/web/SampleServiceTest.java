@@ -34,7 +34,7 @@ import com.nemustech.sample.service.SampleService;
 @WebAppConfiguration
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ServiceTest {
+public class SampleServiceTest {
 	@Autowired
 	protected FileStorage fileStorage;
 

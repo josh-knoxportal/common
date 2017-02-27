@@ -116,6 +116,10 @@ public abstract class CommonController<T extends Default> implements Initializin
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
+	public ResponseEntity<Response<PageNavigator<T>>> page(Paging model, BindingResult errors) throws Exception {
+		return page(model, null, errors);
+	}
+
 	@RequestMapping(value = "/page" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<T>>> page(Paging model, @Valid Common common, BindingResult errors)
 			throws Exception {

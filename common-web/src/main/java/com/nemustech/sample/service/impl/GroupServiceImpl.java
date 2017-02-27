@@ -18,10 +18,10 @@ public class GroupServiceImpl extends CommonServiceImpl<Group> implements GroupS
 	@Autowired
 	protected GroupMapper mapper;
 
-	@Override
-	public CommonMapper<Group> getMapper() {
-		return mapper;
-	}
+//	@Override
+//	public CommonMapper<Group> getMapper() {
+//		return mapper;
+//	}
 
 	@Override
 	public String getCacheName() {

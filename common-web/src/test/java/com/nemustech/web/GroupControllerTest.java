@@ -33,28 +33,30 @@ public class GroupControllerTest {
 	@Autowired
 	protected GroupController groupController;
 
-	@Test
+//	@Test
 	public void t02_list() throws Exception {
 		Group group = new Group();
 		group.setName("s");
-//
+//		group.addCondition("name LIKE 's%'");
+//		group.setOrder_by("id DESC");
+
 		ResponseEntity<Response<List<Group>>> response = groupController.list(group,
 				new BeanPropertyBindingResult(group, "group"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t04_page() throws Exception {
 		Group group = new Group();
-		group.setName("s");
-		group.addCondition("name LIKE 's%'");
-		group.setOrder_by("id DESC");
+		group.setPage_number(1);
 
-		Page<Group> page = new Page<Group>(1);
+//		Page<Group> page = new Page<Group>(1);
 
-		ResponseEntity<Response<PageNavigator<Group>>> response = groupController.page(group, page,
+		ResponseEntity<Response<PageNavigator<Group>>> response = groupController.page(group,
 				new BeanPropertyBindingResult(group, "group"));
+//		ResponseEntity<Response<PageNavigator<Group>>> response = groupController.page(group, page,
+//				new BeanPropertyBindingResult(group, "group"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}

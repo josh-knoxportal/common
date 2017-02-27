@@ -35,6 +35,11 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	@Autowired
 	protected Files2Service files2Service;
 
+//	@Override
+//	public CommonMapper<Sample> getMapper() {
+//		return mapper;
+//	}
+
 	@Override
 	public FilesService getFileService() {
 		return files2Service;
@@ -43,11 +48,6 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	@Override
 	public String getCacheName() {
 		return Constants.CACHE_NAME;
-	}
-
-	@Override
-	public CommonMapper<Sample> getMapper() {
-		return mapper;
 	}
 
 //	@Override

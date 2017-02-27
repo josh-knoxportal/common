@@ -93,7 +93,7 @@ public class SampleControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t04_page() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");

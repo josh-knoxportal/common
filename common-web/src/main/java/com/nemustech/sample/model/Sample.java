@@ -32,6 +32,12 @@ import com.nemustech.common.page.Paging;
  *   id
  * )) CHARSET=utf8;
  * 
+ * -- Page
+ * SELECT reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
+ *   FROM sample
+ * ORDER BY id DESC
+ * LIMIT 0, 1
+ * 
  * -- Oracle
  * DROP TABLE sample CASCADE CONSTRAINTS PURGE;
  * CREATE TABLE sample
@@ -50,6 +56,14 @@ import com.nemustech.common.page.Paging;
  * DROP SEQUENCE sample_seq;
  * CREATE SEQUENCE sample_seq INCREMENT BY 1 START WITH 1;
  * 
+ * -- Page
+ * SELECT * FROM
+ *   (SELECT reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id, ROW_NUMBER() OVER (ORDER BY id DESC) rnum
+ *      FROM sample)
+ *  WHERE rnum BETWEEN 1 AND (1+1-1)
+ * ORDER BY rnum
+ *
+ * -- Join
  * SELECT 
  *     sample_.reg_id sample_reg_id,
  *     sample_.reg_dt sample_reg_dt,

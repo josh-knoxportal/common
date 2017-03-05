@@ -7,8 +7,8 @@
 	<!-- DataSource -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-<!-- 		<property name="url" value="jdbc:mysql://192.168.1.33:3306/xe?autoReconnect=true&amp;useSSL=false" /> -->
-		<property name="url" value="jdbc:mysql://localhost:3306/xe?autoReconnect=true&amp;useSSL=false" />
+		<property name="url" value="jdbc:mysql://192.168.1.33:3306/xe?autoReconnect=true&amp;useSSL=false" />
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3306/xe?autoReconnect=true&amp;useSSL=false" /> -->
 <!-- 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" /> -->
 <!-- 		<property name="url" value="jdbc:oracle:thin:@192.168.3.179:1521:xe" /> -->
 <!-- 		<property name="url" value="jdbc:oracle:thin:@192.168.1.33:3389:orcl" /> -->

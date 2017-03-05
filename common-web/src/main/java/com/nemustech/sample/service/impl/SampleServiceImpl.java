@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
-import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.service.impl.CommonServiceImpl;
 import com.nemustech.common.util.Utils;
@@ -18,6 +17,7 @@ import com.nemustech.sample.annotation.CacheEvictSample;
 import com.nemustech.sample.mapper.SampleMapper;
 import com.nemustech.sample.model.Files2;
 import com.nemustech.sample.model.Sample;
+import com.nemustech.sample.model.Sample.Sample2;
 import com.nemustech.sample.service.Files2Service;
 import com.nemustech.sample.service.SampleService;
 
@@ -134,5 +134,15 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 		}
 
 		return result;
+	}
+
+	@Override
+	public List<Sample> list3(Sample2 model) throws Exception {
+		model.setSql_name("list3");
+		model.setHint("DISTINCT");
+		model.setFields("id, name");
+		model.setOrder_by("id DESC");
+
+		return list(model);
 	}
 }

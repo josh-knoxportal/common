@@ -1,7 +1,10 @@
 package com.nemustech.sample.service;
 
+import java.util.List;
+
 import com.nemustech.common.service.CommonService;
 import com.nemustech.sample.model.Sample;
+import com.nemustech.sample.model.Sample.Sample2;
 
 /**
  * 샘플 서비스
@@ -74,4 +77,6 @@ public interface SampleService extends CommonService<Sample> {
 	 * @return int
 	 */
 	public int merge(Sample sample) throws Exception;
+
+	public List<Sample> list3(Sample2 model) throws Exception;
 }

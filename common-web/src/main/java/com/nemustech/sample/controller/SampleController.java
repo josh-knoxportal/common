@@ -46,12 +46,9 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "/list3", method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Sample>>> list3(@Valid @RequestBody Sample2 model, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
-		model.setSql_name("list3");
-		model.setHint("DISTINCT");
-		model.setFields("id, name");
-		model.setOrder_by("id DESC");
+		List<Sample> list = service.list3(model);
 
-		return list(model, null, errors);
+		return new ResponseEntity<Response<List<Sample>>>(Response.getSuccessResponse(list), HttpStatus.OK);
 	}
 
 	// 주의) 로깅을 위해 Annotation 재정의
@@ -59,6 +56,8 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "list.do", method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<Sample>>> list(Sample model, @Valid Common common, BindingResult errors)
 			throws Exception {
+//		HttpServletRequest request = WebApplicationContextUtil.getRequest();
+//		log.info("request: " + WebUtil.toJson(request, true));
 //		return ValidationUtil.getResponseEntity(HttpStatus.NOT_FOUND); // 사용하지 않을 경우
 
 		// 수기로 유효성 체크

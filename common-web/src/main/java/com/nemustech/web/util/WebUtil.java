@@ -79,29 +79,29 @@ public abstract class WebUtil extends WebUtils {
 		}
 	}
 
-	public static String toJsonPretty(Object... pojos) {
-		return toJson(pojos, true);
+	public static String toJsonPretty(Object... objs) {
+		return toJson(objs, true);
 	}
 
-	public static String toJson(Object... pojos) {
-		return toJson(pojos, false);
+	public static String toJson(Object... objs) {
+		return toJson(objs, false);
 	}
 
-	public static String toJson(Object[] pojos, boolean prettyPrint) {
-		if (pojos.length == 1) {
-			return toJson(pojos[0], prettyPrint);
+	public static String toJson(Object[] objs, boolean prettyPrint) {
+		if (objs.length == 1) {
+			return toJson(objs[0], prettyPrint);
 		} else {
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < pojos.length; i++) {
+			for (int i = 0; i < objs.length; i++) {
 				if (i == 0) {
 					sb.append("[ ");
 				} else {
 					sb.append(", ");
 				}
 
-				sb.append(toJson(pojos[i], prettyPrint));
+				sb.append(toJson(objs[i], prettyPrint));
 
-				if (i == pojos.length - 1) {
+				if (i == objs.length - 1) {
 					sb.append(" ]");
 				}
 			}
@@ -109,18 +109,32 @@ public abstract class WebUtil extends WebUtils {
 		}
 	}
 
-	public static String toJson(Object pojo, boolean prettyPrint) {
-		if (pojo instanceof HttpServletRequest) {
-			return toJsonRequest((HttpServletRequest) pojo, prettyPrint);
-		} else if (pojo instanceof HttpSession) {
-			return toJsonSession((HttpSession) pojo, prettyPrint);
+	/**
+	 * object 을 JSON 포맷으로 구한다.
+	 * 
+	 * @param obj
+	 * @param prettyPrint
+	 * @return
+	 */
+	public static String toJson(Object obj, boolean prettyPrint) {
+		if (obj instanceof HttpServletRequest) {
+			return toJsonRequest((HttpServletRequest) obj, prettyPrint);
+		} else if (obj instanceof HttpSession) {
+			return toJsonSession((HttpSession) obj, prettyPrint);
 		} else {
-			return JsonUtil2.toString(pojo, prettyPrint);
+			return JsonUtil2.toString(obj, prettyPrint);
 //			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"warn\":\"Not suported "
-//					+ ReflectionToStringBuilder.toString(pojo) + "\"}";
+//					+ ReflectionToStringBuilder.toString(obj) + "\"}";
 		}
 	}
 
+	/**
+	 * request 를 JSON 포맷으로 구한다.
+	 * 
+	 * @param request
+	 * @param prettyPrint
+	 * @return
+	 */
 	public static String toJsonRequest(HttpServletRequest request, boolean prettyPrint) {
 		// parameters
 		String client = request.getRemoteAddr();
@@ -152,6 +166,14 @@ public abstract class WebUtil extends WebUtils {
 		return toJsonSession(session, prettyPrint, false);
 	}
 
+	/**
+	 * session 을 JSON 포맷으로 구한다.
+	 * 
+	 * @param session
+	 * @param prettyPrint
+	 * @param embeded
+	 * @return
+	 */
 	protected static String toJsonSession(HttpSession session, boolean prettyPrint, boolean embeded) {
 		Map<String, Object> attrMap = new LinkedHashMap<String, Object>();
 		Enumeration<String> attrs = session.getAttributeNames();
@@ -176,6 +198,14 @@ public abstract class WebUtil extends WebUtils {
 		return toJsonParameter(request, prettyPrint, false);
 	}
 
+	/**
+	 * parameters 를 JSON 포맷으로 구한다.
+	 * 
+	 * @param request
+	 * @param prettyPrint
+	 * @param embeded false 이면 {...} 로 감싼다.
+	 * @return
+	 */
 	protected static String toJsonParameter(HttpServletRequest request, boolean prettyPrint, boolean embeded) {
 		HttpServletRequest request2 = WebApplicationContextUtil.getRequest();
 		if (request == null && request2 == null)

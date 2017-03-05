@@ -30,8 +30,8 @@
 	<property name="copy_dir_win" value="C:\dev\git\skoh-nemus\s-lbs-server\common-libs" />
 	<property name="copy_dir_etc" value="/Users/skoh/git/skoh-nemus/s-lbs-server/common-libs" />
 
-	<property name="copy_dir_win2" value="C:\dev\git\indoornow-lginnotech\common-libs" />
-	<property name="copy_dir_etc2" value="/Users/skoh/git/indoornow-lginnotech/common-libs" />
+	<property name="copy_dir_win2" value="C:\dev\git\nemustech\s1_unescaped\common-libs" />
+	<property name="copy_dir_etc2" value="/Users/skoh/git/nemustech/s1_unescaped/common-libs" />
 
 	<!-- <path id="classpath"> -->
 	<!-- <fileset dir="../../workspace_common/common-web/lib"> -->

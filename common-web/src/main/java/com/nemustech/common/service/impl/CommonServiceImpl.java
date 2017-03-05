@@ -210,13 +210,13 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 
 	@Override
 	public List<T> page(Paging model) throws Exception {
+		T model2 = (T) model;
+
 		List<T> list = null;
-		T t = (T) model;
 		if (getMapper() == null) {
-			list = entityManager.list(t, t.getConditionObj(), t.getOrder_by(), t.getHint(), t.getFields(), t.getTable(),
-					t.getGroup_by(), t.getHaving(), t.getSql_name());
+			page(model2, new Page<T>(model.getPage_number(), model.getRows_per_page())).getList();
 		} else {
-			list = getMapper().list(t);
+			list = getMapper().list(model2);
 		}
 
 		return list;

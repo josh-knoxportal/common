@@ -10,17 +10,21 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
-public class SSHUtil extends TelnetUtil {
+public class SSHUtil extends AbstractNetUtil {
 	public static final int DEFAULT_PORT = 22;
 
 	protected int port = DEFAULT_PORT;
 
-	protected JSch jsch = new JSch();
+	protected JSch jsch = null;
 	protected Session session = null;
 	protected ChannelShell channelShell = null;
 
 	public SSHUtil(String server, String userName, String password, String osName) throws JSchException {
 		this(server, DEFAULT_PORT, userName, password, osName);
+	}
+
+	public SSHUtil(String server, int port, String userName, String password) throws JSchException {
+		this(server, port, userName, password, null);
 	}
 
 	public SSHUtil(String server, int port, String userName, String password, String osName) throws JSchException {
@@ -34,6 +38,7 @@ public class SSHUtil extends TelnetUtil {
 		this.osName = osName;
 
 		LogUtil.writeLog("[Connect server] " + server + ":" + port, getClass());
+		jsch = new JSch();
 		session = jsch.getSession(userName, server, port);
 		session.setPassword(password);
 
@@ -42,34 +47,56 @@ public class SSHUtil extends TelnetUtil {
 		session.setConfig(config);
 		session.connect();
 
-		channelShell = (ChannelShell) session.openChannel("shell");
+		if (osName != null) {
+			channelShell = (ChannelShell) session.openChannel("shell");
 
-		LogUtil.writeLog("[Login] " + userName, getClass());
-		channelShell.connect();
+			LogUtil.writeLog("[Login] " + userName, getClass());
+			channelShell.connect();
 
-		promptChar = getPromptChar(osName);
+			promptChar = getPromptChar(osName);
+		}
 	}
 
 	@Override
 	public void disconnect() {
 		LogUtil.writeLog(Utils.LINE_SEPARATOR + "[Disconnect server] " + server + ":" + port, getClass());
-		channelShell.disconnect();
-		session.disconnect();
+		if (channelShell != null)
+			channelShell.disconnect();
+		if (session != null)
+			session.disconnect();
 	}
 
 	@Override
 	protected InputStream getInputStream() throws IOException {
-		return channelShell.getInputStream();
+		if (channelShell != null)
+			return channelShell.getInputStream();
+		else
+			return null;
 	}
 
 	@Override
 	protected OutputStream getOutputStream() throws IOException {
-		return channelShell.getOutputStream();
+		if (channelShell != null)
+			return channelShell.getOutputStream();
+		else
+			return null;
+	}
+
+	public JSch getJsch() {
+		return jsch;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public ChannelShell getChannelShell() {
+		return channelShell;
 	}
 
 	public static void main(String[] arg) throws Exception {
-		String server = "192.168.1.33";
-		int port = 22;
+		String server = "112.217.207.164";
+		int port = 20022;
 		String userName = "oracle";
 		String password = "nemustech";
 		String os_name = "Linux";

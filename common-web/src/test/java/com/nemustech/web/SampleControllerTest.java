@@ -54,8 +54,8 @@ public class SampleControllerTest {
 
 //	@Test
 	public void t02_list() throws Exception {
-		System.out.println("sourceType: " + sampleController.getService().getSourceType());
-		System.out.println("activeProfile" + sampleController.getService().getActiveProfile());
+//		System.out.println("sourceType: " + sampleController.getService().getSourceType());
+//		System.out.println("activeProfile" + sampleController.getService().getActiveProfile());
 		Sample sample = new Sample();
 		sample.setName("s");
 ////		sample.addCondition("name LIKE 's%'");
@@ -93,7 +93,7 @@ public class SampleControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t04_page() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");
@@ -158,15 +158,17 @@ public class SampleControllerTest {
 //	@Test
 	public void t11_select() throws Exception {
 		Common common = new Common();
-		common.setSql_name("t11_select");
-		common.setHint("DISTINCT");
+//		common.setSql_name("t11_select");
+//		common.setHint("DISTINCT");
+//		common.setFields("*");
+//		common.setTable("sample");
+//		common.setCondition("name LIKE 's%'");
+//		common.setOrder_by("id DESC");
 		common.setFields("*");
-		common.setTable("sample");
-		common.setCondition("name LIKE 's%'");
-		common.setOrder_by("id DESC");
+		common.setTable("ADMIN_USERS LIMIT 0, 2");
 
 		ResponseEntity<Response<List<Map<String, Object>>>> response = sampleController.select(common,
-				new BeanPropertyBindingResult(common, "sample"));
+				new BeanPropertyBindingResult(common, "common"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}

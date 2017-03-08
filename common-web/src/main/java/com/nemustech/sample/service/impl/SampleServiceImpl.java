@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
+import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.service.impl.CommonServiceImpl;
 import com.nemustech.common.util.Utils;
@@ -35,10 +36,10 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	@Autowired
 	protected Files2Service files2Service;
 
-//	@Override
-//	public CommonMapper<Sample> getMapper() {
-//		return mapper;
-//	}
+	@Override
+	public CommonMapper<Sample> getMapper() {
+		return mapper;
+	}
 
 	@Override
 	public FilesService getFileService() {

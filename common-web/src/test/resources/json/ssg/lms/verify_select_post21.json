@@ -1,7 +1,7 @@
 {
 	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do",
 	"method":"POST",
-	"responseFormat":"CSV",
+	"responseFormat":"JSON",
 	"convertBody":true,
 	"list":[
 		{
@@ -10,9 +10,9 @@
 				"request_type":"1"
 			},
 			"params":{
-				"fields":"*",
-				"table":"route_log_20170131",
-				"condition":"company_id = 14112 and rownum = 1"
+				"fields":"COUNT(1)",
+				"table":"route_log_20161215",
+				"condition":"device_id = '40bf64cd-a73f-46aa-b3cf-70b754c812db'"
 			}
 		}
 	]

@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 /**
  * Net 유틸
  */
-public abstract class AbstractNetUtil {
+public abstract class AbstractNet {
 	public static final int DEFAULT_PORT = 23;
 	public static final int READ_BUFFER_SIZE = 1024;
 	public static final String PROMPT_LOGIN = ": ";
@@ -26,7 +26,7 @@ public abstract class AbstractNetUtil {
 	protected String charsetName = null;
 	protected String promptChar = null;
 
-	protected static String getPromptChar(String str) {
+	public static String getPromptChar(String str) {
 		if (str == null)
 			return null;
 
@@ -42,9 +42,9 @@ public abstract class AbstractNetUtil {
 
 	public abstract void disconnect() throws IOException;
 
-	protected abstract InputStream getInputStream() throws IOException;
+	public abstract InputStream getInputStream() throws IOException;
 
-	protected abstract OutputStream getOutputStream() throws IOException;
+	public abstract OutputStream getOutputStream() throws IOException;
 
 	public void excuteCommand(String command) throws IOException {
 		write(command);

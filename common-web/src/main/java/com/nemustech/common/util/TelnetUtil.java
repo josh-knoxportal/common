@@ -9,7 +9,7 @@ import org.apache.commons.net.telnet.TelnetClient;
 /**
  * Telnet 유틸
  */
-public class TelnetUtil extends AbstractNetUtil {
+public class TelnetUtil extends AbstractNet {
 	protected TelnetClient telnet = null;
 
 	public TelnetUtil() {
@@ -81,12 +81,12 @@ public class TelnetUtil extends AbstractNetUtil {
 	}
 
 	@Override
-	protected InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() throws IOException {
 		return telnet.getInputStream();
 	}
 
 	@Override
-	protected OutputStream getOutputStream() throws IOException {
+	public OutputStream getOutputStream() throws IOException {
 		return telnet.getOutputStream();
 	}
 

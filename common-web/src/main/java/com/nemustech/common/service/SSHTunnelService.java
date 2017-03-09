@@ -20,17 +20,18 @@ public class SSHTunnelService implements InitializingBean, DisposableBean {
 	protected Log log = LogFactory.getLog(getClass());
 
 	protected SSHUtil ssh = null;
+	protected String prefix = "";
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		if ("true".equals(System.getProperty("ssh.tunnel", "false"))) {
+		if ("true".equals(System.getProperty(prefix + "ssh.tunnel", "false"))) {
 			PropertyUtils property = PropertyUtils.getInstance();
-			ssh = new SSHUtil(property.getString("ssh.server"), property.getInt("ssh.port"),
-					property.getString("ssh.user"), property.getString("ssh.password"));
+			ssh = new SSHUtil(property.getString(prefix + "ssh.server"), property.getInt(prefix + "ssh.port"),
+					property.getString(prefix + "ssh.user"), property.getString(prefix + "ssh.password"));
 
 			try {
-				ssh.getSession().setPortForwardingL(property.getInt("ssh.local.port"), "localhost",
-						property.getInt("ssh.remote.port"));
+				ssh.getSession().setPortForwardingL(property.getInt(prefix + "ssh.local.port"), "localhost",
+						property.getInt(prefix + "ssh.remote.port"));
 			} catch (JSchException e) {
 				log.warn(e.getMessage() + ": " + ssh.toString());
 			}
@@ -41,5 +42,17 @@ public class SSHTunnelService implements InitializingBean, DisposableBean {
 	public void destroy() throws Exception {
 		if (ssh != null)
 			ssh.disconnect();
+	}
+
+	public SSHUtil getSsh() {
+		return ssh;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 }

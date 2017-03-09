@@ -10,7 +10,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
-public class SSHUtil extends AbstractNetUtil {
+public class SSHUtil extends AbstractNet {
 	public static final int DEFAULT_PORT = 22;
 
 	protected int port = DEFAULT_PORT;
@@ -67,7 +67,7 @@ public class SSHUtil extends AbstractNetUtil {
 	}
 
 	@Override
-	protected InputStream getInputStream() throws IOException {
+	public InputStream getInputStream() throws IOException {
 		if (channelShell != null)
 			return channelShell.getInputStream();
 		else
@@ -75,7 +75,7 @@ public class SSHUtil extends AbstractNetUtil {
 	}
 
 	@Override
-	protected OutputStream getOutputStream() throws IOException {
+	public OutputStream getOutputStream() throws IOException {
 		if (channelShell != null)
 			return channelShell.getOutputStream();
 		else

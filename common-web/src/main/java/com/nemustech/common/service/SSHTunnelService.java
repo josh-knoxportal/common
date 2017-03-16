@@ -1,58 +1,69 @@
 package com.nemustech.common.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 import com.jcraft.jsch.JSchException;
 import com.nemustech.common.util.PropertyUtils;
 import com.nemustech.common.util.SSHUtil;
+import com.nemustech.common.util.StringUtil;
+import com.nemustech.common.util.Utils;
 
 /**
  * SSH 프로토콜을 사용하여 원격 서버의 다른 포트를 접근하고자 할때 사용
  * 
+ * <pre>
+ * <사용법>
+ * 1. resources/common.properties 에 prefix1.ssh.* 추가
+ * 2. java -Dssh.tunnel.prefixs=prefix1,...
+ * </pre>
+ * 
  * @author skoh
  */
 @Service
-public class SSHTunnelService implements InitializingBean, DisposableBean {
+public class SSHTunnelService {
 	protected Log log = LogFactory.getLog(getClass());
 
-	protected SSHUtil ssh = null;
-	protected String prefix = "";
+	protected List<SSHUtil> sshList = new ArrayList<>();
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		if ("true".equals(System.getProperty(prefix + "ssh.tunnel", "false"))) {
+	@PostConstruct
+	public void init() throws Exception {
+		String prefixs = System.getProperty("ssh.tunnel.prefixs");
+		if (Utils.isValidate(prefixs)) {
 			PropertyUtils property = PropertyUtils.getInstance();
-			ssh = new SSHUtil(property.getString(prefix + "ssh.server"), property.getInt(prefix + "ssh.port"),
-					property.getString(prefix + "ssh.user"), property.getString(prefix + "ssh.password"));
+			String[] arrPrefix = StringUtil.split(prefixs, ',');
+			for (String prefix : arrPrefix) {
+				log.info("ssh.tunnel.prefix: " + prefix);
+				SSHUtil sshUtil = new SSHUtil(property.getString(prefix + ".ssh.server"),
+						property.getInt(prefix + ".ssh.port"), property.getString(prefix + ".ssh.user"),
+						property.getString(prefix + ".ssh.password"));
 
-			try {
-				ssh.getSession().setPortForwardingL(property.getInt(prefix + "ssh.local.port"), "localhost",
-						property.getInt(prefix + "ssh.remote.port"));
-			} catch (JSchException e) {
-				log.warn(e.getMessage() + ": " + ssh.toString());
+				try {
+					sshUtil.getSession().setPortForwardingL(property.getInt(prefix + ".ssh.local.port"), "localhost",
+							property.getInt(prefix + ".ssh.remote.port"));
+				} catch (JSchException e) {
+					log.warn(e.getMessage() + ": " + sshUtil.toString());
+				}
+
+				sshList.add(sshUtil);
 			}
 		}
 	}
 
-	@Override
-	public void destroy() throws Exception {
-		if (ssh != null)
-			ssh.disconnect();
+	@PreDestroy
+	public void close() {
+		for (SSHUtil sshUtil : sshList) {
+			if (sshUtil != null)
+				sshUtil.disconnect();
+
+		}
 	}
 
-	public SSHUtil getSsh() {
-		return ssh;
-	}
-
-	public String getPrefix() {
-		return prefix;
-	}
-
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
-	}
 }

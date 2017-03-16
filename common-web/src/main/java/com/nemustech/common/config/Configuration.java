@@ -3,12 +3,13 @@ package com.nemustech.common.config;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.InitializingBean;
 
-public class Configuration extends PropertiesConfiguration implements InitializingBean {
+public class Configuration extends PropertiesConfiguration {
 	protected static Log log = LogFactory.getLog(Configuration.class);
 
 	/**
@@ -42,10 +43,9 @@ public class Configuration extends PropertiesConfiguration implements Initializi
 
 	/*
 	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
 	 */
-	public void afterPropertiesSet() throws Exception {
+	@PostConstruct
+	public void init() throws Exception {
 		// TODO Auto-generated method stub
 		StringBuffer elements = new StringBuffer();
 

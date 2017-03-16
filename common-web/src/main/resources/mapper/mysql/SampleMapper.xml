@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 샘플 매퍼 -->
 <mapper namespace="com.nemustech.sample.mapper.SampleMapper">
-	<!-- Mybatis(로컬) 캐쉬 사용 -->
-	<!-- <cache /> -->
-
 	<select id="list" resultType="sample">
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
 
 		<![CDATA[
-SELECT id
-      ,name
-      ,test_id
-      ,reg_id
-      ,reg_dt
-      ,mod_id
-      ,mod_dt
+SELECT
 		]]>
+
+		<if test="hint != null">
+			<![CDATA[
+${hint}
+			]]>
+		</if>
+
+		<if test="fields == null">
+			<![CDATA[
+reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
+			]]>
+		</if>
+		<if test="fields != null">
+			<![CDATA[
+${fields}
+			]]>
+		</if>
 
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_middle" />
 
@@ -26,35 +33,65 @@ SELECT id
 		]]>
 
 		<where>
-			<if test="id != null and id != 0">
-			<![CDATA[
-   AND id = ${id}
-			]]>
+			<if test="condition != null">
+				<![CDATA[
+   AND ${condition}
+				]]>
 			</if>
 
-			<if test="name != null and name != ''">
-			<![CDATA[
+			<if test="reg_id != null">
+				<![CDATA[
+   AND reg_id = #{reg_id}
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
+   AND reg_dt = #{reg_dt}
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+   AND mod_id = #{mod_id}
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+   AND mod_dt = #{mod_dt}
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
+   AND id = #{id}
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
    AND name = #{name}
-			]]>
+				]]>
 			</if>
-
-			<if test="test_id != null and test_id != ''">
-			<![CDATA[
+			<if test="test_id != null">
+				<![CDATA[
    AND test_id = #{test_id}
-			]]>
-			</if>
-
-			<if test="condition != null and condition != ''">
-			<![CDATA[
-   AND (${condition})
-			]]>
+				]]>
 			</if>
 		</where>
 
-		<if test="order_by != null and order_by != ''">
-		<![CDATA[
+		<if test="having != null">
+			<![CDATA[
+HAVING ${having}
+			]]>
+		</if>
+
+		<if test="group_by != null">
+			<![CDATA[
+GROUP BY ${group_by}
+			]]>
+		</if>
+
+		<if test="order_by != null">
+			<![CDATA[
 ORDER BY ${order_by}
-		]]>
+			]]>
 		</if>
 
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_bottom" />
@@ -68,205 +105,225 @@ ORDER BY ${order_by}
 		]]>
 
 		<where>
-			<if test="id != null and id != 0">
-			<![CDATA[
+			<if test="condition != null">
+				<![CDATA[
+   AND ${condition}
+				]]>
+			</if>
+
+			<if test="reg_id != null">
+				<![CDATA[
+   AND reg_id = #{reg_id}
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
+   AND reg_dt = #{reg_dt}
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+   AND mod_id = #{mod_id}
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+   AND mod_dt = #{mod_dt}
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
    AND id = #{id}
-			]]>
+				]]>
 			</if>
-
-			<if test="name != null and name != ''">
-			<![CDATA[
+			<if test="name != null">
+				<![CDATA[
    AND name = #{name}
-			]]>
+				]]>
 			</if>
-
-			<if test="test_id != null and test_id != ''">
-			<![CDATA[
+			<if test="test_id != null">
+				<![CDATA[
    AND test_id = #{test_id}
-			]]>
-			</if>
-
-			<if test="condition != null and condition != ''">
-			<![CDATA[
-   AND (${condition})
-			]]>
+				]]>
 			</if>
 		</where>
 	</select>
 
 	<insert id="insert" parameterType="sample">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-			<![CDATA[
-SELECT sample_seq.NEXTVAL AS id
-  FROM dual
-/*SELECT NVL (MAX (id) + 1, 1) AS id
-  FROM sample*/
-			]]>
-		</selectKey>
-
 		<![CDATA[
-INSERT INTO sample (id
+INSERT INTO sample (
 		]]>
 
-		<if test="name != null and name != ''">
-		<![CDATA[
-                  ,name
-		]]>
-		</if>
-
-		<if test="test_id != null and test_id != ''">
-		<![CDATA[
-                  ,test_id
-		]]>
-		</if>
-
-		<![CDATA[
-                   ,reg_id
-                   ,reg_dt
-                   ,mod_id
-                   ,mod_dt
-		]]>
-
-		<![CDATA[
-                   )
-VALUES (#{id}
-		]]>
-
-		<if test="name != null and name != ''">
-		<![CDATA[
-       ,#{name}
-		]]>
-		</if>
-
-		<if test="test_id != null and test_id != ''">
-		<![CDATA[
-       ,#{test_id}
-		]]>
-		</if>
+		<trim prefixOverrides=",">
+			<if test="reg_id != null">
+				<![CDATA[
+, reg_id
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
+, reg_dt
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+, mod_id
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+, mod_dt
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
+, name
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
+, test_id
+				]]>
+			</if>
+		</trim>
 
 		<![CDATA[
-       ,#{reg_id}
-       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
-       ,#{mod_id}
-       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
+) VALUES (
+		]]>
+
+		<trim prefixOverrides=",">
+			<if test="reg_id != null">
+				<![CDATA[
+, #{reg_id}
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
+, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+, #{mod_id}
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
+, #{name}
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
+, #{test_id}
+				]]>
+			</if>
+		</trim>
+
+		<![CDATA[
+)
 		]]>
 	</insert>
 
 	<update id="update" parameterType="sample">
 		<![CDATA[
-UPDATE sample SET
+UPDATE sample
 		]]>
 
 		<set>
-			<if test="name != null and name != ''">
-			<![CDATA[
-       name = #{name},
-			]]>
+			<if test="reg_id != null">
+				<![CDATA[
+reg_id = #{reg_id},
+				]]>
 			</if>
-
-			<if test="test_id != null and test_id != ''">
-			<![CDATA[
-       test_id = #{test_id},
-			]]>
+			<if test="mod_id != null">
+				<![CDATA[
+mod_id = #{mod_id},
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+mod_dt = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'),
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
+name = #{name},
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
+test_id = #{test_id},
+				]]>
 			</if>
 		</set>
 
-		<![CDATA[
-       mod_id = #{mod_id},
-       mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
- WHERE id = #{id}
-		]]>
+		<where>
+			<if test="id != null">
+				<![CDATA[
+   AND id = #{id}
+				]]>
+			</if>
+
+			<if test="condition != null">
+				<![CDATA[
+   AND ${condition}
+				]]>
+			</if>
+		</where>
 	</update>
 
 	<delete id="delete" parameterType="sample">
 		<![CDATA[
 DELETE FROM sample
- WHERE id = #{id}
 		]]>
+
+		<where>
+			<if test="condition != null">
+				<![CDATA[
+   AND ${condition}
+				]]>
+			</if>
+
+			<if test="reg_id != null">
+				<![CDATA[
+   AND reg_id = #{reg_id}
+				]]>
+			</if>
+			<if test="reg_dt != null">
+				<![CDATA[
+   AND reg_dt = #{reg_dt}
+				]]>
+			</if>
+			<if test="mod_id != null">
+				<![CDATA[
+   AND mod_id = #{mod_id}
+				]]>
+			</if>
+			<if test="mod_dt != null">
+				<![CDATA[
+   AND mod_dt = #{mod_dt}
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
+   AND id = #{id}
+				]]>
+			</if>
+			<if test="name != null">
+				<![CDATA[
+   AND name = #{name}
+				]]>
+			</if>
+			<if test="test_id != null">
+				<![CDATA[
+   AND test_id = #{test_id}
+				]]>
+			</if>
+		</where>
 	</delete>
-
-	<insert id="merge" parameterType="sample">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-		<![CDATA[
-SELECT NVL (a.id, b.id) AS id
-  FROM (SELECT MAX (id) AS id
-          FROM sample
-         WHERE id = #{id}) a,
-       (SELECT NVL (MAX (id) + 1, 1) AS id FROM sample) b
-		]]>
-		</selectKey>
-
-		<![CDATA[
-MERGE INTO sample
-      USING DUAL
-         ON (id = #{id}) 
- WHEN NOT MATCHED THEN
-      INSERT (id
-		]]>
-
-		<if test="name != null and name != ''">
-		<![CDATA[
-             ,name
-		]]>
-		</if>
-
-		<if test="test_id != null and test_id != ''">
-		<![CDATA[
-             ,test_id
-		]]>
-		</if>
-
-		<![CDATA[
-             ,reg_id
-             ,reg_dt
-             ,mod_id
-             ,mod_dt
-		]]>
-
-		<![CDATA[
-                   )
-VALUES (#{id}
-		]]>
-
-		<if test="name != null and name != ''">
-		<![CDATA[
-       ,#{name}
-		]]>
-		</if>
-
-		<if test="test_id != null and test_id != ''">
-		<![CDATA[
-       ,#{test_id}
-		]]>
-		</if>
-
-		<![CDATA[
-       ,#{reg_id}
-       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
-       ,#{mod_id}
-       ,TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'))
- WHEN MATCHED THEN
-      UPDATE SET
-		]]>
-
-		<set>
-			<if test="name != null and name != ''">
-			<![CDATA[
-             name = #{name},
-			]]>
-			</if>
-
-			<if test="test_id != null and test_id != ''">
-			<![CDATA[
-             test_id = #{test_id},
-			]]>
-			</if>
-		</set>
-
-		<![CDATA[
-             mod_id = #{mod_id},
-             mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
-       WHERE id = #{id}
-		]]>
-	</insert>
 </mapper>

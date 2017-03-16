@@ -101,6 +101,9 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/getDailyZoneVisitStats_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post4.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post5.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post51.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post52.json"));
 
 		// MMS
 //		arrayNode.add(readFile("src/test/resources/json/ssg/mms/map_data_get.json"));

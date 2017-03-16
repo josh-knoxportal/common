@@ -2,6 +2,8 @@ package com.nemustech.common.config;
 
 import java.net.URL;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.configuration.CompositeConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationConverter;
@@ -9,11 +11,10 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
-public class ConfigurationFactory implements InitializingBean, FactoryBean<Object> {
+public class ConfigurationFactory implements FactoryBean<Object> {
 	protected static Log log = LogFactory.getLog(ConfigurationFactory.class);
 
 	/**
@@ -154,9 +155,9 @@ public class ConfigurationFactory implements InitializingBean, FactoryBean<Objec
 	 * After properties set.
 	 * 
 	 * @throws Exception the exception
-	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
 	 */
-	public void afterPropertiesSet() throws Exception {
+	@PostConstruct
+	public void init() throws Exception {
 		if (configuration == null && (configurations == null || configurations.length == 0)
 				&& (locations == null || locations.length == 0))
 			throw new IllegalArgumentException("no configuration object or location specified");

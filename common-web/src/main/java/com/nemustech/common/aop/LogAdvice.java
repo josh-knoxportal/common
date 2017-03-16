@@ -8,6 +8,7 @@ import org.aspectj.lang.Signature;
 
 import com.nemustech.common.model.Default;
 import com.nemustech.common.util.StringUtil;
+import com.nemustech.common.util.Utils;
 
 /**
  * 로깅 AOP
@@ -33,7 +34,8 @@ public class LogAdvice {
 			if (arg instanceof Default) {
 				sb.append(StringUtil.toStringRecursiveJson(arg, "conditionObj"));
 			} else {
-				sb.append(StringUtil.toString(arg));
+				sb.append(Utils.toString(arg));
+//				sb.append(StringUtil.toString(arg));
 			}
 			sb.append("} ");
 		}
@@ -47,7 +49,9 @@ public class LogAdvice {
 
 		Signature signature = joinPoint.getSignature();
 
-		log.trace(format("OUTPUT", "[" + toString(signature) + "] " + StringUtil.toStringRecursiveJson(result)));
+		log.trace(format("OUTPUT", "[" + toString(signature) + "] " + Utils.toString(result)
+//																	  StringUtil.toStringRecursiveJson(result)
+		));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {

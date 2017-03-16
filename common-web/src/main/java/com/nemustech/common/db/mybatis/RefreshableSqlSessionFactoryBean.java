@@ -17,6 +17,8 @@ import java.util.TimerTask;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javax.annotation.PreDestroy;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.xml.XMLConfigBuilder;
@@ -24,7 +26,6 @@ import org.apache.ibatis.executor.ErrorContext;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -35,7 +36,7 @@ import org.springframework.core.io.Resource;
  * 참고) <a href="http://bryan7.tistory.com/117">http://bryan7.tistory.com/117</a>
  * </pre>
  */
-public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean implements DisposableBean {
+public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean {
 	protected static final Log log = LogFactory.getLog(RefreshableSqlSessionFactoryBean.class);
 
 	protected SqlSessionFactory proxy;
@@ -79,7 +80,7 @@ public class RefreshableSqlSessionFactoryBean extends SqlSessionFactoryBean impl
 		setRefreshable();
 	}
 
-	@Override
+	@PreDestroy
 	public void destroy() throws Exception {
 		timer.cancel();
 	}

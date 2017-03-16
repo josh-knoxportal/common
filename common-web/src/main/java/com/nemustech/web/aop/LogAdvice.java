@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nemustech.common.model.Default;
 import com.nemustech.common.util.StringUtil;
+import com.nemustech.common.util.Utils;
 import com.nemustech.web.util.WebUtil;
 
 /**
@@ -49,7 +50,8 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 				if (paramAnno instanceof Default) {
 					sb.append(StringUtil.toStringRecursiveJson(args[i], "conditionObj"));
 				} else {
-					sb.append(StringUtil.toString(args[i]));
+					sb.append(Utils.toString(args[i]));
+//					sb.append(StringUtil.toString(args[i]));
 				}
 				sb.append("} ");
 			}
@@ -70,8 +72,9 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 
 		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
 		if (anno == null) {
-			log.debug(
-					format("INPUT", "[" + toString(signature) + "] " + StringUtil.toStringArray(joinPoint.getArgs())));
+			log.debug(format("INPUT", "[" + toString(signature) + "] " + Utils.toString(joinPoint.getArgs())
+//																		 StringUtil.toStringArray(joinPoint.getArgs())
+			));
 		} else {
 			if (signature instanceof MethodSignature) {
 				Method method = ((MethodSignature) signature).getMethod();

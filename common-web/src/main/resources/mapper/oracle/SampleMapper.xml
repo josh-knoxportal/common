@@ -211,7 +211,7 @@ INSERT INTO sample (
 			</if>
 			<if test="reg_dt != null">
 				<![CDATA[
-, TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS')
+, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
 				]]>
 			</if>
 			<if test="mod_id != null">
@@ -221,7 +221,7 @@ INSERT INTO sample (
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-, TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS')
+, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
 				]]>
 			</if>
 			<if test="id != null">
@@ -264,7 +264,7 @@ mod_id = #{mod_id},
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-mod_dt = TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS'),
+mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'),
 				]]>
 			</if>
 			<if test="name != null">

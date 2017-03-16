@@ -11,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
@@ -27,6 +28,7 @@ import com.nemustech.common.page.PageNavigator;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.sample.controller.SampleController;
 import com.nemustech.sample.model.Sample;
+import com.nemustech.web.util.WebApplicationContextUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
@@ -35,11 +37,19 @@ import com.nemustech.sample.model.Sample;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SampleControllerTest {
+	@Autowired
+	protected ApplicationContext context;
+
 	/**
 	 * 샘플 컨트롤러
 	 */
 	@Autowired
 	protected SampleController sampleController;
+
+	@Test
+	public void t00_print() throws Exception {
+		WebApplicationContextUtil.printBeans(context, true);
+	}
 
 //	@Test
 	public void t01_get() throws Exception {
@@ -232,7 +242,7 @@ public class SampleControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t54_page() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");

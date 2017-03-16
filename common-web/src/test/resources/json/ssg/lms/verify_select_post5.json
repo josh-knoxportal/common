@@ -1,0 +1,20 @@
+{
+	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do",
+	"method":"POST",
+	"responseFormat":"CSV",
+	"convertBody":true,
+	"list":[
+		{
+			"headers":{
+				"access_token":"79E5F0BA4352C7D23BAF36618DF605E881E458BB0B803BF49E4DA8DE75741BEC23A28F0E795FCFA36FE7F89E573C6C05AB4D5738EA15D8511C4B4301095E5995B1E12ED670A78BC3AA014DECB98F30B2AD3F26BBBF510E9AF5A39D1D094DD1FDC381A7A05DB1C59D11A9B2AAC0231F30FDE8ACABD0A42DD948E997BDC6CB44C4",
+				"request_type":"1"
+			},
+			"params":{
+				"fields":"*",
+				"table":"CAMPAIGN_NOTI_LOG_20170212",
+				"condition":"COMPANY_ID = 14112 AND COMPANY_BRAND_ID = 14113 AND device_id in ('0992aaab-09ab-409f-ad04-295d9e356d42','e162fb11-52b7-4e04-abdb-a1351e49a447','71edcc46-72d3-4fc8-bb72-01eac9273973')",
+				"order_by":"device_id, log_time"
+			}
+		}
+	]
+}

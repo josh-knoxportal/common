@@ -288,7 +288,7 @@ public abstract class Utils {
 
 	/**
 	 * 주어진 String의 왼쪽 Space를 모두 없앤다.<BR>
-	 * 예) szSource: "  123 " -> Return: "123  " szSource: "  " -> Return: ""
+	 * 예) szSource: " 123 " -> Return: "123 " szSource: " " -> Return: ""
 	 */
 	public static String leftTrim(String szSource) {
 		if (szSource == null)

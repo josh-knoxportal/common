@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -18,7 +19,6 @@ import org.mybatisorm.Page;
 import org.mybatisorm.annotation.Table;
 import org.mybatisorm.annotation.handler.HandlerFactory;
 import org.mybatisorm.annotation.handler.TableHandler;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -52,15 +52,15 @@ import com.nemustech.web.util.ValidationUtil;
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
 @Controller
-public abstract class CommonController<T extends Default> implements InitializingBean {
+public abstract class CommonController<T extends Default> {
 	protected Log log = LogFactory.getLog(getClass());
 
 	protected CommonService<T> service;
 
 	public abstract CommonService<T> getService();
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
+	@PostConstruct
+	public void init() throws Exception {
 		service = getService();
 	}
 

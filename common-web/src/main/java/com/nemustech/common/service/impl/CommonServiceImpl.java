@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Condition;
 import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
 import org.mybatisorm.Query;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
@@ -38,7 +39,7 @@ import com.nemustech.common.util.Utils;
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
 @Service("commonService")
-public abstract class CommonServiceImpl<T extends Default> implements InitializingBean, CommonService<T> {
+public abstract class CommonServiceImpl<T extends Default> implements CommonService<T> {
 	protected Log log = LogFactory.getLog(getClass());
 
 	@Value("${spring.profiles.active:default}")
@@ -111,8 +112,8 @@ public abstract class CommonServiceImpl<T extends Default> implements Initializi
 		return Query.makeVariable(variable);
 	}
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
+	@PostConstruct
+	public void init() throws Exception {
 		cacheName = getCacheName();
 		if (cacheName != null) {
 			cache = cacheManager.getCache(cacheName);

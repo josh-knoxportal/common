@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Response;
@@ -25,6 +26,7 @@ import com.nemustech.common.util.Utils;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.Sample.Sample2;
 import com.nemustech.sample.service.SampleService;
+import com.nemustech.web.Constants;
 import com.nemustech.web.controller.CommonController;
 import com.nemustech.web.util.ValidationUtil;
 
@@ -112,6 +114,12 @@ public class SampleController extends CommonController<Sample> {
 		Response<List<Sample>> response = Response.getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "insert2" + Constants.POSTFIX, method = RequestMethod.POST)
+	public ResponseEntity<Response<Object>> insert(@Valid Sample model, BindingResult errors,
+			HttpServletRequest request, MultipartFile[] file) throws Exception {
+		return super.insert(model, errors, request);
 	}
 
 	@Override

@@ -6,19 +6,19 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import com.nemustech.common.storage.LocalFileStorage;
-import com.nemustech.common.storage.FileStorage;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.nemustech.common.storage.FileStorage;
+import com.nemustech.common.storage.LocalFileStorage;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = "file:conf/config-spring02.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test01 {
 	public FileStorage fileStorage = LocalFileStorage.getInstance();
-	
+
 	public String targetClass = "1";
 
 	@BeforeClass
@@ -50,14 +50,14 @@ public class Test01 {
 //		s = "T(java.lang.String).valueOf(true)";
 //		s = "T(java.lang.Math).random()";
 //		s = "T(com.nemustech.common.Test01).targetClass";
-		s = "T(org.apache.commons.lang.builder.ReflectionToStringBuilder).toString('a')";
+//		s = "T(org.apache.commons.lang.builder.ReflectionToStringBuilder).toString('a')";
 
 //		s = "#this";
-		
-		ExpressionParser parser = new SpelExpressionParser();
-		Expression exp = parser.parseExpression(s);
-		Object message = exp.getValue();
-		System.out.println(message);
+
+//		ExpressionParser parser = new SpelExpressionParser();
+//		Expression exp = parser.parseExpression(s);
+//		Object message = exp.getValue();
+//		System.out.println(message);
 
 //		List<Integer> primes = new ArrayList<Integer>();
 //		primes.addAll(Arrays.asList(2, 3, 5, 7, 11, 13, 17));
@@ -90,6 +90,12 @@ public class Test01 {
 //				System.out.println(Utils.toString(cache.key()));
 //			}
 //		}
+
+		String pw = "abcdpwd123";
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String pw1 = passwordEncoder.encode(pw);
+		System.out.println("pw1: " + pw1);
+		System.out.println(passwordEncoder.matches(pw, pw1));
 	}
 
 	public String getTargetClass() throws Exception {

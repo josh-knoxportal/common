@@ -61,7 +61,9 @@ import com.nemustech.common.page.Paging;
  *   SELECT reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
  *         ,ROW_NUMBER() OVER (ORDER BY id DESC) rnum
  *     FROM sample
- * ) WHERE rnum BETWEEN 1 AND (1+1-1)
+ * ) WHERE rnum BETWEEN
+ * 1 AND (1+1-1)     -- ORM
+ * 1*(2-1)+1 AND 1*2 -- mapper
  * ORDER BY rnum
  *
  * -- Join

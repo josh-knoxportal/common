@@ -34,9 +34,9 @@ public interface CommonService<T extends Default> {
 	/**
 	 * DBMS 벤더별 문자열 날짜표현
 	 */
-	public static final String DEFAULT_DATE_CHAR_MYSQL = "DATE_FORMAT (" + DEFAULT_DATE_MYSQL + ", '%Y%m%d%H%i%s')";
-	public static final String DEFAULT_DATE_CHAR_ORACLE = "TO_CHAR (" + DEFAULT_DATE_ORACLE + ", 'YYYYMMDDHH24MISS')";
-	public static final String DEFAULT_DATE_CHAR_SQLSERVER = "CONVERT (VARCHAR(10)," + DEFAULT_DATE_SQLSERVER
+	public static final String DEFAULT_DATE_CHAR_MYSQL = "DATE_FORMAT(" + DEFAULT_DATE_MYSQL + ", '%Y%m%d%H%i%s')";
+	public static final String DEFAULT_DATE_CHAR_ORACLE = "TO_CHAR(" + DEFAULT_DATE_ORACLE + ", 'YYYYMMDDHH24MISS')";
+	public static final String DEFAULT_DATE_CHAR_SQLSERVER = "CONVERT(VARCHAR(10)," + DEFAULT_DATE_SQLSERVER
 			+ ",112) + REPLACE (CONVERT (VARCHAR(8)," + DEFAULT_DATE_SQLSERVER + ",108),':','')";
 
 	/**

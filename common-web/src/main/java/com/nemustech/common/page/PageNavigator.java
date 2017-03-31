@@ -10,7 +10,7 @@ import org.mybatisorm.Page;
  * 페이지 네비게이션
  */
 public class PageNavigator<T> {
-	public static final int ROWS_PER_PAGE = 2; // 기본 페이지당 행수 // skoh
+	public static final int ROWS_PER_PAGE = 10; // 기본 페이지당 행수
 	public static final int PAGE_GROUP_COUNT = 10; // 기본 화면당 페이지수
 
 	protected int currentPage; // 현재 페이지 번호

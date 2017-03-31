@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <%@ page contentType="text/xml; charset=utf-8" pageEncoding="utf-8"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <mapper namespace="${namespace}">
-	<select id="list" resultType="${table}">
+	<select id="list" resultType="${className}">
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
 
 		<![CDATA[
@@ -67,7 +67,7 @@ ORDER BY \${order_by}
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_bottom" />
 	</select>
 
-	<select id="count" parameterType="${table}" resultType="java.lang.Integer">
+	<select id="count" parameterType="${className}" resultType="java.lang.Integer">
 		<include refid="com.nemustech.common.mapper.CommonMapper.count_top" />
 
 		<![CDATA[
@@ -89,7 +89,7 @@ ORDER BY \${order_by}
 		</where>
 	</select>
 
-	<insert id="insert" parameterType="${table}">
+	<insert id="insert" parameterType="${className}">
 <c:if test="${sequence != null}">		<selectKey keyProperty="id" resultType="long" order="BEFORE">
 			<![CDATA[
 SELECT ${sequence.key}.NEXTVAL AS ${sequence.value}
@@ -126,7 +126,7 @@ INSERT INTO ${table} (
 		]]>
 	</insert>
 
-	<update id="update" parameterType="${table}">
+	<update id="update" parameterType="${className}">
 		<![CDATA[
 UPDATE ${table}
 		]]>
@@ -154,7 +154,7 @@ ${column.key} = ${column.value},
 		</where>
 	</update>
 
-	<delete id="delete" parameterType="${table}">
+	<delete id="delete" parameterType="${className}">
 		<![CDATA[
 DELETE FROM ${table}
 		]]>

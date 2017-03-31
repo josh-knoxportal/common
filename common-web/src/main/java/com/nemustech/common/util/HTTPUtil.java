@@ -30,6 +30,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -46,6 +47,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
+
 import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.file.URLDownloader;
@@ -280,7 +282,7 @@ public abstract class HTTPUtil {
 //			connMgr.getSchemeRegistry().register(scheme);
 
 			// ver 4.3
-			Registry<ConnectionSocketFactory> schemeRegistry = RegistryBuilder.<ConnectionSocketFactory> create()
+			Registry<ConnectionSocketFactory> schemeRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
 					.register("http", PlainConnectionSocketFactory.getSocketFactory())
 					.register("https", SSLConnectionSocketFactory.getSocketFactory()).build();
 
@@ -413,7 +415,7 @@ public abstract class HTTPUtil {
 			} else if (HttpDelete.METHOD_NAME.equalsIgnoreCase(method)) {
 				httpRequest = new HttpDelete(url);
 			} else {
-				httpRequest = new HttpGet(url);
+				httpRequest = new HttpGet(new URIBuilder(url).setParameters(params).build());
 			}
 
 			if (HttpPost.METHOD_NAME.equalsIgnoreCase(method) || HttpPut.METHOD_NAME.equalsIgnoreCase(method)) {

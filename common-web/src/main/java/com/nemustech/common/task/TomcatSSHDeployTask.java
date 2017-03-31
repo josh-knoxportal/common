@@ -50,7 +50,7 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 			log("Restarting the WAS container \"" + system_name + "\"");
 			SSHUtil ssh = new SSHUtil(deployServer.getServer_ip(), deployServer.getServer_port(),
 					deployServer.getUser_id(), deployServer.getUser_pw(), deployServer.getOs_name());
-			ssh.excuteCommand("cd /var/was/" + system_name + "/bin");
+			ssh.excuteCommand("cd " + target_dir + File.separator + system_name + File.separator + "bin");
 			ssh.excuteCommand("./shutdown.sh");
 			Thread.sleep(3000);
 			ssh.excuteCommand("ps -ef | grep /" + system_name);
@@ -58,7 +58,7 @@ public class TomcatSSHDeployTask extends AbstractDeployTask {
 			ssh.excuteCommand("cd " + target_dir + File.separator + system_name + File.separator + target_path);
 			ssh.excuteCommand("rm -r " + FilenameUtils.getBaseName(deployTask.getSource_file()));
 
-			ssh.excuteCommand("cd /var/was/" + system_name + "/bin");
+			ssh.excuteCommand("cd " + target_dir + File.separator + system_name + File.separator + "bin");
 			ssh.excuteCommand("./startup.sh");
 
 			ssh.excuteCommand("exit");

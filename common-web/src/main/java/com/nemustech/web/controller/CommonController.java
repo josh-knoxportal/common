@@ -323,6 +323,7 @@ public abstract class CommonController<T extends Default> {
 		String className = clazz.getSimpleName();
 		if (className.endsWith("Vo"))
 			className = className.substring(0, className.length() - 2);
+		mav.addObject("className", className);
 		mav.addObject("namespace",
 				package_.substring(0, package_.lastIndexOf('.')) + ".mapper." + className + "Mapper");
 

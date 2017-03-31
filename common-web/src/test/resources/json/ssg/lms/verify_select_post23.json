@@ -1,7 +1,8 @@
 {
-	"url":"http://localhost:8080/v2/lbs/category/list.do?company_id=7057&creator_id=0",
-	"method":"GET",
-	"responseFormat":"JSON",
+	"url":"https://ssglbs.shinsegae-inc.com/v1/lms/verify/select.do",
+	"method":"POST",
+	"responseFormat":"CSV",
+	"convertBody":true,
 	"list":[
 		{
 			"headers":{
@@ -9,7 +10,10 @@
 				"request_type":"1"
 			},
 			"params":{
-				
+				"fields":"distinct app_user_id",
+				"table":"route_log_20170322",
+				"condition":"os_type = 2 and rownum <= 10",
+				"condition1":"device_id = '40bf64cd-a73f-46aa-b3cf-70b754c812db'"
 			}
 		}
 	]

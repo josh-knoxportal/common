@@ -41,7 +41,7 @@ public class TomcatDeployTask extends AbstractDeployTask {
 			TelnetUtil telnet = new TelnetUtil(deployServer.getServer_ip(), deployServer.getServer_port(),
 					deployServer.getUser_id(), deployServer.getUser_pw(), deployServer.getOs_name(),
 					deployServer.getTerminal_type(), deployServer.getCharset_name());
-			telnet.excuteCommand("cd \\was\\" + system_name + "\\bin");
+			telnet.excuteCommand("cd " + target_dir + File.separator + system_name + File.separator + "bin");
 			telnet.excuteCommand("shutdown");
 			Thread.sleep(3000);
 			telnet.excuteCommand("ps -ef | grep /" + system_name);
@@ -49,7 +49,7 @@ public class TomcatDeployTask extends AbstractDeployTask {
 			telnet.excuteCommand("cd " + target_dir + File.separator + system_name + File.separator + target_path);
 			telnet.excuteCommand("rm -r " + FilenameUtils.getBaseName(deployTask.getSource_file()));
 
-			telnet.excuteCommand("cd \\was\\" + system_name + "\\bin");
+			telnet.excuteCommand("cd " + target_dir + File.separator + system_name + File.separator + "bin");
 			telnet.excuteCommand("startup");
 
 			telnet.excuteCommand("exit");

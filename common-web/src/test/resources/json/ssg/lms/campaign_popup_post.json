@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/lms/campaign_noti.do",
+	"url":"http://localhost:8080/v1/lms/campaign_popup.do",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -11,7 +11,7 @@
 				"request_type":"1"
 			},
 			"params":{
-				"campaign_noti_list":[
+				"campaign_popup_list":[
 					{
 						"zone_campaign_id":106,
 						"app_id":"test.lbs.platform.ssg.com.slbstest",

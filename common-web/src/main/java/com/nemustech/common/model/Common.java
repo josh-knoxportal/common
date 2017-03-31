@@ -4,6 +4,7 @@ import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nemustech.common.page.Paging;
 import com.nemustech.common.service.CommonService;
 
 /**
@@ -12,7 +13,7 @@ import com.nemustech.common.service.CommonService;
  * @author skoh
  */
 @Table
-public class Common extends Default {
+public class Common extends Paging {
 	/**
 	 * 등록자 아이디
 	 */

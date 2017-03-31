@@ -11,8 +11,8 @@
 			},
 			"params":{
 				"fields":"*",
-				"table":"CAMPAIGN_NOTI_LOG_20170212",
-				"condition":"COMPANY_ID = 14112 AND COMPANY_BRAND_ID = 14113 AND device_id in ('0992aaab-09ab-409f-ad04-295d9e356d42','e162fb11-52b7-4e04-abdb-a1351e49a447','71edcc46-72d3-4fc8-bb72-01eac9273973')",
+				"table":"CAMPAIGN_PUP_LOG_20170212",
+				"condition":"COMPANY_ID = 14112 AND COMPANY_BRAND_ID = 14113 AND device_id in ('7aa0dd4e-9355-4026-928d-1cdaa075900b','e162fb11-52b7-4e04-abdb-a1351e49a447')",
 				"order_by":"device_id, log_time"
 			}
 		}

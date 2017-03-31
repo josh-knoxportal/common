@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8080/v1/cbms/company.do?company_id=9594",
+	"url":"http://192.168.1.38/v2/lbs/company.do?company_id=9594",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

@@ -3,7 +3,7 @@ package com.nemustech.sample.model;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
-import com.nemustech.common.page.Paging;
+import com.nemustech.common.model.Common;
 
 import lombok.Data;
 import lombok.ToString;
@@ -26,7 +26,7 @@ import lombok.ToString;
 @Data
 @ToString(callSuper = true)
 @Table("V3_GROUP")
-public class Group extends Paging {
+public class Group extends Common {
 	@Column(primaryKey = true, autoIncrement = true)
 	protected Long id;
 

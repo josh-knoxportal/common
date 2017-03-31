@@ -2,10 +2,11 @@ package com.nemustech.common.page;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nemustech.common.model.Common;
+import com.nemustech.common.model.Default;
 
 /**
  * 페이징 처리용 모델
+ * 
  * <pre>
  * <상속시 주의사항>
  * - 정렬 조건이 필수 (기본 정렬조건 : id DESC)
@@ -13,7 +14,7 @@ import com.nemustech.common.model.Common;
  * 
  * @author skoh
  */
-public class Paging extends Common {
+public class Paging extends Default {
 	/**
 	 * 기본 정렬 방식
 	 */

@@ -78,6 +78,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/anal_result_flow_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/anal_result_visit_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_noti_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/campaign_popup_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/daily_device_visit_log_device_count_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/getHourlyZoneVisitStats_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/daily_zone_visit_log_group_list_get.json"));
@@ -92,12 +93,13 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_updates_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_deletes_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/rount_log_count_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post21.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post22.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post23.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/getDailyZoneVisitStats_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post4.json"));
@@ -136,7 +138,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zcms/company_campaign_get.json"));
 
 		// ZMS
-//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_get.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_team_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_team_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/category_list_post.json"));

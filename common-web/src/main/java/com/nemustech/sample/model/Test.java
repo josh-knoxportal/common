@@ -3,7 +3,7 @@ package com.nemustech.sample.model;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
-import com.nemustech.common.page.Paging;
+import com.nemustech.common.model.Common;
 
 /**
  * DDL : 테스트 테이블
@@ -69,7 +69,7 @@ import com.nemustech.common.page.Paging;
  * @author skoh
  */
 @Table("test")
-public class Test extends Paging {
+public class Test extends Common {
 	@Column(primaryKey = true, autoIncrement = true, sequence = "test_seq")
 	protected Long id;
 

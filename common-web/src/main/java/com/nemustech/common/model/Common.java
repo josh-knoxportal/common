@@ -91,21 +91,25 @@ public class Common extends Paging {
 	 */
 	@Table
 	public class CommonWrite extends Common {
+		@Override
 		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 		public String getReg_id() {
 			return super.getReg_id();
 		}
 
+		@Override
 		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 		public String getReg_dt() {
 			return super.getReg_dt();
 		}
 
+		@Override
 		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 		public String getMod_id() {
 			return super.getMod_id();
 		}
 
+		@Override
 		@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 		public String getMod_dt() {
 			return super.getMod_dt();

@@ -7,6 +7,40 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 /**
  * 응답 결과
  * 
+ * <pre>
+ * - 샘플
+ * {
+ *   "header" : {
+ *     "success_yn" : true,
+ *     "error_code" : "",
+ *     "error_message" : ""
+ *   },
+ *   "body" : {
+ *     "currentPage" : 1,
+ *     "rowsPerPage" : 10,
+ *     "startRow" : 1,
+ *     "endRow" : 1,
+ *     "totalSize" : 1,
+ *     "pageGroupCount" : 10,
+ *     "pageGroupStart" : 1,
+ *     "pageGroupEnd" : 1,
+ *     "pageTotal" : 1,
+ *     "list" : [ {
+ *       "reg_id" : "1",
+ *       "reg_dt" : "20160728162640",
+ *       "mod_id" : "1",
+ *       "mod_dt" : "20161007154501",
+ *       "id" : 1,
+ *       "name" : "s",
+ *       "test_id" : 2,
+ *       "count" : null,
+ *       "testSet" : [ ],
+ *       "filesSet" : [ ]
+ *     } ]
+ *   }
+ * }
+ * </pre>
+ * 
  * @author skoh
  */
 public class Response<T> implements Serializable {
@@ -21,7 +55,7 @@ public class Response<T> implements Serializable {
 	protected T body;
 
 	/**
-	 * 실패 응답을 반환한다.
+	 * 성공 응답을 반환한다.
 	 * 
 	 * @param body
 	 * @return
@@ -31,7 +65,7 @@ public class Response<T> implements Serializable {
 	}
 
 	/**
-	 * 성공 응답을 반환한다.
+	 * 실패 응답을 반환한다.
 	 * 
 	 * @param error_code
 	 * @param error_message

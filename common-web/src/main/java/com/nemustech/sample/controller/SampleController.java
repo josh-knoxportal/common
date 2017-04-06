@@ -27,13 +27,13 @@ import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.Sample.Sample2;
 import com.nemustech.sample.service.SampleService;
 import com.nemustech.web.Constants;
-import com.nemustech.web.controller.CommonController;
+import com.nemustech.web.controller.CommonController2;
 import com.nemustech.web.util.ValidationUtil;
 
 // produces 는 "Accept":"application/json" 생략하기 위해 기술 (생략시 application/xml)
 @Controller
 @RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
-public class SampleController extends CommonController<Sample> {
+public class SampleController extends CommonController2<Sample> {
 	@Autowired
 	private MessageSource messageSource;
 

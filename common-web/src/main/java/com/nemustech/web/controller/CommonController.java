@@ -76,7 +76,7 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		model = service.get(model);
-		Response<T> response = Response.getSuccessResponse(model);
+		Response<T> response = getSuccessResponse(model);
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.OK);
 	}
@@ -93,7 +93,7 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		List<T> list = service.list(model);
-		Response<List<T>> response = Response.getSuccessResponse(list);
+		Response<List<T>> response = getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<T>>>(response, HttpStatus.OK);
 	}
@@ -110,7 +110,7 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		int count = service.count(model);
-		Response<Integer> response = Response.getSuccessResponse(count);
+		Response<Integer> response = getSuccessResponse(count);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
@@ -131,7 +131,7 @@ public abstract class CommonController<T extends Default> {
 		int count = service.count((T) model);
 		model.setTotal_sise(count);
 
-		Response<PageNavigator<T>> response = Response.getSuccessResponse(PageNavigator.getInstance(model, list));
+		Response<PageNavigator<T>> response = getSuccessResponse(PageNavigator.getInstance(model, list));
 
 		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
 	}
@@ -149,7 +149,7 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		page = service.page(model, page);
-		Response<PageNavigator<T>> response = Response.getSuccessResponse(PageNavigator.getInstance(page));
+		Response<PageNavigator<T>> response = getSuccessResponse(PageNavigator.getInstance(page));
 
 		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
 	}
@@ -164,7 +164,7 @@ public abstract class CommonController<T extends Default> {
 		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
 				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), model.getGroup_by(),
 				model.getHaving(), "select_");
-		Response<List<Map<String, Object>>> response = Response.getSuccessResponse(list);
+		Response<List<Map<String, Object>>> response = getSuccessResponse(list);
 
 		return new ResponseEntity<Response<List<Map<String, Object>>>>(response, HttpStatus.OK);
 	}
@@ -197,7 +197,7 @@ public abstract class CommonController<T extends Default> {
 
 		List<Files> files = getFiles(model, request);
 		Object result = service.insert(model, files);
-		Response<Object> response = Response.getSuccessResponse(result);
+		Response<Object> response = getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Object>>(response, HttpStatus.OK);
 	}
@@ -217,7 +217,7 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		List<Object> result = service.insert(models);
-		Response<List<Object>> response = Response.getSuccessResponse(result);
+		Response<List<Object>> response = getSuccessResponse(result);
 
 		return new ResponseEntity<Response<List<Object>>>(response, HttpStatus.OK);
 	}
@@ -247,7 +247,7 @@ public abstract class CommonController<T extends Default> {
 
 		List<Files> files = getFiles(model, request);
 		int result = service.update(model, files);
-		Response<Integer> response = Response.getSuccessResponse(result);
+		Response<Integer> response = getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
@@ -263,7 +263,7 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		int result = service.update(models);
-		Response<Integer> response = Response.getSuccessResponse(result);
+		Response<Integer> response = getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
@@ -291,7 +291,7 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		int result = service.delete(model);
-		Response<Integer> response = Response.getSuccessResponse(result);
+		Response<Integer> response = getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
@@ -307,7 +307,7 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		int result = service.delete(models);
-		Response<Integer> response = Response.getSuccessResponse(result);
+		Response<Integer> response = getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
@@ -371,24 +371,56 @@ public abstract class CommonController<T extends Default> {
 		return mav;
 	}
 
+	/**
+	 * 예외 처리
+	 * 
+	 * @param e
+	 * @return
+	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Response<T>> handleException(Exception e) {
 		log.error(ValidationUtil.getHttpErrorCodeMaessage(HttpStatus.INTERNAL_SERVER_ERROR), e);
 
-		Response<T> response = Response.getFailResponse(
-				ValidationUtil.getHttpErrorCode(HttpStatus.INTERNAL_SERVER_ERROR),
-				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR,
-						StringUtils.substringBefore(e.getMessage().trim(), System.lineSeparator())));
+		Response<T> response = getFailResponse(e);
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	/**
+	 * 유효성 체크
+	 * 
+	 * @param errors
+	 * @return
+	 * @throws Exception
+	 */
 	protected ResponseEntity<Response<T>> checkValidate(BindingResult errors) throws Exception {
 		log.error("Validate errors: " + errors.getFieldErrors());
 
 		Response<T> response = ValidationUtil.getFailResponse(errors);
 
 		return new ResponseEntity<Response<T>>(response, HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	 * 성공 응답
+	 * 
+	 * @param body
+	 * @return
+	 */
+	protected <T> Response<T> getSuccessResponse(T body) {
+		return Response.getSuccessResponse(body);
+	}
+
+	/**
+	 * 실패 응답
+	 * 
+	 * @param e
+	 * @return
+	 */
+	protected Response<T> getFailResponse(Exception e) {
+		return Response.getFailResponse(ValidationUtil.getHttpErrorCode(HttpStatus.INTERNAL_SERVER_ERROR),
+				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR,
+						StringUtils.substringBefore(e.getMessage().trim(), System.lineSeparator())));
 	}
 
 	/**

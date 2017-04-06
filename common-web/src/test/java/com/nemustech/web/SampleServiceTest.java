@@ -112,7 +112,7 @@ public class SampleServiceTest {
 		System.out.println("result: " + result);
 	}
 
-	@Test
+//	@Test
 	public void t13_list() throws Exception {
 		Sample model = new Sample();
 		model.setName("s1");

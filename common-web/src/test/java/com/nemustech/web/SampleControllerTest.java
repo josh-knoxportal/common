@@ -62,7 +62,7 @@ public class SampleControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t02_list() throws Exception {
 //		System.out.println("sourceType: " + sampleController.getService().getSourceType());
 //		System.out.println("activeProfile" + sampleController.getService().getActiveProfile());
@@ -242,7 +242,7 @@ public class SampleControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t54_page() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");

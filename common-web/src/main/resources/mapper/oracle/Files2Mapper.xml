@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nemustech.sample.mapper.Files2Mapper">
-	<select id="list" resultType="files">
+	<select id="list" resultType="Files2">
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
 
 		<![CDATA[
@@ -107,7 +107,7 @@ ORDER BY ${order_by}
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_bottom" />
 	</select>
 
-	<select id="count" parameterType="files" resultType="java.lang.Integer">
+	<select id="count" parameterType="Files2" resultType="java.lang.Integer">
 		<include refid="com.nemustech.common.mapper.CommonMapper.count_top" />
 
 		<![CDATA[
@@ -169,7 +169,7 @@ ORDER BY ${order_by}
 		</where>
 	</select>
 
-	<insert id="insert" parameterType="files">
+	<insert id="insert" parameterType="Files2">
 		<![CDATA[
 INSERT INTO files (
 		]]>
@@ -234,7 +234,7 @@ INSERT INTO files (
 			</if>
 			<if test="reg_dt != null">
 				<![CDATA[
-, TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS')
+, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
 				]]>
 			</if>
 			<if test="mod_id != null">
@@ -244,7 +244,7 @@ INSERT INTO files (
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-, TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS')
+, TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
 				]]>
 			</if>
 			<if test="id != null">
@@ -279,7 +279,7 @@ INSERT INTO files (
 		]]>
 	</insert>
 
-	<update id="update" parameterType="files">
+	<update id="update" parameterType="Files2">
 		<![CDATA[
 UPDATE files
 		]]>
@@ -297,7 +297,7 @@ mod_id = #{mod_id},
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-mod_dt = TO_CHAR (SYSDATE, 'YYYYMMDDHH24MISS'),
+mod_dt = TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS'),
 				]]>
 			</if>
 			<if test="path != null">
@@ -337,7 +337,7 @@ doc_id = #{doc_id},
 		</where>
 	</update>
 
-	<delete id="delete" parameterType="files">
+	<delete id="delete" parameterType="Files2">
 		<![CDATA[
 DELETE FROM files
 		]]>

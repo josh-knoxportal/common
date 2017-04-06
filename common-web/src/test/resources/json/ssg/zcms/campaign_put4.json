@@ -1,7 +1,6 @@
 {
 	"url":"https://ssglbs.shinsegae-inc.com/v1/zcms/campaign.do",
 	"method":"PUT",
-	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

@@ -1,6 +1,7 @@
 package com.nemustech.common.model;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.validation.constraints.Null;
 
@@ -84,6 +85,12 @@ public abstract class Default implements Serializable {
 	 */
 	@JsonIgnore
 	protected Condition conditionObj = new Condition();
+
+	/**
+	 * Condition values
+	 */
+	@JsonIgnore
+	protected Map<String, Object> properties;
 
 	public Default() {
 	}
@@ -258,6 +265,14 @@ public abstract class Default implements Serializable {
 
 	public void addCondition(Condition condition) {
 		this.conditionObj.add(condition);
+	}
+
+	public Map<String, Object> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Map<String, Object> properties) {
+		this.properties = properties;
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.mybatisorm.Page;
@@ -126,7 +127,7 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-//	@Test
+	@Test
 	public void t04_joinList2() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nemustech.sample.mapper.SampleMapper">
-	<select id="list" resultType="sample">
+	<select id="list" resultType="Sample">
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
 
 		<![CDATA[
@@ -97,7 +97,7 @@ ORDER BY ${order_by}
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_bottom" />
 	</select>
 
-	<select id="count" parameterType="sample" resultType="java.lang.Integer">
+	<select id="count" parameterType="Sample" resultType="java.lang.Integer">
 		<include refid="com.nemustech.common.mapper.CommonMapper.count_top" />
 
 		<![CDATA[
@@ -149,7 +149,7 @@ ORDER BY ${order_by}
 		</where>
 	</select>
 
-	<insert id="insert" parameterType="sample">
+	<insert id="insert" parameterType="Sample">
 		<selectKey keyProperty="id" resultType="long" order="BEFORE">
 			<![CDATA[
 SELECT sample_seq.NEXTVAL AS id
@@ -246,7 +246,7 @@ INSERT INTO sample (
 		]]>
 	</insert>
 
-	<update id="update" parameterType="sample">
+	<update id="update" parameterType="Sample">
 		<![CDATA[
 UPDATE sample
 		]]>
@@ -294,7 +294,7 @@ test_id = #{test_id},
 		</where>
 	</update>
 
-	<delete id="delete" parameterType="sample">
+	<delete id="delete" parameterType="Sample">
 		<![CDATA[
 DELETE FROM sample
 		]]>

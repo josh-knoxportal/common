@@ -150,6 +150,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (getMapper() == null) {
 			return entityManager.get(model);
 		} else {
+			setCondition(model);
 			List<T> list = getMapper().list(model);
 			return (list.size() > 0) ? list.get(0) : null;
 		}
@@ -182,6 +183,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			list = entityManager.list(model, model.getConditionObj(), model.getOrder_by(), model.getHint(),
 					model.getFields(), model.getTable(), model.getGroup_by(), model.getHaving(), model.getSql_name());
 		} else {
+			setCondition(model);
 			list = getMapper().list(model);
 		}
 
@@ -205,6 +207,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (getMapper() == null) {
 			return entityManager.count(model, model.getConditionObj());
 		} else {
+			setCondition(model);
 			return getMapper().count(model);
 		}
 	}
@@ -217,6 +220,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (getMapper() == null) {
 			page(model2, new Page<T>(model.getPage_number(), model.getRows_per_page())).getList();
 		} else {
+			setCondition(model2);
 			list = getMapper().list(model2);
 		}
 
@@ -250,6 +254,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (getMapper() == null) {
 			result = entityManager.insert(model, model.getTable(), model.getSql_name());
 		} else {
+			setCondition(model);
 			result = getMapper().insert(model);
 		}
 
@@ -281,6 +286,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			if (getMapper() == null) {
 				result_ = entityManager.insert(model, model.getTable(), model.getSql_name());
 			} else {
+				setCondition(model);
 				result_ = getMapper().insert(model);
 			}
 
@@ -322,6 +328,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (getMapper() == null) {
 			result = entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 		} else {
+			setCondition(model);
 			result = getMapper().update(model);
 		}
 
@@ -343,6 +350,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			if (getMapper() == null) {
 				result += entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 			} else {
+				setCondition(model);
 				result += getMapper().update(model);
 			}
 		}
@@ -370,6 +378,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		if (getMapper() == null) {
 			result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 		} else {
+			setCondition(model);
 			result += getMapper().delete(model);
 		}
 
@@ -393,6 +402,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			if (getMapper() == null) {
 				result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
 			} else {
+				setCondition(model);
 				result += getMapper().delete(model);
 			}
 		}
@@ -526,5 +536,17 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 */
 	protected int deleteFile(T model, List<Files> files) throws Exception {
 		return 0;
+	}
+
+	/**
+	 * 조건 설정
+	 * 
+	 * @param model
+	 * @throws Exception
+	 */
+	protected void setCondition(T model) throws Exception {
+		Query query = new Query(model);
+		model.setCondition(model.getConditionObj().build(query));
+		model.setProperties(query.getProperties());
 	}
 }

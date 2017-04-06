@@ -7,9 +7,9 @@
 	</settings>
 
 	<typeAliases>
-		<typeAlias alias="sample" type="com.nemustech.sample.model.Sample" />
-		<typeAlias alias="files" type="com.nemustech.sample.model.Files2" />
-		<typeAlias alias="V3_GROUP" type="com.nemustech.sample.model.Group" />
+		<typeAlias alias="Sample" type="com.nemustech.sample.model.Sample" />
+		<typeAlias alias="Files2" type="com.nemustech.sample.model.Files2" />
+		<typeAlias alias="Group" type="com.nemustech.sample.model.Group" />
 	</typeAliases>
 
 	<plugins>

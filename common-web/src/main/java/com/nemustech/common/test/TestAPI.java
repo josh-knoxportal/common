@@ -13,6 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -155,15 +157,17 @@ public class TestAPI {
 		jsonNode = json.path("params");
 		LogUtil.writeLog("params: " + JsonUtil2.toStringPretty(jsonNode));
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		if ("JSON".equalsIgnoreCase(requestFormat)) {
-//			headers.add(new BasicNameValuePair("Content-Type", "application/json;charset=UTF-8"));
-			params.add(new BasicNameValuePair("", jsonNode.toString()));
-		} else {
+
+		if (HttpGet.METHOD_NAME.equalsIgnoreCase(method) || HttpDelete.METHOD_NAME.equalsIgnoreCase(method)) {
 			Iterator<Map.Entry<String, JsonNode>> fields = jsonNode.fields();
 			while (fields.hasNext()) {
 				Map.Entry<String, JsonNode> field = fields.next();
 				params.add(new BasicNameValuePair(field.getKey(), field.getValue().asText()));
 			}
+//		if ("JSON".equalsIgnoreCase(requestFormat)) {
+		} else {
+//			headers.add(new BasicNameValuePair("Content-Type", "application/json;charset=UTF-8"));
+			params.add(new BasicNameValuePair("", jsonNode.toString()));
 		}
 
 		// 서버 호출

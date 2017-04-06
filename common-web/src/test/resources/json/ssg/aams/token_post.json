@@ -1,7 +1,6 @@
 {
 	"url":"http://112.217.207.164:20080/v1/aams/token.do",
 	"method":"POST",
-	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

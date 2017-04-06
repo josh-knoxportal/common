@@ -9,6 +9,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.mybatisorm.Condition;
+import org.mybatisorm.Condition.Seperator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ContextConfiguration;
@@ -110,24 +112,25 @@ public class SampleServiceTest {
 		System.out.println("result: " + result);
 	}
 
-//	@Test
+	@Test
 	public void t13_list() throws Exception {
-//		Sample model = new Sample();
-//		model.setCondition("name = 's1'");
-//
-//		List<Sample> result = sampleService.list(model);
-//		System.out.println("result: " + result);
-		Sample sample = new Sample();
-		Files2 files = new Files2();
-		SampleAndFiles model = new SampleAndFiles(sample, files);
-		model.addCondition("sample_.name = 's1'");
+		Sample model = new Sample();
+		model.setName("s1");
+		model.addCondition(model.newCondition("OR").add("name", "IN", "s1", "s2").add("name", "IN", "s3"));
 
-		List<SampleAndFiles> list = sampleAndFilesService.list(model);
-		List<Default> list2 = MapperUtils.convertModels(list, "filesSet");
-		System.out.println("list: " + JsonUtil2.toStringPretty(list2));
+		List<Sample> result = sampleService.list(model);
+		System.out.println("result: " + result);
+//		Sample sample = new Sample();
+//		Files2 files = new Files2();
+//		SampleAndFiles model = new SampleAndFiles(sample, files);
+//		model.addCondition("sample_.name = 's1'");
+//
+//		List<SampleAndFiles> list = sampleAndFilesService.list(model);
+//		List<Default> list2 = MapperUtils.convertModels(list, "filesSet");
+//		System.out.println("list: " + JsonUtil2.toStringPretty(list2));
 	}
 
-	@Test
+//	@Test
 	public void t14_update() throws Exception {
 		Sample model = new Sample();
 		model.setCondition("name = 's1'");

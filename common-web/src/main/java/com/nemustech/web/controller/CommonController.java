@@ -2,7 +2,6 @@ package com.nemustech.web.controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
-import org.mybatisorm.annotation.Table;
 import org.mybatisorm.annotation.handler.HandlerFactory;
 import org.mybatisorm.annotation.handler.TableHandler;
 import org.springframework.http.HttpStatus;
@@ -34,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
+import com.nemustech.common.model.ModelMap;
 import com.nemustech.common.model.Response;
 import com.nemustech.common.model.ValidList;
 import com.nemustech.common.page.PageNavigator;
@@ -428,9 +427,5 @@ public abstract class CommonController<T extends Default> {
 		}
 
 		return filesList;
-	}
-
-	@Table
-	protected static class ModelMap extends LinkedHashMap<String, Object> {
 	}
 }

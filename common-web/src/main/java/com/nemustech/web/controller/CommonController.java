@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
@@ -45,9 +46,10 @@ import com.nemustech.web.Constants;
 import com.nemustech.web.util.ValidationUtil;
 
 /**
- * https://github.com/skoh/common.git
+ * 공통 Controller
  * 
  * @author skoh
+ * @param <T>
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
 @Controller
@@ -69,7 +71,7 @@ public abstract class CommonController<T extends Default> {
 
 	// 1. Common 파라미터는 GET 방식의 보안을 위해 사용
 	// 2. BindingResult 인자는 반드시 @Valid 로 선언한 인자의 바로 뒤에 와야 함
-	@RequestMapping(value = "get" + Constants.POSTFIX, method = { RequestMethod.GET })
+//	@RequestMapping(value = "get" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
 		if (errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
@@ -115,23 +117,27 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	public ResponseEntity<Response<PageNavigator<T>>> page(Paging model, BindingResult errors) throws Exception {
-		return page(model, null, errors);
+	public ResponseEntity<Response<PageNavigator<T>>> page(T model, BindingResult errors) throws Exception {
+		return page(model, (Common) null, errors);
 	}
 
-	@RequestMapping(value = "/page" + Constants.POSTFIX, method = { RequestMethod.GET })
-	public ResponseEntity<Response<PageNavigator<T>>> page(Paging model, @Valid Common common, BindingResult errors)
+	@RequestMapping(value = "page" + Constants.POSTFIX, method = { RequestMethod.GET })
+	public ResponseEntity<Response<PageNavigator<T>>> page(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
 		if (errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
-		List<T> list = service.page(model);
+		if (!(model instanceof Paging))
+			throw new CommonException("Model type [" + model.getClass().getName() + "] not instance of Paging class.");
+		Paging paging = (Paging) model;
+
+		List<T> list = service.page(paging);
 
 		int count = service.count((T) model);
-		model.setTotal_sise(count);
+		paging.setTotal_sise(count);
 
-		Response<PageNavigator<T>> response = getSuccessResponse(PageNavigator.getInstance(model, list));
+		Response<PageNavigator<T>> response = getSuccessResponse(PageNavigator.getInstance(paging, list));
 
 		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
 	}
@@ -141,7 +147,7 @@ public abstract class CommonController<T extends Default> {
 		return page(model, page, null, errors);
 	}
 
-	@RequestMapping(value = "page2" + Constants.POSTFIX, method = { RequestMethod.GET })
+//	@RequestMapping(value = "page2" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, @Valid Common common,
 			BindingResult errors) throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -154,25 +160,10 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "select" + Constants.POSTFIX, method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
-			throws Exception {
-		if (errors.hasFieldErrors()) {
-			return (ResponseEntity) checkValidate(errors);
-		}
-
-		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
-				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), model.getGroup_by(),
-				model.getHaving(), "select_");
-		Response<List<Map<String, Object>>> response = getSuccessResponse(list);
-
-		return new ResponseEntity<Response<List<Map<String, Object>>>>(response, HttpStatus.OK);
-	}
-
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "insert_json" + Constants.POSTFIX, method = RequestMethod.POST)
+//	@RequestMapping(value = "insert_json" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
 		return insert(model, errors, null);
@@ -209,7 +200,7 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "inserts_json" + Constants.POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "inserts" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
 			throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -225,7 +216,7 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "update_json" + Constants.POSTFIX, method = RequestMethod.PUT)
+//	@RequestMapping(value = "update_json" + Constants.POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return update(model, errors, null);
 	}
@@ -255,7 +246,7 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "updates_json" + Constants.POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "updates" + Constants.POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -276,7 +267,7 @@ public abstract class CommonController<T extends Default> {
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "delete_json" + Constants.POSTFIX, method = RequestMethod.DELETE)
+//	@RequestMapping(value = "delete_json" + Constants.POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return delete(model, errors);
 	}
@@ -299,7 +290,7 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "deletes_json" + Constants.POSTFIX, method = RequestMethod.POST)
+//	@RequestMapping(value = "deletes" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -371,6 +362,21 @@ public abstract class CommonController<T extends Default> {
 		return mav;
 	}
 
+	@RequestMapping(value = "select" + Constants.POSTFIX, method = { RequestMethod.POST })
+	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
+			throws Exception {
+		if (errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
+				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), model.getGroup_by(),
+				model.getHaving(), "select_");
+		Response<List<Map<String, Object>>> response = getSuccessResponse(list);
+
+		return new ResponseEntity<Response<List<Map<String, Object>>>>(response, HttpStatus.OK);
+	}
+
 	/**
 	 * 예외 처리
 	 * 
@@ -407,7 +413,7 @@ public abstract class CommonController<T extends Default> {
 	 * @param body
 	 * @return
 	 */
-	protected <T> Response<T> getSuccessResponse(T body) {
+	protected <U> Response<U> getSuccessResponse(U body) {
 		return Response.getSuccessResponse(body);
 	}
 

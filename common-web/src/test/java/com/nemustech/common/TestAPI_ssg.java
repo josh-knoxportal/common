@@ -93,7 +93,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_updates_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_deletes_json_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_list_get.json"));
-//		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
+		arrayNode.add(readFile("src/test/resources/json/ssg/lms/schedule_log_result_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/rount_log_count_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/lms/verify_select_post2.json"));
@@ -168,7 +168,7 @@ public class TestAPI_ssg extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_id_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_put.json"));
-		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone2_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone2_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_category_gcode_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_category_gcode_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/ssg/zms/zone_category_list_get.json"));

@@ -221,6 +221,10 @@ public abstract class Default implements Serializable {
 		addCondition(condition);
 	}
 
+	public void setCondition2(String condition) {
+		this.condition = condition;
+	}
+
 	public Condition getConditionObj() {
 		return conditionObj;
 	}
@@ -233,8 +237,8 @@ public abstract class Default implements Serializable {
 		if (!Utils.isValidate(condition))
 			return;
 
-		this.condition = condition;
 		conditionObj.add(condition);
+		setCondition2(condition);
 	}
 
 	public void addCondition(String operator, Object... value) {

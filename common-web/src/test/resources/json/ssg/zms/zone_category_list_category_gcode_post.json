@@ -1,6 +1,7 @@
 {
 	"url":"http://localhost:8080/v1/zms/zone_category/list_category_gcode.do",
 	"method":"POST",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

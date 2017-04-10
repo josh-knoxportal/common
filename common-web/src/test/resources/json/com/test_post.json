@@ -1,6 +1,7 @@
 {
-	"url":"http://localhost:8050/test/inserts_json.do",
+	"url":"http://localhost:8050/test",
 	"method":"POST",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

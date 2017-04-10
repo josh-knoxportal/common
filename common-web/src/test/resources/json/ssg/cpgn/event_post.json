@@ -1,6 +1,7 @@
 {
 	"url":"http://localhost:8090/campaign/event_count.do",
 	"method":"PUT",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

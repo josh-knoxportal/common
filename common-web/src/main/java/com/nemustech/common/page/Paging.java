@@ -18,7 +18,7 @@ public class Paging extends Default {
 	/**
 	 * 기본 정렬 방식
 	 */
-	public static final String DEFAULT_ORDER_BY = "id DESC";
+	public static final String DEFAULT_ORDER_BY = "ROWNUM DESC";
 
 	/**
 	 * 페이지 번호
@@ -45,7 +45,6 @@ public class Paging extends Default {
 	protected int total_sise;
 
 	public Paging() {
-		order_by = DEFAULT_ORDER_BY;
 	}
 
 	public int getPage_number() {

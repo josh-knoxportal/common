@@ -172,7 +172,7 @@ public class SampleControllerTest {
 //		common.setHint("DISTINCT");
 //		common.setFields("*");
 //		common.setTable("sample");
-//		common.setCondition("name LIKE 's%'");
+//		common.addCondition("name LIKE 's%'");
 //		common.setOrder_by("id DESC");
 		common.setFields("*");
 		common.setTable("ADMIN_USERS LIMIT 0, 2");

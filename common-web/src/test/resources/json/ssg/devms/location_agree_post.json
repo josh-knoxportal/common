@@ -1,6 +1,7 @@
 {
 	"url":"http://localhost:8080/v1/devms/location_agree.do",
 	"method":"POST",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

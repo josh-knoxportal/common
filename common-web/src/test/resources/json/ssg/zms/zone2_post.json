@@ -1,6 +1,7 @@
 {
 	"url":"http://localhost:8080/v2/lbs/zone/list.do",
 	"method":"POST",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

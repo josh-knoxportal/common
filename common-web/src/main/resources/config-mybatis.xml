@@ -8,6 +8,8 @@
 
 	<typeAliases>
 		<typeAlias alias="Sample" type="com.nemustech.sample.model.Sample" />
+		<typeAlias alias="Test" type="com.nemustech.sample.model.Test" />
+		<typeAlias alias="SampleAndTest" type="com.nemustech.sample.model.SampleAndTest" />
 		<typeAlias alias="Files2" type="com.nemustech.sample.model.Files2" />
 		<typeAlias alias="Group" type="com.nemustech.sample.model.Group" />
 	</typeAliases>

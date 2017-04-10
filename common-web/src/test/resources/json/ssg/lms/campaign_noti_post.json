@@ -1,6 +1,7 @@
 {
 	"url":"http://localhost:8080/v1/lms/campaign_noti.do",
 	"method":"POST",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

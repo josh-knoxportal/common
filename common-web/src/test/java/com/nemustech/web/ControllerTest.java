@@ -60,7 +60,7 @@ public class ControllerTest {
 		System.out.println("response: " + JsonUtil2.toStringPretty(response2));
 	}
 
-//	@Test
+	@Test
 	public void t02_joinList() throws Exception {
 		Sample sample = new Sample();
 //		sample.setName("ss");
@@ -71,6 +71,7 @@ public class ControllerTest {
 		Files2 files = new Files2();
 
 		SampleAndTest sat = new SampleAndTest(sample, test, files);
+		sat.setFields("sample_.id sample_id, sample_.name sample_name");
 		sat.addCondition("sample_.name LIKE 's%'");
 //		sat.addCondition("test_.name LIKE 't%'");
 //		sat.addCondition("sample_.name", "IN", "ss");
@@ -127,7 +128,7 @@ public class ControllerTest {
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
 
-	@Test
+//	@Test
 	public void t04_joinList2() throws Exception {
 		Sample sample = new Sample();
 		sample.setName("s");

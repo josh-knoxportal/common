@@ -9,8 +9,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.mybatisorm.Condition;
-import org.mybatisorm.Condition.Seperator;
+import org.mybatisorm.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,14 +18,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nemustech.WebApplication;
 import com.nemustech.common.file.Files;
-import com.nemustech.common.model.Default;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.JsonUtil2;
-import com.nemustech.common.util.MapperUtils;
-import com.nemustech.sample.model.Files2;
 import com.nemustech.sample.model.Sample;
-import com.nemustech.sample.model.SampleAndFiles;
 import com.nemustech.sample.service.SampleAndFilesService;
 import com.nemustech.sample.service.SampleService;
 
@@ -112,11 +107,13 @@ public class SampleServiceTest {
 		System.out.println("result: " + result);
 	}
 
-//	@Test
+	@Test
 	public void t13_list() throws Exception {
 		Sample model = new Sample();
-		model.setName("s1");
+//		model.setId(1L);
+//		model.addCondition("name LIKE 's%'");
 		model.addCondition(model.newCondition("OR").add("name", "IN", "s1", "s2").add("name", "IN", "s3"));
+		model.setOrder_by("id DESC");
 
 		List<Sample> result = sampleService.list(model);
 		System.out.println("result: " + result);
@@ -131,9 +128,27 @@ public class SampleServiceTest {
 	}
 
 //	@Test
-	public void t14_update() throws Exception {
+	public void t14_page() throws Exception {
 		Sample model = new Sample();
-		model.setCondition("name = 's1'");
+		model.setName("s");
+		model.addCondition("name LIKE 's%'");
+		model.setOrder_by("id DESC");
+
+		model.setPage_number(1);
+
+		List<Sample> response = sampleService.page(model);
+		System.out.println("result: " + JsonUtil2.toStringPretty(response));
+
+		Page<Sample> page = new Page<Sample>(1);
+
+		Page<Sample> list_page = sampleService.page(model, page);
+		System.out.println("result: " + JsonUtil2.toStringPretty(list_page));
+	}
+
+//	@Test
+	public void t15_update() throws Exception {
+		Sample model = new Sample();
+		model.addCondition("name = 's1'");
 		model.setMod_id("2");
 
 		Files files = new Files("2.txt", "2".getBytes());
@@ -145,7 +160,7 @@ public class SampleServiceTest {
 	}
 
 //	@Test
-	public void t15_delete() throws Exception {
+	public void t16_delete() throws Exception {
 		Sample model = new Sample();
 		model.setName("s1");
 

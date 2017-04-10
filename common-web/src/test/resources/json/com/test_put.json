@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/sample/update_json.do",
+	"url":"http://localhost:8050/test",
 	"method":"PUT",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",
@@ -8,11 +8,16 @@
 			"headers":{
 				"Content-Type":"application/json"
 			},
-			"params":{
-				"id":1,
-				"name":"s",
-				"mod_id":"1"
-			}
+			"params":[
+				{
+					"id":23,
+					"name":"t1"
+				},
+				{
+					"id":24,
+					"name":"tt1"
+				}
+			]
 		}
 	]
 }

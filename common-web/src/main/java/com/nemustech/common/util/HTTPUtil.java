@@ -413,9 +413,9 @@ public abstract class HTTPUtil {
 			} else if (HttpPut.METHOD_NAME.equalsIgnoreCase(method)) {
 				httpRequest = new HttpPut(url);
 			} else if (HttpDelete.METHOD_NAME.equalsIgnoreCase(method)) {
-				httpRequest = new HttpDelete(url);
+				httpRequest = new HttpDelete();
 			} else {
-				httpRequest = new HttpGet(new URIBuilder(url).setParameters(params).build());
+				httpRequest = new HttpGet();
 			}
 
 			if (HttpPost.METHOD_NAME.equalsIgnoreCase(method) || HttpPut.METHOD_NAME.equalsIgnoreCase(method)) {
@@ -433,6 +433,8 @@ public abstract class HTTPUtil {
 //				ByteArrayOutputStream out = new ByteArrayOutputStream((int) httpEntity.getContentLength());
 //				httpEntity.writeTo(out);
 //				LogUtil.writeLog(new String(out.toByteArray()), HTTPUtil.class);
+			} else {
+				httpRequest.setURI(new URIBuilder(url).addParameters(params).build());
 			}
 
 			if (headers != null) {

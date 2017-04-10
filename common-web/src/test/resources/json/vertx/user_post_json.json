@@ -1,6 +1,7 @@
 {
 	"url":"http://localhost:8080/user",
 	"method":"POST",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

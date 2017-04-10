@@ -27,13 +27,13 @@ import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.Sample.Sample2;
 import com.nemustech.sample.service.SampleService;
 import com.nemustech.web.Constants;
-import com.nemustech.web.controller.CommonController2;
+import com.nemustech.web.controller.CommonController;
 import com.nemustech.web.util.ValidationUtil;
 
 // produces 는 "Accept":"application/json" 생략하기 위해 기술 (생략시 application/xml)
 @Controller
 @RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
-public class SampleController extends CommonController2<Sample> {
+public class SampleController extends CommonController<Sample> {
 	@Autowired
 	private MessageSource messageSource;
 
@@ -45,7 +45,7 @@ public class SampleController extends CommonController2<Sample> {
 		return service;
 	}
 
-	@RequestMapping(value = "/list3", method = { RequestMethod.POST })
+	@RequestMapping(value = "list3", method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Sample>>> list3(@Valid @RequestBody Sample2 model, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
 		List<Sample> list = service.list3(model);
@@ -82,14 +82,14 @@ public class SampleController extends CommonController2<Sample> {
 		return new ResponseEntity<Response<List<Sample>>>(responseEntity.getBody(), responseEntity.getStatusCode());
 	}
 
-	@RequestMapping(value = "/list4", method = { RequestMethod.POST })
+	@RequestMapping(value = "list4", method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Sample>>> list4(@RequestBody Sample model, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
 		return list2(model, null, errors, request, session);
 	}
 
 	// 주의) RequestMethod 추가시 메소드명을 다르게 정의
-	@RequestMapping(value = "/list2", method = { RequestMethod.GET })
+	@RequestMapping(value = "list2", method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<Sample>>> list2(Sample model, @Valid Common common, BindingResult errors,
 			HttpServletRequest request, HttpSession session) throws Exception {
 		if (errors.hasFieldErrors()) {
@@ -129,7 +129,7 @@ public class SampleController extends CommonController2<Sample> {
 		return super.update(model, errors, request);
 	}
 
-//	@RequestMapping(value = "/get2", method = { RequestMethod.GET })
+//	@RequestMapping(value = "get2", method = { RequestMethod.GET })
 //	public ResponseEntity<Response<Sample>> get2(Sample model, @Valid Common common, BindingResult errors)
 //			throws Exception {
 //		if (errors.hasFieldErrors()) {
@@ -142,7 +142,7 @@ public class SampleController extends CommonController2<Sample> {
 //		return new ResponseEntity<Response<Sample>>(response, HttpStatus.OK);
 //	}
 //
-//	@RequestMapping(value = "/count2", method = { RequestMethod.GET })
+//	@RequestMapping(value = "count2", method = { RequestMethod.GET })
 //	public ResponseEntity<Response<Integer>> count2(Sample model, @Valid Common common, BindingResult errors)
 //			throws Exception {
 //		if (errors.hasFieldErrors()) {
@@ -155,7 +155,7 @@ public class SampleController extends CommonController2<Sample> {
 //		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 //	}
 //
-//	@RequestMapping(value = "/page2", method = { RequestMethod.GET })
+//	@RequestMapping(value = "page2", method = { RequestMethod.GET })
 //	public ResponseEntity<Response<PageNavigator<Sample>>> page2(Sample model, @Valid Common common,
 //			BindingResult errors) throws Exception {
 //		if (errors.hasFieldErrors()) {
@@ -172,7 +172,7 @@ public class SampleController extends CommonController2<Sample> {
 //		return new ResponseEntity<Response<PageNavigator<Sample>>>(response, HttpStatus.OK);
 //	}
 //
-//	@RequestMapping(value = "/insert2", method = RequestMethod.POST)
+//	@RequestMapping(value = "insert2", method = RequestMethod.POST)
 //	public ResponseEntity<Response<Long>> insert2(@Valid Sample model, BindingResult errors) throws Exception {
 //		long result = service.insert2(model);
 //		Response<Long> response = Response.getSuccessResponse(result);
@@ -180,7 +180,7 @@ public class SampleController extends CommonController2<Sample> {
 //		return new ResponseEntity<Response<Long>>(response, HttpStatus.OK);
 //	}
 //
-//	@RequestMapping(value = "/update2", method = RequestMethod.PUT)
+//	@RequestMapping(value = "update2", method = RequestMethod.PUT)
 //	public ResponseEntity<Response<Integer>> update2(Sample model, BindingResult errors) throws Exception {
 //		int result = service.update2(model);
 //		Response<Integer> response = Response.getSuccessResponse(result);
@@ -188,7 +188,7 @@ public class SampleController extends CommonController2<Sample> {
 //		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 //	}
 //
-//	@RequestMapping(value = "/delete2", method = RequestMethod.DELETE)
+//	@RequestMapping(value = "delete2", method = RequestMethod.DELETE)
 //	public ResponseEntity<Response<Integer>> delete2(Sample model, BindingResult errors) throws Exception {
 //		int result = service.delete2(model);
 //		Response<Integer> response = Response.getSuccessResponse(result);
@@ -196,7 +196,7 @@ public class SampleController extends CommonController2<Sample> {
 //		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 //	}
 
-	@RequestMapping(value = "/merge", method = RequestMethod.POST)
+	@RequestMapping(value = "merge", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> merge(Sample model, BindingResult errors) throws Exception {
 		int result = service.merge(model);
 		Response<Integer> response = Response.getSuccessResponse(result);

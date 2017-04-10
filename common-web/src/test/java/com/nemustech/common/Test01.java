@@ -1,14 +1,17 @@
 package com.nemustech.common;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.storage.LocalFileStorage;
@@ -91,11 +94,14 @@ public class Test01 {
 //			}
 //		}
 
-		String pw = "abcdpwd123";
-		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String pw1 = passwordEncoder.encode(pw);
-		System.out.println("pw1: " + pw1);
-		System.out.println(passwordEncoder.matches(pw, pw1));
+//		String pw = "abcdpwd123";
+//		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		String pw1 = passwordEncoder.encode(pw);
+//		System.out.println("pw1: " + pw1);
+//		System.out.println(passwordEncoder.matches(pw, pw1));
+
+		System.out.println(new URIBuilder("http://localhost:8050/sample/list.do?id=1")
+				.addParameters((List) Arrays.asList(new BasicNameValuePair("name", "s"))).build());
 	}
 
 	public String getTargetClass() throws Exception {

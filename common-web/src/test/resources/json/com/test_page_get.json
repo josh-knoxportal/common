@@ -1,0 +1,15 @@
+{
+	"url":"http://localhost:8050/test/page?name=s&page_number=1",
+	"method":"GET",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				
+			},
+			"params":{
+				
+			}
+		}
+	]
+}

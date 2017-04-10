@@ -1,6 +1,7 @@
 {
 	"url":"http://localhost:8080/v1/zcms/campaign.do",
 	"method":"PUT",
+	"requestFormat":"JSON",
 	"responseFormat":"JSON",
 	"list":[
 		{

@@ -31,6 +31,7 @@ import com.nemustech.common.util.HTTPUtil;
 import com.nemustech.common.util.HTTPUtils;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.LogUtil;
+import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.ThreadUtils;
 import com.nemustech.common.util.Utils;
 
@@ -124,7 +125,7 @@ public class TestAPI {
 		requestFormat = data.path("requestFormat").textValue();
 		responseFormat = data.path("responseFormat").textValue();
 		convertBody = data.path("convertBody").booleanValue();
-		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this));
+		LogUtil.writeLog("data: " + StringUtil.toStringRecursiveJsonPretty(this, "log", "sw"));
 
 		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
 		for (JsonNode json : data.path("list")) {

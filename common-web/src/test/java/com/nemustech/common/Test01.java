@@ -16,6 +16,8 @@ import org.springframework.cache.annotation.Cacheable;
 
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.storage.LocalFileStorage;
+import com.nemustech.common.util.JsonUtil2;
+import com.nemustech.common.util.LogUtil;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = "file:conf/config-spring02.xml")
@@ -104,33 +106,33 @@ public class Test01 {
 //		System.out.println(new URIBuilder("http://localhost:8050/sample/list.do?id=1")
 //				.addParameters((List) Arrays.asList(new BasicNameValuePair("name", "s"))).build());
 
-		String url = "jdbc:mysql://192.168.1.38:3306/indoornow_dev?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true";
-		Properties props = new Properties();
-		props.put("user", "indoornow_dev");
-		props.put("password", "indoornow_dev");
-
-		Connection con = DriverManager.getConnection(url, props);
-
-		Statement stat = con.createStatement();
-		String sql = "SELECT * FROM RSSI LIMIT 1";
-		ResultSet rs = stat.executeQuery(sql);
-		rs.next();
-		System.out.println(rs.getString(1));
-
-		///////////////////////////////////////////////////////////////////////
-
-		String url2 = "jdbc:tibero:thin:@192.168.1.38:8629:s1";
-		Properties props2 = new Properties();
-		props2.put("user", "s1");
-		props2.put("password", "s1");
-
-		Connection con2 = DriverManager.getConnection(url2, props2);
-
-		Statement stat2 = con2.createStatement();
-		String sql2 = "SELECT * FROM T1 WHERE ROWNUM = 1";
-		ResultSet rs2 = stat2.executeQuery(sql2);
-		rs2.next();
-		System.out.println(rs2.getString(1));
+//		String url = "jdbc:mysql://192.168.1.38:3306/indoornow_dev?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true";
+//		Properties props = new Properties();
+//		props.put("user", "indoornow_dev");
+//		props.put("password", "indoornow_dev");
+//
+//		Connection con = DriverManager.getConnection(url, props);
+//
+//		Statement stat = con.createStatement();
+//		String sql = "SELECT * FROM RSSI LIMIT 1";
+//		ResultSet rs = stat.executeQuery(sql);
+//		rs.next();
+//		System.out.println(rs.getString(1));
+//
+//		String url2 = "jdbc:tibero:thin:@192.168.1.38:8629:s1";
+//		Properties props2 = new Properties();
+//		props2.put("user", "s1");
+//		props2.put("password", "s1");
+//
+//		Connection con2 = DriverManager.getConnection(url2, props2);
+//
+//		Statement stat2 = con2.createStatement();
+//		String sql2 = "SELECT * FROM T1 WHERE ROWNUM = 1";
+//		ResultSet rs2 = stat2.executeQuery(sql2);
+//		rs2.next();
+//		System.out.println(rs2.getString(1));
+		
+		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this));
 	}
 
 	public String getTargetClass() throws Exception {

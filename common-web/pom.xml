@@ -445,6 +445,11 @@
 			<version>11.1.0.7.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com.tibero</groupId>
+			<artifactId>tibero6</artifactId>
+			<version>jdbc</version>
+		</dependency>
+		<dependency>
 			<groupId>net.htmlparser.jericho</groupId>
 			<artifactId>jericho-html</artifactId>
 			<version>3.4</version>

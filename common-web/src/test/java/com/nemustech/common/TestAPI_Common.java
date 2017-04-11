@@ -6,7 +6,7 @@ import org.junit.runners.MethodSorters;
 import com.nemustech.common.test.TestAPI;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestAPI_common extends TestAPI {
+public class TestAPI_Common extends TestAPI {
 	@BeforeClass
 	public static void initClass() throws Exception {
 //		arrayNode.add(readFile("src/test/resources/json/com/gateway_put.json"));

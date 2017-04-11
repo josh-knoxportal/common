@@ -1,7 +1,6 @@
 package com.nemustech.common;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -110,18 +109,28 @@ public class Test01 {
 		props.put("user", "indoornow_dev");
 		props.put("password", "indoornow_dev");
 
-//		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection(url, props);
 
-//		Driver driver = new com.mysql.jdbc.Driver();
-//		DriverManager.registerDriver(driver);
-//		Connection con = driver.connect(url, props);
-
 		Statement stat = con.createStatement();
-		String sql = "SELECT * FROM RSSI LIMIT 1";// WHERE ROWNUM = 1";
+		String sql = "SELECT * FROM RSSI LIMIT 1";
 		ResultSet rs = stat.executeQuery(sql);
 		rs.next();
 		System.out.println(rs.getString(1));
+
+		///////////////////////////////////////////////////////////////////////
+
+		String url2 = "jdbc:tibero:thin:@192.168.1.38:8629:s1";
+		Properties props2 = new Properties();
+		props2.put("user", "s1");
+		props2.put("password", "s1");
+
+		Connection con2 = DriverManager.getConnection(url2, props2);
+
+		Statement stat2 = con2.createStatement();
+		String sql2 = "SELECT * FROM T1 WHERE ROWNUM = 1";
+		ResultSet rs2 = stat2.executeQuery(sql2);
+		rs2.next();
+		System.out.println(rs2.getString(1));
 	}
 
 	public String getTargetClass() throws Exception {

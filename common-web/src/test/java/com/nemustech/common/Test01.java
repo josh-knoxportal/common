@@ -1,11 +1,13 @@
 package com.nemustech.common;
 
-import java.util.Arrays;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Properties;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.message.BasicNameValuePair;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -100,8 +102,26 @@ public class Test01 {
 //		System.out.println("pw1: " + pw1);
 //		System.out.println(passwordEncoder.matches(pw, pw1));
 
-		System.out.println(new URIBuilder("http://localhost:8050/sample/list.do?id=1")
-				.addParameters((List) Arrays.asList(new BasicNameValuePair("name", "s"))).build());
+//		System.out.println(new URIBuilder("http://localhost:8050/sample/list.do?id=1")
+//				.addParameters((List) Arrays.asList(new BasicNameValuePair("name", "s"))).build());
+
+		String url = "jdbc:mysql://192.168.1.38:3306/indoornow_dev?useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true";
+		Properties props = new Properties();
+		props.put("user", "indoornow_dev");
+		props.put("password", "indoornow_dev");
+
+//		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection(url, props);
+
+//		Driver driver = new com.mysql.jdbc.Driver();
+//		DriverManager.registerDriver(driver);
+//		Connection con = driver.connect(url, props);
+
+		Statement stat = con.createStatement();
+		String sql = "SELECT * FROM RSSI LIMIT 1";// WHERE ROWNUM = 1";
+		ResultSet rs = stat.executeQuery(sql);
+		rs.next();
+		System.out.println(rs.getString(1));
 	}
 
 	public String getTargetClass() throws Exception {

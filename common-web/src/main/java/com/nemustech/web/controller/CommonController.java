@@ -16,6 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
 import org.mybatisorm.annotation.handler.HandlerFactory;
+import org.mybatisorm.annotation.handler.JoinHandler;
 import org.mybatisorm.annotation.handler.TableHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -330,6 +331,10 @@ public abstract class CommonController<T extends Default> {
 		String[] columnArray = StringUtils.split(fields, ',');
 		for (String column : columnArray) {
 			String[] field = StringUtils.split(column, ' ');
+			if (handler instanceof JoinHandler) {
+				int index = field[1].indexOf("_");
+				field[1] = field[1].substring(0, index) + "." + field[1].substring(index + 1);
+			}
 			columnList.add(new DefaultKeyValue(field[0], field[1]));
 		}
 		mav.addObject("columnList", columnList);

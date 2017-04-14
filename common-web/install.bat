@@ -1,6 +1,6 @@
 cd %CD%
 
-CALL ant.bat
+CALL build.bat
 
 REM CALL mvn.cmd install:install-file -DgroupId=com.nemustech.common -DartifactId=client -Dversion=61 -Dpackaging=jar -DgeneratePom=true -Dfile=lib/com/nemustech/common/client/61/client-61.jar
 REM CALL mvn.cmd install:install-file -DgroupId=com.nemustech.common -DartifactId=json-schema-validator -Dversion=0.0.1-RELEASE -Dpackaging=jar -DgeneratePom=true -Dfile=lib/com/nemustech/common/json-schema-validator/0.0.1-RELEASE/json-schema-validator-0.0.1-RELEASE.jar

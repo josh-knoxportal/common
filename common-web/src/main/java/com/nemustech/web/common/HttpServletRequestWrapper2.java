@@ -5,7 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -83,18 +82,18 @@ public class HttpServletRequestWrapper2 extends HttpServletRequestWrapper {
 		}
 
 		// Servlet 3.1.0
-		@Override
-		public boolean isFinished() {
-			return true;
-		}
-
-		@Override
-		public boolean isReady() {
-			return true;
-		}
-
-		@Override
-		public void setReadListener(ReadListener readListener) {
-		}
+//		@Override
+//		public boolean isFinished() {
+//			return true;
+//		}
+//
+//		@Override
+//		public boolean isReady() {
+//			return true;
+//		}
+//
+//		@Override
+//		public void setReadListener(ReadListener readListener) {
+//		}
 	}
 }

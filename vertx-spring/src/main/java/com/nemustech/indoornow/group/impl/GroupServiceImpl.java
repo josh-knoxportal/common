@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.service.impl.CommonServiceImpl;
 import com.nemustech.indoornow.group.Group;
+import com.nemustech.indoornow.group.GroupMapper;
 import com.nemustech.indoornow.group.GroupService;
-import com.nemustech.indoornow.mapper.GroupMapper;
 
 @Service
 public class GroupServiceImpl extends CommonServiceImpl<Group> implements GroupService {

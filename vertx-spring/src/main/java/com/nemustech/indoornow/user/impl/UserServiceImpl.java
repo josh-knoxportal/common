@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.service.impl.CommonServiceImpl;
-import com.nemustech.indoornow.mapper.UserMapper;
 import com.nemustech.indoornow.user.User;
+import com.nemustech.indoornow.user.UserMapper;
 import com.nemustech.indoornow.user.UserService;
 
 @Service

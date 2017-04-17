@@ -315,8 +315,9 @@ public abstract class CommonController<T extends Default> {
 		if (className.endsWith("Vo"))
 			className = className.substring(0, className.length() - 2);
 		mav.addObject("className", className);
-		mav.addObject("namespace",
-				package_.substring(0, package_.lastIndexOf('.')) + ".mapper." + className + "Mapper");
+//		mav.addObject("namespace",
+//				package_.substring(0, package_.lastIndexOf('.')) + ".mapper." + className + "Mapper");
+		mav.addObject("namespace", package_ + "." + className + "Mapper");
 
 		// 필드
 		String fields = handler.getColumnAsFieldComma();

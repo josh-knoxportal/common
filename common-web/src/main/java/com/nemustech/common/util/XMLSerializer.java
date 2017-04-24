@@ -994,12 +994,13 @@ public class XMLSerializer {
 		}
 		if (JSONUtils.isBoolean(value)) {
 			if (isTypeHintsEnabled()) {
-				target.addAttribute(new Attribute(addJsonPrefix("type"), JSONTypes.BOOLEAN));
+				// class="array" attribute 만 생성 by skoh
+//				target.addAttribute(new Attribute(addJsonPrefix("type"), JSONTypes.BOOLEAN));
 			}
 			target.appendChild(value.toString());
 		} else if (JSONUtils.isNumber(value)) {
 			if (isTypeHintsEnabled()) {
-				target.addAttribute(new Attribute(addJsonPrefix("type"), JSONTypes.NUMBER));
+//				target.addAttribute(new Attribute(addJsonPrefix("type"), JSONTypes.NUMBER));
 			}
 			target.appendChild(value.toString());
 		} else if (JSONUtils.isFunction(value)) {
@@ -1008,16 +1009,16 @@ public class XMLSerializer {
 			}
 			JSONFunction func = (JSONFunction) value;
 			if (isTypeHintsEnabled()) {
-				target.addAttribute(new Attribute(addJsonPrefix("type"), JSONTypes.FUNCTION));
+//				target.addAttribute(new Attribute(addJsonPrefix("type"), JSONTypes.FUNCTION));
 			}
 			String params = ArrayUtils.toString(func.getParams());
 			params = params.substring(1);
 			params = params.substring(0, params.length() - 1);
-			target.addAttribute(new Attribute(addJsonPrefix("params"), params));
+//			target.addAttribute(new Attribute(addJsonPrefix("params"), params));
 			target.appendChild(new Text("<![CDATA[" + func.getText() + "]]>"));
 		} else if (JSONUtils.isString(value)) {
 			if (isTypeHintsEnabled()) {
-				target.addAttribute(new Attribute(addJsonPrefix("type"), JSONTypes.STRING));
+//				target.addAttribute(new Attribute(addJsonPrefix("type"), JSONTypes.STRING));
 			}
 			target.appendChild(value.toString());
 		} else if (value instanceof JSONArray) {
@@ -1027,14 +1028,14 @@ public class XMLSerializer {
 			target = processJSONArray((JSONArray) value, target, expandableProperties);
 		} else if (value instanceof JSONObject) {
 			if (isTypeHintsEnabled()) {
-				target.addAttribute(new Attribute(addJsonPrefix("class"), JSONTypes.OBJECT));
+//				target.addAttribute(new Attribute(addJsonPrefix("class"), JSONTypes.OBJECT));
 			}
 			target = processJSONObject((JSONObject) value, target, expandableProperties, false);
 		} else if (JSONUtils.isNull(value)) {
 			if (isTypeHintsEnabled()) {
-				target.addAttribute(new Attribute(addJsonPrefix("class"), JSONTypes.OBJECT));
+//				target.addAttribute(new Attribute(addJsonPrefix("class"), JSONTypes.OBJECT));
 			}
-			target.addAttribute(new Attribute(addJsonPrefix("null"), "true"));
+//			target.addAttribute(new Attribute(addJsonPrefix("null"), "true"));
 		}
 		return target;
 	}

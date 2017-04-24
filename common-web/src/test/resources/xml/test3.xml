@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<smartplant>
+  <package>
+    <version>1.2</version>
+  </package>
+  <was>
+    <name>tomcat</name>
+    <ver>8.0.2</ver>
+  </was>
+  <os>
+    <types>
+      <type>linux</type>
+      <type>linux</type>
+    </types>
+    <name>
+      redhat
+    </name>
+    <osver>6.0</osver>
+  </os>
+  <database>
+    <product>mysql</product>
+    <ip>xxx.xxx.xxx.xxx</ip>
+    <port>1234</port>
+    <id>onepackage</id>
+    <password>
+      onepackagepassword
+    </password>
+  </database>
+  <interface>
+    <ip>xxx.xxx.xxx.xxx</ip>
+    <port>1234</port>
+    <url>https://lguplus.com</url>
+    <type>lgchem</type>
+    <key>authkey</key>
+    <id>id</id>
+    <password>authkey</password>
+  </interface>
+</smartplant>

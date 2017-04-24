@@ -1,0 +1,31 @@
+{
+  "head" : {
+    "status" : "Success",
+    "message" : ""
+  },
+  "body" : {
+    "mbox" : "INBOX",
+    "total" : "33",
+    "newMail" : "1",
+    "summary" : "33",
+    "items" : {
+      "class" : "array",
+      "item" : {
+        "folder" : "INBOX",
+        "msg_id" : "1409709016842576.08487.gwmail2%7CINBOX%7Cmaster%40hnsmall.com",
+        "priority" : "3",
+        "isRead" : "false",
+        "isAttach" : "false",
+        "fromName" : "홈&쇼핑",
+        "fromMail" : "master@hnsmall.com",
+        "subject" : "대청소 필수아이템! 캐치맙 밀대청소기 58,800원(5%적립)",
+        "date" : "2014/09/03 10:50",
+        "size" : "17353",
+        "link" : "http://mail.nsgportal.net/openapi/mailView.crd?msg_id=1409709016842576.08487.gwmail2%7CINBOX%7Cmaster%40hnsmall.com",
+        "test1" : "",
+        "test2" : "",
+        "test3" : "NULL"
+      }
+    }
+  }
+}

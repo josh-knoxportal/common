@@ -1,63 +1,61 @@
 package com.nemustech.common.util;
 
 import java.io.FileInputStream;
+import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.MissingNode;
+
 import com.nemustech.common.exception.CommonException;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 
 /**
- * XML <-> JSON 변환 유틸(net.sf.json 사용)
+ * XML <-> JSON 변환 유틸 (org.codehaus.jackson.JsonNode 사용)
  */
-public abstract class XMLJsonUtils extends XMLUtils {
-	protected static XMLSerializer xmlSerializer = null;
+public class XMLJsonUtils {
+	protected XMLSerializer xmlSerializer = null;
 
-	/**
-	 * @return XMLSerializer
-	 */
-	public static XMLSerializer getXMLSerializer() {
-		if (xmlSerializer == null) {
-			xmlSerializer = new XMLSerializer();
-//			xmlSerializer.setTrimSpaces(true);
-//			xmlSerializer.setTypeHintsEnabled(false);
-		}
-
-		return xmlSerializer;
+	public XMLJsonUtils(String objectName, String elementName) {
+		xmlSerializer = new XMLSerializer();
+//		xmlSerializer.setTrimSpaces(true);
+//		xmlSerializer.setTypeHintsEnabled(false);
+		if (objectName != null)
+			xmlSerializer.setObjectName("root");
+		if (elementName != null)
+			xmlSerializer.setElementName("item");
 	}
 
-	// ////////////////////////////////////////////////////////////////////////
-
 	/**
-	 * org.codehaus.jackson.JsonNode -> XmlString 변환
+	 * JsonNode -> XmlString 변환
 	 */
-	public static String convertJsonNodeToXmlString(JsonNode jsonNode) {
+	public String convertJsonNodeToXmlString(JsonNode jsonNode) {
 		return convertJsonStringToXmlString(jsonNode.toString());
 	}
 
 	/**
 	 * JsonString -> XmlString 변환
 	 */
-	public static String convertJsonStringToXmlString(String json) {
+	public String convertJsonStringToXmlString(String json) {
 		JSON JSON = convertJsonStringToJSON(json);
 
 		return convertJSONXmlString(JSON);
 	}
 
 	/**
-	 * JsonString -> JSON : JSONObject.fromObject()
+	 * JsonString -> JSON 변환
 	 */
-	public static JSON convertJsonStringToJSON(String json) {
+	public JSON convertJsonStringToJSON(String json) {
 		return JSONObject.fromObject(json);
 	}
 
 	/**
 	 * JSON -> XmlString 변환
 	 */
-	public static String convertJSONXmlString(JSON json) {
-		return getXMLSerializer().write(json);
+	public String convertJSONXmlString(JSON json) {
+		return xmlSerializer.write(json);
 	}
 
 	// ////////////////////////////////////////////////////////////////////////
@@ -65,37 +63,27 @@ public abstract class XMLJsonUtils extends XMLUtils {
 	/**
 	 * XmlString -> JsonString 변환
 	 */
-	public static String convertXmlStringToJsonString(String xml) throws CommonException {
+	public String convertXmlStringToJsonString(String xml) throws CommonException {
 		return convertXmlStringToJsonNode(xml).toString();
 	}
 
-	public static JsonNode convertXmlStringToJsonNode(String xml) throws CommonException {
-		return convertXmlStringToJsonNode(xml, false);
-	}
-
 	/**
-	 * XmlString -> org.codehaus.jackson.JsonNode 변환
+	 * XmlString -> JsonNode 변환
 	 */
-	public static JsonNode convertXmlStringToJsonNode(String xml, boolean log) throws CommonException {
+	public JsonNode convertXmlStringToJsonNode(String xml) throws CommonException {
 		if (!Utils.isValidate(xml))
-			return JsonUtil.missingNode();
-
-		if (log)
-			LogUtil.writeLog(xml, XMLJsonUtils.class);
+			return MissingNode.getInstance();
 
 		xml = StringUtil.replace(xml, "null", "NULL");
 		String json = convertXmlStringToJSON(xml).toString();
 		json = StringUtil.replace(json, "null", "\"\"");
-
-		if (log)
-			LogUtil.writeLog(json, XMLJsonUtils.class);
 
 		JsonNode jsonNode = null;
 		try {
 			jsonNode = JsonUtil.readValue(json);
 		} catch (Exception e) {
 			throw new CommonException(CommonException.ERROR,
-					LogUtil.buildMessage("Read json data \"" + json + "\" error", e.getMessage()), e);
+					LogUtil.buildMessage("Convert json to jsonNode \"" + json + "\" error", e.getMessage()), e);
 		}
 
 		return jsonNode;
@@ -104,20 +92,24 @@ public abstract class XMLJsonUtils extends XMLUtils {
 	/**
 	 * XmlString -> JSON 변환
 	 */
-	public static JSON convertXmlStringToJSON(String xml) {
-		return getXMLSerializer().read(xml);
+	public JSON convertXmlStringToJSON(String xml) {
+		return xmlSerializer.read(xml);
 	}
 
 	public static void main(String[] args) throws Exception {
-//		String json = IOUtils.toString((new FileInputStream("test/test02.json")));
-//		String xml = convertJsonStringToXmlString(json);
-//		System.out.println(xml);
-//		System.out.println(convertXmlStringToJsonString(xml));
-//
-//		System.out.println();
+		XMLJsonUtils xmlJsonUtils = new XMLJsonUtils("openapi", "item");
 
-		String xml2 = IOUtils.toString((new FileInputStream("test/test02.xml")));
-		String json2 = convertXmlStringToJsonNode(xml2, true).toString();
-//		System.out.println(convertJsonStringToXmlString(json2));
+		String xml2 = IOUtils.toString(new FileInputStream("src/test/resources/xml/test2.xml"),
+				Charset.defaultCharset());
+		System.out.println(xml2);
+
+		String json2 = xmlJsonUtils.convertXmlStringToJsonString(xml2);
+		System.out.println(JsonUtil.toStringPretty(json2));
+
+		String xml2_ = xmlJsonUtils.convertJsonStringToXmlString(json2);
+		System.out.println(xml2_);
+
+		String json2_ = xmlJsonUtils.convertXmlStringToJsonString(xml2_);
+		System.out.println(JsonUtil.toStringPretty(json2_));
 	}
 }

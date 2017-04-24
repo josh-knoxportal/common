@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openapi>
+  <head>
+    <status>Success</status>
+    <message></message>
+  </head>
+  <body>
+    <mbox>INBOX</mbox>
+    <total>33</total>
+    <newMail>1</newMail>
+    <summary>33</summary>
+    <items class="array">
+      <item>
+        <folder>INBOX</folder>
+        <msg_id>1409709016842576.08487.gwmail2%7CINBOX%7Cmaster%40hnsmall.com</msg_id>
+        <priority>3</priority>
+        <isRead>false</isRead>
+        <isAttach>false</isAttach>
+        <fromName><![CDATA[홈&쇼핑]]></fromName>
+        <fromMail>master@hnsmall.com</fromMail>
+        <subject><![CDATA[대청소 필수아이템! 캐치맙 밀대청소기 58,800원(5%적립)]]></subject>
+        <date>2014/09/03 10:50</date>
+        <size>17353</size>
+        <link><![CDATA[http://mail.nsgportal.net/openapi/mailView.crd?msg_id=1409709016842576.08487.gwmail2%7CINBOX%7Cmaster%40hnsmall.com]]></link>
+        <test1></test1>
+        <test2 />
+        <test3>null</test3>
+      </item>
+    </items>
+  </body>
+</openapi>

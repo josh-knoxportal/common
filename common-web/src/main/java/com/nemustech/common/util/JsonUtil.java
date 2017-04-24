@@ -30,7 +30,7 @@ import org.codehaus.jackson.type.TypeReference;
 import com.nemustech.common.exception.CommonException;
 
 /**
- * JSON 관련 유틸리티 클래스 <br />
+ * JSON 관련 유틸리티 클래스 (org.codehaus.jackson.JsonNode 사용)<br />
  * 기본적인 JSON Serialization/Deserialization 관련 사항은 {@link #getObjectMapper()}를 참고한다. <br />
  * 
  * <pre>
@@ -50,7 +50,6 @@ import com.nemustech.common.exception.CommonException;
  * rootNode = JsonUtil2.getObjectMapper().readTree(fin);
  * </pre>
  * 
- * 
  * @version 2.5
  * @since 1.0
  */
@@ -58,7 +57,7 @@ public abstract class JsonUtil {
 	protected static ObjectMapper objectMapper = null;
 
 	/**
-	 * {@link org.codehaus.jackson.map.ObjectMapper} 인스턴스를 돌려 준다. <BR />
+	 * ObjectMapper 인스턴스를 돌려 준다. <BR />
 	 * 해당 인스턴스는 다음과 같은 Serialize/Deserialize 기능을 설정해 두었다. <br/>
 	 * <UL>
 	 * <LI>FAIL_ON_UNKNOWN_PROPERTIES : false</LI>
@@ -66,7 +65,7 @@ public abstract class JsonUtil {
 	 * <LI>INDENT_OUTPUT : true</LI>
 	 * </UL>
 	 * 
-	 * @return {@link org.codehaus.jackson.map.ObjectMapper} 인스턴스
+	 * @return ObjectMapper 인스턴스
 	 */
 	public static ObjectMapper getObjectMapper() {
 		if (objectMapper == null) {
@@ -74,19 +73,18 @@ public abstract class JsonUtil {
 
 //			objectMapper.configure(SerializationConfig.Feature.WRITE_NULL_MAP_VALUES, false); // v1.6.x 이상
 //			objectMapper.configure(SerializationConfig.Feature.INDENT_OUTPUT, true); // v1.6.x 이상
-//
-//			objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false); // v1.6.x 이상
-			objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+			objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false); // v1.6.x 이상
 		}
 
 		return objectMapper;
 	}
 
 	/**
-	 * {@link org.codehaus.jackson.node.JsonNodeFactory} 인스턴스를 돌려 준다. <BR />
+	 * JsonNodeFactory 인스턴스를 돌려 준다. <BR />
 	 * 해당 인스턴스로 ObjectNode와 같은 JsonNode를 만들 수 있다.
 	 * 
-	 * @return {@link org.codehaus.jackson.node.JsonNodeFactory} 인스턴스
+	 * @return JsonNodeFactory 인스턴스
 	 */
 	public static JsonNodeFactory getNodeFactory() {
 		return getObjectMapper().getNodeFactory();
@@ -95,7 +93,7 @@ public abstract class JsonUtil {
 	/**
 	 * Same as JsonNodeFactory._instance.objectNode();
 	 * 
-	 * @return {@link org.codehaus.jackson.node.ObjectNode}
+	 * @return ObjectNode
 	 */
 	public static ObjectNode objectNode() {
 		return getNodeFactory().objectNode();
@@ -138,9 +136,9 @@ public abstract class JsonUtil {
 	public static String toStringPretty(Object... pojos) {
 		// Object[] { String }
 		if (pojos.length == 1) {
-			return toString(pojos[0], false);
+			return toString(pojos[0], true);
 		} else {
-			return toString(pojos, false);
+			return toString(pojos, true);
 		}
 	}
 
@@ -195,6 +193,7 @@ public abstract class JsonUtil {
 				pojo = readValue(pojo);
 			}
 		} catch (Exception e) {
+			LogUtil.writeLog(e, JsonUtil.class);
 			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		}
@@ -209,6 +208,7 @@ public abstract class JsonUtil {
 
 			getObjectMapper().writeValue(jg, pojo);
 		} catch (Exception e) {
+			LogUtil.writeLog(e, JsonUtil.class);
 			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		} finally {
@@ -341,8 +341,8 @@ public abstract class JsonUtil {
 	 * <LI>숫자형이면, 숫자의 종류(정수, 소수 등)에 맞는 노드로 등록한다.</LI>
 	 * <LI><code>BigDecimal</code>이면, BigDecimal 노드로 등록한다.</LI>
 	 * <LI><code>byte[]</code>이면, binary 노드로 등록한다.</LI>
-	 * <LI>{@link org.codehaus.jackson.node.ArrayNode}이면, array 노드로 등록한다.</LI>
-	 * <LI>{@link org.codehaus.jackson.node.ObjectNode}이면, Object 노드로 등록한다.</LI>
+	 * <LI>array 노드이면, ArrayNode 객체로 돌려 준다.</LI>
+	 * <LI>Object 노드이면, ObjectNode 객체로 돌려 준다.</LI>
 	 * <LI>그 외에는, POJO 노드로 등록한다.</LI>
 	 * </UL>
 	 *
@@ -350,7 +350,6 @@ public abstract class JsonUtil {
 	 * @param name 등록할 하위 노드의 이름
 	 * @param value 등록할 객체
 	 * @return 하위 노드를 등록한 노드(parent)를 돌려 준다.
-	 * @see <a href="http://jackson.codehaus.org/1.6.3/javadoc/org/codehaus/jackson/node/BaseJsonNode.html">JsonNode의 하위 노드 종류</a>
 	 */
 	public static ObjectNode putValue(ObjectNode node, String name, Object value) {
 		if (value instanceof String) {
@@ -412,8 +411,8 @@ public abstract class JsonUtil {
 	 * <LI>textual 노드이면, {@link java.lang.String} 객체로 돌려 준다.</LI>
 	 * <LI>number 노드이면, 숫자의 종류(정수, 소수 등)에 맞는 객체로 돌려 준다.</LI>
 	 * <LI>boolean 노드이면, {@link java.lang.Boolean} 객체로 돌려 준다.</LI>
-	 * <LI>array 노드이면, {@link org.codehaus.jackson.node.ArrayNode} 객체로 돌려 준다.</LI>
-	 * <LI>Object 노드이면, {@link org.codehaus.jackson.node.ObjectNode} 객체로 돌려 준다.</LI>
+	 * <LI>array 노드이면, ArrayNode 객체로 돌려 준다.</LI>
+	 * <LI>Object 노드이면, ObjectNode 객체로 돌려 준다.</LI>
 	 * <LI>POJO 노드이면, {@link java.lang.Object} 객체로 돌려 준다.</LI>
 	 * <LI>그 외에는, {@code ""(빈 문자열)}을 돌려 준다.</LI>
 	 * </UL>
@@ -421,7 +420,6 @@ public abstract class JsonUtil {
 	 * @param node 하위에 ValueNode를 가진 노드(Parent)
 	 * @param name 찾을 ValueNode의 이름
 	 * @return 찾은 객체. <code>ValueNode</code>가 아니거나, 찾지 못 하거나, 값이 null인 경우에는 {@code ""(빈 문자열)}을 돌려 준다.
-	 * @see <a href="http://jackson.codehaus.org/1.6.3/javadoc/org/codehaus/jackson/node/BaseJsonNode.html">JsonNode의 하위 노드 종류</a>
 	 */
 	public static Object getValue(JsonNode node, String name) {
 		Object obj = null;
@@ -487,7 +485,7 @@ public abstract class JsonUtil {
 	 * 
 	 * @param baseNode 경로를 탐색할 노드
 	 * @param path "/"로 구분된 경로 정보
-	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, {@link org.codehaus.jackson.node.MissingNode}를 돌려 준다.
+	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
 	 */
 	public static JsonNode find(JsonNode baseNode, String path) {
 		if (baseNode == null) {
@@ -515,7 +513,7 @@ public abstract class JsonUtil {
 	 * 
 	 * @param baseNode 경로를 탐색할 노드
 	 * @param path 순차적인 경로 정보
-	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, {@link org.codehaus.jackson.node.MissingNode}를 돌려 준다.
+	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
 	 */
 	public static JsonNode find(JsonNode baseNode, String[] path) {
 		if (baseNode == null) {
@@ -546,7 +544,7 @@ public abstract class JsonUtil {
 	 * 
 	 * @param baseNode 경로를 탐색할 노드
 	 * @param path 순차적인 경로 정보
-	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, {@link org.codehaus.jackson.node.MissingNode}를 돌려 준다.
+	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
 	 */
 	public static JsonNode find(JsonNode baseNode, ArrayList<String> path) {
 		try {
@@ -627,8 +625,8 @@ public abstract class JsonUtil {
 	 * 객체를 지정한 클래스 타입으로 변환한다.
 	 * 
 	 * <pre>
-	 * org.codehaus.jackson.map.JsonMappingException
-	 * : Can not deserialize instance of org.codehaus.jackson.JsonNode out of VALUE_EMBEDDED_OBJECT token
+	 * JsonMappingException
+	 * : Can not deserialize instance of JsonNode out of VALUE_EMBEDDED_OBJECT token
 	 * 발생함
 	 * </pre>
 	 */
@@ -694,8 +692,8 @@ public abstract class JsonUtil {
 	 * 객체를 JsonNode 타입으로 변환한다.
 	 * 
 	 * <pre>
-	 * org.codehaus.jackson.map.JsonMappingException
-	 * : Can not deserialize instance of org.codehaus.jackson.JsonNode out of VALUE_EMBEDDED_OBJECT token
+	 * JsonMappingException
+	 * : Can not deserialize instance of JsonNode out of VALUE_EMBEDDED_OBJECT token
 	 * 발생 안함
 	 * </pre>
 	 */
@@ -717,8 +715,8 @@ public abstract class JsonUtil {
 	 * 객체를 JsonNode 타입으로 변환한다.
 	 * 
 	 * <pre>
-	 * org.codehaus.jackson.map.JsonMappingException
-	 * : Can not deserialize instance of org.codehaus.jackson.JsonNode out of VALUE_EMBEDDED_OBJECT token
+	 * JsonMappingException
+	 * : Can not deserialize instance of JsonNode out of VALUE_EMBEDDED_OBJECT token
 	 * 발생 안함
 	 * </pre>
 	 *

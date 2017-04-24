@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <head>
+    <message />
+    <status>Success</status>
+  </head>
+  <body>
+    <mbox>INBOX</mbox>
+    <newMail>1</newMail>
+    <summary>33</summary>
+    <total>33</total>
+    <items class="array">
+      <item>
+        <date>2014/09/03 10:50</date>
+        <folder>INBOX</folder>
+        <fromMail>master@hnsmall.com</fromMail>
+        <fromName>홈&amp;쇼핑</fromName>
+        <isAttach>false</isAttach>
+        <isRead>false</isRead>
+        <link>http://mail.nsgportal.net/openapi/mailView.crd?msg_id=1409709016842576.08487.gwmail2%7CINBOX%7Cmaster%40hnsmall.com</link>
+        <msg_id>1409709016842576.08487.gwmail2%7CINBOX%7Cmaster%40hnsmall.com</msg_id>
+        <priority>3</priority>
+        <size>17353</size>
+        <subject>대청소 필수아이템! 캐치맙 밀대청소기 58,800원(5%적립)</subject>
+        <test1 />
+        <test2 />
+        <test3>NULL</test3>
+      </item>
+    </items>
+  </body>
+</root>

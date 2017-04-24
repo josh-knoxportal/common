@@ -1,11 +1,5 @@
 package com.nemustech.common;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Properties;
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,11 +7,11 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.storage.LocalFileStorage;
-import com.nemustech.common.util.JsonUtil2;
-import com.nemustech.common.util.LogUtil;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = "file:conf/config-spring02.xml")
@@ -97,11 +91,11 @@ public class Test01 {
 //			}
 //		}
 
-//		String pw = "abcdpwd123";
-//		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//		String pw1 = passwordEncoder.encode(pw);
-//		System.out.println("pw1: " + pw1);
-//		System.out.println(passwordEncoder.matches(pw, pw1));
+		String pw = "0327";
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String pw1 = passwordEncoder.encode(pw);
+		System.out.println("pw1: " + pw1);
+		System.out.println(passwordEncoder.matches(pw, pw1));
 
 //		System.out.println(new URIBuilder("http://localhost:8050/sample/list.do?id=1")
 //				.addParameters((List) Arrays.asList(new BasicNameValuePair("name", "s"))).build());
@@ -131,8 +125,8 @@ public class Test01 {
 //		ResultSet rs2 = stat2.executeQuery(sql2);
 //		rs2.next();
 //		System.out.println(rs2.getString(1));
-		
-		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this));
+
+//		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this));
 	}
 
 	public String getTargetClass() throws Exception {

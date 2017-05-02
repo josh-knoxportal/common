@@ -10,13 +10,13 @@
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
-	<!-- Scan Package -->
-	<context:component-scan base-package="com.nemustech.adapter com.nemustech.common com.nemustech.web" />
-
 	<import resource="classpath:domain/config-spring.xml" />
 
 	<!-- Poperties -->
 	<context:property-placeholder properties-ref="properties" />
+
+	<!-- Scan Package -->
+	<context:component-scan base-package="com.nemustech.adapter com.nemustech.common com.nemustech.web" />
 
 	<!-- Locale -->
 	<!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"> -->

@@ -556,7 +556,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -567,7 +566,6 @@
           <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
-
       <!-- <plugin> -->
       <!-- <groupId>org.apache.maven.plugins</groupId> -->
       <!-- <artifactId>maven-war-plugin</artifactId> -->
@@ -577,7 +575,6 @@
       <!-- </packagingExcludes> -->
       <!-- </configuration> -->
       <!-- </plugin> -->
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -604,7 +601,6 @@
                 <!-- <property name="classpath" refid="maven.runtime.classpath" /> -->
                 <!-- <property name="classpath" refid="maven.plugin.classpath" /> -->
                 <!-- <echo message="java.home: ${java.home}" /> -->
-
                 <ant />
               </target>
             </configuration>
@@ -620,7 +616,6 @@
                 <property name="artifactId" value="${project.artifactId}" />
                 <property name="version" value="${project.version}" />
                 <property name="classpath" refid="maven.test.classpath" />
-
                 <!-- <ant antfile="${basedir}/deploy.xml"> -->
                 <ant antfile="${basedir}/deploySSH.xml">
                   <!-- <target name="deploy" /> -->
@@ -646,7 +641,6 @@
                 <artifactId>${project.artifactId}</artifactId>
                 <version>${project.version}</version>
               </properties>
-
               <source>
                 ${basedir}/deploy.groovy
               </source>

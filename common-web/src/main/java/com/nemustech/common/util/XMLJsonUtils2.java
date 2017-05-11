@@ -18,14 +18,16 @@ import net.sf.json.JSONObject;
 public class XMLJsonUtils2 {
 	protected XMLSerializer xmlSerializer = null;
 
-	public XMLJsonUtils2(String objectName, String elementName) {
+	public XMLJsonUtils2(String rootName, String objectName, String elementName) {
 		xmlSerializer = new XMLSerializer();
 //		xmlSerializer.setTrimSpaces(true);
 //		xmlSerializer.setTypeHintsEnabled(false);
+		if (rootName != null)
+			xmlSerializer.setRootName(rootName);
 		if (objectName != null)
-			xmlSerializer.setObjectName("root");
+			xmlSerializer.setObjectName(objectName);
 		if (elementName != null)
-			xmlSerializer.setElementName("item");
+			xmlSerializer.setElementName(elementName);
 	}
 
 	/**
@@ -97,19 +99,19 @@ public class XMLJsonUtils2 {
 	}
 
 	public static void main(String[] args) throws Exception {
-		XMLJsonUtils2 xmlJsonUtils = new XMLJsonUtils2("openapi", "item");
+		XMLJsonUtils xmlJsonUtils = new XMLJsonUtils("test", null, null);
 
-		String xml2 = IOUtils.toString(new FileInputStream("src/test/resources/xml/test2.xml"),
+		String xml = IOUtils.toString(new FileInputStream("src/test/resources/xml/safety-conf-2.xml"),
 				Charset.defaultCharset());
-		System.out.println(xml2);
+		System.out.println(xml);
 
-		String json2 = xmlJsonUtils.convertXmlStringToJsonString(xml2);
-		System.out.println(JsonUtil2.toStringPretty(json2));
+		String json = xmlJsonUtils.convertXmlStringToJsonString(xml);
+		System.out.println(JsonUtil2.toStringPretty(json));
 
-		String xml2_ = xmlJsonUtils.convertJsonStringToXmlString(json2);
-		System.out.println(xml2_);
+		String xml_ = xmlJsonUtils.convertJsonStringToXmlString(json);
+		System.out.println(xml_);
 
-		String json2_ = xmlJsonUtils.convertXmlStringToJsonString(xml2_);
-		System.out.println(JsonUtil2.toStringPretty(json2_));
+		String json_ = xmlJsonUtils.convertXmlStringToJsonString(xml_);
+		System.out.println(JsonUtil2.toStringPretty(json_));
 	}
 }

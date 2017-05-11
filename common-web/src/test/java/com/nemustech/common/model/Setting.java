@@ -35,7 +35,7 @@ public class Setting {
 	}
 
 	public static void main(String[] args) throws Exception {
-		XMLJsonUtils2 xmlJsonUtils = new XMLJsonUtils2("openapi", "item");
+		XMLJsonUtils2 xmlJsonUtils = new XMLJsonUtils2("root", null, null);
 
 		String json = JsonUtil2.toStringPretty(new Setting());
 		System.out.println(json);

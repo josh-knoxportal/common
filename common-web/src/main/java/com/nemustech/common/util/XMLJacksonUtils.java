@@ -108,15 +108,15 @@ public abstract class XMLJacksonUtils extends XMLUtils {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String xml2 = IOUtils.toString(new FileInputStream("src/test/resources/xml/test2.xml"),
+		String xml = IOUtils.toString(new FileInputStream("src/test/resources/xml/test2.xml"),
 				Charset.defaultCharset());
-		System.out.println(xml2);
-		String json2 = convertXmlStringToJsonNode(xml2).toString();
-		System.out.println(JsonUtil2.toStringPretty(json2));
+		System.out.println(xml);
+		String json = convertXmlStringToJsonNode(xml).toString();
+		System.out.println(JsonUtil2.toStringPretty(json));
 
-		String xml2_ = convertJsonStringToXmlString(json2);
-		System.out.println(xml2_);
-		String json2_ = convertXmlStringToJsonNode(xml2_).toString();
-		System.out.println(JsonUtil2.toStringPretty(json2_));
+		String xml_ = convertJsonStringToXmlString(json);
+		System.out.println(xml_);
+		String json_ = convertXmlStringToJsonNode(xml_).toString();
+		System.out.println(JsonUtil2.toStringPretty(json_));
 	}
 }

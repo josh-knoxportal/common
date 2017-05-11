@@ -1,0 +1,41 @@
+<smartplant-safety>
+  <build>
+    <package uiraa="|divider|100%||">
+      <name uiraa="|string|50%||">작업자 출입감지</name>
+      <version uiraa="|string|50%||">1.0</version>
+    </package>
+    <was uiraa="|divider|100%||">
+      <name uiraa="|select|20%|tomcat,weblogic|">tomcat</name>
+      <version uiraa="|string|100%||">8.0.2</version>
+    </was>
+    <os uiraa="|divider|100%||">
+      <name uiraa="|select|auto|linux,window|" uirah="OS정보">linux</name>
+      <version uiraa="|string|auto||">6.0</version>
+    </os>
+    <database uiraa="|divider|100%||">
+      <db-product uiraa="|select|20%|mysql,maria,oracle|">maria</db-product>
+      <version uiraa="|string|100%||">5.0</version>
+      <url uiraa="|string|auto||">jdbc:mariadb://192.168.0.3:3306/smartplant_db</url>
+      <driver uiraa="|string|auto||">com.mysql.jdbc.Driver</driver>
+      <username uiraa="|string|100%||">username</username>
+      <password uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</password>
+    </database>
+    <interworking uiraa="|divider|100%||">
+      <type uiraa="|select|auto|LGCDS, LGHOS|">LGCDS</type>
+      <ip uiraa="|string|100%||">192.168.10.1</ip>
+      <port uiraa="|string|100%||">1234</port>
+      <authkey uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</authkey>
+    </interworking>
+    <setting uiraa="|divider|100%||">
+      <gps-option uiraa="|select|auto|off,1,2,3|">1</gps-option>
+      <access uiraa="|switch|auto||">true</access>
+      <ar-period uiraa="|string|auto||">60</ar-period>
+      <ecgi uiraa="|switch|auto||">false</ecgi>
+      <beacon uiraa="|switch|auto||">true</beacon>
+    </setting>
+  </build>
+  <runtime>
+    <email uiraa="|string|50%||" uirah="관리자 이메일 주소입니다.">administrator@lgchem.co.kr</email>
+    <log-level uiraa="|select|auto|debug,warning,info|">debug</log-level>
+  </runtime>
+</smartplant-safety>

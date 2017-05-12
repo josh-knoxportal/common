@@ -953,9 +953,11 @@ public class XMLSerializer {
 						root.addNamespaceDeclaration(prefix, String.valueOf(value));
 					}
 				}
-			} else if (name.startsWith("@")) {
+			// Attribute prefix 변경 ("@" -> "_") by skoh
+			} else if (name.startsWith("_")) {
 				root.addAttribute(new Attribute(name.substring(1), String.valueOf(value)));
-			} else if (name.equals("#text")) {
+			// Text 핑드명 변경 ("#text" -> "text_") by skoh
+			} else if (name.equals("text_")) {
 				if (value instanceof JSONArray) {
 					root.appendChild(((JSONArray) value).join("", true));
 				} else {
@@ -1071,7 +1073,8 @@ public class XMLSerializer {
 				continue;
 			}
 			String attrvalue = attr.getValue();
-			setOrAccumulate(jsonObject, "@" + removeNamespacePrefix(attrname), trimSpaceFromValue(attrvalue));
+			// Attribute prefix 변경 ("@" -> "_") by skoh
+			setOrAccumulate(jsonObject, "_" + removeNamespacePrefix(attrname), trimSpaceFromValue(attrvalue));
 		}
 
 		// process children (including text)
@@ -1081,7 +1084,8 @@ public class XMLSerializer {
 			if (child instanceof Text) {
 				Text text = (Text) child;
 				if (StringUtils.isNotBlank(StringUtils.strip(text.getValue()))) {
-					setOrAccumulate(jsonObject, "#text", trimSpaceFromValue(text.getValue()));
+					// Text 핑드명 변경 ("#text" -> "text_") by skoh
+					setOrAccumulate(jsonObject, "text_", trimSpaceFromValue(text.getValue()));
 				}
 			} else if (child instanceof Element) {
 				setValue(jsonObject, (Element) child, defaultType);
@@ -1279,8 +1283,9 @@ public class XMLSerializer {
 					}
 				}
 			}
-			if (object.size() == 1 && object.has("#text")) {
-				return object.get("#text");
+			// Text 핑드명 변경 ("#text" -> "text_") by skoh
+			if (object.size() == 1 && object.has("text_")) {
+				return object.get("text_");
 			}
 		}
 		return json;

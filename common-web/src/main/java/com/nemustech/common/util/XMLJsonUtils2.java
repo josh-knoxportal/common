@@ -99,7 +99,7 @@ public class XMLJsonUtils2 {
 	}
 
 	public static void main(String[] args) throws Exception {
-		XMLJsonUtils xmlJsonUtils = new XMLJsonUtils("test", null, null);
+		XMLJsonUtils2 xmlJsonUtils = new XMLJsonUtils2("smartplant-safety", "object", "element");
 
 		String xml = IOUtils.toString(new FileInputStream("src/test/resources/xml/safety-conf-2.xml"),
 				Charset.defaultCharset());
@@ -108,6 +108,8 @@ public class XMLJsonUtils2 {
 		String json = xmlJsonUtils.convertXmlStringToJsonString(xml);
 		System.out.println(JsonUtil2.toStringPretty(json));
 
+//		json = IOUtils.toString(new FileInputStream("src/test/resources/json/safety-conf-2.json"),
+//				Charset.defaultCharset());
 		String xml_ = xmlJsonUtils.convertJsonStringToXmlString(json);
 		System.out.println(xml_);
 

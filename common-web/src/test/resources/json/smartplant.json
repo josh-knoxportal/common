@@ -1,0 +1,47 @@
+{
+	"package":{
+		"version":"1.2"
+	},
+	"was":{
+		"name":"tomcat",
+		"ver":"8.0.2"
+	},
+	"os":{
+		"types":[
+			"linux",
+			"linux"
+		],
+		"name":"\n      redhat\n    ",
+		"osver":"6.0"
+	},
+	"database":{
+		"product":"mysql",
+		"ip":"xxx.xxx.xxx.xxx",
+		"port":"1234",
+		"id":"onepackage",
+		"password":"\n      onepackagepassword\n    "
+	},
+	"interface":{
+		"ip":"xxx.xxx.xxx.xxx",
+		"port":"1234",
+		"url":"https://lguplus.com",
+		"type":"lgchem",
+		"key":"authkey",
+		"id":"id",
+		"password":"authkey"
+	},
+	"settings":[
+		{
+			"name":"email",
+			"type":"1",
+			"value":"admin@lguplus.com",
+			"is_use":"0"
+		},
+		{
+			"name":"GPS",
+			"type":"1",
+			"value":"1",
+			"is_use":"1"
+		}
+	]
+}

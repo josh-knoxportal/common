@@ -15,24 +15,24 @@
     </os>
     <database uiraa="|divider|100%||">
       <db-product uiraa="|select|20%|mysql,maria,oracle|">maria</db-product>
-      <version uiraa="|string|100%||">5.0</version>
-      <url uiraa="|string|auto||">jdbc:mariadb://192.168.0.3:3306/smartplant_db</url>
       <driver uiraa="|string|auto||">com.mysql.jdbc.Driver</driver>
-      <username uiraa="|string|100%||">username</username>
       <password uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</password>
+      <url uiraa="|string|auto||">jdbc:mariadb://192.168.0.3:3306/smartplant_db</url>
+      <username uiraa="|string|100%||">username</username>
+      <version uiraa="|string|100%||">5.0</version>
     </database>
     <interworking uiraa="|divider|100%||">
-      <type uiraa="|select|auto|LGCDS, LGHOS|">LGCDS</type>
+      <authkey uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</authkey>
       <ip uiraa="|string|100%||">192.168.10.1</ip>
       <port uiraa="|string|100%||">1234</port>
-      <authkey uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</authkey>
+      <type uiraa="|select|auto|LGCDS, LGHOS|">LGCDS</type>
     </interworking>
     <setting uiraa="|divider|100%||">
-      <gps-option uiraa="|select|auto|off,1,2,3|">1</gps-option>
       <access uiraa="|switch|auto||">true</access>
       <ar-period uiraa="|string|auto||">60</ar-period>
-      <ecgi uiraa="|switch|auto||">false</ecgi>
       <beacon uiraa="|switch|auto||">true</beacon>
+      <ecgi uiraa="|switch|auto||">false</ecgi>
+      <gps-option uiraa="|select|auto|off,1,2,3|">1</gps-option>
     </setting>
   </build>
   <runtime>

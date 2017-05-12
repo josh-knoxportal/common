@@ -35,4 +35,18 @@
     <id>id</id>
     <password>authkey</password>
   </interface>
+  <settings class="array">
+    <setting>
+      <name>email</name>
+      <type>1</type>
+      <value><![CDATA[admin@lguplus.com]]></value>
+      <is_use>0</is_use>
+    </setting>
+    <setting>
+      <name>GPS</name>
+      <type>1</type>
+      <value><![CDATA[1]]></value>
+      <is_use>1</is_use>
+    </setting>
+  </settings>
 </smartplant>

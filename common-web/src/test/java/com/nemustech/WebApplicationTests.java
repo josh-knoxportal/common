@@ -27,7 +27,7 @@ public class WebApplicationTests {
 
 	@Test
 	public void test02() {
-		log.info(messageSource.getMessage("field.required", new String[] { "은" }, Locale.KOREA));
-		log.info(messageSource.getMessage("field.required", new String[] { "is" }, Locale.US));
+		log.info("skoh1: " + messageSource.getMessage("field.required", new String[] { "은" }, Locale.KOREA));
+		log.info("skoh2: " + messageSource.getMessage("field.required", new String[] { "is" }, Locale.US));
 	}
 }

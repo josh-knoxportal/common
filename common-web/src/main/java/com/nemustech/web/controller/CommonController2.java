@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +21,7 @@ import com.nemustech.common.model.Response;
 import com.nemustech.common.model.SimpleResponse;
 import com.nemustech.common.model.ValidList;
 import com.nemustech.common.page.PageNavigator;
+import com.nemustech.common.util.StringUtil;
 import com.nemustech.web.util.ValidationUtil;
 
 /**
@@ -39,8 +39,8 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 
 	@Override
 	protected Response<T> getFailResponse(Exception e) {
-		return SimpleResponse.getFailResponse(ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR,
-				StringUtils.substringBefore(e.getMessage().trim(), System.lineSeparator())));
+		return SimpleResponse.getFailResponse(
+				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, StringUtil.getErrorMessage(e)));
 	}
 
 	@Override

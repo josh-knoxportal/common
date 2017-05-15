@@ -26,21 +26,21 @@ public class ConfigTest {
 	@Autowired
 	Properties properties;
 
-	// 수동형
-	@Value("${key1}")
-	String value1;
-
-	// 능동형
-	@Value("#{properties['key2']}")
-	String value2;
-
-	// 조합형
-	@Resource(name = "properties2")
-	String properties2;
-
-	// 갱신형
-	@Resource(name = "propertiesConfiguration")
-	Configuration configuration;
+//	// 수동형
+//	@Value("${key1}")
+//	String value1;
+//
+//	// 능동형
+//	@Value("#{properties['key2']}")
+//	String value2;
+//
+//	// 조합형
+//	@Resource(name = "properties2")
+//	String properties2;
+//
+//	// 갱신형
+//	@Resource(name = "propertiesConfiguration")
+//	Configuration configuration;
 
 //	@Autowired
 //	MessageSource messageSource;
@@ -49,10 +49,10 @@ public class ConfigTest {
 	public void t01() throws Exception {
 //		while (true) {
 		log.info("properties: " + properties);
-		log.info("key1: " + value1);
-		log.info("key2: " + value2);
-		log.info("properties2: " + properties2);
-		log.info("key1_reload: " + configuration.getProperty("key1"));
+//		log.info("key1: " + value1);
+//		log.info("key2: " + value2);
+//		log.info("properties2: " + properties2);
+//		log.info("key1_reload: " + configuration.getProperty("key1"));
 
 //		String message = messageSource.getMessage("skoh", null, null);
 //		String usMessage = messageSource.getMessage("skoh", null, "skoh2", Locale.US);
@@ -63,8 +63,7 @@ public class ConfigTest {
 //		log.info(korMessage);
 
 //		Assert.assertTrue("model == null", model != null);
-//			log.info("---------------------------------");
-//			Thread.currentThread().sleep(5000);
-//		}
+//		Thread.currentThread().sleep(10000);
+//		log.info("key1_reload: " + configuration.getProperty("key1"));
 	}
 }

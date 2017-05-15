@@ -1427,6 +1427,16 @@ public abstract class StringUtil extends StringUtils {
 	}
 
 	/**
+	 * Throwable 메세지의 첫 라인만 가져온다.
+	 * 
+	 * @param e
+	 * @return
+	 */
+	public static String getErrorMessage(Throwable t) {
+		return substringBefore(t.getMessage().trim(), System.lineSeparator()); // skoh
+	}
+
+	/**
 	 * Collection 객체를 배열 형태로 변환한다.
 	 * 
 	 * @param object

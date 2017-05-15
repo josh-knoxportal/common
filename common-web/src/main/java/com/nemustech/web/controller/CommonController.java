@@ -11,7 +11,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Page;
@@ -42,6 +41,7 @@ import com.nemustech.common.page.Paging;
 import com.nemustech.common.service.CommonService;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.ORMUtil;
+import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 import com.nemustech.web.Constants;
 import com.nemustech.web.util.ValidationUtil;
@@ -329,9 +329,9 @@ public abstract class CommonController<T extends Default> {
 
 		// 컬럼 리스트 (WHERE)
 		List<KeyValue> columnList = new ArrayList<KeyValue>();
-		String[] columnArray = StringUtils.split(fields, ',');
+		String[] columnArray = StringUtil.split(fields, ',');
 		for (String column : columnArray) {
-			String[] field = StringUtils.split(column, ' ');
+			String[] field = StringUtil.split(column, ' ');
 			if (handler instanceof JoinHandler) {
 				int index = field[1].indexOf("_");
 				field[1] = field[1].substring(0, index) + "." + field[1].substring(index + 1);
@@ -431,8 +431,7 @@ public abstract class CommonController<T extends Default> {
 	 */
 	protected Response<T> getFailResponse(Exception e) {
 		return Response.getFailResponse(ValidationUtil.getHttpErrorCode(HttpStatus.INTERNAL_SERVER_ERROR),
-				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR,
-						StringUtils.substringBefore(e.getMessage().trim(), System.lineSeparator())));
+				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, StringUtil.getErrorMessage(e)));
 	}
 
 	/**

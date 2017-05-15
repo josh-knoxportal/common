@@ -108,7 +108,7 @@ public abstract class XMLJacksonUtils extends XMLUtils {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String xml = IOUtils.toString(new FileInputStream("src/test/resources/xml/test2.xml"),
+		String xml = IOUtils.toString(new FileInputStream("src/test/resources/xml/mail.xml"),
 				Charset.defaultCharset());
 		System.out.println(xml);
 		String json = convertXmlStringToJsonNode(xml).toString();

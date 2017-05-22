@@ -1,0 +1,21 @@
+{
+	"url":"http://localhost:8020/v1/ngms/device_information.do",
+	"method":"POST",
+	"requestFormat":"JSON",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"access_token":"no!da^ta",
+				"device_no":"01022332191",
+				"request_type":"1",
+				"Content-Type":"application/json"
+			},
+			"params":{
+				"package_name":"com.lguplus.smartplant.lgchem.car",
+				"app_key":"7ba5e0405b9677fba7427f2f74ad66e320cf3915e9fba58a81452738bef2ce51",
+				"version":1
+			}
+		}
+	]
+}

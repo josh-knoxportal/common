@@ -7,7 +7,7 @@
 		</encoder>
 	</appender>
 
-	<appender name="dailyFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>logs/common.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>logs/common.log.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
@@ -56,6 +56,6 @@
 
 	<root level="info">
 		<appender-ref ref="console" />
-		<!-- <appender-ref ref="dailyFile" /> -->
+		<appender-ref ref="file" />
 	</root>
 </configuration>

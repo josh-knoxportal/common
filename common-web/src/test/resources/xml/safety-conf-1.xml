@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <smartplant-safety>
-  <build>
-    <package uiraa="|divider|100%||" />
-    <package-name uiraa="|string|50%||">작업자 출입감지</package-name>
-    <package-ver uiraa="|string|50%||">1.0</package-ver>
-    <was uiraa="|divider|100%||" />
-    <was-name uiraa="|select|20%|tomcat,weblogic|">tomcat</was-name>
-    <was-ver uiraa="|string|100%||">8.0.2</was-ver>
-    <os uiraa="|divider|100%||" />
-    <os-name uiraa="|select|auto|linux,window|" uirah="OS정보">linux</os-name>
-    <os-ver uiraa="|string|auto||">6.0</os-ver>
-    <database uiraa="|divider|100%||" />
-    <db-product uiraa="|select|20%|mysql,maria,oracle|">maria</db-product>
-    <db-ver uiraa="|string|100%||">5.0</db-ver>
-    <db-url uiraa="|string|auto||">jdbc:mariadb://192.168.0.3:3306/smartplant_db</db-url>
-    <db-driver uiraa="|string|auto||">com.mysql.jdbc.Driver</db-driver>
-    <db-username uiraa="|string|100%||">username</db-username>
-    <db-password uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</db-password>
-    <interworking uiraa="|divider|100%||" />
-    <iwf-type uiraa="|select|auto|LGCDS, LGHOS|">LGCDS</iwf-type>
-    <iwf-ip uiraa="|string|100%||">192.168.10.1</iwf-ip>
-    <iwf-port uiraa="|string|100%||">1234</iwf-port>
-    <iwf-authkey uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</iwf-authkey>
-    <setting uiraa="|divider|100%||" />
-    <gps-option uiraa="|select|auto|off,1,2,3|">1</gps-option>
-    <access uiraa="|switch|auto||">true</access>
-    <ar-period uiraa="|string|auto||">60</ar-period>
-    <ecgi uiraa="|switch|auto||">false</ecgi>
-    <beacon uiraa="|switch|auto||">true</beacon>
-  </build>
-  <runtime>
-    <email uiraa="|string|50%||">administrator@lgchem.co.kr</email>
-    <log-level uiraa="|select|auto|debug,warning,info|">debug</log-level>
-  </runtime>
+	<build>
+		<package uiraa="|divider|100%||" />
+		<package-name uiraa="|string|50%||">작업자 출입감지</package-name>
+		<package-ver uiraa="|string|50%||">1.0</package-ver>
+		<was uiraa="|divider|100%||" />
+		<was-name uiraa="|select|20%|tomcat,weblogic|">tomcat</was-name>
+		<was-ver uiraa="|string|100%||">8.0.2</was-ver>
+		<os uiraa="|divider|100%||" />
+		<os-name uiraa="|select|auto|linux,window|" uirah="OS정보">linux</os-name>
+		<os-ver uiraa="|string|auto||">6.0</os-ver>
+		<database uiraa="|divider|100%||" />
+		<db-product uiraa="|select|20%|mysql,maria,oracle|">maria</db-product>
+		<db-ver uiraa="|string|100%||">5.0</db-ver>
+		<db-url uiraa="|string|auto||">jdbc:mariadb://192.168.0.3:3306/smartplant_db</db-url>
+		<db-driver uiraa="|string|auto||">com.mysql.jdbc.Driver</db-driver>
+		<db-username uiraa="|string|100%||">username</db-username>
+		<db-password uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</db-password>
+		<interworking uiraa="|divider|100%||" />
+		<iwf-type uiraa="|select|auto|LGCDS, LGHOS|">LGCDS</iwf-type>
+		<iwf-ip uiraa="|string|100%||">192.168.10.1</iwf-ip>
+		<iwf-port uiraa="|string|100%||">1234</iwf-port>
+		<iwf-authkey uiraa="|string|100%||">827ccb0eea8a706c4c34a16891f84e7b</iwf-authkey>
+		<setting uiraa="|divider|100%||" />
+		<gps-option uiraa="|select|auto|off,1,2,3|">1</gps-option>
+		<access uiraa="|switch|auto||">true</access>
+		<ar-period uiraa="|string|auto||">60</ar-period>
+		<ecgi uiraa="|switch|auto||">false</ecgi>
+		<beacon uiraa="|switch|auto||">true</beacon>
+	</build>
+	<runtime>
+		<email uiraa="|string|50%||">administrator@lgchem.co.kr</email>
+		<log-level uiraa="|select|auto|debug,warning,info|">debug</log-level>
+	</runtime>
 </smartplant-safety>

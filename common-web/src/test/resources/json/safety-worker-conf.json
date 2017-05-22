@@ -1,5 +1,5 @@
 {
-	"build":{
+	"buildtime":{
 		"package":{
 			"_uiraa":"|divider|100%||",
 			"name":{
@@ -40,32 +40,32 @@
 				"_uiraa":"|select|20%|mysql,maria,oracle|",
 				"text_":"maria"
 			},
-			"driver":{
-				"_uiraa":"|string|auto||",
-				"text_":"com.mysql.jdbc.Driver"
-			},
-			"password":{
+			"version":{
 				"_uiraa":"|string|100%||",
-				"text_":"827ccb0eea8a706c4c34a16891f84e7b"
+				"text_":"5.0"
 			},
 			"url":{
 				"_uiraa":"|string|auto||",
 				"text_":"jdbc:mariadb://192.168.0.3:3306/smartplant_db"
 			},
+			"driver":{
+				"_uiraa":"|string|auto||",
+				"text_":"com.mysql.jdbc.Driver"
+			},
 			"username":{
 				"_uiraa":"|string|100%||",
 				"text_":"username"
 			},
-			"version":{
+			"password":{
 				"_uiraa":"|string|100%||",
-				"text_":"5.0"
+				"text_":"827ccb0eea8a706c4c34a16891f84e7b"
 			}
 		},
 		"interworking":{
 			"_uiraa":"|divider|100%||",
-			"authkey":{
-				"_uiraa":"|string|100%||",
-				"text_":"827ccb0eea8a706c4c34a16891f84e7b"
+			"type":{
+				"_uiraa":"|select|auto|LGCDS, LGHOS|",
+				"text_":"LGCDS"
 			},
 			"ip":{
 				"_uiraa":"|string|100%||",
@@ -75,13 +75,25 @@
 				"_uiraa":"|string|100%||",
 				"text_":"1234"
 			},
-			"type":{
-				"_uiraa":"|select|auto|LGCDS, LGHOS|",
-				"text_":"LGCDS"
+			"authkey":{
+				"_uiraa":"|string|100%||",
+				"text_":"827ccb0eea8a706c4c34a16891f84e7b"
 			}
 		},
 		"setting":{
+			"ecgi":{
+				"_uiraa":"|switch|auto||",
+				"text_":"false"
+			},
+			"beacon":{
+				"_uiraa":"|switch|auto||",
+				"text_":"true"
+			},
 			"_uiraa":"|divider|100%||",
+			"gps-option":{
+				"_uiraa":"|select|auto|off,1,2,3|",
+				"text_":"1"
+			},
 			"access":{
 				"_uiraa":"|switch|auto||",
 				"text_":"true"
@@ -89,26 +101,17 @@
 			"ar-period":{
 				"_uiraa":"|string|auto||",
 				"text_":"60"
-			},
-			"beacon":{
-				"_uiraa":"|switch|auto||",
-				"text_":"true"
-			},
-			"ecgi":{
-				"_uiraa":"|switch|auto||",
-				"text_":"false"
-			},
-			"gps-option":{
-				"_uiraa":"|select|auto|off,1,2,3|",
-				"text_":"1"
 			}
 		}
 	},
 	"runtime":{
 		"email":{
 			"_uiraa":"|string|50%||",
-			"_uirah":"관리자 이메일 주소입니다.",
-			"text_":"administrator@lgchem.co.kr"
+			"smtp":"localhost",
+			"port":"25",
+			"username":"username",
+			"password":"827ccb0eea8a706c4c34a16891f84e7b",
+			"address":"administrator@lgchem.co.kr"
 		},
 		"log-level":{
 			"_uiraa":"|select|auto|debug,warning,info|",

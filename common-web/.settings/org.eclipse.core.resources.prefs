@@ -9,4 +9,5 @@ encoding//src/main/resources/messages/messages_ko.properties=UTF-8
 encoding//src/main/webapp/test03.jsp=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
+encoding//src/test/resources/properties/smartplant-safety.properties=UTF-8
 encoding/<project>=UTF-8

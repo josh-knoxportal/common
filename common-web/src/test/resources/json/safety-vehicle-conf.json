@@ -1,10 +1,10 @@
 {
-	"build":{
+	"buildtime":{
 		"package":{
 			"_uiraa":"|divider|100%||",
 			"name":{
 				"_uiraa":"|string|50%||",
-				"text_":"작업자 출입감지"
+				"text_":"차량안전"
 			},
 			"version":{
 				"_uiraa":"|string|50%||",
@@ -61,39 +61,7 @@
 				"text_":"827ccb0eea8a706c4c34a16891f84e7b"
 			}
 		},
-		"interworking":{
-			"_uiraa":"|divider|100%||",
-			"type":{
-				"_uiraa":"|select|auto|LGCDS, LGHOS|",
-				"text_":"LGCDS"
-			},
-			"ip":{
-				"_uiraa":"|string|100%||",
-				"text_":"192.168.10.1"
-			},
-			"port":{
-				"_uiraa":"|string|100%||",
-				"text_":"1234"
-			},
-			"authkey":{
-				"_uiraa":"|string|100%||",
-				"text_":"827ccb0eea8a706c4c34a16891f84e7b"
-			}
-		},
 		"setting":{
-			"_uiraa":"|divider|100%||",
-			"gps-option":{
-				"_uiraa":"|select|auto|off,1,2,3|",
-				"text_":"1"
-			},
-			"access":{
-				"_uiraa":"|switch|auto||",
-				"text_":"true"
-			},
-			"ar-period":{
-				"_uiraa":"|string|auto||",
-				"text_":"60"
-			},
 			"ecgi":{
 				"_uiraa":"|switch|auto||",
 				"text_":"false"
@@ -101,14 +69,29 @@
 			"beacon":{
 				"_uiraa":"|switch|auto||",
 				"text_":"true"
+			},
+			"_uiraa":"|divider|100%||",
+			"velocity":{
+				"_uiraa":"|switch|auto||",
+				"text_":"true"
 			}
 		}
 	},
 	"runtime":{
+		"setting":{
+			"_uiraa":"|divider|100%||",
+			"gps-period":{
+				"_uiraa":"|string|auto||",
+				"text_":"1"
+			}
+		},
 		"email":{
 			"_uiraa":"|string|50%||",
-			"_uirah":"관리자 이메일 주소입니다.",
-			"text_":"administrator@lgchem.co.kr"
+			"smtp":"192.168.0.3",
+			"port":"25",
+			"username":"username",
+			"password":"827ccb0eea8a706c4c34a16891f84e7b",
+			"address":"administrator@lgchem.co.kr"
 		},
 		"log-level":{
 			"_uiraa":"|select|auto|debug,warning,info|",

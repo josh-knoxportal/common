@@ -46,11 +46,7 @@
 		<property name="configurations">
 			<list>
 				<ref bean="propertiesConfiguration" />
-				<bean class="org.apache.commons.configuration.XMLConfiguration">
-					<constructor-arg type="java.lang.String">
-						<value>default_config.xml</value>
-					</constructor-arg>
-				</bean>
+				<ref bean="xmlConfiguration" />
 			</list>
 		</property>
 	</bean>
@@ -58,6 +54,18 @@
 	<bean id="propertiesConfiguration" class="org.apache.commons.configuration.PropertiesConfiguration">
 		<constructor-arg type="java.lang.String">
 			<value>local_config.properties</value>
+		</constructor-arg>
+		<property name="reloadingStrategy">
+			<bean class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy">
+				<property name="refreshDelay" value="5000" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="xmlConfiguration" class="org.apache.commons.configuration.XMLConfiguration">
+		<constructor-arg type="java.lang.String">
+			<value>default_config.xml</value>
+<!-- 			<value>#{systemProperties['org.oh.home']}/config/vehicle/smartplant-safety.xml</value> -->
 		</constructor-arg>
 		<property name="reloadingStrategy">
 			<bean class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy" />

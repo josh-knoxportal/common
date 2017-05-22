@@ -101,7 +101,7 @@ public class XMLJsonUtils2 {
 	public static void main(String[] args) throws Exception {
 		XMLJsonUtils2 xmlJsonUtils = new XMLJsonUtils2("smartplant-safety", "object", "element");
 
-		String xml = IOUtils.toString(new FileInputStream("src/test/resources/xml/mail.xml"),
+		String xml = IOUtils.toString(new FileInputStream("src/test/resources/xml/safety-worker-conf.xml"),
 				Charset.defaultCharset());
 		System.out.println(xml);
 

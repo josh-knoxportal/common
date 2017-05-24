@@ -1,14 +1,12 @@
 package com.nemustech.common;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.storage.LocalFileStorage;
@@ -17,6 +15,10 @@ import com.nemustech.common.storage.LocalFileStorage;
 //@ContextConfiguration(locations = "file:conf/config-spring02.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test01 {
+	protected Log log = LogFactory.getLog(getClass());
+	protected org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(getClass());
+	protected org.slf4j.Logger logger2 = org.slf4j.LoggerFactory.getLogger(getClass());
+
 	public FileStorage fileStorage = LocalFileStorage.getInstance();
 
 	public String targetClass = "1";
@@ -34,10 +36,13 @@ public class Test01 {
 		System.out.println(fileStorage.toString());
 	}
 
-	@Cacheable(value = "test", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + #root.args[0]")
+//	@Cacheable(value = "test", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + #root.args[0]")
 	@Test
 	public void test02() throws Exception {
-		String s = "";
+		log.info("logging");
+		logger.info("log4j");
+		logger2.info("slf4j");
+//		String s = "";
 //		s = "'Hello World'";
 //		s = "'Hello World'.concat('!')";
 //		s = "'Hello World'.bytes.length";
@@ -91,11 +96,11 @@ public class Test01 {
 //			}
 //		}
 
-		String pw = "0327";
-		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String pw1 = passwordEncoder.encode(pw);
-		System.out.println("pw1: " + pw1);
-		System.out.println(passwordEncoder.matches(pw, pw1));
+//		String pw = "0327";
+//		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//		String pw1 = passwordEncoder.encode(pw);
+//		System.out.println("pw1: " + pw1);
+//		System.out.println(passwordEncoder.matches(pw, pw1));
 
 //		System.out.println(new URIBuilder("http://localhost:8050/sample/list.do?id=1")
 //				.addParameters((List) Arrays.asList(new BasicNameValuePair("name", "s"))).build());
@@ -134,9 +139,9 @@ public class Test01 {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Test01 test01 = new Test01();
+//		Test01 test01 = new Test01();
 //		test01.test02();
-		System.out.println(ReflectionToStringBuilder.toString(test01));
+//		System.out.println(ReflectionToStringBuilder.toString(test01));
 //		System.out.println(BeanUtils.describe(test01));
 	}
 }

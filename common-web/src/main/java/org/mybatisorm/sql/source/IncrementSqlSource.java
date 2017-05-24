@@ -15,13 +15,14 @@
  */
 package org.mybatisorm.sql.source;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.log4j.Logger;
 
 public class IncrementSqlSource extends AbstractUpdateSqlSource {
 
-	private static Logger logger = Logger.getLogger(IncrementSqlSource.class);
+	private static Log logger = LogFactory.getLog(IncrementSqlSource.class);
 	
 	public IncrementSqlSource(SqlSourceBuilder sqlSourceParser, Class<?> clazz) {
 		super(sqlSourceParser,clazz);

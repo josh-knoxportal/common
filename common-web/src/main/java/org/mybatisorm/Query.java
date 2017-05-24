@@ -20,7 +20,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.annotation.handler.HandlerFactory;
 import org.mybatisorm.annotation.handler.TableHandler;
 
@@ -37,7 +38,7 @@ public class Query {
 
 	private static final String CONDITION_REPLACEMENT = "#{" + PARAMETER_PREFIX + "$1}";
 	
-	private static Logger logger = Logger.getLogger(Query.class);
+	private static Log logger = LogFactory.getLog(Query.class);
 
 	// SQL명 추가 by skoh
 	protected String sqlName;

@@ -18,16 +18,18 @@ package org.mybatisorm.sql.builder;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.parsing.PropertyParser;
-import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
+
 import com.nemustech.common.util.Utils;
 
 public abstract class DynamicSqlBuilder extends SqlBuilder {
 
-	private static Logger logger = Logger.getLogger(DynamicSqlBuilder.class);
+	private static Log logger = LogFactory.getLog(DynamicSqlBuilder.class);
 
 	protected String staticSql;
 

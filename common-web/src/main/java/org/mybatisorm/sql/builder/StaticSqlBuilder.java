@@ -15,14 +15,15 @@
  */
 package org.mybatisorm.sql.builder;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.SqlSource;
-import org.apache.log4j.Logger;
 
 public class StaticSqlBuilder extends SqlBuilder {
 
-	private static Logger logger = Logger.getLogger(StaticSqlBuilder.class);
+	private static Log logger = LogFactory.getLog(StaticSqlBuilder.class);
 	
 	private SqlSource sqlSource;
 	

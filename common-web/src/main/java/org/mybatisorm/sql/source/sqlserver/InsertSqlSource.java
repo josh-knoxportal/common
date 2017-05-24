@@ -15,16 +15,17 @@
  */
 package org.mybatisorm.sql.source.sqlserver;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
 import org.mybatisorm.annotation.handler.FieldList;
 import org.mybatisorm.sql.source.AbstractInsertSqlSource;
 
 public class InsertSqlSource extends AbstractInsertSqlSource {
 
-	private static Logger logger = Logger.getLogger(InsertSqlSource.class);
+	private static Log logger = LogFactory.getLog(InsertSqlSource.class);
 	
 	public InsertSqlSource(SqlSourceBuilder sqlSourceParser, Class<?> clazz) {
 		super(sqlSourceParser,clazz);

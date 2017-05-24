@@ -15,17 +15,18 @@
  */
 package org.mybatisorm.sql.source;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
-import org.mybatisorm.annotation.handler.TokenMaker;
+
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 
 public class ListSqlSource extends AbstractSelectSqlSource {
 
-	private static Logger logger = Logger.getLogger(ListSqlSource.class);
+	private static Log logger = LogFactory.getLog(ListSqlSource.class);
 	
 	public ListSqlSource(SqlSourceBuilder sqlSourceParser, Class<?> clazz) {
 		super(sqlSourceParser, clazz);

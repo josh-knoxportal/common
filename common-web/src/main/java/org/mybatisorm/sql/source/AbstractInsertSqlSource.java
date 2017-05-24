@@ -13,23 +13,25 @@ package org.mybatisorm.sql.source;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.SqlCommandType;
-import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
 import org.mybatisorm.annotation.SqlCommand;
 import org.mybatisorm.annotation.handler.FieldList;
 import org.mybatisorm.annotation.handler.TokenMaker;
 import org.mybatisorm.sql.builder.DynamicSqlBuilder;
 import org.mybatisorm.util.StringUtil;
+
 import com.nemustech.common.util.ReflectionUtil;
 import com.nemustech.common.util.Utils;
 
 @SqlCommand(SqlCommandType.INSERT)
 public abstract class AbstractInsertSqlSource extends DynamicSqlBuilder {
 
-	private static Logger logger = Logger.getLogger(AbstractInsertSqlSource.class);
+	private static Log logger = LogFactory.getLog(AbstractInsertSqlSource.class);
 
 	public AbstractInsertSqlSource(SqlSourceBuilder sqlSourceParser, Class<?> clazz) {
 		super(sqlSourceParser, clazz);

@@ -15,15 +15,16 @@
  */
 package org.mybatisorm.sql.source.mysql;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
 import org.mybatisorm.sql.source.AbstractSelectSqlSource;
 
 public class LimitSqlSource extends AbstractSelectSqlSource {
 
-	private static Logger logger = Logger.getLogger(LimitSqlSource.class);
+	private static Log logger = LogFactory.getLog(LimitSqlSource.class);
 	
 	public LimitSqlSource(SqlSourceBuilder sqlSourceParser, Class<?> clazz) {
 		super(sqlSourceParser, clazz);

@@ -18,11 +18,12 @@ package org.mybatisorm.sql.source.oracle;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.mapping.SqlCommandType;
-import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
 import org.mybatisorm.annotation.SqlCommand;
 import org.mybatisorm.exception.MyBatisOrmException;
@@ -38,7 +39,7 @@ public class RownumSqlSource extends DynamicSqlBuilder {
 	)
 	WHERE message_key = 103
 */
-	private static Logger logger = Logger.getLogger(RownumSqlSource.class);
+	private static Log logger = LogFactory.getLog(RownumSqlSource.class);
 	
 	public RownumSqlSource(SqlSourceBuilder sqlSourceParser, Class<?> clazz) {
 		super(sqlSourceParser,clazz);

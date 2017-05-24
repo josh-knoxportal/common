@@ -15,14 +15,15 @@
  */
 package org.mybatisorm.sql.source.sqlserver;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.log4j.Logger;
 import org.mybatisorm.Query;
 
 public class PageSqlSource extends LimitSqlSource {
 
-	private static Logger logger = Logger.getLogger(PageSqlSource.class);
+	private static Log logger = LogFactory.getLog(PageSqlSource.class);
 	
 	public PageSqlSource(SqlSourceBuilder sqlSourceParser, Class<?> clazz) {
 		super(sqlSourceParser,clazz);

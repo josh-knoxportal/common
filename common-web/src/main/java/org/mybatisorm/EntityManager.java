@@ -18,13 +18,14 @@ import java.util.Map;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.log4j.Logger;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.mybatisorm.annotation.handler.SqlCommandAnnotation;
 import org.mybatisorm.exception.InvalidSqlSourceException;
@@ -40,7 +41,7 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class EntityManager extends SqlSessionDaoSupport implements InitializingBean {
 
-	private static Logger logger = Logger.getLogger(EntityManager.class);
+	private static Log logger = LogFactory.getLog(EntityManager.class);
 
 	private static final String SOURCE_COUNT = "Count";
 	private static final String SOURCE_DELETE = "Delete";

@@ -1,6 +1,7 @@
 package com.nemustech.web;
 
 import java.nio.charset.Charset;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 
@@ -48,6 +49,9 @@ public class ConfigTest {
 //	@Resource(name = "configuration")
 //	Configuration configuration;
 
+	@Resource(name = "properties")
+	Properties properties;
+
 	@Resource(name = "xmlConfiguration")
 	FileConfiguration fileConfiguration;
 
@@ -64,14 +68,16 @@ public class ConfigTest {
 //		log.info("properties2: " + properties2);
 //		log.info("key1_reload: " + configuration.getProperty("key1"));
 //		log.info("key2_reload: " + fileConfiguration.getProperty("key2"));
+		
+		System.out.println("properties: " + properties);
 
 		// -Dorg.oh.home=/Users/skoh/smartplant_safety
 		// <value>#{systemProperties['org.oh.home']}/config/vehicle/smartplant-safety.xml</value>
 		String xml = IOUtils.toString(fileConfiguration.getURL(), Charset.defaultCharset());
-		System.out.println(xml);
+		System.out.println("xml: " + xml);
 		XMLJsonUtils2 xmlJsonUtils = new XMLJsonUtils2("smartplant-safety", "object", "element");
 		String json = xmlJsonUtils.convertXmlStringToJsonString(xml);
-		System.out.println(JsonUtil2.toStringPretty(json));
+		System.out.println("json: " + JsonUtil2.toStringPretty(json));
 
 //		String message = messageSource.getMessage("skoh", null, null);
 //		String usMessage = messageSource.getMessage("skoh", null, "skoh2", Locale.US);

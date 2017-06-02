@@ -33,7 +33,7 @@ import org.springframework.beans.DirectFieldAccessor;
 import org.xml.sax.InputSource;
 
 public abstract class AbstractSOAPMessageMapper<T1, T2> implements ISOAPMessageMapper<T1, T2> {
-	protected static Log log = LogFactory.getLog(AbstractSOAPMessageMapper.class);
+	private static final Log log = LogFactory.getLog(AbstractSOAPMessageMapper.class);
 
 	protected static final AESEncrypter aesEncrypter = new AESEncrypter();
 	protected static MessageFactory messageFactory = null;

@@ -34,7 +34,7 @@ public class SSHTunnelService {
 	protected List<SSHUtil> sshList = new ArrayList<>();
 
 	@PostConstruct
-	public void init() throws Exception {
+	public void init_() throws Exception {
 		String prefixs = System.getProperty("ssh.tunnel.prefixs");
 		if (Utils.isValidate(prefixs)) {
 			PropertyUtils property = PropertyUtils.getInstance();

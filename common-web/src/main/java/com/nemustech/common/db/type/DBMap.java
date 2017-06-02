@@ -18,7 +18,7 @@ import org.codehaus.jackson.node.ObjectNode;
  *
  */
 public class DBMap extends HashMap<String, Object> {
-	protected static Log log = LogFactory.getLog(DBMap.class);
+	private static final Log log = LogFactory.getLog(DBMap.class);
 	private static final long serialVersionUID = 1L;
 
 	/**

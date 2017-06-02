@@ -30,7 +30,7 @@ import com.nemustech.common.db.type.DBSqlResult;
  * 
  */
 public class MyBatisDao implements DBDao {
-	protected static Log log = LogFactory.getLog(MyBatisDao.class);
+	private static final Log log = LogFactory.getLog(MyBatisDao.class);
 
 	/**
 	 * 생성자

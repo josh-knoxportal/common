@@ -23,7 +23,7 @@ import com.nemustech.common.helper.IOHelper;
  * @version 1.0.0
  */
 public class FileDownloader {
-	protected static Log log = LogFactory.getLog(FileDownloader.class);
+	private static final Log log = LogFactory.getLog(FileDownloader.class);
 
 	private static FileDownloader _INSTANCE = new FileDownloader();
 	/**

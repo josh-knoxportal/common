@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class FileurlDownloader extends FileDownloader implements Downloader {
-	protected static Log log = LogFactory.getLog(FileurlDownloader.class);
+	private static final Log log = LogFactory.getLog(FileurlDownloader.class);
 
 	protected String charset = null;
 

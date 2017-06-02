@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class FileidDownloader extends FileDownloader implements Downloader {
-	protected static Log log = LogFactory.getLog(FileidDownloader.class);
+	private static final Log log = LogFactory.getLog(FileidDownloader.class);
 
 	@Autowired
 	protected FileStorage fileStorage;

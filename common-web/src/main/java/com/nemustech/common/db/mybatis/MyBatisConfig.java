@@ -27,7 +27,7 @@ import com.nemustech.common.util.LogUtil;
 public class MyBatisConfig {
 	protected static final Charset CHARSET = Charset.forName("UTF-8");
 
-	protected static Log log = LogFactory.getLog(MyBatisConfig.class);
+	private static final Log log = LogFactory.getLog(MyBatisConfig.class);
 
 	private static HashMap<String, SqlSessionFactory> factoryMap = new HashMap<String, SqlSessionFactory>(2);
 	private static final String configFile = Constants.HOME_DIR + File.separator + Constants.CONF_DIR_NAME

@@ -49,7 +49,7 @@ public abstract class AbstractHttpMapper<T> implements IHttpMapper<T> {
 
 	public static final String ERROR_MESSAGE = "레거시 오류메세지가 없습니다.";
 
-	protected static Log log = LogFactory.getLog(AbstractHttpMapper.class);
+	private static final Log log = LogFactory.getLog(AbstractHttpMapper.class);
 
 	protected String trcode = null;
 	protected Charset charset = null;

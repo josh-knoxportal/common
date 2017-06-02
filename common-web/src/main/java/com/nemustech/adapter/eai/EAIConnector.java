@@ -14,7 +14,7 @@ import COM.activesw.api.client.BrokerException;
  * EAI 기본 커넥터
  */
 public class EAIConnector {
-	protected static Log log = LogFactory.getLog(EAIConnector.class);
+	private static final Log log = LogFactory.getLog(EAIConnector.class);
 
 	protected String broker_host;
 	protected String broker_name;

@@ -1,5 +1,7 @@
 package com.nemustech.common;
 
+import java.util.Date;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
@@ -39,9 +41,9 @@ public class Test01 {
 //	@Cacheable(value = "test", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + #root.args[0]")
 	@Test
 	public void test02() throws Exception {
-		log.info("logging");
-		logger.info("log4j");
-		logger2.info("slf4j");
+//		log.info("logging");
+//		logger.info("log4j");
+//		logger2.info("slf4j");
 //		String s = "";
 //		s = "'Hello World'";
 //		s = "'Hello World'.concat('!')";
@@ -132,6 +134,8 @@ public class Test01 {
 //		System.out.println(rs2.getString(1));
 
 //		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this));
+		
+		System.out.println(new Date().getTime() + " " + new Date().getTimezoneOffset());
 	}
 
 	public String getTargetClass() throws Exception {

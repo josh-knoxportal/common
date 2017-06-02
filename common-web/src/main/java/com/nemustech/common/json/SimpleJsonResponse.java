@@ -22,7 +22,7 @@ import org.codehaus.jackson.node.ObjectNode;
  * 
  */
 public class SimpleJsonResponse {
-	protected static Log log = LogFactory.getLog(SimpleJsonResponse.class);
+	private static final Log log = LogFactory.getLog(SimpleJsonResponse.class);
 
 	/**
 	 * {@value com.mcnc.smart.hybrid.common.code.Codes#_JSON_MESSAGE_RESULT}

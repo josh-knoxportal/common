@@ -62,7 +62,7 @@ public abstract class CommonController<T extends Default> {
 	public abstract CommonService<T> getService();
 
 	@PostConstruct
-	public void init() throws Exception {
+	public void init_() throws Exception {
 		service = getService();
 	}
 

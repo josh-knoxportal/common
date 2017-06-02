@@ -16,7 +16,7 @@ import com.nemustech.common.helper.IOHelper;
  *
  */
 public class LocalFileDownloader implements IFileDownloader {
-	protected static Log log = LogFactory.getLog(LocalFileDownloader.class);
+	private static final Log log = LogFactory.getLog(LocalFileDownloader.class);
 
 	/**
 	 * @param filePath 파일의 로컬 경로(절대 경로 권장)

@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
  *
  */
 public class DBSqlResult {
-	protected static Log log = LogFactory.getLog(DBSqlResult.class);
+	private static final Log log = LogFactory.getLog(DBSqlResult.class);
 
 	private LinkedHashMap<String, Object> resultMap = null;
 	private int rowCount = 0;

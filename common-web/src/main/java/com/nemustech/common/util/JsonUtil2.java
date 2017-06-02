@@ -1,6 +1,7 @@
 package com.nemustech.common.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -8,6 +9,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -112,7 +114,7 @@ public abstract class JsonUtil2 {
 	 *    userClassToMap.put("phone_num", "01012301230");
 	 *    <br>
 	 *    String json = JsonUtil2.toString(userClassToMap); // Json 변환
-	 *    LogUtil.writeLog(json.toString()); // {"gender":"Man","age":"25","phone_num":"01012301230","name":"Kim Ga-Na"}
+	 *    LogUtil.writeLog(json.asText()); // {"gender":"Man","age":"25","phone_num":"01012301230","name":"Kim Ga-Na"}
 	 * </pre>
 	 *
 	 * @param map 맵
@@ -166,7 +168,7 @@ public abstract class JsonUtil2 {
 	 *      <br>
 	 *      String json = JsonUtil2.toString(user); // User 객체를 Json으로 변환
 	 *      <br>
-	 *      LogUtil.writeLog(json.toString()); // {"gender":null,"age":27,"phoneNum":"010-7777-5555","address":null,"name":"Kim Ga-Na"}
+	 *      LogUtil.writeLog(json.asText()); // {"gender":null,"age":27,"phoneNum":"010-7777-5555","address":null,"name":"Kim Ga-Na"}
 	 * </pre>
 	 * 
 	 * @param pojos 객체
@@ -321,7 +323,7 @@ public abstract class JsonUtil2 {
 	 *      <br>
 	 *      ObjectNode objectNode = JsonUtil2.toObjectNode(user); // User 객체를 ObjectNode로 변환
 	 *      <br>
-	 *      LogUtil.writeLog(objectNode.toString()); // {"gender":null,"age":27,"phoneNum":"010-7777-5555","address":null,"name":"Kim Ga-Na"}
+	 *      LogUtil.writeLog(objectNode.asText()); // {"gender":null,"age":27,"phoneNum":"010-7777-5555","address":null,"name":"Kim Ga-Na"}
 	 * </pre>
 	 * 
 	 * @param object 변환할 객체
@@ -329,6 +331,38 @@ public abstract class JsonUtil2 {
 	 */
 	public static ObjectNode toObjectNode(Object object) {
 		return readValue(object, ObjectNode.class);
+	}
+
+	public static String putValue(String json, String path, String name, Object value) {
+		return putValue(json, path, name, value, ".");
+	}
+
+	public static String putValue(String json, String path, String name, Object value, String delimeter) {
+		return putValue(readValue(json), path, name, value, delimeter).asText();
+	}
+
+	public static JsonNode putValue(JsonNode jsonNode, String path, String name, Object value) {
+		return putValue(jsonNode, path, name, value, ".");
+	}
+
+	/**
+	 * jsonNode에서 path객체 안에 필드(name, value)를 저장한다.
+	 * 
+	 * @param jsonNode
+	 * @param path ex) abc.def
+	 * @param name
+	 * @param value
+	 * @param delimeter
+	 * @return
+	 */
+	public static JsonNode putValue(JsonNode jsonNode, String path, String name, Object value, String delimeter) {
+		JsonNode jsonNode_ = jsonNode;
+		for (String field : StringUtil.split(path, delimeter)) {
+			jsonNode_ = jsonNode_.get(field);
+		}
+		putValue((ObjectNode) jsonNode_, name, value);
+
+		return jsonNode;
 	}
 
 	/**
@@ -421,12 +455,12 @@ public abstract class JsonUtil2 {
 	 * @param name 찾을 ValueNode의 이름
 	 * @return 찾은 객체. <code>ValueNode</code>가 아니거나, 찾지 못 하거나, 값이 null인 경우에는 {@code ""(빈 문자열)}을 돌려 준다.
 	 */
-	public static Object getValue(JsonNode node, String name) {
+	public static Object getObject(JsonNode node, String name) {
 		Object obj = null;
 		JsonNode valueNode = node.path(name);
 
 		if (valueNode == null || valueNode.isMissingNode() || valueNode.isNull()) {
-			obj = "".toString();
+			obj = "";
 		}
 
 		else if (valueNode.isBinary()) {
@@ -434,7 +468,7 @@ public abstract class JsonUtil2 {
 				byte[] bytes = valueNode.binaryValue();
 				obj = bytes;
 			} catch (IOException e) {
-				obj = "".toString();
+				obj = "";
 			}
 		}
 
@@ -475,19 +509,23 @@ public abstract class JsonUtil2 {
 		return obj;
 	}
 
+	public static String getValue(String json, String path) {
+		return getValue(readValue(json), path).asText();
+	}
+
 	/**
-	 * "/"로 구분된 경로에 해당하는 노드를 찾는다. <br/>
-	 * "/header/trcode"로 path를 주게 되면, baseNode의 자식 노드를 header, trcode 순서대로 찾아 간다. <br/>
-	 * 다음과 같이 사용할 수 있다. <br />
+	 * "."로 구분된 경로에 해당하는 노드를 찾는다.<br/>
+	 * "header.trcode"로 path를 주게 되면, baseNode의 자식 노드를 header, trcode 순서대로 찾아 간다. <br/>
+	 * 다음과 같이 사용할 수 있다.<br/>
 	 * <code>
-	 * 		JsonNode node = JsonUtil2.find(rootNode, "/header/trcode");
+	 * 		JsonNode node = JsonUtil2.find(rootNode, "header.trcode");
 	 * </code>
 	 * 
 	 * @param baseNode 경로를 탐색할 노드
-	 * @param path "/"로 구분된 경로 정보
+	 * @param path "."로 구분된 경로 정보
 	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
 	 */
-	public static JsonNode find(JsonNode baseNode, String path) {
+	public static JsonNode getValue(JsonNode baseNode, String path) {
 		if (baseNode == null) {
 			return MissingNode.getInstance();
 		}
@@ -501,10 +539,10 @@ public abstract class JsonUtil2 {
 		}
 
 		else {
-			path.replaceAll("[/]+$", "");
-			path.replaceAll("^[/]+", "");
+//			path = path.replaceAll("[.]+$", "");
+//			path = path.replaceAll("^[.]+", "");
 
-			return find(baseNode, StringUtil.split(path, "/"));
+			return getValue(baseNode, StringUtil.split(path, "."));
 		}
 	}
 
@@ -515,7 +553,7 @@ public abstract class JsonUtil2 {
 	 * @param path 순차적인 경로 정보
 	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
 	 */
-	public static JsonNode find(JsonNode baseNode, String[] path) {
+	public static JsonNode getValue(JsonNode baseNode, String[] path) {
 		if (baseNode == null) {
 			return MissingNode.getInstance();
 		}
@@ -535,7 +573,7 @@ public abstract class JsonUtil2 {
 				list.add(p);
 			}
 
-			return find(baseNode, list);
+			return getValue(baseNode, list);
 		}
 	}
 
@@ -546,7 +584,7 @@ public abstract class JsonUtil2 {
 	 * @param path 순차적인 경로 정보
 	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
 	 */
-	public static JsonNode find(JsonNode baseNode, ArrayList<String> path) {
+	public static JsonNode getValue(JsonNode baseNode, ArrayList<String> path) {
 		try {
 			if (baseNode == null) {
 				return MissingNode.getInstance();
@@ -561,7 +599,7 @@ public abstract class JsonUtil2 {
 			}
 
 			else {
-				return find(baseNode.path(path.remove(0)), path);
+				return getValue(baseNode.path(path.remove(0)), path);
 			}
 		} catch (Exception e) {
 			return MissingNode.getInstance();
@@ -877,45 +915,7 @@ public abstract class JsonUtil2 {
 	 * 문자열 변경
 	 */
 	public static JsonNode replace(JsonNode json, String search, String replacement) throws CommonException {
-		return readValue(json.toString().replace(search, replacement));
-	}
-
-	/**
-	 * 문자열 변경
-	 */
-	@Deprecated
-	public static JsonNode replace(JsonNode json, String path, String search, String replacement)
-			throws CommonException {
-		JsonNode target = find(json, path);
-		target = replace(target, search, replacement);
-
-		JsonNode aaa = find(json, "/body/aaa");
-		putValue((ObjectNode) aaa, "bbb", target);
-
-		JsonNode body = find(json, "/body");
-		putValue((ObjectNode) body, "aaa", aaa);
-		putValue((ObjectNode) json, "body", body);
-
-//		put(json, target, path);
-
-		return json;
-	}
-
-	/**
-	 * JSON 입력
-	 */
-	@Deprecated
-	public static JsonNode put(JsonNode json, JsonNode target, String path) {
-		String[] paths = StringUtil.split(path, "/");
-
-		JsonNode aaa = find(json, "/body/aaa");
-		putValue((ObjectNode) aaa, paths[paths.length], target);
-		for (int i = paths.length - 1; i >= 0; i--) {
-			JsonNode bbb = find(json, "/body/aaa");
-			JsonNode first = find(json, path);
-		}
-
-		return null;
+		return readValue(json.asText().replace(search, replacement));
 	}
 
 	/**
@@ -1086,5 +1086,24 @@ public abstract class JsonUtil2 {
 //		JsonNode json = readValue2(message);
 //		System.out.println(json.asText());
 //		System.out.println(json.toString());
+
+		String json = IOUtils.toString(new FileInputStream("src/test/resources/json/mail.json"),
+				Charset.defaultCharset());
+		System.out.println(json);
+
+		String path = "head.status";
+
+		System.out.println(toStringPretty(getValue(json, path)));
+
+//		String path = "head";
+//		String name = "message";
+//		String value = "test";
+//
+//		System.out.println(toStringPretty(putValue(json, path, name, value)));
+//		System.out.println(toStringPretty(json));
+//
+//		JsonNode jsonNode = readValue(json);
+//		System.out.println(toStringPretty(putValue(jsonNode, path, name, value)));
+//		System.out.println(toStringPretty(jsonNode));
 	}
 }

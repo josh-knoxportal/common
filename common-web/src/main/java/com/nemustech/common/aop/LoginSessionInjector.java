@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class LoginSessionInjector {
-	protected static Log log = LogFactory.getLog(LoginSessionInjector.class);
+	private static final Log log = LogFactory.getLog(LoginSessionInjector.class);
 
 	public Object around(ProceedingJoinPoint pjp) throws Throwable {
 		MethodSignature signature = (MethodSignature) pjp.getSignature();

@@ -33,7 +33,7 @@ import org.apache.http.protocol.HttpContext;
  */
 @Deprecated
 public class HttpClientHelper {
-	protected static Log log = LogFactory.getLog(HttpClientHelper.class);
+	private static final Log log = LogFactory.getLog(HttpClientHelper.class);
 
 	public static HttpClient getHttpClient() {
 		HttpClient httpclient = new DefaultHttpClient();

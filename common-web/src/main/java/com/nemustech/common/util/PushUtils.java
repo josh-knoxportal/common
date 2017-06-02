@@ -69,7 +69,7 @@ public abstract class PushUtils {
 	public static String RESPONSE_MESSAGE = "\"result\":\"{0}\",\"error_code\":\"{1}\",\"message\":\"{2}\"}";
 	public static String RESPONSE_MESSAGE_USER = "\"user\":\"{0}\",\"response\":{1}}";
 
-	protected static Log log = LogFactory.getLog(PushUtils.class);
+	private static final Log log = LogFactory.getLog(PushUtils.class);
 
 	public static ArrayNode send(String url, String message, String[] users) {
 		ArrayNode responses = JsonUtil2.arrayNode();

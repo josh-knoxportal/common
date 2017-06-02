@@ -19,7 +19,7 @@ import org.codehaus.jackson.node.ObjectNode;
  *
  */
 public class DBMapList extends ArrayList<DBMap> {
-	protected static Log log = LogFactory.getLog(DBMapList.class);
+	private static final Log log = LogFactory.getLog(DBMapList.class);
 
 	private static final long serialVersionUID = 1L;
 

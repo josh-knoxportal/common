@@ -31,7 +31,7 @@ import com.sap.conn.jco.JCoTable;
 public class SapMapper extends AbstractSapMapper {
 	public static final String ABAP_AS_POOLED = "ABAP_AS_WITH_POOL";
 
-	protected static Log log = LogFactory.getLog(SapMapper.class);
+	private static final Log log = LogFactory.getLog(SapMapper.class);
 
 	public SapMapper() {
 	}

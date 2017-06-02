@@ -12,7 +12,7 @@ import org.aspectj.lang.annotation.Before;
 
 @Aspect
 public class AuditAspect {
-	protected static Log log = LogFactory.getLog(AuditAspect.class);
+	private static final Log log = LogFactory.getLog(AuditAspect.class);
 
 	private long startEventTime;
 	private long endEventTime;

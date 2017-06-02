@@ -18,7 +18,7 @@ import com.nemustech.common.util.HTTPUtil;
  * 
  */
 public class URLDownloader implements IFileDownloader {
-	protected static Log log = LogFactory.getLog(URLDownloader.class);
+	private static final Log log = LogFactory.getLog(URLDownloader.class);
 
 	/**
 	 * 읽기 버퍼의 크기

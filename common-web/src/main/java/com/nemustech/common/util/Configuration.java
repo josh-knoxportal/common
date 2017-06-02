@@ -1,4 +1,4 @@
-package com.nemustech.common.config;
+package com.nemustech.common.util;
 
 import java.util.Enumeration;
 import java.util.Properties;
@@ -10,14 +10,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class Configuration extends PropertiesConfiguration {
-	protected static Log log = LogFactory.getLog(Configuration.class);
+	private static final Log log = LogFactory.getLog(Configuration.class);
 
 	/**
 	 * The properties.
-	 * 
-	 * @uml.property name="properties"
 	 */
-	private Properties properties;
+	protected Properties properties;
 
 	/**
 	 * Instantiates a new common configuration.
@@ -27,7 +25,6 @@ public class Configuration extends PropertiesConfiguration {
 
 	/**
 	 * @return the properties
-	 * @uml.property name="properties"
 	 */
 	public Properties getProperties() {
 		return properties;
@@ -35,18 +32,13 @@ public class Configuration extends PropertiesConfiguration {
 
 	/**
 	 * @param properties the properties to set
-	 * @uml.property name="properties"
 	 */
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 */
 	@PostConstruct
-	public void init() throws Exception {
-		// TODO Auto-generated method stub
+	public void init_() throws Exception {
 		StringBuffer elements = new StringBuffer();
 
 		if (this.properties != null) {

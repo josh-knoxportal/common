@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 public class LocalFileStorage implements FileStorage {
 	public static String FILE_EXTENSION = "file";;
 
-	protected static Log log = LogFactory.getLog(LocalFileStorage.class);
+	private static final Log log = LogFactory.getLog(LocalFileStorage.class);
 //	protected static String CONFIG_FILEPATH = Constants.HOME_DIR + File.separator + Constants.CONF_DIR_NAME
 //			+ File.separator + "storage.properties";
 //	protected static String TEMP_DIR = Constants.HOME_DIR + File.separator + "temp";

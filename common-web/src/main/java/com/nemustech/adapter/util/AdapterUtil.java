@@ -40,7 +40,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class AdapterUtil {
-	protected static Log log = LogFactory.getLog(AdapterUtil.class);
+	private static final Log log = LogFactory.getLog(AdapterUtil.class);
 
 	// 세션 키
 	public static final String META_KEY_ID = "id"; // "test"

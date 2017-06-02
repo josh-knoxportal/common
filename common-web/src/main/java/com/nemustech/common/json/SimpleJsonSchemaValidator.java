@@ -20,7 +20,7 @@ import eu.vahlas.json.schema.impl.JacksonSchemaProvider;
  * 
  */
 public class SimpleJsonSchemaValidator implements JsonValidator {
-	protected static Log log = LogFactory.getLog(SimpleJsonSchemaValidator.class);
+	private static final Log log = LogFactory.getLog(SimpleJsonSchemaValidator.class);
 	List<String> errors;
 
 	/**

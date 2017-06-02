@@ -104,18 +104,25 @@
 			},
 			"gps-option":{
 				"_uiraa":"|select|auto|off,1,2,3|",
-				"text_":"1"
+				"text_":"2"
 			},
 			"ar-period":{
 				"_uiraa":"|string|auto||",
-				"text_":"60"
+				"text_":"6600"
 			}
 		}
 	},
 	"runtime":{
 		"log-level":{
 			"_uiraa":"|select|auto|debug,warning,info|",
-			"text_":"debug"
+			"text_":"info"
+		},
+		"setting":{
+			"_uiraa":"|divider|100%||",
+			"gps-period":{
+				"_uiraa":"|string|auto||",
+				"text_":"60"
+			}
 		}
 	}
 }

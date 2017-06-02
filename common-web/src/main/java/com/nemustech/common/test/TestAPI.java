@@ -118,12 +118,12 @@ public class TestAPI {
 	protected void test(JsonNode data) throws Exception {
 		sw.start();
 
-		url = data.path("url").textValue();
-		method = data.path("method").textValue();
-		saveDir = data.path("saveDir").textValue();
-		saveExt = data.path("saveExt").textValue();
-		requestFormat = data.path("requestFormat").textValue();
-		responseFormat = data.path("responseFormat").textValue();
+		url = data.path("url").asText();
+		method = data.path("method").asText();
+		saveDir = data.path("saveDir").asText();
+		saveExt = data.path("saveExt").asText();
+		requestFormat = data.path("requestFormat").asText();
+		responseFormat = data.path("responseFormat").asText();
 		convertBody = data.path("convertBody").booleanValue();
 		LogUtil.writeLog("data: " + StringUtil.toStringRecursiveJsonPretty(this, "log", "sw"));
 
@@ -173,9 +173,9 @@ public class TestAPI {
 			List<Files> attachs = new ArrayList<Files>();
 			if (jsonNode.get("file") != null) {
 				for (JsonNode file : jsonNode.get("file")) {
-					attachs.add(new Files(FilenameUtils.getFullPath(file.textValue()),
-							FilenameUtils.getName(file.textValue()),
-							IOUtils.toByteArray(new FileInputStream(file.textValue()))));
+					attachs.add(
+							new Files(FilenameUtils.getFullPath(file.asText()), FilenameUtils.getName(file.asText()),
+									IOUtils.toByteArray(new FileInputStream(file.asText()))));
 				}
 			}
 

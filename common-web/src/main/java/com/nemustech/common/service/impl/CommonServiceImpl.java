@@ -118,7 +118,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	}
 
 	@PostConstruct
-	public void init() throws Exception {
+	public void init_() throws Exception {
 		cacheName = getCacheName();
 		if (cacheName != null) {
 			cache = cacheManager.getCache(cacheName);

@@ -13,7 +13,7 @@ import com.nemustech.common.exception.CommonException;
  * SOAP 유틸
  */
 public abstract class SoapUtils {
-	protected static Log log = LogFactory.getLog(SoapUtils.class);
+	private static final Log log = LogFactory.getLog(SoapUtils.class);
 	protected static SOAPConnectionFactory soapConnFactory = null;
 
 	static {

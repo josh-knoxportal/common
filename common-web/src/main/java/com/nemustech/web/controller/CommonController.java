@@ -66,6 +66,10 @@ public abstract class CommonController<T extends Default> {
 		service = getService();
 	}
 
+	public ResponseEntity<Response<T>> get(T model) throws Exception {
+		return get(model, null);
+	}
+
 	public ResponseEntity<Response<T>> get(T model, BindingResult errors) throws Exception {
 		return get(model, null, errors);
 	}
@@ -74,7 +78,7 @@ public abstract class CommonController<T extends Default> {
 	// 2. BindingResult 인자는 반드시 @Valid 로 선언한 인자의 바로 뒤에 와야 함
 //	@RequestMapping(value = "get" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -84,6 +88,10 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<T>>(response, HttpStatus.OK);
 	}
 
+	public ResponseEntity<Response<List<T>>> list(T model) throws Exception {
+		return list(model, null);
+	}
+
 	public ResponseEntity<Response<List<T>>> list(T model, BindingResult errors) throws Exception {
 		return list(model, null, errors);
 	}
@@ -91,7 +99,7 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "list" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<T>>> list(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -101,6 +109,10 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<List<T>>>(response, HttpStatus.OK);
 	}
 
+	public ResponseEntity<Response<Integer>> count(T model) throws Exception {
+		return count(model, null);
+	}
+
 	public ResponseEntity<Response<Integer>> count(T model, BindingResult errors) throws Exception {
 		return count(model, null, errors);
 	}
@@ -108,7 +120,7 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "count" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<Integer>> count(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -118,6 +130,10 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
+	public ResponseEntity<Response<PageNavigator<T>>> page(T model) throws Exception {
+		return page(model, (BindingResult) null);
+	}
+
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, BindingResult errors) throws Exception {
 		return page(model, (Common) null, errors);
 	}
@@ -125,7 +141,7 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "page" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -143,6 +159,10 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
 	}
 
+	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page) throws Exception {
+		return page(model, page, null);
+	}
+
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, BindingResult errors)
 			throws Exception {
 		return page(model, page, null, errors);
@@ -151,7 +171,7 @@ public abstract class CommonController<T extends Default> {
 //	@RequestMapping(value = "page2" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, @Valid Common common,
 			BindingResult errors) throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -183,7 +203,7 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "insert" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors, HttpServletRequest request)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -194,8 +214,12 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<Object>>(response, HttpStatus.OK);
 	}
 
+	public ResponseEntity<Response<List<Object>>> inserts(List<T> models) throws Exception {
+		return inserts(models, null);
+	}
+
 	public ResponseEntity<Response<List<Object>>> inserts(List<T> models, BindingResult errors) throws Exception {
-		return inserts(new ValidList<T>(models), null);
+		return inserts(new ValidList<T>(models), errors);
 	}
 
 	/**
@@ -204,7 +228,7 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "inserts" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -233,7 +257,7 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "update" + Constants.POSTFIX, method = { RequestMethod.PUT, RequestMethod.POST })
 	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors, HttpServletRequest request)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -250,7 +274,7 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "updates" + Constants.POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -278,7 +302,7 @@ public abstract class CommonController<T extends Default> {
 	 */
 	@RequestMapping(value = "delete" + Constants.POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> delete(T model, BindingResult errors) throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -294,7 +318,7 @@ public abstract class CommonController<T extends Default> {
 //	@RequestMapping(value = "deletes" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
@@ -371,7 +395,7 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "select" + Constants.POSTFIX, method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
 			throws Exception {
-		if (errors.hasFieldErrors()) {
+		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 

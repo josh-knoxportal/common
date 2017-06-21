@@ -56,8 +56,7 @@ public class SampleControllerTest {
 		Sample sample = new Sample();
 		sample.setId(1L);
 
-		ResponseEntity<Response<Sample>> response = sampleController.get(sample,
-				new BeanPropertyBindingResult(sample, "sample"));
+		ResponseEntity<Response<Sample>> response = sampleController.get(sample);
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -83,8 +82,7 @@ public class SampleControllerTest {
 ////		sample.setHaving("COUNT(1) > 0");
 ////		sample.setOrder_by("name");
 //
-		ResponseEntity<Response<List<Sample>>> response = sampleController.list(sample,
-				new BeanPropertyBindingResult(sample, "sample"));
+		ResponseEntity<Response<List<Sample>>> response = sampleController.list(sample);
 //		ResponseEntity<Response<List<Sample>>> response = sampleController.list3(sample,
 //				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest(), new MockHttpSession());
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
@@ -97,8 +95,7 @@ public class SampleControllerTest {
 		sample.setName("s");
 		sample.addCondition("name LIKE 's%'");
 
-		ResponseEntity<Response<Integer>> response = sampleController.count(sample,
-				new BeanPropertyBindingResult(sample, "sample"));
+		ResponseEntity<Response<Integer>> response = sampleController.count(sample);
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -112,8 +109,7 @@ public class SampleControllerTest {
 
 		Page<Sample> page = new Page<Sample>(1);
 
-		ResponseEntity<Response<PageNavigator<Sample>>> response = sampleController.page(sample, page,
-				new BeanPropertyBindingResult(sample, "sample"));
+		ResponseEntity<Response<PageNavigator<Sample>>> response = sampleController.page(sample, page);
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}

@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.validation.BeanPropertyBindingResult;
 
 import com.nemustech.WebApplication;
 import com.nemustech.common.model.Default;
@@ -55,8 +54,7 @@ public class ControllerTest {
 	public void t01_list() throws Exception {
 		Sample_Test sample_Test = new Sample_Test();
 
-		ResponseEntity<Response<List<Sample_Test>>> response2 = sample_TestController.list(sample_Test,
-				new BeanPropertyBindingResult(sample_Test, "sample_test"));
+		ResponseEntity<Response<List<Sample_Test>>> response2 = sample_TestController.list(sample_Test);
 		System.out.println("response: " + JsonUtil2.toStringPretty(response2));
 	}
 
@@ -86,8 +84,7 @@ public class ControllerTest {
 //		JoinHandler handler = new JoinHandler(SampleAndTest.class);
 //		System.out.println(handler.getName());
 
-		ResponseEntity<Response<List<SampleAndTest>>> response = sampleAndTestController.list(sat,
-				new BeanPropertyBindingResult(sat, "sat"));
+		ResponseEntity<Response<List<SampleAndTest>>> response = sampleAndTestController.list(sat);
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 
@@ -122,8 +119,7 @@ public class ControllerTest {
 
 		Page<SampleAndTest> page = new Page<SampleAndTest>(1);
 
-		ResponseEntity<Response<PageNavigator<SampleAndTest>>> response = sampleAndTestController.page(sat, page,
-				new BeanPropertyBindingResult(sat, "sat"));
+		ResponseEntity<Response<PageNavigator<SampleAndTest>>> response = sampleAndTestController.page(sat, page);
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -141,8 +137,7 @@ public class ControllerTest {
 		sat.addCondition("test_.name LIKE 't%'");
 		sat.setOrder_by("sample_.id DESC, test_.id DESC");
 
-		ResponseEntity<Response<List<SampleAndTest2>>> response = sampleAndTest2Controller.list(sat,
-				new BeanPropertyBindingResult(sat, "sat"));
+		ResponseEntity<Response<List<SampleAndTest2>>> response = sampleAndTest2Controller.list(sat);
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}

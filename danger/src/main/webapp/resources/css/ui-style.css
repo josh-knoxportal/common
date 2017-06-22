@@ -1,0 +1,395 @@
+@charset "utf-8";
+
+/* 비콘 현황 관리 */
+#contents {
+	padding-bottom: 55px;
+}
+#contents .target-nav {
+	padding: 20px 0 20px;
+}
+#contents .target-nav .target-title {
+	float: left;
+	font-size: 32px;
+	font-weight: 400;
+	font-family: 'Nanum-Gothic','NanumGothic','Nanum Gothic','NanumGothic','나눔고딕';
+	color: #000;
+}
+#contents .target-nav ul {
+	float: right;
+}
+#contents .target-nav ul li {
+	float: left;
+	font-size: 12px;
+	color: #888;
+	height: 32px;
+	line-height: 32px;
+}
+#contents .target-nav ul li.target-home a {
+	padding-left: 16px;
+	background: url(../img/target_nav_home.png) 0 50% no-repeat;
+}
+#contents .target-nav ul li.target-arrow {
+	width: 26px;
+	background: url(../img/target_nav_arrow.png) 50% 50% no-repeat;
+}
+#contents .target-nav ul li.target-active a {
+	text-decoration: underline;
+}
+#contents .notice-essential {
+	margin-bottom: 10px;
+}
+#contents .notice-essential p {
+	color: #666;
+	font-size: 12px;
+	text-align: right;
+}
+#contents .notice-essential p span {
+	color: #c60353;
+	font-size: 15px;
+	font-weight: 600;
+	display: inline-block;
+}
+.form-wrap .group-box {
+	border-top: 1px solid #545454;	
+	border-bottom: 1px solid #545454;	
+	font-size: 12px;
+	color: #555;
+}
+.form-wrap .form-group .table-cell {
+	border-top: 1px solid #d4d4d4;
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+.form-wrap .form-group .table-cell.title-cell {
+	width: 21%;
+	border-right: 1px solid #d4d4d4;
+	background: #ececec;
+}
+.form-wrap .form-group .table-cell.title-cell + .table-cell {
+	padding-left: 20px;
+}
+.form-wrap .form-group.first-group .table-cell {
+	border-top: 1px solid #545454;
+}
+.form-wrap .form-group .control-label {
+	line-height: 26px;
+	font-weight: 600;
+	padding-left: 30px;
+}
+.form-wrap .form-group .control-label span {
+	font-size: 15px;
+	color: #c60353;
+	font-weight: 600;
+}
+.form-wrap .input-box {
+	width: 300px;
+	height: 26px;
+	display: inline-block;
+}
+.form-wrap .input-box.phone-input {
+	width: 80px;
+}
+.form-wrap .select-box {
+	width: 200px;
+	position: relative;
+	vertical-align: middle;
+}
+.form-wrap .form-input {
+	width: 100%;
+	height: 100%;	
+	padding: 0 8px;
+	border: 1px solid #acacac;	
+	font-size: 12px;
+	color: #555;
+}
+.form-wrap .form-group .btn {
+	min-width: 70px;
+	padding: 0 12px;
+	height: 26px;
+	border: 1px solid #454545;
+	background: #545454;
+	color: #fff;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+	margin-left: 6px;
+	font-size: 12px;
+}
+.form-wrap .form-group .btn.btn-color {
+	background: #545454;
+	border-color: #767676;
+}
+.form-wrap .form-group .table-cell .form-notice {
+	color: #888;
+}
+.form-wrap .form-group .table-cell .block-notice {
+	display: block;
+	padding: 15px 0 4px;
+}
+.form-wrap .dash {
+	display: inline-block;
+	width: 14px;
+	text-align: center;
+}
+.form-wrap .input-box.flie-value-box {
+	width: 500px;
+}
+.form-wrap .input-box.flie-box {
+	position: relative;
+	overflow: hidden;
+	width: 70px;
+	vertical-align: middle;
+	margin-left: 6px;
+}
+.form-wrap .input-box.flie-box .btn {
+	margin-left: 0;
+	padding: 0;
+}
+.form-wrap .input-box.flie-box .button-hidden {
+	cursor: pointer;
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	-ms-filter: "alpha(opacity=0)";
+	-khtml-opacity: 0;
+	-moz-opacuty: 0;
+}
+.form-wrap .file-name {
+	color: #555;
+	display: inline-block;
+	padding: 15px 0 4px;
+	margin-right: 8px;
+}
+.form-wrap .del-file {
+	width: 13px;
+	height: 12px;
+	margin-left: 8px;
+	background: url(../img/delete-file.png) 0 0 no-repeat;
+}
+.form-wrap .form-actions {
+	padding: 20px 0;
+}
+.form-wrap .form-actions .btn {
+	min-width: 94px;
+	height: 42px;
+	background: #545454;
+	color: #fff;
+	font-size: 15px;
+	font-weight: 600;
+	box-shadow: 0 1px #d9d9d9;
+	padding: 5px 30px;
+}
+/* 4열 테이블 */
+.table-4-col .table-cell {
+	width: 29%;
+}
+.form-wrap .table-4-col .form-group .table-2-cell {
+    border-right: 1px solid #d4d4d4;
+}
+.form-wrap .table-4-col .form-group .table-cell + .table-cell {
+	padding-right: 20px;
+}
+.form-wrap .table-4-col .input-box {
+	width: 100%;
+}
+.form-wrap .table-4-col .input-box.select-box select {
+   background-position: 269px 50%;
+}
+/* 단말 관리 */
+.search-wrap .form-wrap .select-box.sub-select,
+.search-wrap.on .form-wrap .input-box.hide-input {
+    display: none;
+}
+.search-wrap.on .form-wrap .select-box.sub-select {
+    display: inline-block;
+}
+.center-second {
+	display: none;
+}
+.add-group.change .add-btn {
+	display: none;
+}
+.add-group.change .table-cell > .modify-btn-box {
+	display: inline-block;
+}
+
+/* 가입자 관리 */
+.search-wrap {
+	height: 60px;
+	border: 3px solid #ececec;
+	background: url(../img/search_wrap_bg.png) 0 0 no-repeat;
+	text-align: center;
+}
+.search-wrap .search-text {
+	display: inline-block;
+	height: 26px;
+	vertical-align: middle;
+	margin-right: 15px;
+	font-size: 16px;
+	line-height: 26px;
+	color: #545454;
+	font-family: 'Nanum-Gothic','NanumGothic','Nanum Gothic','NanumGothic','나눔고딕';
+}
+.form-wrap .calendar-box {
+	width: 187px;
+	padding-right: 37px;
+	position: relative;
+}
+.input-box .calendar-btn {
+	border: 0;
+	width: 29px;
+	height: 30px;
+	background: url(../img/calendar_icon_4.png) 0 0 no-repeat;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	margin-top: -15px;
+}
+.form-wrap .select-box {
+    width: 150px;
+	height: 26px;
+	display: inline-block;
+}
+.form-wrap .select-box .form-select {
+	height: 100%;
+	width: 100%;
+	font-size: 12px;
+	color: #666;
+	vertical-align: middle;
+	-webkit-appearance: none;  /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+	border: 1px solid #acacac;
+	background-image: url(../img/select-arrow.png);
+	background-position: 125px 50%;
+	background-repeat: no-repeat;
+}
+.form-wrap .input-box.input-box-250 {
+	width: 250px;
+}
+.form-wrap .input-box.input-box-292 {
+	width: 292px;
+}
+.form-wrap .select-box.select-box-300  {
+	width: 300px;
+}
+.form-wrap .select-box.select-box-300 .form-select {
+	background-position: 275px 50%;
+}
+.search-wrap .form-wrap .form-group {
+    border-top: 0;
+}
+#contents .excel-btn-box {
+	text-align: right;
+	padding: 20px 0 10px;
+}
+#contents .excel-btn-box .excel-btn {
+	width: 179px;
+	height: 42px;
+	border: 1px solid #767676;
+	background: #fff;
+	color: #545454;
+	font-size: 15px;
+	font-weight: 600;
+	box-shadow: 0 1px #d9d9d9;
+}
+#contents .excel-btn-box .excel-btn img {
+	margin-right: 10px;
+}
+.table-list .form-actions .super-btn {
+	display: none;
+}
+.super-login .table-list .form-actions .super-btn {
+	display: inline-block;
+	margin-left: 10px;
+}
+.right-tab .right-second,
+.right-tab .right-third,
+.modify-btn-box,
+.del-btn-box {
+	display: none;
+}
+
+
+
+
+/****** 슈퍼관리자 ******/
+
+/* 고객사 솔루션 관리 */
+.table-pop.pop-wrap .pop-up {
+	width: 982px;
+	margin-left: -491px;
+}
+.table-pop .pn-wrap {
+	padding-bottom: 20px;
+}
+.table-pop .search-wrap {
+	margin: 20px 0 30px;
+}
+.table-pop .search-wrap .btn {
+	background: #545454;
+	border-color: #454545;
+}
+.table-pop .table-style .btn {
+	color: #666;
+	width: 70px;
+	background: #ececec;
+	border-color: #b4b4b4;
+	margin-left: -35px;
+}
+.table-pop .table-style thead tr th {
+	background: #767676;
+	color: #fff;
+}
+
+
+/* add wwweojin */
+
+.form-wrap .form-group .btn_tbl {
+	min-width: 70px;
+	padding: 0 12px;
+	height: 26px;
+	border: 1px solid #6a6a6a;
+	background: #767676;
+	color: #fff;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+	margin-left: 6px;
+	font-size: 12px;
+}
+
+.form-wrap .form-group .btn_list {
+	min-width: 70px;
+	padding: 0 12px;
+	height: 26px;
+	border: 1px solid #b4b4b4;
+	background: #ececec;
+	color: #666;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+	margin-left: 6px;
+	font-size: 12px;
+}
+
+.all_setting .btn {
+	min-width: 70px;
+	padding: 0 12px;
+	height: 26px;
+	border: 1px solid #454545;
+	background: #545454;
+	color: #fff;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+	margin-left: 6px;
+	font-size: 12px;
+}
+

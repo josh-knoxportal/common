@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.aams.mapper.LoginApiMapper">
+
+	<sql id="adminAcccount_table">
+		<if test="system_type == 1">
+			tbda_account
+		</if>
+		<if test="system_type == 2">
+			tbvc_account
+		</if>
+	</sql>
+
+	<sql id="adminAcccount_column">
+		    account_uid
+		    ,user_id
+		    ,password
+		    ,system_type
+		    ,name
+		    ,email
+		    ,department
+		    ,DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
+		    ,is_admin
+		    ,is_use
+		    ,access_token
+		    ,DATE_FORMAT(last_login_date, '%Y-%m-%d %H:%i') AS last_login_date
+		    ,fail_count
+	</sql>
+
+	<select id="selectLoginInfo" parameterType="LoginVo" resultType="ResponseLoginVo">
+		SELECT
+			<include refid="adminAcccount_column"/>
+		FROM
+			<include refid="adminAcccount_table"/>
+		WHERE
+			user_id = #{user_id}
+		<if test="password != null and password != '' ">	
+		AND password = #{password}
+		</if>
+		AND system_type = #{system_type}	
+	</select>
+
+	<update id="updateLoginDate" parameterType="ResponseLoginVo">
+		UPDATE
+			<include refid="adminAcccount_table"/>
+		SET
+			last_login_date = now()
+		WHERE
+			account_uid = #{account_uid}
+		limit 1
+	</update>
+	
+	
+	<update id="updateResetPassword" parameterType="ResetLoginVo">
+		UPDATE
+			<include refid="adminAcccount_table"/>
+		SET
+			password    = #{password}
+			,fail_count = 0
+			,upd_date   = now()
+		WHERE
+			user_id     = #{user_id}
+		AND system_type = #{system_type}
+		AND email       = #{email}
+		<if test="name != null and name != '' ">
+		AND name        = #{name}
+		</if>		
+		limit 1
+	</update>
+	
+	<select id="selectSearchId" parameterType="ResetLoginVo" resultType="ResponseLoginVo">
+		SELECT
+			user_id
+			,name
+			,email
+		FROM
+			<include refid="adminAcccount_table"/>
+		WHERE
+			system_type = #{system_type}
+		AND email       = #{email}
+		AND name        = #{name}        
+	</select>
+	
+	<update id="updatePasswordFailCount" parameterType="ResetLoginVo">
+		UPDATE
+			<include refid="adminAcccount_table"/>
+		SET
+			fail_count = fail_count + 1
+<!-- 			,upd_date = now() -->
+		WHERE
+			user_id     = #{user_id}
+		AND system_type = #{system_type}
+		limit 1
+	</update>
+	
+	<update id="updatePasswordFailCountInit" parameterType="ResetLoginVo">
+		UPDATE
+			<include refid="adminAcccount_table"/>
+		SET
+			fail_count = 0
+<!-- 			,upd_date = now() -->
+		WHERE
+			user_id     = #{user_id}
+		AND system_type = #{system_type}
+		limit 1
+	</update>
+	
+	<insert id="insertVehicleLoginHistory" parameterType="LoginHistoryVo">
+		INSERT INTO tbvc_login_history
+		(
+			user_id,
+			<if test="history_type == 1">login_date</if>
+			<if test="history_type == 0">logout_date</if>			
+		)
+		VALUES
+		(
+			#{user_id},
+			<if test="history_type == 1">now()</if>
+			<if test="history_type == 0">now()</if>	
+		)
+	</insert>
+	
+	<insert id="insertDangerLoginHistory" parameterType="LoginHistoryVo">
+		INSERT INTO tbda_login_history
+		(
+			user_id,
+			<if test="history_type == 1">login_date</if>
+			<if test="history_type == 0">logout_date</if>			
+		)
+		VALUES
+		(
+			#{user_id},
+			<if test="history_type == 1">now()</if>
+			<if test="history_type == 0">now()</if>	
+		)
+	</insert>
+ 
+	<select id="selectIsExistPortalId" parameterType="PortalLoginVo" resultType="ResponseLoginVo">
+		SELECT
+			<include refid="adminAcccount_column"/>
+		FROM
+			<include refid="adminAcccount_table"/>
+		WHERE
+			user_id     = #{user_id}
+		AND system_type = #{system_type}
+<!-- 		AND email       = #{email} -->
+	</select>
+
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.wwms.mapper.DangerAppApiMapper">
+	<!-- 160804 [개인폰] [신규] -->
+
+	<!-- Alive Report 1-->
+	<insert id="insertAppAliveReportInfo" parameterType="AppAliveReportEventVo">
+		INSERT INTO	tbda_alive_report
+		(
+			alive_report_uid
+			,device_no
+			,worker_uid
+			,x
+			,y
+			,end_yn
+			,app_reg_time
+			,reg_date
+		)
+		VALUES
+		(
+			fn_make_uid()
+			,#{device_no}
+			,#{worker_uid}
+			,#{position_x}
+			,#{position_y}
+			,#{end_yn}
+			,#{time}
+			,now()
+		)
+	</insert>
+	
+	<!-- Alive Report 2-->
+	<update id="updateAppAliveReportInfo" parameterType="AppServerAccessEventVo">
+		UPDATE
+			tbda_device
+		SET
+			is_alive_report   = #{end_yn},
+			alive_report_date = FROM_UNIXTIME(#{time}),
+			last_server_access_time = #{time}
+		WHERE
+			device_no = #{device_no}
+	</update>
+	
+	<!-- 앱에서 작업자 등록 -->
+	<insert id="insertAppWorker" parameterType="AppWorkerRegEventVo">
+		INSERT INTO	tbda_worker
+		(
+			worker_uid
+			,name
+			,type
+			,organization_code
+			,organization_name
+			,device_no
+		)
+		VALUES
+		(
+			 #{worker_uid}
+			,#{worker_name}
+			,#{worker_type}
+			,#{worker_organization_code}
+			,#{worker_organization_name}
+			,#{device_no}
+		)
+	</insert>
+	
+	<!-- 앱에서 단말 서버 연결 체크 이벤트 -->
+	<update id="updateAppServerAccessTime" parameterType="AppServerAccessEventVo">
+		UPDATE
+			tbda_device
+		SET
+			last_server_access_time = #{time}
+		WHERE
+			device_no = #{device_no}
+	</update>
+	
+	<!-- 160903 단말번호 해당하는 assigned device 0, 1, 2 있는지-->
+	<select id="selectCountWorkerAssignedByDeviceNo" parameterType="String" resultType="java.lang.Integer">
+		SELECT 
+			count(*) as totalcnt
+		FROM
+			tbda_worker_assigned wa
+		WHERE
+			device_no = #{device_no} AND reg_date <![CDATA[ > ]]> CURDATE()
+	</select>		
+	
+	<!-- 당일, 단발번호 중 신규 작업자 등록후 기존 assigned 테이블 조회 -->
+	<select id="selectCountWorkerAssignedByDeviceNoWorkerUid" parameterType="AppWorkRegEventVo" resultType="java.lang.Integer">		
+		SELECT 
+		    count(*) as totalcnt
+		FROM
+		    tbda_worker_assigned wa
+		WHERE
+		    wa.device_no = #{device_no} 
+		AND wa.worker_uid = #{worker_uid} 
+		AND wa.reg_date <![CDATA[ > ]]> CURDATE()
+	</select>
+	
+	<select id="selectDeviceInfoByDeviceNo" parameterType="String" resultType="String">
+		select worker_uid from tbda_device where device_no = #{device_no}
+	</select>
+	
+	<!-- 160903 -->
+	<insert id="insertWorkerAssinged" parameterType="AppWorkRegEventVo">
+		INSERT INTO tbda_worker_assigned
+		(
+			mapping_uid
+<!-- 			,work_uid -->
+<!-- 			,work_no -->
+			,device_uid
+			,device_no
+			,worker_uid
+ 			,starting_date 
+			,is_completed
+			,worker_count
+			,worker_name
+<!-- 			,factory_uid -->
+<!-- 			,zone_uid -->
+		)
+		VALUES
+		(
+			fn_make_uid()
+<!-- 			,#{work_uid} -->
+<!-- 			,(select work_no from tbda_work where work_uid = #{work_uid}) -->
+			,(select device_uid from tbda_device where device_no = #{device_no})
+			,#{device_no}
+			,(select worker_uid from tbda_device where device_no = #{device_no})
+			,now()
+			,2
+			,1
+			,(select account_name from tbda_device where device_no = #{device_no})
+<!-- 			,#{factory_uid} -->
+<!-- 			,#{zone_uid} -->
+		)
+	</insert>
+	
+	<select id="selectCountYesterDayAliveReport" parameterType="String" resultType="java.lang.Integer">
+		select count(*) as count 
+		from tbda_worker_assigned 
+		where reg_date <![CDATA[ < ]]> CURDATE() and is_completed = 2 and device_no = #{device_no}
+	</select>
+	
+	<update id="updateAppYesterDayAliveReportEnd" parameterType="String">
+		UPDATE
+			tbda_worker_assigned
+		SET
+			is_completed = 1
+		WHERE
+			device_no = #{device_no} and reg_date <![CDATA[ < ]]> CURDATE() and is_completed = 2
+	</update>
+	
+	<!-- 플랜트 완전히 벗어나는 경우, 그외 지역에 있는 경우는 완료 처리로 변경 -->
+	<update id="updateExitPlantAliveReportEnd" parameterType="String">
+		UPDATE
+			tbda_worker_assigned
+		SET
+			is_completed = 1
+		WHERE
+			device_no = #{device_no} and reg_date <![CDATA[ < ]]> CURDATE() and is_completed != 1 
+	</update>
+
+</mapper>

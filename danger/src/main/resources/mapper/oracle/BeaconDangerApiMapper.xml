@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.wwms.mapper.BeaconDangerApiMapper">
+
+	<sql id="beacon_table">
+		tbda_beacon
+	</sql>
+	
+	<sql id="beacon_table_b">
+		<include refid="beacon_table"/> b
+	</sql>
+
+	<sql id="beacon_column">
+		    b.beacon_uid AS beacon_uid
+		    ,b.name AS name
+		    ,f.name AS factory_name
+		    ,z.name AS zone_name
+		    ,(CASE WHEN b.is_activated = 1 THEN '활성' ELSE '비활성' END) AS activated_status
+		    ,b.is_activated 
+		    ,(CASE WHEN b.battery > 0 THEN 'O' ELSE 'X' END) AS battery_ox
+		    ,b.battery AS battery
+		    ,TO_CHAR(b.upd_date, 'YYYY-MM-DD HH24:MI:SS') AS upd_date
+	</sql>
+
+	<sql id="beacon_from">
+		    <include refid="beacon_table"/> b,
+		    tbda_zone z,
+		    tbda_factory f
+	</sql>
+	
+	<sql id="selectBeaconDangerList_where">
+		WHERE
+		    b.zone_uid = z.zone_uid
+		AND z.factory_uid = f.factory_uid
+	</sql>
+	
+	<sql id="selectBeaconDangerList_order">
+		<choose>
+			<when test="sort_column != null and sort_column != '' and str_order_by != null and str_order_by != ''">
+				ORDER BY ${sort_column} ${str_order_by}
+			</when>
+			<otherwise>
+				ORDER BY b.upd_date desc
+			</otherwise>
+		</choose>
+	</sql>	
+	
+	<select id="selectBeaconDangerList" parameterType="SearchVo" resultType="BeaconDangerVo">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT
+			<include refid="beacon_column"/>
+		FROM
+		    <include refid="beacon_from"/>
+		<include refid="selectBeaconDangerList_where"/>
+		<include refid="selectBeaconDangerList_order"/>
+	  ) a
+	)
+		<if test="limit_count != null and limit_count != ''">
+			WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+		</if>
+	</select>
+	
+	<select id="selectBeaconDangerListTotalCount" parameterType="SearchVo" resultType="java.lang.Integer">
+		SELECT
+		    count(*)
+		FROM
+		    <include refid="beacon_from"/>
+		<include refid="selectBeaconDangerList_where"/>
+	</select>
+	
+	<select id="selectBeaconDanger" parameterType="BeaconDangerVo" resultType="BeaconDangerVo">
+		SELECT
+			beacon_uid
+			,zone_uid
+<!-- 			,beacon_position -->
+			,name
+<!-- 			,is_activated -->
+<!-- 			,battery -->
+			,minor
+			,signal_period
+			,txpower
+			,description
+<!-- 			,creator_id -->
+<!-- 			,editor_id -->
+<!-- 			,reg_date -->
+			,TO_CHAR(upd_date, 'YYYY-MM-DD HH24:MI:SS') AS upd_date
+		FROM
+		    <include refid="beacon_table"/>
+		WHERE
+			beacon_uid = #{beacon_uid}
+	</select>
+	
+	<select id="selectBeaconDangerActivateCount" resultType="BeaconDangerActivateVo">
+		SELECT 
+		    SUM(total_count) AS total_count,
+		    SUM(not_activated) AS not_activated,
+		    SUM(activated) AS activated
+		FROM
+		    (SELECT 
+		        1 AS total_count,
+				(CASE WHEN is_activated = 0 THEN 1 ELSE 0 END) AS not_activated,
+				(CASE WHEN is_activated = 1 THEN 1 ELSE 0 END) AS activated
+		    FROM
+		        <include refid="beacon_table"/>) beacon
+	</select>
+	
+	<update id="updateBeaconDanger" parameterType="BeaconDangerVo">
+		UPDATE 
+			<include refid="beacon_table"/>
+		SET
+ 			upd_date       = SYSDATE
+ 			,editor_id     = #{editor_id}
+			,name          = #{name}
+			,minor         = #{minor}
+			,signal_period = #{signal_period}
+			,txpower       = #{txpower}
+			,description   = #{description}
+			,zone_uid      = #{zone_uid}
+		WHERE
+			beacon_uid = #{beacon_uid}
+	</update>
+
+	<delete id="deleteBeaconDangerByUid" parameterType="BeaconDangerVo">
+		DELETE FROM <include refid="beacon_table"/>
+		WHERE
+			beacon_uid = #{beacon_uid}
+	</delete>
+</mapper>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.ngms.mapper.NaviDeviceApiMapper">
+
+	<resultMap type="NaviDevice" id="navi_device">
+		<result property="device_uid" 	column="vehicle_uid" />
+		<result property="device_no" 	column="device_no" />
+		<result property="assigned_vehicle_no" 	column="assigned_vehicle_no" />
+		<result property="model" 		column="model" />
+		<result property="is_assigned" 	column="is_assigned" />
+		<result property="reg_date" 	column="reg_date" />
+		<result property="is_used" 	column="is_used" />
+		<result property="is_block" 	column="is_block" />
+		<result property="upd_date" 	column="upd_date" />
+		<result property="is_company" 	column="is_company" />
+		<result property="assigned_vehicle_type" 	column="assigned_vehicle_type" />
+		<result property="assigned_vehicle_regdate" column="assigned_vehicle_regdate" />
+		<result property="is_entered" 	column="is_entered" />		
+	</resultMap>
+
+	<sql id="device_table">
+		tbvc_device
+	</sql>
+
+	<sql id="device_column">
+		    device_uid
+		    , device_no
+		    , assigned_vehicle_no
+		    , model
+		    , is_assigned
+		    , TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date
+		    , is_used
+		    , is_block
+		    , TO_CHAR(upd_date, 'YYYY-MM-DD') AS upd_date
+		    , is_company
+		    , NVL((select name from tbcm_code where group_code='vehicle_type' and code = assigned_vehicle_type ), '') AS assigned_vehicle_type
+		    , TO_CHAR(assigned_vehicle_regdate, 'YYYY-MM-DD') AS assigned_vehicle_regdate
+		    , is_entered
+	</sql>
+	
+	<sql id="selectNaviDeviceList_where">
+		<where>
+			is_used = 1
+			and is_block = 0
+			<if	test="device_no != null and device_no != '' ">
+			<![CDATA[
+				and device_no LIKE CONCAT('%', CONCAT(#{device_no}, '%'))
+			]]>
+			</if>
+			<if	test="assigned_vehicle_no != null and assigned_vehicle_no != '' ">
+			<![CDATA[
+				and assigned_vehicle_no LIKE CONCAT('%', CONCAT(#{assigned_vehicle_no}, '%'))
+			]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="selectNaviDeviceList_order">
+		<choose>
+			<when test="order_type != null and order_type != '' and order_desc_asc != null and order_desc_asc != ''">
+				ORDER BY ${order_type} ${order_desc_asc}
+			</when>
+			<otherwise>
+				ORDER BY reg_date ASC
+			</otherwise>
+		</choose>
+	</sql>	
+	
+	<sql id="selectBlockNaviDeviceList_where">
+		<where>
+			is_block = 1
+			<if	test="search_filter_popup != null and search_filter_popup != '' ">
+			<![CDATA[
+				and device_no LIKE CONCAT('%', CONCAT(#{search_filter_popup}, '%'))
+			]]>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectNaviDeviceList" parameterType="NaviDeviceSearchVo" resultMap="navi_device">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT
+			<include refid="device_column"/>
+		FROM
+		    <include refid="device_table"/>
+		<include refid="selectNaviDeviceList_where"/>
+		<include refid="selectNaviDeviceList_order"/>
+	  ) a
+	) WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+	</select>
+	
+	<select id="selectNaviDeviceListTotalCnt" parameterType="NaviDeviceSearchVo" resultType="java.lang.Integer">
+		SELECT
+		    count(*)
+		FROM
+		    <include refid="device_table"/>
+		<include refid="selectNaviDeviceList_where"/>
+	</select>
+	
+	<select id="selectBlockNaviDeviceList" parameterType="NaviDeviceSearchVo" resultMap="navi_device">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT
+			<include refid="device_column"/>
+		FROM
+		    <include refid="device_table"/>
+		<include refid="selectBlockNaviDeviceList_where"/>
+		<include refid="selectNaviDeviceList_order"/>
+	  ) a
+	) WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+	</select>
+	
+	<select id="selectBlockNaviDeviceListTotalCnt" parameterType="NaviDeviceSearchVo" resultType="java.lang.Integer">
+		SELECT
+		    count(*)
+		FROM
+		    <include refid="device_table"/>
+		<include refid="selectBlockNaviDeviceList_where"/>
+	</select>
+	
+	<select id="selectNaviDevice" parameterType="NaviDevice" resultMap="navi_device">
+		SELECT
+			<include refid="device_column"/>
+		FROM
+		    <include refid="device_table"/>
+		WHERE
+			<if test="device_uid != null and device_uid != ''">
+				device_uid = #{device_uid}
+			</if>
+			<if test="device_no != null and device_no != ''">
+				device_no = #{device_no}
+			</if>
+	</select>
+	
+	<select id="selectCountByVehicleDeviceNo" parameterType="String" resultType="Integer">
+		SELECT
+			count(*) AS count
+		FROM
+		    <include refid="device_table"/>
+		WHERE
+			device_no = #{device_no}
+	</select>
+
+	<update id="updateNaviDevice" parameterType="NaviDeviceVo">
+		UPDATE 
+			<include refid="device_table"/>
+		SET
+		 	device_no = #{device_no}
+			,model = #{model}
+			,is_used = 1
+			,is_company = ${is_company}
+			<if test="reg_date != null and reg_date != ''">
+				,reg_date = SYSDATE
+			</if>
+		WHERE
+			device_uid = #{device_uid}	
+	</update>	
+	
+	<insert id="insertNaviDevice" parameterType="NaviDeviceVo">
+		INSERT INTO <include refid="device_table"/>
+		(
+			device_uid
+			,device_no
+			,model
+			,is_assigned
+			,is_company
+<!-- 			assigned_vehicle_no, -->
+<!-- 			last_vehicle_uid, -->
+<!-- 			creator_id, -->
+<!-- 			editor_id, -->
+<!-- 			reg_date, -->
+<!-- 			upd_date -->
+		)
+		VALUES
+		(
+			fn_make_uid()
+			,#{device_no}
+			,#{model}
+			,0
+			,#{is_company}
+<!-- 			#{assigned_vehicle_no: }, -->
+<!-- 			#{last_vehicle_uid: }, -->
+<!-- 			#{creator_id: system}, -->
+<!-- 			#{editor_id: system}, -->
+<!-- 			SYSDATE, -->
+<!-- 			SYSDATE -->
+		)
+	</insert>
+	
+	<update id="releaseNaviDevice" parameterType="NaviDeviceVo">
+		UPDATE 
+			<include refid="device_table"/>
+		SET
+			upd_date = SYSDATE
+			,is_used = 0
+			,is_assigned = 0
+			,is_entered = 0	 
+	 		,assigned_vehicle_no = null
+	 		,assigned_vehicle_type = null
+	 		,assigned_vehicle_regdate = null
+	 		,last_vehicle_uid = null
+		<where>
+			<if test="checked_uid_list != null and checked_uid_list != ''">
+				device_uid in
+				<foreach collection="checked_uid_list" item="item" separator="," open="(" close=")">
+						#{item}
+				</foreach>
+			</if>
+			<if test="device_uid != null and device_uid != ''">
+				device_uid = #{device_uid}
+			</if>
+		</where>
+	</update>
+	
+	<!-- // 160804 [웹 단말관리 해제] 해당 단말의 등록삭제시 차량 테이블 is_out = 1 적용 -->
+	<update id="updateVehicleByReleaseDevices"  parameterType="NaviDeviceVo">
+		UPDATE 
+			tbvc_vehicle
+		SET
+			 is_out = 1
+			,go_out_date = SYSDATE
+		WHERE
+			is_out = 0
+			<if test="checked_uid_list != null and checked_uid_list != ''">
+				AND device_uid in
+				<foreach collection="checked_uid_list" item="item" separator="," open="(" close=")">
+						#{item}
+				</foreach>
+			</if>
+			<if test="device_uid != null and device_uid != ''">
+				AND device_uid = #{device_uid}
+			</if>
+	</update>
+	
+	<update id="blockNaviDevice" parameterType="NaviDeviceVo">
+		UPDATE 
+			<include refid="device_table"/>
+		SET is_block = CASE
+				WHEN is_block = 0 THEN 1
+        		WHEN is_block = 1 THEN 0
+        	END, upd_date = SYSDATE
+		<where>
+			<if test="checked_uid_list != null and checked_uid_list != ''">
+				device_uid in
+				<foreach collection="checked_uid_list" item="item" separator="," open="(" close=")">
+						#{item}
+				</foreach>
+			</if>
+			<if test="checked_uid_block_list != null and checked_uid_block_list != ''">
+				device_uid in
+				<foreach collection="checked_uid_block_list" item="item" separator="," open="(" close=")">
+						#{item}
+				</foreach>
+			</if>
+			<if test="device_uid != null and device_uid != ''">
+				device_uid = #{device_uid}
+			</if>
+		</where>			
+	</update>
+	
+	<delete id="deleteNaviDevice" parameterType="NaviDeviceVo">
+		DELETE FROM <include refid="device_table"/>
+		WHERE
+			device_uid = #{device_uid}
+	</delete>
+	
+	<select id="selectNaviDeviceAssignedCount" resultType="NaviDeviceAssignedVo">
+		SELECT 
+		    SUM(total_count) AS device_total_count,
+		    SUM(not_assigned) AS not_assigned,
+		    SUM(assigned) AS assigned
+		FROM
+		    (SELECT 
+		        1 AS total_count,
+					(CASE WHEN is_assigned = 0 THEN 1 ELSE 0 END) AS not_assigned,
+					(CASE WHEN is_assigned = 1 THEN 1 ELSE 0 END) AS assigned
+		    FROM
+		        tbvc_device WHERE is_used = 1) device
+	</select>
+	
+	<!-- 160807 [개인폰] [신규] [안전운행 11] 개인 단말 차량 등록 -->
+	<insert id="insertAppPersonDeviceRegister" parameterType="NaviDeviceVo">
+		INSERT INTO <include refid="device_table"/>
+		(
+			 device_uid
+			,device_no
+			,is_company 
+			,is_assigned
+			,assigned_vehicle_no
+			<if test="assigned_vehicle_type != null and assigned_vehicle_type != ''">
+			,assigned_vehicle_type
+			</if>
+			,assigned_vehicle_regdate
+			<if test="model != null and model != ''">
+			,model
+			,is_entered
+			</if>
+		)
+		VALUES
+		(
+			fn_make_uid()
+			,#{device_no} 
+			,#{is_company} 
+			,#{is_assigned}
+			,#{assigned_vehicle_no}
+			<if test="assigned_vehicle_type != null and assigned_vehicle_type != ''">
+			,#{assigned_vehicle_type}
+			</if>
+			,SYSDATE
+			<if test="model != null and model != ''">
+			,#{model}
+			,2
+			</if>
+		)
+	</insert>
+	
+	<update id="updateAppPersonDeviceRegister" parameterType="NaviDeviceVo">
+		UPDATE 
+			<include refid="device_table"/>
+		SET 
+			is_used = 1
+			,is_company = #{is_company}
+			,is_assigned = #{is_assigned} 
+	 		,assigned_vehicle_no = #{assigned_vehicle_no}
+	 		<if test="assigned_vehicle_type != null and assigned_vehicle_type != ''">
+	 		,assigned_vehicle_type = #{assigned_vehicle_type}
+	 		</if>
+	 		,assigned_vehicle_regdate = SYSDATE
+	 		<if test="model != null and model != ''">
+	 		,model = #{model}
+	 		</if>
+	 		,is_entered = 2
+	 	WHERE
+	 		device_no = #{device_no}
+	</update>
+	
+</mapper>

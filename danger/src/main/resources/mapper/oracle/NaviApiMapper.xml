@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.ngms.mapper.NaviApiMapper">
+	
+	<resultMap type="LineThresholdVo" 	id="line_threshold">
+		<result property="line" 		column="line" />
+		<result property="size" 	    column="threshold" />
+	</resultMap>
+	
+
+	<select id="getLastModifiedNaviMap" resultType="DateVo">
+		<![CDATA[
+		SELECT * FROM (
+			SELECT reg_date, upd_date FROM tbcm_map
+			ORDER BY upd_date DESC
+		) WHERE ROWNUM <= 1
+		]]>
+	</select>
+	
+	<select id="getLastModifiedLineLimit" resultType="DateVo">
+		<![CDATA[
+		SELECT * FROM (
+			SELECT upd_date FROM tbvc_line_limit
+			ORDER BY upd_date DESC
+		) WHERE ROWNUM <= 1
+		]]>
+	</select>
+	
+	<select id="getLastModifiedRoadSection" resultType="DateVo">
+	SELECT * FROM (
+		SELECT 
+    		reg_date, upd_date
+		FROM (
+			(SELECT * FROM (
+				SELECT reg_date, upd_date FROM tbvc_road_section
+				ORDER BY upd_date DESC
+			<![CDATA[
+				) WHERE ROWNUM <= 1
+			]]>
+			)
+		UNION ALL
+ 			(SELECT * FROM (
+ 				SELECT reg_date, upd_date FROM tbvc_vehicle_type_restrict
+				ORDER BY upd_date DESC
+			<![CDATA[
+				) WHERE ROWNUM <= 1
+			]]>
+			)
+		) t
+		ORDER BY upd_date DESC
+<![CDATA[
+	) WHERE ROWNUM <= 1
+]]>
+ 	</select>
+	
+	<select id="getLastModifiedCrossSection" resultType="DateVo">
+		<![CDATA[
+		SELECT * FROM (
+			SELECT reg_date, upd_date FROM tbvc_cross_section
+			ORDER BY upd_date DESC
+		) WHERE ROWNUM <= 1
+		]]>
+	</select>
+	
+	
+	
+	
+	<select id="selectNaviMap" parameterType="String" resultType="MapVo">
+		SELECT 
+			 latitude1, longitude1, latitude2, longitude2, latitude3, longitude3, latitude4, longitude4
+			,center_latitude, center_longitude, width, height
+		FROM 
+			tbcm_map t1 
+		WHERE
+			map_uid = 1	
+	</select>
+	
+	
+	<select id="selectLineThresholdList" resultMap="line_threshold">
+		SELECT 
+			 line, threshold
+		FROM 
+			tbvc_line_limit 
+		
+	</select>
+	
+	
+	<select id="selectPassRoadSectionList" resultType="String">
+		SELECT 
+			section_uid
+		FROM 
+			tbvc_road_section
+		WHERE
+			is_restrict_area = 0
+		ORDER BY section_uid
+		
+		
+	</select>
+	
+	<!-- <select id="selectRoadLinkedList" parameterType="String" resultType="RoadLinkedVo">  
+		 SELECT 
+			t1.section_uid master_section_uid, t2.section_uid sub_section_uid
+	-->
+	<select id="selectRoadLinkedList" parameterType="String" resultType="String">
+		SELECT 
+			t2.section_uid
+		FROM 
+			tbvc_cross_section t1 inner join tbvc_cross_section t2 on t1.cross_uid = t2.cross_uid
+			inner join tbvc_road_section t3 on t2.section_uid = t3.section_uid
+			
+		WHERE 
+			 t1.section_uid != t2.section_uid
+			 and t3.is_restrict_area = 0 		
+		<![CDATA[AND t1.section_uid = #{section_uid}]]>
+		ORDER BY t1.section_uid, t2.section_uid ;
+	</select>
+	
+	
+	<insert id="insertAppDrivingEvent"   parameterType="AppDrivingEventVo">
+		<![CDATA[
+			insert into tbvc_driving_event(
+				 event_uid
+				,vehicle_uid
+				,section_uid
+				,vehicle_no
+				,device_no
+				,speed
+				,is_over_speed
+				,is_on_road
+				,is_on_restrict_area
+				,x
+				,y
+				,app_reg_time
+				,vehicle_type
+				
+			 ) values 
+		]]>
+			(
+				 fn_make_uid()
+				,#{vehicle_uid}
+				,#{road}
+				,(select vehicle_no  from tbvc_vehicle where vehicle_uid = #{vehicle_uid})
+				,#{device_no}
+				,#{speed}
+				,#{speeding}
+				,1
+				,#{restricted}
+				,#{position.x}
+				,#{position.y}
+				,#{time}
+				,(select vehicle_type from tbvc_vehicle where vehicle_uid = #{vehicle_uid})
+			)
+	</insert>
+	
+		
+	<update id="updateLastDrivingEvent"  parameterType="AppDrivingEventVo">
+	<!-- violation_uid 이 값을 보내주면 가장깔끔함 -->
+		<![CDATA[
+			UPDATE 
+				tbvc_vehicle
+			SET
+				 last_x = #{position.x}
+				,last_y = #{position.y}
+				,last_latitude = #{position.lat}
+				,last_longitude = #{position.lng}
+				,last_speed = #{speed}
+				,last_is_over_speed = #{speeding}
+				,last_on_restrict_area = #{restricted}
+				,had_over_speed = had_over_speed + #{speeding}
+				,had_on_restrict_area = had_on_restrict_area + #{restricted}
+				
+			WHERE
+				vehicle_uid = #{vehicle_uid} 
+			
+		]]>
+	</update>
+	
+	
+	<update id="updateGpsEvent"  parameterType="AppGpsEventVo">
+	<!-- violation_uid 이 값을 보내주면 가장깔끔함 -->
+		<![CDATA[
+			UPDATE 
+				tbvc_vehicle
+			SET
+				 is_gps_on = #{gps}
+				 
+				 ,last_x = 0
+				,last_y = 0
+			WHERE
+				vehicle_uid = #{vehicle_uid} 
+			
+		]]>
+	</update>
+	
+	
+	<!-- insert 되었는지 확인하기 위해서 -->
+	<update id="insertAppViolationEvent"  parameterType="AppViolationEventVo">
+		<![CDATA[
+			insert into tbvc_violation_history(
+				 violation_uid
+				,vehicle_uid
+				,begin_section_uid
+				,end_section_uid
+				,come_in_date
+				,go_out_date
+				,violation_type
+				,in_speed
+				,avg_speed
+				,peak_speed
+				,app_begin_time
+				,app_end_time
+				,vehicle_type
+				
+			 ) values 
+		]]>
+			(
+				 fn_make_uid()
+				,#{vehicle_uid}
+				,#{begin_road}
+				,#{end_road}
+				,TO_DATE('19700101','YYYYMMDD') + (#{begin_time} / 86400)
+				,TO_DATE('19700101','YYYYMMDD') + (#{end_time} / 86400)
+				,#{event}
+				,#{speed}
+				,#{avg}
+				,#{max}
+				,#{begin_time}
+				,#{end_time}
+				,(select vehicle_type from tbvc_vehicle where vehicle_uid = #{vehicle_uid})
+			)
+	</update>
+	
+	<update id="updateAppViolationEvent"  parameterType="AppViolationEventVo">
+	<!-- violation_uid 이 값을 보내주면 가장깔끔함 -->
+		<![CDATA[
+			UPDATE 
+				tbvc_violation_history
+			SET
+				 end_section_uid = #{end_road}
+				,go_out_date  = TO_DATE('19700101','YYYYMMDD') + (#{end_time} / 86400)
+				,in_speed = #{speed}
+				,avg_speed = #{avg}
+				,peak_speed = #{max}
+				,app_end_time = #{end_time}
+			WHERE
+				vehicle_uid = #{vehicle_uid} and app_begin_time = #{begin_time} and violation_type = #{event}
+			
+		]]>
+	</update>
+	
+	
+	<select id="cntViolationEvent" resultType="Integer" parameterType="AppViolationEventVo">
+		<![CDATA[
+			SELECT
+				COUNT(1) CNT
+			FROM 
+				tbvc_violation_history
+			WHERE
+				vehicle_uid = #{vehicle_uid} and app_begin_time = #{begin_time} and violation_type = #{event}
+		]]>
+	</select>
+	
+	
+	
+	<select id="cntGoOutVehicle" resultType="Integer" parameterType="String">
+		<![CDATA[
+			SELECT
+				COUNT(1) CNT
+			FROM 
+				tbvc_vehicle
+			WHERE
+				vehicle_uid = #{vehicle_uid} and is_out = 1
+		]]>
+	</select>
+	
+	<select id="selectAssigendVehicleNo" resultType="String" parameterType="String">
+		<![CDATA[
+			SELECT
+				assigned_vehicle_no			
+			FROM 
+				tbvc_device
+			WHERE
+				device_no = #{device_no}
+		]]>
+	</select>
+	
+		
+	<update id="updateAppDeviceAssigned" parameterType="AppVehicleRegVo">
+		UPDATE 
+			tbvc_device
+		SET
+			  assigned_vehicle_no   = #{car}
+			 ,assigned_vehicle_type = #{car_type}
+			 ,assigned_vehicle_regdate = SYSDATE
+			 ,is_assigned = 1
+			 ,push_id     = #{gcm_token}
+			 ,last_vehicle_uid = ${vehicle_uid}
+			 ,is_entered = 1
+		WHERE
+			device_no = #{device_no}	
+	</update>
+	
+	<update id="updateAppDeviceAssignedLast" parameterType="AppVehicleRegVo">
+		UPDATE 
+			tbvc_device
+		SET
+			last_vehicle_uid = ${vehicle_uid}
+			,is_entered = 1
+		WHERE
+			device_no = #{device_no}	
+	</update>
+	
+	
+	
+	<select id="cntStayVehicle" resultType="Integer" parameterType="AppVehicleRegVo">
+	<!-- and (go_out_date is null or is_out = 0 )  -->
+		<![CDATA[
+			SELECT
+				COUNT(1) CNT
+			FROM 
+				tbvc_vehicle
+			WHERE
+				device_no = #{device_no} and REPLACE(vehicle_no,' ','')  = REPLACE(#{car},' ','')
+				and (go_out_date is null or is_out = 0 ) 
+		]]>
+	</select>
+	
+	
+	<insert id="insertAppVehicleReg"   parameterType="AppVehicleRegVo">
+		<![CDATA[
+			insert into tbvc_vehicle(
+				 vehicle_uid
+				,device_uid
+				,vehicle_no
+				,vehicle_type
+				,device_no
+				,come_in_date
+			 ) values 
+		]]>
+			(
+				 #{vehicle_uid}
+				,(SELECT * FROM (
+					select device_uid from tbvc_device where device_no = #{device_no}
+				<![CDATA[
+					) WHERE ROWNUM <= 1
+				]]>
+				)
+				,#{car}
+				,#{car_type}
+				,#{device_no}
+				,SYSDATE
+			)
+	</insert>
+	
+	<!-- 법인폰 / 개인폰에 따라 할당된 단말 정보 수정  -->
+	<update id="updateAppDeviceRelease" parameterType="AppVehicleRegVo">
+		UPDATE 
+			tbvc_device
+		SET
+		<choose>
+			<when test="is_company == 1"><!-- 법인 -->
+			 is_entered  = 0			
+			,is_assigned = 0
+			,assigned_vehicle_no      = null
+			,assigned_vehicle_type    = null
+			,assigned_vehicle_regdate = null
+			</when>
+			<when test="is_company == 0"><!-- 법인 -->
+			is_entered  = 2
+			</when>
+		</choose>
+		WHERE
+			device_no = #{device_no}	
+	</update>
+	
+	
+	<update id="updateAppVehicleRelease"  parameterType="AppVehicleRegVo">
+	<!-- violation_uid 이 값을 보내주면 가장깔끔함 -->
+		<![CDATA[
+			UPDATE 
+				tbvc_vehicle
+			SET
+				 is_out = 1				
+				,go_out_date = SYSDATE
+			WHERE
+				vehicle_uid = #{vehicle_uid}
+		]]>
+	</update>
+	
+	
+	<select id="selectDeviceInfo" resultType="NaviDeviceVo" parameterType="String">
+		<![CDATA[
+			SELECT
+				*			
+			FROM 
+				tbvc_device
+			WHERE
+				device_no = #{device_no}  and is_used = 1 
+		]]>
+	</select>
+
+</mapper>

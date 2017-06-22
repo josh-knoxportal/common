@@ -1,0 +1,180 @@
+@charset "utf-8";
+
+@font-face {
+	font-family: 'Nanum-Gothic';
+	font-style: normal;
+	font-weight: 400;
+	src: url('../font/NanumGothicRegular.eot');
+	src: url('../font/NanumGothicRegular.eot?#iefix') format('embedded-opentype'),
+		url('../font/NanumGothicRegular.woff') format('woff'),
+		url('../font/NanumGothicRegular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Nanum-Gothic';
+	font-style: normal;
+	font-weight: 600;
+	src: url('../font/NanumGothicBold.eot');
+	src: url('../font/NanumGothicBold.eot?#iefix') format('embedded-opentype'),
+		url('../font/NanumGothicBold.woff') format('woff'),
+		url('../font/NanumGothicBold.ttf') format('truetype');
+}
+
+* {box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;padding:0;margin:0;}
+html, body {height:100%;line-height: 1;}
+body {font-size:12px;font-family: 'Nanum-Gothic','NanumGothic','Nanum Gothic','NanumGothic','나눔고딕',gulim,'굴림', Dotum,'돋움', 'Verdana',sans-serif;color:#242424;font-weight: normal;}
+img {vertical-align: top;}
+img,fieldset,iframe{border: 0 none;}
+input, select, textarea, table { vertical-align:middle;font-family: Dotum,'돋움' }
+input:focus {border-color: #242424 !important;}
+select > option {padding: 0 5px;}
+select::-ms-expand { display: none !important;}
+hr { display:none; }
+legend, caption, .hide { width:0; height:0; margin:0; padding:0; visibility:hidden; font-size:0; line-height:0; position:absolute; top:0; left:0; overflow:hidden;}
+ol, ul, li { list-style:none; }
+table { border-collapse:collapse; border-spacing:0;}
+a, a:link, a:visited, a:active, a:hover, a:focus  {text-decoration:none;color: #666;}
+a, button, img {outline: none;}
+em {font-style:normal;}
+button {border:0;vertical-align:middle;cursor:pointer;font-family: 'Nanum-Gothic','NanumGothic','Nanum Gothic','NanumGothic','나눔고딕';}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {display: block;}
+th,td {text-align: center;vertical-align: middle;}
+svg{font-size:10px;font-family: 'Nanum-Gothic','NanumGothic','Nanum Gothic','NanumGothic','나눔고딕'; font-weight: normal;}
+/* Hidden */
+.blind {text-indent: -9999px;}
+.blind_position {position: absolute;top: -9999em;width: 1px;height: 1px;overflow: hidden;}
+
+/* Skip */
+.skip a{display:block;position:absolute;left:0;top:-9999em;z-index:9999;display:block;width:100%;background-color:#563d7c;color:#fff;}
+.skip a:focus{top:0;}
+
+/* clear */
+.clearfix {*zoom:1}
+.clearfix:after {content:'';display: block;clear: both;}
+
+/* display-table */
+.display-table {display: table;width: 100%;}
+.table-row {display: table-row;}
+.table-cell {display: table-cell;vertical-align: middle;}
+.table-cell.align-top {vertical-align: top;}
+
+/* text-align */
+.text-right {text-align: right;}
+.text-left {text-align: left;}
+.text-center {text-align: center;}
+
+/* text-decoration */
+.tdu {text-decoration: underline !important;}
+
+/* line-height */
+.lh16p {line-height: 16px;}
+
+/* margin-top */
+.mt10 {margin-top: 10px;}
+.mt30 {margin-top: 30px;}
+
+/* margin-bottom */
+.mb10 {margin-bottom: 10px;}
+.mb30 {margin-bottom: 30px;}
+
+/* margin-left */
+.ml10 {margin-left: 10px;}
+
+/* margin-right */
+.mr5 {margin-right: 5px;}
+.mr10 {margin-right: 10px;}
+.mr25 {margin-right: 25px;}
+.mr30 {margin-right: 30px;}
+.mr35 {margin-right: 35px;}
+.mr38 {margin-right: 38px;}
+.mr40 {margin-right: 40px;}
+.mr50 {margin-right: 50px;}
+
+/* padding-top */
+.pt30 {padding-top: 30px;}
+
+/* padding-bottom */
+.pb60 {padding-bottom: 60px;}
+
+/* float */ 
+.float-left {float: left;}
+.float-right {float: right;}
+
+/* 말줄임 */
+.ellipsis {white-space: nowrap;text-overflow: ellipsis;-o-text-overflow: ellipsis;overflow: hidden;}
+
+/* border-bottom */
+.border-b {border-bottom: 1px solid #000;}
+
+/* width */
+.w150 {width: 150px !important;}
+/* checkbox, radio style */
+.radios, 
+.checks {
+	position: relative;
+	font-size: 12px;
+	display: inline-block;
+	color: #666;
+	padding: 6.5px 0;
+}
+.table-style .radios,
+.table-style .checks {
+	padding: 0;
+	vertical-align: middle;
+}
+.radios input[type="radio"],
+.checks input[type="checkbox"] {/* 실제 체크박스는 화면에서 숨김 */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	overflow: hidden;
+	clip:rect(0,0,0,0);
+	border: 0;
+}
+.radios input[type="radio"] + label,
+.checks input[type="checkbox"] + label {
+	position: relative;
+	display: block;
+	padding-left: 21px;
+	line-height: 13px;
+	height: 13px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+.table-style .checks input[type="checkbox"] + label {
+	padding-left: 13px;
+}
+.radios input[type="radio"] + label:before,
+.checks input[type="checkbox"] + label:before {
+	content:'';
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 13px;
+	height: 100%;
+	background-image: url(../img/checkbox-radio.png);
+	background-repeat:  no-repeat;
+	margin-right: 8px;
+}
+.radios input[type="radio"] + label:before {
+	background-position: -26px 0;
+}
+.checks input[type="checkbox"] + label:before {
+	background-position: 0 0;
+}
+/* 체크했을때 */
+.radios input[type="radio"]:checked + label:before {
+	background-position: -39px 0;
+}
+.checks input[type="checkbox"]:checked + label:before {
+	background-position: -13px 0;
+}
+a.hovergray:link {color:#c60353;}
+a.hovergray:hover{color:#666;}
+
+a.hoverred:link {color:#666;}
+a.hoverred:hover{color:#c60353;}
+

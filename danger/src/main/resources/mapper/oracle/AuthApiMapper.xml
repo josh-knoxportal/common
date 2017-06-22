@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.aams.mapper.AuthApiMapper">
+
+	<sql id="adminAcccount_table">
+		<choose>
+			<when test='system_type == "1"'>
+				tbda_account
+			</when>
+			<when test='system_type == "2"'>
+				tbvc_account
+			</when>
+		</choose>
+	</sql>
+	
+	<sql id="vcDevice_table">
+		tbvc_device
+	</sql>
+	
+	<sql id="daDevice_table">
+		tbda_device
+	</sql>
+	
+	<select id="selectDeviceToken" parameterType="DeviceVo" resultType="DeviceVo">
+	SELECT * FROM (
+		SELECT
+			 device_no
+			,access_token
+		FROM
+		<choose>
+			<when test='system_type ==  "1"'>
+				<include refid="daDevice_table"/>
+			</when>
+			<when test='system_type ==  "2"'>
+				<include refid="vcDevice_table"/>
+			</when>
+		</choose>
+		WHERE
+			access_token = #{access_token} and device_no = #{device_no}
+<![CDATA[
+	) WHERE ROWNUM <= 1
+]]>
+	</select>
+	
+	<select id="selectAccountToken" parameterType="LoginVo" resultType="LoginVo">
+	SELECT * FROM (
+		SELECT
+			 user_id
+			,access_token
+			,system_type
+		FROM
+		<include refid="adminAcccount_table"/>
+		WHERE
+			access_token = #{access_token} and system_type = #{system_type}
+<![CDATA[
+	) WHERE ROWNUM <= 1
+]]>
+	</select>
+	
+	
+	<update id="updateAccountAccessToken" parameterType="LoginVo">
+		UPDATE
+		<include refid="adminAcccount_table"/>
+		SET
+			access_token = #{access_token}
+		WHERE
+			user_id = #{user_id} and system_type = #{system_type}
+	</update>
+	
+	
+	<update id="updateDeviceAccessToken" parameterType="DeviceVo">
+		UPDATE
+		<choose>
+			<when test='system_type ==  "1"'>
+				<include refid="daDevice_table"/>
+			</when>
+			<when test='system_type ==  "2"'>
+				<include refid="vcDevice_table"/>
+			</when>
+		</choose>
+		SET
+			access_token = #{access_token}
+			<if test='system_type ==  "1"'>
+			,last_server_access_time = ROUND((SYSDATE - TO_DATE('19700101','YYYYMMDD')) * 86400)
+			</if>
+		WHERE
+			device_no = #{device_no}
+	</update>
+
+</mapper>

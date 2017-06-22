@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.common.mapper.PushApiMapper">
+
+	<sql id="push_history_table">
+		tbcm_push_history
+	</sql>
+	<sql id="push_target_table">
+		tbcm_push_target
+	</sql>
+	
+	
+	<select id="selectUid" resultType="java.lang.String">
+		SELECT fn_make_uid() FROM dual
+	</select>
+	
+	<insert id="insertPushHistory" parameterType="PushHistoryVo">
+		INSERT INTO <include refid="push_history_table"/>
+		(
+			 push_uid
+		    ,system_type
+		    ,user_id
+		    ,message
+		)
+		VALUES
+		(
+			 #{push_uid}
+		    ,#{system_type}
+		    ,#{user_id}
+		    ,#{message}
+		)
+	</insert>
+	
+	
+	<insert id="insertPushTarget" parameterType="PushHistoryVo">
+		INSERT INTO <include refid="push_target_table"/>
+		(
+			 push_uid
+		    ,device_no
+		    ,status
+		)
+		VALUES
+		<foreach collection="targetList" item="item" separator=" , ">
+            (#{push_uid}, #{item} , 0 )
+        </foreach>
+	</insert>
+	
+	<update id="updatePushTarget" parameterType="PushTargetVo">
+		UPDATE 
+			<include refid="push_target_table"/>
+		SET
+		 	status = #{status}
+		WHERE
+			push_uid = #{push_uid}	
+	</update>	
+	
+	
+	<select id="selectDangerPushIdList" resultType="java.lang.String" parameterType="PushHistoryVo">
+		SELECT 
+			push_id
+		FROM 
+			tbda_device
+		WHERE
+			device_no in
+			<foreach collection="targetList" item="item" separator="," open="(" close=")">
+					#{item}
+			</foreach>
+			AND push_id is not null
+	</select>
+	
+	<select id="selectVehiclePushIdList"  resultType="java.lang.String" parameterType="PushHistoryVo">
+		SELECT 
+			push_id
+		FROM 
+			tbvc_device
+		WHERE
+			device_no in
+			<foreach collection="targetList" item="item" separator="," open="(" close=")">
+					#{item}
+			</foreach>
+			AND push_id is not null
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.wwms.mapper.WorkApiMapper">
+	<!-- 작업자별 현황 VO -->
+	<resultMap type="WorkStatusVo" id="work_status">
+		<result property="totalcnt" column="totalcnt" />
+		<result property="work_uid" column="work_uid" />
+		<result property="factory_uid" column="factory_uid" />
+		<result property="zone_uid" column="zone_uid" />
+		<result property="work_no" column="work_no" />
+		<result property="name" column="name" />
+		<result property="work_day" column="work_day" />
+		<result property="work_type" column="work_type" />
+		<result property="parter_name" column="parter_name" />
+		<result property="worker_name" column="worker_name" />
+		<result property="worker_count" column="worker_count" />
+		<result property="starting_date" column="starting_date" />
+		<result property="device_uid" column="device_uid" />
+		<result property="device_no" column="device_no" />
+		<result property="complete_date" column="complete_date" />
+		<result property="is_completed" column="is_completed" />
+		<result property="last_factory_uid" column="last_factory_uid" />
+		<result property="last_zone_uid" column="last_zone_uid" />
+		<result property="last_checking_date" column="last_checking_date" />
+		<result property="factory_name" column="factory_name" />
+		<result property="zone_name" column="starting_date" />
+		<result property="last_factory_name" column="last_factory_name" />
+		<result property="last_zone_name" column="last_zone_name" />
+		<result property="work_type_name" column="work_type_name" />
+	</resultMap>
+	
+	<!-- 이상 여부 확인 VO -->
+	<resultMap type="WorkIssueVo" id="work_issue">
+		<result property="totalcnt" column="totalcnt" />
+		<result property="worker_name" column="worker_name" />
+		<result property="device_no" column="device_no" />
+		<result property="type" column="type" />
+		<result property="parter_name" column="parter_name" />
+		<result property="factory_uid" column="factory_uid" />
+		<result property="zone_uid" column="zone_uid" />
+		<result property="e_factory_uid" column="e_factory_uid" />
+		<result property="e_zone_uid" column="e_zone_uid" />
+		<result property="in_date" column="in_date" />
+		<result property="out_date" column="out_date" />
+		<result property="work_type" column="work_type" />
+		<result property="work_no" column="work_no" />
+		<result property="starting_date" column="starting_date" />
+		<result property="complete_date" column="complete_date" />
+		<result property="worker_count" column="worker_count" />
+		<result property="factory_name" column="factory_name" />
+		<result property="zone_name" column="starting_date" />
+		<result property="e_factory_name" column="e_factory_name" />
+		<result property="e_zone_name" column="e_zone_name" />
+		<result property="work_type_name" column="work_type_name" />
+	</resultMap>
+	
+	<!-- 작업자 VO -->
+	<resultMap type="WorkerMntVo" id="worker_mnt">
+		<result property="work_uid" column="work_uid" />
+		<result property="factory_uid" column="factory_uid" />
+		<result property="zone_uid" column="zone_uid" />
+		<result property="work_no" column="work_no" />
+		<result property="name" column="name" />
+		<result property="work_day" column="work_day" />
+		<result property="work_type" column="work_type" />
+		<result property="parter_name" column="parter_name" />
+		<result property="worker_name" column="worker_name" />
+		<result property="worker_count" column="worker_count" />
+		<result property="starting_date" column="starting_date" />
+		<result property="device_uid" column="device_uid" />
+		<result property="device_no" column="device_no" />
+		<result property="complete_date" column="complete_date" />
+		<result property="is_completed" column="is_completed" />
+		<result property="is_on_zone" column="is_on_zone" />
+		<result property="is_gps_on" column="is_gps_on" />
+		<result property="is_bluetooth_on" column="is_bluetooth_on" />
+		<result property="last_factory_uid" column="last_factory_uid" />
+		<result property="last_zone_uid" column="last_zone_uid" />
+		<result property="last_checking_date" column="last_checking_date" />
+		<result property="creator_id" column="creator_id" />
+		<result property="editor_id" column="editor_id" />
+		<result property="reg_date" column="reg_date" />
+		<result property="upd_date" column="upd_date" />
+		<result property="factory_name" column="factory_name" />
+		<result property="zone_name" column="starting_date" />
+		<result property="last_factory_name" column="last_factory_name" />
+		<result property="last_zone_name" column="last_zone_name" />
+		<result property="work_type_name" column="work_type_name" />
+	</resultMap>
+	
+	<!-- 작업 VO -->
+	<resultMap type="WorkMntVo" id="work_mnt">
+		<result property="work_uid" column="work_uid" />
+		<result property="factory_uid" column="factory_uid" />
+		<result property="zone_uid" column="zone_uid" />
+		<result property="work_no" column="work_no" />
+		<result property="name" column="name" />
+		<result property="work_day" column="work_day" />
+		<result property="work_type" column="work_type" />
+		<result property="parter_name" column="parter_name" />
+		<result property="parter_code" column="parter_code" />
+		<result property="worker_name" column="worker_name" />
+		<result property="worker_count" column="worker_count" />
+		<result property="starting_date" column="starting_date" />
+		<result property="device_uid" column="device_uid" />
+		<result property="device_no" column="device_no" />
+		<result property="complete_date" column="complete_date" />
+		<result property="is_completed" column="is_completed" />
+		<result property="is_on_zone" column="is_on_zone" />
+		<result property="is_gps_on" column="is_gps_on" />
+		<result property="is_bluetooth_on" column="is_bluetooth_on" />
+		<result property="last_factory_uid" column="last_factory_uid" />
+		<result property="last_zone_uid" column="last_zone_uid" />
+		<result property="last_checking_date" column="last_checking_date" />
+		<result property="creator_id" column="creator_id" />
+		<result property="editor_id" column="editor_id" />
+		<result property="reg_date" column="reg_date" />
+		<result property="upd_date" column="upd_date" />
+		<result property="factory_name" column="factory_name" />
+		<result property="zone_name" column="starting_date" />
+		<result property="last_factory_name" column="last_factory_name" />
+		<result property="last_zone_name" column="last_zone_name" />
+		<result property="work_type_name" column="work_type_name" />
+	</resultMap>
+	
+	<!-- 작업자 갱신 VO -->
+	<resultMap type="WorkVo" id="work_info">
+		<result property="work_uid" column="work_uid" />
+		<result property="factory_uid" column="factory_uid" />
+		<result property="zone_uid" column="zone_uid" />
+		<result property="work_no" column="work_no" />
+		<result property="work_day" column="work_day" />
+		<result property="name" column="name" />
+		<result property="work_type" column="work_type" />
+		<result property="parter_name" column="parter_name" />
+		<result property="worker_name" column="worker_name" />
+		<result property="worker_count" column="worker_count" />
+		<result property="starting_date" column="starting_date" />
+		<result property="complete_date" column="complete_date" />
+		<result property="is_completed" column="is_completed" />
+		<result property="last_checking_date" column="last_checking_date" />
+		<result property="creator_id" column="creator_id" />
+		<result property="editor_id" column="editor_id" />
+		<result property="reg_date" column="reg_date" />
+		<result property="upd_date" column="upd_date" />
+	</resultMap>
+	
+	<!-- 2-1 작업자별 현황 - 작업자별 현황 -->
+	<select id="selectWorkStatusList" parameterType="WorkStatusRequestVo" resultType="WorkStatusVo">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT 
+			wa.work_uid,                    
+			TO_CHAR(wa.starting_date, 'YYYY-MM-DD') AS work_day,
+			wa.worker_name,
+			wa.device_uid,
+			wa.device_no, 
+			(select organization_name from tbda_worker a where a.worker_uid = wa.worker_uid) as parter_name,
+			wa.factory_uid,
+			CASE WHEN wa.factory_uid != '' THEN
+			(select name from tbda_factory b where b.factory_uid = wa.factory_uid) 
+            else
+				case  when d.factory_uid = 999 then '전공장'
+                else  '인가없음' end
+            end AS factory_name,
+			wa.zone_uid,
+			(select name from tbda_zone b where b.zone_uid = wa.zone_uid) AS zone_name,
+			NVL(wa.last_factory_uid, eer.factory_uid ) as last_factory_uid,
+			NVL(wa.last_zone_uid, eer.zone_uid) as last_zone_uid,
+			(select name from tbda_factory b where b.factory_uid = NVL(wa.last_factory_uid, eer.factory_uid )) AS last_factory_name,
+			(select name from tbda_zone b where b.zone_uid = NVL(wa.last_zone_uid, eer.zone_uid)) AS last_zone_name, 
+			wa.last_checking_date,
+			(SELECT WM_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = a.work_uid AND t1.code = t2.work_type) AS work_type_name,
+			wa.work_no,
+			a.name,
+			case when wa.is_completed = 2 then '' else 
+			TO_CHAR(wa.starting_date, 'MM-DD HH24:MI') end AS starting_date,
+			TO_CHAR(wa.complete_date, 'MM-DD HH24:MI') AS complete_date,
+			wa.worker_count					
+		FROM
+			tbda_worker_assigned wa
+			INNER JOIN  tbda_device d ON ( d.device_uid = wa.device_uid	 ) 
+			left outer join tbda_work a on wa.work_uid = a.work_uid
+			left outer join tbda_enter_exit_record eer on (d.device_no = eer.device_no AND eer.exit_date IS NULL )
+		WHERE wa.is_deleted = 0 
+		AND (wa.is_completed != 1 or wa.work_uid is not null )
+		<if test="from != null and from != ''">
+			and wa.starting_date <![CDATA[ >= ]]> #{from} 
+		</if>
+		<if test="to != null and to != ''">
+			and wa.starting_date <![CDATA[ <= ]]> #{to}
+		</if>
+		<if test="order_type != null and order_type != '' and order_desc_asc != null and order_desc_asc != ''">
+			ORDER BY ${order_type} ${order_desc_asc}
+		</if>
+		<if test="order_type == null or order_type == '' or order_desc_asc == null or order_desc_asc == ''">
+			ORDER BY wa.starting_date desc
+		</if>
+	  ) a
+	)
+		<if test="limit_count != null and limit_count != ''">
+			WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+		</if>
+	</select>
+	
+	<!-- 2-1 작업자별 현황 - 작업자별 현황 totla count -->
+	<select id="selectWorkStatusTotalCount" parameterType="WorkStatusRequestVo" resultType="java.lang.Integer">
+		SELECT count(*) as totalcnt			
+		FROM
+			tbda_worker_assigned wa
+			INNER JOIN  tbda_device d ON ( d.device_uid = wa.device_uid	 ) 
+			left outer join tbda_work a on wa.work_uid = a.work_uid
+			left outer join tbda_enter_exit_record eer on (d.device_no = eer.device_no AND eer.exit_date IS NULL )
+		WHERE wa.is_deleted = 0 
+		AND (wa.is_completed != 1 or wa.work_uid is not null )
+		<if test="from != null and from != ''">
+			and wa.starting_date <![CDATA[ >= ]]> #{from} 
+		</if>
+		<if test="to != null and to != ''">
+			and wa.starting_date <![CDATA[ <= ]]> #{to}
+		</if>
+	</select>
+	
+	<!-- 작업이 할당된 작업자 목록 조회 (종료된 작업자 제외)-->
+	<select id="selectAssignWorkerList" parameterType="WorkStatusRequestVo" resultType="WorkStatusVo">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT 
+			FOUND_ROWS() AS totalcnt, t.*
+		FROM 
+		(SELECT 		
+				work_uid, a.factory_uid, a.zone_uid, work_no, a.name, work_day, parter_name
+				, worker_name, worker_count, starting_date, device_uid, device_no, complete_date
+				, is_completed, last_factory_uid, last_zone_uid, last_checking_date
+				, a.factory_name, a.zone_name, b.name as last_factory_name, c.name as last_zone_name, work_type_name
+		FROM 
+			(SELECT 
+				d.device_no,
+                a.work_uid,
+				a.factory_uid,
+				a.zone_uid,
+				a.work_no,
+				a.name,
+				TO_CHAR(a.starting_date, 'YYYY-MM-DD') AS work_day,
+				case when (a.parter_name = '' or a.parter_name is null) then wr.organization_name else a.parter_name end as parter_name,
+				NVL(d.account_name, a.worker_name) AS worker_name,
+				NVL(a.worker_count,0) as worker_count, 
+				case when wa.is_completed = 2 then '' else 
+				TO_CHAR(wa.starting_date, 'MM-DD HH24:MI') end AS starting_date,
+				wa.device_uid,
+				TO_CHAR(wa.complete_date, 'MM-DD HH24:MI') AS complete_date,
+				NVL(wa.is_completed,-1) as is_completed,
+				NVL(wa.last_factory_uid, eer.factory_uid ) as last_factory_uid,
+				NVL(wa.last_zone_uid, eer.zone_uid) as last_zone_uid,
+				a.last_checking_date,
+				b.name AS factory_name,
+				c.name AS zone_name,
+				(SELECT WM_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = a.work_uid AND t1.code = t2.work_type) AS work_type_name
+			FROM
+				tbda_device d
+				left outer join tbda_worker wr on ( d.device_no = wr.device_no and d.worker_uid = wr.worker_uid )
+				left outer join tbda_worker_assigned wa ON ( d.device_uid = wa.device_uid and wa.is_completed = 0 )
+				LEFT OUTER JOIN	tbda_work a ON wa.work_uid = a.work_uid
+				LEFT OUTER JOIN	tbda_factory b ON b.factory_uid = wa.factory_uid
+				LEFT OUTER JOIN	tbda_zone c ON c.zone_uid = wa.zone_uid
+				left outer join tbda_enter_exit_record eer on (d.device_no = eer.device_no AND eer.exit_date IS NULL )
+			WHERE
+				d.is_alive_report != 2
+				<if test="worker_name != null and worker_name != ''">
+					and NVL(d.account_name, a.worker_name) like CONCAT('%', CONCAT(#{worker_name}, '%'))
+				</if>
+				<if test="device_no != null and device_no != ''">
+					and d.device_no like CONCAT('%', CONCAT(#{device_no}, '%'))
+				</if>
+			) a 
+			left outer join tbda_factory b on a.last_factory_uid = b.factory_uid
+			left outer join tbda_zone c on a.last_zone_uid= c.zone_uid
+ 		) t
+ 		ORDER BY
+		<if test="order_type != null and order_type != '' and order_desc_asc != null and order_desc_asc != ''">
+			${order_type} ${order_desc_asc}
+		</if>
+		<if test="order_type == null or order_type == '' or order_desc_asc == null or order_desc_asc == ''">
+			starting_date <![CDATA[ desc ]]>
+		</if>
+	  ) a
+	)
+		<if test="limit_count != null and limit_count != ''">
+			WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+		</if> 		
+	</select>
+	
+	<select id="selectAssignWorkerListTotalCount" parameterType="WorkStatusRequestVo" resultType="java.lang.Integer">
+		SELECT 		
+			count(*)
+		FROM 
+		(	SELECT 
+				d.device_no,
+                a.work_uid,
+				a.factory_uid,
+				a.zone_uid,
+				a.work_no,
+				a.name,
+				TO_CHAR(a.starting_date, 'YYYY-MM-DD') AS work_day,
+				case when (a.parter_name = '' or a.parter_name is null) then wr.organization_name else a.parter_name end as parter_name,
+				NVL(d.account_name, a.worker_name) AS worker_name,
+				NVL(a.worker_count,0) as worker_count, 
+				case when wa.is_completed = 2 then '' else 
+				TO_CHAR(wa.starting_date, 'MM-DD HH24:MI') end AS starting_date,
+				wa.device_uid,
+				TO_CHAR(wa.complete_date, 'MM-DD HH24:MI') AS complete_date,
+				NVL(wa.is_completed,-1) as is_completed,
+				NVL(wa.last_factory_uid, eer.factory_uid ) as last_factory_uid,
+				NVL(wa.last_zone_uid, eer.zone_uid) as last_zone_uid,
+				a.last_checking_date,
+				b.name AS factory_name,
+				c.name AS zone_name,
+				(SELECT WM_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = a.work_uid AND t1.code = t2.work_type) AS work_type_name
+			FROM
+				tbda_device d
+				left outer join tbda_worker wr on ( d.device_no = wr.device_no and d.worker_uid = wr.worker_uid )
+				left outer join tbda_worker_assigned wa ON ( d.device_uid = wa.device_uid and wa.is_completed = 0 )
+				LEFT OUTER JOIN	tbda_work a ON wa.work_uid = a.work_uid
+				LEFT OUTER JOIN	tbda_factory b ON b.factory_uid = wa.factory_uid
+				LEFT OUTER JOIN	tbda_zone c ON c.zone_uid = wa.zone_uid
+				left outer join tbda_enter_exit_record eer on (d.device_no = eer.device_no AND eer.exit_date IS NULL )
+			WHERE
+				d.is_alive_report != 2
+			<if test="worker_name != null and worker_name != ''">
+				and NVL(d.account_name, a.worker_name) like CONCAT('%', CONCAT(#{worker_name}, '%'))
+			</if>
+			<if test="device_no != null and device_no != ''">
+				and d.device_no like CONCAT('%', CONCAT(#{device_no}, '%'))
+			</if>
+		) a
+	</select>
+	
+	<!-- 2-2 이상여부 확인 totla count-->
+	<select id="selectworkIssueListTotalCount" parameterType="WorkStatusRequestVo" resultType="java.lang.Integer">
+		SELECt count(*) as totalcnt
+		FROM
+		    tbda_enter_exit_record r
+        INNER JOIN tbda_device d ON d.device_no = r.device_no
+        INNER JOIN tbda_worker wr ON wr.worker_uid = d.worker_uid
+        left outer join tbda_worker_assigned wa on (wa.device_no = r.device_no and wa.work_uid = r.work_uid)
+        left outer JOIN tbda_work w ON w.work_uid = r.work_uid
+		WHERE
+			r.reg_date <![CDATA[ >= ]]> CAST(#{from} AS DATE) and r.reg_date <![CDATA[ <= ]]> CAST(#{to} AS DATE)  
+	</select>
+	
+	<!-- 2-2 이상여부 확인 조회 -->
+	<select id="selectWorkIssueList" parameterType="WorkStatusRequestVo" resultType="WorkIssueVo">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT 
+		    NVL((SELECT * FROM (
+		    	select worker_name from tbda_worker_assigned wa where work_uid = w.work_uid and wa.device_uid = d.device_uid
+			<![CDATA[
+				) WHERE ROWNUM <= 1
+			]]>
+			) , wr.name) as worker_name,
+		    r.device_no,
+		    wr.organization_name as parter_name,
+		    
+		    wa.factory_uid as factory_uid,
+			CASE WHEN wa.factory_uid != '' THEN	(select name from tbda_factory f where f.factory_uid = wa.factory_uid) 
+			else
+				case  when d.factory_uid = 999 then '전공장'
+				else  '인가없음' end
+			end AS  factory_name,
+		    
+			wa.zone_uid as zone_uid,
+			CASE WHEN wa.zone_uid != '' THEN	(select name from tbda_zone z where z.zone_uid = wa.zone_uid) 
+			else
+				case  when d.factory_uid = 999 then '전공장'
+				else  '인가없음' end
+			end AS  zone_name,
+		    
+		    r.is_restricted as type,
+		    r.factory_uid as e_factory_uid,
+            (select name from tbda_factory f1 where f1.factory_uid = r.factory_uid) as e_factory_name,
+            r.zone_uid as e_zone_uid,
+            (select name from tbda_zone z where z.zone_uid = r.zone_uid) as e_zone_name,
+		    
+		    TO_CHAR(r.enter_date, 'MM-DD HH24:MI') AS in_date,
+		    TO_CHAR(r.exit_date , 'MM-DD HH24:MI') AS out_date,
+		    (SELECT WM_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = w.work_uid AND t1.code = t2.work_type) AS work_type_name,
+		    wa.work_no,
+		    w.name as work_name,
+		    TO_CHAR(wa.starting_date, 'MM-DD HH24:MI') as  starting_date,
+		    TO_CHAR(wa.complete_date, 'MM-DD HH24:MI') as  complete_date,
+		    
+		    (SELECT TO_CHAR(MIN(starting_date), 'MM-DD HH24:MI') FROM tbda_worker_assigned WHERE work_uid = w.work_uid) AS starting_date,
+			(CASE WHEN w.is_completed = 1 
+			THEN (SELECT TO_CHAR(MAX(complete_date), 'MM-DD HH24:MI') FROM tbda_worker_assigned WHERE work_uid = w.work_uid) 
+			ELSE '' END) AS complete_date,    
+		    
+		    wa.worker_count
+		FROM
+		    tbda_enter_exit_record r
+        INNER JOIN tbda_device d ON d.device_no = r.device_no
+        INNER JOIN tbda_worker wr ON wr.worker_uid = d.worker_uid
+        left outer join tbda_worker_assigned wa on (wa.device_no= r.device_no and wa.work_uid = r.work_uid and wa.is_deleted = 0)
+        left outer JOIN tbda_work w ON (w.work_uid = r.work_uid and w.is_deleted = 0)
+        
+		WHERE
+			r.reg_date <![CDATA[ >= ]]> CAST(#{from} AS DATE) and r.reg_date <![CDATA[ <= ]]> CAST(#{to} AS DATE)  
+		
+	 	<if test="order_type != null and order_type != '' and order_desc_asc != null and order_desc_asc != ''">
+			ORDER BY ${order_type} ${order_desc_asc}
+		</if>
+		<if test="order_type == null or order_type == '' or order_desc_asc == null or order_desc_asc == ''">
+			ORDER BY in_date desc, out_date desc
+		</if>
+	  ) a
+	)
+		<if test="limit_count != null and limit_count != ''">
+			WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+		</if>
+	</select>
+	
+	<!-- 5-1 작업자/작업 관리 - 작업자 관리 목록 조회 -->
+	<select id="selectWorkerMntList" parameterType="WorkerMntRequestVo" resultType="WorkerMntVo">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT 
+			wa.mapping_uid,
+			wa.work_uid,                    
+			TO_CHAR(a.starting_date, 'YYYY-MM-DD') AS work_day,
+			wa.worker_name,
+			wa.device_uid,
+			wa.device_no,
+			(select organization_name from tbda_worker a where a.worker_uid = wa.worker_uid) as parter_name,
+            (select organization_code from tbda_worker a where a.worker_uid = wa.worker_uid) as parter_code,
+			wa.factory_uid,
+			CASE WHEN wa.factory_uid != '' THEN
+			(select name from tbda_factory b where b.factory_uid = wa.factory_uid) 
+            else
+				case  when d.factory_uid = 999 then '전공장'
+                else  '인가없음' end
+            end AS factory_name,
+			wa.zone_uid,
+			(select name from tbda_zone b where b.zone_uid = wa.zone_uid) AS zone_name,
+			NVL(wa.last_factory_uid, eer.factory_uid ) as last_factory_uid,
+			NVL(wa.last_zone_uid, eer.zone_uid) as last_zone_uid,
+			(select name from tbda_factory b where b.factory_uid = NVL(wa.last_factory_uid, eer.factory_uid )) AS last_factory_name,
+			(select name from tbda_zone b where b.zone_uid = NVL(wa.last_zone_uid, eer.zone_uid)) AS last_zone_name, 
+			wa.last_checking_date,
+			(SELECT WM_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = a.work_uid AND t1.code = t2.work_type) AS work_type_name,
+			wa.work_no,
+			a.name,
+			case when wa.is_completed = 2 then '' else TO_CHAR(wa.starting_date, 'MM-DD HH24:MI') end AS starting_date,
+			TO_CHAR(wa.complete_date, 'MM-DD HH24:MI') AS complete_date,
+			wa.worker_count,
+			TO_CHAR(wa.upd_date, 'YYYY-MM-DD HH24:MI') AS upd_date,
+			wa.is_completed,
+			case when wa.is_completed = 2 then '' else TO_CHAR(wa.starting_date, 'YYYY-MM-DD HH24:MI') end AS info_starting_date,
+			TO_CHAR(wa.complete_date, 'YYYY-MM-DD HH24:MI') AS info_complete_date
+		FROM
+			tbda_worker_assigned wa
+		INNER JOIN  tbda_device d ON ( d.device_uid = wa.device_uid	and  wa.starting_date >= TRUNC(SYSDATE) )
+		LEFT OUTER JOIN tbda_work a ON wa.work_uid = a.work_uid 
+		LEFT OUTER JOIN tbda_factory b ON b.factory_uid = wa.factory_uid
+		LEFT OUTER JOIN tbda_zone c ON c.zone_uid = wa.zone_uid 
+		left outer join tbda_enter_exit_record eer on (d.device_no = eer.device_no AND eer.exit_date IS NULL )
+		WHERE
+			wa.is_deleted = 0
+		and (wa.is_completed != 1 or wa.work_uid is not null )
+		and wa.starting_date <![CDATA[ >=]]> TRUNC(SYSDATE)			
+		<if test="worker_name != null and worker_name != ''">
+			and wa.worker_name like CONCAT('%', CONCAT(#{worker_name}, '%'))
+		</if>
+		<if test="device_no != null and device_no != ''">
+			and wa.device_no like CONCAT('%', CONCAT(#{device_no}, '%'))
+		</if>
+		<if test="work_uid != null and work_uid != ''">
+			and wa.work_uid = #{work_uid}
+		</if>
+		<if test="parter_name != null and parter_name != ''">
+			AND ( b.name like CONCAT('%', CONCAT(#{parter_name}, '%')) OR c.name like CONCAT('%', CONCAT(#{parter_name}, '%')) )
+		</if>
+		<if test="name != null and name != ''">
+			and a.name like CONCAT('%', CONCAT(#{name}, '%'))
+		</if>
+		<if test="work_no != null and work_no != ''">
+			and wa.work_no like CONCAT('%', CONCAT(#{work_no}, '%'))
+		</if>
+		<if test="order_type != null and order_type != '' and order_desc_asc != null and order_desc_asc != ''">
+			ORDER BY ${order_type} ${order_desc_asc}
+		</if>
+		<if test="order_type == null or order_type == '' or order_desc_asc == null or order_desc_asc == ''">
+			ORDER BY wa.starting_date desc
+		</if>
+	  ) a
+	)
+		<if test="limit_count != null and limit_count != ''">
+			WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+		</if>
+	</select>
+	
+	<!-- 5-1 작업자/작업 관리 - 작업자 관리 목록 조회 -->
+	<select id="selectWorkerMntTotalCount" parameterType="WorkerMntRequestVo" resultType="java.lang.Integer">
+		SELECT 
+			count(*) as totalcnt
+		FROM
+			tbda_worker_assigned wa
+		INNER JOIN  tbda_device d ON ( d.device_uid = wa.device_uid	and  wa.starting_date >= TRUNC(SYSDATE) )
+		LEFT OUTER JOIN tbda_work a ON wa.work_uid = a.work_uid 
+		LEFT OUTER JOIN tbda_factory b ON b.factory_uid = wa.factory_uid
+		LEFT OUTER JOIN tbda_zone c ON c.zone_uid = wa.zone_uid 
+		left outer join tbda_enter_exit_record eer on (d.device_no = eer.device_no AND eer.exit_date IS NULL )
+		WHERE
+			wa.is_deleted = 0
+		and (wa.is_completed != 1 or wa.work_uid is not null )
+		and wa.starting_date <![CDATA[ >=]]> TRUNC(SYSDATE)			
+		<if test="worker_name != null and worker_name != ''">
+			and wa.worker_name like CONCAT('%', CONCAT(#{worker_name}, '%'))
+		</if>
+		<if test="device_no != null and device_no != ''">
+			and wa.device_no like CONCAT('%', CONCAT(#{device_no}, '%'))
+		</if>
+		<if test="work_uid != null and work_uid != ''">
+			and wa.work_uid = #{work_uid}
+		</if>
+		<if test="parter_name != null and parter_name != ''">
+			AND ( b.name like CONCAT('%', CONCAT(#{parter_name}, '%')) OR c.name like CONCAT('%', CONCAT(#{parter_name}, '%')) )
+		</if>
+		<if test="name != null and name != ''">
+			and a.name like CONCAT('%', CONCAT(#{name}, '%'))
+		</if>
+		<if test="work_no != null and work_no != ''">
+			and wa.work_no like CONCAT('%', CONCAT(#{work_no}, '%'))
+		</if>
+	</select>
+	
+	<!-- 5-2 작업자/작업 관리 - 작업 관리 목록 조회 -->
+	<select id="selectWorkMntList" parameterType="WorkMntRequestVo" resultType="WorkMntVo">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT
+			w.work_uid,
+			w.work_day,
+			w.work_no,  
+			w.name,      
+			case when w.parter_name = '' then (select organization_name from tbda_worker w where w.worker_uid = ( select worker_uid from tbda_device where device_uid = w.device_uid )) else w.parter_name end as parter_name,
+			w.parter_code, 
+			w.device_no,
+			w.is_completed,
+			(SELECT WM_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = w.work_uid AND t1.code = t2.work_type) AS work_type_name,
+			(SELECT WM_CONCAT(DISTINCT t1.code) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = w.work_uid AND t1.code = t2.work_type) AS work_type,
+			
+			case when work_make_type = 1 then '' else TO_CHAR(w.starting_date, 'MM-DD HH24:MI') end as starting_date,
+			case when work_make_type = 1 then '' else TO_CHAR(w.complete_date, 'MM-DD HH24:MI') end as complete_date,
+			case when work_make_type = 1 then 0  else w.worker_count end as worker_count,
+			case when work_make_type = 1 then NULL else w.factory_uid  end as factory_uid,
+			case when work_make_type = 1 then '' else b.name end AS factory_name,
+			case when work_make_type = 1 then NULL else w.zone_uid end AS zone_uid,
+			case when work_make_type = 1 then '' else c.name end AS zone_name,
+			
+			(SELECT TO_CHAR(MIN(starting_date), 'MM-DD HH24:MI') FROM tbda_worker_assigned WHERE work_uid = w.work_uid) AS real_starting_date,
+			(CASE WHEN w.is_completed = 1 
+			THEN (SELECT TO_CHAR(MAX(complete_date), 'MM-DD HH24:MI') FROM tbda_worker_assigned WHERE work_uid = w.work_uid) 
+			ELSE '' END) AS real_ending_date,
+			(SELECT SUM(worker_count) FROM tbda_worker_assigned WHERE work_uid = w.work_uid) AS real_worker_count,
+			(SELECT name FROM tbda_factory where factory_uid = w.factory_uid) AS worker_factory_name,
+			(SELECT name FROM tbda_zone where zone_uid = w.zone_uid) AS worker_zone_name,
+			w.work_make_type,
+			TO_CHAR(w.upd_date, 'YYYY-MM-DD HH24:MI') as upd_date
+		FROM
+			tbda_work w
+		LEFT OUTER JOIN tbda_factory b ON b.factory_uid = w.factory_uid
+		LEFT OUTER JOIN tbda_zone c ON c.zone_uid = w.zone_uid
+		WHERE
+			w.is_deleted = 0
+		<if test="from != null and from != ''">
+			AND w.starting_date <![CDATA[ >= ]]> #{from} 
+		</if>
+		<if test="to != null and to != ''">
+			AND w.starting_date <![CDATA[ <= ]]> #{to} 
+		</if>			
+		<if test="name != null and name != ''">
+			AND w.name like CONCAT('%', CONCAT(#{name}, '%'))
+		</if>
+		<if test="parter_name != null and parter_name != ''">
+			AND ( b.name like CONCAT('%', CONCAT(#{parter_name}, '%')) OR c.name like CONCAT('%', CONCAT(#{parter_name}, '%')) )
+		</if>
+		<if test="work_uid != null and work_uid != ''">
+			AND w.work_uid = #{work_uid}
+		</if>		
+		<if test="order_type != null and order_type != '' and order_desc_asc != null and order_desc_asc != ''">
+			ORDER BY ${order_type} ${order_desc_asc}
+		</if>
+		<if test="order_type == null or order_type == '' or order_desc_asc == null or order_desc_asc == ''">
+			ORDER BY real_starting_date desc
+		</if>
+	  ) a
+	)
+		<if test="limit_count != null and limit_count != ''">
+			WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+		</if>
+	</select>
+	
+	<!-- 5-2 작업자/작업 관리 - 작업 관리 목록 조회 -->
+	<select id="selectWorkMntTotalCount" parameterType="WorkMntRequestVo" resultType="java.lang.Integer">
+		SELECT 
+			count(*) as totalcnt
+		FROM
+			tbda_work w
+		LEFT OUTER JOIN tbda_factory b ON b.factory_uid = w.factory_uid
+		LEFT OUTER JOIN tbda_zone c ON c.zone_uid = w.zone_uid
+		WHERE
+			w.is_deleted = 0
+		<if test="from != null and from != ''">
+			AND w.starting_date <![CDATA[ >= ]]> #{from} 
+		</if>
+		<if test="to != null and to != ''">
+			AND w.starting_date <![CDATA[ <= ]]> #{to} 
+		</if>			
+		<if test="name != null and name != ''">
+			AND w.name like CONCAT('%', CONCAT(#{name}, '%'))
+		</if>
+		<if test="parter_name != null and parter_name != ''">
+			AND ( b.name like CONCAT('%', CONCAT(#{parter_name}, '%')) OR c.name like CONCAT('%', CONCAT(#{parter_name}, '%')) )
+		</if>
+		<if test="work_uid != null and work_uid != ''">
+			AND w.work_uid = #{work_uid}
+		</if>
+	</select>
+	
+	<update id="updateWork" parameterType="WorkVo">
+		UPDATE 
+			tbda_work
+		SET
+			upd_date = <![CDATA[ sysdate() ]]>
+			<if test="work_no != '' and work_no != null">
+				,work_no = #{work_no}
+			</if>
+			,worker_count = #{worker_count}
+			<if test="name != '' and name != null">
+				,name = #{name}
+			</if>
+			<if test="parter_name != '' and parter_name != null">
+				,parter_name = #{parter_name}
+				,parter_code = #{parter_code}
+			</if>
+			<if test="worker_name != '' and worker_name != null">
+				,worker_name = #{worker_name}
+			</if>
+			<if test="zone_type != '' and zone_type != null">
+				<if test="zone_type == 'factory' ">
+					,factory_uid = #{factory_uid}
+				</if>
+				<if test="zone_type == 'zone' ">
+					,zone_uid = #{factory_uid}
+				</if>
+			</if>
+			<if test="starting_date != '' and starting_date != null">
+				,starting_date = #{starting_date}
+			</if>
+			<if test="complete_date != '' and complete_date != null">
+				,complete_date = #{complete_date}
+			</if>
+			<if test='work_make_type == "1"'>
+				,work_make_type = '11'
+			</if>
+		<where>
+			<if test="work_uid != null and work_uid != ''">
+				AND work_uid = #{work_uid}	
+			</if>
+			<if test="work_no != null and work_no != ''">
+				AND work_no = #{work_no}	
+			</if>
+		</where>
+	</update>	
+	
+	<insert id="insertWork" parameterType="WorkVo">
+		INSERT INTO tbda_work
+		(
+			work_uid
+			,work_no
+			,name
+			<if test="worker_name != '' and worker_name != null">
+			,worker_name
+			</if>
+			<if test="zone_type != '' and zone_type != null">
+				<if test="zone_type == 'factory' ">
+					,factory_uid
+				</if>
+				<if test="zone_type == 'zone' ">
+					,zone_uid
+				</if>
+			</if>
+			<if test="starting_date != '' and starting_date != null">
+			,starting_date
+			</if>
+			<if test="complete_date != '' and complete_date != null">
+			,complete_date
+			</if>
+			,worker_count
+			<if test="parter_name != '' and parter_name != null">
+				,parter_name ,parter_code
+			</if>
+			,work_day
+		)
+		VALUES
+		(
+			#{work_uid}
+			,#{work_no}
+			,#{name}
+			<if test="worker_name != '' and worker_name != null">
+			,#{worker_name}
+			</if>
+			<if test="zone_type != '' and zone_type != null">
+				<if test="zone_type == 'factory' ">
+					,#{factory_uid}
+				</if>
+				<if test="zone_type == 'zone' ">
+					,#{factory_uid}
+				</if>
+			</if>
+			<if test="starting_date != '' and starting_date != null">
+				,#{starting_date}
+			</if>
+			<if test="complete_date != '' and complete_date != null">
+				,#{complete_date}
+			</if>
+				,#{worker_count}
+			<if test="parter_name != '' and parter_name != null">
+				,#{parter_name}, #{parter_code}
+			</if>
+			,TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		)
+	</insert>
+	
+	<insert id="insertWorkType" parameterType="WorkVo">
+		INSERT INTO tbda_work_on_type
+		(
+			work_uid
+			,work_type
+		)
+		VALUES
+			<foreach collection="type_list" item="item" separator=" , ">
+            	(#{work_uid}, #{item})
+       		</foreach>
+	</insert>
+	
+	<delete id="deleteWork" parameterType="WorkVo">
+		DELETE FROM tbda_work
+		<where>
+			<if test="work_no != null and work_no != ''">
+				AND work_no = #{work_no}	
+			</if>
+			<if test="work_uid != null and work_uid != ''">
+				AND work_uid = #{work_uid}	
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="deleteWorkType" parameterType="WorkVo">
+		DELETE FROM tbda_work_on_type
+		WHERE work_uid = #{work_uid}	
+	</delete>
+	
+	<delete id="deleteBeaconEvent" parameterType="WorkVo">
+		DELETE FROM tbda_beacon_event
+		WHERE work_uid = #{work_uid}	
+	</delete>
+	
+	<delete id="deleteGpsEvent" parameterType="WorkVo">
+		DELETE FROM tbda_gps_event
+		WHERE work_uid = #{work_uid}	
+	</delete>
+	
+	<select id="checkWorkNo" parameterType="WorkVo" resultType="WorkVo">
+		SELECT work_uid
+		FROM tbda_work
+		WHERE work_no = #{work_no}
+	</select>
+
+	<update id="updateWorkerAssigned" parameterType="WorkerMntVo">
+		UPDATE
+			tbda_worker_assigned
+		SET
+			 worker_count  = #{worker_count}
+			,starting_date = CAST(#{starting_date} AS DATE)
+			,complete_date = CAST(#{complete_date} AS DATE)
+		WHERE
+			mapping_uid = #{mapping_uid}
+	</update>
+	
+	<update id="deleteWorkerAssigned" parameterType="WorkerMntVo">
+		UPDATE
+			tbda_worker_assigned
+		SET
+			is_deleted = 1
+		WHERE
+			mapping_uid = #{mapping_uid}
+	</update>
+
+	<select id="selectWorkDetail" parameterType="String" resultType="workMntVo">
+		SELECT
+			w.device_no,
+			w.work_make_type,
+			w.work_uid,
+			w.work_no,
+			w.is_completed,
+			w.name,
+			w.parter_code,
+			case when w.parter_name = '' then (select organization_name from tbda_worker w where w.worker_uid = ( select worker_uid from tbda_device where device_uid = w.device_uid )) else w.parter_name end as parter_name,		
+			case when work_make_type = 1 then NULL else w.factory_uid  end as factory_uid,
+			case when work_make_type = 1 then '' else b.name end AS factory_name,
+			case when work_make_type = 1 then NULL else w.zone_uid end AS zone_uid,
+			case when work_make_type = 1 then '' else c.name end AS zone_name,
+			(SELECT WM_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = w.work_uid AND t1.code = t2.work_type) AS work_type_name,
+			(SELECT WM_CONCAT(DISTINCT t1.code) FROM tbcm_code t1, tbda_work_on_type t2 WHERE t2.work_uid = w.work_uid AND t1.code = t2.work_type) AS work_type,
+			case when work_make_type = 1 then '' else TO_CHAR(w.starting_date, 'YYYY-MM-DD HH24:MI') end as starting_date,
+			case when work_make_type = 1 then '' else TO_CHAR(w.starting_date, 'HH24:MI') end as starting_time,
+			case when work_make_type = 1 then '' else TO_CHAR(w.complete_date, 'YYYY-MM-DD HH24:MI') end as complete_date,
+			case when work_make_type = 1 then '' else TO_CHAR(w.complete_date, 'HH24:MI') end as complete_time,
+			case when work_make_type = 1 then 0  else w.worker_count end as worker_count,		
+			TO_CHAR(w.upd_date, 'YYYY-MM-DD HH24:MI') as upd_date,
+			(SELECT SUM(worker_count) FROM tbda_worker_assigned WHERE work_uid = w.work_uid) AS real_worker_count
+		FROM
+			tbda_work w
+		LEFT OUTER JOIN tbda_factory b ON b.factory_uid = w.factory_uid
+		LEFT OUTER JOIN tbda_zone c ON c.zone_uid = w.zone_uid
+		WHERE
+			w.is_deleted = 0
+		AND work_uid = #{work_uid}
+	</select>
+	
+	<update id="updateIsDeletedWork" parameterType="String">
+		UPDATE
+			tbda_work
+		SET
+			is_deleted = 1
+		WHERE
+			work_uid = #{work_uid}
+	</update>
+
+</mapper>

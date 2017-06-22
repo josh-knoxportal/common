@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.ngms.mapper.PolicyApiMapper">
+	<resultMap type="AdminAccountVo" id="adimin_account">
+		<result property="account_uid" column="account_uid" />
+		<result property="user_id" column="user_id" />
+		<result property="password" column="password" />
+		<result property="system_type" column="system_type" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="reg_date" column="reg_date" />
+		<result property="new_password" column="new_password" />
+	</resultMap>
+
+	<sql id="adminAcccount_table">
+		<if test="system_type == 1">
+			tbda_account
+		</if>
+		<if test="system_type == 2">
+			tbvc_account
+		</if>
+	</sql>
+
+	<update id="updateUserToken" parameterType="AdminAccountVo">
+		UPDATE <include refid="adminAcccount_table" />
+		SET access_token = #{access_token},
+		WHERE user_id = #{user_id}
+		AND system_type = #{system_type}
+	</update>
+
+</mapper>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.wwms.mapper.CommonCodeApiMapper">
+	<!--  -->
+	<select id="selectWorkTypeList" resultType="CodeWorkTypeVo">
+		SELECT 
+			code,
+			name,
+			order_no
+		FROM tbcm_code
+		WHERE
+			group_code = 'work_type'
+		ORDER BY order_no ASC
+	</select>
+	
+	<!--  -->
+	<select id="selectFactoryList" resultType="CodeFactoryZoneVo">
+		SELECT 
+			'factory' as type,
+			factory_uid as uid,
+			name,
+			is_restricted
+		FROM tbda_factory
+		WHERE is_factory = 1
+		ORDER BY factory_uid ASC
+	</select>
+
+	<!--  -->
+	<select id="selectZoneList" resultType="CodeFactoryZoneVo">
+		SELECT 
+			'zone' as type,
+			zone_uid as uid,
+			name,
+			is_restricted
+		FROM tbda_zone
+		ORDER BY zone_uid ASC
+	</select>
+	
+	<!-- add wwweojin 작업이 시작되지 않은 목록-->
+	<!-- 160803 [개인폰] [수정] 작업번호조회 API 작업명 추가 -->
+	<select id="selectWorkNoList" resultType="CodeWorkNoVo">
+		SELECT 
+		    w.work_uid,
+		    w.work_no,
+		    w.name AS work_name,
+		    CASE WHEN w.factory_uid != ''
+		        THEN (SELECT name FROM tbda_factory b WHERE b.factory_uid = w.factory_uid)
+		        ELSE (SELECT name FROM tbda_zone b WHERE b.zone_uid = w.zone_uid)
+		    END AS work_zone_name,
+		    (SELECT GROUP_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2
+		        WHERE t2.work_uid = w.work_uid AND t1.code = t2.work_type) AS work_type_name
+		FROM
+		    tbda_work w
+		WHERE
+		    w.is_completed = 0 AND w.is_deleted = 0 AND w.work_day = curdate()
+		ORDER BY w.work_no ASC
+	</select>
+
+	<!-- 161017 -->
+	<select id="selectWorkNoListByDeviceNo" parameterType="String" resultType="CodeWorkNoVo">
+		SELECT 
+		    w.work_uid,
+		    w.work_no,
+		    w.name AS work_name,
+		    CASE WHEN w.factory_uid != ''
+		        THEN (SELECT name FROM tbda_factory b WHERE b.factory_uid = w.factory_uid)
+		        ELSE (SELECT name FROM tbda_zone b WHERE b.zone_uid = w.zone_uid)
+		    END AS work_zone_name,
+		    (SELECT GROUP_CONCAT(DISTINCT t1.name) FROM tbcm_code t1, tbda_work_on_type t2
+		        WHERE t2.work_uid = w.work_uid AND t1.code = t2.work_type) AS work_type_name
+		FROM
+		    tbda_work w
+		WHERE
+		    w.is_completed = 0 AND w.is_deleted = 0 AND w.work_day = curdate()
+        AND w.parter_code = (
+        	SELECT
+	            organization_code
+	        FROM
+	            tbda_device d, tbda_worker wk
+	        WHERE d.device_no = wk.device_no AND d.worker_uid = wk.worker_uid AND d.device_no = #{device_no}
+		)
+		ORDER BY w.work_no ASC
+	</select>	
+	
+	<!-- [2016/05/26] added by capsy -->
+	<!-- [2016/08/22] by mhyoon -->
+	<!-- [2016/08/24] modified by capsy : 미확인도 연락처 보여달라고 해서 -->
+	<select id="selectWorkerContactListOnFactoryZone" parameterType="WorkerContactRequestVo" resultType="WorkerContactVo">
+		SELECT * FROM (
+			<if test="uid >= 0">
+				SELECT 
+					IFNULL(w.organization_name,'unknown') as company,
+					(CASE WHEN ifnull(wa.worker_count, 1) > 1 
+						THEN CONCAT(IFNULL(wa.worker_name, ifnull(w.name, 'unknown')), ' 외', (wa.worker_count - 1), '명') 
+						ELSE IFNULL(wa.worker_name, ifnull(w.name, 'unknown')) 
+					END) as name,
+					d.device_no as device_no,
+					d.push_id as push_id,
+					ifnull(eer.is_restricted,0) as is_authorized
+				from
+					tbda_device d
+					inner join tbda_enter_exit_record eer on (d.device_no = eer.device_no AND eer.exit_date IS NULL )
+					left outer join tbda_worker w on ( d.device_no = w.device_no and d.worker_uid = w.worker_uid )
+					left outer join tbda_worker_assigned wa on (wa.device_no = eer.device_no and wa.work_uid = eer.work_uid and wa.is_completed = 0) 
+				where
+					d.is_alive_report != 2 and
+					<if test="type == 'factory' and uid >= 0">
+					eer.factory_uid = #{uid} 
+					</if>
+					<if test="type == 'zone' and uid >= 0">
+					eer.zone_uid = #{uid} 
+					</if>
+			</if>
+			<if test="uid == -1">
+				SELECT 
+					IFNULL(w.organization_name,'unknown') as company,
+					(CASE WHEN ifnull(wa.worker_count, 1) > 1 
+						THEN CONCAT(IFNULL(wa.worker_name, ifnull(w.name, 'unknown')), ' 외', (wa.worker_count - 1), '명') 
+						ELSE IFNULL(wa.worker_name, ifnull(w.name, 'unknown')) 
+					END) as name,
+					d.device_no as device_no,
+					d.push_id as push_id,
+					case when d.factory_uid = 999 then 1 else 0 end  as is_authorized
+				from
+					tbda_device d
+					left outer join tbda_enter_exit_record eer on (d.device_no = eer.device_no AND eer.exit_date IS NULL )
+					left outer join tbda_worker w on ( d.device_no = w.device_no and d.worker_uid = w.worker_uid )
+					left outer join tbda_worker_assigned wa on (d.device_no = wa.device_no and( wa.work_uid = eer.work_uid or d.worker_uid = wa.worker_uid ) and wa.is_completed = 0) 
+				where
+					d.is_alive_report != 2
+					AND d.device_no NOT IN (SELECT DISTINCT device_no FROM tbda_enter_exit_record eer WHERE exit_date IS NULL)
+			</if>
+		
+		) t
+		ORDER BY is_authorized , name ASC
+	</select>	
+	
+	<!-- // 160804 [개인폰] [신규] [출입감지] 부서/협력업체 정보 -->
+	<select id="selectOrganizationList" resultType="CodeOrganizationVo">
+		SELECT 
+			 organization_uid
+			,type
+			,(select name from tbcm_code where group_code = 'organization_type' and code = type) AS type_name
+			,code
+			,name
+			,order_no
+		FROM  
+			tbda_organization
+		ORDER BY type, order_no
+	</select>
+	
+	<!-- // 160804 [개인폰] [신규] [안전운행] 차량유형 정보 -->
+	<select id="selectVehicleTypeList" resultType="CodeVehicleTypeVo">
+		SELECT 
+			code
+			,name
+			,order_no
+		FROM  
+			tbcm_code
+		WHERE group_code = 'vehicle_type'	
+		ORDER BY order_no
+	</select>
+	
+	<!-- // 160804 [개인폰] [신규] [안전운행15] 목적지 정보 조회 -->
+	<select id="selectDestinationList" resultType="CodeVehicleDestinationVo">
+		SELECT 
+			type
+			,(select name from tbcm_code where group_code = 'destination_type' and code = type) AS type_name
+			,name
+			,order_no
+			,x
+			,y
+		FROM  
+			tbvc_destination
+		ORDER BY type, order_no
+	</select>
+
+	<!-- // 160804 [개인폰] [신규] [안전운행15] 목적지 정보 조회 -->
+	<select id="selectDestinationTypeList" resultType="CodeVehicleDestinationTypeVo">
+		SELECT 
+			code AS type
+			,name AS type_name
+			,order_no
+		FROM  
+			tbcm_code
+		WHERE group_code = 'destination_type'	
+		ORDER BY order_no
+	</select>
+	
+	<!-- 	// 1608 [신규] [공통] 단말 ECGI 정보 조회 -->
+	<select id="selectDeviceEcgiList" resultType="DeviceEcgiVo">
+		SELECT 
+		    carrier, ecgi
+		FROM
+		    tbcm_device_ecgi
+		ORDER BY carrier, ecgi
+	</select>
+	
+	<!-- 1608 [신규] [공통] 단말 비콘 정보 조회 -->
+	<select id="selectDeviceBeaconList" resultType="DeviceBeaconVo">
+		SELECT 
+		    type, major, minor
+		FROM
+		    tbcm_device_beacon
+		ORDER BY type , major , minor
+	</select>
+
+	<select id="selectParterNameList" resultType="ParterNameVo">
+		SELECT 
+		    name as parter_name,
+		    code as parter_code
+		FROM tbda_organization
+	</select>
+	
+	<!-- 1608 [신규] [공통] 목적지 정보의 최신 갱신 여부	 -->
+	<select id="getIsLastModifiedDestination" resultType="DateVo">
+		SELECT 
+		    reg_date, upd_date
+		FROM
+		    ((SELECT reg_date, upd_date FROM tbvc_destination
+			ORDER BY upd_date DESC
+		    LIMIT 1) 
+			UNION ALL 
+			(SELECT reg_date, upd_date FROM tbcm_code WHERE group_code = 'destination_type'
+		    ORDER BY upd_date DESC
+		    LIMIT 1)) t
+		ORDER BY upd_date DESC
+		LIMIT 1 
+	</select>
+
+	<!-- 1608 [신규] [공통] ECGI 정보의 최신 갱신 여부	 -->
+	<select id="getIsLastModifiedEcgi" resultType="DateVo">
+		SELECT 
+		    reg_date, upd_date
+		FROM
+		    ((SELECT reg_date, upd_date FROM tbcm_device_beacon
+			ORDER BY upd_date DESC
+		    LIMIT 1) 
+			UNION ALL 
+			(SELECT reg_date, upd_date FROM tbcm_device_ecgi
+		    ORDER BY upd_date DESC
+		    LIMIT 1)) t
+		ORDER BY upd_date DESC
+		LIMIT 1 
+	</select>
+	
+	<!-- 1608 [신규] [공통] 차량유형 정보의 최신 갱신 여부 -->
+	<select id="getIsLastModifiedVehicleType" resultType="DateVo">
+		SELECT 
+		    reg_date, upd_date
+		FROM
+		    tbcm_code
+		WHERE
+		    group_code = 'vehicle_type'
+		ORDER BY upd_date DESC
+		LIMIT 1
+	</select>
+
+	<!-- 1609 [신규] [공통] 출입감지 작업유형 정보의 최신 갱신 여부-->
+	<select id="getIsLastModifiedCodeWorkTypeList" resultType="DateVo">
+		SELECT 
+		    reg_date, upd_date
+		FROM
+		    tbcm_code
+		WHERE
+		    group_code = 'work_type'
+		ORDER BY upd_date DESC
+		LIMIT 1
+	</select>		
+	
+	<select id="getServerConfig" resultType="ServerConfigVo">
+		SELECT 
+		    alive_report AS aliveReportCycle,
+		    gps_onoff AS locationMonitoringRule
+		FROM
+		    tbcm_server_config
+	</select>
+	
+	<select id="getIsLastModifiedCodeWorkNoList" resultType="DateVo">
+		SELECT 
+		    reg_date, upd_date
+		FROM
+		     tbda_work
+		WHERE
+		    is_completed = 0
+		ORDER BY upd_date DESC
+		LIMIT 1
+	</select>
+	
+	<select id="getIsLastModifiedAppRuleProperty" resultType="DateVo">
+		SELECT 
+		    reg_date, upd_date
+		FROM
+		    tbcm_server_config
+		ORDER BY upd_date DESC
+		LIMIT 1
+	</select>
+	
+	<select id="getIsLastModifiedCodeOrganizationList" resultType="DateVo">
+		SELECT 
+		    reg_date, upd_date
+		FROM
+		    tbda_organization
+		ORDER BY upd_date DESC
+		LIMIT 1
+	</select>	
+
+	<select id="selectBeforeStartWorkNoList" resultType="CodeWorkNoVo">
+		SELECT 
+		    w.work_uid, w.work_no
+		FROM
+		    (SELECT w.work_uid,
+		            w.work_no,
+		            (SELECT 
+		                    SUM(worker_count)
+		                FROM
+		                    tbda_worker_assigned
+		                WHERE
+		                    work_uid = w.work_uid) AS real_worker_count
+		    FROM
+		        tbda_work w
+		    WHERE
+		        w.is_completed = 0
+		    AND w.is_deleted = 0    
+		    ) w
+		WHERE
+		    w.real_worker_count IS NULL
+		ORDER BY w.work_no ASC
+	</select>	
+</mapper>

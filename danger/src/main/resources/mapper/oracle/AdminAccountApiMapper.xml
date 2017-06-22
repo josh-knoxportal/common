@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nemustech.platform.lbs.web.vehicle.mapper.AdminAccountApiMapper">
+
+	<resultMap type="AdminAccountVo" id="adminAccount">
+		<result property="account_uid" 	column="account_uid" />
+		<result property="user_id" 	    column="user_id" />
+		<result property="password"     column="password" />
+		<result property="system_type" 	column="system_type" />
+		<result property="name" 	    column="name" />
+		<result property="email" 	    column="email" />
+		<result property="reg_date" 	column="reg_date" />
+		<result property="new_password" column="new_password" />
+		<result property="is_admin"     column="is_admin" />
+		<result property="department"   column="department" />
+		<result property="upd_date"     column="upd_date" />
+	</resultMap>
+
+	<sql id="adminAcccount_table">
+		<choose>
+			<when test='system_type == 1'>
+				tbda_account
+			</when>
+			<when test='system_type == 2'>
+				tbvc_account
+			</when>
+		</choose>
+	</sql>
+
+	<sql id="adminAcccount_column">
+		    account_uid,
+		    user_id,
+		    password,
+		    system_type,
+		    name,
+		    email,
+		    TO_CHAR(reg_date, 'YYYY-MM-DD') AS reg_date,
+		    is_admin,
+		    department,
+		    TO_CHAR(upd_date, 'YYYY-MM-DD HH24:MI:SS') AS upd_date
+	</sql>
+
+	<sql id="selectAdminAccountList_where">
+		<where>
+			system_type = #{system_type}
+			<if	test="search_filter != null and search_filter != '' ">
+			<choose>
+				<when test="search_type == 'search_id'">
+					<![CDATA[
+						AND user_id LIKE CONCAT('%', CONCAT(#{search_filter}, '%'))
+					]]>
+				</when>
+				<when test="search_type == 'search_name'">
+					<![CDATA[
+						AND name LIKE CONCAT('%', CONCAT(#{search_filter}, '%'))
+					]]>
+				</when>
+				<otherwise>
+					<![CDATA[
+						AND ((user_id LIKE CONCAT('%', CONCAT(#{search_filter}, '%'))) OR
+						(name LIKE CONCAT('%', CONCAT(#{search_filter}, '%'))))
+					]]>
+				</otherwise>
+			</choose>			
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectAdminAccountList" parameterType="AdminAccountSearchVo" resultMap="adminAccount">
+	SELECT * FROM (
+	  SELECT ROWNUM - 1 AS rnum, a.* FROM (
+		SELECT
+			<include refid="adminAcccount_column"/>
+		FROM
+		    <include refid="adminAcccount_table"/>
+		<include refid="selectAdminAccountList_where"/>
+		ORDER BY reg_date DESC
+	  ) a
+	)
+		<if test="limit_count != null and limit_count != '' and limit_count != -1">
+			WHERE rnum BETWEEN #{limit_offset} AND #{limit_offset} + #{limit_count} - 1
+		</if>
+	</select>
+
+	<select id="selectAdminAccountListTotalCount" parameterType="AdminAccountSearchVo" resultType="java.lang.Integer">
+		SELECT
+		    count(*)
+		FROM
+		    <include refid="adminAcccount_table"/>
+		<include refid="selectAdminAccountList_where"/>
+	</select>
+
+	<select id="selectAdminAccount" parameterType="AdminAccountVo" resultMap="adminAccount">
+		SELECT
+			<include refid="adminAcccount_column"/>
+		FROM
+			<include refid="adminAcccount_table"/>
+		<where>
+			system_type = #{system_type}
+			<if test="account_uid != null and account_uid != '' ">
+			AND account_uid = #{account_uid}
+			</if>
+			<if test="user_id != null and user_id != '' ">
+			AND user_id = #{user_id}
+			</if>
+			<if test="password != null and password != '' ">
+			AND password = #{password}
+			</if>
+		</where>			
+	</select>
+	
+	<select id="selectCountByUserId" parameterType="String" resultType="Integer">
+		SELECT
+			count(*) AS count
+		FROM
+			<include refid="adminAcccount_table"/>
+		WHERE
+			user_id = #{user_id}
+	</select>
+
+	<select id="selectCountByUserIdBySystemType" parameterType="AdminAccountCudVo" resultType="Integer">
+		SELECT
+			count(*) AS count
+		FROM
+			<include refid="adminAcccount_table"/>
+		WHERE
+			user_id = #{user_id}
+	</select>
+	
+	<select id="selectCountByEmail" parameterType="AdminAccountCudVo" resultType="Integer">
+		SELECT
+			count(*) AS count
+		FROM
+			<include refid="adminAcccount_table"/>
+		WHERE
+			email    = #{email}
+		<if test="opcode_cu = 'update'">	
+		AND user_id != #{user_id}
+		</if>
+	</select>
+
+	<insert id="insertAdminAccount" parameterType="AdminAccountCudVo">
+		INSERT INTO  <include refid="adminAcccount_table"/>
+		(
+			account_uid,
+			system_type,
+			user_id,
+			password,
+			name,
+			department,
+			email,
+<!-- 			is_use, -->
+<!-- 			is_admin, -->
+			reg_date
+		)
+		VALUES
+		(
+			fn_make_uid(),
+			#{system_type},  
+			#{user_id},
+			#{password},
+			#{name},
+			#{department},
+			#{email},
+<!-- 		 	1,  -->
+<!-- 		 	0,  -->
+			SYSDATE
+		)
+	</insert>
+
+	<update id="updateAdminAccount" parameterType="AdminAccountCudVo">
+		UPDATE
+			<include refid="adminAcccount_table"/>
+		SET
+			upd_date = SYSDATE
+			<if test="user_id != null and user_id != '' ">
+		 	,user_id = #{user_id}
+		 	</if>
+			<if test="name != null and name != '' ">
+			,name = #{name}
+			</if>
+		 	<if test="department != null and department != '' ">
+			,department = #{department}
+			</if>
+			<if test="email != null and email != '' ">
+		 	,email = #{email}
+		 	</if>
+			<if test="new_password != null and new_password != '' ">
+			,password = #{new_password}
+			</if>
+		WHERE
+			system_type = #{system_type} 
+		AND	account_uid = #{account_uid}
+	</update>
+
+	<delete id="deleteAdminAccount" parameterType="AdminAccountCudVo">
+		DELETE FROM <include refid="adminAcccount_table"/>
+		WHERE
+			system_type = #{system_type} 
+		AND	account_uid in
+			<foreach collection="checked_uid_list" item="item" separator="," open="(" close=")">
+					#{item}
+			</foreach>
+	</delete>
+
+	<delete id="deleteAdminAccountByUid" parameterType="AdminAccountCudVo">
+		DELETE FROM <include refid="adminAcccount_table"/>
+		WHERE
+			system_type = #{system_type} 
+		AND	account_uid = #{account_uid} 
+	</delete>
+</mapper>

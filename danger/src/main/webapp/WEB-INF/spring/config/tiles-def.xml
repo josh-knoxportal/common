@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+
+<!--=============================================================================================
+     seoulauction.office tiles template
+=================================================================================================-->    
+    <definition name="defaultTemplate" template="/WEB-INF/views/template/defaultTemplate.jsp" >
+        <put-attribute name="head" value="/WEB-INF/views/include/head.jsp"/>
+    	<put-attribute name="header_top_logo" value="/WEB-INF/views/include/header_top_logo.jsp"/>
+    	<put-attribute name="header_top" value="/WEB-INF/views/include/header_top.jsp"/>
+    	<put-attribute name="header_bot" value="/WEB-INF/views/include/header_bot.jsp"/>
+    	<put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>
+       
+    <!-- 
+    <definition name="vehicleAdminTemplate" template="/WEB-INF/views/template/defaultTemplate.jsp" >
+        <put-attribute name="head" value="/WEB-INF/views/include/head.jsp"/>
+        <put-attribute name="header_top_logo" value="/WEB-INF/views/include/header_top_logo.jsp"/>
+    	<put-attribute name="header_top" value="/WEB-INF/views/include/header_top.jsp"/>
+    	<put-attribute name="header_bot" value="/WEB-INF/views/include/header_bot.jsp"/>
+    	<put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition> 
+    
+    <definition name="vehicleSAdminTemplate" template="/WEB-INF/views/template/defaultTemplate.jsp" >
+        <put-attribute name="head" value="/WEB-INF/views/include/head.jsp"/>
+        <put-attribute name="header_top_logo" value="/WEB-INF/views/include/header_top_logo.jsp"/>
+    	<put-attribute name="header_top" value="/WEB-INF/views/include/header_top.jsp"/>
+    	<put-attribute name="header_bot" value="/WEB-INF/views/include/header_admin_bot.jsp"/>
+    	<put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>      
+     -->
+     
+    <definition name="dangerAdminTemplate" template="/WEB-INF/views/template/defaultTemplate.jsp" >
+        <put-attribute name="head" value="/WEB-INF/views/include/head.jsp"/>
+        <put-attribute name="header_top_logo" value="/WEB-INF/views/include/header_danger_top_logo.jsp"/>
+    	<put-attribute name="header_top" value="/WEB-INF/views/include/header_danger_top.jsp"/>
+    	<put-attribute name="header_bot" value="/WEB-INF/views/include/header_danger_admin_bot.jsp"/>
+    	<put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>
+    
+    <definition name="dangerSAdminTemplate" template="/WEB-INF/views/template/defaultTemplate.jsp" >
+        <put-attribute name="head" value="/WEB-INF/views/include/head.jsp"/>
+        <put-attribute name="header_top_logo" value="/WEB-INF/views/include/header_danger_sadmin_top_logo.jsp"/>
+    	<put-attribute name="header_top" value="/WEB-INF/views/include/header_danger_sadmin_top.jsp"/>
+    	<put-attribute name="header_bot" value="/WEB-INF/views/include/header_danger_sadmin_bot.jsp"/>
+    	<put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>
+    
+    <!-- 
+    <definition name="vehicle/portal/loginError" template="/WEB-INF/views/common/portal_vehicle_login_fail.jsp" />
+     -->
+    <definition name="danger/portal/loginError"  template="/WEB-INF/views/common/portal_danger_login_fail.jsp" />
+    
+    <!--
+    <definition name="vehicle/login/*" template="/WEB-INF/views/template/loginTemplate.jsp">
+   		 <put-attribute name="body" value="/WEB-INF/views/vehicle/login/{1}.jsp"/>
+	</definition>
+	-->
+	
+    <definition name="popup/*" template="/WEB-INF/views/template/defaultPopUpTemplate.jsp">
+   		 <put-attribute name="body" value="/WEB-INF/views/popup/{1}.jsp"/>
+	</definition>
+	
+    <definition name="errdefaultTemplate" template="/WEB-INF/views/template/errdefaultTemplate.jsp"  > 
+    	<put-attribute name="header" value="/WEB-INF/views/include/header.jsp"/>
+    	<put-attribute name="top" value="/WEB-INF/views/include/top.jsp"/>
+    </definition>   
+
+
+	<!--      
+  	<definition name="vehicle/admin/*/*" extends="vehicleAdminTemplate" >
+  		<put-attribute name="head_add_js" value="/WEB-INF/views/vehicle/admin/{1}/{2}_js.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/vehicle/admin/{1}/{2}.jsp"/>
+	</definition>
+
+	<definition name="vehicle/sadmin/*/*" extends="vehicleSAdminTemplate" >
+  		<put-attribute name="head_add_js" value="/WEB-INF/views/vehicle/sadmin/{1}/{2}_js.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/vehicle/sadmin/{1}/{2}.jsp"/>
+	</definition>
+	
+	<definition name="test/*" extends="defaultTemplate" >
+  		<put-attribute name="head_add_js" value="/WEB-INF/views/test/{1}_js.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/test/{1}.jsp"/>
+	</definition>
+	
+
+	<definition name="addjs/vehicle/*/*" extends="defaultTemplate" >
+		<put-attribute name="head_add_js" value="/WEB-INF/views/vehicle/{1}/{2}_js.jsp"/>
+		<put-attribute name="contents" value="/WEB-INF/views/vehicle/{1}/{2}.jsp"/>
+	</definition>
+	 -->
+	
+	
+	<!-- 퍼블정리되면 타일즈 정리필요함. -->
+	<!-- [mhyoon] danger common login, account add -->
+	<definition name="danger/login/*" template="/WEB-INF/views/template/loginTemplate.jsp">
+		<put-attribute name="body" value="/WEB-INF/views/danger/login/{1}.jsp"/>
+	</definition>
+	<!-- end of [mhyoon] -->
+		
+	<definition name="danger/admin/*/*" extends="dangerAdminTemplate" >
+		<put-attribute name="contents" value="/WEB-INF/views/danger/admin/{1}/{2}.jsp"/>
+	</definition>
+	
+	<definition name="danger/sadmin/*/*" extends="dangerSAdminTemplate" >
+		<put-attribute name="contents" value="/WEB-INF/views/danger/sadmin/{1}/{2}.jsp"/>
+	</definition>
+	
+	<definition name="err/404" template="/WEB-INF/views/common/404_error.jsp" />
+	<definition name="err/403" template="/WEB-INF/views/common/403_error.jsp" />
+	<definition name="err/503" template="/WEB-INF/views/common/503_error.jsp" />
+	
+	<definition name="jsonresult" template="/WEB-INF/views/common/jsonResult.jsp" />
+	
+ 	<definition name="top" template="/WEB-INF/views/include/top.jsp" />
+	
+
+</tiles-definitions>

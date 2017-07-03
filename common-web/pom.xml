@@ -397,13 +397,13 @@
 		<!-- <dependency> -->
 		<!-- <groupId>org.slf4j</groupId> -->
 		<!-- <artifactId>log4j-over-slf4j</artifactId> -->
-		<!-- <version>1.7.21</version> -->
+		<!-- <version>1.7.25</version> -->
 		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>ch.qos.logback</groupId> -->
-		<!-- <artifactId>logback-classic</artifactId> -->
-		<!-- <version>1.1.7</version> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.ant</groupId>
 			<artifactId>ant</artifactId>
@@ -470,6 +470,7 @@
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib</artifactId>
 			<version>2.4</version>
+			<classifier>jdk15</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.jdom</groupId>

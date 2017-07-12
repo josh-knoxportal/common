@@ -15,8 +15,6 @@ SELECT id
       ,mod_dt
 		]]>
 
-	<include refid="com.nemustech.web.mapper.CommonMapper.page_middle" />
-
 	<![CDATA[
   FROM ${table_name}
 		]]>

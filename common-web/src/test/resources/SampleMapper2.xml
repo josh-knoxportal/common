@@ -19,8 +19,6 @@ SELECT id
       ,mod_dt
 		]]>
 
-		<include refid="com.nemustech.common.mapper.CommonMapper.page_middle" />
-
 		<![CDATA[
   FROM sample
 		]]>

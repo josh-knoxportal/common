@@ -10,8 +10,6 @@
 SELECT <c:forEach var="column" items="${column_list}"><c:out value="${column}"/>
        </c:forEach>]]>
 
-	<include refid="com.nemustech.common.mapper.CommonMapper.page_middle" />
-
 	<![CDATA[
   FROM ${table}
 	]]>

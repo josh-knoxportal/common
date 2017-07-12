@@ -6,8 +6,8 @@
 	<sql id="page_top">
 		<if test="page_number != null and page_number != 0">
 		<![CDATA[
-SELECT *
-  FROM (
+SELECT * FROM (
+	SELECT ROWNUM AS rnum, a.* FROM (
 		]]>
 		</if>
 	</sql>
@@ -25,9 +25,9 @@ SELECT *
 		<if test="page_number != null and page_number != 0
 			and rows_per_page != null and rows_per_page != 0">
 		<![CDATA[
+	) a
 ) WHERE rnum BETWEEN #{rows_per_page} * (#{page_number} - 1) + 1
                  AND #{rows_per_page} * #{page_number}
-ORDER BY rnum
 		]]>
 		</if>
 	</sql>

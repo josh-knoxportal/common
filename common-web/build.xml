@@ -27,14 +27,12 @@
 	<!-- <property name="classes_dir" value="${build_dir}/classes" /> -->
 	<property name="classes_dir" value="${target_dir}/classes" />
 
-	<property name="copy_dir_win" value="C:\dev\git\skoh-nemus\s-lbs-server\common-libs" />
-	<property name="copy_dir_etc" value="/Users/skoh/git/skoh-nemus/s-lbs-server/common-libs" />
+	<property name="copy_dir_ssg_win" value="C:\dev\git\skoh-nemus\s-lbs-server\common-libs" />
+	<property name="copy_dir_ssg_etc" value="/Users/skoh/git/skoh-nemus/s-lbs-server/common-libs" />
 
-	<property name="copy_dir_win2" value="C:\dev\git\nemustech\s1_unescaped\common-libs" />
-	<property name="copy_dir_etc2" value="/Users/skoh/git/nemustech/s1_unescaped/common-libs" />
+	<property name="copy_dir_s1" value="/Users/skoh/git/nemustech/s1_unescaped/common-libs" />
 
-	<property name="copy_dir_etc3" value="/Users/skoh/git/nemustech/up_smartplant_server/danger/src/main/webapp/WEB-INF/lib" />
-	<property name="copy_dir_etc4" value="/Users/skoh/git/nemustech/up_smartplant_server/vehicle/src/main/webapp/WEB-INF/lib" />
+	<property name="copy_dir_lgup" value="/Users/skoh/git/nemustech/up_smartplant_server/common_libs" />
 
 	<!-- <path id="classpath"> -->
 	<!-- <fileset dir="../../workspace_common/common-web/lib"> -->
@@ -90,38 +88,29 @@
 		<!-- <property name="copy_dir" value="${copy_dir_etc}" /> -->
 		<!-- </else> -->
 		<!-- </if> -->
-		<condition property="copy_dir" value="${copy_dir_win}" else="${copy_dir_etc}">
-			<os family="windows" />
-		</condition>
+
+		<!-- <condition property="copy_dir_ssg" value="${copy_dir_ssg_win}" else="${copy_dir_ssg_etc}"> -->
+		<!-- <os family="windows" /> -->
+		<!-- </condition> -->
+		<!-- <delete> -->
+		<!-- <fileset dir="${copy_dir_ssg}" includes="${artifactId}*.jar" /> -->
+		<!-- </delete> -->
+		<!-- <copy todir="${copy_dir_ssg}"> -->
+		<!-- <fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" /> -->
+		<!-- </copy> -->
+
 		<delete>
-			<fileset dir="${copy_dir}" includes="${artifactId}*.jar" />
+			<fileset dir="${copy_dir_s1}" includes="${artifactId}*.jar" />
 		</delete>
-		<copy todir="${copy_dir}">
+		<copy todir="${copy_dir_s1}">
 			<fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" />
 		</copy>
 
-		<condition property="copy_dir2" value="${copy_dir_win2}" else="${copy_dir_etc2}">
-			<os family="windows" />
-		</condition>
-		<delete>
-			<fileset dir="${copy_dir2}" includes="${artifactId}*.jar" />
-		</delete>
-		<copy todir="${copy_dir2}">
-			<fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" />
-		</copy>
-
-		<delete>
-			<fileset dir="${copy_dir_etc3}" includes="${artifactId}*.jar" />
-		</delete>
-		<copy todir="${copy_dir_etc3}">
-			<fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" />
-		</copy>
-
-		<delete>
-			<fileset dir="${copy_dir_etc4}" includes="${artifactId}*.jar" />
-		</delete>
-		<copy todir="${copy_dir_etc4}">
-			<fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" />
-		</copy>
+		<!-- <delete> -->
+		<!-- <fileset dir="${copy_dir_lgup}" includes="${artifactId}*.jar" /> -->
+		<!-- </delete> -->
+		<!-- <copy todir="${copy_dir_lgup}"> -->
+		<!-- <fileset dir="${target_dir}" includes="${artifactId}-${version}*.jar" /> -->
+		<!-- </copy> -->
 	</target>
 </project>

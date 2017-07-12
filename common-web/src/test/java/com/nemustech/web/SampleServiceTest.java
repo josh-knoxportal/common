@@ -107,7 +107,7 @@ public class SampleServiceTest {
 		System.out.println("result: " + result);
 	}
 
-	@Test
+//	@Test
 	public void t13_list() throws Exception {
 		Sample model = new Sample();
 //		model.setId(1L);
@@ -130,19 +130,20 @@ public class SampleServiceTest {
 //	@Test
 	public void t14_page() throws Exception {
 		Sample model = new Sample();
-		model.setName("s");
-		model.addCondition("name LIKE 's%'");
-		model.setOrder_by("id DESC");
+//		model.setName("s");
+//		model.addCondition("name LIKE 's%'");
+		model.setOrder_by("id");
 
-		model.setPage_number(1);
+		model.setPage_number(2);
+		model.setRows_per_page(3);
 
 		List<Sample> response = sampleService.page(model);
 		System.out.println("result: " + JsonUtil2.toStringPretty(response));
 
-		Page<Sample> page = new Page<Sample>(1);
-
-		Page<Sample> list_page = sampleService.page(model, page);
-		System.out.println("result: " + JsonUtil2.toStringPretty(list_page));
+//		Page<Sample> page = new Page<Sample>(1);
+//
+//		Page<Sample> list_page = sampleService.page(model, page);
+//		System.out.println("result: " + JsonUtil2.toStringPretty(list_page));
 	}
 
 //	@Test

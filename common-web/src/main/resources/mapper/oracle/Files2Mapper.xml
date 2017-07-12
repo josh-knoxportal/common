@@ -26,8 +26,6 @@ ${fields}
 			]]>
 		</if>
 
-		<include refid="com.nemustech.common.mapper.CommonMapper.page_middle" />
-
 		<![CDATA[
   FROM files
 		]]>

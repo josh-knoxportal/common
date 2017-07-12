@@ -45,8 +45,8 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 		logger.debug("==>  Preparing: " + sql);
 		// 변수 바인딩 by skoh
 		sql = parserVariable(sql, parameterObject);
-		return getSqlSourceParser().parse(sql, parameterObject.getClass()).getBoundSql(parameterObject); // null 추가 by skoh
-//		return getSqlSourceParser().parse(sql, parameterObject.getClass(), null).getBoundSql(parameterObject); // mybatis ver 3.2.0 이상
+//		return getSqlSourceParser().parse(sql, parameterObject.getClass()).getBoundSql(parameterObject); // null 추가 by skoh
+		return getSqlSourceParser().parse(sql, parameterObject.getClass(), null).getBoundSql(parameterObject); // mybatis ver 3.2.0 이상
 	}
 
 	protected BoundSql makeWhere(String where, Object parameter) {

@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/test",
+	"url":"http://localhost:8050/common-web/test",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",

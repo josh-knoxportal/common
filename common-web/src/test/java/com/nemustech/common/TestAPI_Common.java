@@ -25,13 +25,14 @@ public class TestAPI_Common extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_page2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_select_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_select_post2.json"));
+		arrayNode.add(readFile("src/test/resources/json/com/sample_select_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update2_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_json_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_file_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_delete_delete.json"));
 
-		arrayNode.add(readFile("src/test/resources/json/com/test_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/test_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/test_count_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/test_page_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/test_get2.json"));

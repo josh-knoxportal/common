@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/sample/update_json.do",
+	"url":"http://localhost:8050/common-web/sample/update_json.do",
 	"method":"PUT",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",

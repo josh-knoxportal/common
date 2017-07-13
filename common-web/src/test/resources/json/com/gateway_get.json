@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/gateway.do?api_uri=http://localhost:8080/v1/mms/rssi.do?sort_column=type DESC, signal",
+	"url":"http://localhost:8050/common-web/gateway.do?api_uri=http://localhost:8080/v1/mms/rssi.do?sort_column=type DESC, signal",
 	"method":"GET",
 	"list":[
 		{

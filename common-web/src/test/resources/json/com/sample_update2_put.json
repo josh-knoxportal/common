@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/sample/update2",
+	"url":"http://localhost:8050/common-web/sample/update2",
 	"method":"PUT",
 	"responseFormat":"JSON",
 	"list":[

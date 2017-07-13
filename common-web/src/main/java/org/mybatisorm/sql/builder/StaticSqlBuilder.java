@@ -15,11 +15,15 @@
  */
 package org.mybatisorm.sql.builder;
 
+import java.lang.reflect.Method;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.SqlSource;
+import org.springframework.util.ReflectionUtils;
 
 public class StaticSqlBuilder extends SqlBuilder {
 
@@ -37,6 +41,19 @@ public class StaticSqlBuilder extends SqlBuilder {
 
 	protected void parse(String sql, Class<?> clazz) {
 //		sqlSource = getSqlSourceParser().parse(sql, clazz); // null 추가 by skoh
-		sqlSource = getSqlSourceParser().parse(sql, clazz, null); // mybatis ver 3.2.0 이상
+//		sqlSource = getSqlSourceParser().parse(sql, clazz, null); // mybatis ver 3.2.0 이상
+		SqlSourceBuilder sqlSourceBuilder = getSqlSourceParser();
+		try {
+			Method method = ReflectionUtils.findMethod(sqlSourceBuilder.getClass(), "parse", String.class, Class.class,
+					Map.class);
+			if (method != null) {
+				sqlSource = (SqlSource) ReflectionUtils.invokeMethod(method, sqlSourceBuilder, sql, clazz, null);
+			} else {
+				method = ReflectionUtils.findMethod(sqlSourceBuilder.getClass(), "parse", String.class, Class.class);
+				sqlSource = (SqlSource) ReflectionUtils.invokeMethod(method, sqlSourceBuilder, sql, clazz);
+			}
+		} catch (Exception e) {
+			logger.error(sql, e);
+		}
 	}
 }

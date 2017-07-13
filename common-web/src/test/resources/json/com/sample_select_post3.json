@@ -8,8 +8,8 @@
 				
 			},
 			"params":{
-				"fields":"ALTER",
-				"table":"TABLE sample ADD (upd_date DATE, validity NUMBER(9) DEFAULT 1, server_ip VARCHAR2(50))"
+				"fields":"count(1)",
+				"table":"sample"
 			}
 		}
 	]

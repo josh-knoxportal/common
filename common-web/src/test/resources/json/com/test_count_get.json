@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/test/count?id=1",
+	"url":"http://localhost:8050/common-web/test/count?id=1",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

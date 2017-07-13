@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/sample/delete.do?id=475",
+	"url":"http://localhost:8050/common-web/sample/delete.do?id=475",
 	"method":"DELETE",
 	"responseFormat":"JSON",
 	"list":[

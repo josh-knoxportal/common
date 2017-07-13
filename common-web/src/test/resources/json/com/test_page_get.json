@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/test/page?name=s&page_number=1",
+	"url":"http://localhost:8050/common-web/test/page?name=s&page_number=1",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

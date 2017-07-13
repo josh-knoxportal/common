@@ -41,11 +41,16 @@ public abstract class StringUtil extends StringUtils {
 	public static final String chars[] = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".split(",");
 	public static final String FORMAT_PATTERN = "###,###,###,###,##0.###";
 
+	public static final ToStringStyle STANDARD_TO_STRING_STYLE2 = new StandardToStringStyle2();
+	public static final ToStringStyle RECURSIVE_TO_STRING_STYLE2 = new RecursiveToStringStyle2();
+	public static final ToStringStyle JSON_RECURSIVE_TO_STRING_STYLE = new JsonRecursiveToStringStyle();
+
 	protected static final DecimalFormat DECIMAL_FORMAT = (DecimalFormat) NumberFormat.getInstance();
 	protected static final GregorianCalendar CALENDAR = new GregorianCalendar();
 
-	private static final Pattern PATTERN_HTML_TAG = Pattern.compile("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>");
-	private static final Pattern PATTERN_HTML_CHAR = Pattern.compile("&[^;]+;");
+	protected static final Pattern PATTERN_HTML_TAG = Pattern
+			.compile("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>");
+	protected static final Pattern PATTERN_HTML_CHAR = Pattern.compile("&[^;]+;");
 
 	/**
 	 * 주어진 UTF-8 문자열을 지정된 byte 길이 만큼 잘라서 List로 반환한다.
@@ -1297,21 +1302,6 @@ public abstract class StringUtil extends StringUtils {
 	}
 
 	/**
-	 * 객체를 문자열로 변환한다.
-	 * 
-	 * @param object
-	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
-	 * @return
-	 */
-	public static String toString(Object object, String... excludeFieldNamesParam) {
-		object = convertArray(object);
-
-		ToStringStyle style = new StandardToStringStyle2();
-
-		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
-	}
-
-	/**
 	 * 객체의 값만 문자열로 구한다.
 	 * 
 	 * @param object
@@ -1319,8 +1309,6 @@ public abstract class StringUtil extends StringUtils {
 	 * @return
 	 */
 	public static String toStringValue(Object object, String... excludeFieldNamesParam) {
-		object = convertArray(object);
-
 		StandardToStringStyle style = new StandardToStringStyle();
 		style.setUseClassName(false);
 		style.setUseIdentityHashCode(false);
@@ -1331,7 +1319,7 @@ public abstract class StringUtil extends StringUtils {
 		style.setArrayEnd("");
 		style.setNullText("");
 
-		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
+		return toString(object, style, excludeFieldNamesParam);
 	}
 
 	/**
@@ -1345,14 +1333,9 @@ public abstract class StringUtil extends StringUtils {
 		if (objs == null || objs.length == 0)
 			return "[]";
 
-		ToStringStyle style = new StandardToStringStyle2();
-
 		StringBuilder sb = new StringBuilder("[");
 		for (int i = 0; i < objs.length; i++) {
-			objs[i] = convertArray(objs[i]);
-
-			sb.append(new ReflectionToStringBuilder(objs[i], style).setExcludeFieldNames(excludeFieldNamesParam)
-					.toString());
+			sb.append(toString(objs[i], STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam));
 			if (i == objs.length - 1) {
 				sb.append("]");
 			} else {
@@ -1363,6 +1346,10 @@ public abstract class StringUtil extends StringUtils {
 		return sb.toString();
 	}
 
+	public static String toString(Object object, String... excludeFieldNamesParam) {
+		return toString(object, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
+	}
+
 	/**
 	 * 객체 내부까지 문자열로 변환한다.
 	 * 
@@ -1371,10 +1358,7 @@ public abstract class StringUtil extends StringUtils {
 	 * @return
 	 */
 	public static String toStringRecursive(Object object, String... excludeFieldNamesParam) {
-		object = convertArray(object);
-
-		return new ReflectionToStringBuilder(object, new RecursiveToStringStyle2())
-				.setExcludeFieldNames(excludeFieldNamesParam).toString();
+		return toString(object, RECURSIVE_TO_STRING_STYLE2, excludeFieldNamesParam);
 	}
 
 	/**
@@ -1385,14 +1369,39 @@ public abstract class StringUtil extends StringUtils {
 	 * @return
 	 */
 	public static String toStringRecursiveJson(Object object, String... excludeFieldNamesParam) {
-		object = convertArray(object);
-
-		String str = new ReflectionToStringBuilder(object, new JsonRecursiveToStringStyle())
-				.setExcludeFieldNames(excludeFieldNamesParam).toString();
+		String str = toString(object, JSON_RECURSIVE_TO_STRING_STYLE, excludeFieldNamesParam);
 		str = StringUtil.replace(str, "{[", "[");
 		str = StringUtil.replace(str, "]}", "]");
 
 		return str;
+	}
+
+	/**
+	 * 객체를 문자열로 변환한다.
+	 * 
+	 * @param object
+	 * @param style
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
+	 * @return
+	 */
+	public static String toString(Object object, ToStringStyle style, String... excludeFieldNamesParam) {
+		return new ReflectionToStringBuilder(convertArray(object), style).setExcludeFieldNames(excludeFieldNamesParam)
+				.toString();
+	}
+
+	/**
+	 * Collection 객체를 배열 형태로 변환한다.
+	 * 
+	 * @param object
+	 * @return
+	 */
+	protected static Object convertArray(Object object) {
+		if (object instanceof Collection) {
+			Collection<Object> col = (Collection) object;
+			object = col.toArray();
+		}
+
+		return object;
 	}
 
 	/**
@@ -1434,21 +1443,6 @@ public abstract class StringUtil extends StringUtils {
 	 */
 	public static String getErrorMessage(Throwable t) {
 		return substringBefore(t.getMessage().trim(), System.lineSeparator()); // skoh
-	}
-
-	/**
-	 * Collection 객체를 배열 형태로 변환한다.
-	 * 
-	 * @param object
-	 * @return
-	 */
-	protected static Object convertArray(Object object) {
-		if (object instanceof Collection) {
-			Collection<Object> col = (Collection) object;
-			object = col.toArray();
-		}
-
-		return object;
 	}
 
 	/**

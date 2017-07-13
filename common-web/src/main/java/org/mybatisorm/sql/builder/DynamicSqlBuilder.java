@@ -15,6 +15,7 @@
  */
 package org.mybatisorm.sql.builder;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Properties;
 
@@ -22,8 +23,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.parsing.PropertyParser;
 import org.mybatisorm.Query;
+import org.springframework.util.ReflectionUtils;
 
 import com.nemustech.common.util.Utils;
 
@@ -45,8 +48,26 @@ public abstract class DynamicSqlBuilder extends SqlBuilder {
 		logger.debug("==>  Preparing: " + sql);
 		// 변수 바인딩 by skoh
 		sql = parserVariable(sql, parameterObject);
+
 //		return getSqlSourceParser().parse(sql, parameterObject.getClass()).getBoundSql(parameterObject); // null 추가 by skoh
-		return getSqlSourceParser().parse(sql, parameterObject.getClass(), null).getBoundSql(parameterObject); // mybatis ver 3.2.0 이상
+//		return getSqlSourceParser().parse(sql, parameterObject.getClass(), null).getBoundSql(parameterObject); // mybatis ver 3.2.0 이상
+		SqlSource sqlSource = null;
+		SqlSourceBuilder sqlSourceBuilder = getSqlSourceParser();
+		try {
+			Method method = ReflectionUtils.findMethod(sqlSourceBuilder.getClass(), "parse", String.class, Class.class,
+					Map.class);
+			if (method != null) {
+				sqlSource = (SqlSource) ReflectionUtils.invokeMethod(method, sqlSourceBuilder, sql,
+						parameterObject.getClass(), null);
+			} else {
+				method = ReflectionUtils.findMethod(sqlSourceBuilder.getClass(), "parse", String.class, Class.class);
+				sqlSource = (SqlSource) ReflectionUtils.invokeMethod(method, sqlSourceBuilder, sql,
+						parameterObject.getClass());
+			}
+		} catch (Exception e) {
+			logger.error(sql, e);
+		}
+		return sqlSource.getBoundSql(parameterObject);
 	}
 
 	protected BoundSql makeWhere(String where, Object parameter) {

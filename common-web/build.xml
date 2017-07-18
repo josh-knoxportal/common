@@ -32,7 +32,7 @@
 
 	<property name="copy_dir_s1" value="/Users/skoh/git/nemustech/s1_unescaped/common-libs" />
 
-	<property name="copy_dir_lgup" value="/Users/skoh/git/nemustech/up_smartplant_server/common_libs" />
+	<property name="copy_dir_lgup" value="/Users/skoh/git/nemustech/up_smartplant_server/common-libs" />
 
 	<!-- <path id="classpath"> -->
 	<!-- <fileset dir="../../workspace_common/common-web/lib"> -->

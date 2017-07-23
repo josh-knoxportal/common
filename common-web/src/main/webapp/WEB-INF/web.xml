@@ -14,11 +14,18 @@
 <!-- 		<param-name>logbackConfigLocation</param-name> -->
 <!-- 		<param-value>file:${com.nemustech.home}/config/logback.xml</param-value> -->
 <!-- 	</context-param> -->
-<!-- 	<listener> -->
-<!-- 		<listener-class>com.nemustech.web.common.LogbackConfigListener2</listener-class> -->
-<!-- 	</listener> -->
-<!-- 	<listener> -->
-<!-- 		<listener-class>ch.qos.logback.classic.servlet.LogbackServletContextListener</listener-class> -->
-<!-- 	</listener> -->
+
+<!-- 	<filter> -->
+<!-- 		<filter-name>corsFilter</filter-name> -->
+<!-- 		<filter-class>com.nemustech.web.filter.CORSFilter</filter-class> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>allowHeaders</param-name> -->
+<!-- 			<param-value>access_token, content-type, request_type, Cache-control, Expires, Pragma</param-value> -->
+<!-- 		</init-param> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>corsFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
 
 </web-app>

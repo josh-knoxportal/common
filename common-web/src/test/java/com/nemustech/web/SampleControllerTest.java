@@ -15,9 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,9 +29,8 @@ import com.nemustech.sample.model.Sample;
 import com.nemustech.web.util.WebApplicationContextUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:config-spring.xml")
 @SpringApplicationConfiguration(classes = WebApplication.class)
-@WebAppConfiguration
+//@WebAppConfiguration
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SampleControllerTest {

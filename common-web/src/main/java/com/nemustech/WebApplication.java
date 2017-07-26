@@ -1,5 +1,7 @@
 package com.nemustech;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,8 +14,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 
-import com.nemustech.web.util.WebApplicationContextUtil;
-
 //@Configuration
 //@EnableAutoConfiguration
 //@ComponentScan
@@ -21,6 +21,8 @@ import com.nemustech.web.util.WebApplicationContextUtil;
 		JmxAutoConfiguration.class })
 @ImportResource({ "classpath:config-spring.xml", "classpath:config-spring_jmx.xml" })
 public class WebApplication {
+	protected Log log = LogFactory.getLog(getClass());
+
 	@Autowired
 	protected static ApplicationContext applicationContext;
 
@@ -34,7 +36,7 @@ public class WebApplication {
 
 	@Bean
 	protected ApplicationRunner init() {
-		System.out.println("init()");
+		log.info("init()");
 
 		return null;
 	}

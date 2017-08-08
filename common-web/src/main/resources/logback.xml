@@ -39,6 +39,7 @@
 	<!-- <logger name="org.springframework.core" level="trace" /> -->
 	<!-- <logger name="org.springframework.web" level="trace" /> -->
 
+	<!-- 사용안함 -->
 	<!-- <logger name="java.sql" level="debug" /> -->
 	<!-- <logger name="log4jdbc" level="off" /> -->
 

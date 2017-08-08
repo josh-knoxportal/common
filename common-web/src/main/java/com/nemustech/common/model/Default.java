@@ -87,7 +87,7 @@ public abstract class Default implements Serializable {
 	protected Condition conditionObj = new Condition();
 
 	/**
-	 * Condition values
+	 * 조회 조건 파라미터
 	 */
 	@JsonIgnore
 	protected Map<String, Object> properties;

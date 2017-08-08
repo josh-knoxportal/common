@@ -26,18 +26,18 @@ import com.nemustech.common.util.StringUtil;
 public class ScheduleTest {
 	protected Log log = LogFactory.getLog(getClass());
 
-//	@Autowired
-//	protected GenericApplicationContext context;
+	@Autowired
+	protected GenericApplicationContext context;
 
 	@Autowired
 	protected ThreadPoolTaskScheduler scheduler;
 
-	@Test
+//	@Test
 	public void t01() throws Exception {
-//		ConfigurableListableBeanFactory factory = context.getBeanFactory();
-//		factory.registerSingleton("serviceTest", this);
+		ConfigurableListableBeanFactory factory = context.getBeanFactory();
+		factory.registerSingleton("serviceTest", this);
 
-		Runnable runnable = new ScheduledMethodRunnable(this, "run");// factory.getBean("serviceTest"), "run");
+		Runnable runnable = new ScheduledMethodRunnable(factory.getBean("serviceTest"), "run");
 
 		log.info("------------------------------------------------------------");
 		CronTrigger trigger = new CronTrigger("*/1 * * * * *");

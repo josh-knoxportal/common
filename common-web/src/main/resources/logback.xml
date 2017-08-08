@@ -39,20 +39,24 @@
 	<!-- <logger name="org.springframework.core" level="trace" /> -->
 	<!-- <logger name="org.springframework.web" level="trace" /> -->
 
-	<logger name="log4jdbc" level="off" />
+	<!-- <logger name="java.sql" level="debug" /> -->
+	<!-- <logger name="log4jdbc" level="off" /> -->
+
 	<logger name="jdbc" level="off" />
 	<!-- <logger name="jdbc.audit" level="info" /> -->
 	<!-- <logger name="jdbc.resultset" level="info" /> -->
 	<!-- <logger name="jdbc.sqlonly" level="info" /> -->
+	<!-- 바인딩된 SQL 출력시 -->
 	<logger name="jdbc.sqltiming" level="info" />
+	<!-- SQL 결과 출력시 -->
 	<logger name="jdbc.resultsettable" level="info" />
 
-	<logger name="java.sql" level="info" />
-	<logger name="org.mybatisorm" level="info" />
-	<logger name="org.mybatisorm.mapper" level="info" />
+	<!-- 디버깅 데이타와 SQL(debug)과 결과(trace) 출력시 -->
+	<logger name="org.mybatisorm" level="debug" />
+	<logger name="com.nemustech" level="debug" />
 
-	<logger name="com.nemustech" level="trace" />
-	<logger name="com.nemustech.sample.mapper" level="info" />
+	<!-- <logger name="org.mybatisorm.mapper" level="debug" /> -->
+	<!-- <logger name="com.nemustech.sample.mapper" level="debug" /> -->
 
 	<root level="info">
 		<appender-ref ref="console" />

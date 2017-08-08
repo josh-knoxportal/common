@@ -13,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,19 +46,11 @@ public class GatewayController {
 	 */
 	public static HttpMethod getHttpMethod(String method) {
 		if (method == null)
-			return HttpMethod.GET;
-
-		method = method.toUpperCase();
-		if ("GET".equals(method))
-			return HttpMethod.GET;
-		else if ("POST".equals(method))
-			return HttpMethod.POST;
-		else if ("PUT".equals(method))
-			return HttpMethod.PUT;
-		else if ("DELETE".equals(method))
-			return HttpMethod.DELETE;
+			method = "GET";
 		else
-			return HttpMethod.GET;
+			method = method.toUpperCase();
+
+		return HttpMethod.resolve(method);
 	}
 
 	/**

@@ -334,7 +334,7 @@ public abstract class CommonController<T extends Default> {
 		TableHandler handler = HandlerFactory.getHandler(clazz);
 
 		// 클래스
-		String package_ = clazz.getPackage().getName();
+		String package_ = StringUtil.replace(clazz.getPackage().getName(), ".model", ".mapper");
 		String className = clazz.getSimpleName();
 		if (className.endsWith("Vo"))
 			className = className.substring(0, className.length() - 2);
@@ -365,7 +365,7 @@ public abstract class CommonController<T extends Default> {
 		mav.addObject("columnList", columnList);
 
 		// Sequence
-		KeyValue sequence = ORMUtil.getSequence(clazz);
+		KeyValue sequence = ORMUtil.getSequence(clazz, service.getSourceType());
 		mav.addObject("sequence", sequence);
 
 		// AutoIncrement

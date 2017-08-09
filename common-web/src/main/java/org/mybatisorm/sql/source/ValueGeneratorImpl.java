@@ -89,8 +89,12 @@ public abstract class ValueGeneratorImpl implements ValueGenerator {
 		return keyGen;
 	}
 
-	protected KeyGenerator newJdbc3KeyGenerator(Builder builder, GeneratedField generated) {
-		builder.keyProperty(generated.getField().getName());
+	// keyPrefix 추가 by skoh
+//	protected KeyGenerator newJdbc3KeyGenerator(Builder builder, GeneratedField generated) {
+	protected KeyGenerator newJdbc3KeyGenerator(Builder builder, GeneratedField generated, String keyPrefix) {
+		// keyPrefix 추가 by skoh
+//		builder.keyProperty(generated.getField().getName());
+		builder.keyProperty(((keyPrefix == null) ? "" : keyPrefix) + generated.getField().getName());
 		return new Jdbc3KeyGenerator();
 	}
 

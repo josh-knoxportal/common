@@ -97,7 +97,7 @@ public class SampleServiceTest {
 		model.setReg_id("1");
 		model.setMod_id("1");
 
-		Object result = sampleService.insert(Arrays.asList(new Sample[] { model, model }));
+		Object result = sampleService.insert(Arrays.asList(new Sample[] { model }));
 		System.out.println("result: " + result);
 	}
 

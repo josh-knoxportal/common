@@ -2,34 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.nemustech.sample.mapper.SampleMapper">
-	<select id="list" resultType="Sample">
-		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
-
-		<![CDATA[
-SELECT
-		]]>
-
-		<if test="hint != null">
-			<![CDATA[
-${hint}
-			]]>
-		</if>
-
-		<if test="fields == null">
-			<![CDATA[
-reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
-			]]>
-		</if>
-		<if test="fields != null">
-			<![CDATA[
-${fields}
-			]]>
-		</if>
-
-		<![CDATA[
-  FROM sample
-		]]>
-
+	<sql id="_where">
 		<where>
 			<if test="condition != null">
 				<![CDATA[
@@ -73,6 +46,37 @@ ${fields}
 				]]>
 			</if>
 		</where>
+	</sql>
+
+	<select id="list" resultType="Sample">
+		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
+
+		<![CDATA[
+SELECT
+		]]>
+
+		<if test="hint != null">
+			<![CDATA[
+${hint}
+			]]>
+		</if>
+
+		<if test="fields == null">
+			<![CDATA[
+reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
+			]]>
+		</if>
+		<if test="fields != null">
+			<![CDATA[
+${fields}
+			]]>
+		</if>
+
+		<![CDATA[
+  FROM sample
+		]]>
+
+		<include refid="_where" />
 
 		<if test="having != null">
 			<![CDATA[
@@ -102,49 +106,7 @@ ORDER BY ${order_by}
   FROM sample
 		]]>
 
-		<where>
-			<if test="condition != null">
-				<![CDATA[
-   AND ${condition}
-				]]>
-			</if>
-
-			<if test="reg_id != null">
-				<![CDATA[
-   AND reg_id = #{reg_id}
-				]]>
-			</if>
-			<if test="reg_dt != null">
-				<![CDATA[
-   AND reg_dt = #{reg_dt}
-				]]>
-			</if>
-			<if test="mod_id != null">
-				<![CDATA[
-   AND mod_id = #{mod_id}
-				]]>
-			</if>
-			<if test="mod_dt != null">
-				<![CDATA[
-   AND mod_dt = #{mod_dt}
-				]]>
-			</if>
-			<if test="id != null">
-				<![CDATA[
-   AND id = #{id}
-				]]>
-			</if>
-			<if test="name != null">
-				<![CDATA[
-   AND name = #{name}
-				]]>
-			</if>
-			<if test="test_id != null">
-				<![CDATA[
-   AND test_id = #{test_id}
-				]]>
-			</if>
-		</where>
+		<include refid="_where" />
 	</select>
 
 	<insert id="insert" parameterType="Sample">
@@ -297,48 +259,6 @@ test_id = #{test_id},
 DELETE FROM sample
 		]]>
 
-		<where>
-			<if test="condition != null">
-				<![CDATA[
-   AND ${condition}
-				]]>
-			</if>
-
-			<if test="reg_id != null">
-				<![CDATA[
-   AND reg_id = #{reg_id}
-				]]>
-			</if>
-			<if test="reg_dt != null">
-				<![CDATA[
-   AND reg_dt = #{reg_dt}
-				]]>
-			</if>
-			<if test="mod_id != null">
-				<![CDATA[
-   AND mod_id = #{mod_id}
-				]]>
-			</if>
-			<if test="mod_dt != null">
-				<![CDATA[
-   AND mod_dt = #{mod_dt}
-				]]>
-			</if>
-			<if test="id != null">
-				<![CDATA[
-   AND id = #{id}
-				]]>
-			</if>
-			<if test="name != null">
-				<![CDATA[
-   AND name = #{name}
-				]]>
-			</if>
-			<if test="test_id != null">
-				<![CDATA[
-   AND test_id = #{test_id}
-				]]>
-			</if>
-		</where>
+		<include refid="_where" />
 	</delete>
 </mapper>

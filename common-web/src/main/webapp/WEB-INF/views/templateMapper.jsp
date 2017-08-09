@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <%@ page contentType="text/xml; charset=utf-8" pageEncoding="utf-8"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <mapper namespace="${namespace}">
+	<sql id="_where">
+		<where>
+			<if test="condition != null">
+				<![CDATA[
+   AND \${condition}
+				]]>
+			</if>
+<c:forEach var="column" items="${columnList}">
+			<if test="${column.value} != null">
+				<![CDATA[
+   AND ${column.key} = \#{${column.value}}
+				]]>
+			</if></c:forEach>
+		</where>
+	</sql>
+
 	<select id="list" resultType="${className}">
 		<include refid="com.nemustech.common.mapper.CommonMapper.page_top" />
 
@@ -30,19 +46,7 @@ ${fields}
   FROM ${table}
 		]]>
 
-		<where>
-			<if test="condition != null">
-				<![CDATA[
-   AND \${condition}
-				]]>
-			</if>
-<c:forEach var="column" items="${columnList}">
-			<if test="${column.value} != null">
-				<![CDATA[
-   AND ${column.key} = \#{${column.value}}
-				]]>
-			</if></c:forEach>
-		</where>
+		<include refid="_where" />
 
 		<if test="having != null">
 			<![CDATA[
@@ -72,19 +76,7 @@ ORDER BY \${order_by}
   FROM ${table}
 		]]>
 
-		<where>
-			<if test="condition != null">
-				<![CDATA[
-   AND \${condition}
-				]]>
-			</if>
-<c:forEach var="column" items="${columnList}">
-			<if test="${column.value} != null">
-				<![CDATA[
-   AND ${column.key} = \#{${column.value}}
-				]]>
-			</if></c:forEach>
-		</where>
+		<include refid="_where" />
 	</select>
 
 	<insert id="insert" parameterType="${className}">
@@ -157,18 +149,6 @@ ${column.key} = ${column.value},
 DELETE FROM ${table}
 		]]>
 
-		<where>
-			<if test="condition != null">
-				<![CDATA[
-   AND \${condition}
-				]]>
-			</if>
-<c:forEach var="column" items="${columnList}">
-			<if test="${column.value} != null">
-				<![CDATA[
-   AND ${column.key} = \#{${column.value}}
-				]]>
-			</if></c:forEach>
-		</where>
+		<include refid="_where" />
 	</delete>
 </mapper>

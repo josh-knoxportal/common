@@ -36,10 +36,10 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	@Autowired
 	protected Files2Service files2Service;
 
-//	@Override
-//	public CommonMapper<Sample> getMapper() {
-//		return mapper;
-//	}
+	@Override
+	public CommonMapper<Sample> getMapper() {
+		return mapper;
+	}
 
 	@Override
 	public FilesService getFileService() {

@@ -109,7 +109,7 @@ ORDER BY ${order_by}
 		<include refid="_where" />
 	</select>
 
-	<insert id="insert" parameterType="Sample">
+	<insert id="insert" parameterType="Sample" useGeneratedKeys="true" keyProperty="id">
 		<![CDATA[
 INSERT INTO sample (
 		]]>

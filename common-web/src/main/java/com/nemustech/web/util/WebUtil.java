@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.nemustech.common.model.Header;
-import com.nemustech.common.util.JsonUtil2;
-import com.nemustech.common.util.LogUtil;
-
+import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.web.util.WebUtils;
+
+import com.nemustech.common.model.Header;
+import com.nemustech.common.util.JsonUtil2;
+import com.nemustech.common.util.LogUtil;
 
 /**
  * 웹 관련 유틸리티 클래스.<br/>
@@ -24,6 +25,21 @@ import org.springframework.web.util.WebUtils;
  * @see <a href=http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/util/WebUtils.html</a>
  */
 public abstract class WebUtil extends WebUtils {
+	/**
+	 * HttpMethod객체를 반환한다.
+	 * 
+	 * @param method HTTP method
+	 * @return
+	 */
+	public static HttpMethod getHttpMethod(String method) {
+		if (method == null)
+			method = "GET";
+		else
+			method = method.toUpperCase();
+
+		return HttpMethod.resolve(method);
+	}
+
 	/**
 	 * 파라미터를 Map를 반환한다.
 	 * 

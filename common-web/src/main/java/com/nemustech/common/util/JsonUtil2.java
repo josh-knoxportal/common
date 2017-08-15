@@ -1,7 +1,6 @@
 package com.nemustech.common.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -9,8 +8,8 @@ import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -37,25 +36,26 @@ import com.nemustech.common.exception.CommonException;
  * 
  * <pre>
  * 예)
- * ObjectNode rootNode = JsonUtil2.objectNode();
+ * ObjectNode rootNode = objectNode();
  * ObjectNode headerNode = rootNode.putObject("header");
- * JsonUtil2.putValue(headerNode, "trcode", "TR0001");
- * JsonUtil2.putValue(headerNode, "result", true);
+ * putValue(headerNode, "trcode", "TR0001");
+ * putValue(headerNode, "result", true);
  * 
- * boolean result = (Boolean) JsonUtil2.getValue(headerNode, "result);
- * String trcode = JsonUtil2.find(rootNode, "header/trcode").getTextValue();
+ * boolean result = (Boolean) getValue(headerNode, "result);
+ * String trcode = find(rootNode, "header/trcode").getTextValue();
  * 
  * <br />
  * URL url = this.getClass().getResource("/JsonUtilSample.json");
  * File file = new File(url.getPath());
  * FileInputStream fin = new FileInputStream(file);
- * rootNode = JsonUtil2.getObjectMapper().readTree(fin);
+ * rootNode = getObjectMapper().readTree(fin);
  * </pre>
  * 
  * @version 2.5
  * @since 1.0
  */
 public abstract class JsonUtil2 {
+	protected static Class<?> CLAZZ = JsonUtil2.class;
 	protected static ObjectMapper objectMapper = null;
 
 	/**
@@ -113,7 +113,7 @@ public abstract class JsonUtil2 {
 	 *    userClassToMap.put("age", "25");
 	 *    userClassToMap.put("phone_num", "01012301230");
 	 *    <br>
-	 *    String json = JsonUtil2.toString(userClassToMap); // Json 변환
+	 *    String json = toString(userClassToMap); // Json 변환
 	 *    LogUtil.writeLog(json.asText()); // {"gender":"Man","age":"25","phone_num":"01012301230","name":"Kim Ga-Na"}
 	 * </pre>
 	 *
@@ -127,7 +127,7 @@ public abstract class JsonUtil2 {
 
 			return out.toString();
 		} catch (Exception e) {
-			LogUtil.writeLog(e, JsonUtil2.class);
+			LogUtil.writeLog(e, CLAZZ);
 		} finally {
 			IOUtils.closeQuietly(out);
 		}
@@ -166,7 +166,7 @@ public abstract class JsonUtil2 {
 	 *      user.setPhone_num("010-8888-9999");
 	 *      user.setPhoneNum("010-7777-5555");
 	 *      <br>
-	 *      String json = JsonUtil2.toString(user); // User 객체를 Json으로 변환
+	 *      String json = toString(user); // User 객체를 Json으로 변환
 	 *      <br>
 	 *      LogUtil.writeLog(json.asText()); // {"gender":null,"age":27,"phoneNum":"010-7777-5555","address":null,"name":"Kim Ga-Na"}
 	 * </pre>
@@ -195,7 +195,7 @@ public abstract class JsonUtil2 {
 				pojo = readValue(pojo);
 			}
 		} catch (Exception e) {
-			LogUtil.writeLog(e, JsonUtil2.class);
+			LogUtil.writeLog(e, CLAZZ);
 			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		}
@@ -210,7 +210,7 @@ public abstract class JsonUtil2 {
 
 			getObjectMapper().writeValue(jg, pojo);
 		} catch (Exception e) {
-			LogUtil.writeLog(e, JsonUtil2.class);
+			LogUtil.writeLog(e, CLAZZ);
 			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"error\":\""
 					+ StringUtil.replace(e.getMessage(), "\"", "'") + "\"}";
 		} finally {
@@ -235,7 +235,7 @@ public abstract class JsonUtil2 {
 	 *      <br>
 	 *      String jsonStr = "{\"gender\":\"Man\",\"age\":27,\"phoneNum\":\"010-7777-5555\",\"address\":\"\",\"name\":\"Kim Ga-Na\"}";
 	 *      <br>
-	 *      User user = JsonUtil2.toObject(jsonStr, User.class); // Json String을 User 객체로 변환
+	 *      User user = toObject(jsonStr, User.class); // Json String을 User 객체로 변환
 	 *      <br>
 	 *      LogUtil.writeLog(user.toString()); // User [address=, age=27, gender=Man, name=Kim Ga-Na, phoneNum=010-7777-5555, phone_num=null]
 	 * </pre>
@@ -251,7 +251,7 @@ public abstract class JsonUtil2 {
 		try {
 			return getObjectMapper().readValue(json, clazz);
 		} catch (Exception e) {
-			LogUtil.writeLog(e, JsonUtil2.class);
+			LogUtil.writeLog(e, CLAZZ);
 		}
 
 		return null;
@@ -278,7 +278,7 @@ public abstract class JsonUtil2 {
 	 *      reqNode.put("age", "25");
 	 *      reqNode.put("phone_num", "01012301230");
 	 *      <br>
-	 *      User user = JsonUtil2.toObject((JsonNode) reqNode, User.class); //JsonNode값을 User 객체로 변환 
+	 *      User user = toObject((JsonNode) reqNode, User.class); //JsonNode값을 User 객체로 변환 
 	 *      <br>
 	 *      LogUtil.writeLog(user.toString()); // User [address=null, age=25, gender=Man, name=Kim Ga-Na, phoneNum=null, phone_num=01012301230]
 	 * </pre>
@@ -294,7 +294,7 @@ public abstract class JsonUtil2 {
 		try {
 			return getObjectMapper().treeToValue(jsonNode, clazz);
 		} catch (Exception e) {
-			LogUtil.writeLog(e, JsonUtil2.class);
+			LogUtil.writeLog(e, CLAZZ);
 		}
 
 		return null;
@@ -321,7 +321,7 @@ public abstract class JsonUtil2 {
 	 *      user.setPhone_num("010-8888-9999");
 	 *      user.setPhoneNum("010-7777-5555");
 	 *      <br>
-	 *      ObjectNode objectNode = JsonUtil2.toObjectNode(user); // User 객체를 ObjectNode로 변환
+	 *      ObjectNode objectNode = toObjectNode(user); // User 객체를 ObjectNode로 변환
 	 *      <br>
 	 *      LogUtil.writeLog(objectNode.asText()); // {"gender":null,"age":27,"phoneNum":"010-7777-5555","address":null,"name":"Kim Ga-Na"}
 	 * </pre>
@@ -388,49 +388,29 @@ public abstract class JsonUtil2 {
 	public static ObjectNode putValue(ObjectNode node, String name, Object value) {
 		if (value instanceof String) {
 			node.put(name, String.valueOf(value));
-		}
-
-		else if (value.getClass() == Boolean.class) {
+		} else if (value.getClass() == Boolean.class) {
 			node.put(name, (Boolean) value);
-		}
-
-		else if (value instanceof Number) {
+		} else if (value instanceof Number) {
 			Number v = (Number) value;
 
 			if (v.getClass() == Integer.class) {
 				node.put(name, v.intValue());
-			}
-
-			else if (v.getClass() == Long.class) {
+			} else if (v.getClass() == Long.class) {
 				node.put(name, v.longValue());
-			}
-
-			else if (v.getClass() == Float.class) {
+			} else if (v.getClass() == Float.class) {
 				node.put(name, v.floatValue());
-			}
-
-			else if (v.getClass() == Double.class) {
+			} else if (v.getClass() == Double.class) {
 				node.put(name, v.doubleValue());
 			}
-		}
-
-		else if (value instanceof BigDecimal) {
+		} else if (value instanceof BigDecimal) {
 			node.put(name, (BigDecimal) value);
-		}
-
-		else if (value instanceof byte[]) {
+		} else if (value instanceof byte[]) {
 			node.put(name, (byte[]) value);
-		}
-
-		else if (value instanceof ArrayNode) {
+		} else if (value instanceof ArrayNode) {
 			node.putArray(name).addAll((ArrayNode) value);
-		}
-
-		else if (value instanceof ObjectNode) {
+		} else if (value instanceof ObjectNode) {
 			node.putObject(name).setAll((ObjectNode) value);
-		}
-
-		else {
+		} else {
 			node.putPOJO(name, value);
 		}
 
@@ -461,48 +441,30 @@ public abstract class JsonUtil2 {
 
 		if (valueNode == null || valueNode.isMissingNode() || valueNode.isNull()) {
 			obj = "";
-		}
-
-		else if (valueNode.isBinary()) {
+		} else if (valueNode.isBinary()) {
 			try {
 				byte[] bytes = valueNode.binaryValue();
 				obj = bytes;
 			} catch (IOException e) {
 				obj = "";
 			}
-		}
-
-		else if (valueNode.isTextual()) {
+		} else if (valueNode.isTextual()) {
 			obj = valueNode.textValue();
-		}
-
-		else if (valueNode.isNumber()) {
+		} else if (valueNode.isNumber()) {
 			if (valueNode.isInt()) {
 				obj = new Integer(valueNode.intValue());
-			}
-
-			else if (valueNode.isLong()) {
+			} else if (valueNode.isLong()) {
 				obj = new Long(valueNode.longValue());
-			}
-
-			else if (valueNode.isDouble()) {
+			} else if (valueNode.isDouble()) {
 				obj = new Double(valueNode.doubleValue());
 			}
-		}
-
-		else if (valueNode.isBoolean()) {
+		} else if (valueNode.isBoolean()) {
 			obj = new Boolean(valueNode.booleanValue());
-		}
-
-		else if (valueNode.isArray()) {
+		} else if (valueNode.isArray()) {
 			obj = (ArrayNode) valueNode;
-		}
-
-		else if (valueNode.isObject()) {
+		} else if (valueNode.isObject()) {
 			obj = (ObjectNode) valueNode;
-		}
-
-		else if (valueNode.isPojo()) {
+		} else if (valueNode.isPojo()) {
 			obj = ((POJONode) valueNode).getPojo();
 		}
 
@@ -518,7 +480,7 @@ public abstract class JsonUtil2 {
 	 * "header.trcode"로 path를 주게 되면, baseNode의 자식 노드를 header, trcode 순서대로 찾아 간다. <br/>
 	 * 다음과 같이 사용할 수 있다.<br/>
 	 * <code>
-	 * 		JsonNode node = JsonUtil2.find(rootNode, "header.trcode");
+	 * 		JsonNode node = getValue(rootNode, "header.trcode");
 	 * </code>
 	 * 
 	 * @param baseNode 경로를 탐색할 노드
@@ -526,55 +488,11 @@ public abstract class JsonUtil2 {
 	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
 	 */
 	public static JsonNode getValue(JsonNode baseNode, String path) {
-		if (baseNode == null) {
-			return MissingNode.getInstance();
-		}
-
-		else if (baseNode.isMissingNode()) {
-			return baseNode;
-		}
-
-		else if (path == null) {
-			return baseNode;
-		}
-
-		else {
-//			path = path.replaceAll("[.]+$", "");
-//			path = path.replaceAll("^[.]+", "");
-
-			return getValue(baseNode, StringUtil.split(path, "."));
-		}
+		return getValue(baseNode, StringUtil.split(path, "."));
 	}
 
-	/**
-	 * 경로에 해당하는 노드를 찾는다.
-	 * 
-	 * @param baseNode 경로를 탐색할 노드
-	 * @param path 순차적인 경로 정보
-	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
-	 */
 	public static JsonNode getValue(JsonNode baseNode, String[] path) {
-		if (baseNode == null) {
-			return MissingNode.getInstance();
-		}
-
-		else if (path == null || StringUtil.isBlank(path[0]) || baseNode.isMissingNode()) {
-			return baseNode;
-		}
-
-		else if (path.length < 2) {
-			return baseNode.path(path[0]);
-		}
-
-		else {
-			ArrayList<String> list = new ArrayList<String>(path.length);
-
-			for (String p : path) {
-				list.add(p);
-			}
-
-			return getValue(baseNode, list);
-		}
+		return getValue(baseNode, new ArrayList<String>(Arrays.asList(path)));
 	}
 
 	/**
@@ -584,21 +502,15 @@ public abstract class JsonUtil2 {
 	 * @param path 순차적인 경로 정보
 	 * @return 찾은 노드를 돌려 주며, 노드를 찾지 못 하면, MissingNode를 돌려 준다.
 	 */
-	public static JsonNode getValue(JsonNode baseNode, ArrayList<String> path) {
+	public static JsonNode getValue(JsonNode baseNode, List<String> path) {
 		try {
 			if (baseNode == null) {
 				return MissingNode.getInstance();
-			}
-
-			else if (path == null || path.isEmpty() || StringUtil.isBlank(path.get(0)) || baseNode.isMissingNode()) {
+			} else if (path == null || path.isEmpty() || StringUtil.isBlank(path.get(0)) || baseNode.isMissingNode()) {
 				return baseNode;
-			}
-
-			else if (path.size() < 2) {
+			} else if (path.size() < 2) {
 				return baseNode.path(path.get(0));
-			}
-
-			else {
+			} else {
 				return getValue(baseNode.path(path.remove(0)), path);
 			}
 		} catch (Exception e) {
@@ -1033,7 +945,7 @@ public abstract class JsonUtil2 {
 //
 //		System.out.println(Utils.getToString(users));
 
-//		String s = "{\"sAttachFile\":[{\"FILE_NM\":\"http://gkowgwodv1.dongwha-dv.com/Storage/WF/Forms/PAYMENT DEFERRAL REQUEST/201207/20120716/D4000737-20120716025115_Calendar in Status bar_v2.0.5.apk\"},{\"FILE_NM\":\"FILE_NM02\"}]}";
+//		String s = "{\"sAttachFile\":{\"sAttachFile2\":[{\"FILE_NM\":\"http://gkowgwodv1.dongwha-dv.com/Storage/WF/Forms/PAYMENT DEFERRAL REQUEST/201207/20120716/D4000737-20120716025115_Calendar in Status bar_v2.0.5.apk\"},{\"FILE_NM\":\"FILE_NM02\"}]}}}";
 //		JsonNode rootNode = readValue(s);
 //		System.out.println(rootNode);
 //
@@ -1043,6 +955,12 @@ public abstract class JsonUtil2 {
 //			objectNode.put("FILE_URL", "FILE_URL01");
 //		}
 //		System.out.println(rootNode);
+//		System.out.println(toStringPretty(sAttachFile));
+
+//		JsonNode list = getValue(rootNode, "sAttachFile.sAttachFile2");
+//
+//		List<JsonNode> list = (List<JsonNode>) ReflectionUtil.getValue(sAttachFile, "_children");
+//		System.out.println(toStringPretty(list));
 
 //		ObjectNode objectNode = objectNode();
 //		objectNode.put("a", "1");
@@ -1087,13 +1005,13 @@ public abstract class JsonUtil2 {
 //		System.out.println(json.asText());
 //		System.out.println(json.toString());
 
-		String json = IOUtils.toString(new FileInputStream("src/test/resources/json/mail.json"),
-				Charset.defaultCharset());
-		System.out.println(json);
-
-		String path = "head.status";
-
-		System.out.println(toStringPretty(getValue(json, path)));
+//		String json = IOUtils.toString(new FileInputStream("src/test/resources/json/mail.json"),
+//				Charset.defaultCharset());
+//		System.out.println(json);
+//
+//		String path = "head.status";
+//
+//		System.out.println(toStringPretty(getValue(json, path)));
 
 //		String path = "head";
 //		String name = "message";

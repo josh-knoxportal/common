@@ -87,6 +87,7 @@ public class SampleServiceTest {
 
 		Object result = sampleService.insert(model, Arrays.asList(new Files[] { files }));
 		System.out.println("result: " + result);
+		System.out.println("model: " + model);
 	}
 
 //	@Test

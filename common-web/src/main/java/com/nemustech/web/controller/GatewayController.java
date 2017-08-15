@@ -10,7 +10,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import com.nemustech.web.util.WebUtil;
 
 //@Controller
 public class GatewayController {
@@ -36,21 +37,6 @@ public class GatewayController {
 //		requestFactory.setReadTimeout(600000);
 //
 //		restTemplate = new RestTemplate(requestFactory);
-	}
-
-	/**
-	 * HttpMethod객체를 반환한다.
-	 * 
-	 * @param method HTTP method
-	 * @return
-	 */
-	public static HttpMethod getHttpMethod(String method) {
-		if (method == null)
-			method = "GET";
-		else
-			method = method.toUpperCase();
-
-		return HttpMethod.resolve(method);
 	}
 
 	/**
@@ -93,8 +79,8 @@ public class GatewayController {
 	 */
 	protected ResponseEntity<Object> callHttp(String url, String method, HttpHeaders header, Map<String, Object> body)
 			throws RestClientException {
-		return restTemplate.exchange(url, getHttpMethod(method), new HttpEntity<Map<String, Object>>(body, header),
-				Object.class);
+		return restTemplate.exchange(url, WebUtil.getHttpMethod(method),
+				new HttpEntity<Map<String, Object>>(body, header), Object.class);
 	}
 
 	public static void main(String[] args) {

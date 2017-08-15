@@ -7,8 +7,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.nemustech.common.exception.CommonException;
 import org.springframework.util.ReflectionUtils;
+
+import com.nemustech.common.exception.CommonException;
 
 /**
  * ReflectionUtils 클래스 확장
@@ -104,10 +105,16 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	 * 객체 필드 조회(이름 조건)
 	 */
 	public static Object getValue(Object target, String fieldName) throws CommonException {
-		Map<String, Field> fieldMap = getFields(target);
-		Field field = fieldMap.get(fieldName);
+//		Map<String, Field> fieldMap = getFields(target);
+//		Field field = fieldMap.get(fieldName);
+		try {
+			Field field = target.getClass().getDeclaredField(fieldName);
 
-		return getValue(target, field);
+			return getValue(target, field);
+		} catch (Exception e) {
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Get value \"" + target + "." + fieldName + "\" error", e.getMessage()), e);
+		}
 	}
 
 	/**
@@ -125,6 +132,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 //			if (fieldType.isInstance(obj)) {
 			if (entry.getValue().getType().equals(fieldType)) {
 				field = entry.getValue();
+				break;
 			}
 		}
 
@@ -159,10 +167,14 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	}
 
 	public static void setValue(Object target, String fieldName, Object value) throws CommonException {
-		Map<String, Field> fieldMap = getFields(target);
-		Field field = fieldMap.get(fieldName);
+		try {
+			Field field = target.getClass().getDeclaredField(fieldName);
 
-		setValue(target, field, value);
+			setValue(target, field, value);
+		} catch (Exception e) {
+			throw new CommonException(CommonException.ERROR,
+					LogUtil.buildMessage("Set value \"" + target + "." + fieldName + "\" error", e.getMessage()), e);
+		}
 	}
 
 	/**

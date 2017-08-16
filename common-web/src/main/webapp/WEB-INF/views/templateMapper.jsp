@@ -79,7 +79,7 @@ ORDER BY \${order_by}
 		<include refid="_where" />
 	</select>
 
-	<insert id="insert" parameterType="${className}" useGeneratedKeys="true" keyProperty="id">>
+	<insert id="insert" parameterType="${className}"<c:if test="${autoIncrement != null}"> useGeneratedKeys="true" keyProperty="${autoIncrement}"</c:if>>
 <c:if test="${sequence != null}">		<selectKey keyProperty="id" resultType="long" order="BEFORE">
 			<![CDATA[
 SELECT ${sequence.key}.NEXTVAL AS ${sequence.value}

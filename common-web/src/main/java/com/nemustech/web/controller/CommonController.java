@@ -365,7 +365,7 @@ public abstract class CommonController<T extends Default> {
 		mav.addObject("columnList", columnList);
 
 		// Sequence
-		KeyValue sequence = ORMUtil.getSequence(clazz, service.getSourceType());
+		KeyValue sequence = ORMUtil.getSequence(clazz);
 		mav.addObject("sequence", sequence);
 
 		// AutoIncrement

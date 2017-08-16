@@ -10,8 +10,6 @@ import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 import org.mybatisorm.annotation.handler.TableHandler;
 
-import com.nemustech.common.service.CommonService;
-
 public abstract class ORMUtil {
 	/**
 	 * 테이블
@@ -64,17 +62,12 @@ public abstract class ORMUtil {
 	 * 시퀀스 <테이블명, 컬럼명>
 	 * 
 	 * @param clazz
-	 * @param sourceType
 	 * @return
 	 */
-	public static <T> KeyValue getSequence(Class<T> clazz, String sourceType) {
-		if (CommonService.SOURCE_TYPE_ORACLE.equals(sourceType)) {
-			Field field = getSequenceField(clazz);
+	public static <T> KeyValue getSequence(Class<T> clazz) {
+		Field field = getSequenceField(clazz);
 
-			return getSequence(field);
-		} else {
-			return null;
-		}
+		return getSequence(field);
 	}
 
 	public static <T> List<KeyValue> getCreateColumnList(Class<T> clazz) {

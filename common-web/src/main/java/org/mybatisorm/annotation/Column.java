@@ -31,6 +31,18 @@ public @interface Column {
 	boolean autoIncrement() default false;
 	String sequence() default "";
 	String references() default "";
+
+	/**
+	 * 등록이나 수정시 기본값 by skoh
+	 * 
+	 * @return
+	 */
 	String defaultValue() default "";
+
+	/**
+	 * 수정시 기본값 지정 여부 by skoh
+	 * 
+	 * @return
+	 */
 	boolean defaultUpdate() default false;
 }

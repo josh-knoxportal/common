@@ -6,13 +6,13 @@
 		<where>
 			<if test="condition != null">
 				<![CDATA[
-   AND \${condition}
+	AND \${condition}
 				]]>
 			</if>
 <c:forEach var="column" items="${columnList}">
 			<if test="${column.value} != null">
 				<![CDATA[
-   AND ${column.key} = \#{${column.value}}
+	AND ${column.key} = \#{${column.value}}
 				]]>
 			</if></c:forEach>
 		</where>
@@ -27,18 +27,18 @@ SELECT
 
 		<if test="hint != null">
 			<![CDATA[
-\${hint}
+	\${hint}
 			]]>
 		</if>
 
 		<if test="fields == null">
 			<![CDATA[
-${fields}
+	${fields}
 			]]>
 		</if>
 		<if test="fields != null">
 			<![CDATA[
-\${fields}
+	\${fields}
 			]]>
 		</if>
 
@@ -94,7 +94,7 @@ INSERT INTO ${table} (
 		<trim prefixOverrides=","><c:forEach var="column" items="${createColumnList}">
 			<if test="${column.key} != null">
 				<![CDATA[
-, ${column.key}
+	,${column.key}
 				]]>
 			</if></c:forEach>
 		</trim>
@@ -106,7 +106,7 @@ INSERT INTO ${table} (
 		<trim prefixOverrides=","><c:forEach var="column" items="${createColumnList}">
 			<if test="${column.key} != null">
 				<![CDATA[
-, ${column.value}
+	,${column.value}
 				]]>
 			</if></c:forEach>
 		</trim>
@@ -124,7 +124,7 @@ UPDATE ${table}
 		<set><c:forEach var="column" items="${updatgeColumnList}">
 			<if test="${column.key} != null">
 				<![CDATA[
-${column.key} = ${column.value},
+	${column.key} = ${column.value},
 				]]>
 			</if></c:forEach>
 		</set>
@@ -132,13 +132,13 @@ ${column.key} = ${column.value},
 		<where>
 			<if test="${primaryKey.value} != null">
 				<![CDATA[
-   AND ${primaryKey.key} = \#{${primaryKey.value}}
+	AND ${primaryKey.key} = \#{${primaryKey.value}}
 				]]>
 			</if>
 
 			<if test="condition != null">
 				<![CDATA[
-   AND \${condition}
+	AND \${condition}
 				]]>
 			</if>
 		</where>

@@ -6,43 +6,43 @@
 		<where>
 			<if test="condition != null">
 				<![CDATA[
-   AND ${condition}
+	AND ${condition}
 				]]>
 			</if>
 
 			<if test="reg_id != null">
 				<![CDATA[
-   AND reg_id = #{reg_id}
+	AND reg_id = #{reg_id}
 				]]>
 			</if>
 			<if test="reg_dt != null">
 				<![CDATA[
-   AND reg_dt = #{reg_dt}
+	AND reg_dt = #{reg_dt}
 				]]>
 			</if>
 			<if test="mod_id != null">
 				<![CDATA[
-   AND mod_id = #{mod_id}
+	AND mod_id = #{mod_id}
 				]]>
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-   AND mod_dt = #{mod_dt}
+	AND mod_dt = #{mod_dt}
 				]]>
 			</if>
 			<if test="id != null">
 				<![CDATA[
-   AND id = #{id}
+	AND id = #{id}
 				]]>
 			</if>
 			<if test="name != null">
 				<![CDATA[
-   AND name = #{name}
+	AND name = #{name}
 				]]>
 			</if>
 			<if test="test_id != null">
 				<![CDATA[
-   AND test_id = #{test_id}
+	AND test_id = #{test_id}
 				]]>
 			</if>
 		</where>
@@ -57,18 +57,18 @@ SELECT
 
 		<if test="hint != null">
 			<![CDATA[
-${hint}
+	${hint}
 			]]>
 		</if>
 
 		<if test="fields == null">
 			<![CDATA[
-reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
+	reg_id reg_id,reg_dt reg_dt,mod_id mod_id,mod_dt mod_dt,id id,name name,test_id test_id
 			]]>
 		</if>
 		<if test="fields != null">
 			<![CDATA[
-${fields}
+	${fields}
 			]]>
 		</if>
 
@@ -110,6 +110,13 @@ ORDER BY ${order_by}
 	</select>
 
 	<insert id="insert" parameterType="Sample" useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+			<![CDATA[
+SELECT sample_seq.NEXTVAL AS id
+  FROM dual
+			]]>
+		</selectKey>
+
 		<![CDATA[
 INSERT INTO sample (
 		]]>
@@ -117,32 +124,37 @@ INSERT INTO sample (
 		<trim prefixOverrides=",">
 			<if test="reg_id != null">
 				<![CDATA[
-, reg_id
+	,reg_id
 				]]>
 			</if>
 			<if test="reg_dt != null">
 				<![CDATA[
-, reg_dt
+	,reg_dt
 				]]>
 			</if>
 			<if test="mod_id != null">
 				<![CDATA[
-, mod_id
+	,mod_id
 				]]>
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-, mod_dt
+	,mod_dt
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
+	,id
 				]]>
 			</if>
 			<if test="name != null">
 				<![CDATA[
-, name
+	,name
 				]]>
 			</if>
 			<if test="test_id != null">
 				<![CDATA[
-, test_id
+	,test_id
 				]]>
 			</if>
 		</trim>
@@ -154,32 +166,37 @@ INSERT INTO sample (
 		<trim prefixOverrides=",">
 			<if test="reg_id != null">
 				<![CDATA[
-, #{reg_id}
+	,#{reg_id}
 				]]>
 			</if>
 			<if test="reg_dt != null">
 				<![CDATA[
-, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+	,DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
 				]]>
 			</if>
 			<if test="mod_id != null">
 				<![CDATA[
-, #{mod_id}
+	,#{mod_id}
 				]]>
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+	,DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
+				]]>
+			</if>
+			<if test="id != null">
+				<![CDATA[
+	,#{id}
 				]]>
 			</if>
 			<if test="name != null">
 				<![CDATA[
-, #{name}
+	,#{name}
 				]]>
 			</if>
 			<if test="test_id != null">
 				<![CDATA[
-, #{test_id}
+	,#{test_id}
 				]]>
 			</if>
 		</trim>
@@ -197,27 +214,27 @@ UPDATE sample
 		<set>
 			<if test="reg_id != null">
 				<![CDATA[
-reg_id = #{reg_id},
+	reg_id = #{reg_id},
 				]]>
 			</if>
 			<if test="mod_id != null">
 				<![CDATA[
-mod_id = #{mod_id},
+	mod_id = #{mod_id},
 				]]>
 			</if>
 			<if test="mod_dt != null">
 				<![CDATA[
-mod_dt = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'),
+	mod_dt = DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'),
 				]]>
 			</if>
 			<if test="name != null">
 				<![CDATA[
-name = #{name},
+	name = #{name},
 				]]>
 			</if>
 			<if test="test_id != null">
 				<![CDATA[
-test_id = #{test_id},
+	test_id = #{test_id},
 				]]>
 			</if>
 		</set>
@@ -225,13 +242,13 @@ test_id = #{test_id},
 		<where>
 			<if test="id != null">
 				<![CDATA[
-   AND id = #{id}
+	AND id = #{id}
 				]]>
 			</if>
 
 			<if test="condition != null">
 				<![CDATA[
-   AND ${condition}
+	AND ${condition}
 				]]>
 			</if>
 		</where>

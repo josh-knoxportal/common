@@ -23,7 +23,8 @@ public class Common extends Paging {
 	/**
 	 * 등록 일시
 	 */
-	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE)
+	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_MYSQL)
+//	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE)
 	protected String reg_dt;
 
 	/**
@@ -35,7 +36,8 @@ public class Common extends Paging {
 	/**
 	 * 수정 일시
 	 */
-	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE, defaultUpdate = true)
+	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_MYSQL, defaultUpdate = true)
+//	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE, defaultUpdate = true)
 	protected String mod_dt;
 
 	public Common() {

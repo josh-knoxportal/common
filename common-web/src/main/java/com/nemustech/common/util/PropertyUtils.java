@@ -25,7 +25,6 @@ public class PropertyUtils {
 
 	public static PropertyUtils getInstance() {
 		if (propertyUtils == null) {
-			System.out.println("Create Property Utils");
 			propertyUtils = new PropertyUtils();
 		}
 
@@ -37,10 +36,10 @@ public class PropertyUtils {
 		InputStream is = PropertyUtils.class.getClassLoader().getResourceAsStream(fileName);
 
 		if (is == null) {
-			System.out.println("Not exists the \"classpath: " + fileName + "\" file.");
+			System.out.println("Not exists the \"classpath:" + fileName + "\" file.");
 			return null;
 		} else {
-			System.out.println("Load the \"classpath: " + fileName + "\" file.");
+			System.out.println("Load the \"classpath:" + fileName + "\" file.");
 			return is;
 		}
 	}

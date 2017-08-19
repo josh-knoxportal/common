@@ -147,7 +147,7 @@ public class SFTPUtil {
 	protected void _backup(String targetFile) {
 		LogUtil.writeLog("[Backup file] " + targetFile, getClass());
 
-		rename(targetFile, targetFile + "_" + StringUtil.getDateTimeHypen());
+		rename(targetFile, targetFile + "_" + StringUtil.getDateTimeUnderline());
 	}
 
 	protected void _upload(String sourcePath, String targetDir)

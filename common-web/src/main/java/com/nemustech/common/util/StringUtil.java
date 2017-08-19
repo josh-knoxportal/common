@@ -1178,11 +1178,11 @@ public abstract class StringUtil extends StringUtils {
 		return getDate(timeMillis) + getTime(timeMillis);
 	}
 
-	public static String getDateTimeHypen() {
-		return getDateTimeHypen(System.currentTimeMillis());
+	public static String getDateTimeUnderline() {
+		return getDateTimeUnderline(System.currentTimeMillis());
 	}
 
-	public static String getDateTimeHypen(long timeMillis) {
+	public static String getDateTimeUnderline(long timeMillis) {
 		return getDate(timeMillis) + "_" + getTime(timeMillis);
 	}
 
@@ -1272,7 +1272,7 @@ public abstract class StringUtil extends StringUtils {
 		String juminBirth = juminNo.substring(0, 6);
 		String juminSex = juminNo.substring(6, 7);
 
-		String toDate = Utils.formatCurrentDate();
+		String toDate = Utils.getDate();
 		String toYear = toDate.substring(0, 4);
 		String toMonth = toDate.substring(4, 6);
 		String toDay = toDate.substring(6, 8);

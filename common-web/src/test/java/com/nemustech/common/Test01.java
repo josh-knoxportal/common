@@ -9,6 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.storage.LocalFileStorage;
@@ -135,7 +138,7 @@ public class Test01 {
 
 //		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this));
 		
-		System.out.println(new Date().getTime() + " " + new Date().getTimezoneOffset());
+//		System.out.println(new Date().getTime() + " " + new Date().getTimezoneOffset());
 	}
 
 	public String getTargetClass() throws Exception {

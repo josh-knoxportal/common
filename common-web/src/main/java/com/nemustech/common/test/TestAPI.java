@@ -207,8 +207,8 @@ public class TestAPI {
 					bytes = HTTPUtils.getBody(result);
 				}
 
-				HTTPUtils.generateFile(
-						saveDir + "/" + Utils.formatCurrentDate(Utils.SDF_DATE_MILLI_TIME) + "." + saveExt, bytes);
+				HTTPUtils.generateFile(saveDir + "/" + Utils.getDateTime(Utils.SDF_DATE_MILLI_TIME) + "." + saveExt,
+						bytes);
 				// 콘솔에 출력
 			} else {
 				body = HTTPUtils.getBodyString(result);

@@ -95,7 +95,7 @@ public class FTPUtil {
 	public void backup(String targetDir, String sourceFile) throws IOException {
 		LogUtil.writeLog("[Backup file] " + targetDir + File.separator + sourceFile, getClass());
 		ftp.changeWorkingDirectory(targetDir);
-		ftp.rename(sourceFile, sourceFile + "_" + StringUtil.getDateTimeHypen());
+		ftp.rename(sourceFile, sourceFile + "_" + StringUtil.getDateTimeUnderline());
 	}
 
 	public void disconnect() throws IOException {

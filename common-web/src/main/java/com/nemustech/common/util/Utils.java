@@ -675,55 +675,55 @@ public abstract class Utils {
 	/**
 	 * 시스템의 현재 날짜를 구한다.
 	 */
-	public static String formatCurrentDate() {
-		return convertDateToString(new Date());
+	public static String getDate() {
+		return getDate(new Date());
 	}
 
-	public static String formatCurrentTime() {
-		return convertTimeToString(new Date());
+	public static String getDate(long date) {
+		return getDate(new Date(date));
 	}
 
-	public static String formatCurrentDateTime() {
-		return convertDateTimeToString(new Date());
+	public static String getDate(java.util.Date date) {
+		return getDateTime(date, new SimpleDateFormat(SDF_DATE));
 	}
 
-	public static String formatCurrentDate(String datePattern) {
-		return formatCurrentDate(new SimpleDateFormat(datePattern));
+	public static String getTime() {
+		return getTime(new Date());
 	}
 
-	public static String formatCurrentDate(SimpleDateFormat simpleDateFormat) {
-		return convertDateToString(new Date(), simpleDateFormat);
+	public static String getTime(java.util.Date date) {
+		return getDateTime(date, new SimpleDateFormat(SDF_TIME));
 	}
 
-	public static String convertDateToString(long date) {
-		return convertDateToString(new Date(date));
+	public static String getDateTime() {
+		return getDateTime(new Date());
 	}
 
-	public static String convertDateToString(java.util.Date date) {
-		return convertDateToString(date, new SimpleDateFormat(SDF_DATE));
+	public static String getDateTime(java.util.Date date) {
+		return getDateTime(date, new SimpleDateFormat(SDF_DATE_TIME));
 	}
 
-	public static String convertTimeToString(java.util.Date date) {
-		return convertDateToString(date, new SimpleDateFormat(SDF_TIME));
+	public static String getDateTime(String datePattern) {
+		return getDateTime(new SimpleDateFormat(datePattern));
 	}
 
-	public static String convertDateTimeToString(java.util.Date date) {
-		return convertDateToString(date, new SimpleDateFormat(SDF_DATE_TIME));
+	public static String getDateTime(SimpleDateFormat format) {
+		return getDateTime(new Date(), format);
 	}
 
-	public static String convertDateToString(long date, SimpleDateFormat simpleDateFormat) {
-		return convertDateToString(new Date(date), simpleDateFormat);
+	public static String convertDateToString(long date, SimpleDateFormat format) {
+		return getDateTime(new Date(date), format);
 	}
 
-	public static String convertDateToString(java.util.Date date, SimpleDateFormat simpleDateFormat) {
+	public static String getDateTime(java.util.Date date, SimpleDateFormat format) {
 		String szResult = "";
-		if (date != null && simpleDateFormat != null)
-			szResult = simpleDateFormat.format(date);
+		if (date != null && format != null)
+			szResult = format.format(date);
 
 		return szResult;
 	}
 
-	public static int formatIntervalHour(Calendar cStart, Calendar cEnd) {
+	public static int getIntervalHour(Calendar cStart, Calendar cEnd) {
 		cStart.set(Calendar.MINUTE, 0);
 		cStart.set(Calendar.SECOND, 0);
 		cStart.set(Calendar.MILLISECOND, 0);
@@ -1889,7 +1889,7 @@ public abstract class Utils {
 	public static String toString(Object message, Throwable e, int stackTraceDepth) {
 //		System.out.println("12345678901234567890123456789012345678901234567890123456789012345678901234567890");
 //		System.out.println(toString(Thread.currentThread().getStackTrace()));
-		String log = String.format("%s %-12.12s %s %-60s", formatCurrentDate(SDF_MILLI_TIME1),
+		String log = String.format("%s %-12.12s %s %-60s", getDateTime(SDF_MILLI_TIME1),
 				"[" + Thread.currentThread().getName() + "]", (e == null) ? " INFO" : "ERROR",
 				Thread.currentThread().getStackTrace()[stackTraceDepth]); // 1
 

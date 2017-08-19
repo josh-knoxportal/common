@@ -23,7 +23,7 @@ public class Common extends Paging {
 	/**
 	 * 등록 일시
 	 */
-	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_MYSQL)
+	@Column(defaultValue = "T(com.nemustech.common.model.Common).getA()")
 //	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE)
 	protected String reg_dt;
 
@@ -39,6 +39,10 @@ public class Common extends Paging {
 	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_MYSQL, defaultUpdate = true)
 //	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE, defaultUpdate = true)
 	protected String mod_dt;
+	
+	public static String getA() {
+		return "skoh";
+	}
 
 	public Common() {
 	}

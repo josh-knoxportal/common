@@ -97,7 +97,7 @@ public abstract class ORMUtil {
 			if ("".equals(defaultValue)) {
 				list.add(new DefaultKeyValue(columnName, "#{" + field.getName() + "}"));
 			} else {
-				list.add(new DefaultKeyValue(columnName, defaultValue));
+				list.add(new DefaultKeyValue(columnName, SpringUtil.getEvaluationResult(defaultValue)));
 			}
 		}
 
@@ -127,7 +127,7 @@ public abstract class ORMUtil {
 				list.add(new DefaultKeyValue(columnName, "#{" + field.getName() + "}"));
 			} else {
 				if (column.defaultUpdate()) {
-					list.add(new DefaultKeyValue(columnName, defaultValue));
+					list.add(new DefaultKeyValue(columnName, SpringUtil.getEvaluationResult(defaultValue)));
 				}
 			}
 		}

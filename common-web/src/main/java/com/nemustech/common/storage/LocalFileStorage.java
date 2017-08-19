@@ -12,13 +12,14 @@ import java.util.Random;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Component;
+
 import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.helper.IOHelper;
 import com.nemustech.common.util.FileUtil;
 import com.nemustech.common.util.PropertyUtils;
 import com.nemustech.common.util.Utils;
-import org.springframework.stereotype.Component;
 
 /**
  * 로컬 파일 시스템을 storage로 이용해서 file을 저장하고 읽어 온다.
@@ -101,8 +102,7 @@ public class LocalFileStorage implements FileStorage {
 	 * 파일 경로를 가져온다.
 	 */
 	public static String getFilePath() {
-		return File.separator + Utils.formatCurrentDate(Utils.SDF_YEAR) + File.separator
-				+ Utils.formatCurrentDate(Utils.SDF_MONTH);
+		return File.separator + Utils.getDateTime(Utils.SDF_YEAR) + File.separator + Utils.getDateTime(Utils.SDF_MONTH);
 	}
 
 	/**
@@ -246,7 +246,8 @@ public class LocalFileStorage implements FileStorage {
 		try {
 //			fin = new FileInputStream(storageRootPath + File.separator + fileID + "." + FILE_EXTENSION);
 			// 파일 이름
-			File file = new File(storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION);
+			File file = new File(
+					storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION);
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			fin = new FileInputStream(file);
 
@@ -273,7 +274,8 @@ public class LocalFileStorage implements FileStorage {
 		try {
 //			if (FileUtil.forceDelete(storageRootPath + File.separator + fileID + "." + FILE_EXTENSION)) {
 			// 파일 이름
-			File file = new File(storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION);
+			File file = new File(
+					storageRootPath + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION);
 			log.debug("  > filePath: " + file.getAbsolutePath());
 			if (FileUtil.forceDelete(file.getAbsolutePath())) {
 //				this.localFileStorage.remove(fileID);

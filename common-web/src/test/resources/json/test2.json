@@ -46,7 +46,7 @@
 			},
 			"url":{
 				"_uiraa":"|string|auto||",
-				"text_":"jdbc:mariadb://106.103.233.146:3306/smartplant_safety?max_allowed_packet=16777216"
+				"text_":"jdbc:mariadb://222.231.12.117:3306/smartplant_safety?max_allowed_packet=16777216"
 			},
 			"driver":{
 				"_uiraa":"|string|auto||",

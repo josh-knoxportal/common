@@ -8,12 +8,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.expression.BeanFactoryResolver;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.support.MessageSourceSupport;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -26,7 +22,7 @@ public class ConfigTest {
 	private static Log log = LogFactory.getLog(ConfigTest.class);
 
 	@Autowired
-	ApplicationContext context;
+	ConfigurableBeanFactory beanFactory;
 
 	// 기본형
 //	@Autowired
@@ -73,15 +69,10 @@ public class ConfigTest {
 //		log.info("key2: " + value2);
 //		log.info("key3: " + value3);
 		log.info("key4: " + value4);
+		log.info("key5: " + SpringUtil.getEvaluationResult("#{messageSource}", beanFactory));
 //		log.info("properties2: " + properties2);
 //		log.info("key1_reload: " + configuration.getProperty("key1"));
 //		log.info("key2_reload: " + fileConfiguration.getProperty("key2"));
-
-		ExpressionParser parser = new SpelExpressionParser();
-		StandardEvaluationContext context = new StandardEvaluationContext();
-		context.setBeanResolver(new BeanFactoryResolver(this.context));
-
-		System.out.println(SpringUtil.getEvaluationResult("#{@messageSource}"));
 
 //		System.out.println("properties: " + properties);
 

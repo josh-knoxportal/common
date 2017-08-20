@@ -1,4 +1,4 @@
-package com.nemustech.web;
+package com.nemustech.common;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -6,16 +6,27 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.expression.BeanFactoryResolver;
 import org.springframework.context.support.MessageSourceSupport;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.nemustech.common.util.SpringUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-test.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ConfigTest {
 	private static Log log = LogFactory.getLog(ConfigTest.class);
+
+	@Autowired
+	ApplicationContext context;
 
 	// 기본형
 //	@Autowired
@@ -65,6 +76,12 @@ public class ConfigTest {
 //		log.info("properties2: " + properties2);
 //		log.info("key1_reload: " + configuration.getProperty("key1"));
 //		log.info("key2_reload: " + fileConfiguration.getProperty("key2"));
+
+		ExpressionParser parser = new SpelExpressionParser();
+		StandardEvaluationContext context = new StandardEvaluationContext();
+		context.setBeanResolver(new BeanFactoryResolver(this.context));
+
+		System.out.println(SpringUtil.getEvaluationResult("#{@messageSource}"));
 
 //		System.out.println("properties: " + properties);
 

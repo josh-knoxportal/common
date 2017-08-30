@@ -2,8 +2,8 @@ package com.nemustech.adapter.http;
 
 import java.util.Locale;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import com.nemustech.adapter.exception.AdapterException;
+import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 
 /**
@@ -82,6 +82,6 @@ public class DefaultHttpResponse {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toStringExclude(this, "content");
+		return StringUtil.toString(this);
 	}
 }

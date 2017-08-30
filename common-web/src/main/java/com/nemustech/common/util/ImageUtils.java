@@ -158,7 +158,7 @@ public abstract class ImageUtils {
 		return formatName;
 	}
 
-	private static TiffImageMetadata getExif(File src) throws ImageReadException, IOException {
+	protected static TiffImageMetadata getExif(File src) throws ImageReadException, IOException {
 		ImageMetadata meta = Imaging.getMetadata(src);
 		JpegImageMetadata jpegMeta;
 
@@ -170,7 +170,7 @@ public abstract class ImageUtils {
 		return jpegMeta.getExif();
 	}
 
-	private static byte[] resize(BufferedImage img, String formatName, int w, int h) throws IOException {
+	protected static byte[] resize(BufferedImage img, String formatName, int w, int h) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		BufferedImage resized;
 
@@ -187,7 +187,7 @@ public abstract class ImageUtils {
 		return bos.toByteArray();
 	}
 
-	private static void write(byte[] imgData, String formatName, TiffImageMetadata exif, OutputStream dest)
+	protected static void write(byte[] imgData, String formatName, TiffImageMetadata exif, OutputStream dest)
 			throws IOException, ImageReadException, ImageWriteException {
 		if (exif != null) {
 			ByteArrayOutputStream os = new ByteArrayOutputStream();

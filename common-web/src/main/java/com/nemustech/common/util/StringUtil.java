@@ -2,6 +2,7 @@ package com.nemustech.common.util;
 
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
@@ -20,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -1301,6 +1303,28 @@ public abstract class StringUtil extends StringUtils {
 		return juminNo.substring(0, 7) + "*****" + juminNo.substring(12, 13);
 	}
 
+	public static String toString(Object object, String... excludeFieldNamesParam) {
+		return toString(object, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
+	}
+
+	/**
+	 * 객체를 문자열로 변환한다.
+	 * 
+	 * @param object
+	 * @param style
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
+	 * @return
+	 */
+	public static String toString(Object object, ToStringStyle style, String... excludeFieldNamesParam) {
+		// byte[] 필드는 제외
+		Map<String, Field> fields = ReflectionUtil.getFields(object, new byte[0].getClass());
+		excludeFieldNamesParam = ArrayUtils.addAll(excludeFieldNamesParam,
+				fields.keySet().toArray(new String[fields.size()]));
+
+		return new ReflectionToStringBuilder(convertArray(object), style).setExcludeFieldNames(excludeFieldNamesParam)
+				.toString();
+	}
+
 	/**
 	 * 객체의 값만 문자열로 구한다.
 	 * 
@@ -1346,10 +1370,6 @@ public abstract class StringUtil extends StringUtils {
 		return sb.toString();
 	}
 
-	public static String toString(Object object, String... excludeFieldNamesParam) {
-		return toString(object, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
-	}
-
 	/**
 	 * 객체 내부까지 문자열로 변환한다.
 	 * 
@@ -1377,16 +1397,14 @@ public abstract class StringUtil extends StringUtils {
 	}
 
 	/**
-	 * 객체를 문자열로 변환한다.
+	 * 객체 내부까지 포매팅한 JSON 형태의 문자열로 변환한다.
 	 * 
 	 * @param object
-	 * @param style
-	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
+	 * @param excludeFieldNamesParam
 	 * @return
 	 */
-	public static String toString(Object object, ToStringStyle style, String... excludeFieldNamesParam) {
-		return new ReflectionToStringBuilder(convertArray(object), style).setExcludeFieldNames(excludeFieldNamesParam)
-				.toString();
+	public static String toStringRecursiveJsonPretty(Object object, String... excludeFieldNamesParam) {
+		return JsonUtil2.toStringPretty(toStringRecursiveJson(object, excludeFieldNamesParam));
 	}
 
 	/**
@@ -1402,17 +1420,6 @@ public abstract class StringUtil extends StringUtils {
 		}
 
 		return object;
-	}
-
-	/**
-	 * 객체 내부까지 포매팅한 JSON 형태의 문자열로 변환한다.
-	 * 
-	 * @param object
-	 * @param excludeFieldNamesParam
-	 * @return
-	 */
-	public static String toStringRecursiveJsonPretty(Object object, String... excludeFieldNamesParam) {
-		return JsonUtil2.toStringPretty(toStringRecursiveJson(object, excludeFieldNamesParam));
 	}
 
 	/**

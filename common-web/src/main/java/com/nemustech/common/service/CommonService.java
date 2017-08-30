@@ -40,9 +40,16 @@ public interface CommonService<T extends Default> {
 			+ ",112) + REPLACE (CONVERT (VARCHAR(8)," + DEFAULT_DATE_SQLSERVER + ",108),':','')";
 
 	/**
+	 * DBMS 벤더별 문자열 날짜표현을 구한다.
+	 * 
+	 * @return
+	 */
+	public String getDefaultDateValue();
+
+	/**
 	 * 캐쉬명 정의
 	 * 
-	 * @return 캐쉬명
+	 * @return 캐쉬명(null 은 캐쉬 사용 안함)
 	 */
 	public String getCacheName();
 
@@ -52,6 +59,13 @@ public interface CommonService<T extends Default> {
 	 * @return 매퍼명
 	 */
 	public CommonMapper<T> getMapper();
+
+	/**
+	 * 파일 서비스를 구한다.
+	 * 
+	 * @return
+	 */
+	public FilesService getFileService();
 
 	/**
 	 * Spring active profile명 반환
@@ -66,6 +80,23 @@ public interface CommonService<T extends Default> {
 	 * @return 소스타입(mysql, oracle, sqlserver)
 	 */
 	public String getSourceType();
+
+	/**
+	 * SPEL
+	 * 
+	 * @param exp
+	 * @return
+	 */
+	public Object getEvaluationResult(String exp);
+
+	/**
+	 * SPEL
+	 * 
+	 * @param exp
+	 * @param desiredResultType
+	 * @return
+	 */
+	public <T1> T1 getEvaluationResult(String exp, Class<T1> desiredResultType);
 
 	/**
 	 * 공통 조회

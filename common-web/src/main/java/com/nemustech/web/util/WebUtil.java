@@ -140,7 +140,7 @@ public abstract class WebUtil extends WebUtils {
 		} else {
 			return JsonUtil2.toString(obj, prettyPrint);
 //			return "{" + ((prettyPrint) ? Utils.LINE_SEPARATOR + "  " : "") + "\"warn\":\"Not suported "
-//					+ ReflectionToStringBuilder.toString(obj) + "\"}";
+//					+ StringUtil.toString(obj) + "\"}";
 		}
 	}
 

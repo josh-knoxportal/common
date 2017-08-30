@@ -1,6 +1,6 @@
 package com.nemustech.sample.model;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import com.nemustech.common.util.StringUtil;
 
 /**
  * 설정
@@ -45,6 +45,6 @@ public class SettingVo {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

@@ -20,7 +20,7 @@ public abstract class SessionUtils {
         }
         
         public String toString() {
-    		return ReflectionToStringBuilder.toString(this);
+    		return StringUtil.toString(this);
         }
     }
     

@@ -661,7 +661,7 @@ public abstract class HTTPUtil {
 //		public byte[] bytes = new byte[] { 65 };
 
 		public String toString() {
-			return ReflectionToStringBuilder.toString(this);
+			return StringUtil.toString(this);
 		}
 	}
 }

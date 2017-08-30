@@ -15,6 +15,7 @@ import org.mybatisorm.Page;
 import org.mybatisorm.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ import com.nemustech.common.service.CommonService;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.ReflectionUtil;
+import com.nemustech.common.util.SpringUtil;
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 
@@ -62,6 +64,9 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 */
 	protected CommonMapper<T> mapper;
 
+	@Autowired
+	protected ConfigurableBeanFactory beanFactory;
+
 	/**
 	 * 캐쉬 관리자
 	 */
@@ -85,16 +90,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	 */
 	protected FilesService fileService;
 
-	public FilesService getFileService() {
-		return null;
-	}
-
-	/**
-	 * DBMS 벤더별 문자열 날짜표현을 구한다.
-	 * 
-	 * @param sourceType
-	 * @return
-	 */
 	public static String getDefaultDateValue(String sourceType) {
 		if (SOURCE_TYPE_MYSQL.equals(sourceType)) {
 			return DEFAULT_DATE_CHAR_MYSQL;
@@ -129,11 +124,11 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 		fileService = getFileService();
 	}
 
-	/**
-	 * 캐쉬명을 설정한다.
-	 * 
-	 * @return null 은 캐쉬 사용 안함
-	 */
+	@Override
+	public String getDefaultDateValue() {
+		return getDefaultDateValue(getSourceType());
+	}
+
 	@Override
 	public String getCacheName() {
 		return null;
@@ -145,8 +140,28 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	}
 
 	@Override
+	public FilesService getFileService() {
+		return null;
+	}
+
+	@Override
 	public String getActiveProfile() {
 		return activeProfile;
+	}
+
+	@Override
+	public String getSourceType() {
+		return entityManager.getSourceType();
+	}
+
+	@Override
+	public Object getEvaluationResult(String exp) {
+		return getEvaluationResult(exp, Object.class);
+	}
+
+	@Override
+	public <U> U getEvaluationResult(String exp, Class<U> desiredResultType) {
+		return SpringUtil.getEvaluationResult(exp, beanFactory, desiredResultType);
 	}
 
 	@Override
@@ -160,11 +175,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			List<T> list = mapper.list(model);
 			return (list.size() > 0) ? list.get(0) : null;
 		}
-	}
-
-	@Override
-	public String getSourceType() {
-		return entityManager.getSourceType();
 	}
 
 	@Override

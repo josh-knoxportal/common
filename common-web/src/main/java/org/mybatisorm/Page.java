@@ -18,8 +18,8 @@ package org.mybatisorm;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import com.nemustech.common.page.PageNavigator;
+import com.nemustech.common.util.StringUtil;
 
 public class Page<T> {
 
@@ -78,6 +78,6 @@ public class Page<T> {
 	// toString 추가 by skoh
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

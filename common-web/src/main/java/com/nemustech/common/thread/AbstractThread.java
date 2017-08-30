@@ -2,10 +2,11 @@ package com.nemustech.common.thread;
 
 import java.util.concurrent.Callable;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.logging.Log;
-import com.nemustech.common.util.LogUtil;
 import org.springframework.util.StopWatch;
+
+import com.nemustech.common.util.LogUtil;
+import com.nemustech.common.util.StringUtil;
 
 /**
  * 추상 쓰레드
@@ -81,7 +82,7 @@ public abstract class AbstractThread<T1, T2> implements Callable<T2> {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 
 	@Override

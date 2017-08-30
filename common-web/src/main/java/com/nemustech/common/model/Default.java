@@ -5,12 +5,12 @@ import java.util.Map;
 
 import javax.validation.constraints.Null;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.Condition;
 import org.mybatisorm.Condition.Seperator;
-import com.nemustech.common.util.Utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nemustech.common.util.StringUtil;
+import com.nemustech.common.util.Utils;
 
 /**
  * 기본 모델
@@ -281,6 +281,6 @@ public abstract class Default implements Serializable {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

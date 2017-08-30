@@ -187,4 +187,15 @@ public class SampleServiceTest {
 		Object result = filesService.insert(files);
 		System.out.println("result: " + result);
 	}
+
+	@Test
+	public void t30() throws Exception {
+		System.out.println("================================================================================");
+	}
+
+	@Test
+	public void t41_test() throws Exception {
+		System.out.println(sampleService.getDefaultDateValue());
+		System.out.println(sampleService.getEvaluationResult("#{sampleServiceImpl.getDefaultDateValue()}"));
+	}
 }

@@ -1,7 +1,8 @@
 package com.nemustech.common.task;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.tools.ant.BuildException;
+
+import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 
 /**
@@ -126,6 +127,6 @@ public class DeployServer {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

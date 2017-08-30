@@ -3,8 +3,9 @@ package com.nemustech.common.page;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.mybatisorm.Page;
+
+import com.nemustech.common.util.StringUtil;
 
 /**
  * 페이지 네비게이션
@@ -215,7 +216,7 @@ public class PageNavigator<T> {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 
 	public static void main(String[] args) {

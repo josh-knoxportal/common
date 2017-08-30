@@ -2,7 +2,7 @@ package com.nemustech.common.model;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import com.nemustech.common.util.StringUtil;
 
 /**
  * 응답 결과
@@ -129,6 +129,6 @@ public class Response<T> implements Serializable {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

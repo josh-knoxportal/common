@@ -1,7 +1,9 @@
 package com.nemustech.common.model;
 
+import org.mybatisorm.EntityManager;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nemustech.common.page.Paging;
@@ -14,6 +16,9 @@ import com.nemustech.common.service.CommonService;
  */
 @Table
 public class Common extends Paging {
+	@Autowired
+	protected EntityManager entityManager;
+
 	/**
 	 * 등록자 아이디
 	 */
@@ -23,8 +28,7 @@ public class Common extends Paging {
 	/**
 	 * 등록 일시
 	 */
-	@Column(defaultValue = "T(com.nemustech.common.model.Common).getA()")
-//	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE)
+	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE) // #{commonService.getDefaultDateValue()}")
 	protected String reg_dt;
 
 	/**
@@ -36,13 +40,8 @@ public class Common extends Paging {
 	/**
 	 * 수정 일시
 	 */
-	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_MYSQL, defaultUpdate = true)
-//	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE, defaultUpdate = true)
+	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE) // #{commonService.getDefaultDateValue()}", defaultUpdate = true)
 	protected String mod_dt;
-	
-	public static String getA() {
-		return "skoh";
-	}
 
 	public Common() {
 	}

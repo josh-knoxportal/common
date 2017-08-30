@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PreDestroy;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import com.nemustech.common.util.StringUtil;
 
 /**
  * 쓰레드 풀
@@ -90,7 +90,7 @@ public class ThreadPool<T> {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 
 	/**

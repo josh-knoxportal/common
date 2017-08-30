@@ -1,10 +1,12 @@
 package com.nemustech.common.util;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.BeanExpressionContext;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.expression.BeanExpressionContextAccessor;
+import org.springframework.context.expression.BeanFactoryAccessor;
 import org.springframework.context.expression.BeanFactoryResolver;
+import org.springframework.context.expression.EnvironmentAccessor;
+import org.springframework.context.expression.MapAccessor;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -17,30 +19,28 @@ public abstract class SpringUtil {
 
 	static {
 		STANDARD_EVALUATION_CONTEXT.addPropertyAccessor(new BeanExpressionContextAccessor());
+		STANDARD_EVALUATION_CONTEXT.addPropertyAccessor(new BeanFactoryAccessor());
+		STANDARD_EVALUATION_CONTEXT.addPropertyAccessor(new MapAccessor());
+		STANDARD_EVALUATION_CONTEXT.addPropertyAccessor(new EnvironmentAccessor());
+	}
+
+	public static Object getEvaluationResult(String exp) {
+		return getEvaluationResult(exp, Object.class);
 	}
 
 	/**
 	 * SPEL
 	 * 
 	 * @param exp
+	 * @param desiredResultType
 	 * @return
 	 */
-	public static Object getEvaluationResult(String exp) {
-		return EXPRESSION_PARSER.parseExpression(exp, PARSER_CONTEXT).getValue();
+	public static <T> T getEvaluationResult(String exp, Class<T> desiredResultType) {
+		return EXPRESSION_PARSER.parseExpression(exp, PARSER_CONTEXT).getValue(desiredResultType);
 	}
 
-	/**
-	 * SPEL (Bean references)
-	 * 
-	 * @param exp @id
-	 * @param beanFactory
-	 * @return
-	 */
-	@Deprecated
-	public static Object getEvaluationResult(String exp, BeanFactory beanFactory) {
-		STANDARD_EVALUATION_CONTEXT.setBeanResolver(new BeanFactoryResolver(beanFactory));
-
-		return EXPRESSION_PARSER.parseExpression(exp, PARSER_CONTEXT).getValue(STANDARD_EVALUATION_CONTEXT);
+	public static Object getEvaluationResult(String exp, ConfigurableBeanFactory beanFactory) {
+		return getEvaluationResult(exp, beanFactory, Object.class);
 	}
 
 	/**
@@ -48,12 +48,16 @@ public abstract class SpringUtil {
 	 * 
 	 * @param exp id
 	 * @param beanFactory
+	 * @param desiredResultType
 	 * @return
 	 */
-	public static Object getEvaluationResult(String exp, ConfigurableBeanFactory beanFactory) {
+	public static <T> T getEvaluationResult(String exp, ConfigurableBeanFactory beanFactory,
+			Class<T> desiredResultType) {
+		STANDARD_EVALUATION_CONTEXT.setBeanResolver(new BeanFactoryResolver(beanFactory));
 		BeanExpressionContext rootObject = new BeanExpressionContext(beanFactory, null);
 
-		return EXPRESSION_PARSER.parseExpression(exp, PARSER_CONTEXT).getValue(STANDARD_EVALUATION_CONTEXT, rootObject);
+		return EXPRESSION_PARSER.parseExpression(exp, PARSER_CONTEXT).getValue(STANDARD_EVALUATION_CONTEXT, rootObject,
+				desiredResultType);
 	}
 
 	protected static class TemplateParserContext implements ParserContext {

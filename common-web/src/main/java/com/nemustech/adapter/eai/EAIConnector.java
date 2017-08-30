@@ -1,10 +1,11 @@
 package com.nemustech.adapter.eai;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import com.nemustech.adapter.exception.AdapterException;
 import com.nemustech.common.util.PropertyUtils;
+import com.nemustech.common.util.StringUtil;
 
 import COM.activesw.api.client.BrokerClient;
 import COM.activesw.api.client.BrokerEvent;
@@ -186,6 +187,6 @@ public class EAIConnector {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

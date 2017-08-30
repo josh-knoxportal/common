@@ -87,6 +87,6 @@ public abstract class AbstractNet {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

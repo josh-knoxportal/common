@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.springframework.util.StopWatch;
@@ -13,6 +12,7 @@ import org.springframework.util.StopWatch;
 import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.function.CallbackFunction;
 import com.nemustech.common.util.LogUtil;
+import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.ThreadUtils;
 import com.nemustech.common.util.Utils;
 
@@ -239,6 +239,6 @@ public abstract class AbstractDeployTask extends Task {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

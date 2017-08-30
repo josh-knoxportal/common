@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
 import com.nemustech.common.exception.CommonException;
@@ -92,13 +93,51 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 	}
 
 	public static Map<String, Field> getFields(Object target) {
-		if (!Utils.isValidate(target))
-			return null;
+		Assert.notNull(target, "Object must not be null");
+
+		return getFields(target.getClass());
+	}
+
+	/**
+	 * 부모 클래스를 포함한 전체 필드를 구한다.
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public static Map<String, Field> getFields(Class<?> type) {
+		Assert.notNull(type, "Class must not be null");
 
 		FieldCallbackImpl fieldCallback = new FieldCallbackImpl();
-		doWithFields(target.getClass(), fieldCallback);
+		doWithFields(type, fieldCallback);
 
 		return fieldCallback.getFieldMap();
+	}
+
+	/**
+	 * 부모 클래스를 포함한 전체 필드에서 해당 type 필드를 찾는다.
+	 * 
+	 * @param target
+	 * @param type
+	 * @return
+	 */
+	public static Map<String, Field> getFields(Object target, Class<?> type) {
+		Assert.notNull(target, "Object must not be null");
+
+		return getFields(target.getClass(), type);
+	}
+
+	public static Map<String, Field> getFields(Class<?> clazz, Class<?> type) {
+		Assert.notNull(clazz, "Class must not be null");
+		Assert.isTrue(type != null, "Either type of the field must be specified");
+
+		Map<String, Field> map = new HashMap<>();
+		for (Map.Entry<String, Field> entry : getFields(clazz).entrySet()) {
+			if (type == null || type.equals(entry.getValue().getType())) {
+				map.put(entry.getValue().getName(), entry.getValue());
+			}
+		}
+
+		return map;
 	}
 
 	/**

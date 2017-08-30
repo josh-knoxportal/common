@@ -34,6 +34,8 @@
 		http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis-1.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd">
+<!-- 	<import resource="classpath:config-spring.xml" /> -->
+
 	<!-- Property -->
 	<context:property-placeholder properties-ref="properties" />
 
@@ -65,7 +67,7 @@
 	<bean id="xmlConfiguration" class="org.apache.commons.configuration.XMLConfiguration">
 		<constructor-arg type="java.lang.String">
 			<value>default_config.xml</value>
-<!-- 			<value>#{systemProperties['org.oh.home']}/config/vehicle/smartplant-safety.xml</value> -->
+			<!-- <value>#{systemProperties['org.oh.home']}/config/vehicle/smartplant-safety.xml</value> -->
 		</constructor-arg>
 		<property name="reloadingStrategy">
 			<bean class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy" />
@@ -77,12 +79,12 @@
 	</bean>
 
 	<!-- 반드시 id="messageSource" -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames">
-			<value>messages
-			</value>
-		</property>
-	</bean>
+<!-- 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> -->
+<!-- 		<property name="basenames"> -->
+<!-- 			<value>messages -->
+<!-- 			</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 
 	<!-- Thread Pool -->
 	<!-- <task:annotation-driven executor="executor" /> -->

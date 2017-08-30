@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.http.NameValuePair;
+
 import com.nemustech.common.util.HTTPUtil;
 import com.nemustech.common.util.LogUtil;
+import com.nemustech.common.util.StringUtil;
 
 public class HTTPUtilTask implements Callable<Object> {
 	protected String url = null;
@@ -44,6 +45,6 @@ public class HTTPUtilTask implements Callable<Object> {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

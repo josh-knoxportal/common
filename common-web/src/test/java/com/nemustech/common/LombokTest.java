@@ -17,23 +17,23 @@ import lombok.extern.apachecommons.CommonsLog;
 @Data
 
 @CommonsLog
-public class Test04 extends Test05 {
+public class LombokTest extends Test05 {
 	@NonNull
 	protected String s;
 
-	public Test04(int i, String s) {
+	public LombokTest(int i, String s) {
 		this.i = i;
 		this.s = s;
 	}
 
 	public static void main(String[] args) {
-		Test04 test04 = new Test04(1, "a");
-		Test04 test04_ = new Test04(2, "a");
+		LombokTest test04 = new LombokTest(1, "a");
+		LombokTest test04_ = new LombokTest(2, "a");
 		log.info(test04);
 		log.info(test04_);
 		log.info(test04.equals(test04_));
 
-		test04 = new Test04(null);
+		test04 = new LombokTest(null);
 		test04.setS(null);
 
 	}

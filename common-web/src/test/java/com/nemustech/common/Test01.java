@@ -1,7 +1,5 @@
 package com.nemustech.common;
 
-import java.util.Date;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
@@ -9,15 +7,10 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.storage.LocalFileStorage;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = "file:conf/config-spring02.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test01 {
 	protected Log log = LogFactory.getLog(getClass());
@@ -137,8 +130,10 @@ public class Test01 {
 //		System.out.println(rs2.getString(1));
 
 //		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(this));
-		
+
 //		System.out.println(new Date().getTime() + " " + new Date().getTimezoneOffset());
+
+//		System.out.println("mary".matches("john|mary|peter"));
 	}
 
 	public String getTargetClass() throws Exception {
@@ -146,9 +141,9 @@ public class Test01 {
 	}
 
 	public static void main(String[] args) throws Exception {
-//		Test01 test01 = new Test01();
-//		test01.test02();
-//		System.out.println(ReflectionToStringBuilder.toString(test01));
+		Test01 test01 = new Test01();
+		test01.test02();
+//		System.out.println(StringUtil.toString(test01));
 //		System.out.println(BeanUtils.describe(test01));
 	}
 }

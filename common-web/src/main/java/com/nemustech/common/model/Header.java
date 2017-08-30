@@ -2,7 +2,7 @@ package com.nemustech.common.model;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import com.nemustech.common.util.StringUtil;
 
 /**
  * 헤더
@@ -60,6 +60,6 @@ public class Header implements Serializable {
 
 	@Override
 	public String toString() {
-		return ReflectionToStringBuilder.toString(this);
+		return StringUtil.toString(this);
 	}
 }

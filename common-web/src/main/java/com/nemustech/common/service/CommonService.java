@@ -16,7 +16,7 @@ import com.nemustech.common.page.Paging;
  * 
  * @author skoh
  */
-public interface CommonService<T extends Default> {
+public interface CommonService<T extends Default> extends CacheService<T> {
 	/**
 	 * DBMS 벤더별 명칭
 	 */
@@ -45,13 +45,6 @@ public interface CommonService<T extends Default> {
 	 * @return
 	 */
 	public String getDefaultDateValue();
-
-	/**
-	 * 캐쉬명 정의
-	 * 
-	 * @return 캐쉬명(null 은 캐쉬 사용 안함)
-	 */
-	public String getCacheName();
 
 	/**
 	 * 매퍼 정의

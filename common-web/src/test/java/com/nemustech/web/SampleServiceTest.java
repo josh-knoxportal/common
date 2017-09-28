@@ -105,10 +105,10 @@ public class SampleServiceTest {
 //	@Test
 	public void t13_list() throws Exception {
 		Sample model = new Sample();
-		model.setId(1L);
+//		model.setId(1L);
 		model.addCondition("name LIKE 's%'");
-		model.addCondition(model.newCondition("OR").add("name", "IN", "s1", "s2").add("name", "IN", "s3"));
-		model.setOrder_by("id DESC");
+//		model.addCondition(model.newCondition("OR").add("name", "IN", "s1", "s2").add("name", "IN", "s3"));
+//		model.setOrder_by("id DESC");
 
 		List<Sample> result = sampleService.list(model);
 		System.out.println("result: " + result);

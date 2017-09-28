@@ -99,7 +99,7 @@
 	<!-- Logging -->
 	<bean id="logAdvice" class="com.nemustech.web.aop.LogAdvice" />
 
-	<aop:config>
+	<aop:config proxy-target-class="true">
 		<aop:pointcut id="publicMethod"
 			expression="execution(public * com.nemustech..*Controller.*(..)) or execution(public * com.nemustech..*Service.*(..))" />
 		<aop:aspect ref="logAdvice">

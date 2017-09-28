@@ -1,6 +1,5 @@
 package com.nemustech.common.service.impl;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +15,6 @@ import org.mybatisorm.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import com.nemustech.common.annotation.TransactionalException;
@@ -41,23 +38,11 @@ import com.nemustech.common.util.Utils;
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
 @Service("commonService")
-public abstract class CommonServiceImpl<T extends Default> implements CommonService<T> {
+public abstract class CommonServiceImpl<T extends Default> extends CacheServiceImpl<T> implements CommonService<T> {
 	protected Log log = LogFactory.getLog(getClass());
 
 	@Value("${spring.profiles.active:default}")
 	protected String activeProfile;
-
-	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "_{0}");
-
-	/**
-	 * 캐쉬명
-	 */
-	protected String cacheName;
-
-	/**
-	 * 캐쉬
-	 */
-	protected Cache cache;
 
 	/**
 	 * 매퍼
@@ -66,12 +51,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 	@Autowired
 	protected ConfigurableBeanFactory beanFactory;
-
-	/**
-	 * 캐쉬 관리자
-	 */
-	@Autowired
-	protected CacheManager cacheManager;
 
 	/**
 	 * ORM 관리자
@@ -113,12 +92,7 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	}
 
 	@PostConstruct
-	public void init_() throws Exception {
-		cacheName = getCacheName();
-		if (cacheName != null) {
-			cache = cacheManager.getCache(cacheName);
-		}
-
+	public void initService_() throws Exception {
 		mapper = getMapper();
 
 		fileService = getFileService();
@@ -127,11 +101,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 	@Override
 	public String getDefaultDateValue() {
 		return getDefaultDateValue(getSourceType());
-	}
-
-	@Override
-	public String getCacheName() {
-		return null;
 	}
 
 	@Override
@@ -186,6 +155,9 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 
 		String cacheKey = null;
 		if (cache != null) {
+			if (mapper != null) {
+				setCondition(model);
+			}
 			cacheKey = cacheKeyFormat.format(new Object[] { StringUtil.toString(model, "conditionObj") });
 			log.debug("cacheKey: " + cacheKey);
 
@@ -199,7 +171,6 @@ public abstract class CommonServiceImpl<T extends Default> implements CommonServ
 			list = entityManager.list(model, model.getConditionObj(), model.getOrder_by(), model.getHint(),
 					model.getFields(), model.getTable(), model.getGroup_by(), model.getHaving(), model.getSql_name());
 		} else {
-			setCondition(model);
 			list = mapper.list(model);
 		}
 

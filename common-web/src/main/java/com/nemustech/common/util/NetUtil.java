@@ -171,10 +171,10 @@ public abstract class NetUtil {
 		try {
 			MBeanServer beanServer = ManagementFactory.getPlatformMBeanServer();
 			Set<ObjectName> objectNames = beanServer.queryNames(new ObjectName("*:type=Connector,*"),
-					Query.match(Query.attr("protocol"), Query.value("HTTP/1.1")));
+					Query.match(Query.attr("protocol"), Query.value("HTTP/1.1"))); // embed : org.apache.coyote.http11.Http11NioProtocol
 			port = Integer.parseInt(objectNames.iterator().next().getKeyProperty("port"));
 		} catch (Exception e) {
-//			LogUtil.writeLog(e, NetUtil.class);
+			LogUtil.writeLog(e.toString(), NetUtil.class);
 		}
 
 		return port;

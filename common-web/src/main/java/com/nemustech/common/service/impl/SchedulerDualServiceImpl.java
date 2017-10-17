@@ -91,6 +91,7 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 		} else if (interval >= scheduler_dual_interval) {
 			server.setIp(localIp);
 			server.setPort(localPort);
+			server.setLast_date(new Date());
 			cache.put(cacheKey, server);
 		}
 		log.trace("server: " + server);

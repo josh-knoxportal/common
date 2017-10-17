@@ -6,8 +6,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.mybatisorm.Condition;
 import org.mybatisorm.EntityManager;
 import org.mybatisorm.Page;
@@ -15,7 +13,6 @@ import org.mybatisorm.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.stereotype.Service;
 
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
@@ -37,10 +34,7 @@ import com.nemustech.common.util.Utils;
  * @author skoh
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
-@Service("commonService")
-public abstract class CommonServiceImpl<T extends Default> extends CacheServiceImpl<T> implements CommonService<T> {
-	protected Log log = LogFactory.getLog(getClass());
-
+public abstract class CommonServiceImpl<T extends Default> extends CacheServiceImpl implements CommonService<T> {
 	@Value("${spring.profiles.active:default}")
 	protected String activeProfile;
 

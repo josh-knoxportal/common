@@ -30,12 +30,6 @@ public class SampleServiceTest {
 	protected FileStorage fileStorage;
 
 	/**
-	 * 공통 서비스
-	 */
-//	@Resource(name = "commonService")
-//	protected CommonService<Default> commonService;
-
-	/**
 	 * 샘플 서비스
 	 */
 	@Autowired

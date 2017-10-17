@@ -16,7 +16,7 @@ import com.nemustech.common.page.Paging;
  * 
  * @author skoh
  */
-public interface CommonService<T extends Default> extends CacheService<T> {
+public interface CommonService<T extends Default> extends CacheService {
 	/**
 	 * DBMS 벤더별 명칭
 	 */

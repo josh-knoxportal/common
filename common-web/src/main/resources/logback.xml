@@ -23,25 +23,23 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.sun" level="info" />
-	<logger name="sun.rmi" level="info" />
-	<logger name="javax" level="info" />
+	<!-- <logger name="com.sun" level="debug" /> -->
+	<!-- <logger name="sun.rmi" level="debug" /> -->
+	<!-- <logger name="javax" level="debug" /> -->
+	<!-- <logger name="org.apache" level="debug" /> -->
+	<!-- <logger name="org.hibernate" level="debug" /> -->
+	<!-- <logger name="org.mybatis" level="debug" /> -->
 
-	<logger name="net.sf" level="info" />
-	<logger name="org.apache" level="info" />
-	<logger name="org.hibernate" level="info" />
-	<logger name="org.mybatis" level="info" />
-	<logger name="org.springframework" level="info" />
-	<!-- <logger name="org.springframework.aop" level="trace" /> -->
-	<!-- <logger name="org.springframework.beans" level="trace" /> -->
-	<!-- <logger name="org.springframework.cache" level="trace" /> -->
-	<!-- <logger name="org.springframework.context" level="trace" /> -->
-	<!-- <logger name="org.springframework.core" level="trace" /> -->
-	<!-- <logger name="org.springframework.web" level="trace" /> -->
+	<!-- <logger name="net.sf" level="debug" /> -->
+	<!-- <logger name="net.sf.ehcache" level="debug" /> -->
 
-	<!-- 사용안함 -->
-	<!-- <logger name="java.sql" level="debug" /> -->
-	<!-- <logger name="log4jdbc" level="off" /> -->
+	<!-- <logger name="org.springframework" level="debug" /> -->
+	<!-- <logger name="org.springframework.aop" level="debug" /> -->
+	<!-- <logger name="org.springframework.beans" level="debug" /> -->
+	<!-- <logger name="org.springframework.cache" level="debug" /> -->
+	<!-- <logger name="org.springframework.context" level="debug" /> -->
+	<!-- <logger name="org.springframework.core" level="debug" /> -->
+	<!-- <logger name="org.springframework.web" level="debug" /> -->
 
 	<logger name="jdbc" level="off" />
 	<!-- <logger name="jdbc.audit" level="info" /> -->
@@ -54,7 +52,7 @@
 
 	<!-- 디버깅 데이타와 SQL(debug)과 결과(trace) 출력시 -->
 	<logger name="org.mybatisorm" level="debug" />
-	<logger name="com.nemustech" level="debug" />
+	<logger name="com.nemustech" level="trace" />
 
 	<!-- <logger name="org.mybatisorm.mapper" level="debug" /> -->
 	<!-- <logger name="com.nemustech.sample.mapper" level="debug" /> -->

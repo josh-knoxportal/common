@@ -50,8 +50,6 @@ import com.nemustech.web.util.ValidationUtil;
  * 공통 Controller
  * 
  * @author skoh
- * @param <T>
- * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
 @Controller
 public abstract class CommonController<T extends Default> {

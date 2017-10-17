@@ -16,11 +16,11 @@
 	<!-- 64 - the same region -->
 	<!-- 128 - the same continent -->
 	<!-- 255 - unrestricted -->
-<!-- 	<cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory" -->
-<!-- 		properties="peerDiscovery=automatic, -->
-<!-- 			multicastGroupAddress=230.0.0.1, -->
-<!-- 			multicastGroupPort=4446, -->
-<!-- 			timeToLive=32" /> -->
+	<cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=automatic,
+			multicastGroupAddress=234.0.0.1,
+			multicastGroupPort=4001,
+			timeToLive=32" />
 	<!-- 2. 수동 방식 -->
 	<!-- - rmiUrls : 분산 노드에 참여할 서버 및 캐시 목록을 지정한다. 현재 노드의 정보는 포함시켜서는 안된다. -->
 	<!-- <cacheManagerPeerProviderFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory" -->
@@ -29,8 +29,8 @@
 
 	<!-- 클러스터에 있는 다른 노드에서 발생한 변경 정보를 수신할때 사용할 포트 번호를 지정한다. (로컬 테스트시 다르게 지정) -->
 	<!-- - socketTimeoutMillis : 이 노드에 메시지를 보냈을때 메시지 전송을 기다리는 시간. 기본값은 2000ms. -->
-<!-- 	<cacheManagerPeerListenerFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory" -->
-<!-- 		properties="port=40001" /> -->
+	<cacheManagerPeerListenerFactory class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="port=40001" />
 
 	<!-- 코드에서 캐시를 직접 생성할때 사용되는 캐시의 기본 설정값을 저장한다. [필수] -->
 	<!-- - maxElementsInMemory : 메모리에 저장될 수 있는 객체의 최대 개수 [필수] -->
@@ -50,11 +50,11 @@
 		<!-- - replicateAsynchronously : 비동기로 값을 복사할지의 여부. 기본값은 true -->
 		<!-- - replicateUpdatesViaCopy : 새로운 요소를 다른 노드에 복사할 지 아니면 삭제 메시지를 보낼지의 여부. 기본값은 true -->
 		<!-- - asynchronousReplicationIntervalMillis : 비동기 방식을 사용할때 변경 내역을 다른 노드에 통지하는 주기. 기본값은 1000 -->
-<!-- 		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" -->
-<!-- 			properties="replicatePuts=false, -->
-<!-- 			replicateUpdates=false, -->
-<!-- 			replicateAsynchronously=false, -->
-<!-- 			replicateUpdatesViaCopy=false" /> -->
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,
+			replicateUpdates=false,
+			replicateAsynchronously=false,
+			replicateUpdatesViaCopy=false" />
 
 		<!-- CacheManager가 초기화될때 클러스터에 있는 다른 캐시로부터 데이터를 로딩한다. 이는 초기 구동이 완료된 후 곧 바로 서비스를 제공할 수 있음을 의미한다. -->
 		<!-- bootstrapAsynchronously : 비동기적으로 수행할지의 여부를 지정. 기본값은 true -->
@@ -62,13 +62,20 @@
 		<!-- <bootstrapCacheLoaderFactory class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory" /> -->
 	</defaultCache>
 
+	<cache name="scheduler_dual" eternal="false" overflowToDisk="false" maxBytesLocalHeap="1k">
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=false" />
+		<bootstrapCacheLoaderFactory class="net.sf.ehcache.distribution.RMIBootstrapCacheLoaderFactory"
+			properties="bootstrapAsynchronously=false" />
+	</cache>
+
 	<!-- 하나의 캐시(저장소)를 지정할때 사용된다. -->
 	<!-- - name : 캐시의 이름을 지정하며, 코드에서는 이 캐시의 이름을 사용하여 사용할 Cache 인스턴스를 구한다. -->
 	<cache name="sample" eternal="false" overflowToDisk="false">
-<!-- 		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory" -->
-<!-- 			properties="replicatePuts=false, -->
-<!-- 			replicateUpdates=false, -->
-<!-- 			replicateAsynchronously=false, -->
-<!-- 			replicateUpdatesViaCopy=false" /> -->
+		<cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,
+			replicateUpdates=false,
+			replicateAsynchronously=false,
+			replicateUpdatesViaCopy=false" />
 	</cache>
 </ehcache>

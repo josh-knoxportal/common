@@ -1,13 +1,11 @@
 package com.nemustech.common.service;
 
-import com.nemustech.common.model.Default;
-
 /**
  * 캐시 서비스
  * 
  * @author skoh
  */
-public interface CacheService<T extends Default> {
+public interface CacheService {
 	/**
 	 * 캐쉬명 정의
 	 * 

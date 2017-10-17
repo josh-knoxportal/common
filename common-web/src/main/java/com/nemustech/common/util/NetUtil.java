@@ -1,6 +1,7 @@
 package com.nemustech.common.util;
 
 import java.io.File;
+import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.URI;
@@ -14,9 +15,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.management.Query;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -46,6 +51,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.util.EntityUtils;
+
 import com.nemustech.common.exception.SmartException;
 
 /**
@@ -80,7 +86,7 @@ public abstract class NetUtil {
 
 	/** Mime 맵. */
 	@SuppressWarnings("serial")
-	private static Map<String, String> mimeMap = new HashMap<String, String>() {
+	protected static Map<String, String> mimeMap = new HashMap<String, String>() {
 		{
 			// text 타입
 			put("css", "text/css");
@@ -155,7 +161,26 @@ public abstract class NetUtil {
 		return (localIp == null) ? "127.0.0.1" : localIp;
 	}
 
-	private static String getIp(InetAddress localAddr) {
+	/**
+	 * 톰캣Port를 가져온다.
+	 *
+	 * @return 톰캣Port
+	 */
+	public static int getTomcatPort() {
+		int port = -1;
+		try {
+			MBeanServer beanServer = ManagementFactory.getPlatformMBeanServer();
+			Set<ObjectName> objectNames = beanServer.queryNames(new ObjectName("*:type=Connector,*"),
+					Query.match(Query.attr("protocol"), Query.value("HTTP/1.1")));
+			port = Integer.parseInt(objectNames.iterator().next().getKeyProperty("port"));
+		} catch (Exception e) {
+//			LogUtil.writeLog(e, NetUtil.class);
+		}
+
+		return port;
+	}
+
+	protected static String getIp(InetAddress localAddr) {
 		StringBuffer localIp = new StringBuffer();
 		try {
 			byte[] localAddrArray = localAddr.getAddress();
@@ -184,7 +209,7 @@ public abstract class NetUtil {
 	 *         - NetUtil.HTTP_RESPONSE_STATUS_CODE : 응답 상태코드</br>
 	 * @throws SmartException
 	 */
-	private static Map<String, Object> toResponseMap(HttpResponse response) throws SmartException {
+	protected static Map<String, Object> toResponseMap(HttpResponse response) throws SmartException {
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		try {
 			HttpEntity entity = response.getEntity();
@@ -212,7 +237,7 @@ public abstract class NetUtil {
 		return responseMap;
 	}
 
-	private static HttpClient getHttpClient(String uri, int connectionTimeout, int soTimeout) throws SmartException {
+	protected static HttpClient getHttpClient(String uri, int connectionTimeout, int soTimeout) throws SmartException {
 		try {
 			BasicHttpParams httpParams = new BasicHttpParams();
 
@@ -483,5 +508,10 @@ public abstract class NetUtil {
 		}
 
 		return list;
+	}
+
+	public static void main(String[] args) throws Exception {
+		System.out.println(InetAddress.getLocalHost().getHostAddress());
+		System.out.println(getLocalIp());
 	}
 }

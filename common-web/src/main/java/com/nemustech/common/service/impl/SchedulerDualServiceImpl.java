@@ -44,6 +44,12 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 	 */
 	protected int localPort = NetUtil.getTomcatPort();
 
+	/**
+	 * Active Profile
+	 */
+	@Value("${spring.profiles.active:default}")
+	protected String activeProfile;
+
 	@Override
 	public String getCacheName() {
 		return SCHEDULER_DUAL;
@@ -63,7 +69,7 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 		log.debug("cacheKey: " + cacheKey);
 		Server server = cache.get(cacheKey, Server.class);
 		if (server == null) {
-			server = new Server(localIp, localPort, new Date());
+			server = new Server(localIp, localPort, activeProfile, new Date());
 			log.debug("server: " + server);
 			cache.put(cacheKey, server);
 		}
@@ -98,6 +104,9 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 	}
 
 	protected boolean isRun() {
+		if (cache == null)
+			return false;
+
 		String cacheKey = cacheKeyFormat.format(new Object[] { SCHEDULER_DUAL });
 		Server server = cache.get(cacheKey, Server.class);
 
@@ -112,9 +121,7 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 	 * @return
 	 */
 	protected boolean isRun(String cacheKey, Server server) {
-		if (cache == null)
-			return false;
-
-		return (localIp.equals(server.getIp()) && localPort == server.getPort());
+		return (localIp.equals(server.getIp()) && localPort == server.getPort()
+				&& activeProfile.equals(server.getProfile()));
 	}
 }

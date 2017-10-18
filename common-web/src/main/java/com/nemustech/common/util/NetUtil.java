@@ -513,5 +513,6 @@ public abstract class NetUtil {
 	public static void main(String[] args) throws Exception {
 		System.out.println(InetAddress.getLocalHost().getHostAddress());
 		System.out.println(getLocalIp());
+		System.out.println(getTomcatPort());
 	}
 }

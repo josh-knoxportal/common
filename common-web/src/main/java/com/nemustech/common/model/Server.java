@@ -22,6 +22,11 @@ public class Server implements Serializable {
 	protected int port;
 
 	/**
+	 * profile
+	 */
+	protected String profile;
+
+	/**
 	 * 최근 수행시간
 	 */
 	protected Date last_date;
@@ -29,9 +34,10 @@ public class Server implements Serializable {
 	public Server() {
 	}
 
-	public Server(String ip, int port, Date last_date) {
+	public Server(String ip, int port, String profile, Date last_date) {
 		this.ip = ip;
 		this.port = port;
+		this.profile = profile;
 		this.last_date = last_date;
 	}
 
@@ -49,6 +55,14 @@ public class Server implements Serializable {
 
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 
 	public Date getLast_date() {

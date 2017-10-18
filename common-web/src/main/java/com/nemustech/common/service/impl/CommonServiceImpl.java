@@ -13,6 +13,7 @@ import org.mybatisorm.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.stereotype.Service;
 
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
@@ -34,7 +35,8 @@ import com.nemustech.common.util.Utils;
  * @author skoh
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
-public abstract class CommonServiceImpl<T extends Default> extends CacheServiceImpl implements CommonService<T> {
+@Service
+public class CommonServiceImpl<T extends Default> extends CacheServiceImpl implements CommonService<T> {
 	@Value("${spring.profiles.active:default}")
 	protected String activeProfile;
 

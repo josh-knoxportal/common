@@ -12,8 +12,11 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nemustech.common.file.Files;
+import com.nemustech.common.model.Default;
+import com.nemustech.common.service.CommonService;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.JsonUtil2;
@@ -23,11 +26,17 @@ import com.nemustech.sample.service.SampleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
-
+@WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SampleServiceTest {
 	@Autowired
 	protected FileStorage fileStorage;
+
+	/**
+	 * 공통 서비스
+	 */
+	@Autowired
+	protected CommonService<Default> commonService;
 
 	/**
 	 * 샘플 서비스

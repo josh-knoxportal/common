@@ -16,12 +16,13 @@ import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.scheduling.support.ScheduledMethodRunnable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nemustech.common.util.StringUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
-
+@WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ScheduleTest {
 	protected Log log = LogFactory.getLog(getClass());

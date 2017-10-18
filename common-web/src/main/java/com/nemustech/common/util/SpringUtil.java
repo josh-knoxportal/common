@@ -11,6 +11,9 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.web.context.ConfigurableWebApplicationContext;
+
+import com.nemustech.web.util.WebApplicationContextUtil;
 
 public abstract class SpringUtil {
 	public static final ExpressionParser EXPRESSION_PARSER = new SpelExpressionParser();
@@ -36,7 +39,11 @@ public abstract class SpringUtil {
 	 * @return
 	 */
 	public static <T> T getEvaluationResult(String exp, Class<T> desiredResultType) {
-		return EXPRESSION_PARSER.parseExpression(exp, PARSER_CONTEXT).getValue(desiredResultType);
+//		return EXPRESSION_PARSER.parseExpression(exp, PARSER_CONTEXT).getValue(desiredResultType);
+		ConfigurableWebApplicationContext applicationContext = (ConfigurableWebApplicationContext) WebApplicationContextUtil
+				.getApplicationContext();
+
+		return getEvaluationResult(exp, applicationContext.getBeanFactory(), desiredResultType);
 	}
 
 	public static Object getEvaluationResult(String exp, ConfigurableBeanFactory beanFactory) {

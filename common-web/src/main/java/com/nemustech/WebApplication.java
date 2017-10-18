@@ -14,6 +14,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 
+import com.nemustech.web.util.WebApplicationContextUtil;
+
 //@Configuration
 //@EnableAutoConfiguration
 //@ComponentScan
@@ -24,7 +26,7 @@ public class WebApplication {
 	protected Log log = LogFactory.getLog(getClass());
 
 	@Autowired
-	protected static ApplicationContext applicationContext;
+	protected ApplicationContext applicationContext;
 
 	public WebApplication() {
 	}
@@ -36,7 +38,7 @@ public class WebApplication {
 
 	@Bean
 	protected ApplicationRunner init() {
-		log.info("init()");
+		log.info("applicationContext: " + applicationContext);
 
 		return null;
 	}

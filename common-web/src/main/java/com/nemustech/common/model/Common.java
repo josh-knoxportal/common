@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nemustech.common.page.Paging;
-import com.nemustech.common.service.CommonService;
 
 /**
  * 공통 모델
@@ -28,7 +27,7 @@ public class Common extends Paging {
 	/**
 	 * 등록 일시
 	 */
-	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE) // #{commonService.getDefaultDateValue()}")
+	@Column(defaultValue = "#{commonServiceImpl.getDefaultDateValue()}")
 	protected String reg_dt;
 
 	/**
@@ -40,10 +39,11 @@ public class Common extends Paging {
 	/**
 	 * 수정 일시
 	 */
-	@Column(defaultValue = CommonService.DEFAULT_DATE_CHAR_ORACLE) // #{commonService.getDefaultDateValue()}", defaultUpdate = true)
+	@Column(defaultValue = "#{commonServiceImpl.getDefaultDateValue()}", defaultUpdate = true)
 	protected String mod_dt;
 
 	public Common() {
+		System.out.println();
 	}
 
 	public Common(String reg_id, String mod_id) {

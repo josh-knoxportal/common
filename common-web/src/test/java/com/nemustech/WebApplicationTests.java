@@ -17,7 +17,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = WebApplication.class)
 @WebAppConfiguration
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WebApplicationTests {
 	protected Log log = LogFactory.getLog(getClass());

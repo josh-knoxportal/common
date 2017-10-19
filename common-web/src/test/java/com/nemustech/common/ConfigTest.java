@@ -1,16 +1,22 @@
 package com.nemustech.common;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nemustech.common.util.SpringUtil;
+import com.nemustech.web.util.WebApplicationContextUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-test.xml")
@@ -18,6 +24,9 @@ import com.nemustech.common.util.SpringUtil;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ConfigTest {
 	private static Log log = LogFactory.getLog(ConfigTest.class);
+
+	@Autowired
+	protected ApplicationContext applicationContext;
 
 	// 기본형
 //	@Autowired
@@ -31,10 +40,11 @@ public class ConfigTest {
 //	@Value("#{properties['key2']}")
 //	String value2;
 
-//	@Value("${spring.profiles.active:default}")
-//	@Value("#{systemProperties['spring.profiles.active']}")
+//	@Value("${java.net.preferIPv4Stack} ${spring.profiles.active}")
+//	@Value("#{systemProperties['java.net.preferIPv4Stack']} #{systemProperties['spring.profiles.active']}")
 //	@Value("#{DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')}")
-//	String value3;
+	@Value("#{T(com.nemustech.common.util.Utils).getDate()} #{T(com.nemustech.common.util.Utils).getDate()}")
+	String value3;
 
 //	@Value("#{messageSource}")
 //	MessageSourceSupport value4;
@@ -62,6 +72,11 @@ public class ConfigTest {
 //	@Autowired
 //	MessageSource messageSource;
 
+	@PostConstruct
+	public void init() throws Exception {
+//		WebApplicationContextUtil.printBeans(applicationContext, true);
+	}
+
 	@Test
 	public void t01() throws Exception {
 //		while (true) {
@@ -69,13 +84,11 @@ public class ConfigTest {
 //		log.info("key1: " + value1);
 //		log.info("key2: " + value2);
 //		log.info("key3: " + value3);
-//		log.info(SpringUtil.getEvaluationResult("#{'key1'}"));
-//		log.info(SpringUtil.getEvaluationResult("#{properties['key2']}"));
-//		log.info(SpringUtil.getEvaluationResult("#{systemProperties['spring.profiles.active']}"));
-		log.info(SpringUtil.getEvaluationResult("${spring.profiles.active}"));
-//		StandardBeanExpressionResolver resolver = new StandardBeanExpressionResolver();
-//		BeanExpressionContext rootObject = new BeanExpressionContext(beanFactory, null);
-//		log.info(resolver.evaluate("#{${spring.profiles.active}}", rootObject));
+		log.info(SpringUtil.getPlaceholderResult("${java.net.preferIPv4Stack}"));
+		log.info(SpringUtil.getPlaceholderResult("${key1}"));
+		log.info(SpringUtil.getSPELResult("#{systemProperties['spring.profiles.active']}"));
+		log.info(SpringUtil.getSPELResult("#{properties['key2']}"));
+		log.info(SpringUtil.getPlaceholderSPELResult("${key1} #{properties['key2']}"));
 
 //		log.info("key4: " + value4);
 //		log.info("key5: " + value5);

@@ -9,13 +9,16 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.nemustech.common.util.LogUtil;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.support.RequestContextUtils;
+
+import com.nemustech.common.util.LogUtil;
 
 public abstract class WebApplicationContextUtil extends WebApplicationContextUtils {
 	public static ServletContext getServletContext() {
@@ -40,6 +43,21 @@ public abstract class WebApplicationContextUtil extends WebApplicationContextUti
 		HttpServletRequest request = getRequest();
 
 		return (request == null) ? null : RequestContextUtils.findWebApplicationContext(request);
+	}
+
+	public static BeanFactory getBeanFactory() {
+		WebApplicationContext applicationContext = getApplicationContext();
+		if (applicationContext == null)
+			return null;
+
+		if (applicationContext instanceof ConfigurableWebApplicationContext) {
+			@SuppressWarnings("resource")
+			ConfigurableWebApplicationContext configurableWebApplicationContext = (ConfigurableWebApplicationContext) applicationContext;
+
+			return configurableWebApplicationContext.getBeanFactory();
+		} else {
+			return applicationContext.getParentBeanFactory();
+		}
 	}
 
 	public static HttpServletRequest getRequest() {

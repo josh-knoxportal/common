@@ -20,6 +20,9 @@ import com.nemustech.common.util.Utils;
 public abstract class Default implements Serializable {
 	public static final String PARAMETER_ERROR_MESSAGE = "This parameter can not be used.";
 
+	public static final String DEFAULT_DATE = "#{T(com.nemustech.common.service.impl.CommonServiceImpl).getDefaultDate('${datasource.type}')}";
+	public static final String DEFAULT_DATE_VALUE = "#{T(com.nemustech.common.service.impl.CommonServiceImpl).getDefaultDateValue('${datasource.type}')}";
+
 	/**
 	 * SQL명
 	 * 

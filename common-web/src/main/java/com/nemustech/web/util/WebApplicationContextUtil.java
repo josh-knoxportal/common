@@ -45,26 +45,55 @@ public abstract class WebApplicationContextUtil extends WebApplicationContextUti
 		return (request == null) ? null : RequestContextUtils.findWebApplicationContext(request);
 	}
 
-	public static BeanFactory getBeanFactory() {
-		WebApplicationContext applicationContext = getApplicationContext();
-		if (applicationContext == null)
-			return null;
-
-		if (applicationContext instanceof ConfigurableWebApplicationContext) {
-			@SuppressWarnings("resource")
-			ConfigurableWebApplicationContext configurableWebApplicationContext = (ConfigurableWebApplicationContext) applicationContext;
-
-			return configurableWebApplicationContext.getBeanFactory();
-		} else {
-			return applicationContext.getParentBeanFactory();
-		}
-	}
-
 	public static HttpServletRequest getRequest() {
 		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes();
 
 		return (requestAttributes == null) ? null : requestAttributes.getRequest();
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+
+	public static BeanFactory getBeanFactory() {
+		WebApplicationContext webApplicationContext = getApplicationContext();
+		if (webApplicationContext == null)
+			return null;
+
+		if (isConfigurableWebApplicationContext(webApplicationContext)) {
+			@SuppressWarnings("resource")
+			ConfigurableWebApplicationContext configurableWebApplicationContext = (ConfigurableWebApplicationContext) webApplicationContext;
+
+			return configurableWebApplicationContext.getBeanFactory();
+		} else {
+			return webApplicationContext.getParentBeanFactory();
+		}
+	}
+
+	/**
+	 * ConfigurableWebApplicationContext 인지를 확인
+	 * 
+	 * @param webApplicationContext
+	 * @return
+	 */
+	public static boolean isConfigurableWebApplicationContext(WebApplicationContext webApplicationContext) {
+		if (webApplicationContext != null && webApplicationContext instanceof ConfigurableWebApplicationContext) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+
+	public static void printBeans() {
+		printBeans(false);
+	}
+
+	public static void printBeans(boolean sort) {
+		BeanFactory beanFactory = getBeanFactory();
+		if (beanFactory != null && beanFactory instanceof ListableBeanFactory) {
+			printBeans((ListableBeanFactory) beanFactory, sort);
+		}
 	}
 
 	public static void printBeans(ListableBeanFactory beanFactory) {

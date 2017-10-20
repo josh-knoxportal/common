@@ -32,24 +32,10 @@ public abstract class SpringUtil {
 		standardEvaluationContext.addPropertyAccessor(new EnvironmentAccessor());
 	}
 
-	/**
-	 * ConfigurableWebApplicationContext 인지를 확인
-	 * 
-	 * @param webApplicationContext
-	 * @return
-	 */
-	public static boolean isConfigurableWebApplicationContext(WebApplicationContext webApplicationContext) {
-		if (webApplicationContext != null && webApplicationContext instanceof ConfigurableWebApplicationContext) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	///////////////////////////////////////////////////////////////////////////
 
 	public static String getPlaceholderResult(String value) {
-		if (isConfigurableWebApplicationContext(webApplicationContext)) {
+		if (WebApplicationContextUtil.isConfigurableWebApplicationContext(webApplicationContext)) {
 			return getPlaceholderResult(value,
 					((ConfigurableWebApplicationContext) webApplicationContext).getBeanFactory());
 		} else {
@@ -72,9 +58,9 @@ public abstract class SpringUtil {
 
 	///////////////////////////////////////////////////////////////////////////
 
-	public static Object getSPELResultResolver(String exp) {
-		if (isConfigurableWebApplicationContext(webApplicationContext)) {
-			return getSPELResultResolver(exp,
+	public static Object getSPELResolverResult(String exp) {
+		if (WebApplicationContextUtil.isConfigurableWebApplicationContext(webApplicationContext)) {
+			return getSPELResolverResult(exp,
 					((ConfigurableWebApplicationContext) webApplicationContext).getBeanFactory());
 		} else {
 			return getSPELResult(exp);
@@ -86,7 +72,7 @@ public abstract class SpringUtil {
 	}
 
 	public static <T> T getSPELResult(String exp, Class<T> desiredResultType) {
-		if (isConfigurableWebApplicationContext(webApplicationContext)) {
+		if (WebApplicationContextUtil.isConfigurableWebApplicationContext(webApplicationContext)) {
 			return getSPELResult(exp, ((ConfigurableWebApplicationContext) webApplicationContext).getBeanFactory(),
 					desiredResultType);
 		} else {
@@ -121,7 +107,7 @@ public abstract class SpringUtil {
 	 * @param beanFactory
 	 * @return
 	 */
-	public static Object getSPELResultResolver(String exp, ConfigurableBeanFactory beanFactory) {
+	public static Object getSPELResolverResult(String exp, ConfigurableBeanFactory beanFactory) {
 		BeanExpressionContext rootObject = new BeanExpressionContext(beanFactory, null);
 
 		return beanExpressionResolver.evaluate(exp, rootObject);
@@ -134,7 +120,7 @@ public abstract class SpringUtil {
 	}
 
 	public static <T> T getPlaceholderSPELResult(String value, Class<T> desiredResultType) {
-		if (isConfigurableWebApplicationContext(webApplicationContext)) {
+		if (WebApplicationContextUtil.isConfigurableWebApplicationContext(webApplicationContext)) {
 			return getPlaceholderSPELResult(value,
 					((ConfigurableWebApplicationContext) webApplicationContext).getBeanFactory(), desiredResultType);
 		} else {
@@ -163,6 +149,6 @@ public abstract class SpringUtil {
 	public static void main(String[] args) throws Exception {
 		System.out.println(getSPELResult(
 				"#{T(com.nemustech.common.util.Utils).getDate()} #{T(com.nemustech.common.util.Utils).getDate()}"));
-		System.out.println(getSPELResultResolver("#{T(com.nemustech.common.util.Utils).getDate()}"));
+		System.out.println(getSPELResolverResult("#{T(com.nemustech.common.util.Utils).getDate()}"));
 	}
 }

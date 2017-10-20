@@ -92,7 +92,7 @@ public abstract class ORMUtil {
 			}
 
 			String columnName = ("".equals(column.value())) ? field.getName() : column.value();
-			String defaultValue = SpringUtil.getEvaluationResult(column.defaultValue(), String.class);
+			String defaultValue = SpringUtil.getPlaceholderSPELResult(column.defaultValue(), String.class);
 
 			if ("".equals(defaultValue)) {
 				list.add(new DefaultKeyValue(columnName, "#{" + field.getName() + "}"));
@@ -121,7 +121,7 @@ public abstract class ORMUtil {
 			}
 
 			String columnName = ("".equals(column.value())) ? field.getName() : column.value();
-			String defaultValue = SpringUtil.getEvaluationResult(column.defaultValue(), String.class);
+			String defaultValue = SpringUtil.getPlaceholderSPELResult(column.defaultValue(), String.class);
 
 			if ("".equals(defaultValue)) {
 				list.add(new DefaultKeyValue(columnName, "#{" + field.getName() + "}"));

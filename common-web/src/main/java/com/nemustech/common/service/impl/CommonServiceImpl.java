@@ -12,8 +12,6 @@ import org.mybatisorm.Page;
 import org.mybatisorm.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.stereotype.Service;
 
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
@@ -25,7 +23,6 @@ import com.nemustech.common.service.CommonService;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.ReflectionUtil;
-import com.nemustech.common.util.SpringUtil;
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 
@@ -35,8 +32,7 @@ import com.nemustech.common.util.Utils;
  * @author skoh
  * @see <a href="https://github.com/wolfkang/mybatis-orm">https://github.com/wolfkang/mybatis-orm</a>
  */
-@Service
-public class CommonServiceImpl<T extends Default> extends CacheServiceImpl implements CommonService<T> {
+public abstract class CommonServiceImpl<T extends Default> extends CacheServiceImpl implements CommonService<T> {
 	@Value("${spring.profiles.active:default}")
 	protected String activeProfile;
 
@@ -44,9 +40,6 @@ public class CommonServiceImpl<T extends Default> extends CacheServiceImpl imple
 	 * 매퍼
 	 */
 	protected CommonMapper<T> mapper;
-
-	@Autowired
-	protected ConfigurableBeanFactory beanFactory;
 
 	/**
 	 * ORM 관리자
@@ -64,6 +57,18 @@ public class CommonServiceImpl<T extends Default> extends CacheServiceImpl imple
 	 * 파일 서비스
 	 */
 	protected FilesService fileService;
+
+	public static String getDefaultDate(String sourceType) {
+		if (SOURCE_TYPE_MYSQL.equals(sourceType)) {
+			return DEFAULT_DATE_MYSQL;
+		} else if (SOURCE_TYPE_ORACLE.equals(sourceType)) {
+			return DEFAULT_DATE_ORACLE;
+		} else if (SOURCE_TYPE_SQLSERVER.equals(sourceType)) {
+			return DEFAULT_DATE_SQLSERVER;
+		}
+
+		return null;
+	}
 
 	public static String getDefaultDateValue(String sourceType) {
 		if (SOURCE_TYPE_MYSQL.equals(sourceType)) {
@@ -95,6 +100,11 @@ public class CommonServiceImpl<T extends Default> extends CacheServiceImpl imple
 	}
 
 	@Override
+	public String getDefaultDate() {
+		return getDefaultDate(getSourceType());
+	}
+
+	@Override
 	public String getDefaultDateValue() {
 		return getDefaultDateValue(getSourceType());
 	}
@@ -117,16 +127,6 @@ public class CommonServiceImpl<T extends Default> extends CacheServiceImpl imple
 	@Override
 	public String getSourceType() {
 		return entityManager.getSourceType();
-	}
-
-	@Override
-	public Object getEvaluationResult(String exp) {
-		return getEvaluationResult(exp, Object.class);
-	}
-
-	@Override
-	public <U> U getEvaluationResult(String exp, Class<U> desiredResultType) {
-		return SpringUtil.getEvaluationResult(exp, beanFactory, desiredResultType);
 	}
 
 	@Override

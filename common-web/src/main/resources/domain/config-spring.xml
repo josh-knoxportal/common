@@ -34,8 +34,8 @@
 
 	<!-- Properties -->
 	<util:properties id="properties">
-		<prop key="dataSource.vendorType">mysql</prop>
-		<!-- <prop key="dataSource.vendorType">oracle</prop> -->
+		<prop key="datasource.type">mysql</prop>
+		<!-- <prop key="datasource.type">oracle</prop> -->
 		<prop key="mybatis.mapper.basePackage">com.nemustech.common.mapper com.nemustech.sample.mapper</prop>
 	</util:properties>
 

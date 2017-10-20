@@ -14,12 +14,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.nemustech.common.CommonTest;
 import com.nemustech.common.file.Files;
-import com.nemustech.common.model.Default;
-import com.nemustech.common.service.CommonService;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.JsonUtil2;
+import com.nemustech.common.util.SpringUtil;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.service.SampleAndFilesService;
 import com.nemustech.sample.service.SampleService;
@@ -28,15 +28,9 @@ import com.nemustech.sample.service.SampleService;
 @ContextConfiguration("classpath:config-spring.xml")
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SampleServiceTest {
+public class SampleServiceTest extends CommonTest {
 	@Autowired
 	protected FileStorage fileStorage;
-
-	/**
-	 * 공통 서비스
-	 */
-	@Autowired
-	protected CommonService<Default> commonService;
 
 	/**
 	 * 샘플 서비스
@@ -196,9 +190,8 @@ public class SampleServiceTest {
 		System.out.println("================================================================================");
 	}
 
-	@Test
+//	@Test
 	public void t41_test() throws Exception {
 		System.out.println(sampleService.getDefaultDateValue());
-		System.out.println(sampleService.getEvaluationResult("#{sampleServiceImpl.getDefaultDateValue()}"));
 	}
 }

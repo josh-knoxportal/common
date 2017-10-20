@@ -27,7 +27,7 @@ public class Common extends Paging {
 	/**
 	 * 등록 일시
 	 */
-	@Column(defaultValue = "#{commonServiceImpl.getDefaultDateValue()}")
+	@Column(defaultValue = DEFAULT_DATE_VALUE)
 	protected String reg_dt;
 
 	/**
@@ -39,7 +39,7 @@ public class Common extends Paging {
 	/**
 	 * 수정 일시
 	 */
-	@Column(defaultValue = "#{commonServiceImpl.getDefaultDateValue()}", defaultUpdate = true)
+	@Column(defaultValue = DEFAULT_DATE_VALUE, defaultUpdate = true)
 	protected String mod_dt;
 
 	public Common() {

@@ -53,7 +53,7 @@
 	<bean id="sqlSessionFactory" class="com.nemustech.common.db.mybatis.RefreshableSqlSessionFactoryBean">
 		<property name="dataSource" ref="log4jdbcProxyDataSource" />
 		<property name="configLocation" value="classpath:config-mybatis.xml" />
-		<property name="mapperLocations" value="classpath:mapper/${dataSource.vendorType}/**/*.xml" />
+		<property name="mapperLocations" value="classpath:mapper/${datasource.type}/**/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -63,7 +63,7 @@
 	<!-- MyBatis ORM (sourceType : mysql, oracle, sqlserver) -->
 	<bean class="org.mybatisorm.EntityManager">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-		<property name="sourceType" value="${dataSource.vendorType}" />
+		<property name="sourceType" value="${datasource.type}" />
 	</bean>
 
 	<!-- RestTemplate -->
@@ -114,7 +114,7 @@
 	<!-- Cache -->
 	<cache:annotation-driven proxy-target-class="true" />
 
-	<!-- Cache EHCache -->
+	<!-- EHCache -->
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="shared" value="true" />
 		<property name="configLocation" value="classpath:ehcache.xml" />
@@ -125,7 +125,7 @@
 		<property name="cacheManager" ref="ehcache" />
 	</bean>
 
-	<!-- Cache Redis -->
+	<!-- Redis -->
 	<!-- <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer" /> -->
 	<!-- <bean id="jsonRedisSerializer" class="org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer"> -->
 	<!-- <constructor-arg name="type" value="java.lang.Object" /> -->

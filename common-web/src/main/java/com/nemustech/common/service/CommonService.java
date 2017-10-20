@@ -40,6 +40,13 @@ public interface CommonService<T extends Default> extends CacheService {
 			+ ",112) + REPLACE (CONVERT (VARCHAR(8)," + DEFAULT_DATE_SQLSERVER + ",108),':','')";
 
 	/**
+	 * DBMS 벤더별 날짜표현을 구한다.
+	 * 
+	 * @return
+	 */
+	public String getDefaultDate();
+
+	/**
 	 * DBMS 벤더별 문자열 날짜표현을 구한다.
 	 * 
 	 * @return
@@ -73,23 +80,6 @@ public interface CommonService<T extends Default> extends CacheService {
 	 * @return 소스타입(mysql, oracle, sqlserver)
 	 */
 	public String getSourceType();
-
-	/**
-	 * SPEL
-	 * 
-	 * @param exp
-	 * @return
-	 */
-	public Object getEvaluationResult(String exp);
-
-	/**
-	 * SPEL
-	 * 
-	 * @param exp
-	 * @param desiredResultType
-	 * @return
-	 */
-	public <T1> T1 getEvaluationResult(String exp, Class<T1> desiredResultType);
 
 	/**
 	 * 공통 조회

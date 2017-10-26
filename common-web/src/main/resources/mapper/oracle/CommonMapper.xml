@@ -4,7 +4,7 @@
 <!-- 공통 매퍼 -->
 <mapper namespace="com.nemustech.common.mapper.CommonMapper">
 	<sql id="page_top">
-		<if test="page_number != null and page_number != 0">
+		<if test="page_number != null and page_number > 0">
 		<![CDATA[
 SELECT * FROM (
 	SELECT ROWNUM AS rnum, a.* FROM (
@@ -13,7 +13,7 @@ SELECT * FROM (
 	</sql>
 
 	<sql id="page_middle">
-		<if test="page_number != null and page_number != 0
+		<if test="page_number != null and page_number > 0
 			and order_by != null and order_by != ''">
 		<![CDATA[
       ,ROW_NUMBER() OVER (ORDER BY ${order_by}) rnum
@@ -22,8 +22,8 @@ SELECT * FROM (
 	</sql>
 
 	<sql id="page_bottom">
-		<if test="page_number != null and page_number != 0
-			and rows_per_page != null and rows_per_page != 0">
+		<if test="page_number != null and page_number > 0
+			and rows_per_page != null and rows_per_page > 0">
 		<![CDATA[
 	) a
 ) WHERE rnum BETWEEN #{rows_per_page} * (#{page_number} - 1) + 1

@@ -213,6 +213,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 		return list;
 	}
 
+	@Deprecated
 	@Override
 	public Page<T> page(T model, Page<T> page) throws Exception {
 		model = setModel(model);
@@ -375,6 +376,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 		return result;
 	}
 
+	@Deprecated
 	@Override
 	@TransactionalException
 	public int delete(List<T> models) throws Exception {

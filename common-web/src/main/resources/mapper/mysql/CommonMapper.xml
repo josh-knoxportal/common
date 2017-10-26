@@ -4,15 +4,15 @@
 <!-- 공통 매퍼 -->
 <mapper namespace="com.nemustech.common.mapper.CommonMapper">
 	<sql id="page_top">
-		<if test="page_number != null and page_number != 0">
+		<if test="page_number != null and page_number > 0">
 		<![CDATA[
 		]]>
 		</if>
 	</sql>
 
 	<sql id="page_bottom">
-		<if test="page_number != null and page_number != 0
-			and rows_per_page != null and rows_per_page != 0">
+		<if test="page_number != null and page_number > 0
+			and rows_per_page != null and rows_per_page > 0">
 		<bind name="start_idx" value="rows_per_page * (page_number - 1)" />
 		<![CDATA[
 LIMIT #{start_idx}, #{rows_per_page}

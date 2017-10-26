@@ -143,6 +143,7 @@ public interface CommonService<T extends Default> extends CacheService {
 	 * @return Page<T>
 	 * @throws Exception
 	 */
+	@Deprecated
 	public Page<T> page(T model, Page<T> page) throws Exception;
 
 	/**
@@ -227,5 +228,6 @@ public interface CommonService<T extends Default> extends CacheService {
 	 * @return 결과
 	 * @throws Exception
 	 */
+	@Deprecated
 	public int delete(List<T> models) throws Exception;
 }

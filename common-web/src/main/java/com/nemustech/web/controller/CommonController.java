@@ -74,6 +74,7 @@ public abstract class CommonController<T extends Default> {
 
 	// 1. Common 파라미터는 GET 방식의 보안을 위해 사용
 	// 2. BindingResult 인자는 반드시 @Valid 로 선언한 인자의 바로 뒤에 와야 함
+	@Deprecated
 //	@RequestMapping(value = "get" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -157,15 +158,18 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
 	}
 
+	@Deprecated
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page) throws Exception {
 		return page(model, page, null);
 	}
 
+	@Deprecated
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, BindingResult errors)
 			throws Exception {
 		return page(model, page, null, errors);
 	}
 
+	@Deprecated
 //	@RequestMapping(value = "page2" + Constants.POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, @Valid Common common,
 			BindingResult errors) throws Exception {
@@ -182,6 +186,7 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
+	@Deprecated
 //	@RequestMapping(value = "insert_json" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
@@ -189,6 +194,7 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	/**
+	 * 단일 모델의 복수 파일 등록
 	 * Content-Type : application/x-www-form-urlencoded, multipart/form-data
 	 * 
 	 * @param model
@@ -221,6 +227,7 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	/**
+	 * 복수 모델 등록 (파일 제외)
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "inserts" + Constants.POSTFIX, method = RequestMethod.POST)
@@ -239,12 +246,14 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
+	@Deprecated
 //	@RequestMapping(value = "update_json" + Constants.POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return update(model, errors, null);
 	}
 
 	/**
+	 * 단일 모델의 복수 파일 수정
 	 * Content-Type : application/x-www-form-urlencoded (PUT), multipart/form-data (POST)
 	 * 
 	 * @param model
@@ -267,6 +276,7 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	/**
+	 * 복수 모델 수정 (파일 제외)
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "updates" + Constants.POSTFIX, method = RequestMethod.PUT)
@@ -290,6 +300,7 @@ public abstract class CommonController<T extends Default> {
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
+	@Deprecated
 //	@RequestMapping(value = "delete_json" + Constants.POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return delete(model, errors);
@@ -313,6 +324,7 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
+	@Deprecated
 //	@RequestMapping(value = "deletes" + Constants.POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {

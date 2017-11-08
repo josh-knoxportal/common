@@ -20,11 +20,6 @@ public abstract class CacheServiceImpl implements CacheService {
 	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "_{0}");
 
 	/**
-	 * 캐시명
-	 */
-	protected String cacheName;
-
-	/**
 	 * 캐시
 	 */
 	protected Cache cache;
@@ -62,7 +57,7 @@ public abstract class CacheServiceImpl implements CacheService {
 	 */
 	@PostConstruct
 	public void initCache_() throws Exception {
-		cacheName = getCacheName();
+		String cacheName = getCacheName();
 		cache = cacheManager.getCache(cacheName);
 	}
 }

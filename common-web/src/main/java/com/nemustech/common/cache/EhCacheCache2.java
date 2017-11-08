@@ -1,11 +1,15 @@
 package com.nemustech.common.cache;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.cache.ehcache.EhCacheCache;
 
 import net.sf.ehcache.Ehcache;
 
 public class EhCacheCache2 extends EhCacheCache {
-	public static final String REG_EX = "regex:";
+	public static final String PREFIX_REGEX = "regex:";
+
+	protected Log log = LogFactory.getLog(getClass());
 
 	public EhCacheCache2(Ehcache ehcache) {
 		super(ehcache);
@@ -19,10 +23,12 @@ public class EhCacheCache2 extends EhCacheCache {
 		Ehcache ehcache = getNativeCache();
 
 		String keyString = key.toString();
-		if (keyString.startsWith(REG_EX)) {
-			String regex = keyString.substring(REG_EX.length());
+		log.debug("cache Key: " + keyString);
+		if (keyString.startsWith(PREFIX_REGEX)) {
+			String regexKey = keyString.substring(PREFIX_REGEX.length());
 			for (Object key_ : ehcache.getKeys()) {
-				if (key_.toString().matches(regex)) {
+				if (key_.toString().matches(regexKey)) {
+					log.debug("remove cache key: " + key_);
 					ehcache.remove(key_);
 				}
 			}

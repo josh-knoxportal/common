@@ -71,7 +71,7 @@
 			properties="bootstrapAsynchronously=false" /> -->
 	</cache>
 
-	<cache name="common" eternal="false" overflowToDisk="false" maxBytesLocalHeap="90%">
+	<cache name="common" eternal="false" overflowToDisk="false" maxBytesLocalHeap="50%">
 		<!-- <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
 			properties="replicatePuts=false,
 			replicateUpdates=false,

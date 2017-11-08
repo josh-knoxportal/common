@@ -121,7 +121,7 @@
 		<property name="cacheManagerName" value="nemustech-common" />
 	</bean>
 
-	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+	<bean id="cacheManager" class="com.nemustech.common.cache.EhCacheCacheManager2">
 		<property name="cacheManager" ref="ehcache" />
 	</bean>
 

@@ -1,6 +1,8 @@
 {
-	"anchorId":"10:78:ce:20:00:17:74:f0:7d:d0:84:7f",
-	"left":92.74813150054888,
-	"type":"midascon-s",
-	"top":639.5089148268861
+	"host":"192.168.1.157",
+	"user":"admin",
+	"passwd":"admin",
+	"fileserver":"222.236.46.132",
+	"port":"443",
+	"filename":"/data/images/scanner_firmwares/20170830_160227/rootfs.cpio.uboot"
 }

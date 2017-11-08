@@ -13,7 +13,6 @@ import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.service.impl.CommonServiceImpl;
 import com.nemustech.common.util.Utils;
-import com.nemustech.sample.Constants;
 import com.nemustech.sample.annotation.CacheEvictSample;
 import com.nemustech.sample.mapper.SampleMapper;
 import com.nemustech.sample.model.Files2;
@@ -44,11 +43,6 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	@Override
 	public FilesService getFileService() {
 		return files2Service;
-	}
-
-	@Override
-	public String getCacheName() {
-		return Constants.CACHE_NAME;
 	}
 
 //	@Override

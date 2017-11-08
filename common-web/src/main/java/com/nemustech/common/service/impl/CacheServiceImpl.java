@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
+import com.nemustech.common.annotation.CacheEvictCommon;
+import com.nemustech.common.annotation.CacheEvictCommonClass;
+import com.nemustech.common.annotation.CacheEvictCommonKey;
 import com.nemustech.common.service.CacheService;
 
 public abstract class CacheServiceImpl implements CacheService {
@@ -17,24 +20,39 @@ public abstract class CacheServiceImpl implements CacheService {
 	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "_{0}");
 
 	/**
-	 * 캐쉬명
+	 * 캐시명
 	 */
 	protected String cacheName;
 
 	/**
-	 * 캐쉬
+	 * 캐시
 	 */
 	protected Cache cache;
 
 	/**
-	 * 캐쉬 관리자
+	 * 캐시 관리자
 	 */
 	@Autowired
 	protected CacheManager cacheManager;
 
 	@Override
 	public String getCacheName() {
-		return null;
+		return CACHE_NAME;
+	}
+
+	@Override
+	@CacheEvictCommon
+	public void clearCache() {
+	}
+
+	@Override
+	@CacheEvictCommonKey
+	public void clearCache(String key) {
+	}
+
+	@Override
+	@CacheEvictCommonClass
+	public void clearCacheClass() {
 	}
 
 	/**
@@ -45,9 +63,6 @@ public abstract class CacheServiceImpl implements CacheService {
 	@PostConstruct
 	public void initCache_() throws Exception {
 		cacheName = getCacheName();
-		if (cacheName == null)
-			return;
-
 		cache = cacheManager.getCache(cacheName);
 	}
 }

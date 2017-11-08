@@ -13,6 +13,8 @@ import org.mybatisorm.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.nemustech.common.annotation.CacheEvictCommonClass;
+import com.nemustech.common.annotation.CacheableCommon;
 import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.mapper.CommonMapper;
@@ -23,7 +25,6 @@ import com.nemustech.common.service.CommonService;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.ReflectionUtil;
-import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 
 /**
@@ -143,25 +144,25 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	}
 
 	@Override
-//	@CacheableCommon
+	@CacheableCommon
 	public List<T> list(T model) throws Exception {
 		model = setModel(model);
 
 		List<T> list = null;
 
-		String cacheKey = null;
-		if (cache != null) {
-			if (mapper != null) {
-				setCondition(model);
-			}
-			cacheKey = cacheKeyFormat.format(new Object[] { StringUtil.toString(model, "conditionObj") });
-			log.debug("cacheKey: " + cacheKey);
-
-			list = cache.get(cacheKey, List.class);
-			if (list != null) {
-				return list;
-			}
-		}
+//		String cacheKey = null;
+//		if (cache != null) {
+//			if (mapper != null) {
+//				setCondition(model);
+//			}
+//			cacheKey = cacheKeyFormat.format(new Object[] { StringUtil.toString(model, "conditionObj") });
+//			log.debug("cache key: " + cacheKey);
+//
+//			list = cache.get(cacheKey, List.class);
+//			if (list != null) {
+//				return list;
+//			}
+//		}
 
 		if (mapper == null) {
 			list = entityManager.list(model, model.getConditionObj(), model.getOrder_by(), model.getHint(),
@@ -170,9 +171,9 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 			list = mapper.list(model);
 		}
 
-		if (cache != null) {
-			cache.put(cacheKey, list);
-		}
+//		if (cache != null) {
+//			cache.put(cacheKey, list);
+//		}
 
 		return list;
 	}
@@ -227,13 +228,13 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 
 	@Override
 	@TransactionalException
-//	@CacheEvictCommon
 	public Object insert(T model) throws Exception {
 		return insert(model, new ArrayList<Files>());
 	}
 
 	@Override
 	@TransactionalException
+	@CacheEvictCommonClass
 	public Object insert(T model, List<Files> files) throws Exception {
 		model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
@@ -254,15 +255,16 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 //		if (!(model instanceof Files))
 //			insertFile(model, files);
 
-		if (cache != null) {
-			cache.clear();
-		}
+//		if (cache != null) {
+//			cache.clear();
+//		}
 
 		return result;
 	}
 
 	@Override
 	@TransactionalException
+	@CacheEvictCommonClass
 	public List<Object> insert(List<T> models) throws Exception {
 		List<Object> result = new ArrayList<Object>();
 
@@ -284,9 +286,9 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 				result.add(result_);
 		}
 
-		if (cache != null) {
-			cache.clear();
-		}
+//		if (cache != null) {
+//			cache.clear();
+//		}
 
 		return result;
 	}
@@ -299,6 +301,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 
 	@Override
 	@TransactionalException
+	@CacheEvictCommonClass
 	public int update(T model, List<Files> files) throws Exception {
 		int result = 0;
 
@@ -319,15 +322,16 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 			result = mapper.update(model);
 		}
 
-		if (cache != null) {
-			cache.clear();
-		}
+//		if (cache != null) {
+//			cache.clear();
+//		}
 
 		return result;
 	}
 
 	@Override
 	@TransactionalException
+	@CacheEvictCommonClass
 	public int update(List<T> models) throws Exception {
 		int result = 0;
 
@@ -342,9 +346,9 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 			}
 		}
 
-		if (cache != null) {
-			cache.clear();
-		}
+//		if (cache != null) {
+//			cache.clear();
+//		}
 
 		return result;
 	}
@@ -355,6 +359,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	}
 
 	@TransactionalException
+	@CacheEvictCommonClass
 	public int delete(T model, List<Files> files) throws Exception {
 		int result = 0;
 
@@ -369,9 +374,9 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 			result += mapper.delete(model);
 		}
 
-		if (cache != null) {
-			cache.clear();
-		}
+//		if (cache != null) {
+//			cache.clear();
+//		}
 
 		return result;
 	}
@@ -379,6 +384,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	@Deprecated
 	@Override
 	@TransactionalException
+	@CacheEvictCommonClass
 	public int delete(List<T> models) throws Exception {
 		int result = 0;
 
@@ -395,9 +401,9 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 			}
 		}
 
-		if (cache != null) {
-			cache.clear();
-		}
+//		if (cache != null) {
+//			cache.clear();
+//		}
 
 		return result;
 	}

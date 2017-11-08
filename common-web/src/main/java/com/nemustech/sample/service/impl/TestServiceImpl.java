@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.service.impl.CommonServiceImpl;
-import com.nemustech.sample.Constants;
 import com.nemustech.sample.mapper.TestMapper;
 import com.nemustech.sample.model.Test;
 import com.nemustech.sample.service.TestService;
@@ -15,11 +14,6 @@ import com.nemustech.sample.service.TestService;
  */
 @Service
 public class TestServiceImpl extends CommonServiceImpl<Test> implements TestService {
-	@Override
-	public String getCacheName() {
-		return Constants.CACHE_NAME;
-	}
-
 	@Autowired
 	protected TestMapper mapper;
 

@@ -7,9 +7,31 @@ package com.nemustech.common.service;
  */
 public interface CacheService {
 	/**
-	 * 캐쉬명 정의
+	 * 공통 캐시명
+	 */
+	public static final String CACHE_NAME = "common";
+
+	/**
+	 * 캐시명 정의
 	 * 
-	 * @return 캐쉬명(null 은 캐쉬 사용 안함)
+	 * @return 캐시명
 	 */
 	public String getCacheName();
+
+	/**
+	 * 캐시를 모두 지운다.
+	 */
+	public void clearCache();
+
+	/**
+	 * 키에 해당하는 캐시를 지운다.
+	 * 
+	 * @param key
+	 */
+	public void clearCache(String key);
+
+	/**
+	 * 클래스에서 사용한 캐시를 모두 지운다.
+	 */
+	public void clearCacheClass();
 }

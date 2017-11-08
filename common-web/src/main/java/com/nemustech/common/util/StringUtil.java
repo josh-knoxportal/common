@@ -10,7 +10,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,13 +28,14 @@ import org.apache.commons.lang3.builder.StandardToStringStyle;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.nemustech.common.util.Tokenizer.Token;
+import com.nemustech.sample.model.Sample;
 
 /**
  * 문자열 관련 유틸리티 클래스.<br/>
  * - org.apache.commons.lang3.StringUtils 클래스를 상속받음.
  *
  * @see <a
- *      href=http://commons.apache.org/lang/api-2.4/org/apache/commons/lang/StringUtils.html>org.apache.commons.lang3.StringUtils
+ *      href=https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/StringUtils.html>org.apache.commons.lang3.StringUtils
  *      </a>
  */
 public abstract class StringUtil extends StringUtils {
@@ -62,8 +62,8 @@ public abstract class StringUtil extends StringUtils {
 	 * String str = &quot;ABCDEFGHIJKLMN&quot;;
 	 * String korStr = &quot;가나다라마바사아자&quot; &lt; br &gt;
 	 * 
-	 * StringUtil.splitUtf8(new String(str.getBytes(&quot;utf-8&quot;)), 3); // &quot;[ABC, DEF, GHI, JKL, MN]&quot;
-	 * StringUtil.splitUtf8(new String(korStr.getBytes(&quot;utf-8&quot;)), 3); // &quot;[가, 나, 다, 라, 마, 바, 사, 아, 자]&quot;
+	 * splitUtf8(new String(str.getBytes(&quot;utf-8&quot;)), 3); // &quot;[ABC, DEF, GHI, JKL, MN]&quot;
+	 * splitUtf8(new String(korStr.getBytes(&quot;utf-8&quot;)), 3); // &quot;[가, 나, 다, 라, 마, 바, 사, 아, 자]&quot;
 	 * </pre>
 	 * 
 	 * 
@@ -110,8 +110,8 @@ public abstract class StringUtil extends StringUtils {
 	 *    String  str         = "ABCDEFGHIJKLMN";
 	 *    <br>
 	 *    
-	 *    StringUtil.splitByLength(str, 2); // "[AB, CD, EF, GH, IJ, KL, MN]"
-	 *    StringUtil.splitByLength(str, 3); // "[ABC, DEF, GHI, JKL, MN]"
+	 *    splitByLength(str, 2); // "[AB, CD, EF, GH, IJ, KL, MN]"
+	 *    splitByLength(str, 3); // "[ABC, DEF, GHI, JKL, MN]"
 	 * </pre>
 	 *
 	 * @param str 문자열
@@ -159,9 +159,9 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str4 = "ABC";
 	 *    <br>
 	 *    
-	 *    StringUtil.isLessThan(str1, str2); // 같음 "false"
-	 *    StringUtil.isLessThan(str1, str3); // 작음 "true";
-	 *    StringUtil.isLessThan(str1, str4); // 큼 "false"
+	 *    isLessThan(str1, str2); // 같음 "false"
+	 *    isLessThan(str1, str3); // 작음 "true";
+	 *    isLessThan(str1, str4); // 큼 "false"
 	 * </pre>
 	 *
 	 * @param str1 첫째 문자열
@@ -188,9 +188,9 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str4 = "ABC";
 	 *    <br>
 	 *    
-	 *    StringUtil.isLessEqual(str1, str2); // 같음 "true"
-	 *    StringUtil.isLessEqual(str1, str3); // 작음 "true";
-	 *    StringUtil.isLessEqual(str1, str4); // 큼 "false"
+	 *    isLessEqual(str1, str2); // 같음 "true"
+	 *    isLessEqual(str1, str3); // 작음 "true";
+	 *    isLessEqual(str1, str4); // 큼 "false"
 	 * </pre>
 	 *
 	 * @param str1 첫째 문자열
@@ -218,9 +218,9 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str4 = "ABC";
 	 *    <br>
 	 *    
-	 *    StringUtil.isGreaterThan(str1, str2); // 같음 "false"
-	 *    StringUtil.isGreaterThan(str1, str3); // 작음 "false";
-	 *    StringUtil.isGreaterThan(str1, str4); // 큼 "true"
+	 *    isGreaterThan(str1, str2); // 같음 "false"
+	 *    isGreaterThan(str1, str3); // 작음 "false";
+	 *    isGreaterThan(str1, str4); // 큼 "true"
 	 * </pre>
 	 * 
 	 * @param str1 첫째 문자열
@@ -248,9 +248,9 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str4 = "ABC";
 	 *    <br>
 	 *    
-	 *    StringUtil.isGreaterEqual(str1, str2); // 같음 "true"
-	 *    StringUtil.isGreaterEqual(str1, str3); // 작음 "false";
-	 *    StringUtil.isGreaterEqual(str1, str4); // 큼 "true"
+	 *    isGreaterEqual(str1, str2); // 같음 "true"
+	 *    isGreaterEqual(str1, str3); // 작음 "false";
+	 *    isGreaterEqual(str1, str4); // 큼 "true"
 	 * </pre>
 	 * 
 	 * @param str1 첫째 문자열
@@ -277,8 +277,8 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str3 = "ABCDEFEFG";
 	 *    <br>
 	 *    
-	 *    StringUtil.notEquals(str1, str2); // 같음 "false"
-	 *    StringUtil.notEquals(str1, str3); // 다름 "true";
+	 *    notEquals(str1, str2); // 같음 "false"
+	 *    notEquals(str1, str3); // 다름 "true";
 	 * </pre>
 	 * 
 	 * @param str1 첫째 문자열
@@ -299,8 +299,8 @@ public abstract class StringUtil extends StringUtils {
 	 *    String[]    targetArray2 = {"ACD", "ABN", "ABB", "DBF"};
 	 *    <br>
 	 *    
-	 *    StringUtil.notEquals(str, targetArray1); // 같은 문자열 존재 "false"
-	 *    StringUtil.notEquals(str, targetArray2); // 같은 문자열 미존재 "true";
+	 *    notEquals(str, targetArray1); // 같은 문자열 존재 "false"
+	 *    notEquals(str, targetArray2); // 같은 문자열 미존재 "true";
 	 * </pre>
 	 * 
 	 * @param str 문자열
@@ -327,8 +327,8 @@ public abstract class StringUtil extends StringUtils {
 	 *    String[] str = {"abc","abb","acc"};
 	 *    <br>
 	 *    
-	 *    StringUtil.contains(str, "abc"); // 문자열 포함 "true"
-	 *    StringUtil.contains(str, "add"); // 문자열 미포함 "false";
+	 *    contains(str, "abc"); // 문자열 포함 "true"
+	 *    contains(str, "add"); // 문자열 미포함 "false";
 	 * </pre>
 	 * 
 	 * @param sourceArray 스트링 배열
@@ -356,8 +356,8 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str = "ABCDEFGHIJKLMN";
 	 *    <br>
 	 *    
-	 *    StringUtil.ellipsis(str, 5, "..."); // "AB..." 
-	 *    StringUtil.ellipsis(str, 5, "***"); // "AB***"
+	 *    ellipsis(str, 5, "..."); // "AB..." 
+	 *    ellipsis(str, 5, "***"); // "AB***"
 	 * </pre>
 	 *
 	 * @param str 문자렬
@@ -385,8 +385,8 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str = "ABCDEFGHIJKLMN";
 	 *    <br>
 	 *    
-	 *    StringUtil.ellipsis(str, 5); // "AB..."
-	 *    StringUtil.ellipsis(str, 14); // "ABCDEFGHIJKLMN"
+	 *    ellipsis(str, 5); // "AB..."
+	 *    ellipsis(str, 14); // "ABCDEFGHIJKLMN"
 	 * </pre>
 	 * 
 	 * @param str 문자렬
@@ -402,8 +402,8 @@ public abstract class StringUtil extends StringUtils {
 	 *
 	 * <pre>
 	 * 예)
-	 * StringUtil.defaultIfBlank(&quot; &quot;, &quot;abc&quot;); // &quot;abc&quot; 출력 (디폴트값)
-	 * StringUtil.defaultIfBlank(&quot;123&quot;, &quot;abc&quot;); // &quot;123&quot; 출력
+	 * defaultIfBlank(&quot; &quot;, &quot;abc&quot;); // &quot;abc&quot; 출력 (디폴트값)
+	 * defaultIfBlank(&quot;123&quot;, &quot;abc&quot;); // &quot;123&quot; 출력
 	 * </pre>
 	 *
 	 * @param str 문자열
@@ -460,8 +460,8 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str2 = "abc_defg_hijk";
 	 *    <br>
 	 *    
-	 *    StringUtil.underscoreToCamel(str1); // "AbcDefgHijk"
-	 *    StringUtil.underscoreToCamel(str2); // "abcDefgHijk"
+	 *    underscoreToCamel(str1); // "AbcDefgHijk"
+	 *    underscoreToCamel(str2); // "abcDefgHijk"
 	 * </pre>
 	 *
 	 * @param str underscore(_) 양식의 문자열
@@ -499,7 +499,7 @@ public abstract class StringUtil extends StringUtils {
 	 *    String str = "camelToUnderscore_test";
 	 *    <br>
 	 *    
-	 *    StringUtil.camelToUnderscore(str); // "camel_to_underscore_test"
+	 *    camelToUnderscore(str); // "camel_to_underscore_test"
 	 * </pre>
 	 *
 	 * @param str camel 양식의 문자열
@@ -749,6 +749,13 @@ public abstract class StringUtil extends StringUtils {
 		}
 	}
 
+	/**
+	 * The tokenizer uses the default delimiter set, which is " \t\n\r\f":
+	 * the space character, the tab character, the newline character, the carriage-return character, and the form-feed character
+	 * 
+	 * @param str
+	 * @return
+	 */
 	public static String[] toStringArray(String str) {
 		List<Object> list = new ArrayList<Object>();
 		for (StringTokenizer st = new StringTokenizer(str); st.hasMoreTokens(); list.add(st.nextToken()))
@@ -1117,7 +1124,7 @@ public abstract class StringUtil extends StringUtils {
 		try {
 			return encodeURL(boxName, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			LogUtil.writeLog(e, StringUtil.class);
+			LogUtil.writeLog(e, StringUtils.class);
 		}
 		return null;
 	}
@@ -1303,26 +1310,50 @@ public abstract class StringUtil extends StringUtils {
 		return juminNo.substring(0, 7) + "*****" + juminNo.substring(12, 13);
 	}
 
-	public static String toString(Object object, String... excludeFieldNamesParam) {
-		return toString(object, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
-	}
-
 	/**
 	 * 객체를 문자열로 변환한다.
 	 * 
 	 * @param object
-	 * @param style
-	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
+	 * @param excludeFieldNamesParam 배열, 콜렉션 객체 등도 포함
 	 * @return
 	 */
-	public static String toString(Object object, ToStringStyle style, String... excludeFieldNamesParam) {
-		// byte[] 필드는 제외
-		Map<String, Field> fields = ReflectionUtil.getFields(object, new byte[0].getClass());
-		excludeFieldNamesParam = ArrayUtils.addAll(excludeFieldNamesParam,
-				fields.keySet().toArray(new String[fields.size()]));
+	public static String toString(Object obj, String... excludeFieldNamesParam) {
+		if (obj instanceof Object[]) {
+			return toStringArray((Object[]) obj, excludeFieldNamesParam);
+		} else if (TypeUtil.isCollection(obj)) {
+			return toStringArray(ArrayUtil.toArray(obj), excludeFieldNamesParam);
+		} else {
+			return toString(obj, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
+		}
+	}
 
-		return new ReflectionToStringBuilder(convertArray(object), style).setExcludeFieldNames(excludeFieldNamesParam)
-				.toString();
+	public static String toStringArray(Object[] objs, String... excludeFieldNamesParam) {
+		return toStringArray(objs, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
+	}
+
+	/**
+	 * 객체 배열을 내부까지 문자열로 변환한다.
+	 * 
+	 * @param objs
+	 * @param style
+	 * @param excludeFieldNamesParam
+	 * @return
+	 */
+	public static String toStringArray(Object[] objs, ToStringStyle style, String... excludeFieldNamesParam) {
+		if (objs == null || objs.length == 0)
+			return "[]";
+
+		StringBuilder sb = new StringBuilder("[");
+		for (int i = 0; i < objs.length; i++) {
+			sb.append(toString(objs[i], style, excludeFieldNamesParam));
+			if (i == objs.length - 1) {
+				sb.append("]");
+			} else {
+				sb.append(",");
+			}
+		}
+
+		return sb.toString();
 	}
 
 	/**
@@ -1347,30 +1378,6 @@ public abstract class StringUtil extends StringUtils {
 	}
 
 	/**
-	 * 객체 배열을 내부까지 문자열로 변환한다.
-	 * 
-	 * @param objs
-	 * @param excludeFieldNamesParam
-	 * @return
-	 */
-	public static String toStringArray(Object[] objs, String... excludeFieldNamesParam) {
-		if (objs == null || objs.length == 0)
-			return "[]";
-
-		StringBuilder sb = new StringBuilder("[");
-		for (int i = 0; i < objs.length; i++) {
-			sb.append(toString(objs[i], STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam));
-			if (i == objs.length - 1) {
-				sb.append("]");
-			} else {
-				sb.append(", ");
-			}
-		}
-
-		return sb.toString();
-	}
-
-	/**
 	 * 객체 내부까지 문자열로 변환한다.
 	 * 
 	 * @param object
@@ -1390,10 +1397,27 @@ public abstract class StringUtil extends StringUtils {
 	 */
 	public static String toStringRecursiveJson(Object object, String... excludeFieldNamesParam) {
 		String str = toString(object, JSON_RECURSIVE_TO_STRING_STYLE, excludeFieldNamesParam);
-		str = StringUtil.replace(str, "{[", "[");
-		str = StringUtil.replace(str, "]}", "]");
+		str = replace(str, "{[", "[");
+		str = replace(str, "]}", "]");
 
 		return str;
+	}
+
+	/**
+	 * 객체를 문자열로 변환한다.
+	 * 
+	 * @param object
+	 * @param style
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
+	 * @return
+	 */
+	public static String toString(Object object, ToStringStyle style, String... excludeFieldNamesParam) {
+		// byte[] 필드는 제외
+		Map<String, Field> fields = ReflectionUtil.getFields(object, new byte[0].getClass());
+		excludeFieldNamesParam = ArrayUtils.addAll(excludeFieldNamesParam,
+				fields.keySet().toArray(new String[fields.size()]));
+
+		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
 	}
 
 	/**
@@ -1405,21 +1429,6 @@ public abstract class StringUtil extends StringUtils {
 	 */
 	public static String toStringRecursiveJsonPretty(Object object, String... excludeFieldNamesParam) {
 		return JsonUtil2.toStringPretty(toStringRecursiveJson(object, excludeFieldNamesParam));
-	}
-
-	/**
-	 * Collection 객체를 배열 형태로 변환한다.
-	 * 
-	 * @param object
-	 * @return
-	 */
-	protected static Object convertArray(Object object) {
-		if (object instanceof Collection) {
-			Collection<Object> col = (Collection) object;
-			object = col.toArray();
-		}
-
-		return object;
 	}
 
 	/**
@@ -1510,5 +1519,11 @@ public abstract class StringUtil extends StringUtils {
 //		System.out.println("toStringRecursive: " + toStringRecursive(list, "conditionObj"));
 //		System.out.println("toStringRecursiveJson: " + toStringRecursiveJson(list, "conditionObj"));
 //		System.out.println("toStringValue: " + toStringValue(list, "conditionObj"));
+
+		System.out.println(toString(new Sample(), "conditionObj"));
+		System.out.println(
+				toString(new Object[] { new Sample(), new com.nemustech.sample.model.Test() }, "conditionObj"));
+		System.out.println(StringUtil.toString(Arrays.asList(new Sample(), new com.nemustech.sample.model.Test()),
+				"conditionObj"));
 	}
 }

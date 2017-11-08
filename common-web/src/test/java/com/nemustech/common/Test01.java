@@ -134,6 +134,24 @@ public class Test01 {
 //		System.out.println(new Date().getTime() + " " + new Date().getTimezoneOffset());
 
 //		System.out.println("mary".matches("john|mary|peter"));
+
+//		long timeMillis = System.currentTimeMillis();
+//		System.out.println(timeMillis);
+//		System.out.println(new Date(timeMillis));
+//		GregorianCalendar CALENDAR = new GregorianCalendar();
+//		CALENDAR.setTimeInMillis(timeMillis);
+//		CALENDAR.setTimeZone(TimeZone.getTimeZone("GMT")); // UTC
+//		System.out.println("" + StringUtil.convertFormat(CALENDAR.get(Calendar.HOUR_OF_DAY), "00")
+//				+ StringUtil.convertFormat(CALENDAR.get(Calendar.MINUTE), "00")
+//				+ StringUtil.convertFormat(CALENDAR.get(Calendar.SECOND), "00"));
+
+//		Object[] o = new Object[0];
+//		System.out.println(o.length);
+
+//		System.out.println("common_class com.nemustech.sample.service.impl.SampleServiceImpl_list_1"
+//				.matches("common_class com.nemustech.sample.service.impl.SampleServiceImpl_list.*"));
+//		System.out.println(
+//				"regex:common_class com.nemustech.sample.service.impl.SampleServiceImpl.*".startsWith("regex:"));
 	}
 
 	public String getTargetClass() throws Exception {

@@ -19,10 +19,10 @@ import com.nemustech.common.file.Files;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.JsonUtil2;
-import com.nemustech.common.util.SpringUtil;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.service.SampleAndFilesService;
 import com.nemustech.sample.service.SampleService;
+import com.nemustech.sample.service.TestService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
@@ -37,6 +37,9 @@ public class SampleServiceTest extends CommonTest {
 	 */
 	@Autowired
 	protected SampleService sampleService;
+
+	@Autowired
+	protected TestService testService;
 
 	@Autowired
 	protected SampleAndFilesService sampleAndFilesService;
@@ -107,8 +110,21 @@ public class SampleServiceTest extends CommonTest {
 //		model.addCondition(model.newCondition("OR").add("name", "IN", "s1", "s2").add("name", "IN", "s3"));
 //		model.setOrder_by("id DESC");
 
-		List<Sample> result = sampleService.list(model);
-		System.out.println("result: " + result);
+//		List<Sample> result = sampleService.list(model);
+//		System.out.println("result: " + result);
+//
+//		com.nemustech.sample.model.Test model2 = new com.nemustech.sample.model.Test();
+//		model2.addCondition("name LIKE 't%'");
+//		testService.list(model2);
+//
+////		sampleService.clearCache();
+//		sampleService.clearCacheClass();
+////		sampleService.clearCache(
+////				"common_class com.nemustech.sample.service.impl.SampleServiceImpl_list_[com.nemustech.sample.model.Sample[id=<null>,name=<null>,test_id=<null>,count=<null>,testSet=[],filesSet=[],entityManager=<null>,reg_id=<null>,reg_dt=<null>,mod_id=<null>,mod_dt=<null>,page_number=0,rows_per_page=10,page_group_count=10,total_sise=0,sql_name=<null>,hint=<null>,fields=<null>,table=<null>,group_by=<null>,having=<null>,order_by=<null>,condition=name LIKE 's%',properties=<null>]]");
+//
+//		sampleService.list(model);
+//		testService.list(model2);
+
 //		Sample sample = new Sample();
 //		Files2 files = new Files2();
 //		SampleAndFiles model = new SampleAndFiles(sample, files);

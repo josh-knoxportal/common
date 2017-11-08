@@ -36,7 +36,7 @@
 	<!-- <logger name="org.springframework" level="debug" /> -->
 	<!-- <logger name="org.springframework.aop" level="debug" /> -->
 	<!-- <logger name="org.springframework.beans" level="debug" /> -->
-	<!-- <logger name="org.springframework.cache" level="debug" /> -->
+	<!-- <logger name="org.springframework.cache" level="trace" /> -->
 	<!-- <logger name="org.springframework.context" level="debug" /> -->
 	<!-- <logger name="org.springframework.core" level="debug" /> -->
 	<!-- <logger name="org.springframework.web" level="debug" /> -->

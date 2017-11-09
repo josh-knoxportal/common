@@ -15,6 +15,6 @@ import com.nemustech.common.service.CacheService;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@Cacheable(value = CacheService.CACHE_NAME, key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + T(com.nemustech.common.util.StringUtil).toString(#root.args, 'conditionObj')")
+@Cacheable(value = CacheService.CACHE_NAME_COMMON, key = CacheService.CACHEABLE_KEY)
 public @interface CacheableCommon {
 }

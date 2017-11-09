@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 
 import com.nemustech.common.service.CacheService;
 
@@ -15,6 +15,6 @@ import com.nemustech.common.service.CacheService;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@CacheEvict(value = CacheService.CACHE_NAME_COMMON, allEntries = true)
-public @interface CacheEvictCommon {
+@Cacheable(value = CacheService.CACHE_NAME_SYNC, key = CacheService.CACHEABLE_KEY)
+public @interface CacheableSync {
 }

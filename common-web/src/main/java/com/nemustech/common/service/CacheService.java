@@ -9,10 +9,29 @@ public interface CacheService {
 	/**
 	 * 공통 캐시명
 	 */
-	public static final String CACHE_NAME = "common";
+	public static final String CACHE_NAME_COMMON = "common";
+
+	/**
+	 * 동기화 캐시명
+	 */
+	public static final String CACHE_NAME_SYNC = "sync";
+
+	/**
+	 * 캐시 등록 키
+	 */
+	public static final String CACHEABLE_KEY = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + T(com.nemustech.common.util.StringUtil).toString(#root.args, 'conditionObj')";
+
+	/**
+	 * 캐시 삭제 키
+	 */
+	public static final String CACHE_EVICT_KEY = "'regex:' + #root.caches[0].name + '_' + #root.targetClass + '.*'";
 
 	/**
 	 * 캐시명 정의
+	 * 
+	 * <pre>
+	 * - 기본값은 공통 캐시명(common)
+	 * </pre>
 	 * 
 	 * @return 캐시명
 	 */

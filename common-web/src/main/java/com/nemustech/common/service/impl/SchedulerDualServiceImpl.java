@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.nemustech.common.model.Server;
+import com.nemustech.common.service.CacheService;
 import com.nemustech.common.util.NetUtil;
 import com.nemustech.common.util.Utils;
 
@@ -17,11 +18,6 @@ import com.nemustech.common.util.Utils;
  * @author skoh
  */
 public class SchedulerDualServiceImpl extends CacheServiceImpl {
-	/**
-	 * 캐시명
-	 */
-	public static final String SCHEDULER_DUAL = "scheduler_dual";
-
 	/**
 	 * 이중화 사용 여부
 	 */
@@ -52,7 +48,7 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 
 	@Override
 	public String getCacheName() {
-		return SCHEDULER_DUAL;
+		return CacheService.CACHE_NAME_SYNC;
 	}
 
 	/**
@@ -65,7 +61,7 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 		if (cache == null)
 			return;
 
-		String cacheKey = cacheKeyFormat.format(new Object[] { SCHEDULER_DUAL });
+		String cacheKey = cacheKeyFormat.format(new Object[] { CacheService.CACHE_NAME_SYNC });
 		log.debug("cacheKey: " + cacheKey);
 		Server server = cache.get(cacheKey, Server.class);
 		if (server == null) {
@@ -85,7 +81,7 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 		if (!scheduler_dual_enable || cache == null)
 			return;
 
-		String cacheKey = cacheKeyFormat.format(new Object[] { SCHEDULER_DUAL });
+		String cacheKey = cacheKeyFormat.format(new Object[] { CacheService.CACHE_NAME_SYNC });
 		Server server = cache.get(cacheKey, Server.class);
 		if (server == null)
 			return;
@@ -107,7 +103,7 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 		if (cache == null)
 			return false;
 
-		String cacheKey = cacheKeyFormat.format(new Object[] { SCHEDULER_DUAL });
+		String cacheKey = cacheKeyFormat.format(new Object[] { CacheService.CACHE_NAME_SYNC });
 		Server server = cache.get(cacheKey, Server.class);
 
 		return isRun(cacheKey, server);

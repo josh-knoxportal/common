@@ -15,6 +15,6 @@ import com.nemustech.common.service.CacheService;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@CacheEvict(value = CacheService.CACHE_NAME_COMMON, allEntries = true)
-public @interface CacheEvictCommon {
+@CacheEvict(value = CacheService.CACHE_NAME_SYNC, key = CacheService.CACHE_EVICT_KEY)
+public @interface CacheEvictSyncClass {
 }

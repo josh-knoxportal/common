@@ -32,7 +32,7 @@ public abstract class CacheServiceImpl implements CacheService {
 
 	@Override
 	public String getCacheName() {
-		return CACHE_NAME;
+		return CACHE_NAME_COMMON;
 	}
 
 	@Override

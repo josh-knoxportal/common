@@ -8,11 +8,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
+import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.CacheManager;
 
-import com.nemustech.common.annotation.CacheEvictCommon;
-import com.nemustech.common.annotation.CacheEvictCommonClass;
-import com.nemustech.common.annotation.CacheEvictCommonKey;
 import com.nemustech.common.service.CacheService;
 
 public abstract class CacheServiceImpl implements CacheService {
@@ -36,18 +34,33 @@ public abstract class CacheServiceImpl implements CacheService {
 	}
 
 	@Override
-	@CacheEvictCommon
+	public void putCache(String key, Object value) {
+		cache.put(key, value);
+	}
+
+	@Override
+	public Object getCache(String key) {
+		return ((ValueWrapper) cache.get(key)).get();
+	}
+
+	@Override
+	public <T> T getCache(String key, Class<T> clz) {
+		return cache.get(key, clz);
+	}
+
+	@Override
 	public void clearCache() {
+		cache.clear();
 	}
 
 	@Override
-	@CacheEvictCommonKey
 	public void clearCache(String key) {
+		cache.evict(key);
 	}
 
 	@Override
-	@CacheEvictCommonClass
 	public void clearCacheClass() {
+		cache.evict("regex:" + getCacheName() + '_' + getClass() + ".*");
 	}
 
 	/**

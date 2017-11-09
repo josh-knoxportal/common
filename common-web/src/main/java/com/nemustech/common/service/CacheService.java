@@ -38,6 +38,21 @@ public interface CacheService {
 	public String getCacheName();
 
 	/**
+	 * 캐시에 등록한다.
+	 */
+	public void putCache(String key, Object value);
+
+	/**
+	 * 캐시에서 얻어온다.
+	 */
+	public Object getCache(String key);
+
+	/**
+	 * 캐시에서 얻어온다.
+	 */
+	public <T> T getCache(String key, Class<T> clz);
+
+	/**
 	 * 캐시를 모두 지운다.
 	 */
 	public void clearCache();

@@ -30,6 +30,7 @@ public abstract class CacheServiceImpl implements CacheService {
 	protected CacheManager cacheManager;
 
 	/**
+	 * 클래스에서 사용한 캐시 키를 생성한다.(삭제용)
 	 * 
 	 * @param cacheName
 	 * @param clz
@@ -76,12 +77,7 @@ public abstract class CacheServiceImpl implements CacheService {
 
 	@Override
 	public void clearCacheClass(Class<?> clz) {
-		clearCacheClass(getCacheName(), clz);
-	}
-
-	@Override
-	public void clearCacheClass(String cacheName, Class<?> clz) {
-		cache.evict(getCacheClassKey(cacheName, clz));
+		cache.evict(getCacheClassKey(getCacheName(), clz));
 	}
 
 	/**
@@ -91,7 +87,6 @@ public abstract class CacheServiceImpl implements CacheService {
 	 */
 	@PostConstruct
 	public void initCache_() throws Exception {
-		String cacheName = getCacheName();
-		cache = cacheManager.getCache(cacheName);
+		cache = cacheManager.getCache(getCacheName());
 	}
 }

@@ -71,7 +71,12 @@ public abstract class CacheServiceImpl implements CacheService {
 
 	@Override
 	public void clearCacheClass() {
-		clearCacheClass(getCacheName(), getClass());
+		clearCacheClass(getClass());
+	}
+
+	@Override
+	public void clearCacheClass(Class<?> clz) {
+		clearCacheClass(getCacheName(), clz);
 	}
 
 	@Override

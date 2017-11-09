@@ -61,6 +61,11 @@ public interface CacheService {
 	public void clearCache();
 
 	/**
+	 * 클래스에 해당하는 캐시를 모두 지운다.
+	 */
+	public void clearCacheClass(Class<?> clz);
+
+	/**
 	 * 캐시명과 클래스에 해당하는 캐시를 모두 지운다.
 	 */
 	public void clearCacheClass(String cacheName, Class<?> clz);

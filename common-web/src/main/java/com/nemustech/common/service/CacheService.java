@@ -1,5 +1,7 @@
 package com.nemustech.common.service;
 
+import com.nemustech.common.cache.EhCacheCache2;
+
 /**
  * 캐시 서비스
  * 
@@ -24,7 +26,8 @@ public interface CacheService {
 	/**
 	 * 캐시 삭제 키
 	 */
-	public static final String CACHE_EVICT_KEY = "'regex:' + #root.caches[0].name + '_' + #root.targetClass + '.*'";
+	public static final String CACHE_EVICT_KEY = "'" + EhCacheCache2.PREFIX_REGEX
+			+ "' + #root.caches[0].name + '_' + #root.targetClass + '.*'";
 
 	/**
 	 * 캐시명 정의
@@ -56,6 +59,11 @@ public interface CacheService {
 	 * 캐시를 모두 지운다.
 	 */
 	public void clearCache();
+
+	/**
+	 * 캐시명과 클래스에 해당하는 캐시를 모두 지운다.
+	 */
+	public void clearCacheClass(String cacheName, Class<?> clz);
 
 	/**
 	 * 키에 해당하는 캐시를 지운다.

@@ -11,6 +11,7 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.CacheManager;
 
+import com.nemustech.common.cache.EhCacheCache2;
 import com.nemustech.common.service.CacheService;
 
 public abstract class CacheServiceImpl implements CacheService {
@@ -27,6 +28,16 @@ public abstract class CacheServiceImpl implements CacheService {
 	 */
 	@Autowired
 	protected CacheManager cacheManager;
+
+	/**
+	 * 
+	 * @param cacheName
+	 * @param clz
+	 * @return
+	 */
+	public static String getCacheClassKey(String cacheName, Class<?> clz) {
+		return EhCacheCache2.PREFIX_REGEX + cacheName + '_' + clz.toString() + ".*";
+	}
 
 	@Override
 	public String getCacheName() {
@@ -60,7 +71,12 @@ public abstract class CacheServiceImpl implements CacheService {
 
 	@Override
 	public void clearCacheClass() {
-		cache.evict("regex:" + getCacheName() + '_' + getClass() + ".*");
+		clearCacheClass(getCacheName(), getClass());
+	}
+
+	@Override
+	public void clearCacheClass(String cacheName, Class<?> clz) {
+		cache.evict(getCacheClassKey(cacheName, clz));
 	}
 
 	/**

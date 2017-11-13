@@ -1,7 +1,5 @@
 package com.nemustech.common.service.impl;
 
-import java.text.MessageFormat;
-
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
@@ -10,13 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.CacheManager;
+import org.springframework.context.ApplicationContext;
 
 import com.nemustech.common.cache.EhCacheCache2;
 import com.nemustech.common.service.CacheService;
 
 public abstract class CacheServiceImpl implements CacheService {
 	protected Log log = LogFactory.getLog(getClass());
-	protected MessageFormat cacheKeyFormat = new MessageFormat(getCacheName() + "_" + getClass().getName() + "_{0}");
+
+	@Autowired
+	protected ApplicationContext context;
 
 	/**
 	 * 캐시
@@ -26,18 +27,94 @@ public abstract class CacheServiceImpl implements CacheService {
 	/**
 	 * 캐시 관리자
 	 */
-	@Autowired
 	protected CacheManager cacheManager;
 
 	/**
-	 * 클래스에서 사용한 캐시 키를 생성한다.(삭제용)
+	 * 캐시키를 생성한다.
 	 * 
 	 * @param cacheName
 	 * @param clz
+	 * @param methodName
 	 * @return
 	 */
-	public static String getCacheClassKey(String cacheName, Class<?> clz) {
-		return EhCacheCache2.PREFIX_REGEX + cacheName + '_' + clz.toString() + ".*";
+	public static String makeCacheKey(String cacheName, Class<?> clz, String methodName) {
+		return cacheName + "_" + clz.toString() + ((methodName == null) ? "" : "_" + methodName);
+	}
+
+	/**
+	 * 캐시 초기화
+	 * 
+	 * @throws Exception
+	 */
+	@PostConstruct
+	public void initCache_() throws Exception {
+		try {
+			cacheManager = context.getBean(CacheManager.class);
+		} catch (Exception e) {
+			log.info(getClass().toString() + e.getMessage());
+			return;
+		}
+
+		cache = cacheManager.getCache(getCacheName());
+	}
+
+	/**
+	 * 캐시 활성화 여부
+	 * 
+	 * @return
+	 */
+	public boolean isActiveCache() {
+		return (cache != null);
+	}
+
+	/**
+	 * @return getCacheName()_getClass()
+	 */
+	public String makeClassCacheKey() {
+		return makeClassCacheKey(getClass());
+	}
+
+	/**
+	 * @param clz
+	 * @return getCacheName()_clz
+	 */
+	public String makeClassCacheKey(Class<?> clz) {
+		return makeMethodCacheKey(clz, null);
+	}
+
+	/**
+	 * @return getCacheName()_getClass()_getMethodName()
+	 */
+	public String makeMethodCacheKey() {
+		return makeMethodCacheKey(getClass());
+	}
+
+	/**
+	 * @param clz
+	 * @return getCacheName()_clz_getMethodName()
+	 */
+	public String makeMethodCacheKey(Class<?> clz) {
+		return makeMethodCacheKey(clz, Thread.currentThread().getStackTrace()[1].getMethodName());
+	}
+
+	/**
+	 * @param methodName
+	 * @return getCacheName()_getClass()_methodName
+	 */
+	public String makeMethodCacheKey(String methodName) {
+		return makeMethodCacheKey(getClass(), methodName);
+	}
+
+	/**
+	 * @param clz
+	 * @param methodName
+	 * @return getCacheName()_clz_methodName
+	 */
+	public String makeMethodCacheKey(Class<?> clz, String methodName) {
+		String cacheKey = makeCacheKey(getCacheName(), clz, methodName);
+		log.debug("cache key: " + cacheKey);
+
+		return cacheKey;
 	}
 
 	@Override
@@ -77,16 +154,6 @@ public abstract class CacheServiceImpl implements CacheService {
 
 	@Override
 	public void clearCacheClass(Class<?> clz) {
-		cache.evict(getCacheClassKey(getCacheName(), clz));
-	}
-
-	/**
-	 * 캐시 초기화
-	 * 
-	 * @throws Exception
-	 */
-	@PostConstruct
-	public void initCache_() throws Exception {
-		cache = cacheManager.getCache(getCacheName());
+		cache.evict(EhCacheCache2.PREFIX_REGEX + makeClassCacheKey(clz) + ".*");
 	}
 }

@@ -110,13 +110,6 @@ ORDER BY ${order_by}
 	</select>
 
 	<insert id="insert" parameterType="Sample" useGeneratedKeys="true" keyProperty="id">
-		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-			<![CDATA[
-SELECT sample_seq.NEXTVAL AS id
-  FROM dual
-			]]>
-		</selectKey>
-
 		<![CDATA[
 INSERT INTO sample (
 		]]>
@@ -140,11 +133,6 @@ INSERT INTO sample (
 			<if test="mod_dt != null">
 				<![CDATA[
 	,mod_dt
-				]]>
-			</if>
-			<if test="id != null">
-				<![CDATA[
-	,id
 				]]>
 			</if>
 			<if test="name != null">
@@ -182,11 +170,6 @@ INSERT INTO sample (
 			<if test="mod_dt != null">
 				<![CDATA[
 	,DATE_FORMAT(NOW(), '%Y%m%d%H%i%s')
-				]]>
-			</if>
-			<if test="id != null">
-				<![CDATA[
-	,#{id}
 				]]>
 			</if>
 			<if test="name != null">

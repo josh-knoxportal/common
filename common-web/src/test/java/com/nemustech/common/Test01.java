@@ -152,6 +152,8 @@ public class Test01 {
 //				.matches("common_class com.nemustech.sample.service.impl.SampleServiceImpl_list.*"));
 //		System.out.println(
 //				"regex:common_class com.nemustech.sample.service.impl.SampleServiceImpl.*".startsWith("regex:"));
+
+		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 
 	public String getTargetClass() throws Exception {

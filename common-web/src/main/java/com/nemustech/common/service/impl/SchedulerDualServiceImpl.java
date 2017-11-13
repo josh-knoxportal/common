@@ -58,16 +58,15 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 	 */
 	@PostConstruct
 	public void initDual_() throws Exception {
-		if (cache == null)
+		if (!isActiveCache())
 			return;
 
-		String cacheKey = cacheKeyFormat.format(new Object[] { CacheService.CACHE_NAME_SYNC });
-		log.debug("cacheKey: " + cacheKey);
-		Server server = cache.get(cacheKey, Server.class);
+		String cacheKey = makeClassCacheKey();
+		Server server = getCache(cacheKey, Server.class);
 		if (server == null) {
 			server = new Server(localIp, localPort, activeProfile, new Date());
 			log.debug("server: " + server);
-			cache.put(cacheKey, server);
+			putCache(cacheKey, server);
 		}
 	}
 
@@ -78,33 +77,30 @@ public class SchedulerDualServiceImpl extends CacheServiceImpl {
 	 */
 	@Scheduled(fixedRateString = "${scheduler.dual.period}")
 	public void schedulingDual() throws Exception {
-		if (!scheduler_dual_enable || cache == null)
+		if (!scheduler_dual_enable)
 			return;
 
-		String cacheKey = cacheKeyFormat.format(new Object[] { CacheService.CACHE_NAME_SYNC });
-		Server server = cache.get(cacheKey, Server.class);
+		String cacheKey = makeClassCacheKey();
+		Server server = getCache(cacheKey, Server.class);
 		if (server == null)
 			return;
 
 		int interval = Utils.getIntervalSecond(server.getLast_date(), new Date());
 		if (isRun(cacheKey, server)) {
 			server.setLast_date(new Date());
-			cache.put(cacheKey, server);
+			putCache(cacheKey, server);
 		} else if (interval >= scheduler_dual_interval) {
 			server.setIp(localIp);
 			server.setPort(localPort);
 			server.setLast_date(new Date());
-			cache.put(cacheKey, server);
+			putCache(cacheKey, server);
 		}
 		log.trace("server: " + server);
 	}
 
 	protected boolean isRun() {
-		if (cache == null)
-			return false;
-
-		String cacheKey = cacheKeyFormat.format(new Object[] { CacheService.CACHE_NAME_SYNC });
-		Server server = cache.get(cacheKey, Server.class);
+		String cacheKey = makeClassCacheKey();
+		Server server = getCache(cacheKey, Server.class);
 
 		return isRun(cacheKey, server);
 	}

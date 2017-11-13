@@ -19,12 +19,12 @@ public interface CacheService {
 	public static final String CACHE_NAME_SYNC = "sync";
 
 	/**
-	 * 캐시 등록 키
+	 * 등록 캐시키
 	 */
 	public static final String CACHEABLE_KEY = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + T(com.nemustech.common.util.StringUtil).toString(#root.args, 'conditionObj')";
 
 	/**
-	 * 캐시 삭제 키
+	 * 클래스 삭제 캐시키
 	 */
 	public static final String CACHE_EVICT_KEY = "'" + EhCacheCache2.PREFIX_REGEX
 			+ "' + #root.caches[0].name + '_' + #root.targetClass + '.*'";

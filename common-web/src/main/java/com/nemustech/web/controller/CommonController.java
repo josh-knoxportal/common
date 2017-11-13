@@ -375,7 +375,8 @@ public abstract class CommonController<T extends Default> {
 		mav.addObject("columnList", columnList);
 
 		// Sequence
-		KeyValue sequence = ORMUtil.getSequence(clazz);
+		boolean isOracle = CommonService.SOURCE_TYPE_ORACLE.equalsIgnoreCase(service.getSourceType());
+		KeyValue sequence = (isOracle) ? ORMUtil.getSequence(clazz) : null;
 		mav.addObject("sequence", sequence);
 
 		// AutoIncrement
@@ -383,8 +384,8 @@ public abstract class CommonController<T extends Default> {
 		mav.addObject("autoIncrement", autoIncrement);
 
 		// 신규 컬럼 리스트 (INSERT)
-		List<KeyValue> createColumnList = (sequence != null || autoIncrement == null)
-				? ORMUtil.getCreateColumnList(clazz) : ORMUtil.getCreateColumnList(clazz, true);
+		List<KeyValue> createColumnList = (sequence == null) ? ORMUtil.getCreateColumnList(clazz, true)
+				: ORMUtil.getCreateColumnList(clazz);
 		mav.addObject("createColumnList", createColumnList);
 
 		// 수정 컬럼 리스트 (UPDATE)

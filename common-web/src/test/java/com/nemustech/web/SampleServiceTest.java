@@ -118,11 +118,11 @@ public class SampleServiceTest extends CommonTest {
 //		model2.addCondition("name LIKE 't%'");
 //		testService.list(model2);
 //
-////		sampleService.clearCache();
-////		sampleService.clearCacheClass();
+//		sampleService.clearCache();
+//		sampleService.clearCacheClass();
 //		sampleService.clearCacheClass(SampleServiceImpl.class);
-////		sampleService.clearCache(
-////				"common_class com.nemustech.sample.service.impl.SampleServiceImpl_list_[com.nemustech.sample.model.Sample[id=<null>,name=<null>,test_id=<null>,count=<null>,testSet=[],filesSet=[],entityManager=<null>,reg_id=<null>,reg_dt=<null>,mod_id=<null>,mod_dt=<null>,page_number=0,rows_per_page=10,page_group_count=10,total_sise=0,sql_name=<null>,hint=<null>,fields=<null>,table=<null>,group_by=<null>,having=<null>,order_by=<null>,condition=name LIKE 's%',properties=<null>]]");
+//		sampleService.clearCache(
+//				"common_class com.nemustech.sample.service.impl.SampleServiceImpl_list_[com.nemustech.sample.model.Sample[id=<null>,name=<null>,test_id=<null>,count=<null>,testSet=[],filesSet=[],entityManager=<null>,reg_id=<null>,reg_dt=<null>,mod_id=<null>,mod_dt=<null>,page_number=0,rows_per_page=10,page_group_count=10,total_sise=0,sql_name=<null>,hint=<null>,fields=<null>,table=<null>,group_by=<null>,having=<null>,order_by=<null>,condition=name LIKE 's%',properties=<null>]]");
 //
 //		sampleService.list(model);
 //		testService.list(model2);

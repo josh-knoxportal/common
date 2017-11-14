@@ -38,7 +38,7 @@ public class Configuration extends PropertiesConfiguration {
 	}
 
 	@PostConstruct
-	public void init_() throws Exception {
+	public void initConfig_() throws Exception {
 		StringBuffer elements = new StringBuffer();
 
 		if (this.properties != null) {

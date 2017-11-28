@@ -17,6 +17,7 @@ import org.mybatisorm.Page;
 import org.mybatisorm.annotation.handler.HandlerFactory;
 import org.mybatisorm.annotation.handler.JoinHandler;
 import org.mybatisorm.annotation.handler.TableHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,11 +40,11 @@ import com.nemustech.common.model.ValidList;
 import com.nemustech.common.page.PageNavigator;
 import com.nemustech.common.page.Paging;
 import com.nemustech.common.service.CommonService;
+import com.nemustech.common.service.FilesService;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.ORMUtil;
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
-import com.nemustech.web.Constants;
 import com.nemustech.web.util.ValidationUtil;
 
 /**
@@ -53,9 +54,20 @@ import com.nemustech.web.util.ValidationUtil;
  */
 @Controller
 public abstract class CommonController<T extends Default> {
+	/**
+	 * @RequestMapping value 의 접미어
+	 */
+	public static final String POSTFIX = ".do";
+
 	protected Log log = LogFactory.getLog(getClass());
 
 	protected CommonService<T> service;
+
+	/**
+	 * 파일 서비스
+	 */
+	@Autowired
+	protected FilesService filesService;
 
 	public abstract CommonService<T> getService();
 
@@ -75,7 +87,7 @@ public abstract class CommonController<T extends Default> {
 	// 1. Common 파라미터는 GET 방식의 보안을 위해 사용
 	// 2. BindingResult 인자는 반드시 @Valid 로 선언한 인자의 바로 뒤에 와야 함
 	@Deprecated
-//	@RequestMapping(value = "get" + Constants.POSTFIX, method = { RequestMethod.GET })
+//	@RequestMapping(value = "get" + POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
@@ -95,7 +107,7 @@ public abstract class CommonController<T extends Default> {
 		return list(model, null, errors);
 	}
 
-	@RequestMapping(value = "list" + Constants.POSTFIX, method = { RequestMethod.GET })
+	@RequestMapping(value = "list" + POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<T>>> list(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -116,7 +128,7 @@ public abstract class CommonController<T extends Default> {
 		return count(model, null, errors);
 	}
 
-	@RequestMapping(value = "count" + Constants.POSTFIX, method = { RequestMethod.GET })
+	@RequestMapping(value = "count" + POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<Integer>> count(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -137,7 +149,7 @@ public abstract class CommonController<T extends Default> {
 		return page(model, (Common) null, errors);
 	}
 
-	@RequestMapping(value = "page" + Constants.POSTFIX, method = { RequestMethod.GET })
+	@RequestMapping(value = "page" + POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -146,13 +158,11 @@ public abstract class CommonController<T extends Default> {
 
 		if (!(model instanceof Paging))
 			throw new CommonException("Model type [" + model.getClass().getName() + "] not instance of Paging class.");
+
 		Paging paging = (Paging) model;
-
 		List<T> list = service.page(paging);
-
 		int count = service.count((T) model);
 		paging.setTotal_sise(count);
-
 		Response<PageNavigator<T>> response = getSuccessResponse(PageNavigator.getInstance(paging, list));
 
 		return new ResponseEntity<Response<PageNavigator<T>>>(response, HttpStatus.OK);
@@ -170,7 +180,7 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	@Deprecated
-//	@RequestMapping(value = "page2" + Constants.POSTFIX, method = { RequestMethod.GET })
+//	@RequestMapping(value = "page2" + POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<PageNavigator<T>>> page(T model, Page<T> page, @Valid Common common,
 			BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -187,7 +197,7 @@ public abstract class CommonController<T extends Default> {
 	 * Content-Type : application/json
 	 */
 	@Deprecated
-//	@RequestMapping(value = "insert_json" + Constants.POSTFIX, method = RequestMethod.POST)
+//	@RequestMapping(value = "insert_json" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
 		return insert(model, errors, null);
@@ -204,15 +214,14 @@ public abstract class CommonController<T extends Default> {
 	 * @throws Exception
 	 */
 	// @RequestParam("file") MultipartFile[] files
-	@RequestMapping(value = "insert" + Constants.POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "insert" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors, HttpServletRequest request)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
-		List<Files> files = getFiles(model, request);
-		Object result = service.insert(model, files);
+		Object result = service.insert(model);
 		Response<Object> response = getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Object>>(response, HttpStatus.OK);
@@ -230,7 +239,7 @@ public abstract class CommonController<T extends Default> {
 	 * 복수 모델 등록 (파일 제외)
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "inserts" + Constants.POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "inserts" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -247,7 +256,7 @@ public abstract class CommonController<T extends Default> {
 	 * Content-Type : application/json
 	 */
 	@Deprecated
-//	@RequestMapping(value = "update_json" + Constants.POSTFIX, method = RequestMethod.PUT)
+//	@RequestMapping(value = "update_json" + POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return update(model, errors, null);
 	}
@@ -261,15 +270,14 @@ public abstract class CommonController<T extends Default> {
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update" + Constants.POSTFIX, method = { RequestMethod.PUT, RequestMethod.POST })
+	@RequestMapping(value = "update" + POSTFIX, method = { RequestMethod.PUT, RequestMethod.POST })
 	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors, HttpServletRequest request)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
 
-		List<Files> files = getFiles(model, request);
-		int result = service.update(model, files);
+		int result = service.update(model);
 		Response<Integer> response = getSuccessResponse(result);
 
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
@@ -279,7 +287,7 @@ public abstract class CommonController<T extends Default> {
 	 * 복수 모델 수정 (파일 제외)
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "updates" + Constants.POSTFIX, method = RequestMethod.PUT)
+	@RequestMapping(value = "updates" + POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -301,7 +309,7 @@ public abstract class CommonController<T extends Default> {
 	 * @throws Exception
 	 */
 	@Deprecated
-//	@RequestMapping(value = "delete_json" + Constants.POSTFIX, method = RequestMethod.DELETE)
+//	@RequestMapping(value = "delete_json" + POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return delete(model, errors);
 	}
@@ -309,7 +317,7 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/x-www-form-urlencoded
 	 */
-	@RequestMapping(value = "delete" + Constants.POSTFIX, method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete" + POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> delete(T model, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
@@ -325,7 +333,7 @@ public abstract class CommonController<T extends Default> {
 	 * Content-Type : application/json
 	 */
 	@Deprecated
-//	@RequestMapping(value = "deletes" + Constants.POSTFIX, method = RequestMethod.POST)
+//	@RequestMapping(value = "deletes" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -338,7 +346,7 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "mapper" + Constants.POSTFIX, method = { RequestMethod.GET })
+	@RequestMapping(value = "mapper" + POSTFIX, method = { RequestMethod.GET })
 	public ModelAndView mapper(T model, ModelAndView mav) throws Exception {
 		Class<? extends Default> clazz = model.getClass();
 		TableHandler handler = HandlerFactory.getHandler(clazz);
@@ -403,7 +411,7 @@ public abstract class CommonController<T extends Default> {
 		return mav;
 	}
 
-	@RequestMapping(value = "select" + Constants.POSTFIX, method = { RequestMethod.POST })
+	@RequestMapping(value = "select" + POSTFIX, method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {

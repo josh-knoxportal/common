@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
@@ -147,7 +148,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 //		Map<String, Field> fieldMap = getFields(target);
 //		Field field = fieldMap.get(fieldName);
 		try {
-			Field field = target.getClass().getDeclaredField(fieldName);
+			Field field = FieldUtils.getField(target.getClass(), fieldName, true);
 
 			return getValue(target, field);
 		} catch (Exception e) {
@@ -207,7 +208,7 @@ public abstract class ReflectionUtil extends ReflectionUtils {
 
 	public static void setValue(Object target, String fieldName, Object value) throws CommonException {
 		try {
-			Field field = target.getClass().getDeclaredField(fieldName);
+			Field field = FieldUtils.getField(target.getClass(), fieldName, true);
 
 			setValue(target, field, value);
 		} catch (Exception e) {

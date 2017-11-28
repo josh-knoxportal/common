@@ -10,20 +10,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nemustech.common.CommonTest;
 import com.nemustech.common.file.Files;
-import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.sample.model.Sample;
+import com.nemustech.sample.service.Files2Service;
 import com.nemustech.sample.service.SampleAndFilesService;
 import com.nemustech.sample.service.SampleService;
 import com.nemustech.sample.service.TestService;
-import com.nemustech.sample.service.impl.SampleServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:config-spring.xml")
@@ -32,6 +32,10 @@ import com.nemustech.sample.service.impl.SampleServiceImpl;
 public class SampleServiceTest extends CommonTest {
 	@Autowired
 	protected FileStorage fileStorage;
+
+	@Lazy
+	@Autowired
+	protected Files2Service files2Service;
 
 	/**
 	 * 샘플 서비스
@@ -44,12 +48,6 @@ public class SampleServiceTest extends CommonTest {
 
 	@Autowired
 	protected SampleAndFilesService sampleAndFilesService;
-
-	/**
-	 * 파일 서비스
-	 */
-	@Autowired
-	protected FilesService filesService;
 
 //	@Test
 	public void t01_save() throws Exception {
@@ -82,13 +80,16 @@ public class SampleServiceTest extends CommonTest {
 		model.setReg_id("1");
 		model.setMod_id("1");
 
+		Object result = sampleService.insert(model);
+		System.out.println("result: " + result);
+		System.out.println("model: " + model);
+
 		Files files = new Files("1.txt", "1".getBytes());
 		files.setReg_id("1");
 		files.setMod_id("1");
 
-		Object result = sampleService.insert(model, Arrays.asList(new Files[] { files }));
-		System.out.println("result: " + result);
-		System.out.println("model: " + model);
+//		Object result = sampleService.insert(Arrays.asList(new Files[] { files }));
+//		System.out.println("result: " + result);
 	}
 
 //	@Test
@@ -99,8 +100,19 @@ public class SampleServiceTest extends CommonTest {
 		model.setReg_id("1");
 		model.setMod_id("1");
 
-		Object result = sampleService.insert(Arrays.asList(new Sample[] { model }));
+		Sample model2 = new Sample();
+		model2.setName("s1");
+		model2.setTest_id(3L);
+		model2.setReg_id("1");
+		model2.setMod_id("1");
+
+		List<Sample> list = Arrays.asList(model, model2);
+		Object result = sampleService.insert(list);
+		Object result2 = sampleService.getIds(list);
 		System.out.println("result: " + result);
+		System.out.println("result2: " + result2);
+		System.out.println("model: " + model);
+		System.out.println("model2: " + model2);
 	}
 
 //	@Test
@@ -156,18 +168,24 @@ public class SampleServiceTest extends CommonTest {
 //		System.out.println("result: " + JsonUtil2.toStringPretty(list_page));
 	}
 
-//	@Test
+	@Test
 	public void t15_update() throws Exception {
 		Sample model = new Sample();
-		model.addCondition("name = 's1'");
+		model.setName("s2");
+		model.addCondition("name LIKE 's1%'");
 		model.setMod_id("2");
+
+//		Object result = sampleService.update(model);
+		Object result = sampleService.update(Arrays.asList(model));
+		System.out.println("result: " + result);
+		System.out.println("model: " + model);
 
 		Files files = new Files("2.txt", "2".getBytes());
 		files.setReg_id("1");
 		files.setMod_id("1");
 
-		Object result = sampleService.update(model, Arrays.asList(new Files[] { files }));
-		System.out.println("result: " + result);
+//		Object result = files2Service.update(Arrays.asList(new Files[] { files }));
+//		System.out.println("result: " + result);
 	}
 
 //	@Test
@@ -189,8 +207,8 @@ public class SampleServiceTest extends CommonTest {
 		Files model = new Files();
 		model.setName("2.txt");
 
-		List<Files> result = filesService.list(model);
-		System.out.println("result: " + result);
+//		List<Files> result = filesService.list(model);
+//		System.out.println("result: " + result);
 	}
 
 //	@Test
@@ -199,8 +217,8 @@ public class SampleServiceTest extends CommonTest {
 		files.setReg_id("1");
 		files.setMod_id("1");
 
-		Object result = filesService.insert(files);
-		System.out.println("result: " + result);
+//		Object result = filesService.insert(files);
+//		System.out.println("result: " + result);
 	}
 
 	@Test

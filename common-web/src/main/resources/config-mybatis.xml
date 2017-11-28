@@ -2,9 +2,9 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-<!-- 	<settings> -->
-<!-- 		<setting name="defaultExecutorType" value="BATCH" /> -->
-<!-- 	</settings> -->
+	<settings>
+		<setting name="defaultExecutorType" value="BATCH" />
+	</settings>
 
 	<typeAliases>
 		<typeAlias alias="Sample" type="com.nemustech.sample.model.Sample" />

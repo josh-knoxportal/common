@@ -1,0 +1,13 @@
+{
+	"url":"http://localhost:8050/common-web/test/list.do?name=t",
+	"method":"GET",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+			},
+			"params":{
+			}
+		}
+	]
+}

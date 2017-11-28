@@ -6,9 +6,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 
-import com.nemustech.common.model.Default;
 import com.nemustech.common.util.StringUtil;
-import com.nemustech.common.util.Utils;
 
 /**
  * 로깅 AOP
@@ -27,20 +25,22 @@ public class LogAdvice {
 		printLine(signature);
 		log.debug(format("START", "[" + toString(signature) + "]"));
 
-		StringBuilder sb = new StringBuilder();
-		for (Object arg : joinPoint.getArgs()) {
-			sb.append("{\"" + arg.getClass().getSimpleName() + "\":");
-//			if (RequestBody.class.isInstance(arg)) {
-			if (arg instanceof Default) {
-				sb.append(StringUtil.toStringRecursiveJson(arg, "conditionObj"));
-			} else {
-				sb.append(Utils.toString(arg));
-//				sb.append(StringUtil.toString(arg));
-			}
-			sb.append("} ");
-		}
-
-		log.debug(format("INPUT", "[" + toString(signature) + "] " + sb.toString()));
+//		StringBuilder sb = new StringBuilder();
+//		for (Object arg : joinPoint.getArgs()) {
+//			sb.append("{\"" + arg.getClass().getSimpleName() + "\":");
+////			if (RequestBody.class.isInstance(arg)) {
+//			if (arg instanceof Default) {
+//				sb.append(StringUtil.toStringRecursiveJson(arg, "conditionObj"));
+//			} else {
+//				sb.append(Utils.toString(arg));
+////				sb.append(StringUtil.toString(arg));
+//			}
+//			sb.append("} ");
+//		}
+		log.debug(format("INPUT",
+				"[" + toString(signature) + "] " + StringUtil.toStringRecursiveJson(joinPoint.getArgs(), "conditionObj")
+//													sb.toString()
+		));
 	}
 
 	public void afterReturning(JoinPoint joinPoint, Object result) {
@@ -49,9 +49,8 @@ public class LogAdvice {
 
 		Signature signature = joinPoint.getSignature();
 
-		log.trace(format("OUTPUT", "[" + toString(signature) + "] " + Utils.toString(result)
-//																	  StringUtil.toStringRecursiveJson(result)
-		));
+		log.trace(format("OUTPUT",
+				"[" + toString(signature) + "] " + StringUtil.toStringRecursiveJson(result, "conditionObj")));
 	}
 
 	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {

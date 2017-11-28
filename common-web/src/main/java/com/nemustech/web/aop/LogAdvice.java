@@ -3,9 +3,6 @@ package com.nemustech.web.aop;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -13,6 +10,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
@@ -32,32 +30,40 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 	 * @return
 	 */
 	protected static String toString(Method method, Object[] args) {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("[");
+
 		sb.append(WebUtil.toJsonParameter());
+		sb.append(",");
 
-		Annotation[][] paramAnnoss = method.getParameterAnnotations();
+		sb.append(WebUtil.toJsonSession());
+		sb.append(",");
+
+//		Annotation[][] paramAnnoss = method.getParameterAnnotations();
 		for (int i = 0; i < args.length; i++) {
-			if (args[i] == null)
+			if (args[i] == null || args[i].getClass() == Common.class)
 				continue;
 
-			if (args[i] instanceof HttpServletRequest || args[i] instanceof HttpSession) {
-				sb.append(", " + WebUtil.toJson(args[i]));
-				continue;
-			}
+//			if (args[i] instanceof HttpServletRequest || args[i] instanceof HttpSession) {
+//				sb.append(", " + WebUtil.toStringJson(args[i]));
+//				continue;
+//			}
 
-			for (Annotation paramAnno : paramAnnoss[i]) {
-				sb.append("{\"" + args[i].getClass().getSimpleName() + "\":");
-				if (paramAnno instanceof Default) {
-					sb.append(StringUtil.toStringRecursiveJson(args[i], "conditionObj"));
-				} else {
-					sb.append(Utils.toString(args[i]));
-//					sb.append(StringUtil.toString(args[i]));
-				}
-				sb.append("} ");
+//			for (Annotation paramAnno : paramAnnoss[i]) {
+			sb.append("{\"").append(args[i].getClass().getName()).append("\":");
+			if (args[i] instanceof Default) {
+				sb.append(StringUtil.toStringRecursiveJson(args[i], "conditionObj"));
+			} else {
+				sb.append("\"").append(Utils.toString(args[i])).append("\"");
 			}
+			sb.append("},");
+//			}
 		}
 
-		return sb.toString();
+		if (sb.toString().endsWith(",")) {
+			sb.deleteCharAt(sb.length() - 1);
+		}
+
+		return sb.append("]").toString();
 	}
 
 	@Override
@@ -68,12 +74,13 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 		Signature signature = joinPoint.getSignature();
 
 		printLine(signature);
-		log.debug(format("START", "[" + toString(signature) + "]"));
+//		log.debug(format("START", "[" + toString(signature) + "]"));
 
 		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
 		if (anno == null) {
-			log.debug(format("INPUT", "[" + toString(signature) + "] " + Utils.toString(joinPoint.getArgs())
-//																		 StringUtil.toStringArray(joinPoint.getArgs())
+			log.debug(format("INPUT", "[" + toString(signature) + "] "
+					+ StringUtil.toStringRecursiveJson(joinPoint.getArgs(), "conditionObj")
+//						Utils.toString(joinPoint.getArgs())
 			));
 		} else {
 			if (signature instanceof MethodSignature) {
@@ -88,20 +95,19 @@ public class LogAdvice extends com.nemustech.common.aop.LogAdvice {
 		}
 	}
 
-	@Override
-	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {
-		if (!log.isDebugEnabled())
-			return;
-
-		Signature signature = joinPoint.getSignature();
-
-		// 에러 로그는 Controller에 모아서 한번만 출력
-		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
-		if (anno == null)
-			return;
-
-		super.afterThrowing(joinPoint, ex);
-	}
+//	@Override
+//	public void afterThrowing(JoinPoint joinPoint, Throwable ex) {
+//		if (!log.isDebugEnabled())
+//			return;
+//
+//		// 에러 로그는 Controller에 모아서 한번만 출력
+//		Signature signature = joinPoint.getSignature();
+//		Annotation anno = AnnotationUtils.findAnnotation(signature.getDeclaringType(), Controller.class);
+//		if (anno == null)
+//			return;
+//
+//		super.afterThrowing(joinPoint, ex);
+//	}
 
 	@Override
 	protected void printLine(Signature signature) {

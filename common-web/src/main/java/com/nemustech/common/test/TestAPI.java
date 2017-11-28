@@ -125,7 +125,7 @@ public class TestAPI {
 		requestFormat = data.path("requestFormat").asText();
 		responseFormat = data.path("responseFormat").asText();
 		convertBody = data.path("convertBody").booleanValue();
-		LogUtil.writeLog("data: " + StringUtil.toStringRecursiveJsonPretty(this, "log", "sw"));
+		LogUtil.writeLog("data: " + JsonUtil2.toStringPretty(StringUtil.toStringRecursiveJson(this, "log", "sw")));
 
 		List<Future<Object>> futureList = new ArrayList<Future<Object>>();
 		for (JsonNode json : data.path("list")) {

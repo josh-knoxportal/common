@@ -26,7 +26,6 @@ import com.nemustech.common.util.Utils;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.Sample.Sample2;
 import com.nemustech.sample.service.SampleService;
-import com.nemustech.web.Constants;
 import com.nemustech.web.controller.CommonController;
 import com.nemustech.web.util.ValidationUtil;
 
@@ -116,7 +115,7 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "insert2" + Constants.POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "insert2" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid Sample model, BindingResult errors,
 			HttpServletRequest request, MultipartFile[] file) throws Exception {
 		return super.insert(model, errors, request);

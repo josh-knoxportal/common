@@ -13,7 +13,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -82,10 +82,8 @@ public abstract class HTTPUtil {
 		try {
 			obj = resultType.newInstance();
 			for (NameValuePair pair : list) {
-				Field field = null;
-				try {
-					field = resultType.getDeclaredField(pair.getName());
-				} catch (NoSuchFieldException e) {
+				Field field = FieldUtils.getField(resultType, pair.getName(), true);
+				if (field == null) {
 					continue;
 				}
 				field.setAccessible(true);

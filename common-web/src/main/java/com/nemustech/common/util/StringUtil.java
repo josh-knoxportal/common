@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -1313,43 +1314,95 @@ public abstract class StringUtil extends StringUtils {
 	/**
 	 * 객체를 문자열로 변환한다.
 	 * 
-	 * @param object
+	 * @param obj
 	 * @param excludeFieldNamesParam 배열, 콜렉션 객체 등도 포함
 	 * @return
 	 */
 	public static String toString(Object obj, String... excludeFieldNamesParam) {
 		if (obj instanceof Object[]) {
-			return toStringArray((Object[]) obj, excludeFieldNamesParam);
+			return toString((Object[]) obj, excludeFieldNamesParam);
 		} else if (TypeUtil.isCollection(obj)) {
-			return toStringArray(ArrayUtil.toArray(obj), excludeFieldNamesParam);
+			return toString(ArrayUtil.toArray(obj), excludeFieldNamesParam);
 		} else {
 			return toString(obj, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
 		}
 	}
 
-	public static String toStringArray(Object[] objs, String... excludeFieldNamesParam) {
-		return toStringArray(objs, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
+	public static String toString(Object[] objs, String... excludeFieldNamesParam) {
+		return toString(objs, STANDARD_TO_STRING_STYLE2, excludeFieldNamesParam);
 	}
 
 	/**
-	 * 객체 배열을 내부까지 문자열로 변환한다.
+	 * 객체 내부까지 문자열로 변환한다.
 	 * 
-	 * @param objs
-	 * @param style
-	 * @param excludeFieldNamesParam
+	 * @param obj
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * @return
 	 */
-	public static String toStringArray(Object[] objs, ToStringStyle style, String... excludeFieldNamesParam) {
+	public static String toStringRecursive(Object obj, String... excludeFieldNamesParam) {
+		String str = null;
+		if (obj instanceof Object[]) {
+			str = toStringRecursive((Object[]) obj, excludeFieldNamesParam);
+		} else if (TypeUtil.isCollection(obj)) {
+			str = toStringRecursive(ArrayUtil.toArray(obj), excludeFieldNamesParam);
+		} else {
+			str = toString(obj, RECURSIVE_TO_STRING_STYLE2, excludeFieldNamesParam);
+		}
+
+		return str;
+	}
+
+	public static String toStringRecursive(Object[] objs, String... excludeFieldNamesParam) {
+		return toString(objs, RECURSIVE_TO_STRING_STYLE2, excludeFieldNamesParam);
+	}
+
+	/**
+	 * 객체 내부까지 JSON 형태의 문자열로 변환한다.
+	 * 
+	 * @param obj
+	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
+	 * @return
+	 */
+	public static String toStringRecursiveJson(Object obj, String... excludeFieldNamesParam) {
+		String str = null;
+		if (obj instanceof Object[]) {
+			str = toStringRecursiveJson((Object[]) obj, excludeFieldNamesParam);
+		} else if (TypeUtil.isCollection(obj)) {
+			str = toStringRecursiveJson(ArrayUtil.toArray(obj), excludeFieldNamesParam);
+		} else {
+			str = toString(obj, JSON_RECURSIVE_TO_STRING_STYLE, excludeFieldNamesParam);
+		}
+		str = replace(str, "{[", "[");
+		str = replace(str, "]}", "]");
+
+		return str;
+	}
+
+	public static String toStringRecursiveJson(Object[] objs, String... excludeFieldNamesParam) {
+		return toString(objs, JSON_RECURSIVE_TO_STRING_STYLE, excludeFieldNamesParam);
+	}
+
+	public static String toStringValue(Object obj, String... excludeFieldNamesParam) {
+		if (obj instanceof Object[]) {
+			return toStringValue((Object[]) obj, excludeFieldNamesParam);
+		} else if (TypeUtil.isCollection(obj)) {
+			return toStringValue(ArrayUtil.toArray(obj), excludeFieldNamesParam);
+		} else {
+			return toStringValue_(obj, excludeFieldNamesParam);
+		}
+	}
+
+	public static String toStringValue(Object[] objs, String... excludeFieldNamesParam) {
 		if (objs == null || objs.length == 0)
 			return "[]";
 
 		StringBuilder sb = new StringBuilder("[");
 		for (int i = 0; i < objs.length; i++) {
-			sb.append(toString(objs[i], style, excludeFieldNamesParam));
+			sb.append(toStringValue_(objs[i], excludeFieldNamesParam));
 			if (i == objs.length - 1) {
 				sb.append("]");
 			} else {
-				sb.append(",");
+				sb.append(", ");
 			}
 		}
 
@@ -1359,11 +1412,11 @@ public abstract class StringUtil extends StringUtils {
 	/**
 	 * 객체의 값만 문자열로 구한다.
 	 * 
-	 * @param object
+	 * @param obj
 	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * @return
 	 */
-	public static String toStringValue(Object object, String... excludeFieldNamesParam) {
+	protected static String toStringValue_(Object obj, String... excludeFieldNamesParam) {
 		StandardToStringStyle style = new StandardToStringStyle();
 		style.setUseClassName(false);
 		style.setUseIdentityHashCode(false);
@@ -1374,61 +1427,49 @@ public abstract class StringUtil extends StringUtils {
 		style.setArrayEnd("");
 		style.setNullText("");
 
-		return toString(object, style, excludeFieldNamesParam);
-	}
-
-	/**
-	 * 객체 내부까지 문자열로 변환한다.
-	 * 
-	 * @param object
-	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
-	 * @return
-	 */
-	public static String toStringRecursive(Object object, String... excludeFieldNamesParam) {
-		return toString(object, RECURSIVE_TO_STRING_STYLE2, excludeFieldNamesParam);
-	}
-
-	/**
-	 * 객체 내부까지 JSON 형태의 문자열로 변환한다.
-	 * 
-	 * @param object
-	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
-	 * @return
-	 */
-	public static String toStringRecursiveJson(Object object, String... excludeFieldNamesParam) {
-		String str = toString(object, JSON_RECURSIVE_TO_STRING_STYLE, excludeFieldNamesParam);
-		str = replace(str, "{[", "[");
-		str = replace(str, "]}", "]");
-
-		return str;
+		return toString(obj, style, excludeFieldNamesParam);
 	}
 
 	/**
 	 * 객체를 문자열로 변환한다.
 	 * 
-	 * @param object
+	 * @param obj
 	 * @param style
 	 * @param excludeFieldNamesParam 배열, 콜렉션, 내부 객체 등은 제외
 	 * @return
 	 */
-	public static String toString(Object object, ToStringStyle style, String... excludeFieldNamesParam) {
+	public static String toString(Object obj, ToStringStyle style, String... excludeFieldNamesParam) {
 		// byte[] 필드는 제외
-		Map<String, Field> fields = ReflectionUtil.getFields(object, new byte[0].getClass());
+		Map<String, Field> fields = ReflectionUtil.getFields(obj, new byte[0].getClass());
 		excludeFieldNamesParam = ArrayUtils.addAll(excludeFieldNamesParam,
 				fields.keySet().toArray(new String[fields.size()]));
 
-		return new ReflectionToStringBuilder(object, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
+		return new ReflectionToStringBuilder(obj, style).setExcludeFieldNames(excludeFieldNamesParam).toString();
 	}
 
 	/**
-	 * 객체 내부까지 포매팅한 JSON 형태의 문자열로 변환한다.
+	 * 객체 배열을 내부까지 문자열로 변환한다.
 	 * 
-	 * @param object
+	 * @param objs
+	 * @param style
 	 * @param excludeFieldNamesParam
 	 * @return
 	 */
-	public static String toStringRecursiveJsonPretty(Object object, String... excludeFieldNamesParam) {
-		return JsonUtil2.toStringPretty(toStringRecursiveJson(object, excludeFieldNamesParam));
+	public static String toString(Object[] objs, ToStringStyle style, String... excludeFieldNamesParam) {
+		if (objs == null || objs.length == 0)
+			return "[]";
+
+		StringBuilder sb = new StringBuilder("[");
+		for (int i = 0; i < objs.length; i++) {
+			sb.append(toString(objs[i], style, excludeFieldNamesParam));
+			if (i == objs.length - 1) {
+				sb.append("]");
+			} else {
+				sb.append(", ");
+			}
+		}
+
+		return sb.toString();
 	}
 
 	/**
@@ -1520,10 +1561,14 @@ public abstract class StringUtil extends StringUtils {
 //		System.out.println("toStringRecursiveJson: " + toStringRecursiveJson(list, "conditionObj"));
 //		System.out.println("toStringValue: " + toStringValue(list, "conditionObj"));
 
-		System.out.println(toString(new Sample(), "conditionObj"));
-		System.out.println(
-				toString(new Object[] { new Sample(), new com.nemustech.sample.model.Test() }, "conditionObj"));
-		System.out.println(StringUtil.toString(Arrays.asList(new Sample(), new com.nemustech.sample.model.Test()),
-				"conditionObj"));
+		Sample sample = new Sample();
+		com.nemustech.sample.model.Test test = new com.nemustech.sample.model.Test();
+		sample.setTestSet(new LinkedHashSet<com.nemustech.sample.model.Test>(Arrays.asList(test)));
+		System.out.println(toString(sample, "conditionObj"));
+		System.out.println(toString(new Object[] { sample, test }, "conditionObj"));
+		System.out.println(toString(Arrays.asList(sample, test), "conditionObj"));
+		System.out.println(toStringRecursive(Arrays.asList(sample, test), "conditionObj"));
+		System.out.println(toStringRecursiveJson(Arrays.asList(sample, test), "conditionObj"));
+		System.out.println(toStringValue(Arrays.asList(sample, test), "conditionObj"));
 	}
 }

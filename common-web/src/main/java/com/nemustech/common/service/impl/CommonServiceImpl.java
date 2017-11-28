@@ -16,14 +16,11 @@ import org.springframework.beans.factory.annotation.Value;
 import com.nemustech.common.annotation.CacheEvictCommonClass;
 import com.nemustech.common.annotation.CacheableCommon;
 import com.nemustech.common.annotation.TransactionalException;
-import com.nemustech.common.file.Files;
 import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
 import com.nemustech.common.page.Paging;
 import com.nemustech.common.service.CommonService;
-import com.nemustech.common.service.FilesService;
-import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.util.ReflectionUtil;
 import com.nemustech.common.util.Utils;
 
@@ -47,17 +44,6 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	 */
 	@Autowired
 	protected EntityManager entityManager;
-
-	/**
-	 * 파일 저장소
-	 */
-	@Autowired
-	protected FileStorage fileStorage;
-
-	/**
-	 * 파일 서비스
-	 */
-	protected FilesService fileService;
 
 	public static String getDefaultDate(String sourceType) {
 		if (SOURCE_TYPE_MYSQL.equals(sourceType)) {
@@ -94,10 +80,8 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	}
 
 	@PostConstruct
-	public void initService_() throws Exception {
+	public void initCommon_() throws Exception {
 		mapper = getMapper();
-
-		fileService = getFileService();
 	}
 
 	@Override
@@ -112,11 +96,6 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 
 	@Override
 	public CommonMapper<T> getMapper() {
-		return null;
-	}
-
-	@Override
-	public FilesService getFileService() {
 		return null;
 	}
 
@@ -149,7 +128,6 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 		model = setModel(model);
 
 		List<T> list = null;
-
 //		String cacheKey = null;
 //		if (cache != null) {
 //			if (mapper != null) {
@@ -228,14 +206,8 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 
 	@Override
 	@TransactionalException
-	public Object insert(T model) throws Exception {
-		return insert(model, new ArrayList<Files>());
-	}
-
-	@Override
-	@TransactionalException
 	@CacheEvictCommonClass
-	public Object insert(T model, List<Files> files) throws Exception {
+	public Object insert(T model) throws Exception {
 		model = setDefaultModifyDate(setDefaultRegisterDate(model));
 
 		Object result = null;
@@ -246,14 +218,11 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 			result = mapper.insert(model);
 		}
 
-		result = String.valueOf(result);
+//		result = String.valueOf(result);
 		Object id = getId(model);
-		if (Utils.isValidate(id))
+		if (Utils.isValidate(id)) {
 			result = id;
-
-		// 파일 생성
-//		if (!(model instanceof Files))
-//			insertFile(model, files);
+		}
 
 //		if (cache != null) {
 //			cache.clear();
@@ -266,52 +235,40 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	@TransactionalException
 	@CacheEvictCommonClass
 	public List<Object> insert(List<T> models) throws Exception {
-		List<Object> result = new ArrayList<Object>();
+		List<Object> resultList = new ArrayList<Object>();
 
 		for (T model : models) {
-			model = setDefaultModifyDate(setDefaultRegisterDate(model));
-
-			Object result_ = null;
-			if (mapper == null) {
-				result_ = entityManager.insert(model, model.getTable(), model.getSql_name());
-			} else {
-				setCondition(model);
-				result_ = mapper.insert(model);
-			}
-
-			Object id = getId(model);
-			if (Utils.isValidate(id))
-				result.add(id);
-			else
-				result.add(result_);
+//			model = setDefaultModifyDate(setDefaultRegisterDate(model));
+//
+//			Object result = null;
+//			if (mapper == null) {
+//				result = entityManager.insert(model, model.getTable(), model.getSql_name());
+//			} else {
+//				setCondition(model);
+//				result = mapper.insert(model);
+//			}
+//
+//			Object id = getId(model);
+//			if (Utils.isValidate(id))
+//				resultList.add(id);
+//			else
+//				resultList.add(result);
+			Object result = insert(model);
+			resultList.add(result);
 		}
 
 //		if (cache != null) {
 //			cache.clear();
 //		}
 
-		return result;
-	}
-
-	@Override
-	@TransactionalException
-	public int update(T model) throws Exception {
-		return update(model, new ArrayList<Files>());
+		return resultList;
 	}
 
 	@Override
 	@TransactionalException
 	@CacheEvictCommonClass
-	public int update(T model, List<Files> files) throws Exception {
+	public int update(T model) throws Exception {
 		int result = 0;
-
-		// 파일 수정
-//		if (!(model instanceof Files)) {
-//			String condition = model.getCondition();
-//			model = (T) model.getClass().newInstance();
-//			model.addCondition(condition);
-//			updateFile(model, files);
-//		}
 
 		model = setDefaultModifyDate(model);
 
@@ -336,14 +293,15 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 		int result = 0;
 
 		for (T model : models) {
-			model = setDefaultModifyDate(model);
-
-			if (mapper == null) {
-				result += entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
-			} else {
-				setCondition(model);
-				result += mapper.update(model);
-			}
+//			model = setDefaultModifyDate(model);
+//
+//			if (mapper == null) {
+//				result += entityManager.update(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+//			} else {
+//				setCondition(model);
+//				result += mapper.update(model);
+//			}
+			result += update(model);
 		}
 
 //		if (cache != null) {
@@ -354,18 +312,10 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	}
 
 	@Override
-	public int delete(T model) throws Exception {
-		return delete(model, new ArrayList<Files>());
-	}
-
 	@TransactionalException
 	@CacheEvictCommonClass
-	public int delete(T model, List<Files> files) throws Exception {
+	public int delete(T model) throws Exception {
 		int result = 0;
-
-		// 파일 삭제
-//		if (!(model instanceof Files))
-//			deleteFile(model, files);
 
 		if (mapper == null) {
 			result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
@@ -389,16 +339,13 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 		int result = 0;
 
 		for (T model : models) {
-			// 파일 삭제
-//			if (!(model instanceof Files))
-//				deleteFile(model);
-
-			if (mapper == null) {
-				result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
-			} else {
-				setCondition(model);
-				result += mapper.delete(model);
-			}
+//			if (mapper == null) {
+//				result += entityManager.delete(model, model.getConditionObj(), model.getTable(), model.getSql_name());
+//			} else {
+//				setCondition(model);
+//				result += mapper.delete(model);
+//			}
+			result += delete(model);
 		}
 
 //		if (cache != null) {
@@ -406,6 +353,17 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 //		}
 
 		return result;
+	}
+
+	public List<Object> getIds(List<T> models) {
+		List<Object> idList = new ArrayList<Object>();
+		for (T model : models) {
+			Object id = getId(model);
+			if (Utils.isValidate(id))
+				idList.add(id);
+		}
+
+		return idList;
 	}
 
 	/**
@@ -481,55 +439,6 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 		}
 
 		return model;
-	}
-
-	/**
-	 * 파일 등록
-	 * 
-	 * @param model
-	 * @param files
-	 * @throws Exception
-	 */
-	protected List<Object> insertFile(T model, List<Files> files) throws Exception {
-		for (Files file : files) {
-			file.setPath(fileStorage.save(file));
-		}
-
-		return fileService.insert(files);
-	}
-
-	/**
-	 * 파일 수정
-	 * 
-	 * <pre>
-	 * - 기존 파일은 삭제하지 않음
-	 * - 파일 정보는 삭제하고 다시 생성함
-	 * </pre>
-	 * 
-	 * @param model
-	 * @param files
-	 * @throws Exception
-	 */
-	protected List<Object> updateFile(T model, List<Files> files) throws Exception {
-		deleteFile(model, files);
-
-		return insertFile(model, files);
-	}
-
-	/**
-	 * 파일 삭제
-	 * 
-	 * <pre>
-	 * - 기존 파일은 삭제하지 않음
-	 * - 파일 정보는 삭제함
-	 * </pre>
-	 * 
-	 * @param model
-	 * @param files
-	 * @throws Exception
-	 */
-	protected int deleteFile(T model, List<Files> files) throws Exception {
-		return 0;
 	}
 
 	/**

@@ -95,17 +95,17 @@ public abstract class WebUtil extends WebUtils {
 		}
 	}
 
-	public static String toJsonPretty(Object... objs) {
-		return toJson(objs, true);
+	public static String toStringJson(Object... objs) {
+		return toStringJson(objs, false);
 	}
 
-	public static String toJson(Object... objs) {
-		return toJson(objs, false);
+	public static String toStringJsonPretty(Object... objs) {
+		return toStringJson(objs, true);
 	}
 
-	public static String toJson(Object[] objs, boolean prettyPrint) {
+	public static String toStringJson(Object[] objs, boolean prettyPrint) {
 		if (objs.length == 1) {
-			return toJson(objs[0], prettyPrint);
+			return toStringJson(objs[0], prettyPrint);
 		} else {
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < objs.length; i++) {
@@ -115,7 +115,7 @@ public abstract class WebUtil extends WebUtils {
 					sb.append(", ");
 				}
 
-				sb.append(toJson(objs[i], prettyPrint));
+				sb.append(toStringJson(objs[i], prettyPrint));
 
 				if (i == objs.length - 1) {
 					sb.append(" ]");
@@ -132,7 +132,7 @@ public abstract class WebUtil extends WebUtils {
 	 * @param prettyPrint
 	 * @return
 	 */
-	public static String toJson(Object obj, boolean prettyPrint) {
+	public static String toStringJson(Object obj, boolean prettyPrint) {
 		if (obj instanceof HttpServletRequest) {
 			return toJsonRequest((HttpServletRequest) obj, prettyPrint);
 		} else if (obj instanceof HttpSession) {
@@ -178,7 +178,16 @@ public abstract class WebUtil extends WebUtils {
 		return JsonUtil2.toString(sb.toString(), prettyPrint);
 	}
 
+	public static String toJsonSession() {
+		return toJsonSession(null, false);
+	}
+
 	public static String toJsonSession(HttpSession session, boolean prettyPrint) {
+		HttpServletRequest request = WebApplicationContextUtil.getRequest();
+		session = (request != null && session == null) ? request.getSession() : session;
+		if (session == null)
+			return "";
+
 		return toJsonSession(session, prettyPrint, false);
 	}
 
@@ -223,14 +232,13 @@ public abstract class WebUtil extends WebUtils {
 	 * @return
 	 */
 	protected static String toJsonParameter(HttpServletRequest request, boolean prettyPrint, boolean embeded) {
-		HttpServletRequest request2 = WebApplicationContextUtil.getRequest();
-		if (request == null && request2 == null)
+		request = (request == null) ? WebApplicationContextUtil.getRequest() : request;
+		if (request == null)
 			return "";
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(embeded ? "" : "{");
-		sb.append("\"parameters\":"
-				+ JsonUtil2.toString((request == null) ? request2.getParameterMap() : request.getParameterMap()));
+		sb.append("\"parameters\":" + JsonUtil2.toString(request.getParameterMap()));
 		sb.append("}" + (embeded ? "" : "}"));
 
 		return embeded ? sb.toString() : JsonUtil2.toString(sb.toString(), prettyPrint);
@@ -239,17 +247,17 @@ public abstract class WebUtil extends WebUtils {
 	public static void main(String[] args) {
 		Header model = new Header();
 		model.setError_message("test");
-		System.out.println(toJson(model, model));
-		System.out.println(toJsonPretty(model, model));
+		System.out.println(toStringJson(model, model));
+		System.out.println(toStringJsonPretty(model, model));
 		System.out.println();
 
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		System.out.println(toJson(request, request));
-		System.out.println(toJsonPretty(request, request));
+		System.out.println(toStringJson(request, request));
+		System.out.println(toStringJsonPretty(request, request));
 		System.out.println();
 
 		MockHttpSession session = new MockHttpSession();
-		System.out.println(toJson(session, session));
-		System.out.println(toJsonPretty(session, session));
+		System.out.println(toStringJson(session, session));
+		System.out.println(toStringJsonPretty(session, session));
 	}
 }

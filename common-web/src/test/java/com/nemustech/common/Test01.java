@@ -10,6 +10,9 @@ import org.junit.runners.MethodSorters;
 
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.storage.LocalFileStorage;
+import com.nemustech.common.util.ReflectionUtil;
+import com.nemustech.common.util.StringUtil;
+import com.nemustech.sample.model.Sample;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test01 {
@@ -153,7 +156,35 @@ public class Test01 {
 //		System.out.println(
 //				"regex:common_class com.nemustech.sample.service.impl.SampleServiceImpl.*".startsWith("regex:"));
 
-		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
+//		System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName());
+//		System.out.println(Arrays.toString(new Sample(), new Sample()));
+//		System.out.println(StringUtil.toString(new Sample(), new Sample()));
+//		System.out.println(Arrays.asList(new Sample(), new Sample()));
+//		System.out.println(StringUtil.toString(Arrays.asList(new Sample(), new Sample())));
+
+//		System.out.println(new Common() instanceof Common);
+//		System.out.println(Common.class.isInstance(new Common()));
+//
+//		System.out.println(new Common().getClass());
+//		System.out.println(Common.class);
+//		System.out.println(new Common().getClass() == Common.class);
+//		System.out.println(new Common().getClass().equals(Common.class));
+
+//		StringBuilder sb = new StringBuilder("abc,");
+//		if (sb.toString().endsWith(",")) {
+//			sb.deleteCharAt(sb.length() - 1);
+//		}
+//		System.out.println(sb);
+
+//		System.out.println(new Sample().getClass().getDeclaredField("reg_id"));
+//		System.out.println(FieldUtils.getDeclaredField(new Sample().getClass(), "name"));
+//		System.out.println(FieldUtils.getDeclaredField(new Sample().getClass(), "name", true));
+//		System.out.println(FieldUtils.getField(new Sample().getClass(), "reg_id1", true));
+//		Sample sample = new Sample();
+//		sample.setReg_id("reg_id");
+//		System.out.println(ReflectionUtil.getValue(sample, "reg_id1"));String messageFoamat = "{\"Message\":\"{0}\"}";
+
+		System.out.println(StringUtil.getMessage("\"Message\":\"{0}\"", "Success"));
 	}
 
 	public String getTargetClass() throws Exception {

@@ -6,7 +6,6 @@ import java.util.Map;
 import org.mybatisorm.Condition;
 import org.mybatisorm.Page;
 
-import com.nemustech.common.file.Files;
 import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.model.Default;
 import com.nemustech.common.page.Paging;
@@ -59,13 +58,6 @@ public interface CommonService<T extends Default> extends CacheService {
 	 * @return 매퍼명
 	 */
 	public CommonMapper<T> getMapper();
-
-	/**
-	 * 파일 서비스를 구한다.
-	 * 
-	 * @return
-	 */
-	public FilesService getFileService();
 
 	/**
 	 * Spring active profile명 반환
@@ -150,26 +142,16 @@ public interface CommonService<T extends Default> extends CacheService {
 	 * 공통 등록
 	 * 
 	 * @param model 모델
-	 * @return 결과
+	 * @return 결과 : id
 	 * @throws Exception
 	 */
 	public Object insert(T model) throws Exception;
 
 	/**
-	 * 공통 파일 등록
-	 * 
-	 * @param model 모델
-	 * @param files 파일 리스트
-	 * @return 결과
-	 * @throws Exception
-	 */
-	public Object insert(T model, List<Files> files) throws Exception;
-
-	/**
 	 * 공통 리스트 등록
 	 * 
 	 * @param models 모델 리스트
-	 * @return 결과
+	 * @return 결과 : id list
 	 * @throws Exception
 	 */
 	public List<Object> insert(List<T> models) throws Exception;
@@ -178,26 +160,16 @@ public interface CommonService<T extends Default> extends CacheService {
 	 * 공통 수정
 	 * 
 	 * @param model 모델
-	 * @return 결과
+	 * @return 결과 : count
 	 * @throws Exception
 	 */
 	public int update(T model) throws Exception;
 
 	/**
-	 * 공통 파일 수정
-	 * 
-	 * @param model 모델
-	 * @param files 파일 리스트
-	 * @return 결과
-	 * @throws Exception
-	 */
-	public int update(T model, List<Files> files) throws Exception;
-
-	/**
 	 * 공통 리스트 수정
 	 * 
 	 * @param models 모델 리스트
-	 * @return 결과
+	 * @return 결과 : count
 	 * @throws Exception
 	 */
 	public int update(List<T> models) throws Exception;
@@ -212,16 +184,6 @@ public interface CommonService<T extends Default> extends CacheService {
 	public int delete(T model) throws Exception;
 
 	/**
-	 * 공통 파일 삭제
-	 * 
-	 * @param model
-	 * @param files
-	 * @return
-	 * @throws Exception
-	 */
-	public int delete(T model, List<Files> files) throws Exception;
-
-	/**
 	 * 공통 리스트 삭제
 	 * 
 	 * @param models 모델 리스트
@@ -230,4 +192,12 @@ public interface CommonService<T extends Default> extends CacheService {
 	 */
 	@Deprecated
 	public int delete(List<T> models) throws Exception;
+
+	/**
+	 * id 필드의 값들을 구한다.
+	 * 
+	 * @param models
+	 * @return
+	 */
+	public List<Object> getIds(List<T> models);
 }

@@ -27,7 +27,7 @@ public class TestControllerTest {
 	@Autowired
 	protected TestController controller;
 
-	@Test
+//	@Test
 	public void t01_get() throws Exception {
 		com.nemustech.sample.model.Test model = new com.nemustech.sample.model.Test();
 		model.setName("t");

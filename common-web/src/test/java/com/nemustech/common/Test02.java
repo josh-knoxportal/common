@@ -202,7 +202,7 @@ public class Test02 {
 //
 //		System.out.println("json: " + JsonUtil2.toStringPretty(list));
 
-//		List<List<Sample>> list = Arrays.asList(Arrays.asList(new Sample[] { new Sample(), new Sample(), }));
+//		List<List<Sample>> list = Arrays.asList(Arrays.asList(new Sample(), new Sample()));
 //		String json = JsonUtil2.toString(list);
 //		list = JsonUtil2.readValue(json, new TypeReference<List<List<Sample>>>() {
 //		});

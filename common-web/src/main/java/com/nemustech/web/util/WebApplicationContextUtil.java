@@ -42,7 +42,8 @@ public abstract class WebApplicationContextUtil extends WebApplicationContextUti
 	public static WebApplicationContext getApplicationContext() {
 		HttpServletRequest request = getRequest();
 
-		return (request == null) ? null : RequestContextUtils.findWebApplicationContext(request);
+		return (request == null) ? null : RequestContextUtils.getWebApplicationContext(request);
+//		return (request == null) ? null : RequestContextUtils.findWebApplicationContext(request);
 	}
 
 	public static HttpServletRequest getRequest() {

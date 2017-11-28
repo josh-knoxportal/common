@@ -52,7 +52,7 @@
 
 	<!-- 디버깅 데이타와 SQL(debug)과 결과(trace) 출력시 -->
 	<logger name="org.mybatisorm" level="debug" />
-	<logger name="com.nemustech" level="debug" />
+	<logger name="com.nemustech" level="trace" />
 
 	<!-- <logger name="org.mybatisorm.mapper" level="debug" /> -->
 	<!-- <logger name="com.nemustech.sample.mapper" level="debug" /> -->

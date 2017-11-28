@@ -35,10 +35,12 @@ public abstract class CacheServiceImpl implements CacheService {
 	 * @param cacheName
 	 * @param clz
 	 * @param methodName
+	 * @param params
 	 * @return
 	 */
-	public static String makeCacheKey(String cacheName, Class<?> clz, String methodName) {
-		return cacheName + "_" + clz.toString() + ((methodName == null) ? "" : "_" + methodName);
+	public static String makeCacheKey(String cacheName, Class<?> clz, String methodName, String params) {
+		return cacheName + "_" + clz.toString() + ((methodName == null) ? "" : "_" + methodName)
+				+ ((params == null) ? "" : "_" + params);
 	}
 
 	/**
@@ -71,7 +73,7 @@ public abstract class CacheServiceImpl implements CacheService {
 	 * @return getCacheName()_getClass()
 	 */
 	public String makeClassCacheKey() {
-		return makeClassCacheKey(getClass());
+		return makeClassCacheKey((String) null);
 	}
 
 	/**
@@ -79,7 +81,24 @@ public abstract class CacheServiceImpl implements CacheService {
 	 * @return getCacheName()_clz
 	 */
 	public String makeClassCacheKey(Class<?> clz) {
-		return makeMethodCacheKey(clz, null);
+		return makeClassCacheKey(clz, null);
+	}
+
+	/**
+	 * @param params
+	 * @return getCacheName()_getClass()_params
+	 */
+	public String makeClassCacheKey(String params) {
+		return makeClassCacheKey(getClass(), params);
+	}
+
+	/**
+	 * @param clz
+	 * @param params
+	 * @return getCacheName()_clz_params
+	 */
+	public String makeClassCacheKey(Class<?> clz, String params) {
+		return makeMethodCacheKey(clz, null, params);
 	}
 
 	/**
@@ -111,7 +130,26 @@ public abstract class CacheServiceImpl implements CacheService {
 	 * @return getCacheName()_clz_methodName
 	 */
 	public String makeMethodCacheKey(Class<?> clz, String methodName) {
-		String cacheKey = makeCacheKey(getCacheName(), clz, methodName);
+		return makeMethodCacheKey(clz, methodName, null);
+	}
+
+	/**
+	 * @param methodName
+	 * @param params
+	 * @return getCacheName()_getClass()_methodName_params
+	 */
+	public String makeMethodCacheKey(String methodName, String params) {
+		return makeMethodCacheKey(getClass(), methodName, params);
+	}
+
+	/**
+	 * @param clz
+	 * @param methodName
+	 * @param params
+	 * @return getCacheName()_clz_methodName_params
+	 */
+	public String makeMethodCacheKey(Class<?> clz, String methodName, String params) {
+		String cacheKey = makeCacheKey(getCacheName(), clz, methodName, params);
 		log.debug("cache key: " + cacheKey);
 
 		return cacheKey;

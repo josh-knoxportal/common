@@ -17,8 +17,8 @@ public abstract class MapperUtils {
 	 * 
 	 * <pre>
 	 * <주의>
-	 * - T 객체에는 getModel(), getJoinModels() 메소드를 반드시 구현해야 한다.
-	 * - getModel(), getJoinModels() 반환 객체는 getId() 메소드를 구현하고,
+	 * - T 객체에는 model(), joinModels() 메소드를 반드시 구현해야 한다.
+	 * - model(), joinModels() 반환 객체는 getId() 메소드를 구현하고,
 	 *   targetFieldNames 명으로 반드시 Set 필드들을 정의해야 한다.
 	 * </pre>
 	 * 

@@ -156,7 +156,7 @@ public class TestAPI {
 		jsonNode = json.path("params");
 		LogUtil.writeLog("params: " + JsonUtil2.toStringPretty(jsonNode));
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		if ("JSON".equalsIgnoreCase(requestFormat)) {
+		if ("JSON".equalsIgnoreCase(requestFormat) || "JSON_File".equalsIgnoreCase(requestFormat)) {
 //			headers.add(new BasicNameValuePair("Content-Type", "application/json;charset=UTF-8"));
 			params.add(new BasicNameValuePair("", jsonNode.toString()));
 		} else {
@@ -168,14 +168,15 @@ public class TestAPI {
 		}
 
 		// 서버 호출
-		if ("File".equalsIgnoreCase(requestFormat)) {
+		if ("File".equalsIgnoreCase(requestFormat) || "JSON_File".equalsIgnoreCase(requestFormat)) {
 			// 파일
 			List<Files> attachs = new ArrayList<Files>();
-			if (jsonNode.get("file") != null) {
-				for (JsonNode file : jsonNode.get("file")) {
+			if (jsonNode.get("files") != null) {
+				for (JsonNode file : jsonNode.get("files")) {
+					JsonNode path = file.get("path");
 					attachs.add(
-							new Files(FilenameUtils.getFullPath(file.asText()), FilenameUtils.getName(file.asText()),
-									IOUtils.toByteArray(new FileInputStream(file.asText()))));
+							new Files(FilenameUtils.getFullPath(path.asText()), FilenameUtils.getName(path.asText()),
+									IOUtils.toByteArray(new FileInputStream(path.asText()))));
 				}
 			}
 

@@ -68,7 +68,7 @@ import com.nemustech.common.model.Common;
  * 
  * @author skoh
  */
-@Table("test")
+@Table
 public class Test extends Common {
 	@Column(primaryKey = true, autoIncrement = true, sequence = "test_seq")
 	protected Long id;

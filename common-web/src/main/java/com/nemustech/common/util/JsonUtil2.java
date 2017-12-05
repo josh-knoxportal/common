@@ -387,7 +387,7 @@ public abstract class JsonUtil2 {
 	 */
 	public static ObjectNode putValue(ObjectNode node, String name, Object value) {
 		if (value instanceof String) {
-			node.put(name, String.valueOf(value));
+			node.put(name, value.toString());
 		} else if (value.getClass() == Boolean.class) {
 			node.put(name, (Boolean) value);
 		} else if (value instanceof Number) {

@@ -102,7 +102,10 @@ public class LocalFileStorage implements FileStorage {
 	 * 파일 경로를 가져온다.
 	 */
 	public static String getFilePath() {
-		return File.separator + Utils.getDateTime(Utils.SDF_YEAR) + File.separator + Utils.getDateTime(Utils.SDF_MONTH);
+		String filePath = File.separator + Utils.getDateTime(Utils.SDF_YEAR) + File.separator
+				+ Utils.getDateTime(Utils.SDF_MONTH);
+
+		return filePath;
 	}
 
 	/**
@@ -113,8 +116,22 @@ public class LocalFileStorage implements FileStorage {
 	 */
 	public static String getFilePath(String fileID) {
 //		String fileDate = StringUtil.getDate(Long.parseLong(fileID.substring(6)));
-//		return File.separator + fileDate.substring(0, 4) + File.separator + fileDate.substring(4, 6);
-		return File.separator + fileID.substring(0, 4) + File.separator + fileID.substring(4, 6);
+//		String filePath = File.separator + fileDate.substring(0, 4) + File.separator + fileDate.substring(4, 6);
+		String filePath = File.separator + fileID.substring(0, 4) + File.separator + fileID.substring(4, 6);
+
+		return filePath;
+	}
+
+	/**
+	 * 실제 파일 경로를 가져온다.
+	 * 
+	 * @param fileID
+	 * @return
+	 */
+	public static String getRealFilePath(String fileID) {
+		String filePath =  getStorageRootPath() + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION;
+
+		return filePath;
 	}
 
 	/**
@@ -141,7 +158,6 @@ public class LocalFileStorage implements FileStorage {
 	 * @param storageRootPath 서버로 전송한 파일을 임시로 저장할 폴더
 	 */
 	public LocalFileStorage(String storageRootPath) {
-		log.info("Create Local File Storage Accessor");
 		log.info("Storage Path: " + storageRootPath);
 
 		this.storageRootPath = storageRootPath;
@@ -154,13 +170,6 @@ public class LocalFileStorage implements FileStorage {
 //	public Map getStorage() {
 //		return this.localFileStorage;
 //	}
-
-	@Override
-	@Deprecated
-	public String getFileID(String fileName) {
-//		return this.localFileStorage.get(fileName);
-		return null;
-	}
 
 	@Override
 //	public boolean save(String fileID, byte[] bytes) {
@@ -179,11 +188,10 @@ public class LocalFileStorage implements FileStorage {
 		File file = null;
 		FileOutputStream fos = null;
 		FileChannel channel = null;
+//		fos = new FileOutputStream(storageRootPath + File.separator + fileID + "." + FILE_EXTENSION);
+		String filePath = getFilePath(files.getId());
 
 		try {
-//			fos = new FileOutputStream(storageRootPath + File.separator + fileID + "." + FILE_EXTENSION);
-			String filePath = getFilePath(files.getId());
-
 			// 파일 경로
 			File dir = new File(storageRootPath + filePath);
 			dir.mkdirs();
@@ -232,7 +240,7 @@ public class LocalFileStorage implements FileStorage {
 		log.debug("End::save()");
 
 //		return result;
-		return file.getAbsolutePath();
+		return filePath + File.separator + files.getId() + "." + FILE_EXTENSION;
 	}
 
 	@Override
@@ -314,11 +322,16 @@ public class LocalFileStorage implements FileStorage {
 	}
 
 //	@Override
+//	public String getFileID(String fileName) {
+//		return this.localFileStorage.get(fileName);
+//	}
+//
+//	@Override
 //	public String getFileName(String fileID) {
 ////		return this.localFileStorage.get(fileID);
 //		return this.localFileStorage.get(fileID).getFileName();
 //	}
-
+//
 //	@Override
 //	public Files getFileInfo(String fileID) {
 //		Files files = this.localFileStorage.get(fileID);

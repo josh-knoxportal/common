@@ -44,7 +44,7 @@ import com.nemustech.common.model.Default;
  * 
  * @author skoh
  */
-@Table("sample_test")
+@Table
 public class Sample_Test extends Default {
 	@Column(references = "Sample.id")
 	protected Long sample_id;

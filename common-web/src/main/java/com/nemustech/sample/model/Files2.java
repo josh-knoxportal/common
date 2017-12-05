@@ -5,6 +5,26 @@ import org.mybatisorm.annotation.Table;
 
 import com.nemustech.common.file.Files;
 
+/**
+ * DDL :파일 테이블
+ * 
+ * <pre>
+ * -- Mysql
+ * ALTER TABLE files DROP COLUMN doc_id;
+ * ALTER TABLE files ADD
+ * (
+ *  doc_id VARCHAR(100) NOT NULL
+ * );
+ * 
+ * -- Oracle
+ * ALTER TABLE files ADD
+ * (
+ *  doc_id VARCHAR2(100) NOT NULL
+ * );
+ * </pre>
+ * 
+ * @author skoh
+ */
 @Table("files")
 public class Files2 extends Files {
 	/**
@@ -21,8 +41,7 @@ public class Files2 extends Files {
 	}
 
 	public Files2(Files files, String doc_id) {
-		super(files.getId(), files.getPath(), files.getName(), files.getFile_size(), files.getBytes());
-
+		setFiles(files.getId(), files.getPath(), files.getName(), files.getBytes());
 		reg_id = files.getReg_id();
 		mod_id = files.getMod_id();
 

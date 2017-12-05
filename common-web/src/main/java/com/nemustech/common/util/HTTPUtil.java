@@ -14,7 +14,6 @@ import java.util.Map;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -51,6 +50,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.file.URLDownloader;
+import com.nemustech.web.controller.CommonFilesController;
 
 /**
  * HTTP 유틸리티 클래스
@@ -516,18 +516,29 @@ public abstract class HTTPUtil {
 
 			if (params != null) {
 				for (NameValuePair param : params) {
+					if (Utils.isValidate(param.getName())) {
 //						multipartEntity.addPart(param.getName(), new StringBody(param.getValue(), encCharset));
-					builder.addPart(param.getName(), new StringBody(param.getValue(), encCharset));
+						builder.addPart(param.getName(), new StringBody(param.getValue(),
+								ContentType.create(ContentType.TEXT_PLAIN.getMimeType(), encCharset)));
+					} else {
+						builder.addPart(CommonFilesController.MODEL_FILE_NAME,
+								new ByteArrayBody(param.getValue().getBytes(encCharset),
+										ContentType.create(ContentType.APPLICATION_JSON.getMimeType(), encCharset),
+										CommonFilesController.MODEL_FILE_NAME));
+					}
 				}
 			}
 
 			if (headers != null) {
 				for (NameValuePair header : headers) {
 					if (MIME.CONTENT_TYPE.equals(header.getName())) {
-						List<NameValuePair> contentType = URLEncodedUtils.parse(header.getValue(), Consts.ISO_8859_1,
-								';');
-						builder.setContentType(ContentType.MULTIPART_FORM_DATA.withParameters(contentType
-								.subList(1, contentType.size()).toArray(new NameValuePair[contentType.size() - 1])));
+						List<NameValuePair> contentType = URLEncodedUtils.parse(header.getValue(), encCharset);
+						NameValuePair[] parameters = contentType.subList(1, contentType.size())
+								.toArray(new NameValuePair[contentType.size() - 1]);
+						ContentType contentType_ = ContentType
+								.create(ContentType.MULTIPART_FORM_DATA.getMimeType(), encCharset)
+								.withParameters(parameters);
+						builder.setContentType(contentType_);
 						break;
 					}
 				}

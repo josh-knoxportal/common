@@ -111,7 +111,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 
 	@Override
 	public T get(T model) throws Exception {
-		model = setModel(model);
+		setModel(model);
 
 		if (mapper == null) {
 			return entityManager.get(model);
@@ -125,7 +125,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	@Override
 	@CacheableCommon
 	public List<T> list(T model) throws Exception {
-		model = setModel(model);
+		setModel(model);
 
 		List<T> list = null;
 //		String cacheKey = null;
@@ -164,7 +164,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 
 	@Override
 	public int count(T model) throws Exception {
-		model = setModel(model);
+		setModel(model);
 
 		if (mapper == null) {
 			return entityManager.count(model, model.getConditionObj());
@@ -195,7 +195,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	@Deprecated
 	@Override
 	public Page<T> page(T model, Page<T> page) throws Exception {
-		model = setModel(model);
+		setModel(model);
 
 		if (model.getOrder_by() == null)
 			model.setOrder_by(Paging.DEFAULT_ORDER_BY);
@@ -218,7 +218,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 			result = mapper.insert(model);
 		}
 
-//		result = String.valueOf(result);
+//		result = result.toString();
 		Object id = getId(model);
 		if (Utils.isValidate(id)) {
 			result = id;
@@ -236,7 +236,6 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	@CacheEvictCommonClass
 	public List<Object> insert(List<T> models) throws Exception {
 		List<Object> resultList = new ArrayList<Object>();
-
 		for (T model : models) {
 //			model = setDefaultModifyDate(setDefaultRegisterDate(model));
 //
@@ -331,7 +330,6 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 		return result;
 	}
 
-	@Deprecated
 	@Override
 	@TransactionalException
 	@CacheEvictCommonClass
@@ -386,10 +384,8 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 	 * Model에 대한 쿼리를 가공할 경우에 Override하여 사용
 	 * 
 	 * @param model
-	 * @return model
 	 */
-	protected T setModel(T model) throws Exception {
-		return model;
+	protected void setModel(T model) throws Exception {
 	}
 
 	/**

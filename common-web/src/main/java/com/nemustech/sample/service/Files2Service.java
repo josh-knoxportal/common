@@ -8,5 +8,5 @@ import com.nemustech.sample.model.Files2;
  * 
  * @author skoh
  */
-public interface Files2Service extends FilesService<Files2>{
+public interface Files2Service extends FilesService<Files2> {
 }

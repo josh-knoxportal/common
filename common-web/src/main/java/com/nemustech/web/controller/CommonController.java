@@ -1,7 +1,6 @@
 package com.nemustech.web.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import org.mybatisorm.Page;
 import org.mybatisorm.annotation.handler.HandlerFactory;
 import org.mybatisorm.annotation.handler.JoinHandler;
 import org.mybatisorm.annotation.handler.TableHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,12 +24,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nemustech.common.exception.CommonException;
-import com.nemustech.common.file.Files;
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
 import com.nemustech.common.model.ModelMap;
@@ -40,11 +35,9 @@ import com.nemustech.common.model.ValidList;
 import com.nemustech.common.page.PageNavigator;
 import com.nemustech.common.page.Paging;
 import com.nemustech.common.service.CommonService;
-import com.nemustech.common.service.FilesService;
 import com.nemustech.common.util.JsonUtil2;
 import com.nemustech.common.util.ORMUtil;
 import com.nemustech.common.util.StringUtil;
-import com.nemustech.common.util.Utils;
 import com.nemustech.web.util.ValidationUtil;
 
 /**
@@ -64,11 +57,10 @@ public abstract class CommonController<T extends Default> {
 	protected CommonService<T> service;
 
 	/**
-	 * 파일 서비스
+	 * 서비스
+	 * 
+	 * @return
 	 */
-	@Autowired
-	protected FilesService filesService;
-
 	public abstract CommonService<T> getService();
 
 	@PostConstruct
@@ -86,8 +78,8 @@ public abstract class CommonController<T extends Default> {
 
 	// 1. Common 파라미터는 GET 방식의 보안을 위해 사용
 	// 2. BindingResult 인자는 반드시 @Valid 로 선언한 인자의 바로 뒤에 와야 함
-	@Deprecated
-//	@RequestMapping(value = "get" + POSTFIX, method = { RequestMethod.GET })
+//	@Deprecated
+	@RequestMapping(value = "get" + POSTFIX, method = { RequestMethod.GET })
 	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
@@ -196,8 +188,8 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
-	@Deprecated
-//	@RequestMapping(value = "insert_json" + POSTFIX, method = RequestMethod.POST)
+//	@Deprecated
+	@RequestMapping(value = "insert_json" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
 		return insert(model, errors, null);
@@ -240,8 +232,8 @@ public abstract class CommonController<T extends Default> {
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "inserts" + POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
-			throws Exception {
+	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors,
+			HttpServletRequest request) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
@@ -255,8 +247,8 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
-	@Deprecated
-//	@RequestMapping(value = "update_json" + POSTFIX, method = RequestMethod.PUT)
+//	@Deprecated
+	@RequestMapping(value = "update_json" + POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return update(model, errors, null);
 	}
@@ -288,8 +280,8 @@ public abstract class CommonController<T extends Default> {
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "updates" + POSTFIX, method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
-			throws Exception {
+	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors,
+			HttpServletRequest request) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
@@ -308,8 +300,8 @@ public abstract class CommonController<T extends Default> {
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@Deprecated
-//	@RequestMapping(value = "delete_json" + POSTFIX, method = RequestMethod.DELETE)
+//	@Deprecated
+	@RequestMapping(value = "delete_json" + POSTFIX, method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return delete(model, errors);
 	}
@@ -332,8 +324,8 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * Content-Type : application/json
 	 */
-	@Deprecated
-//	@RequestMapping(value = "deletes" + POSTFIX, method = RequestMethod.POST)
+//	@Deprecated
+	@RequestMapping(value = "deletes" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
@@ -475,43 +467,5 @@ public abstract class CommonController<T extends Default> {
 	protected Response<T> getFailResponse(Exception e) {
 		return Response.getFailResponse(ValidationUtil.getHttpErrorCode(HttpStatus.INTERNAL_SERVER_ERROR),
 				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, StringUtil.getErrorMessage(e)));
-	}
-
-	/**
-	 * 요청에서 파일 리스트를 구한다.
-	 * 
-	 * @param model
-	 * @param request
-	 * @return
-	 * @throws Exception
-	 */
-	protected List<Files> getFiles(T model, HttpServletRequest request) throws Exception {
-		List<Files> filesList = new ArrayList<Files>();
-
-		if (request instanceof MultipartHttpServletRequest) {
-			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			Iterator<String> fileNames = multipartRequest.getFileNames();
-
-			List<MultipartFile> files = new ArrayList<MultipartFile>();
-			while (fileNames.hasNext()) {
-				files.addAll(multipartRequest.getFiles((String) fileNames.next()));
-			}
-
-			for (MultipartFile file : files) {
-				if (!Utils.isValidate(file.getOriginalFilename()))
-					continue;
-
-				Files files_ = new Files(file.getOriginalFilename(), file.getBytes());
-				if (model instanceof Common) {
-					Common common = (Common) model;
-					files_.setReg_id(common.getMod_id());
-					files_.setMod_id(common.getMod_id());
-				}
-
-				filesList.add(files_);
-			}
-		}
-
-		return filesList;
 	}
 }

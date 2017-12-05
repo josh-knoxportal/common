@@ -2,14 +2,15 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	<settings>
-		<setting name="defaultExecutorType" value="BATCH" />
-	</settings>
+<!-- 	<settings> -->
+<!-- 		<setting name="defaultExecutorType" value="BATCH" /> -->
+<!-- 	</settings> -->
 
 	<typeAliases>
 		<typeAlias alias="Sample" type="com.nemustech.sample.model.Sample" />
 		<typeAlias alias="Test" type="com.nemustech.sample.model.Test" />
 		<typeAlias alias="SampleAndTest" type="com.nemustech.sample.model.SampleAndTest" />
+		<typeAlias alias="Files" type="com.nemustech.common.file.Files" />
 		<typeAlias alias="Files2" type="com.nemustech.sample.model.Files2" />
 		<typeAlias alias="Group" type="com.nemustech.sample.model.Group" />
 	</typeAliases>

@@ -1,6 +1,7 @@
 package com.nemustech.common.file;
 
 import org.mybatisorm.annotation.Column;
+import org.mybatisorm.annotation.Table;
 
 import com.nemustech.common.model.Common;
 import com.nemustech.common.storage.LocalFileStorage;
@@ -52,6 +53,7 @@ import com.nemustech.common.util.Utils;
  * 
  * @author skoh
  */
+@Table
 public class Files extends Common {
 	/**
 	 * 아이디(PK)
@@ -85,23 +87,23 @@ public class Files extends Common {
 	public Files() {
 	}
 
+	public Files(String id) {
+		setFiles(id, null, null, null);
+	}
+
 	public Files(String name, byte[] bytes) {
 		this(null, name, bytes);
 	}
 
 	public Files(String path, String name, byte[] bytes) {
-		this(null, path, name, bytes);
+		setFiles(null, path, name, bytes);
 	}
 
-	public Files(String id, String path, String name, byte[] bytes) {
-		this(id, path, name, Utils.isValidate(bytes) ? (long) bytes.length : 0, bytes);
-	}
-
-	public Files(String id, String path, String name, Long file_size, byte[] bytes) {
+	public void setFiles(String id, String path, String name, byte[] bytes) {
 		this.id = Utils.isValidate(id) ? id : LocalFileStorage.generateUID();
 		this.path = path;
 		this.name = name;
-		this.file_size = file_size;
+		this.file_size = Utils.isValidate(bytes) ? (long) bytes.length : null;
 		this.bytes = bytes;
 	}
 
@@ -148,6 +150,10 @@ public class Files extends Common {
 
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
+	}
+
+	public String getRealPath() {
+		return LocalFileStorage.getStorageRootPath() + path;
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nemustech.common.annotation.TransactionalException;
+import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.service.impl.CommonServiceImpl;
 import com.nemustech.sample.annotation.CacheEvictSample;
 import com.nemustech.sample.mapper.SampleMapper;
@@ -23,10 +24,10 @@ public class SampleServiceImpl extends CommonServiceImpl<Sample> implements Samp
 	@Autowired
 	protected SampleMapper mapper;
 
-//	@Override
-//	public CommonMapper<Sample> getMapper() {
-//		return mapper;
-//	}
+	@Override
+	public CommonMapper<Sample> getMapper() {
+		return mapper;
+	}
 
 //	@Override
 //	public Object insert(Sample model) throws Exception {

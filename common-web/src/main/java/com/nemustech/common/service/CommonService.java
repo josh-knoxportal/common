@@ -190,7 +190,6 @@ public interface CommonService<T extends Default> extends CacheService {
 	 * @return 결과
 	 * @throws Exception
 	 */
-	@Deprecated
 	public int delete(List<T> models) throws Exception;
 
 	/**

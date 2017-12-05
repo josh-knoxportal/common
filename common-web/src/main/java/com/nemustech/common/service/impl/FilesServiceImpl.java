@@ -1,21 +1,19 @@
 package com.nemustech.common.service.impl;
 
-import java.util.List;
+import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nemustech.common.annotation.CacheEvictCommonClass;
+import com.nemustech.common.annotation.TransactionalException;
 import com.nemustech.common.file.Files;
 import com.nemustech.common.mapper.CommonMapper;
 import com.nemustech.common.mapper.FilesMapper;
 import com.nemustech.common.service.FilesService;
 import com.nemustech.common.storage.FileStorage;
+import com.nemustech.common.storage.LocalFileStorage;
 
-/**
- * 파일 서비스
- * 
- * @author skoh
- */
 @Service
 public abstract class FilesServiceImpl<T extends Files> extends CommonServiceImpl<T> implements FilesService<T> {
 	/**
@@ -24,6 +22,9 @@ public abstract class FilesServiceImpl<T extends Files> extends CommonServiceImp
 	@Autowired
 	protected FileStorage fileStorage;
 
+	/**
+	 * 파일 매퍼
+	 */
 	@Autowired
 	protected FilesMapper<T> mapper;
 
@@ -32,84 +33,63 @@ public abstract class FilesServiceImpl<T extends Files> extends CommonServiceImp
 		return mapper;
 	}
 
-//	@Override
-//	public FilesService getFileService() {
-//		return files2Service;
-//	}
+	@Override
+	@TransactionalException
+	@CacheEvictCommonClass
+	public Object insert(T model) throws Exception {
+		insertFile(model);
 
-	void test(T model, List<T> models) {
-//		List<Files> files = getFiles(model, request);
-//		files = filesService.insertFile(files);
-//
-//		// 파일 생성
-//		if (!(model instanceof Files))
-//			insertFile(model, files);
-//
-//		// 파일 수정
-//		if (!(model instanceof Files)) {
-//			String condition = model.getCondition();
-//			model = (T) model.getClass().newInstance();
-//			model.addCondition(condition);
-//			updateFile(model, files);
-//		}
-//
-//		// 파일 삭제
-//		if (!(model instanceof Files))
-//			deleteFile(model, files);
-//
-//		for (T model : models) {
-//			// 파일 삭제
-//			if (!(model instanceof Files))
-//				deleteFile(model);
-//		}
+		return super.insert(model);
+	}
+
+	@Override
+	@TransactionalException
+	@CacheEvictCommonClass
+	public int update(T model) throws Exception {
+		updateFile(model);
+
+		return super.update(model);
+	}
+
+	@Override
+	@TransactionalException
+	@CacheEvictCommonClass
+	public int delete(T model) throws Exception {
+		deleteFile(LocalFileStorage.getRealFilePath(model.getId()));
+
+		return super.delete(model);
 	}
 
 	/**
 	 * 파일 등록
 	 * 
-	 * @param files
+	 * @param model
 	 * @throws Exception
 	 */
-	@Override
-	public List<T> insertFile(List<T> files) throws Exception {
-		for (Files file : files) {
-			file.setPath(fileStorage.save(file));
-		}
-
-		return files;
+	protected void insertFile(T model) throws Exception {
+		model.setPath(fileStorage.save(model));
 	}
 
 	/**
 	 * 파일 수정
 	 * 
-	 * <pre>
-	 * - 기존 파일은 삭제하지 않음
-	 * - 파일 정보는 삭제하고 다시 생성함
-	 * </pre>
-	 * 
-	 * @param files
+	 * @param model
 	 * @throws Exception
 	 */
-	@Override
-	public List<T> updateFile(List<T> files) throws Exception {
-		deleteFile(files);
-
-		return insertFile(files);
+	protected void updateFile(T model) throws Exception {
+		insertFile(model);
 	}
 
 	/**
 	 * 파일 삭제
 	 * 
-	 * <pre>
-	 * - 기존 파일은 삭제하지 않음
-	 * - 파일 정보는 삭제함
-	 * </pre>
-	 * 
-	 * @param files
+	 * @param path
+	 * @return
 	 * @throws Exception
 	 */
-	@Override
-	public List<T> deleteFile(List<T> files) throws Exception {
-		return files;
+	protected boolean deleteFile(String path) throws Exception {
+		File file = new File(path);
+
+		return file.delete();
 	}
 }

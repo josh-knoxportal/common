@@ -1,0 +1,27 @@
+{
+	"url":"http://localhost:8050/common-web/sample2/update_files.do",
+	"method":"POST",
+	"requestFormat":"File",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"multipart/form-data;boundary=__boundary__"
+			},
+			"params":{
+				"id":"35",
+				"name":"s2",
+				"test_id":2,
+				"mod_id":"2",
+				"files":[
+					{
+						"path":"/Users/skoh/Downloads/테스트1.txt"
+					},
+					{
+						"path":"/Users/skoh/Downloads/테스트2.txt"
+					}
+				]
+			}
+		}
+	]
+}

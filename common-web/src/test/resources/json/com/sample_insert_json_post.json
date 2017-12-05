@@ -9,7 +9,7 @@
 				"Content-Type":"application/json"
 			},
 			"params":{
-				"name":"s",
+				"name":"테스트",
 				"test_id":3,
 				"reg_id":"1",
 				"mod_id":"1"

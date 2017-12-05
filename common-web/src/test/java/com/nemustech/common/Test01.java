@@ -8,11 +8,10 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import com.nemustech.common.file.Files;
 import com.nemustech.common.storage.FileStorage;
 import com.nemustech.common.storage.LocalFileStorage;
-import com.nemustech.common.util.ReflectionUtil;
-import com.nemustech.common.util.StringUtil;
-import com.nemustech.sample.model.Sample;
+import com.nemustech.sample.model.Files2;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Test01 {
@@ -184,7 +183,50 @@ public class Test01 {
 //		sample.setReg_id("reg_id");
 //		System.out.println(ReflectionUtil.getValue(sample, "reg_id1"));String messageFoamat = "{\"Message\":\"{0}\"}";
 
-		System.out.println(StringUtil.getMessage("\"Message\":\"{0}\"", "Success"));
+//		System.out.println(StringUtil.getMessage("\"Message\":\"{0}\"", "Success"));
+
+//		Child c = new Child();
+//		Type type = c.getClass().getGenericSuperclass();
+//		System.out.println("class: " + type.getClass());
+//		if (type instanceof ParameterizedType) {
+//			ParameterizedType pt = (ParameterizedType) type;
+//			System.out.println("object: " + ((Class) pt.getActualTypeArguments()[0]).newInstance());
+//		}
+
+//		Object obj = "1";
+//		System.out.println(obj.toString());
+
+		Files f = new Files();
+		setBind(f).setReg_id("reg_id2");;
+		System.out.println(f);
+	}
+
+	Files setBind(Files f) {
+		f.setReg_id("reg_id");
+		return f;
+	}
+
+	class Parent<F extends Files> {
+	}
+
+	class Parent2<F extends Files> extends Parent<F> {
+	}
+
+	class Child extends Parent2<Files2> {
+//		Child() throws Exception {
+//			Type type = this.getClass().getGenericSuperclass();
+//			System.out.println("class: " + type.getClass());
+//			if (type instanceof ParameterizedType) {
+//				ParameterizedType pt = (ParameterizedType) type;
+//				System.out.println("object: " + ((Class) pt.getActualTypeArguments()[0]).newInstance());
+//			}
+//		}
+	}
+
+	class Test2 {
+	}
+
+	class Test3 extends Test2 {
 	}
 
 	public String getTargetClass() throws Exception {

@@ -10,15 +10,6 @@ import com.nemustech.common.file.Files;
  */
 public interface FileStorage {
 	/**
-	 * file에 대한 Unique ID를 돌려 준다.
-	 * 
-	 * @param fileName Unique ID가 필요한 파일 이름
-	 * @return Unique ID
-	 */
-	@Deprecated
-	public String getFileID(String fileName);
-
-	/**
 	 * 파일을 저장한다.
 	 * 
 	 * @param fileName 파일 이름
@@ -60,16 +51,24 @@ public interface FileStorage {
 	 */
 	public void removeAll();
 
-	/**
-	 * 파일 이름을 돌려 준다.
-	 * 
-	 * @param fileID Unique ID
-	 * @return 해당 Unique ID에 대한 파일 이름
-	 */
+//	/**
+//	 * file에 대한 Unique ID를 돌려 준다.
+//	 * 
+//	 * @param fileName Unique ID가 필요한 파일 이름
+//	 * @return Unique ID
+//	 */
+//	public String getFileID(String fileName);
+//
+//	/**
+//	 * 파일 이름을 돌려 준다.
+//	 * 
+//	 * @param fileID Unique ID
+//	 * @return 해당 Unique ID에 대한 파일 이름
+//	 */
 //	public String getFileName(String fileID);
-
-	/**
-	 * 파일 정보를 가져온다.
-	 */
+//
+//	/**
+//	 * 파일 정보를 가져온다.
+//	 */
 //	public Files getFileInfo(String fileID);
 }

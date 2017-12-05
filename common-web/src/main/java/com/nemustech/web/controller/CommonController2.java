@@ -65,13 +65,6 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	}
 
 	@Override
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
-			throws Exception {
-		return super.inserts(models, errors);
-	}
-
-	@Override
 	@RequestMapping(value = "file", method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors, HttpServletRequest request)
 			throws Exception {
@@ -79,10 +72,10 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	}
 
 	@Override
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
-			throws Exception {
-		return super.updates(models, errors);
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors,
+			HttpServletRequest request) throws Exception {
+		return super.inserts(models, errors, request);
 	}
 
 	@Override
@@ -90,6 +83,13 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors, HttpServletRequest request)
 			throws Exception {
 		return update(model, errors, request);
+	}
+
+	@Override
+	@RequestMapping(method = RequestMethod.PUT)
+	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors,
+			HttpServletRequest request) throws Exception {
+		return super.updates(models, errors, request);
 	}
 
 	@Override

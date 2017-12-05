@@ -92,7 +92,7 @@ import com.nemustech.common.model.Common;
  * 
  * @author skoh
  */
-@Table("sample")
+@Table
 public class Sample extends Common {// Common.CommonWrite {
 	/**
 	 * 아이디(PK)
@@ -116,6 +116,11 @@ public class Sample extends Common {// Common.CommonWrite {
 	 * 갯수 필드
 	 */
 	protected Integer count;
+
+	/**
+	 * 파일들
+	 */
+	protected Files[] files;
 
 	/**
 	 * 내부 객체 리스트
@@ -169,6 +174,14 @@ public class Sample extends Common {// Common.CommonWrite {
 
 	public void setCount(Integer count) {
 		this.count = count;
+	}
+
+	public Files[] getFiles() {
+		return files;
+	}
+
+	public void setFiles(Files[] files) {
+		this.files = files;
 	}
 
 	public Set<Test> getTestSet() {

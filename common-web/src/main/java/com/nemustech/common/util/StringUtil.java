@@ -1439,6 +1439,10 @@ public abstract class StringUtil extends StringUtils {
 	 * @return
 	 */
 	public static String toString(Object obj, ToStringStyle style, String... excludeFieldNamesParam) {
+		if (obj == null) {
+			return "";
+		}
+
 		// byte[] 필드는 제외
 		Map<String, Field> fields = ReflectionUtil.getFields(obj, new byte[0].getClass());
 		excludeFieldNamesParam = ArrayUtils.addAll(excludeFieldNamesParam,

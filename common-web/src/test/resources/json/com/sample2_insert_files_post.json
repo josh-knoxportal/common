@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/common-web/sample/update.do",
+	"url":"http://localhost:8050/common-web/sample2/insert_files.do",
 	"method":"POST",
 	"requestFormat":"File",
 	"responseFormat":"JSON",
@@ -9,11 +9,17 @@
 				"Content-Type":"multipart/form-data;boundary=__boundary__"
 			},
 			"params":{
-				"id":1,
 				"name":"s1",
+				"test_id":1,
+				"reg_id":"1",
 				"mod_id":"1",
 				"files":[
-					"/Users/skoh/Downloads/tumb_hi04.png"
+					{
+						"path":"/Users/skoh/Downloads/테스트1.txt"
+					},
+					{
+						"path":"/Users/skoh/Downloads/테스트2.txt"
+					}
 				]
 			}
 		}

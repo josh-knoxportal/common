@@ -1,5 +1,7 @@
 package com.nemustech.common.util;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
@@ -40,6 +42,25 @@ public abstract class TypeUtil extends TypeUtils {
 		}
 
 		return false;
+	}
+
+	/**
+	 * 수퍼 클래스의 제너릭 인수에 대한 인스턴스 생성
+	 * 
+	 * @param obj
+	 * @param genericArgumentTypeIndex
+	 * @return 제너릭 인수가 없으면 null
+	 * @throws Exception
+	 */
+	public static <T> T newSuperclassGenericArgumentInstance(Object obj, int genericArgumentTypeIndex)
+			throws Exception {
+		Type superclassType = obj.getClass().getGenericSuperclass();
+		if (superclassType instanceof ParameterizedType) {
+			ParameterizedType genericArgumentType = (ParameterizedType) superclassType;
+			return (T) ((Class) genericArgumentType.getActualTypeArguments()[genericArgumentTypeIndex]).newInstance();
+		}
+
+		return null;
 	}
 
 	public static void main(String[] args) {

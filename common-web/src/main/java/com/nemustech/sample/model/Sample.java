@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.mybatisorm.annotation.Column;
 import org.mybatisorm.annotation.Table;
 
-import com.nemustech.common.file.Files;
 import com.nemustech.common.model.Common;
 
 /**
@@ -118,16 +117,11 @@ public class Sample extends Common {// Common.CommonWrite {
 	protected Integer count;
 
 	/**
-	 * 파일들
-	 */
-	protected Files[] files;
-
-	/**
 	 * 내부 객체 리스트
 	 */
-	protected Set<Test> testSet = new LinkedHashSet<Test>();
+	protected Set<Test> tests = new LinkedHashSet<Test>();
 
-	protected Set<Files> filesSet = new LinkedHashSet<Files>();
+	protected Set<Files2> files = new LinkedHashSet<Files2>();
 
 	public Sample() {
 //		new Common().super();
@@ -176,28 +170,21 @@ public class Sample extends Common {// Common.CommonWrite {
 		this.count = count;
 	}
 
-	public Files[] getFiles() {
+	public Set<Test> getTests() {
+		return tests;
+	}
+
+	public void setTests(Set<Test> tests) {
+		this.tests = tests;
+	}
+
+	@Override
+	public Set<Files2> getFiles() {
 		return files;
 	}
 
-	public void setFiles(Files[] files) {
+	public void setFiles(Set<Files2> files) {
 		this.files = files;
-	}
-
-	public Set<Test> getTestSet() {
-		return testSet;
-	}
-
-	public void setTestSet(Set<Test> testSet) {
-		this.testSet = testSet;
-	}
-
-	public Set<Files> getFilesSet() {
-		return filesSet;
-	}
-
-	public void setFilesSet(Set<Files> filesSet) {
-		this.filesSet = filesSet;
 	}
 
 	/**

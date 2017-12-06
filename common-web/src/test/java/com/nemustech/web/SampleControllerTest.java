@@ -122,7 +122,7 @@ public class SampleControllerTest {
 		sample.setMod_id("1");
 
 		ResponseEntity<Response<Object>> response = sampleController.insert(sample,
-				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
+				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -138,7 +138,7 @@ public class SampleControllerTest {
 		sample.addCondition("name LIKE 's1%'");
 
 		ResponseEntity<Response<Integer>> response = sampleController.update(sample,
-				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
+				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -258,7 +258,7 @@ public class SampleControllerTest {
 		sample.setMod_id("1");
 
 		ResponseEntity<Response<Object>> response = sampleController.insert(sample,
-				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
+				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}
@@ -272,7 +272,7 @@ public class SampleControllerTest {
 		sample.addCondition("name LIKE 's1%'");
 
 		ResponseEntity<Response<Integer>> response = sampleController.update(sample,
-				new BeanPropertyBindingResult(sample, "sample"), new MockHttpServletRequest());
+				new BeanPropertyBindingResult(sample, "sample"));
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 	}

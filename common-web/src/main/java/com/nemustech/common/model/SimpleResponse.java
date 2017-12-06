@@ -29,8 +29,8 @@ import com.nemustech.common.util.Utils;
  *       "name" : "s",
  *       "test_id" : 2,
  *       "count" : null,
- *       "testSet" : [ ],
- *       "filesSet" : [ ]
+ *       "tests" : [ ],
+ *       "files" : [ ]
  *     } ]
  *   }
  * }

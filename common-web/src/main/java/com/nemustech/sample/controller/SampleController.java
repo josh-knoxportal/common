@@ -1,6 +1,7 @@
 package com.nemustech.sample.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nemustech.common.model.Common;
+import com.nemustech.common.model.ModelMap;
 import com.nemustech.common.model.Response;
 import com.nemustech.common.service.CommonService;
 import com.nemustech.common.util.Utils;
@@ -42,6 +44,21 @@ public class SampleController extends CommonController<Sample> {
 	@Override
 	public CommonService<Sample> getService() {
 		return service;
+	}
+
+	@RequestMapping(value = "select", method = { RequestMethod.POST })
+	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
+			throws Exception {
+		if (errors != null && errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
+				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), model.getGroup_by(),
+				model.getHaving(), "select_");
+		Response<List<Map<String, Object>>> response = getSuccessResponse(list);
+
+		return new ResponseEntity<Response<List<Map<String, Object>>>>(response, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "list3", method = { RequestMethod.POST })
@@ -118,14 +135,13 @@ public class SampleController extends CommonController<Sample> {
 	@RequestMapping(value = "insert2" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid Sample model, BindingResult errors,
 			HttpServletRequest request, MultipartFile[] file) throws Exception {
-		return super.insert(model, errors, request);
+		return super.insert(model, errors);
 	}
 
 	@Override
 	@RequestMapping(value = "update.do", method = { RequestMethod.POST, RequestMethod.PUT })
-	public ResponseEntity<Response<Integer>> update(@Valid Sample model, BindingResult errors,
-			HttpServletRequest request) throws Exception {
-		return super.update(model, errors, request);
+	public ResponseEntity<Response<Integer>> update(@Valid Sample model, BindingResult errors) throws Exception {
+		return super.update(model, errors);
 	}
 
 //	@RequestMapping(value = "get2", method = { RequestMethod.GET })

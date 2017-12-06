@@ -192,7 +192,7 @@ public abstract class CommonServiceImpl<T extends Default> extends CacheServiceI
 		return list;
 	}
 
-	@Deprecated
+//	@Deprecated
 	@Override
 	public Page<T> page(T model, Page<T> page) throws Exception {
 		setModel(model);

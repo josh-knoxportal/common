@@ -12,7 +12,7 @@ import com.nemustech.common.model.Default;
  */
 public interface CommonFilesService<T extends Default, F extends Files> extends CommonService<T> {
 	/**
-	 * 공통 파일 등록
+	 * 단일 모델의 복수 파일 등록
 	 * 
 	 * @param model
 	 * @param files
@@ -22,7 +22,7 @@ public interface CommonFilesService<T extends Default, F extends Files> extends 
 	public Object insert(T model, List<F> files) throws Exception;
 
 	/**
-	 * 공통 파일 수정
+	 * 단일 모델의 복수 파일 수정
 	 * 
 	 * @param model
 	 * @param files
@@ -32,7 +32,7 @@ public interface CommonFilesService<T extends Default, F extends Files> extends 
 	public int update(T model, List<F> files) throws Exception;
 
 	/**
-	 * 공통 파일 삭제
+	 * 단일 모델의 복수 파일 삭제
 	 * 
 	 * @param model
 	 * @param files

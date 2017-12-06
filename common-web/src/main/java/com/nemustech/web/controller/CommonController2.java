@@ -1,9 +1,7 @@
 package com.nemustech.web.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -44,6 +42,12 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	}
 
 	@Override
+	@RequestMapping(value = "{id}", method = { RequestMethod.GET })
+	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
+		return super.get(model, common, errors);
+	}
+
+	@Override
 	@RequestMapping(method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<T>>> list(T model, @Valid Common common, BindingResult errors)
 			throws Exception {
@@ -66,30 +70,28 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 
 	@Override
 	@RequestMapping(value = "file", method = RequestMethod.POST)
-	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors, HttpServletRequest request)
-			throws Exception {
-		return super.insert(model, errors, request);
+	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors) throws Exception {
+		return super.insert(model, errors);
 	}
 
 	@Override
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors,
-			HttpServletRequest request) throws Exception {
-		return super.inserts(models, errors, request);
+	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
+			throws Exception {
+		return super.inserts(models, errors);
 	}
 
 	@Override
 	@RequestMapping(value = "update", method = { RequestMethod.POST })
-	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors, HttpServletRequest request)
-			throws Exception {
-		return update(model, errors, request);
+	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
+		return update(model, errors);
 	}
 
 	@Override
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors,
-			HttpServletRequest request) throws Exception {
-		return super.updates(models, errors, request);
+	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
+			throws Exception {
+		return super.updates(models, errors);
 	}
 
 	@Override
@@ -98,16 +100,15 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 		return super.delete(model, errors);
 	}
 
+	@RequestMapping(value = "deletes", method = RequestMethod.POST)
+	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
+			throws Exception {
+		return super.delete(models, errors);
+	}
+
 	@Override
 	@RequestMapping(value = "mapper", method = { RequestMethod.GET })
 	public ModelAndView mapper(T model, ModelAndView mav) throws Exception {
 		return super.mapper(model, mav);
-	}
-
-	@Override
-	@RequestMapping(value = "select", method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
-			throws Exception {
-		return super.select(model, errors);
 	}
 }

@@ -2,6 +2,7 @@ package com.nemustech.common.model;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.Set;
 
 import javax.validation.constraints.Null;
 
@@ -9,6 +10,7 @@ import org.mybatisorm.Condition;
 import org.mybatisorm.Condition.Seperator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nemustech.common.file.Files;
 import com.nemustech.common.util.StringUtil;
 import com.nemustech.common.util.Utils;
 
@@ -139,6 +141,15 @@ public abstract class Default implements Serializable {
 	 * @return
 	 */
 	public Object id() {
+		return null;
+	}
+
+	/**
+	 * 파일을 구한다.
+	 * 
+	 * @return
+	 */
+	public <F extends Files> Set<F> getFiles() {
 		return null;
 	}
 

@@ -85,7 +85,7 @@ public class ControllerTest {
 		System.out.println("response: " + JsonUtil2.toStringPretty(response));
 		Assert.assertTrue("Fail", response.getBody().getHeader().getSuccess_yn());
 
-		List<Default> list = MapperUtils.convertModels(response.getBody().getBody(), "testSet", "filesSet");
+		List<Default> list = MapperUtils.convertModels(response.getBody().getBody(), "tests", "files");
 		System.out.println("list: " + JsonUtil2.toStringPretty(list));
 
 //		Sample sample = new Sample();

@@ -13,7 +13,7 @@ import com.nemustech.common.page.Paging;
  */
 //@Join // Inner Join
 //@Join("sample LEFT JOIN test") // Outer Join
-@Join("sample LEFT JOIN test LEFT JOIN files")
+@Join("sample LEFT JOIN test LEFT JOIN files2")
 public class SampleAndTest extends Paging {
 	@Fields("*")
 	protected Sample sample = new Sample(); // 인스턴스를 생성해야 기본 조건이 만들어짐.
@@ -22,15 +22,15 @@ public class SampleAndTest extends Paging {
 	protected Test test = new Test();
 
 	@Fields("*")
-	protected Files2 files = new Files2();
+	protected Files2 files2 = new Files2();
 
 	public SampleAndTest() {
 	}
 
-	public SampleAndTest(Sample sample, Test test, Files2 files) {
+	public SampleAndTest(Sample sample, Test test, Files2 files2) {
 		this.sample = sample;
 		this.test = test;
-		this.files = files;
+		this.files2 = files2;
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class SampleAndTest extends Paging {
 
 	@Override
 	public Default[] joinModels() {
-		return new Default[] { test, files };
+		return new Default[] { test, files2 };
 	}
 
 	public Sample getSample() {
@@ -59,11 +59,11 @@ public class SampleAndTest extends Paging {
 		this.test = test;
 	}
 
-	public Files2 getFiles() {
-		return files;
+	public Files2 getFiles2() {
+		return files2;
 	}
 
-	public void setFiles(Files2 files) {
-		this.files = files;
+	public void setFiles(Files2 files2) {
+		this.files2 = files2;
 	}
 }

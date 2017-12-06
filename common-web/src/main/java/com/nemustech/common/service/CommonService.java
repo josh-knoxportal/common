@@ -135,7 +135,7 @@ public interface CommonService<T extends Default> extends CacheService {
 	 * @return Page<T>
 	 * @throws Exception
 	 */
-	@Deprecated
+//	@Deprecated
 	public Page<T> page(T model, Page<T> page) throws Exception;
 
 	/**

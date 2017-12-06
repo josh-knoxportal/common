@@ -29,8 +29,8 @@ import com.nemustech.common.model.SimpleResponse;
  *       "name" : "s",
  *       "test_id" : 2,
  *       "count" : null,
- *       "testSet" : [ ],
- *       "filesSet" : [ ]
+ *       "tests" : [ ],
+ *       "files" : [ ]
  *     } ]
  *   }
  * }

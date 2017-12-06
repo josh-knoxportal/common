@@ -2,10 +2,8 @@ package com.nemustech.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.collections.KeyValue;
@@ -29,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
-import com.nemustech.common.model.ModelMap;
 import com.nemustech.common.model.Response;
 import com.nemustech.common.model.ValidList;
 import com.nemustech.common.page.PageNavigator;
@@ -42,6 +39,30 @@ import com.nemustech.web.util.ValidationUtil;
 
 /**
  * 공통 Controller
+ * 
+ * <pre>
+ * - 조회
+ * . [/model/get.do],methods=[GET]
+ * . [/model/list.do],methods=[GET]
+ * . [/model/count.do],methods=[GET]
+ * . [/model/page.do],methods=[GET]
+ * . [/model/mapper.do],methods=[GET]
+ * 
+ * - 생성
+ * . [/model/insert.do],methods=[POST]
+ * . [/model/insert_json.do],methods=[POST]
+ * . [/model/inserts.do],methods=[POST]
+ * 
+ * - 수정
+ * . [/model/update.do],methods=[PUT]
+ * . [/model/update_json.do],methods=[PUT]
+ * . [/model/updates.do],methods=[PUT]
+ * 
+ * - 삭제
+ * . [/model/delete.do],methods=[DELETE]
+ * . [/model/delete_json.do],methods=[POST]
+ * . [/model/deletes.do],methods=[POST]
+ * </pre>
  * 
  * @author skoh
  */
@@ -192,11 +213,11 @@ public abstract class CommonController<T extends Default> {
 	@RequestMapping(value = "insert_json" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
-		return insert(model, errors, null);
+		return insert(model, errors);
 	}
 
 	/**
-	 * 단일 모델의 복수 파일 등록
+	 * 단일 모델 등록
 	 * Content-Type : application/x-www-form-urlencoded, multipart/form-data
 	 * 
 	 * @param model
@@ -205,10 +226,8 @@ public abstract class CommonController<T extends Default> {
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	// @RequestParam("file") MultipartFile[] files
 	@RequestMapping(value = "insert" + POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors, HttpServletRequest request)
-			throws Exception {
+	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
@@ -228,12 +247,12 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	/**
-	 * 복수 모델 등록 (파일 제외)
+	 * 복수 모델 등록
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "inserts" + POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors,
-			HttpServletRequest request) throws Exception {
+	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
+			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
@@ -250,21 +269,20 @@ public abstract class CommonController<T extends Default> {
 //	@Deprecated
 	@RequestMapping(value = "update_json" + POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
-		return update(model, errors, null);
+		return update(model, errors);
 	}
 
 	/**
-	 * 단일 모델의 복수 파일 수정
-	 * Content-Type : application/x-www-form-urlencoded (PUT), multipart/form-data (POST)
+	 * 단일 모델 수정
+	 * Content-Type : application/x-www-form-urlencoded
 	 * 
 	 * @param model
 	 * @param errors
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update" + POSTFIX, method = { RequestMethod.PUT, RequestMethod.POST })
-	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors, HttpServletRequest request)
-			throws Exception {
+	@RequestMapping(value = "update" + POSTFIX, method = { RequestMethod.PUT })
+	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
@@ -276,12 +294,12 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	/**
-	 * 복수 모델 수정 (파일 제외)
+	 * 복수 모델 수정
 	 * Content-Type : application/json
 	 */
 	@RequestMapping(value = "updates" + POSTFIX, method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors,
-			HttpServletRequest request) throws Exception {
+	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
+			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
 		}
@@ -301,12 +319,13 @@ public abstract class CommonController<T extends Default> {
 	 * @throws Exception
 	 */
 //	@Deprecated
-	@RequestMapping(value = "delete_json" + POSTFIX, method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete_json" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return delete(model, errors);
 	}
 
 	/**
+	 * 단일 모델 삭제
 	 * Content-Type : application/x-www-form-urlencoded
 	 */
 	@RequestMapping(value = "delete" + POSTFIX, method = RequestMethod.DELETE)
@@ -322,6 +341,7 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	/**
+	 * 복수 모델 삭제
 	 * Content-Type : application/json
 	 */
 //	@Deprecated
@@ -338,6 +358,14 @@ public abstract class CommonController<T extends Default> {
 		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
+	/**
+	 * CRUD 쿼리 생성
+	 * 
+	 * @param model
+	 * @param mav
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "mapper" + POSTFIX, method = { RequestMethod.GET })
 	public ModelAndView mapper(T model, ModelAndView mav) throws Exception {
 		Class<? extends Default> clazz = model.getClass();
@@ -401,21 +429,6 @@ public abstract class CommonController<T extends Default> {
 		log.debug("model: " + JsonUtil2.toStringPretty(mav.getModel()));
 
 		return mav;
-	}
-
-	@RequestMapping(value = "select" + POSTFIX, method = { RequestMethod.POST })
-	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)
-			throws Exception {
-		if (errors != null && errors.hasFieldErrors()) {
-			return (ResponseEntity) checkValidate(errors);
-		}
-
-		List<Map<String, Object>> list = service.select(new ModelMap(), model.newCondition().add(model.getCondition()),
-				model.getOrder_by(), model.getHint(), model.getFields(), model.getTable(), model.getGroup_by(),
-				model.getHaving(), "select_");
-		Response<List<Map<String, Object>>> response = getSuccessResponse(list);
-
-		return new ResponseEntity<Response<List<Map<String, Object>>>>(response, HttpStatus.OK);
 	}
 
 	/**

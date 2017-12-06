@@ -38,9 +38,6 @@ public abstract class CommonFilesServiceImpl<T extends Default, F extends Files>
 		return id;
 	}
 
-	/**
-	 * 파일은 삭제하고 새로 생성
-	 */
 	@Override
 	@TransactionalException
 	@CacheEvictCommonClass
@@ -49,12 +46,10 @@ public abstract class CommonFilesServiceImpl<T extends Default, F extends Files>
 		int id = super.update(model);
 
 		// 파일
-//		Files file = new Files();
-//		getFileService().delete(file);
 		for (F file : files) {
-			setFileInsert(model, file);
+			setFielUpdate(model, file);
 		}
-		getFileService().insert(files);
+		getFileService().update(files);
 
 		return id;
 	}
@@ -75,8 +70,9 @@ public abstract class CommonFilesServiceImpl<T extends Default, F extends Files>
 	/**
 	 * 파일 생성시 model 객체를 files 객체에 바인딩할 경우에 Override하여 사용
 	 * 
+	 * @param model
 	 * @param files
-	 * @return files
+	 * @return
 	 */
 	protected void setFileInsert(T model, F files) throws Exception {
 		if (model instanceof Common) {
@@ -89,8 +85,9 @@ public abstract class CommonFilesServiceImpl<T extends Default, F extends Files>
 	/**
 	 * 파일 수정시 model 객체를 files 객체에 바인딩할 경우에 Override하여 사용
 	 * 
+	 * @param model
 	 * @param files
-	 * @return files
+	 * @return
 	 */
 	protected void setFielUpdate(T model, F files) throws Exception {
 		if (model instanceof Common) {

@@ -34,8 +34,8 @@ import com.nemustech.common.util.StringUtil;
  *       "name" : "s",
  *       "test_id" : 2,
  *       "count" : null,
- *       "testSet" : [ ],
- *       "filesSet" : [ ]
+ *       "tests" : [ ],
+ *       "files" : [ ]
  *     } ]
  *   }
  * }

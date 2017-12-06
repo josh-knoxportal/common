@@ -3,6 +3,7 @@ package com.nemustech.common;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
+
 import com.nemustech.common.test.TestAPI;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -30,13 +31,20 @@ public class TestAPI_Common extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_json_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_file_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_delete_delete.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample_delete_json_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/com/sample2_insert_files_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample2_insert_files_json_post.json"));
-		arrayNode.add(readFile("src/test/resources/json/com/sample2_update_files_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample2_update_files_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample2_update_files_json_post.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample2_delete_files_delete.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/sample2_delete_files_json_post.json"));
+
+//		arrayNode.add(readFile("src/test/resources/json/com/files2_delete_delete.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/files2_deletes_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/com/test_get.json"));
+//		arrayNode.add(readFile("src/test/resources/json/com/test_get_id.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/test_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/test_count_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/test_page_get.json"));

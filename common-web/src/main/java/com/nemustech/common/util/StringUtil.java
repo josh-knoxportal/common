@@ -1567,7 +1567,7 @@ public abstract class StringUtil extends StringUtils {
 
 		Sample sample = new Sample();
 		com.nemustech.sample.model.Test test = new com.nemustech.sample.model.Test();
-		sample.setTestSet(new LinkedHashSet<com.nemustech.sample.model.Test>(Arrays.asList(test)));
+		sample.setTests(new LinkedHashSet<com.nemustech.sample.model.Test>(Arrays.asList(test)));
 		System.out.println(toString(sample, "conditionObj"));
 		System.out.println(toString(new Object[] { sample, test }, "conditionObj"));
 		System.out.println(toString(Arrays.asList(sample, test), "conditionObj"));

@@ -17,14 +17,14 @@ public class SampleAndFiles extends Paging {
 	protected Sample sample = new Sample();
 
 	@Fields("*")
-	protected Files2 files = new Files2();
+	protected Files2 files2 = new Files2();
 
 	public SampleAndFiles() {
 	}
 
-	public SampleAndFiles(Sample sample, Files2 files) {
+	public SampleAndFiles(Sample sample, Files2 files2) {
 		this.sample = sample;
-		this.files = files;
+		this.files2 = files2;
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class SampleAndFiles extends Paging {
 
 	@Override
 	public Default[] joinModels() {
-		return new Default[] { files };
+		return new Default[] { files2 };
 	}
 
 	public Sample getSample() {
@@ -45,11 +45,11 @@ public class SampleAndFiles extends Paging {
 		this.sample = sample;
 	}
 
-	public Files2 getFiles() {
-		return files;
+	public Files2 getFiles2() {
+		return files2;
 	}
 
-	public void setFiles(Files2 files) {
-		this.files = files;
+	public void setFiles2(Files2 files2) {
+		this.files2 = files2;
 	}
 }

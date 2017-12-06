@@ -192,7 +192,7 @@ public class Test02 {
 //				new SampleAndTest(new Sample(2L, "s2", 2L), new Test(2L, "t1", 2L),
 //						new Files2(new Files("f2", null), null)) });
 //
-//		List<Default> list2 = MapperUtils.convertModels(list, "testSet", "filesSet");
+//		List<Default> list2 = MapperUtils.convertModels(list, "tests", "files");
 //		System.out.println("list: " + list2);
 //		System.out.println("json: " + JsonUtil2.toStringPretty(list2));
 

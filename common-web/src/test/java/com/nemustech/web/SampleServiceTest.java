@@ -116,7 +116,7 @@ public class SampleServiceTest extends CommonTest {
 //		model.addCondition("sample_.name = 's1'");
 //
 //		List<SampleAndFiles> list = sampleAndFilesService.list(model);
-//		List<Default> list2 = MapperUtils.convertModels(list, "filesSet");
+//		List<Default> list2 = MapperUtils.convertModels(list, "files");
 //		log.info("list: " + JsonUtil2.toStringPretty(list2));
 	}
 

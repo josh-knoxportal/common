@@ -1,0 +1,21 @@
+{
+	"url":"http://localhost:8050/common-web/files2/deletes.do",
+	"method":"POST",
+	"requestFormat":"JSON",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"application/json"
+			},
+			"params":[
+				{
+					"id":"201712061628570842ME4M"
+				},
+				{
+					"id":"20171206162857085HEKOG"
+				}
+			]
+		}
+	]
+}

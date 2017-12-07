@@ -28,13 +28,13 @@ import com.nemustech.common.util.Utils;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.model.Sample.Sample2;
 import com.nemustech.sample.service.SampleService;
-import com.nemustech.web.controller.CommonController;
+import com.nemustech.web.controller.CommonController2;
 import com.nemustech.web.util.ValidationUtil;
 
 // produces 는 "Accept":"application/json" 생략하기 위해 기술 (생략시 application/xml)
 @Controller
 @RequestMapping(value = "sample", produces = MediaType.APPLICATION_JSON_VALUE)
-public class SampleController extends CommonController<Sample> {
+public class SampleController extends CommonController2<Sample> {
 	@Autowired
 	private MessageSource messageSource;
 
@@ -71,7 +71,7 @@ public class SampleController extends CommonController<Sample> {
 
 	// 주의) 로깅을 위해 Annotation 재정의
 	@Override
-	@RequestMapping(value = "list.do", method = { RequestMethod.GET })
+	@RequestMapping(value = "list", method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<Sample>>> list(Sample model, @Valid Common common, BindingResult errors)
 			throws Exception {
 //		HttpServletRequest request = WebApplicationContextUtil.getRequest();
@@ -132,14 +132,14 @@ public class SampleController extends CommonController<Sample> {
 		return new ResponseEntity<Response<List<Sample>>>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "insert2" + POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "insert2", method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid Sample model, BindingResult errors,
 			HttpServletRequest request, MultipartFile[] file) throws Exception {
 		return super.insert(model, errors);
 	}
 
 	@Override
-	@RequestMapping(value = "update.do", method = { RequestMethod.POST, RequestMethod.PUT })
+	@RequestMapping(value = "update", method = { RequestMethod.POST, RequestMethod.PUT })
 	public ResponseEntity<Response<Integer>> update(@Valid Sample model, BindingResult errors) throws Exception {
 		return super.update(model, errors);
 	}

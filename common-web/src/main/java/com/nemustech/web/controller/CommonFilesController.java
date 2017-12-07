@@ -26,24 +26,31 @@ import com.nemustech.common.service.CommonFilesService;
 import com.nemustech.common.util.TypeUtil;
 import com.nemustech.common.util.Utils;
 
+/**
+ * 공통 파일 컨트롤러
+ * 
+ * <pre>
+ * - 공통 파일 생성
+ * . [/model/insert_files_json],methods=[POST]
+ * . [/model/insert_files],methods=[POST]
+ * 
+ * - 공통 파일 수정
+ * . [/model/update_files_json],methods=[POST]
+ * . [/model/update_files],methods=[POST]
+ * 
+ * - 공통 파일 삭제
+ * . [/model/delete_files_json],methods=[POST]
+ * . [/model/delete_files],methods=[DELETE]
+ * </pre>
+ * 
+ * @author skoh
+ * @param <T>
+ * @param <F>
+ */
 @Controller
-public abstract class CommonFilesController<T extends Default, F extends Files> extends CommonController<T> {
+public abstract class CommonFilesController<T extends Default, F extends Files> extends CommonController2<T> {
 	/**
 	 * 모델 파일명
-	 * 
-	 * <pre>
-	 * - 파일 생성
-	 * . [/model/insert_files.do],methods=[POST]
-	 * . [/model/insert_files_json.do],methods=[POST]
-	 * 
-	 * - 파일 수정
-	 * . [/model/update_files.do],methods=[POST]
-	 * . [/model/update_files_json.do],methods=[POST]
-	 * 
-	 * - 파일 삭제
-	 * . [/model/delete_files.do],methods=[DELETE]
-	 * . [/model/delete_files_json.do],methods=[POST]
-	 * </pre>
 	 */
 	public static final String MODEL_FILE_NAME = "_model_";
 
@@ -64,7 +71,7 @@ public abstract class CommonFilesController<T extends Default, F extends Files> 
 	 * @throws Exception
 	 */
 //	@RequestParam("file") MultipartFile[] files
-	@RequestMapping(value = "insert_files_json" + POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "insert_files_json", method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert_files_json(@Valid @RequestPart(MODEL_FILE_NAME) T model,
 			BindingResult errors, HttpServletRequest request) throws Exception {
 		return insert_files(model, errors, request);
@@ -80,7 +87,7 @@ public abstract class CommonFilesController<T extends Default, F extends Files> 
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "insert_files" + POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "insert_files", method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert_files(@Valid T model, BindingResult errors,
 			HttpServletRequest request) throws Exception {
 		List<F> fileList = getFiles(model, request);
@@ -100,7 +107,7 @@ public abstract class CommonFilesController<T extends Default, F extends Files> 
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update_files_json" + POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "update_files_json", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> update_files_json(@RequestPart(MODEL_FILE_NAME) T model,
 			BindingResult errors, HttpServletRequest request) throws Exception {
 		return update_files(model, errors, request);
@@ -116,7 +123,7 @@ public abstract class CommonFilesController<T extends Default, F extends Files> 
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update_files" + POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "update_files", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> update_files(T model, BindingResult errors, HttpServletRequest request)
 			throws Exception {
 		List<F> fileList = getFiles(model, request);
@@ -135,7 +142,7 @@ public abstract class CommonFilesController<T extends Default, F extends Files> 
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "delete_files_json" + POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "delete_files_json", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete_files_json(@RequestBody T model, BindingResult errors)
 			throws Exception {
 		return delete_files(model, errors);
@@ -150,7 +157,7 @@ public abstract class CommonFilesController<T extends Default, F extends Files> 
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "delete_files" + POSTFIX, method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete_files", method = RequestMethod.DELETE)
 	public ResponseEntity<Response<Integer>> delete_files(T model, BindingResult errors) throws Exception {
 		int result = getCommonFilesService().delete(model, new ArrayList<>((Set<F>) model.getFiles()));
 		Response<Integer> response = getSuccessResponse(result);

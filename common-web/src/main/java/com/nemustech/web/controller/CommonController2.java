@@ -11,104 +11,119 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.nemustech.common.model.Common;
 import com.nemustech.common.model.Default;
 import com.nemustech.common.model.Response;
-import com.nemustech.common.model.SimpleResponse;
-import com.nemustech.common.model.ValidList;
-import com.nemustech.common.page.PageNavigator;
-import com.nemustech.common.util.StringUtil;
-import com.nemustech.web.util.ValidationUtil;
 
 /**
- * 공통2 Controller
+ * 공통 컨트롤러2
+ * 
+ * <pre>
+ * - 생성
+ * . [/model/insert_json],methods=[POST]
+ * . [/model/insert],methods=[POST]
+ * 
+ * - 수정
+ * . [/model/update_json],methods=[PUT]
+ * . [/model/update],methods=[PUT]
+ * 
+ * - 삭제
+ * . [/model/delete_json],methods=[POST]
+ * . [/model/deletes],methods=[POST]
+ * </pre>
  * 
  * @author skoh
  * @param <T>
  */
 @Controller
 public abstract class CommonController2<T extends Default> extends CommonController<T> {
-	@Override
-	protected <U> Response<U> getSuccessResponse(U body) {
-		return SimpleResponse.getSuccessResponse(body);
-	}
-
-	@Override
-	protected Response<T> getFailResponse(Exception e) {
-		return SimpleResponse.getFailResponse(
-				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, StringUtil.getErrorMessage(e)));
-	}
-
-	@Override
-	@RequestMapping(value = "{id}", method = { RequestMethod.GET })
-	public ResponseEntity<Response<T>> get(T model, @Valid Common common, BindingResult errors) throws Exception {
-		return super.get(model, common, errors);
-	}
-
-	@Override
-	@RequestMapping(method = { RequestMethod.GET })
-	public ResponseEntity<Response<List<T>>> list(T model, @Valid Common common, BindingResult errors)
+	/**
+	 * Content-Type : application/json
+	 */
+	@RequestMapping(value = "insert_json", method = RequestMethod.POST)
+	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
-		return super.list(model, common, errors);
+		return insert(model, errors);
 	}
 
-	@Override
-	@RequestMapping(value = "count", method = { RequestMethod.GET })
-	public ResponseEntity<Response<Integer>> count(T model, @Valid Common common, BindingResult errors)
-			throws Exception {
-		return super.count(model, common, errors);
-	}
-
-	@Override
-	@RequestMapping(value = "page", method = { RequestMethod.GET })
-	public ResponseEntity<Response<PageNavigator<T>>> page(T model, @Valid Common common, BindingResult errors)
-			throws Exception {
-		return super.page(model, common, errors);
-	}
-
-	@Override
-	@RequestMapping(value = "file", method = RequestMethod.POST)
+	/**
+	 * 단일 모델 등록
+	 * Content-Type : application/x-www-form-urlencoded, multipart/form-data
+	 * 
+	 * @param model
+	 * @param errors
+	 * @param request
+	 * @return ResponseEntity
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "insert", method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors) throws Exception {
-		return super.insert(model, errors);
+		if (errors != null && errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		Object result = service.insert(model);
+		Response<Object> response = getSuccessResponse(result);
+
+		return new ResponseEntity<Response<Object>>(response, HttpStatus.OK);
 	}
 
-	@Override
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Response<List<Object>>> inserts(@Valid @RequestBody ValidList<T> models, BindingResult errors)
-			throws Exception {
-		return super.inserts(models, errors);
-	}
-
-	@Override
-	@RequestMapping(value = "update", method = { RequestMethod.POST })
-	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
+	/**
+	 * Content-Type : application/json
+	 */
+	@RequestMapping(value = "update_json", method = RequestMethod.PUT)
+	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return update(model, errors);
 	}
 
-	@Override
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<Response<Integer>> updates(@RequestBody List<T> models, BindingResult errors)
-			throws Exception {
-		return super.updates(models, errors);
+	/**
+	 * 단일 모델 수정
+	 * Content-Type : application/x-www-form-urlencoded
+	 * 
+	 * @param model
+	 * @param errors
+	 * @return ResponseEntity
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "update", method = { RequestMethod.PUT })
+	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
+		if (errors != null && errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
+
+		int result = service.update(model);
+		Response<Integer> response = getSuccessResponse(result);
+
+		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 
-	@Override
-	@RequestMapping(method = RequestMethod.DELETE)
-	public ResponseEntity<Response<Integer>> delete(T model, BindingResult errors) throws Exception {
-		return super.delete(model, errors);
+	/**
+	 * Content-Type : application/json
+	 * 
+	 * @param model
+	 * @param errors
+	 * @return ResponseEntity
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "delete_json", method = RequestMethod.POST)
+	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
+		return delete(model, errors);
 	}
 
+	/**
+	 * 복수 모델 삭제
+	 * Content-Type : application/json
+	 */
 	@RequestMapping(value = "deletes", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
-		return super.delete(models, errors);
-	}
+		if (errors != null && errors.hasFieldErrors()) {
+			return (ResponseEntity) checkValidate(errors);
+		}
 
-	@Override
-	@RequestMapping(value = "mapper", method = { RequestMethod.GET })
-	public ModelAndView mapper(T model, ModelAndView mav) throws Exception {
-		return super.mapper(model, mav);
+		int result = service.delete(models);
+		Response<Integer> response = getSuccessResponse(result);
+
+		return new ResponseEntity<Response<Integer>>(response, HttpStatus.OK);
 	}
 }

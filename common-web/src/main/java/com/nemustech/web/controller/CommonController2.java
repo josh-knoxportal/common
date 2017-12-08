@@ -20,16 +20,16 @@ import com.nemustech.common.model.Response;
  * 
  * <pre>
  * - 생성
- * . [/model/insert_json],methods=[POST]
- * . [/model/insert],methods=[POST]
+ * . [/model/one],methods=[POST]
+ * . [/model/form],methods=[POST]
  * 
  * - 수정
- * . [/model/update_json],methods=[PUT]
- * . [/model/update],methods=[PUT]
+ * . [/model/one],methods=[PUT]
+ * . [/model/form],methods=[PUT]
  * 
  * - 삭제
- * . [/model/delete_json],methods=[POST]
- * . [/model/deletes],methods=[POST]
+ * . [/model/one],methods=[POST]
+ * . [/model/many],methods=[POST]
  * </pre>
  * 
  * @author skoh
@@ -40,7 +40,7 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "insert_json", method = RequestMethod.POST)
+	@RequestMapping(value = "one", method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
 		return insert(model, errors);
@@ -56,7 +56,7 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "insert", method = RequestMethod.POST)
+	@RequestMapping(value = "form", method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
@@ -71,7 +71,7 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "update_json", method = RequestMethod.PUT)
+	@RequestMapping(value = "one", method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return update(model, errors);
 	}
@@ -85,7 +85,7 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update", method = { RequestMethod.PUT })
+	@RequestMapping(value = "form", method = { RequestMethod.PUT })
 	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
@@ -105,7 +105,7 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "delete_json", method = RequestMethod.POST)
+	@RequestMapping(value = "one", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return delete(model, errors);
 	}
@@ -114,7 +114,7 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	 * 복수 모델 삭제
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "deletes", method = RequestMethod.POST)
+	@RequestMapping(value = "many", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {

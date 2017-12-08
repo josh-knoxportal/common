@@ -34,18 +34,18 @@ import com.nemustech.web.util.ValidationUtil;
  * . [/model/mapper.do],methods=[GET]
  * 
  * - 생성
- * . [/model/insert_json.do],methods=[POST]
  * . [/model/insert.do],methods=[POST]
+ * . [/model/insert_form.do],methods=[POST]
  * . [/model/inserts.do],methods=[POST]
  * 
  * - 수정
- * . [/model/update_json.do],methods=[PUT]
  * . [/model/update.do],methods=[PUT]
+ * . [/model/update_form.do],methods=[PUT]
  * . [/model/updates.do],methods=[PUT]
  * 
  * - 삭제
- * . [/model/delete.do],methods=[DELETE]
  * . [/model/delete_json.do],methods=[POST]
+ * . [/model/delete.do],methods=[DELETE]
  * . [/model/deletes.do],methods=[POST]
  * </pre>
  * 
@@ -100,7 +100,7 @@ public abstract class CommonController3<T extends Default> extends CommonControl
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "insert_json" + POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "insert" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody T model, BindingResult errors)
 			throws Exception {
 		return insert(model, errors);
@@ -116,7 +116,7 @@ public abstract class CommonController3<T extends Default> extends CommonControl
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "insert" + POSTFIX, method = RequestMethod.POST)
+	@RequestMapping(value = "insert_form" + POSTFIX, method = RequestMethod.POST)
 	public ResponseEntity<Response<Object>> insert(@Valid T model, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);
@@ -138,7 +138,7 @@ public abstract class CommonController3<T extends Default> extends CommonControl
 	/**
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "update_json" + POSTFIX, method = RequestMethod.PUT)
+	@RequestMapping(value = "update" + POSTFIX, method = RequestMethod.PUT)
 	public ResponseEntity<Response<Integer>> updateJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return update(model, errors);
 	}
@@ -152,7 +152,7 @@ public abstract class CommonController3<T extends Default> extends CommonControl
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "update" + POSTFIX, method = { RequestMethod.PUT })
+	@RequestMapping(value = "update_form" + POSTFIX, method = { RequestMethod.PUT })
 	public ResponseEntity<Response<Integer>> update(T model, BindingResult errors) throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {
 			return (ResponseEntity) checkValidate(errors);

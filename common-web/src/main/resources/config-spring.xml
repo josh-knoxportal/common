@@ -16,7 +16,11 @@
 	<context:property-placeholder properties-ref="properties" location="classpath:*.properties" />
 
 	<!-- Scan Package -->
-	<context:component-scan base-package="com.nemustech.adapter com.nemustech.common com.nemustech.web" />
+	<context:component-scan base-package="com.nemustech.adapter com.nemustech.common com.nemustech.web">
+		<context:exclude-filter type="aspectj" expression="com.nemustech..option.*" />
+	</context:component-scan>
+
+	<bean class="com.nemustech.web.option.ResponseEntityExceptionHandler2" />
 
 	<!-- Locale -->
 	<!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"> -->

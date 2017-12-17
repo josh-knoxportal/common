@@ -9,7 +9,7 @@
 				"Content-Type":"multipart/form-data;boundary=__boundary__"
 			},
 			"params":{
-				"name":"s1",
+				"name":"테스트1",
 				"test_id":1,
 				"reg_id":"1",
 				"mod_id":"1",

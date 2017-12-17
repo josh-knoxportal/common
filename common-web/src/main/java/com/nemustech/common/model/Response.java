@@ -2,13 +2,16 @@ package com.nemustech.common.model;
 
 import java.io.Serializable;
 
+import org.springframework.http.HttpStatus;
+
 import com.nemustech.common.util.StringUtil;
+import com.nemustech.web.util.ValidationUtil;
 
 /**
  * 응답 결과
  * 
  * <pre>
- * - 샘플
+ * - 성공
  * {
  *   "header" : {
  *     "success_yn" : true,
@@ -39,6 +42,16 @@ import com.nemustech.common.util.StringUtil;
  *     } ]
  *   }
  * }
+ * 
+ * - 실패
+ * {
+ *   "header" : {
+ *     "success_yn" : false,
+ *     "error_code" : "E-HTTP-405",
+ *     "error_message" : "405 Method Not Allowed => Request method 'POST' not supported"
+ *   },
+ *   "body" : null
+ * }
  * </pre>
  * 
  * @author skoh
@@ -62,6 +75,11 @@ public class Response<T> implements Serializable {
 	 */
 	public static <T> Response<T> getSuccessResponse(T body) {
 		return new Response<T>(new Header(true, "", ""), body);
+	}
+
+	public static <T> Response<T> getFailResponse(Exception ex, HttpStatus status) {
+		return getFailResponse(ValidationUtil.getHttpErrorCode(status),
+				ValidationUtil.getHttpErrorMaessage(status, StringUtil.getErrorMessage(ex)));
 	}
 
 	/**

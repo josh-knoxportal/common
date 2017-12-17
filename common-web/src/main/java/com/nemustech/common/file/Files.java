@@ -77,7 +77,7 @@ public class Files extends Common {
 	 * 파일 크기
 	 */
 	@Column
-	protected Long file_size;
+	protected Long size;
 
 	/**
 	 * 파일 데이타
@@ -103,7 +103,7 @@ public class Files extends Common {
 		this.id = Utils.isValidate(id) ? id : LocalFileStorage.generateUID();
 		this.path = path;
 		this.name = name;
-		this.file_size = Utils.isValidate(bytes) ? (long) bytes.length : null;
+		this.size = Utils.isValidate(bytes) ? (long) bytes.length : null;
 		this.bytes = bytes;
 	}
 
@@ -136,12 +136,12 @@ public class Files extends Common {
 		this.name = name;
 	}
 
-	public Long getFile_size() {
-		return file_size;
+	public Long getSize() {
+		return size;
 	}
 
-	public void setFile_size(Long file_size) {
-		this.file_size = file_size;
+	public void setSize(Long size) {
+		this.size = size;
 	}
 
 	public byte[] getBytes() {

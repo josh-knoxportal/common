@@ -15,7 +15,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
 /**
- * Spring Framework Download View
+ * File Download View
  */
 @Component
 public class DownloadView extends AbstractView {

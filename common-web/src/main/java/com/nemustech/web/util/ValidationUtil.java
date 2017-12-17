@@ -3,14 +3,14 @@ package com.nemustech.web.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nemustech.common.model.Response;
-import com.nemustech.common.util.Utils;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ValidationUtils;
+
+import com.nemustech.common.model.Response;
+import com.nemustech.common.util.Utils;
 
 /**
  * 유효성 체크 유틸
@@ -85,17 +85,34 @@ public abstract class ValidationUtil extends ValidationUtils {
 	 * @return
 	 */
 	public static String getHttpErrorCodeMaessage(HttpStatus httpStatus, String maessage) {
-		return "[" + getHttpErrorCode(httpStatus) + "] " + getHttpErrorMaessage(httpStatus, maessage);
+		StringBuilder sb = new StringBuilder("[" + getHttpErrorCode(httpStatus) + "] ");
+		sb.append(getHttpErrorMaessage(httpStatus, maessage));
+
+		return sb.toString();
+	}
+
+	public static String getHttpErrorCode(HttpStatus httpStatus) {
+		return getHttpErrorCode(httpStatus, true);
+	}
+
+	public static String getHttpErrorCode(HttpStatus httpStatus, boolean isErrorCode) {
+		return getErrorCode(HTTP_CODE + (Utils.isValidate(httpStatus) ? CODE_SEPARATOR + httpStatus.toString() : ""),
+				isErrorCode);
+	}
+
+	public static String getErrorCode(String errorCode) {
+		return getErrorCode(errorCode, true);
 	}
 
 	/**
 	 * ex) E-HTTP-400
 	 * 
-	 * @param httpStatus
+	 * @param errorCode
+	 * @param isErrorCode
 	 * @return
 	 */
-	public static String getHttpErrorCode(HttpStatus httpStatus) {
-		return ERROR_CODE + CODE_SEPARATOR + HTTP_CODE + CODE_SEPARATOR + httpStatus.toString();
+	public static String getErrorCode(String errorCode, boolean isErrorCode) {
+		return ((isErrorCode) ? ERROR_CODE : "") + CODE_SEPARATOR + errorCode;
 	}
 
 	public static String getHttpErrorMaessage(HttpStatus httpStatus) {
@@ -103,16 +120,17 @@ public abstract class ValidationUtil extends ValidationUtils {
 	}
 
 	/**
-	 * ex) 400 Bad Request => [table = This parameter can not be used.]
+	 * ex) HTTP 400 Bad Request => [table = This parameter can not be used.]
 	 * 
 	 * @param httpStatus
 	 * @param maessage
 	 * @return
 	 */
 	public static String getHttpErrorMaessage(HttpStatus httpStatus, String maessage) {
-		String httpMaessage = httpStatus.toString() + " " + httpStatus.getReasonPhrase();
-		httpMaessage += (Utils.isValidate(maessage)) ? " " + MAESSAGE_SEPARATOR + " " + maessage : "";
+		StringBuilder sb = new StringBuilder(HTTP_CODE);
+		sb.append(Utils.isValidate(httpStatus) ? " " + httpStatus.toString() + " " + httpStatus.getReasonPhrase() : "");
+		sb.append(Utils.isValidate(maessage) ? " " + MAESSAGE_SEPARATOR + " " + maessage : "");
 
-		return httpMaessage;
+		return sb.toString();
 	}
 }

@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
 
 import com.nemustech.common.file.Files;
 import com.nemustech.common.model.Default;
@@ -20,16 +19,13 @@ import com.nemustech.common.model.Response;
  * 
  * <pre>
  * - 공통 파일 생성
- * . [/model/insert_files_json.do],methods=[POST]
- * . [/model/insert_files.do],methods=[POST]
+ * 18. [/model/files_form],methods=[POST]
  * 
  * - 공통 파일 수정
- * . [/model/update_files_json.do],methods=[POST]
- * . [/model/update_files.do],methods=[POST]
+ * . [/model/update_files_form],methods=[POST]
  * 
  * - 공통 파일 삭제
- * . [/model/delete_files_json.do],methods=[POST]
- * . [/model/delete_files.do],methods=[DELETE]
+ * 20. [/model/delete_files],methods=[POST]
  * </pre>
  * 
  * @author skoh
@@ -38,44 +34,47 @@ import com.nemustech.common.model.Response;
  */
 @Controller
 public abstract class CommonFilesController2<T extends Default, F extends Files> extends CommonFilesController<T, F> {
-	@Override
-	@RequestMapping(value = "insert_files_json" + CommonController3.POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Object>> insert_files_json(@Valid @RequestPart(MODEL_FILE_NAME) T model,
-			BindingResult errors, HttpServletRequest request) throws Exception {
+	/**
+	 * Content-Type : application/x-www-form-urlencoded
+	 * 
+	 * @param model
+	 * @param errors
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "files_form", method = RequestMethod.POST)
+	public ResponseEntity<Response<Object>> insert_files(@Valid T model, BindingResult errors,
+			HttpServletRequest request) throws Exception {
 		return super.insert_files_json(model, errors, request);
 	}
 
-	@Override
-	@RequestMapping(value = "insert_files" + CommonController3.POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Object>> insert_files(@Valid T model, BindingResult errors,
-			HttpServletRequest request) throws Exception {
-		return super.insert_files(model, errors, request);
-	}
-
-	@Override
-	@RequestMapping(value = "update_files_json" + CommonController3.POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Integer>> update_files_json(@RequestPart(MODEL_FILE_NAME) T model,
-			BindingResult errors, HttpServletRequest request) throws Exception {
+	/**
+	 * Content-Type : application/x-www-form-urlencoded
+	 * 
+	 * @param model
+	 * @param errors
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "update_files_form", method = RequestMethod.POST)
+	public ResponseEntity<Response<Integer>> update_files(T model, BindingResult errors, HttpServletRequest request)
+			throws Exception {
 		return super.update_files_json(model, errors, request);
 	}
 
-	@Override
-	@RequestMapping(value = "update_files" + CommonController3.POSTFIX, method = RequestMethod.POST)
-	public ResponseEntity<Response<Integer>> update_files(T model, BindingResult errors, HttpServletRequest request)
-			throws Exception {
-		return super.update_files(model, errors, request);
-	}
-
-	@Override
-	@RequestMapping(value = "delete_files_json" + CommonController3.POSTFIX, method = RequestMethod.POST)
+	/**
+	 * Content-Type : application/json
+	 * 
+	 * @param model
+	 * @param errors
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "delete_files", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete_files_json(@RequestBody T model, BindingResult errors)
 			throws Exception {
-		return super.delete_files_json(model, errors);
-	}
-
-	@Override
-	@RequestMapping(value = "delete_files" + CommonController3.POSTFIX, method = RequestMethod.DELETE)
-	public ResponseEntity<Response<Integer>> delete_files(T model, BindingResult errors) throws Exception {
 		return super.delete_files(model, errors);
 	}
 }

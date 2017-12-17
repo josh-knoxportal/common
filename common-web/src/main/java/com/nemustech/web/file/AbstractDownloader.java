@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import com.nemustech.common.helper.IOHelper;
 
 /**
@@ -22,20 +23,51 @@ import com.nemustech.common.helper.IOHelper;
  * 
  * @version 1.0.0
  */
-public class FileDownloader {
-	private static final Log log = LogFactory.getLog(FileDownloader.class);
-
-	private static FileDownloader _INSTANCE = new FileDownloader();
+public abstract class AbstractDownloader implements Downloader {
 	/**
 	 * 읽기 버퍼의 크기로 8KB
 	 */
-	private static final int BUFFER_SIZE = 8192;
-	private int bufSize = 0;
+	public static final int BUFFER_SIZE = 8192;
+
+//	protected static FileDownloader _INSTANCE = new FileDownloader();
+
+	protected Log log = LogFactory.getLog(getClass());
+
+	protected int bufSize = 0;
+
+	/**
+	 * Singleton 객체를 돌려 준다.
+	 * 
+	 * @return Singleton 객체
+	 */
+//	public static FileDownloader getInstance() {
+//		return _INSTANCE;
+//	}
+
+	/**
+	 * 파일의 확장자를 바탕으로 MIME(Multipurpose Internet Mail Extensions) 타입을 알아 낸다.
+	 * 
+	 * @param request HttpRequest 객체
+	 * @param fileName MIME 확장자를 포함한 파일 이름
+	 * @return 파일에 대한 MIME 타입
+	 * @see <a href="http://ko.wikipedia.org/wiki/MIME">MIME type</a>
+	 */
+	public static String getMimeType(HttpServletRequest request, String fileName) {
+		String mimetype = request.getSession().getServletContext().getMimeType(fileName);
+
+		if (mimetype == null || mimetype.length() == 0) {
+			return "application/octet-stream;";
+		}
+
+		else {
+			return mimetype;
+		}
+	}
 
 	/**
 	 * 생성자
 	 */
-	public FileDownloader() {
+	public AbstractDownloader() {
 		this(BUFFER_SIZE);
 	}
 
@@ -44,7 +76,7 @@ public class FileDownloader {
 	 * 
 	 * @param bufSize Stream 방식으 data를 읽어서 전송할 때 읽기 버퍼의 크기
 	 */
-	public FileDownloader(int bufSize) {
+	public AbstractDownloader(int bufSize) {
 		this.bufSize = bufSize;
 	}
 
@@ -106,7 +138,7 @@ public class FileDownloader {
 				log.error("Send exception: " + e);
 			} finally {
 				IOUtils.closeQuietly(outCh);
-			} // end of try
+			}
 		}
 
 		log.info("End::send()");
@@ -160,7 +192,7 @@ public class FileDownloader {
 			} finally {
 				IOUtils.closeQuietly(byteCh);
 				IOUtils.closeQuietly(outCh);
-			} // end of try
+			}
 		}
 
 		log.info("End::send()");
@@ -221,47 +253,18 @@ public class FileDownloader {
 			} finally {
 				IOUtils.closeQuietly(byteCh);
 				IOUtils.closeQuietly(outCh);
-			} // end of try
+			}
 		}
 
 		log.info("End::send()");
 	}
 
-	private void setHeader(HttpServletResponse response, String name, String type, long size) {
+	protected void setHeader(HttpServletResponse response, String name, String type, long size) {
 		response.setHeader("file_size", String.valueOf(size));
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Content-Disposition", "attachment; filename=" + name + ";");
 		response.setHeader("file_name", name);
 		response.setHeader("file_type", type);
 		response.setContentType(type + "; charset=utf-8");
-	}
-
-	/**
-	 * 파일의 확장자를 바탕으로 MIME(Multipurpose Internet Mail Extensions) 타입을 알아 낸다.
-	 * 
-	 * @param request HttpRequest 객체
-	 * @param fileName MIME 확장자를 포함한 파일 이름
-	 * @return 파일에 대한 MIME 타입
-	 * @see <a href="http://ko.wikipedia.org/wiki/MIME">MIME type</a>
-	 */
-	protected static String getMimeType(HttpServletRequest request, String fileName) {
-		String mimetype = request.getSession().getServletContext().getMimeType(fileName);
-
-		if (mimetype == null || mimetype.length() == 0) {
-			return "application/octet-stream;";
-		}
-
-		else {
-			return mimetype;
-		}
-	}
-
-	/**
-	 * Singleton 객체를 돌려 준다.
-	 * 
-	 * @return Singleton 객체
-	 */
-	public static FileDownloader getInstance() {
-		return _INSTANCE;
 	}
 }

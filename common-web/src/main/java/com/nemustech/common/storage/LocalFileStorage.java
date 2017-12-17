@@ -37,7 +37,7 @@ public class LocalFileStorage implements FileStorage {
 //	protected static String TEMP_DIR = Constants.HOME_DIR + File.separator + "temp";
 	protected static SimpleDateFormat SDF = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	protected static Random RANDOM = new Random();
-	protected static FileStorage fileStorage = null;
+//	protected static FileStorage fileStorage = null;
 
 	// File Storage (HashMap <fileID,FileName>)
 //	protected Map<String, String> localFileStorage;
@@ -129,7 +129,7 @@ public class LocalFileStorage implements FileStorage {
 	 * @return
 	 */
 	public static String getRealFilePath(String fileID) {
-		String filePath =  getStorageRootPath() + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION;
+		String filePath = getStorageRootPath() + getFilePath(fileID) + File.separator + fileID + "." + FILE_EXTENSION;
 
 		return filePath;
 	}
@@ -139,14 +139,14 @@ public class LocalFileStorage implements FileStorage {
 	 * 
 	 * @return Singleton 객체
 	 */
-	public static FileStorage getInstance() {
-		if (fileStorage == null) {
-			log.info("Create Local File Storage Accessor");
-			fileStorage = new LocalFileStorage(getStorageRootPath());
-		}
-
-		return fileStorage;
-	}
+//	public static FileStorage getInstance() {
+//		if (fileStorage == null) {
+//			log.info("Create Local File Storage Accessor");
+//			fileStorage = new LocalFileStorage(getStorageRootPath());
+//		}
+//
+//		return fileStorage;
+//	}
 
 	public LocalFileStorage() {
 		this(getStorageRootPath());

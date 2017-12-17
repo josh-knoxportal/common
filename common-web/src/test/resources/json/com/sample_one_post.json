@@ -1,0 +1,16 @@
+{
+	"url":"http://localhost:8050/common-web/sample/one",
+	"method":"POST",
+	"requestFormat":"JSON",
+	"responseFormat":"JSON",
+	"list":[
+		{
+			"headers":{
+				"Content-Type":"application/json"
+			},
+			"params":{
+				"test_id":5
+			}
+		}
+	]
+}

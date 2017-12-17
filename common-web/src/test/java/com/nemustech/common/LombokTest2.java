@@ -6,8 +6,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import com.nemustech.common.storage.FileStorage;
-import com.nemustech.common.storage.LocalFileStorage;
 import com.nemustech.common.util.StringUtil;
 
 import lombok.Getter;
@@ -15,8 +13,6 @@ import lombok.Setter;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LombokTest2 {
-	public FileStorage fileStorage = LocalFileStorage.getInstance();
-
 	@BeforeClass
 	public static void before() throws Exception {
 	}

@@ -42,7 +42,7 @@ import com.nemustech.web.util.ValidationUtil;
  * 
  * <pre>
  * - 조회
- * . [/model/{id}],methods=[GET]
+ * 1. [/model/{id}],methods=[GET]
  * . [/model],methods=[GET]
  * . [/model/count],methods=[GET]
  * . [/model/page],methods=[GET]
@@ -55,7 +55,7 @@ import com.nemustech.web.util.ValidationUtil;
  * . [/model],methods=[PUT]
  * 
  * - 삭제
- * . [/model],methods=[DELETE]
+ * 8. [/model],methods=[DELETE]
  * </pre>
  * 
  * @author skoh
@@ -373,21 +373,6 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	/**
-	 * 예외 처리
-	 * 
-	 * @param e
-	 * @return
-	 */
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Response<T>> handleException(Exception e) {
-		log.error(ValidationUtil.getHttpErrorCodeMaessage(HttpStatus.INTERNAL_SERVER_ERROR), e);
-
-		Response<T> response = getFailResponse(e);
-
-		return new ResponseEntity<Response<T>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-
-	/**
 	 * 유효성 체크
 	 * 
 	 * @param errors
@@ -403,6 +388,21 @@ public abstract class CommonController<T extends Default> {
 	}
 
 	/**
+	 * 예외 처리
+	 * 
+	 * @param ex
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Response<Object>> handleException(Exception ex) {
+		log.error(ValidationUtil.getHttpErrorCodeMaessage(HttpStatus.INTERNAL_SERVER_ERROR), ex);
+
+		Response<Object> response = getFailResponse(ex);
+
+		return new ResponseEntity<Response<Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	/**
 	 * 성공 응답
 	 * 
 	 * @param body
@@ -415,11 +415,10 @@ public abstract class CommonController<T extends Default> {
 	/**
 	 * 실패 응답
 	 * 
-	 * @param e
+	 * @param ex
 	 * @return
 	 */
-	protected Response<T> getFailResponse(Exception e) {
-		return Response.getFailResponse(ValidationUtil.getHttpErrorCode(HttpStatus.INTERNAL_SERVER_ERROR),
-				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, StringUtil.getErrorMessage(e)));
+	protected Response<Object> getFailResponse(Exception ex) {
+		return Response.getFailResponse(ex, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

@@ -10,77 +10,57 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import com.nemustech.common.Constants;
-import com.nemustech.common.helper.IOHelper;
-import com.nemustech.common.util.PropertyUtils;
-import com.nemustech.common.util.Utils;
 import org.springframework.stereotype.Component;
+
+import com.nemustech.common.helper.IOHelper;
+import com.nemustech.common.storage.LocalFileStorage;
 
 /**
  * 파일경로 다운로드
- * : http://{ip}:{port}/{context_root}/{context_path}/download/filepath/? 로 매핑된다.
- * 예) http://127.0.0.1:8080/common/download/filepath/?mode=1&file_name=/filepath/테스트.xlsx
+ * 
+ * <pre>
+ * http://{ip}:{port}/{context}/{model}/filepath/? 로 매핑된다.
+ * 예) http://localhost:8050/common-web/sample2/download/filepath/?mode=1&file_name=2017/12/20171207163414992BYIQF.file
+ * </pre>
  */
 @Component
-public class FilepathDownloader extends FileDownloader implements Downloader {
-	private static final Log log = LogFactory.getLog(FilepathDownloader.class);
-
+public class FilepathDownloader extends AbstractDownloader {
 	public FilepathDownloader() {
 		super();
 	}
 
+	@Override
 	public void download(String target, String uid, Map<String, Object> params) throws Exception {
-		log.info(String.format("========Start downloading from %s : %s ", target, uid));
-		log.debug("params: " + params);
-
-		int mode = 0;
-		int fileStartPos = Integer.parseInt(params.get("index").toString());
+		int index = Integer.parseInt(params.get("index").toString());
 		HttpServletRequest request = (HttpServletRequest) params.get("HttpServletRequest");
 		HttpServletResponse response = (HttpServletResponse) params.get("HttpServletResponse");
 		String fileName = String.valueOf(params.get("file_name"));
 		String fileType = getMimeType(request, fileName);
 
 		// 보안 적용("/" 또는 "." 로 시작하는 파일명은 사용 불가)
-		if (Utils.isValidate(fileName) && fileName.matches("^[/.].*"))
-			throw new Exception("Not absolute path \"" + fileName + "\" error");
-
-		try {
-			mode = Integer.parseInt(params.get("mode").toString());
-		} catch (Exception e) {
-			mode = 0;
-		}
-
-		log.debug("uid: " + uid);
-		log.debug("mode: " + mode);
-		log.debug("file_name: " + fileName);
+//		if (Utils.isValidate(fileName) && fileName.matches("^[/.].*"))
+//			throw new Exception("Not absolute path \"" + fileName + "\" error");
 
 		ByteArrayInputStream in = null;
 		try {
-			// 로컬에서 파일을 다운로드할 경우
 			byte[] bytes = load(fileName);
 			in = new ByteArrayInputStream(bytes);
 
-			send(response, fileName, fileType, in, bytes.length, fileStartPos);
+			send(response, fileName, fileType, in, bytes.length, index);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}
-
-		log.info("Sucess downloading from " + target + "=============");
 	}
 
 	public byte[] load(String fileName) {
-		log.debug("Start::load()");
-
 		FileInputStream fin = null;
 		byte[] bytes = null;
 
 		try {
 			// 파일 이름
-			File file = new File(PropertyUtils.getInstance().getString(Constants.PROPERTY_DOWNLOAD_PATH)
+			File file = new File(LocalFileStorage.getStorageRootPath()
 					+ File.separator + fileName);
-			log.debug("  > filePath: " + file.getAbsolutePath());
+			log.debug("filePath: " + file.getAbsolutePath());
 
 			fin = new FileInputStream(file);
 			bytes = IOHelper.readToEnd(fin);
@@ -89,9 +69,6 @@ public class FilepathDownloader extends FileDownloader implements Downloader {
 		} finally {
 			IOUtils.closeQuietly(fin);
 		}
-
-		log.debug("  > RV(bytes length): " + ((bytes == null) ? 0 : bytes.length));
-		log.debug("End::load()");
 
 		return bytes;
 	}

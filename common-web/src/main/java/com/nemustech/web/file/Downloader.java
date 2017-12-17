@@ -17,5 +17,5 @@ public interface Downloader {
 	 * @param params 다운로드를 위한 추가적인 정보
 	 * @throws Exception
 	 */
-	abstract public void download(String target, String uid, Map<String, Object> params) throws Exception;
+	public void download(String target, String uid, Map<String, Object> params) throws Exception;
 }

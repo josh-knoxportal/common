@@ -18,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ValueConstants;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nemustech.common.model.Common;
@@ -44,6 +45,13 @@ public class SampleController extends CommonController2<Sample> {
 	@Override
 	public CommonService<Sample> getService() {
 		return service;
+	}
+
+	@Override
+	@RequestMapping(value = ValueConstants.DEFAULT_NONE, method = RequestMethod.POST)
+	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody Sample model, BindingResult errors)
+			throws Exception {
+		return null;
 	}
 
 	@RequestMapping(value = "select", method = { RequestMethod.POST })

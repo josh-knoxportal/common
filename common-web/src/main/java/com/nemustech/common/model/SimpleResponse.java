@@ -7,7 +7,7 @@ import com.nemustech.common.util.Utils;
  * 응답 결과
  * 
  * <pre>
- * - 샘플
+ * - 성공
  * {
  *   "message" : "",
  *   "body" : {
@@ -33,6 +33,12 @@ import com.nemustech.common.util.Utils;
  *       "files" : [ ]
  *     } ]
  *   }
+ * }
+ * 
+ * - 실패
+ * {
+ *   "message" : "405 Method Not Allowed => Request method 'POST' not supported",
+ *   "body" : null
  * }
  * </pre>
  * 

@@ -3,8 +3,8 @@ package com.nemustech.web.common;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nemustech.common.exception.CommonException;
 import com.nemustech.common.util.Utils;
-import com.nemustech.web.exception.WebException;
 import com.nemustech.web.util.WebUtil;
 
 public class HttpSecurityRequestWrapper extends AbstractHttpServletRequestWrapper {
@@ -99,7 +99,7 @@ public class HttpSecurityRequestWrapper extends AbstractHttpServletRequestWrappe
 				String message = "보안상 사용할 수 없는 문자가 포함되어 있습니다.";
 				WebUtil.printAlert(message, response);
 
-				throw new WebException("ERR001", message);
+				throw new CommonException("ERR001", message);
 			}
 		}
 

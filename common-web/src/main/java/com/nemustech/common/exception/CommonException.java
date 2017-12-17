@@ -1,6 +1,7 @@
 package com.nemustech.common.exception;
 
 import com.nemustech.common.util.Utils;
+import com.nemustech.web.util.ValidationUtil;
 
 /**
  * 공통 에러
@@ -34,7 +35,8 @@ public class CommonException extends RuntimeException {
 	 * @param cause 에러상세
 	 */
 	public CommonException(String errorCode, String errorMessage, Throwable cause) {
-		super((Utils.isValidate(errorCode) ? "[" + errorCode + "]" : "") + errorMessage, cause);
+		super((Utils.isValidate(errorCode) ? "[" + ValidationUtil.getErrorCode(errorCode) + "]" : "") + errorMessage,
+				cause);
 
 		setErrorCode(errorCode);
 	}

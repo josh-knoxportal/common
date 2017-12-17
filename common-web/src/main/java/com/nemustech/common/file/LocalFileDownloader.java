@@ -45,9 +45,9 @@ public class LocalFileDownloader implements IFileDownloader {
 			IOUtils.closeQuietly(fis);
 		}
 
-		files.setFile_size((long) bytes.length);
+		files.setSize((long) bytes.length);
 
-		log.trace("  > RV(file_size): " + files.getFile_size());
+		log.trace("  > RV(file_size): " + files.getSize());
 		log.trace("End::download()");
 
 		return files;

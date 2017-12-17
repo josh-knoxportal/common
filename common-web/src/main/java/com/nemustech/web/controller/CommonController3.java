@@ -65,9 +65,9 @@ public abstract class CommonController3<T extends Default> extends CommonControl
 	}
 
 	@Override
-	protected Response<T> getFailResponse(Exception e) {
+	protected Response<Object> getFailResponse(Exception ex) {
 		return SimpleResponse.getFailResponse(
-				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, StringUtil.getErrorMessage(e)));
+				ValidationUtil.getHttpErrorMaessage(HttpStatus.INTERNAL_SERVER_ERROR, StringUtil.getErrorMessage(ex)));
 	}
 
 	@Override

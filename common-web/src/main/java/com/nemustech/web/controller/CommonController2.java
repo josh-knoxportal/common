@@ -20,7 +20,7 @@ import com.nemustech.common.model.Response;
  * 
  * <pre>
  * - 생성
- * . [/model/one],methods=[POST]
+ * 9. [/model/one],methods=[POST]
  * . [/model/form],methods=[POST]
  * 
  * - 수정
@@ -28,8 +28,8 @@ import com.nemustech.common.model.Response;
  * . [/model/form],methods=[PUT]
  * 
  * - 삭제
- * . [/model/one],methods=[POST]
- * . [/model/many],methods=[POST]
+ * . [/model/delete],methods=[POST]
+ * 14. [/model/deletes],methods=[POST]
  * </pre>
  * 
  * @author skoh
@@ -105,7 +105,7 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	 * @return ResponseEntity
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "one", method = RequestMethod.POST)
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> deleteJson(@RequestBody T model, BindingResult errors) throws Exception {
 		return delete(model, errors);
 	}
@@ -114,7 +114,7 @@ public abstract class CommonController2<T extends Default> extends CommonControl
 	 * 복수 모델 삭제
 	 * Content-Type : application/json
 	 */
-	@RequestMapping(value = "many", method = RequestMethod.POST)
+	@RequestMapping(value = "deletes", method = RequestMethod.POST)
 	public ResponseEntity<Response<Integer>> delete(@RequestBody List<T> models, BindingResult errors)
 			throws Exception {
 		if (errors != null && errors.hasFieldErrors()) {

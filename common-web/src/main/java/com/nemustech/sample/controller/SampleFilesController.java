@@ -11,11 +11,11 @@ import com.nemustech.sample.model.Files2;
 import com.nemustech.sample.model.Sample;
 import com.nemustech.sample.service.SampleFilesService;
 import com.nemustech.sample.service.SampleService;
-import com.nemustech.web.controller.CommonFilesController;
+import com.nemustech.web.controller.CommonFilesController2;
 
 @Controller
 @RequestMapping(value = "sample2", produces = MediaType.APPLICATION_JSON_VALUE)
-public class SampleFilesController extends CommonFilesController<Sample, Files2> {
+public class SampleFilesController extends CommonFilesController2<Sample, Files2> {
 	@Autowired
 	protected SampleService service;
 

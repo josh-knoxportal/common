@@ -1,8 +1,21 @@
-{
-    "header": {
-        "success_yn": false,
-        "error_code": "E-HTTP-500",
-        "error_message": "HTTP 500 Internal Server Error => org.springframework.validation.BeanPropertyBindingResult: 1 errors"
-    },
-    "body": null
-}
+[{
+    "parameters": {
+        "mode": ["1"],
+        "file_name": ["테스트01.txt"],
+        "file_id": ["20171207163414992BYIQF"]
+    }
+}, {
+    "session": {
+        "attributes": null
+    }
+}, {
+    "java.lang.String": "fileid"
+}, {
+    "java.lang.String": "테스트01.txt"
+}, {
+    "java.lang.Integer": "1"
+}, {
+    "org.apache.catalina.connector.RequestFacade": "org.apache.catalina.connector.RequestFacade@1d836fe"
+}, {
+    "org.apache.catalina.connector.ResponseFacade": "org.apache.catalina.connector.ResponseFacade@1a025ea4"
+}]

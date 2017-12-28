@@ -209,7 +209,7 @@ public abstract class CommonFilesController<T extends Default, F extends Files> 
 	 * @param mode 받기 모드
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/down/{target}/**", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/down/{target}", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseStatus(HttpStatus.OK)
 	public void download(@PathVariable final String target, @RequestParam final String file_name,
 			@RequestParam final int mode, HttpServletRequest request, HttpServletResponse response) throws Exception {

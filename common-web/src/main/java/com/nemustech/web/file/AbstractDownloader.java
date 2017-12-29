@@ -66,6 +66,25 @@ public abstract class AbstractDownloader implements Downloader {
 	}
 
 	/**
+	 * 파일명을 브라우저 종류에 맞게 엔코딩한다.
+	 * 
+	 * @param fileName
+	 * @param userAgent
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getEncodeFileName(String fileName, String userAgent) throws Exception {
+		String encodeFileName = null;
+		if (userAgent.indexOf("MSIE") > -1) {
+			encodeFileName = URLEncoder.encode(fileName, "utf-8");
+		} else {
+			encodeFileName = new String(fileName.getBytes("utf-8"), "iso-8859-1");
+		}
+
+		return encodeFileName;
+	}
+
+	/**
 	 * 생성자
 	 */
 	public AbstractDownloader() {
@@ -270,21 +289,14 @@ public abstract class AbstractDownloader implements Downloader {
 
 	protected void setHeader(HttpServletRequest request, HttpServletResponse response, String name, String type,
 			long size) throws Exception {
-		String userAgent = request.getHeader("User-Agent");
-		boolean ie = userAgent.indexOf("MSIE") > -1;
-		String fileName = null;
-		if (ie) {
-			fileName = URLEncoder.encode(name, "utf-8");
-		} else {
-			fileName = new String(name.getBytes("utf-8"), "iso-8859-1");
-		}
-		response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ";");
+		response.setContentType(type + "; charset=utf-8");
 
+		String fileName = getEncodeFileName(name, request.getHeader("User-Agent"));
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
+
 		response.setHeader("file_size", String.valueOf(size));
 		response.setHeader("file_name", name);
 		response.setHeader("file_type", type);
-
-		response.setContentType(type + "; charset=utf-8");
 	}
 }

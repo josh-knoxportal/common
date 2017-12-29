@@ -3,7 +3,6 @@ package com.nemustech.web.view;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +12,8 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
+
+import com.nemustech.web.file.AbstractDownloader;
 
 /**
  * File Download View
@@ -31,15 +32,7 @@ public class DownloadView extends AbstractView {
 		response.setContentType(getContentType());
 		response.setContentLength((int) file.length());
 
-		String userAgent = request.getHeader("User-Agent");
-		boolean ie = userAgent.indexOf("MSIE") > -1;
-		String fileName = null;
-		if (ie) {
-			fileName = URLEncoder.encode(file.getName(), "utf-8");
-		} else {
-			fileName = new String(file.getName().getBytes("utf-8"), "iso-8859-1");
-		}
-
+		String fileName = AbstractDownloader.getEncodeFileName(file.getName(), request.getHeader("User-Agent"));
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 

@@ -19,8 +19,8 @@ import com.nemustech.common.storage.LocalFileStorage;
  * 파일경로 다운로드
  * 
  * <pre>
- * http://{ip}:{port}/{context}/{model}/filepath/? 로 매핑된다.
- * 예) http://localhost:8050/common-web/sample2/download/filepath/?mode=1&file_name=2017/12/20171207163414992BYIQF.file
+ * http://{ip}:{port}/{context}/{model}/down/filepath 로 매핑된다.
+ * 예) http://localhost:8050/common-web/sample2/down/filepath?mode=1&file_name=2017/12/20171207163414992BYIQF.file
  * </pre>
  */
 @Component

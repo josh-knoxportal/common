@@ -2,6 +2,7 @@ package com.nemustech.web.file;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
@@ -89,7 +90,8 @@ public abstract class AbstractDownloader implements Downloader {
 	 * @param ch data를 읽을 FileChannel
 	 * @param start 전송 시작 위치
 	 */
-	public void send(HttpServletResponse response, String name, String type, FileChannel ch, long start) {
+	public void send(HttpServletResponse response, String name, String type, FileChannel ch, long start)
+			throws Exception {
 		long size;
 
 		try {
@@ -115,7 +117,8 @@ public abstract class AbstractDownloader implements Downloader {
 	 * @param size data 크기
 	 * @param start 전송 시작 위치
 	 */
-	public void send(HttpServletResponse response, String name, String type, FileChannel ch, long size, long start) {
+	public void send(HttpServletResponse response, String name, String type, FileChannel ch, long size, long start)
+			throws Exception {
 		log.info("Start::send()");
 		log.trace("  > response: " + response);
 		log.trace("  > name: " + name);
@@ -208,7 +211,8 @@ public abstract class AbstractDownloader implements Downloader {
 	 * @param size data 크기
 	 * @param start 전송 시작 위치
 	 */
-	public void send(HttpServletResponse response, String name, String type, InputStream in, long size, long start) {
+	public void send(HttpServletResponse response, String name, String type, InputStream in, long size, long start)
+			throws Exception {
 		log.info("Start::send()");
 		log.trace("  > response: " + response);
 		log.trace("  > name: " + name);
@@ -259,10 +263,10 @@ public abstract class AbstractDownloader implements Downloader {
 		log.info("End::send()");
 	}
 
-	protected void setHeader(HttpServletResponse response, String name, String type, long size) {
+	protected void setHeader(HttpServletResponse response, String name, String type, long size) throws Exception {
 		response.setHeader("file_size", String.valueOf(size));
 		response.setHeader("Content-Transfer-Encoding", "binary");
-		response.setHeader("Content-Disposition", "attachment; filename=" + name + ";");
+		response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(name, "utf-8") + ";");
 		response.setHeader("file_name", name);
 		response.setHeader("file_type", type);
 		response.setContentType(type + "; charset=utf-8");

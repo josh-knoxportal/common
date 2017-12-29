@@ -16,8 +16,8 @@ import com.nemustech.common.storage.FileStorage;
  * 파일ID 다운로드
  * 
  * <pre>
- * http://{ip}:{port}/{context}/{model}/fileid/? 로 매핑된다.
- * 예) http://localhost:8050/common-web/sample2/download/fileid/?mode=1&file_name=테스트01.txt&file_id=20171207163414992BYIQF
+ * http://{ip}:{port}/{context}/{model}/down/fileid 로 매핑된다.
+ * 예) http://localhost:8050/common-web/sample2/down/fileid?mode=1&file_name=테스트01.txt&file_id=20171207163414992BYIQF
  * </pre>
  */
 @Component

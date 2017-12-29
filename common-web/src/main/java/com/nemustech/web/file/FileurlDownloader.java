@@ -17,8 +17,8 @@ import com.nemustech.common.util.StringUtil;
  * 파일URL 다운로드
  * 
  * <pre>
- * http://{ip}:{port}/{context}/{model}/fileurl/? 로 매핑된다.
- * 예) http://localhost:8050/common-web/sample2/fileurl/?mode=1&file_name=테스트.xls&file_url=http://localhost:8050/common-web/sample2/fileid/?mode=1&file_name=%ED%85%8C%EC%8A%A4%ED%8A%B801.txt&file_id=20171207163414992BYIQF
+ * http://{ip}:{port}/{context}/{model}/down/fileurl 로 매핑된다.
+ * 예) http://localhost:8050/common-web/sample2/down/fileurl?mode=1&file_name=테스트.xls&file_url=http://localhost:8050/common-web/sample2/fileid/?mode=1&file_name=%ED%85%8C%EC%8A%A4%ED%8A%B801.txt&file_id=20171207163414992BYIQF
  * </pre>
  */
 @Component

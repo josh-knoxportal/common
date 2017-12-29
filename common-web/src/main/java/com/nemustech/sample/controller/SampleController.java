@@ -47,12 +47,12 @@ public class SampleController extends CommonController2<Sample> {
 		return service;
 	}
 
-	@Override
-	@RequestMapping(value = ValueConstants.DEFAULT_NONE, method = RequestMethod.POST)
-	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody Sample model, BindingResult errors)
-			throws Exception {
-		return null;
-	}
+//	@Override
+//	@RequestMapping(value = ValueConstants.DEFAULT_NONE, method = RequestMethod.POST)
+//	public ResponseEntity<Response<Object>> insertJson(@Valid @RequestBody Sample model, BindingResult errors)
+//			throws Exception {
+//		return null;
+//	}
 
 	@RequestMapping(value = "select", method = { RequestMethod.POST })
 	public ResponseEntity<Response<List<Map<String, Object>>>> select(Common model, BindingResult errors)

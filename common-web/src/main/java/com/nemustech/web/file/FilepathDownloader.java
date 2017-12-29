@@ -46,7 +46,7 @@ public class FilepathDownloader extends AbstractDownloader {
 			byte[] bytes = load(fileName);
 			in = new ByteArrayInputStream(bytes);
 
-			send(response, fileName, fileType, in, bytes.length, index);
+			send(request, response, fileName, fileType, in, bytes.length, index);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}

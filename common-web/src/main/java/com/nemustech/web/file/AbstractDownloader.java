@@ -84,14 +84,15 @@ public abstract class AbstractDownloader implements Downloader {
 	/**
 	 * FileChannel에서 data를 읽어서 HTTP로 전송한다.
 	 * 
+	 * @param request 요청한 HttpRequest
 	 * @param response 전송할 HttpResponse
 	 * @param name 파일 이름
 	 * @param type 파일 Mime type
 	 * @param ch data를 읽을 FileChannel
 	 * @param start 전송 시작 위치
 	 */
-	public void send(HttpServletResponse response, String name, String type, FileChannel ch, long start)
-			throws Exception {
+	public void send(HttpServletRequest request, HttpServletResponse response, String name, String type, FileChannel ch,
+			long start) throws Exception {
 		long size;
 
 		try {
@@ -104,12 +105,13 @@ public abstract class AbstractDownloader implements Downloader {
 			size = 0;
 		}
 
-		send(response, name, type, ch, size, start);
+		send(request, response, name, type, ch, size, start);
 	}
 
 	/**
 	 * FileChannel에서 data를 읽어서 HTTP로 전송한다.
 	 * 
+	 * @param request 요청한 HttpRequest
 	 * @param response 전송할 HttpResponse
 	 * @param name 파일 이름
 	 * @param type 파일 Mime type
@@ -117,8 +119,8 @@ public abstract class AbstractDownloader implements Downloader {
 	 * @param size data 크기
 	 * @param start 전송 시작 위치
 	 */
-	public void send(HttpServletResponse response, String name, String type, FileChannel ch, long size, long start)
-			throws Exception {
+	public void send(HttpServletRequest request, HttpServletResponse response, String name, String type, FileChannel ch,
+			long size, long start) throws Exception {
 		log.info("Start::send()");
 		log.trace("  > response: " + response);
 		log.trace("  > name: " + name);
@@ -129,7 +131,7 @@ public abstract class AbstractDownloader implements Downloader {
 
 		WritableByteChannel outCh = null;
 
-		setHeader(response, name, type, size);
+		setHeader(request, response, name, type, size);
 
 		if (ch != null) {
 			try {
@@ -150,13 +152,15 @@ public abstract class AbstractDownloader implements Downloader {
 	/**
 	 * InputStream에서 data를 읽어서 HTTP로 전송한다.
 	 * 
+	 * @param request 요청한 HttpRequest
 	 * @param response 전송할 HttpResponse
 	 * @param name 파일 이름
 	 * @param type 파일 Mime type
 	 * @param in data를 읽을 InputStream
 	 * @param start 전송 시작 위치
 	 */
-	public void send(HttpServletResponse response, String name, String type, InputStream in, long start) {
+	public void send(HttpServletRequest request, HttpServletResponse response, String name, String type, InputStream in,
+			long start) {
 		log.info("Start::send()");
 		log.trace("  > response: " + response);
 		log.trace("  > name: " + name);
@@ -182,7 +186,7 @@ public abstract class AbstractDownloader implements Downloader {
 				bb.flip();
 
 				response.setHeader("Content-Length", "" + contentLength);
-				setHeader(response, name, type, contentLength);
+				setHeader(request, response, name, type, contentLength);
 
 				log.trace("Content-Length: " + contentLength);
 				log.trace("ByteBuffer's info.: " + bb);
@@ -204,6 +208,7 @@ public abstract class AbstractDownloader implements Downloader {
 	/**
 	 * InputStream에서 data를 읽어서 HTTP로 전송한다.
 	 * 
+	 * @param request 요청한 HttpRequest
 	 * @param response 전송할 HttpResponse
 	 * @param name 파일 이름
 	 * @param type 파일 Mime type
@@ -211,8 +216,8 @@ public abstract class AbstractDownloader implements Downloader {
 	 * @param size data 크기
 	 * @param start 전송 시작 위치
 	 */
-	public void send(HttpServletResponse response, String name, String type, InputStream in, long size, long start)
-			throws Exception {
+	public void send(HttpServletRequest request, HttpServletResponse response, String name, String type, InputStream in,
+			long size, long start) throws Exception {
 		log.info("Start::send()");
 		log.trace("  > response: " + response);
 		log.trace("  > name: " + name);
@@ -223,7 +228,7 @@ public abstract class AbstractDownloader implements Downloader {
 		WritableByteChannel outCh = null;
 		ReadableByteChannel byteCh = null;
 
-		setHeader(response, name, type, size);
+		setHeader(request, response, name, type, size);
 		response.setHeader("Content-Length", "" + size);
 
 		if (in != null) {
@@ -263,12 +268,23 @@ public abstract class AbstractDownloader implements Downloader {
 		log.info("End::send()");
 	}
 
-	protected void setHeader(HttpServletResponse response, String name, String type, long size) throws Exception {
-		response.setHeader("file_size", String.valueOf(size));
+	protected void setHeader(HttpServletRequest request, HttpServletResponse response, String name, String type,
+			long size) throws Exception {
+		String userAgent = request.getHeader("User-Agent");
+		boolean ie = userAgent.indexOf("MSIE") > -1;
+		String fileName = null;
+		if (ie) {
+			fileName = URLEncoder.encode(name, "utf-8");
+		} else {
+			fileName = new String(name.getBytes("utf-8"), "iso-8859-1");
+		}
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ";");
+
 		response.setHeader("Content-Transfer-Encoding", "binary");
-		response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(name, "utf-8") + ";");
+		response.setHeader("file_size", String.valueOf(size));
 		response.setHeader("file_name", name);
 		response.setHeader("file_type", type);
+
 		response.setContentType(type + "; charset=utf-8");
 	}
 }

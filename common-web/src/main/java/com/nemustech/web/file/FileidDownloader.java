@@ -43,7 +43,7 @@ public class FileidDownloader extends AbstractDownloader {
 			byte[] bytes = fileStorage.load(fileId);
 			in = new ByteArrayInputStream(bytes);
 
-			send(response, fileName, fileType, in, bytes.length, index);
+			send(request, response, fileName, fileType, in, bytes.length, index);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}

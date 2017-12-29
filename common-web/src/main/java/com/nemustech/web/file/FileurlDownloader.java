@@ -45,7 +45,7 @@ public class FileurlDownloader extends AbstractDownloader {
 			Files files = urlDownloader.download(fileName, fileUrl, charset);
 			in = new ByteArrayInputStream(files.getBytes());
 
-			send(response, fileName, fileType, in, files.getSize(), index);
+			send(request, response, fileName, fileType, in, files.getSize(), index);
 		} finally {
 			IOUtils.closeQuietly(in);
 		}

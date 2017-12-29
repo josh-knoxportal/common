@@ -287,6 +287,16 @@ public abstract class AbstractDownloader implements Downloader {
 		log.info("End::send()");
 	}
 
+	/**
+	 * HTTP 헤더를 설정한다.
+	 * 
+	 * @param request
+	 * @param response
+	 * @param name
+	 * @param type
+	 * @param size
+	 * @throws Exception
+	 */
 	protected void setHeader(HttpServletRequest request, HttpServletResponse response, String name, String type,
 			long size) throws Exception {
 		response.setContentType(type + "; charset=utf-8");

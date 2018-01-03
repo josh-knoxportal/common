@@ -19,21 +19,6 @@ import com.nemustech.common.util.StringUtil;
  * @param <T> 쓰레드 응답 타입
  */
 public class ThreadPool<T> {
-	/**
-	 * 최소 쓰레드 풀 갯수
-	 */
-	protected int minPoolSize = 0;
-
-	/**
-	 * 최대 쓰레드 풀 갯수
-	 */
-	protected int maximumPoolSize = 0;
-
-	/**
-	 * 쓰레드 반환 대기 시간(초)
-	 */
-	protected long keepAliveTime = 0;
-
 	protected ExecutorService executorService = null;
 
 	public ThreadPool() {
@@ -43,54 +28,13 @@ public class ThreadPool<T> {
 	/**
 	 * 쓰레드 풀을 생성한다.
 	 * 
-	 * @param minPoolSize
-	 * @param maximumPoolSize
-	 * @param keepAliveTime
+	 * @param minPoolSize 최소 쓰레드 풀 갯수
+	 * @param maximumPoolSize 최대 쓰레드 풀 갯수
+	 * @param keepAliveTime 쓰레드 반환 대기 시간(초)
 	 */
 	public ThreadPool(int minPoolSize, int maximumPoolSize, long keepAliveTime) {
-		this.minPoolSize = minPoolSize;
-		this.maximumPoolSize = maximumPoolSize;
-		this.keepAliveTime = keepAliveTime;
-
 		executorService = new ThreadPoolExecutor(minPoolSize, maximumPoolSize, keepAliveTime, TimeUnit.SECONDS,
 				new SynchronousQueue<Runnable>(), new ThreadPoolExecutor.CallerRunsPolicy());
-	}
-
-	public int getMinPoolSize() {
-		return minPoolSize;
-	}
-
-	public void setMinPoolSize(int minPoolSize) {
-		this.minPoolSize = minPoolSize;
-	}
-
-	public int getMaximumPoolSize() {
-		return maximumPoolSize;
-	}
-
-	public void setMaximumPoolSize(int maximumPoolSize) {
-		this.maximumPoolSize = maximumPoolSize;
-	}
-
-	public long getKeepAliveTime() {
-		return keepAliveTime;
-	}
-
-	public void setKeepAliveTime(long keepAliveTime) {
-		this.keepAliveTime = keepAliveTime;
-	}
-
-	public ExecutorService getExecutorService() {
-		return executorService;
-	}
-
-	public void setExecutorService(ExecutorService executorService) {
-		this.executorService = executorService;
-	}
-
-	@Override
-	public String toString() {
-		return StringUtil.toString(this);
 	}
 
 	/**
@@ -110,5 +54,10 @@ public class ThreadPool<T> {
 	public void shutdown() {
 		if (executorService != null)
 			executorService.shutdown();
+	}
+
+	@Override
+	public String toString() {
+		return StringUtil.toString(this);
 	}
 }

@@ -9,9 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.nemustech.common.util.SpringUtil;
-
 @RunWith(SpringJUnit4ClassRunner.class)
+//@SpringApplicationConfiguration(classes = WebApplication.class)
 @ContextConfiguration("classpath:config-test.xml")
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -21,9 +20,9 @@ public class ConfigTest extends CommonTest {
 //	Properties properties;
 
 	// 수동형
-//	@Value("${key1}")
-//	String value1;
-//
+	@Value("${key1}")
+	String value1;
+
 //	// 능동형
 //	@Value("#{properties['key2']}")
 //	String value2;
@@ -31,8 +30,8 @@ public class ConfigTest extends CommonTest {
 //	@Value("${java.net.preferIPv4Stack}") ${key1}")
 //	@Value("#{systemProperties['spring.profiles.active']}") #{properties['key2']}")
 //	@Value("#{${key1} #{properties['key2']}")
-	@Value("#{@'org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0'.toString()}")
-	String value3;
+//	@Value("#{@'org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0'.toString()}")
+//	String value3;
 
 //	@Value("#{messageSource}")
 //	MessageSourceSupport value4;
@@ -64,14 +63,14 @@ public class ConfigTest extends CommonTest {
 	public void t01() throws Exception {
 //		while (true) {
 //		log.info("properties: " + properties);
-//		log.info("key1: " + value1);
+		log.info("key1: " + value1);
 //		log.info("key2: " + value2);
-		log.info("key3: " + value3);
+//		log.info("key3: " + value3);
 //		log.info(SpringUtil.getPlaceholderResult("${java.net.preferIPv4Stack}") ${key1}"));
 //		log.info(SpringUtil.getSPELResult("#{systemProperties['spring.profiles.active']}") #{properties['key2']}"));
 //		log.info(SpringUtil.getPlaceholderSPELResult("${key1} #{properties['key2']}"));
-		log.info(SpringUtil.getPlaceholderSPELResult(
-				"#{@'org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0'.toString()}"));
+//		log.info(SpringUtil.getPlaceholderSPELResult(
+//				"#{@'org.springframework.context.support.PropertySourcesPlaceholderConfigurer#0'.toString()}"));
 
 //		log.info("key4: " + value4);
 //		log.info("key5: " + value5);

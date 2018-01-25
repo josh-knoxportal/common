@@ -1,0 +1,3 @@
+server:
+#  context-path: /common-web
+  port: 8060

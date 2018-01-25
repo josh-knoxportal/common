@@ -13,7 +13,7 @@
 	<import resource="classpath:domain/config-spring.xml" />
 
 	<!-- Poperties -->
-	<context:property-placeholder properties-ref="properties" location="classpath:*.properties" />
+	<context:property-placeholder properties-ref="properties" location="classpath:common.properties" />
 
 	<!-- Scan Package -->
 	<context:component-scan base-package="com.nemustech.adapter com.nemustech.common com.nemustech.web">

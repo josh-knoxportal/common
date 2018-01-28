@@ -1,0 +1,20 @@
+{
+  "url": "http://localhost:8050/common-web/sample",
+  "method": "PUT",
+  "requestFormat": "JSON",
+  "responseFormat": "JSON",
+  "list": [
+    {
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "params": [
+        {
+          "id": 1,
+          "name": "s1",
+          "mod_id": "11"
+        }
+      ]
+    }
+  ]
+}

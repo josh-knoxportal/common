@@ -12,7 +12,6 @@
 		<typeAlias alias="SampleAndTest" type="com.nemustech.sample.model.SampleAndTest" />
 		<typeAlias alias="Files" type="com.nemustech.common.file.Files" />
 		<typeAlias alias="Files2" type="com.nemustech.sample.model.Files2" />
-		<typeAlias alias="Group" type="com.nemustech.sample.model.Group" />
 	</typeAliases>
 
 	<plugins>

@@ -78,7 +78,7 @@ public class SampleController extends CommonController2<Sample> {
 
 	// 주의) 로깅을 위해 Annotation 재정의
 	@Override
-	@RequestMapping(value = "list", method = { RequestMethod.GET })
+	@RequestMapping(method = { RequestMethod.GET })
 	public ResponseEntity<Response<List<Sample>>> list(Sample model, @Valid Common common, BindingResult errors)
 			throws Exception {
 //		HttpServletRequest request = WebApplicationContextUtil.getRequest();

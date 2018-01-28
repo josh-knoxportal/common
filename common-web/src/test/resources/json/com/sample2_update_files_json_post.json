@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/common-web/sample2/update_files_json.do",
+	"url":"http://localhost:8050/common-web/sample2/update_files_json",
 	"method":"POST",
 	"requestFormat":"JSON_File",
 	"responseFormat":"JSON",

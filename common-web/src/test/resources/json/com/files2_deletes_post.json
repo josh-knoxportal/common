@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/common-web/files2/deletes.do",
+	"url":"http://localhost:8050/common-web/files2/deletes",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",

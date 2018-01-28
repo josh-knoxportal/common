@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/common-web/sample/inserts.do",
+	"url":"http://localhost:8050/common-web/sample",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",

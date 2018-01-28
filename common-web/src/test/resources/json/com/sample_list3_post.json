@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/common-web/sample/list3.do",
+	"url":"http://localhost:8050/common-web/sample/list3",
 	"method":"POST",
 	"requestFormat":"JSON",
 	"responseFormat":"JSON",

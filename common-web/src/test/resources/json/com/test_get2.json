@@ -1,5 +1,5 @@
 {
-	"url":"http://api.indoornow.com/app/geoZones.do",
+	"url":"http://api.indoornow.com/app/geoZones",
 	"method":"POST",
 	"list":[
 		{

@@ -1,5 +1,5 @@
 {
-	"url":"http://localhost:8050/common-web/sample_and_test2/list.do",
+	"url":"http://localhost:8050/common-web/sample_and_test2/list",
 	"method":"GET",
 	"responseFormat":"JSON",
 	"list":[

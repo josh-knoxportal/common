@@ -15,9 +15,9 @@ public class TestAPI_Common extends TestAPI {
 
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_insert_json_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_inserts_post.json"));
+		//arrayNode.add(readFile("src/test/resources/json/com/sample_inserts_post.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_one_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
+		//arrayNode.add(readFile("src/test/resources/json/com/sample_list_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list2_get2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_list3_post.json"));
@@ -28,10 +28,11 @@ public class TestAPI_Common extends TestAPI {
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_select_post2.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_select_post3.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_put.json"));
+		//arrayNode.add(readFile("src/test/resources/json/com/sample_updates_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update2_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_json_put.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_update_file_post.json"));
-//		arrayNode.add(readFile("src/test/resources/json/com/sample_delete_delete.json"));
+		//arrayNode.add(readFile("src/test/resources/json/com/sample_delete_delete.json"));
 //		arrayNode.add(readFile("src/test/resources/json/com/sample_delete_json_post.json"));
 
 //		arrayNode.add(readFile("src/test/resources/json/com/sample2_insert_files_post.json"));

@@ -8,16 +8,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema.Builder;
-import com.nemustech.common.util.JsonUtil2;
-import com.nemustech.common.util.Utils;
-import com.nemustech.sample.model.Sample;
 
 public class Test02 {
 	public static void calTest() throws Exception {
@@ -101,8 +91,10 @@ public class Test02 {
 
 //		System.out.println(JsonUtil2.toStringPretty("a"));
 
-//		System.out.println(new Date(1469782800000L));
-//		System.out.println(Utils.convertDateTimeToString(new Date(1469782800000L)));
+//		System.out.println(new Date(1517417280923L));
+//		System.out.println(Utils.getDateTime(new Date(1517417280923L)));
+//		System.out.println(Utils.getDateTime(new Date(1517417280923L),
+//                                             new SimpleDateFormat(Utils.SDF_DATE_MILLI_TIME)));
 
 //		List<String> list = new ArrayList<String>();
 //		list.add("a");

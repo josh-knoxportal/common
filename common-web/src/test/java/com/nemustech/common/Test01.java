@@ -30,6 +30,8 @@ public class Test01 {
 //	@Cacheable(value = "test", key = "#root.caches[0].name + '_' + #root.targetClass + '_' + #root.methodName + '_' + #root.args[0]")
 	@Test
 	public void test01() throws Exception {
+//		Exception e = new Exception("skoh1", new SQLException("skoh2", new RuntimeException("skoh3")));
+//		System.out.println(ExceptionUtils.getRootCause(e));
 //		log.info("logging");
 //		logger.info("log4j");
 //		logger2.info("slf4j");
@@ -187,10 +189,10 @@ public class Test01 {
 //		Object obj = "1";
 //		System.out.println(obj.toString());
 
-		Files f = new Files();
-		setBind(f).setReg_id("reg_id2");
-		;
-		System.out.println(f);
+//		Files f = new Files();
+//		setBind(f).setReg_id("reg_id2");
+//		;
+//		System.out.println(f);
 	}
 
 	Files setBind(Files f) {
@@ -226,9 +228,56 @@ public class Test01 {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Test01 test01 = new Test01();
-		test01.test01();
+//		Test01 test01 = new Test01();
+//		test01.test01();
 //		System.out.println(StringUtil.toString(test01));
 //		System.out.println(BeanUtils.describe(test01));
+
+//		Pattern pattern = Pattern.compile("^(?!state|government|head).*$");
+//		Pattern pattern = Pattern.compile("^$(?!state)");
+//		String s = "state";
+//		Matcher matcher = pattern.matcher(s);
+//		boolean bl = matcher.find();
+//		System.out.println(bl);
+//
+//		s = "state1";
+//		matcher = pattern.matcher(s);
+//		bl = matcher.find();
+//		System.out.println(bl);
+//
+//		s = "1state";
+//		matcher = pattern.matcher(s);
+//		bl = matcher.find();
+//		System.out.println(bl);
+//
+//		s = "government";
+//		matcher = pattern.matcher(s);
+//		bl = matcher.find();
+//		System.out.println(bl);
+//
+//		s = "head";
+//		matcher = pattern.matcher(s);
+//		bl = matcher.find();
+//		System.out.println(bl);
+//
+//		s = "Abc";
+//		matcher = pattern.matcher(s);
+//		bl = matcher.find();
+//		System.out.println(bl);
+
+//		String regular = "(?!svn$|cvs$).*";
+//		System.out.println("svn".matches(regular));
+//		System.out.println("svn1".matches(regular));
+//		System.out.println("1svn".matches(regular));
+//		System.out.println("cvs".matches(regular));
+//		System.out.println("1cvs".matches(regular));
+//		System.out.println("cvs1".matches(regular));
+//		System.out.println("abc".matches(regular));
+
+//		String regular = "(?!null)";
+//		System.out.println("null".matches(regular));
+//		System.out.println("".matches(regular));
+//		System.out.println("null1".matches(regular));
+//		System.out.println(" ".matches(regular));
 	}
 }

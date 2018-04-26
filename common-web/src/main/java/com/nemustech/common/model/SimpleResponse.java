@@ -68,8 +68,7 @@ public class SimpleResponse<T> extends Response<T> {
 	/**
 	 * 실패 응답을 반환한다.
 	 * 
-	 * @param error_code
-	 * @param error_message
+	 * @param message
 	 * @return
 	 */
 	public static <T> SimpleResponse<T> getFailResponse(String message) {

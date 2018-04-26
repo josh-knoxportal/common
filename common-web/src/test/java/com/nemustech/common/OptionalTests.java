@@ -30,12 +30,14 @@ public class OptionalTests {
 
         Optional<Member> maybeMember = Optional.empty();
         System.out.println(maybeMember);
+//        maybeMember = Optional.of(null);
+//        System.out.println(maybeMember);
         maybeMember = Optional.of(aMember);
-        System.out.println(maybeMember);
-        maybeMember = Optional.ofNullable(aMember);
         System.out.println(maybeMember);
         Optional maybeNotMember = Optional.ofNullable(null);
         System.out.println(maybeNotMember);
+        maybeMember = Optional.ofNullable(aMember);
+        System.out.println(maybeMember);
     }
 
     void test2() {
@@ -102,6 +104,11 @@ public class OptionalTests {
     void test5() {
         Order order = new Order();
         order.setDate(new Date());
+//        Member member = new Member();
+//        Address address = new Address();
+//        address.setCity("skoh");
+//        member.setAddress(address);
+//        order.setMember(member);
 
         try {
             System.out.println(getCityOfMemberFromOrder1(order));

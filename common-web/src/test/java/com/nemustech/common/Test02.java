@@ -3,69 +3,73 @@ package com.nemustech.common;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.BooleanUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 public class Test02 {
-	public static void calTest() throws Exception {
-		String zone = "KST";
+    public static void calTest() throws Exception {
+        String zone = "KST";
 //		String zone = "Asia/Seoul";
 //		String zone = "PST";
 //		String zone = "GMT";
 
-		long millis = System.currentTimeMillis();
+        long millis = System.currentTimeMillis();
 
-		// get calendar of Korea time zone.
-		Calendar kst = Calendar.getInstance(TimeZone.getTimeZone(zone));
+        // get calendar of Korea time zone.
+        Calendar kst = Calendar.getInstance(TimeZone.getTimeZone(zone));
 
-		// set its time to a UTC millisecond value. probably redundant, but just to demonstrate
-		kst.setTimeInMillis(millis);
+        // set its time to a UTC millisecond value. probably redundant, but just to demonstrate
+        kst.setTimeInMillis(millis);
 
-		String formattedKst = formatTime(kst);
-		System.out.println(" Original - " + formattedKst);
+        String formattedKst = formatTime(kst);
+        System.out.println(" Original - " + formattedKst);
 
-		// now we convert the formatted string back to a Calendar .
-		Calendar parsedKst = parseTime(formattedKst, zone);
-		System.out.print(" Parsed   - ");
-		System.out.println("" + parsedKst.get(Calendar.YEAR) + "-" + (parsedKst.get(Calendar.MONTH) + 1) + "-"
-				+ parsedKst.get(Calendar.DATE) + " " + parsedKst.get(Calendar.HOUR_OF_DAY) + ":"
-				+ parsedKst.get(Calendar.MINUTE) + ":" + parsedKst.get(Calendar.SECOND) + "."
-				+ parsedKst.get(Calendar.MILLISECOND) + " " + parsedKst.getTimeZone().getID() + " "
-				+ parsedKst.getTimeZone().getDisplayName() + " ");
+        // now we convert the formatted string back to a Calendar .
+        Calendar parsedKst = parseTime(formattedKst, zone);
+        System.out.print(" Parsed   - ");
+        System.out.println("" + parsedKst.get(Calendar.YEAR) + "-" + (parsedKst.get(Calendar.MONTH) + 1) + "-"
+                           + parsedKst.get(Calendar.DATE) + " " + parsedKst.get(Calendar.HOUR_OF_DAY) + ":"
+                           + parsedKst.get(Calendar.MINUTE) + ":" + parsedKst.get(Calendar.SECOND) + "."
+                           + parsedKst.get(Calendar.MILLISECOND) + " " + parsedKst.getTimeZone().getID() + " "
+                           + parsedKst.getTimeZone().getDisplayName() + " ");
 
-	}
+    }
 
-	public static String formatTime(Calendar cal) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX zzz");
-		sdf.setCalendar(cal);
-		return sdf.format(cal.getTime());
-	}
+    public static String formatTime(Calendar cal) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX zzz");
+        sdf.setCalendar(cal);
+        return sdf.format(cal.getTime());
+    }
 
-	public static Calendar parseTime(String formattedDateTime, String ID) throws Exception {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX zzz");
-		sdf.setTimeZone(TimeZone.getTimeZone(ID));
-		sdf.setLenient(false);
-		try {
-			sdf.parse(formattedDateTime);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return sdf.getCalendar();
-	}
+    public static Calendar parseTime(String formattedDateTime, String ID) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX zzz");
+        sdf.setTimeZone(TimeZone.getTimeZone(ID));
+        sdf.setLenient(false);
+        try {
+            sdf.parse(formattedDateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return sdf.getCalendar();
+    }
 
-	public static void readFile(String path) throws Exception {
-		List<String> list = FileUtils.readLines(new File(path), "UTF-8");
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-	}
+    public static void readFile(String path) throws Exception {
+        List<String> list = FileUtils.readLines(new File(path), "UTF-8");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+    }
 
-	String s = "1";
-
-	public void test01() throws Exception {
+    public void test01() throws Exception {
 //		String s = "2";
 //		System.out.println(s);
 //		s = this.s;
@@ -284,7 +288,7 @@ public class Test02 {
 
 //		System.out.println(DateUtil.differenceDays("20161001", "20160930", DateUtil.PATTERN_yyyyMMdd));
 
-		// 1 2 3 5 10
+        // 1 2 3 5 10
 //		int widthPixel = 3300; // pixel
 //		double scale = 42.4268137463; // mm/pixel
 //		double widthMMeter = widthPixel * scale;
@@ -325,15 +329,89 @@ public class Test02 {
 //		sample = mapper.readerFor(sample.getClass()).with(schema).readValue(csv);
 //		System.out.println(JsonUtil2.toStringPretty(sample));
 
-		new Test01();
-	}
+//        Object[] arr = { 1L, 2L, 3L };
+//        long[] l = Arrays.stream(arr, 1, arr.length)
+//                         .mapToLong(o -> (Long) o)
+//                         .toArray();
+        String[] arr = { "1", "2", "3" };
+        System.out.println(Arrays.toString(arr));
 
-	class Test01 {
-		private long id = 1;
-	}
+//        l = Arrays.copyOfRange(arr, 1, arr.length); // java6
+//        long[] l = Arrays.stream(arr, 1, arr.length)
+//                         .mapToLong(o -> new Long(o))
+//                         .toArray();
+        Long[] l;
+        l = Arrays.stream(arr, 1, arr.length)
+                  .map(s -> new Long(s))
+                  .toArray(Long[]::new);
+//        l = IntStream.range(1, arr.length)
+//                     .mapToObj(i -> new Long(arr[i]))
+//                     .toArray(Long[]::new);
+        System.out.println(Arrays.toString(l));
+    }
 
-	public static void main(String[] args) throws Exception {
-		new Test02().test01();
-	}
+    @Slf4j
+    static class Test01 {
+        private long id = 1;
 
+        void test1() throws Exception {
+//			try {
+//				int i = 1/0;
+//			} catch (RuntimeCopyException e) {
+//				throw new RuntimeException("skoh1");
+//			}
+//			Date date = new Date();
+//			System.out.println(DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:ss.SSS"));
+//			date = DateUtils.truncate(date, Calendar.SECOND);
+//			System.out.println(DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:ss.SSS"));
+//			System.out.println("a2".compareTo("a1!"));
+//			System.out.println(String.format("%s/", "type"));
+//			String regex = "(?!null$).*";
+//			System.out.println("null".matches(regex));
+//			System.out.println("\n".matches(regex));
+//			System.out.println("{}".matches(regex));
+//			System.out.println("1null".matches(regex));
+//			System.out.println("null1".matches(regex));
+//			System.out.println(new Date().toString());
+//			System.out.println(ISO8601Utils.format(new Date()));
+//			System.out.println(ISO8601Utils.format(new Date(), false, TimeZone.getTimeZone("UTC")));
+            System.out.println(BooleanUtils.or(new boolean[] { true, false }));
+        }
+
+        void test() throws Exception {
+            List<String> list = Arrays.asList("a", "b", "c");
+//            List<Test> list = Arrays.asList(new Test("a"), new Test("b"), new Test("c"));
+            log.debug(list.toString());
+
+            List<CompletableFuture<String>> futures =
+                    list.stream().map((String s) -> CompletableFuture.supplyAsync(() -> {
+//                        try {
+//                            setS(s);
+//                        } catch (Exception e) {
+//                            log.error("1", e);
+//                        }
+
+                        if ("b".equals(s)) {
+//                            return null;
+                            throw new RuntimeException("skoh");
+                        }
+                        return s;
+                    }).exceptionally(Test01::apply))
+                        .collect(Collectors.toList());
+//            CompletableFuture<Object> cf = CompletableFuture.anyOf(futures.toArray(new CompletableFuture[3]));
+//            log.debug(ReflectionToStringBuilder.toString(cf.get()));
+//            list = futures.stream().map(CompletableFuture::join).collect(Collectors.toList());
+//			log.debug(list.toString());
+//            list.forEach(Test::test);
+        }
+
+        private static String apply(Throwable e) {
+            log.error("2", e);
+            return null;
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Test02().test01();
+    }
 }
